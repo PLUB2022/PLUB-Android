@@ -1,29 +1,18 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("com.android.library")
+    id("dagger.hilt.android.plugin")
+    kotlin("android")
+    kotlin("kapt")
 }
 
 android {
-    compileSdk = 32
+    compileSdk = Configs.COMPILE_SDK
 
     defaultConfig {
-        applicationId = "com.plub.data"
-        minSdk = 26
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Configs.MIN_SDK
+        targetSdk = Configs.TARGET_SDK
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -35,11 +24,17 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.android.material:material:1.6.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(Kotlin.KOTLIN_STDLIB)
+    implementation(Kotlin.COROUTINES_ANDROID)
+    implementation(Kotlin.COROUTINES_CORE)
+
+    implementation(Libraries.RETROFIT)
+    implementation(Libraries.RETROFIT_CONVERTER_GSON)
+    implementation(Libraries.OKHTTP)
+    implementation(Libraries.OKHTTP_LOGGING_INTERCEPTOR)
+
+    implementation(Google.HILT_ANDROID)
+    kapt(Google.HILT_ANDROID_COMPILER)
 }
