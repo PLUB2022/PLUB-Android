@@ -12,6 +12,7 @@ object Versions {
     const val VIEW_MODEL_KTX = "2.5.1"
     const val ACTIVITY_KTX = "1.5.1"
     const val FRAGMENT_KTX = "1.5.2"
+    const val NAVIGATION = "2.5.1"
 
     const val CORE_KTX = "1.9.0"
 

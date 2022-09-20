@@ -41,6 +41,8 @@ dependencies {
     implementation(AndroidX.LIFECYCLE_VIEW_MODEL_KTX)
     implementation(AndroidX.ACTIVITY_KTX)
     implementation(AndroidX.FRAGMENT_KTX)
+    implementation(AndroidX.NAVIGATION_FRAGMENT_KTX)
+    implementation(AndroidX.NAVIGATION_UI_KTX)
 
     implementation(Libraries.COIL)
 
