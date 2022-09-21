@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlubAndroid">
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.intro.IntroActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

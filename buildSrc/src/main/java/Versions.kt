@@ -14,7 +14,7 @@ object Versions {
     const val FRAGMENT_KTX = "1.5.2"
     const val NAVIGATION = "2.5.1"
 
-    const val CORE_KTX = "1.9.0"
+    const val CORE_KTX = "1.8.0"
 
     /* [ Google ] */
     const val HILT = "2.43.2"

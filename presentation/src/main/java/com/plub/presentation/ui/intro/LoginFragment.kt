@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.login
+package com.plub.presentation.ui.intro
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
