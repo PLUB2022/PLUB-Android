@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,14 +25,13 @@ class LoginViewModel @Inject constructor(
     }
 
     fun trySampleLogin() = viewModelScope.launch {
-        trySampleLoginUseCase.invoke().onStart {
-            _uiState.value = UiState.Loading
-            delay(2000L)
-        }.catch {
-            _uiState.value = UiState.Error(it)
-        }.collect {
+        trySampleLoginUseCase.invoke().collect {
             _uiState.value = it
         }
+    }
+
+    fun showErrorPage() {
+        _uiState.value = UiState.Error(null)
     }
 
     val loginText: StateFlow<String?> = _uiState.mapLatest { state ->

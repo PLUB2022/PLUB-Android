@@ -13,7 +13,9 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class IntroRepositoryImpl @Inject constructor(private val introApi: IntroApi) : IntroRepository {
-    override fun trySampleLogin(): Flow<UiState<SampleLogin>> = flow<UiState<SampleLogin>> {
+    override fun trySampleLogin(): Flow<UiState<SampleLogin>> = flow {
+        emit(UiState.Loading)
+        delay(1000L)
         emit(UiState.Success(mapperToSampleLogin(SampleLoginResponse("Login!","Register!"))))
     }.catch { emit(UiState.Error(it)) }
 }
