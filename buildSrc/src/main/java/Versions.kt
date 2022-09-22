@@ -23,6 +23,7 @@ object Versions {
     /* [ Libraries ] */
     const val RETROFIT = "2.9.0"
     const val OKHTTP = "4.10.0"
+    const val TIMBER = "5.0.1"
 
     const val COIL = "1.4.0"
 

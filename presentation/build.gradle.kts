@@ -45,6 +45,7 @@ dependencies {
     implementation(AndroidX.NAVIGATION_UI_KTX)
 
     implementation(Libraries.COIL)
+    implementation(Libraries.TIMBER)
 
     implementation(Google.MATERIAL)
     implementation(Google.HILT_ANDROID)

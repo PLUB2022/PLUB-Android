@@ -1,7 +1,13 @@
 package com.plub.plubandroid.di
 
 import android.util.Log
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
+import com.google.gson.JsonSyntaxException
 import com.plub.plubandroid.util.BASE_URL
+import com.plub.plubandroid.util.RETROFIT_TAG
+import com.plub.plubandroid.util.isJsonArray
+import com.plub.plubandroid.util.isJsonObject
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +19,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -43,14 +50,16 @@ object NormalNetworkModule {
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         val loggingInterceptor = HttpLoggingInterceptor { message ->
-//            when {
-//                message.isJsonObject() ->
-//                    Log.d(RETROFIT_TAG, JSONObject(message).toString(4))
-//                message.isJsonArray() ->
-//                    Log.d(RETROFIT_TAG, JSONArray(message).toString(4))
-//                else ->
-//                    Log.d(RETROFIT_TAG, "CONNECTION INFO -> $message")
-//            }
+            when {
+                !message.isJsonObject() && !message.isJsonArray() ->
+                    Timber.tag(RETROFIT_TAG).d("CONNECTION INFO -> $message")
+                else ->  try {
+                    Timber.tag(RETROFIT_TAG).d(GsonBuilder().setPrettyPrinting().create().toJson(
+                        JsonParser().parse(message)))
+                } catch (m: JsonSyntaxException) {
+                    Timber.tag(RETROFIT_TAG).d(message)
+                }
+            }
         }
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return loggingInterceptor
