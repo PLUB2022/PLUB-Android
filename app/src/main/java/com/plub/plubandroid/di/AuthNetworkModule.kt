@@ -1,5 +1,6 @@
 package com.plub.plubandroid.di
 
+import com.plub.plubandroid.util.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,18 +33,17 @@ object AuthNetworkModule {
             .build()
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideApiService(
-//        @AuthOkHttpClient okHttpClient: OkHttpClient,
-//        gsonConverterFactory: GsonConverterFactory
-//    ): ApiService {
-//        return Retrofit.Builder()
-//            .baseUrl(BASE_URL)
-//            .client(okHttpClient)
-//            .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
-//            .addConverterFactory(gsonConverterFactory)
-//            .build()
-//            .create(ApiService::class.java)
-//    }
+    @Singleton
+    @Provides
+    @AuthRetrofit
+    fun provideAuthRetrofit(
+        @AuthOkHttpClient okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
 }

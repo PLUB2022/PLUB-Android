@@ -1,8 +1,7 @@
 package com.plub.plubandroid.di
 
 import android.util.Log
-import com.plub.presentation.util.isJsonArray
-import com.plub.presentation.util.isJsonObject
+import com.plub.plubandroid.util.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,33 +56,17 @@ object NormalNetworkModule {
         return loggingInterceptor
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideApiServiceWithoutToken(
-//        @NormalOkHttpClient okHttpClient: OkHttpClient,
-//        gsonConverterFactory: GsonConverterFactory
-//    ): ApiServiceWithoutToken {
-//        return Retrofit.Builder()
-//            .baseUrl(BASE_URL)
-//            .client(okHttpClient)
-//            .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
-//            .addConverterFactory(gsonConverterFactory)
-//            .build()
-//            .create(ApiServiceWithoutToken::class.java)
-//    }
-
-//    @Singleton
-//    @Provides
-//    fun provideGoogleLoginApi(
-//        @NormalOkHttpClient okHttpClient: OkHttpClient,
-//        gsonConverterFactory: GsonConverterFactory
-//    ): GoogleLoginApi {
-//        return Retrofit.Builder()
-//            .baseUrl("https://www.googleapis.com/")
-//            .client(okHttpClient)
-//            .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
-//            .addConverterFactory(gsonConverterFactory)
-//            .build()
-//            .create(GoogleLoginApi::class.java)
-//    }
+    @Singleton
+    @Provides
+    @NormalRetrofit
+    fun provideNormalRetrofit(
+        @NormalOkHttpClient okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
 }
