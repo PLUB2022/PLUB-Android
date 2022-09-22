@@ -1,9 +1,9 @@
 package com.plub.plubandroid.di
 
-import android.util.Log
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import com.google.gson.JsonSyntaxException
+import com.plub.data.api.IntroApi
 import com.plub.plubandroid.util.BASE_URL
 import com.plub.plubandroid.util.RETROFIT_TAG
 import com.plub.plubandroid.util.isJsonArray
@@ -11,12 +11,9 @@ import com.plub.plubandroid.util.isJsonObject
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.json.JSONArray
-import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
@@ -77,5 +74,11 @@ object NormalNetworkModule {
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideIntroApi(@NormalRetrofit retrofit: Retrofit): IntroApi {
+        return retrofit.create(IntroApi::class.java)
     }
 }
