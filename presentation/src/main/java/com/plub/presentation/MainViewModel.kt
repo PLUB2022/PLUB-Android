@@ -23,29 +23,39 @@ class MainViewModel @Inject constructor(
     private var _loginState = MutableStateFlow<LoginState>(LoginState.Loading)
     var loginState = _loginState.asStateFlow()
 
-    private val _userinfo = MutableLiveData<List<User>>()
-    val userinfo: LiveData<List<User>> = _userinfo
+    private var _userinfo = MutableStateFlow<LoginState>(LoginState.Loading)
+    var userinfo = _userinfo.asStateFlow()
 
-    fun getUserInfo(owner: String) {
-        getUserUseCase(owner, viewModelScope) {
-            _userinfo.value = it
+//    private val _userinfo = MutableLiveData<List<User>>()
+//    val userinfo: LiveData<List<User>> = _userinfo
+
+//    fun getUserInfo(owner: String) {
+//        getUserUseCase(owner, viewModelScope) {
+//            _userinfo.value = it
+//        }
+//    }
+
+    suspend fun login(loginId: String, loginPassword: String, owner : String) {
+        if(loginUseCase.login(loginId, loginPassword, owner)){
+            getUserUseCase.getUser(owner)
+            //위와 같은 방법으로 유저 데이터 가져오기
         }
+
     }
 
-    fun login(loginId: String, loginPassword: String, owner : String) {
+    fun getUserInfo(owner : String){
         viewModelScope.launch {
-            _loginState.value = LoginState.Loading
-            val result = loginUseCase.login(loginId, loginPassword, owner)
+            _userinfo.value = LoginState.Loading
+            val result = getUserUseCase.getUser(owner)
             result
                 .onSuccess { user ->
-                    val (id, pass) = (user.name to user.password.toString())
-                    _loginState.value = LoginState.Success
+                    val (id, pass) = (user.id to user.password.toString())
+                    _userinfo.value = LoginState.Success
                 }
                 .onFailure {
-                    _loginState.value = LoginState.Fail("에러메세지")
+                    _userinfo.value = LoginState.Fail("에러메세지")
                 }
         }
-
     }
 
 }

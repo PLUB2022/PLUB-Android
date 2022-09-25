@@ -7,6 +7,6 @@ import retrofit2.http.Path
 interface UserService {
 
     @GET("users/{owner}")
-    suspend fun getUser(@Path("owner") owner : String) : List<UserRepos>
+    suspend fun getUser(@Path("owner") owner : String) : Result<UserRepos>
 
 }
