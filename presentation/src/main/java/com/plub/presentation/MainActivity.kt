@@ -3,7 +3,7 @@ package com.plub.presentation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.plub.presentation.ui.intro.IntroActivity
+import com.plub.presentation.ui.sample.SampleActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -12,6 +12,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        startActivity(Intent(this, IntroActivity::class.java))
+        startActivity(Intent(this, SampleActivity::class.java))
     }
 }

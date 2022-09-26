@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.intro.login
+package com.plub.presentation.ui.sample
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,14 +7,12 @@ import com.plub.domain.model.SampleLogin
 import com.plub.domain.successOrNull
 import com.plub.domain.usecase.TrySampleLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class SampleFragmentViewModel @Inject constructor(
     private val trySampleLoginUseCase: TrySampleLoginUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<UiState<SampleLogin>>(UiState.Loading)

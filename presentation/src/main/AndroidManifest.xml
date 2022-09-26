@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlubAndroid">
         <activity
-            android:name=".ui.intro.IntroActivity"
+            android:name=".ui.sample.SampleActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

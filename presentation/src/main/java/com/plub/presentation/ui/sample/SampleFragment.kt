@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.intro.login
+package com.plub.presentation.ui.sample
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,14 +11,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.plub.presentation.R
-import com.plub.presentation.databinding.FragmentLoginBinding
+import com.plub.presentation.databinding.FragmentSampleBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
-    private lateinit var binding: FragmentLoginBinding
-    private val viewModel by viewModels<LoginViewModel>()
+class SampleFragment : Fragment() {
+    private lateinit var binding: FragmentSampleBinding
+    private val viewModel by viewModels<SampleFragmentViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sample, container, false)
         return binding.root
     }
 
