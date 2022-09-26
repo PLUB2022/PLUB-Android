@@ -2,7 +2,7 @@ object Versions {
     const val GRADLE = "7.1.2"
 
     /* [ Kotlin ] */
-    const val KOTLIN_VERSION = "1.7.0"
+    const val KOTLIN_VERSION = "1.7.10"
     const val KOTLIN_COROUTINE = "1.6.4"
 
     /* [ Android ] */
@@ -17,7 +17,7 @@ object Versions {
     const val CORE_KTX = "1.8.0"
 
     /* [ Google ] */
-    const val HILT = "2.43.2"
+    const val HILT = "2.42"
     const val MATERIAL = "1.6.1"
 
     /* [ Libraries ] */
