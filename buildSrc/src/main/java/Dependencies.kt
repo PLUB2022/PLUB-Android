@@ -18,6 +18,8 @@ object AndroidX {
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.VIEW_MODEL_KTX}"
     const val ACTIVITY_KTX = "androidx.activity:activity-ktx:${Versions.ACTIVITY_KTX}"
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT_KTX}"
+    const val NAVIGATION_FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION}"
+    const val NAVIGATION_UI_KTX = "androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION}"
 }
 
 object Google {
@@ -34,6 +36,7 @@ object Libraries {
     const val OKHTTP = "com.squareup.okhttp3:okhttp:${Versions.OKHTTP}"
     const val OKHTTP_LOGGING_INTERCEPTOR =
         "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}"
+    const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
 
     const val COIL = "io.coil-kt:coil-compose:${Versions.COIL}"
 }
