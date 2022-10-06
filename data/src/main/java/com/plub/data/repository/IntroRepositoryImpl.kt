@@ -1,7 +1,7 @@
 package com.plub.data.repository
 
 import com.plub.data.api.IntroApi
-import com.plub.data.mapper.Mapper.mapperToSampleLogin
+import com.plub.data.mapper.SampleLoginMapper
 import com.plub.data.model.SampleLoginResponse
 import com.plub.domain.UiState
 import com.plub.domain.model.SampleLogin
@@ -16,6 +16,6 @@ class IntroRepositoryImpl @Inject constructor(private val introApi: IntroApi) : 
     override fun trySampleLogin(): Flow<UiState<SampleLogin>> = flow {
         emit(UiState.Loading)
         delay(1000L)
-        emit(UiState.Success(mapperToSampleLogin(SampleLoginResponse("Login!","Register!"))))
+        emit(SampleLoginMapper.mapFromEntity(SampleLoginResponse("Login!","Register!")))
     }.catch { emit(UiState.Error(it)) }
 }
