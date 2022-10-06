@@ -23,7 +23,7 @@ class SampleFragmentViewModel @Inject constructor(
     }
 
     fun trySampleLogin() = viewModelScope.launch {
-        trySampleLoginUseCase.invoke().collect {
+        trySampleLoginUseCase.invoke(Unit).collect {
             _uiState.value = it
         }
     }
