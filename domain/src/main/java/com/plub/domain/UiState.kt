@@ -1,9 +1,11 @@
 package com.plub.domain
 
+import com.plub.domain.result.StateResult
+
+
 sealed class UiState<out T> {
     object Loading: UiState<Nothing>()
-    data class Success<T>(val data: T): UiState<T>()
-    data class Failure<T>(val data: T, val errorCode:Int): UiState<T>()
+    data class Success<T>(val data: T, var result: StateResult): UiState<T>()
     data class Error(val error: Throwable?): UiState<Nothing>()
 }
 
