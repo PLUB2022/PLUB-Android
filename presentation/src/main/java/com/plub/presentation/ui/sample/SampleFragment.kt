@@ -1,49 +1,42 @@
 package com.plub.presentation.ui.sample
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import com.plub.domain.model.SampleLogin
+import com.plub.domain.model.state.SampleLoginPageState
+import com.plub.domain.result.LoginFailure
 import com.plub.presentation.R
+import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSampleBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SampleFragment : Fragment() {
-    private lateinit var binding: FragmentSampleBinding
-    private val viewModel by viewModels<SampleFragmentViewModel>()
+class SampleFragment : BaseFragment<FragmentSampleBinding,SampleLoginPageState,SampleFragmentViewModel>(
+    R.layout.fragment_sample
+) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    override val viewModel: SampleFragmentViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sample, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { uiState ->
-
-                }
+    override suspend fun initState() {
+        viewModel.uiState.collect {
+            inspectUiState(it.loginData, ::handleSampleLogin) { sampleLogin, individualFailure ->
+                //TODO 해당 부분 처리하는 것도 base에 Inspect쪽 클래스 만들며 같이 뺄 수 있으면 빼는게 좋아보임
+                handleLoginFail(sampleLogin, individualFailure as LoginFailure)
             }
+        }
+    }
+
+    override fun initView() {
+        binding.viewModel = viewModel
+    }
+
+    private fun handleSampleLogin(sampleLogin: SampleLogin) {
+        //TODO handleSampleLogin
+    }
+
+    private fun handleLoginFail(sampleLogin: SampleLogin,loginFailure: LoginFailure) {
+        //TODO handleLoginFail
+        when(loginFailure) {
+            is LoginFailure.InvalidedAccount -> Unit
         }
     }
 }
