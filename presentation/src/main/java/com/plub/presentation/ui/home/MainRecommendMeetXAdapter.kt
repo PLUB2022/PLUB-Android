@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.R
 
 class MainRecommendMeetXAdapter : RecyclerView.Adapter<MainRecommendMeetXAdapter.ViewHolder?>() {
-    protected val mCurrentList: ArrayList<String> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.layout_recycler_main_recommend_meet_no_chocie, parent, false)

@@ -28,7 +28,10 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecycler(view)
+    }
 
+    fun initRecycler(view : View){
         val rv_main = view.findViewById<RecyclerView>(R.id.rv_main_page)
         rv_main.setLayoutManager(LinearLayoutManager(context))
         mainCategoryAdapter = MainCategoryAdapter()
