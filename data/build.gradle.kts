@@ -30,6 +30,8 @@ dependencies {
     implementation(Kotlin.COROUTINES_ANDROID)
     implementation(Kotlin.COROUTINES_CORE)
 
+    implementation(AndroidX.DATA_STORE)
+
     implementation(Libraries.RETROFIT)
     implementation(Libraries.RETROFIT_CONVERTER_GSON)
     implementation(Libraries.OKHTTP)

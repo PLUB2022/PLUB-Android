@@ -14,6 +14,7 @@ object Versions {
     const val FRAGMENT_KTX = "1.5.2"
     const val NAVIGATION = "2.5.1"
     const val LEGACY = "1.0.0"
+    const val DATA_STORE = "1.0.0"
 
     const val CORE_KTX = "1.8.0"
 
