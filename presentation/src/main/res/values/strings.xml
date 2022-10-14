@@ -10,4 +10,8 @@
     <string name="fragment_text_category_name_sport">스포츠/피트니스</string>
     <string name="fragment_text_category_name_employment">취업/창업</string>
     <string name="fragment_text_category_name_computer">컴퓨터</string>
+
+    <string name="appbar_scrolling_view_behavior" translatable="false">
+        com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior
+    </string>
 </resources>
