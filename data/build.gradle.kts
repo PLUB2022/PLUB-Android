@@ -1,7 +1,10 @@
+import com.google.protobuf.gradle.*
+
 plugins {
     id("com.android.library")
     id("dagger.hilt.android.plugin")
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("com.google.protobuf") version "0.8.19"
     kotlin("android")
     kotlin("kapt")
 }
@@ -41,5 +44,25 @@ dependencies {
     implementation(Libraries.TIMBER)
 
     implementation(Google.HILT_ANDROID)
+    implementation(Google.TINK)
+    implementation(Google.PROTOBUF)
     kapt(Google.HILT_ANDROID_COMPILER)
+}
+
+// protobuf plugin
+protobuf {
+    protoc {
+        // The artifact spec for the Protobuf Compiler
+        artifact = Google.PROTOC
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.plugins {
+                create("java") {
+                    option("lite")
+                }
+            }
+
+        }
+    }
 }

@@ -23,6 +23,8 @@ object Versions {
     /* [ Google ] */
     const val HILT = "2.42"
     const val MATERIAL = "1.6.1"
+    const val TINK = "1.7.0"
+    const val PROTOBUF = "3.21.7"
 
     /* [ Libraries ] */
     const val RETROFIT = "2.9.0"

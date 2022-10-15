@@ -22,7 +22,7 @@ object AndroidX {
     const val NAVIGATION_FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION}"
     const val NAVIGATION_UI_KTX = "androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION}"
     const val LEGACY_SUPPORT = "androidx.legacy:legacy-support-v4:${Versions.LEGACY}"
-    const val DATA_STORE = "androidx.datastore:datastore-preferences:${Versions.DATA_STORE}"
+    const val DATA_STORE = "androidx.datastore:datastore:${Versions.DATA_STORE}"
 }
 
 object Google {
@@ -31,6 +31,10 @@ object Google {
     const val HILT_CORE = "com.google.dagger:hilt-core:${Versions.HILT}"
 
     const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
+
+    const val TINK = "com.google.crypto.tink:tink-android:${Versions.TINK}"
+    const val PROTOBUF = "com.google.protobuf:protobuf-javalite:${Versions.PROTOBUF}"
+    const val PROTOC = "com.google.protobuf:protoc:${Versions.PROTOBUF}"
 }
 
 object Libraries {
