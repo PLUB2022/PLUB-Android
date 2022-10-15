@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.plub.data.util";
+option java_multiple_files = true;
+
+message PlubJwtToken {
+  string access_token = 1;
+  string refresh_token = 2;
+}
