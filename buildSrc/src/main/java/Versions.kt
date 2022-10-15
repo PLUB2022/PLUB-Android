@@ -4,6 +4,7 @@ object Versions {
     /* [ Kotlin ] */
     const val KOTLIN_VERSION = "1.7.10"
     const val KOTLIN_COROUTINE = "1.6.4"
+    const val KOTLIN_SERIALIZATION = "1.7.0"
 
     /* [ Android ] */
     const val APP_COMPAT = "1.5.1"
