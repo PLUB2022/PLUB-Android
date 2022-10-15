@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("dagger.hilt.android.plugin")
+    id("org.jetbrains.kotlin.plugin.serialization")
     kotlin("android")
     kotlin("kapt")
 }
@@ -29,6 +30,7 @@ dependencies {
     implementation(Kotlin.KOTLIN_STDLIB)
     implementation(Kotlin.COROUTINES_ANDROID)
     implementation(Kotlin.COROUTINES_CORE)
+    implementation(Kotlin.KOTLIN_SERIALIZATION_JSON)
 
     implementation(AndroidX.DATA_STORE)
 
