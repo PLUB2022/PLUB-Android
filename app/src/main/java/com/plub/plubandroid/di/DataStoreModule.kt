@@ -45,7 +45,7 @@ abstract class DataStoreModule {
             serializer: Serializer<PlubJwtToken>
         ): DataStore<PlubJwtToken> = DataStoreFactory.create(
             serializer = serializer,
-            produceFile = { applicationContext.dataStoreFile("user_local") }
+            produceFile = { applicationContext.dataStoreFile("plub_token") }
         )
     }
 }
