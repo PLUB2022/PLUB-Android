@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.sample
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
@@ -12,6 +13,7 @@ import com.plub.domain.usecase.TrySampleLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,12 +30,16 @@ class SampleFragmentViewModel @Inject constructor(
 
     val acTokenInput = MutableStateFlow("")
     val reTokenInput = MutableStateFlow("")
+    val checkNicknameInput = MutableStateFlow("")
 
     private val _acToken = MutableStateFlow("")
     val acToken: StateFlow<String> = _acToken.asStateFlow()
 
     private val _reToken = MutableStateFlow("")
     val reToken: StateFlow<String> = _reToken.asStateFlow()
+
+    private val _resultCheckNicknameText = MutableStateFlow("")
+    val resultCheckNicknameText : StateFlow<String> = _resultCheckNicknameText.asStateFlow()
 
     init {
         trySampleLogin()
@@ -46,6 +52,7 @@ class SampleFragmentViewModel @Inject constructor(
     fun saveReToken() = viewModelScope.launch {
         plubJwtTokenRepository.saveAccessTokenAndRefreshToken(acTokenInput.value, reTokenInput.value)
     }
+
 
     fun getAccessToken() = viewModelScope.launch {
         _acToken.value = plubJwtTokenRepository.getAccessToken()
@@ -62,9 +69,15 @@ class SampleFragmentViewModel @Inject constructor(
     }
 
     fun trySampleCheckNickname() = viewModelScope.launch {
-        trySampleAccountUseCase.invoke().collect{
-            _uiStateAccount.value = it
+        trySampleAccountUseCase.invoke(checkNicknameInput.value).collect {
+            if(it.successOrNull()?.data == true){
+                _resultCheckNicknameText.value = "중복된 닉네임입니다."
+            }
+            else{
+                _resultCheckNicknameText.value = "중복되지 않은 닉네임입니다."
+            }
         }
+
     }
 
     fun showErrorPage() {

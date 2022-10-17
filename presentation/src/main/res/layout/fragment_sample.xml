@@ -44,6 +44,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_ac_token_test" />
 
+        <EditText
+            android:id="@+id/et_check_nickname_test"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Enter nickname"
+            android:text="@={viewModel.checkNicknameInput}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_re_token_test" />
+
+        <TextView
+            android:id="@+id/tv_result_check_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@{viewModel.resultCheckNicknameText}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_check_nickname_test"/>
+
         <Button
             android:id="@+id/btn_save_re_token"
             android:layout_width="wrap_content"
@@ -54,6 +73,15 @@
             app:layout_constraintTop_toTopOf="@id/et_re_token_test" />
 
         <Button
+            android:id="@+id/btn_check_nicknmae"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.trySampleCheckNickname()}"
+            android:text="확인"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_check_nickname_test" />
+
+        <Button
             android:id="@+id/tv_ac_token_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,7 +89,7 @@
             android:onClick="@{() -> viewModel.getAccessToken()}"
             android:text="acToken : "
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_re_token_test" />
+            app:layout_constraintTop_toBottomOf="@id/et_check_nickname_test" />
 
         <TextView
             android:layout_width="wrap_content"

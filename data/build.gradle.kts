@@ -46,6 +46,7 @@ dependencies {
     implementation(Google.HILT_ANDROID)
     implementation(Google.TINK)
     implementation(Google.PROTOBUF)
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.3.0")
     kapt(Google.HILT_ANDROID_COMPILER)
 }
 

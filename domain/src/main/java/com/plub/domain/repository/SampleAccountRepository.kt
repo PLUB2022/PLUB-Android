@@ -5,5 +5,5 @@ import com.plub.domain.model.SampleAccount
 import kotlinx.coroutines.flow.Flow
 
 interface SampleAccountRepository {
-    fun checkNickname(): Flow<UiState<SampleAccount>>
+    suspend fun checkNickname(nickname :String): Flow<UiState<SampleAccount>>
 }
