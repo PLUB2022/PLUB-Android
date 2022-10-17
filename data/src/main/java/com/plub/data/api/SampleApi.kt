@@ -10,5 +10,5 @@ import retrofit2.http.Path
 
 interface SampleApi {
     @GET("/api/account/check/nickname/{nickname}")
-    suspend fun checkNickname(@Path("nickname") nickname : String) : Call<SampleAccountResponse>
+    fun checkNickname(@Path("nickname") nickname : String) : Call<SampleAccountResponse>
 }
