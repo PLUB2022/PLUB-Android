@@ -1,9 +1,11 @@
 object Versions {
-    const val GRADLE = "7.1.2"
+    const val GRADLE = "7.3.1"
 
     /* [ Kotlin ] */
     const val KOTLIN_VERSION = "1.7.10"
     const val KOTLIN_COROUTINE = "1.6.4"
+    const val KOTLIN_SERIALIZATION = "1.7.0"
+    const val KOTLIN_SERIALIZATION_JSON = "1.3.2"
 
     /* [ Android ] */
     const val APP_COMPAT = "1.5.1"
@@ -13,12 +15,16 @@ object Versions {
     const val ACTIVITY_KTX = "1.5.1"
     const val FRAGMENT_KTX = "1.5.2"
     const val NAVIGATION = "2.5.1"
+    const val LEGACY = "1.0.0"
+    const val DATA_STORE = "1.0.0"
 
     const val CORE_KTX = "1.8.0"
 
     /* [ Google ] */
     const val HILT = "2.42"
     const val MATERIAL = "1.6.1"
+    const val TINK = "1.7.0"
+    const val PROTOBUF = "3.21.7"
 
     /* [ Libraries ] */
     const val RETROFIT = "2.9.0"
