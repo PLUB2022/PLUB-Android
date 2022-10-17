@@ -1,55 +1,83 @@
 package com.plub.plubandroid.di
 
 import android.util.Log
+import com.plub.data.api.PlubJwtTokenApi
+import com.plub.data.model.PlubJwtTokenModel
+import com.plub.data.model.SampleLoginResponse
+import com.plub.domain.UiState
+import com.plub.domain.repository.PlubJwtTokenRepository
+import com.plub.plubandroid.util.RETROFIT_TAG
 import kotlinx.coroutines.*
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Route
+import retrofit2.Response
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TokenAuthenticator@Inject constructor() : Authenticator {
-//    @Inject lateinit var api: ApiServiceWithoutToken
-
+class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository: PlubJwtTokenRepository, private val plubJwtTokenApi: PlubJwtTokenApi) :
+    Authenticator {
     override fun authenticate(route: Route?, response: okhttp3.Response): Request? {
-        return null
-//        val access = FinpoApplication.encryptedPrefs.getAccessToken() ?: ""
-//        val refresh = FinpoApplication.encryptedPrefs.getRefreshToken() ?: ""
-//
-//        synchronized(this) {
-//            val newAccess = FinpoApplication.encryptedPrefs.getAccessToken() ?: ""
-//
-//            val isTokenRefreshed = if(access != newAccess) true else {
-//                Log.d(RETROFIT_TAG, "TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
-//                val tokenResponse = runBlocking { api.refreshToken(RequestTokenBody(access, refresh)) }
+        //return null
+        val access = runBlocking {
+            plubJwtTokenRepository.getAccessToken()
+        }
+        val refresh = runBlocking {
+            plubJwtTokenRepository.getRefreshToken()
+        }
+
+        synchronized(this) {
+            val newAccess = runBlocking {
+                plubJwtTokenRepository.getAccessToken()
+            }
+
+            val isTokenRefreshed = if (access != newAccess) true else {
+                Tdebug("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
+//                //TODO 재발행하는 코드
+//                val tokenResponse =
+//                    runBlocking { api.refreshToken(RequestTokenBody(access, refresh)) }
 //                handleResponse(tokenResponse)
-//            }
-//
-//            return if (isTokenRefreshed) {
-//                Log.d(RETROFIT_TAG, "TokenAuthenticator - authenticate() called / 중단된 API 재요청")
-//                response.request
-//                    .newBuilder()
-//                    .removeHeader("Authorization")
-//                    .header(
-//                        "Authorization",
-//                        "Bearer " + FinpoApplication.encryptedPrefs.getAccessToken()
-//                    )
-//                    .build()
-//            } else {
-//                null
-//            }
-//        }
+                val tokenResponse =
+                    runBlocking {
+                        plubJwtTokenApi.reIssueToken(refresh)
+                    }
+                handleResponse(tokenResponse)
+            }
+
+            return if (isTokenRefreshed as Boolean) {
+                Tdebug("TokenAuthenticator - authenticate() called / 중단된 API 재요청")
+                response.request
+                    .newBuilder()
+                    .removeHeader("Authorization")
+                    .header(
+                        "Authorization",
+                        "Bearer " + runBlocking { plubJwtTokenRepository.getRefreshToken() }
+                    )
+                    .build()
+            } else {
+                null
+            }
+        }
 
     }
 
-//    private fun handleResponse(tokenResponse: ApiResponse<TokenResponse>) =
-//        if (tokenResponse is ApiResponse.Success) {
-//            FinpoApplication.encryptedPrefs.saveAccessToken(tokenResponse.data.data.accessToken ?: "")
-//            FinpoApplication.encryptedPrefs.saveRefreshToken(tokenResponse.data.data.refreshToken ?: "")
-//            true
-//        } else {
-//            Log.d(RETROFIT_TAG, "TokenAuthenticator - handleResponse() called / 리프레시 토큰이 만료되어 로그 아웃 되었습니다.")
-//            false
-//        }
+    private fun handleResponse(tokenResponse: Response<PlubJwtTokenModel>) =
+        if (tokenResponse.isSuccessful) {
+            runBlocking {
+                plubJwtTokenRepository.saveAccessTokenAndRefreshToken(tokenResponse.body()!!.accesstoken, tokenResponse.body()!!.refreshtoken)
+            }
+            true
+        } else {
+            Tdebug("TokenAuthenticator - handleResponse() called / 리프레시 토큰이 만료되어 로그 아웃 되었습니다.")
+            false
+        }
+
+
+    fun Tdebug( content : String){
+        Timber.tag(RETROFIT_TAG).d(
+            content
+        )
+    }
 }

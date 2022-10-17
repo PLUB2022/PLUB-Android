@@ -8,4 +8,5 @@ interface PlubJwtTokenRepository {
     suspend fun getAccessToken(): String
 
     suspend fun getRefreshToken(): String
+
 }
