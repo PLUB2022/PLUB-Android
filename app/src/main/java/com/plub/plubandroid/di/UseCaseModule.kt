@@ -1,6 +1,8 @@
 package com.plub.plubandroid.di
 
 import com.plub.domain.repository.IntroRepository
+import com.plub.domain.repository.SampleAccountRepository
+import com.plub.domain.usecase.TrySampleAccountUseCase
 import com.plub.domain.usecase.TrySampleLoginUseCase
 import dagger.Binds
 import dagger.Module
@@ -17,5 +19,11 @@ object UseCaseModule {
     @Provides
     fun providesTrySampleLoginUseCase(repository: IntroRepository): TrySampleLoginUseCase {
         return TrySampleLoginUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesTrySampleAccountUseCase(repository: SampleAccountRepository) : TrySampleAccountUseCase{
+        return TrySampleAccountUseCase(repository)
     }
 }

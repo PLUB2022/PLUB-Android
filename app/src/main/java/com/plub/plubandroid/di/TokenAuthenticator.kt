@@ -1,10 +1,7 @@
 package com.plub.plubandroid.di
 
-import android.util.Log
 import com.plub.data.api.PlubJwtTokenApi
-import com.plub.data.model.PlubJwtTokenModel
-import com.plub.data.model.SampleLoginResponse
-import com.plub.domain.UiState
+import com.plub.data.model.PlubJwtTokenResponse
 import com.plub.domain.repository.PlubJwtTokenRepository
 import com.plub.plubandroid.util.RETROFIT_TAG
 import kotlinx.coroutines.*
@@ -63,7 +60,7 @@ class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository:
 
     }
 
-    private fun handleResponse(tokenResponse: Response<PlubJwtTokenModel>) =
+    private fun handleResponse(tokenResponse: Response<PlubJwtTokenResponse>) =
         if (tokenResponse.isSuccessful) {
             runBlocking {
                 plubJwtTokenRepository.saveAccessTokenAndRefreshToken(tokenResponse.body()!!.accesstoken, tokenResponse.body()!!.refreshtoken)

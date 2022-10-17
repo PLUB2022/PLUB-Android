@@ -2,6 +2,7 @@ package com.plub.plubandroid.di
 
 import com.plub.data.api.IntroApi
 import com.plub.data.api.PlubJwtTokenApi
+import com.plub.data.api.SampleApi
 import com.plub.plubandroid.util.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -11,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -53,5 +55,11 @@ object AuthNetworkModule {
     @Provides
     fun providePlubJwtTokenApi(@AuthRetrofit retrofit: Retrofit): PlubJwtTokenApi{
         return retrofit.create(PlubJwtTokenApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSampleApi(@AuthRetrofit retrofit: Retrofit) : SampleApi{
+        return retrofit.create(SampleApi::class.java)
     }
 }

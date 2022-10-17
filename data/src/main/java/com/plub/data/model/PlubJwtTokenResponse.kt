@@ -1,6 +1,6 @@
 package com.plub.data.model
 
-data class PlubJwtTokenModel(
+data class PlubJwtTokenResponse(
     val accesstoken : String,
     val refreshtoken : String
 )
