@@ -57,9 +57,9 @@ object AuthNetworkModule {
         return retrofit.create(PlubJwtTokenApi::class.java)
     }
 
-    @Singleton
-    @Provides
-    fun provideSampleApi(@AuthRetrofit retrofit: Retrofit) : SampleApi{
-        return retrofit.create(SampleApi::class.java)
-    }
+//    @Singleton
+//    @Provides
+//    fun provideSampleApi(@AuthRetrofit retrofit: Retrofit) : SampleApi{
+//        return retrofit.create(SampleApi::class.java)
+//    }
 }

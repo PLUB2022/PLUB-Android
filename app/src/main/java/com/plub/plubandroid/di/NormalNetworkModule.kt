@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import com.google.gson.JsonSyntaxException
 import com.plub.data.api.IntroApi
+import com.plub.data.api.SampleApi
 import com.plub.plubandroid.util.BASE_URL
 import com.plub.plubandroid.util.RETROFIT_TAG
 import com.plub.plubandroid.util.isJsonArray
@@ -80,5 +81,11 @@ object NormalNetworkModule {
     @Provides
     fun provideIntroApi(@NormalRetrofit retrofit: Retrofit): IntroApi {
         return retrofit.create(IntroApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSampleApi(@NormalRetrofit retrofit: Retrofit) : SampleApi {
+        return retrofit.create(SampleApi::class.java)
     }
 }
