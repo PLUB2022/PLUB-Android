@@ -43,7 +43,7 @@ class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository:
                 handleResponse(tokenResponse)
             }
 
-            return if (isTokenRefreshed as Boolean) {
+            return if (isTokenRefreshed) {
                 Tdebug("TokenAuthenticator - authenticate() called / 중단된 API 재요청")
                 response.request
                     .newBuilder()
@@ -63,7 +63,7 @@ class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository:
     private fun handleResponse(tokenResponse: Response<PlubJwtTokenResponse>) =
         if (tokenResponse.isSuccessful) {
             runBlocking {
-                plubJwtTokenRepository.saveAccessTokenAndRefreshToken(tokenResponse.body()!!.accesstoken, tokenResponse.body()!!.refreshtoken)
+                plubJwtTokenRepository.saveAccessTokenAndRefreshToken(tokenResponse.body()!!.data.accessToken, tokenResponse.body()!!.data.refreshToken)
             }
             true
         } else {

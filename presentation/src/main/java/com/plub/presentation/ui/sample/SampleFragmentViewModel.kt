@@ -25,9 +25,6 @@ class SampleFragmentViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UiState<SampleLogin>>(UiState.Loading)
     val uiState: StateFlow<UiState<SampleLogin>> = _uiState.asStateFlow()
 
-    private val _uiStateAccount = MutableStateFlow<UiState<SampleAccount>>(UiState.Loading)
-    val uiStateAccount: StateFlow<UiState<SampleAccount>> = _uiStateAccount.asStateFlow()
-
     val acTokenInput = MutableStateFlow("")
     val reTokenInput = MutableStateFlow("")
     val checkNicknameInput = MutableStateFlow("")
