@@ -2,6 +2,7 @@ package com.plub.plubandroid.di
 
 import com.plub.data.api.PlubJwtTokenApi
 import com.plub.data.model.PlubJwtTokenResponse
+import com.plub.data.model.ReIssueModel
 import com.plub.domain.repository.PlubJwtTokenRepository
 import com.plub.plubandroid.util.RETROFIT_TAG
 import kotlinx.coroutines.*
@@ -30,15 +31,17 @@ class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository:
                 plubJwtTokenRepository.getAccessToken()
             }
 
+            val reIssueModel = ReIssueModel(refresh)
+
             val isTokenRefreshed = if (access != newAccess) true else {
-                Tdebug("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
+                Tdebug("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: ${reIssueModel.refreshToken}")
 //                //TODO 재발행하는 코드
 //                val tokenResponse =
 //                    runBlocking { api.refreshToken(RequestTokenBody(access, refresh)) }
 //                handleResponse(tokenResponse)
                 val tokenResponse =
                     runBlocking {
-                        plubJwtTokenApi.reIssueToken(refresh)
+                        plubJwtTokenApi.reIssueToken(reIssueModel)
                     }
                 handleResponse(tokenResponse)
             }

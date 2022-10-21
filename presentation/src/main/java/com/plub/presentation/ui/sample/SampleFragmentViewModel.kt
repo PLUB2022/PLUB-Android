@@ -77,6 +77,15 @@ class SampleFragmentViewModel @Inject constructor(
 
     }
 
+    fun trySampleGetAuthInfo() = viewModelScope.launch {
+        trySampleAccountUseCase.getAuthInfo().collect{
+            Timber.tag("RETROFIT_TEST_회원정보")
+            .d(it.successOrNull()?.birthday.toString())
+        }
+//        Timber.tag("RETROFIT_TEST_회원정보")
+//            .d(trySampleAccountUseCase.getAuthInfo().toString())
+    }
+
     fun showErrorPage() {
         _uiState.value = UiState.Error(null)
     }

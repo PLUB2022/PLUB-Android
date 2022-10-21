@@ -2,9 +2,9 @@ package com.plub.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class PlubJwtTokenResponse(
+data class SampleAuthInfoResponse(
     @SerializedName("data")
-    val data : PlubJwtTokenData,
+    val data : SampleAuthInfoData,
 
     @SerializedName("message")
     val message : String,

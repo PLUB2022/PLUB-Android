@@ -139,6 +139,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_test" />
 
+        <Button
+            android:id="@+id/btn_get_auth_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:stateListAnimator="@null"
+            android:onClick="@{() -> viewModel.trySampleGetAuthInfo()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/btn_error"
+            android:text="GetAuthInfo" />
+
+
+
         <ProgressBar
             android:id="@+id/loading_bar"
             android:layout_width="wrap_content"
