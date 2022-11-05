@@ -19,7 +19,6 @@ class SampleFragment : BaseFragment<FragmentSampleBinding,SampleLoginPageState,S
     override suspend fun initState() {
         viewModel.uiState.collect {
             inspectUiState(it.loginData, ::handleSampleLogin) { sampleLogin, individualFailure ->
-                //TODO 해당 부분 처리하는 것도 base에 Inspect쪽 클래스 만들며 같이 뺄 수 있으면 빼는게 좋아보임
                 handleLoginFail(sampleLogin, individualFailure as LoginFailure)
             }
         }
@@ -30,13 +29,13 @@ class SampleFragment : BaseFragment<FragmentSampleBinding,SampleLoginPageState,S
     }
 
     private fun handleSampleLogin(sampleLogin: SampleLogin) {
-        //TODO handleSampleLogin
+
     }
 
     private fun handleLoginFail(sampleLogin: SampleLogin,loginFailure: LoginFailure) {
-        //TODO handleLoginFail
         when(loginFailure) {
             is LoginFailure.InvalidedAccount -> Unit
+            LoginFailure.Common -> Unit
         }
     }
 }

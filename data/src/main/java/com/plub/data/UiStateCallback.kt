@@ -2,12 +2,11 @@ package com.plub.data
 
 import com.plub.domain.UiState
 import com.plub.domain.base.DomainModel
-import com.plub.domain.result.CommonFailure
-import com.plub.domain.result.IndividualFailure
-import com.plub.domain.result.StateResult
+import com.plub.domain.result.*
 
 abstract class UiStateCallback<T : DomainModel> {
     abstract suspend fun onSuccess(state: UiState.Success<T>, customCode: Int)
+    abstract suspend fun onError(state: UiState.Error)
 
 
     /**

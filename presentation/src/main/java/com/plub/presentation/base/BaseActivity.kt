@@ -1,7 +1,6 @@
 package com.plub.presentation.base
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -22,11 +21,14 @@ abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewMo
     protected lateinit var binding: B
     protected abstract val viewModel: VM
 
+    private lateinit var uiInspector:UiInspector
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, layoutRes)
         setContentView(binding.root)
+        uiInspector = UiInspector(this)
 
         initView()
 
@@ -41,39 +43,7 @@ abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewMo
 
     protected abstract suspend fun initState()
 
-    /**
-     * TODO : 해당 Inspect 함수들이 Base에 존재하기에 너무 사이즈가 크다고 생각, Fragment와 Activity 코드가 중복됨
-     * TODO : UiInspect 클래스를 만들거나 하여 코드 간소화 필요
-     */
-
-    protected fun<T> inspectUiState(uiState: UiState<T>,succeedCallback: (T) -> Unit, individualFailCallback: (T, IndividualFailure) -> Unit) {
-        when(uiState) {
-            is UiState.Loading -> showLoading()
-            is UiState.Error -> handleError()
-            is UiState.Success -> handleSuccess(uiState,succeedCallback, individualFailCallback)
-        }
-    }
-
-    private fun showLoading() {
-        //TODO show loading
-    }
-
-    private fun handleError() {
-        //TODO handleError
-    }
-
-    private fun<T> handleSuccess(success: UiState.Success<T>,succeedCallback: (T) -> Unit, individualFailCallback: (T, IndividualFailure) -> Unit) {
-        when(val result = success.result) {
-            is CommonFailure -> handleCommonFailure(result)
-            is StateResult.Succeed -> succeedCallback.invoke(success.data)
-            is IndividualFailure -> individualFailCallback.invoke(success.data, result)
-        }
-    }
-
-    private fun handleCommonFailure(failure: CommonFailure) {
-        //TODO handleCommonFailure
-//        when(failure) {
-//            is TokenInvalided -> {}
-//        }
+    protected fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: (T) -> Unit, individualFailCallback: ((T, IndividualFailure) -> Unit)? = null) {
+        uiInspector.inspectUiState(uiState,succeedCallback, individualFailCallback)
     }
 }

@@ -1,17 +1,18 @@
 package com.plub.domain.result
 
-sealed class CommonFailure: StateResult.Fail() {
+
+sealed class CommonFailure: Failure() {
 
     companion object{
-        private const val TOKEN_INVALIDED_FAILURE = 203
-        fun make(code:Int) : CommonFailure{
+        private const val DUPLICATE_LOGIN_DETECTED_FAILURE = 1001
+        fun make(code:Int) : CommonFailure {
             return when(code) {
-                TOKEN_INVALIDED_FAILURE -> TokenInvalided("토큰 오류")
+                DUPLICATE_LOGIN_DETECTED_FAILURE -> DuplicateLoginDetected("중복 로그인 오류")
                 else -> Invalided
             }
         }
     }
 
     object Invalided : CommonFailure()
-    data class TokenInvalided(val msg:String):CommonFailure()
+    data class DuplicateLoginDetected(val msg:String): CommonFailure()
 }
