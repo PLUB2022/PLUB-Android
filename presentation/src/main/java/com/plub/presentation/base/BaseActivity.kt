@@ -28,6 +28,7 @@ abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewMo
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, layoutRes)
+        binding.lifecycleOwner = this
         setContentView(binding.root)
         uiInspector = UiInspector(this)
 
