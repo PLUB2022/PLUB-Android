@@ -39,4 +39,6 @@ object Versions {
     /* [ AndroidTest ] */
     const val ANDROID_JUNIT = "1.1.3"
     const val ESPRESSO_CORE = "3.4.0"
+
+    const val GLIDE = "4.13.2"
 }

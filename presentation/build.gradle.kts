@@ -50,5 +50,9 @@ dependencies {
 
     implementation(Google.MATERIAL)
     implementation(Google.HILT_ANDROID)
+
+    implementation(Glide.GLIDE)
+    annotationProcessor(Glide.GLIDE_COMPILER)
+
     kapt(Google.HILT_ANDROID_COMPILER)
 }
