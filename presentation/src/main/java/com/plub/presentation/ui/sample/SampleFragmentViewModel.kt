@@ -1,12 +1,15 @@
 package com.plub.presentation.ui.sample
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
+import com.plub.domain.error.HttpError
+import com.plub.domain.error.UnauthorizedError
 import com.plub.domain.model.SampleLogin
 import com.plub.domain.repository.PlubJwtTokenRepository
 import com.plub.domain.successOrNull
+import com.plub.domain.model.state.SampleLoginPageState
 import com.plub.domain.usecase.TrySampleLoginUseCase
+import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -16,9 +19,7 @@ import javax.inject.Inject
 class SampleFragmentViewModel @Inject constructor(
     private val trySampleLoginUseCase: TrySampleLoginUseCase,
     private val plubJwtTokenRepository: PlubJwtTokenRepository
-) : ViewModel() {
-    private val _uiState = MutableStateFlow<UiState<SampleLogin>>(UiState.Loading)
-    val uiState: StateFlow<UiState<SampleLogin>> = _uiState.asStateFlow()
+) : BaseViewModel<SampleLoginPageState>(SampleLoginPageState()) {
 
     val acTokenInput = MutableStateFlow("")
     val reTokenInput = MutableStateFlow("")
@@ -50,20 +51,17 @@ class SampleFragmentViewModel @Inject constructor(
     }
 
     fun trySampleLogin() = viewModelScope.launch {
-        trySampleLoginUseCase.invoke().collect {
-            _uiState.value = it
+        trySampleLoginUseCase.invoke(Unit).collect { state ->
+            updateUiState { uiState ->
+                uiState.copy(loginData = state)
+            }
         }
     }
 
     fun showErrorPage() {
-        _uiState.value = UiState.Error(null)
+        updateUiState { loginState ->
+            val state = UiState.Error(UnauthorizedError.Common)
+            loginState.copy(loginData = state)
+        }
     }
-
-    val loginText: StateFlow<String?> = _uiState.mapLatest { state ->
-        state.successOrNull()?.login ?: ""
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000L),
-        initialValue = "loading"
-    )
 }
