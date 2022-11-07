@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
 import com.plub.domain.error.HttpError
 import com.plub.domain.error.UnauthorizedError
-import com.plub.domain.model.SampleLogin
+import com.plub.domain.model.vo.login.SampleLogin
 import com.plub.domain.repository.PlubJwtTokenRepository
 import com.plub.domain.successOrNull
 import com.plub.domain.model.state.SampleLoginPageState

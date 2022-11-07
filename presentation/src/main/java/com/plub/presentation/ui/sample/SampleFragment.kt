@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.sample
 
 import androidx.fragment.app.viewModels
-import com.plub.domain.model.SampleLogin
+import com.plub.domain.model.vo.login.SampleLogin
 import com.plub.domain.model.state.SampleLoginPageState
 import com.plub.domain.result.LoginFailure
 import com.plub.presentation.R
@@ -36,7 +36,7 @@ class SampleFragment : BaseFragment<FragmentSampleBinding,SampleLoginPageState,S
 
     }
 
-    private fun handleLoginFail(sampleLogin: SampleLogin,loginFailure: LoginFailure) {
+    private fun handleLoginFail(sampleLogin: SampleLogin, loginFailure: LoginFailure) {
         when(loginFailure) {
             is LoginFailure.InvalidedAccount -> Unit
             LoginFailure.Common -> Unit

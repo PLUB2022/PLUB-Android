@@ -8,7 +8,7 @@ import com.plub.domain.error.HttpError
 import com.plub.domain.UiState
 import com.plub.domain.result.IndividualFailure
 import com.plub.domain.result.LoginFailure
-import com.plub.domain.model.SampleLogin
+import com.plub.domain.model.vo.login.SampleLogin
 import com.plub.domain.repository.IntroRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
