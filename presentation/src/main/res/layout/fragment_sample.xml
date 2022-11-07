@@ -93,7 +93,6 @@
             android:layout_height="wrap_content"
             android:onClick="@{() -> viewModel.trySampleLogin()}"
             android:stateListAnimator="@null"
-            android:text="@{viewModel.loginText}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -119,13 +118,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showLoadingProgressBar="@{viewModel.uiState}" />
+            app:showLoadingProgressBar="@{viewModel.uiState.loginData}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/teal_700"
-            app:showErrorPage="@{viewModel.uiState}"
+            app:showErrorPage="@{viewModel.uiState.loginData}"
             tools:visibility="gone">
 
             <TextView

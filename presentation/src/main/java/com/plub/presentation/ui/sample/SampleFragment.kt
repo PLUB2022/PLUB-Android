@@ -19,12 +19,16 @@ class SampleFragment : BaseFragment<FragmentSampleBinding,SampleLoginPageState,S
     override suspend fun initState() {
         viewModel.uiState.collect {
             inspectUiState(it.loginData, ::handleSampleLogin) { sampleLogin, individualFailure ->
-                handleLoginFail(sampleLogin, individualFailure as LoginFailure)
+                handleLoginFail(sampleLogin, individualFailure as LoginFailure) //개별 에러 처리까지 할 때
             }
+
+            inspectUiState(it.loginData, ::handleSampleLogin) //공통 에러 처리만 할 때
+            inspectUiState(it.loginData) //데이터 바인딩을 하여 오직 로딩만 적용할 때
         }
     }
 
     override fun initView() {
+        bindProgressBar(binding.loadingBar)
         binding.viewModel = viewModel
     }
 

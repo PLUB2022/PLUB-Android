@@ -1,6 +1,7 @@
 package com.plub.presentation.base
 
 import android.os.Bundle
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -42,6 +43,10 @@ abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewMo
     protected abstract fun initView()
 
     protected abstract suspend fun initState()
+
+    protected fun bindProgressBar(progressBar: ProgressBar) {
+        uiInspector.bindProgressView(progressBar)
+    }
 
     protected fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: (T) -> Unit, individualFailCallback: ((T, IndividualFailure) -> Unit)? = null) {
         uiInspector.inspectUiState(uiState,succeedCallback, individualFailCallback)

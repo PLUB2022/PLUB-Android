@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -53,6 +54,10 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
         }
     }
 
+    protected fun bindProgressBar(progressBar: ProgressBar) {
+        uiInspector.bindProgressView(progressBar)
+    }
+
     protected abstract fun initView()
 
     protected abstract suspend fun initState()
@@ -62,7 +67,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
         super.onDestroyView()
     }
 
-    protected fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: (T) -> Unit, individualFailCallback: ((T, IndividualFailure) -> Unit)? = null) {
+    protected fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: ((T) -> Unit)? = null, individualFailCallback: ((T, IndividualFailure) -> Unit)? = null) {
         uiInspector.inspectUiState(uiState,succeedCallback, individualFailCallback)
     }
 }
