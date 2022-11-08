@@ -46,6 +46,8 @@ object Libraries {
     const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
 
     const val COIL = "io.coil-kt:coil-compose:${Versions.COIL}"
+
+    const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE}"
 }
 
 object UnitTest {

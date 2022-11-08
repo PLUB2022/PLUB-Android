@@ -47,6 +47,7 @@ dependencies {
 
     implementation(Libraries.COIL)
     implementation(Libraries.TIMBER)
+    implementation(Libraries.LOTTIE)
 
     implementation(Google.MATERIAL)
     implementation(Google.HILT_ANDROID)
