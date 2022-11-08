@@ -13,6 +13,7 @@ import com.plub.domain.model.state.PageState
 import com.plub.domain.result.CommonFailure
 import com.plub.domain.result.IndividualFailure
 import com.plub.domain.result.StateResult
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewModel<STATE>>(
@@ -36,14 +37,14 @@ abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewMo
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                initState()
+                initState(this)
             }
         }
     }
 
     protected abstract fun initView()
 
-    protected abstract suspend fun initState()
+    protected abstract suspend fun initState(coroutineScope: CoroutineScope)
 
     protected fun bindProgressBar(progressBar: ProgressBar) {
         uiInspector.bindProgressView(progressBar)

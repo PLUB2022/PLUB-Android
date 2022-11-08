@@ -13,9 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.plub.domain.UiState
 import com.plub.domain.model.state.PageState
-import com.plub.domain.result.CommonFailure
 import com.plub.domain.result.IndividualFailure
-import com.plub.domain.result.StateResult
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewModel<STATE>>(
@@ -49,7 +48,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                initState()
+                initState(this)
             }
         }
     }
@@ -60,7 +59,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
 
     protected abstract fun initView()
 
-    protected abstract suspend fun initState()
+    protected abstract suspend fun initState(coroutineScope: CoroutineScope)
 
     override fun onDestroyView() {
         _binding = null

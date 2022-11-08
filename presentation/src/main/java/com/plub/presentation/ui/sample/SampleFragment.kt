@@ -8,6 +8,7 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSampleBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
 
 @AndroidEntryPoint
 class SampleFragment : BaseFragment<FragmentSampleBinding,SampleLoginPageState,SampleFragmentViewModel>(
@@ -16,7 +17,7 @@ class SampleFragment : BaseFragment<FragmentSampleBinding,SampleLoginPageState,S
 
     override val viewModel: SampleFragmentViewModel by viewModels()
 
-    override suspend fun initState() {
+    override suspend fun initState(coroutineScope: CoroutineScope) {
         viewModel.uiState.collect {
             inspectUiState(it.loginData, ::handleSampleLogin) { sampleLogin, individualFailure ->
                 handleLoginFail(sampleLogin, individualFailure as LoginFailure) //개별 에러 처리까지 할 때
