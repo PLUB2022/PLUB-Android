@@ -12,7 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 
 @AndroidEntryPoint
 class SampleFragment : BaseFragment<FragmentSampleBinding,SampleLoginPageState,SampleFragmentViewModel>(
-    R.layout.fragment_sample
+    FragmentSampleBinding::inflate
 ) {
 
     override val viewModel: SampleFragmentViewModel by viewModels()

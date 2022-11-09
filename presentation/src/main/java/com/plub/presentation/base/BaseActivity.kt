@@ -1,6 +1,7 @@
 package com.plub.presentation.base
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -17,7 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewModel<STATE>>(
-    private val layoutRes:Int
+    private val inflater: (LayoutInflater) -> B,
 ) : AppCompatActivity() {
 
     protected lateinit var binding: B
@@ -28,9 +29,9 @@ abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewMo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, layoutRes)
-        binding.lifecycleOwner = this
+        binding = inflater(layoutInflater)
         setContentView(binding.root)
+        binding.lifecycleOwner = this
         uiInspector = UiInspector(this)
 
         initView()

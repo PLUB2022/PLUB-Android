@@ -18,7 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewModel<STATE>>(
-    private val layoutRes:Int
+    private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> B,
 ) : Fragment() {
 
     protected abstract val viewModel: VM
@@ -34,7 +34,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        _binding = DataBindingUtil.inflate(layoutInflater, layoutRes, container, false)
+        _binding = inflater(layoutInflater, container, false)
         return binding.root
     }
 
