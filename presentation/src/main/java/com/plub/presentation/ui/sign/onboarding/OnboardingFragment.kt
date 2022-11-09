@@ -3,16 +3,10 @@ package com.plub.presentation.ui.sign.onboarding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.plub.domain.model.state.OnboardingPageState
-import com.plub.domain.result.LoginFailure
-import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentOnboardingBinding
 import com.plub.presentation.ui.sign.onboarding.adapter.OnboardingViewPagerAdapter
-import com.plub.presentation.util.repeatOnStarted
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint

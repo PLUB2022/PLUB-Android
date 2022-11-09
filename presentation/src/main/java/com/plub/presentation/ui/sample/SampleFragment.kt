@@ -1,16 +1,12 @@
 package com.plub.presentation.ui.sample
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.repeatOnLifecycle
-import com.plub.domain.model.vo.login.SampleLogin
 import com.plub.domain.model.state.SampleLoginPageState
+import com.plub.domain.model.vo.login.SampleLogin
 import com.plub.domain.result.LoginFailure
-import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSampleBinding
-import com.plub.presentation.util.repeatOnStarted
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
 
 @AndroidEntryPoint
 class SampleFragment : BaseFragment<FragmentSampleBinding,SampleLoginPageState,SampleFragmentViewModel>(
