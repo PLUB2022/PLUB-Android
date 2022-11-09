@@ -34,6 +34,7 @@ object Versions {
     const val COIL = "1.4.0"
 
     const val LOTTIE = "3.0.7"
+    const val INDICATOR = "4.3"
 
     /* [ UnitTest ] */
     const val JUNIT = "4.13.2"

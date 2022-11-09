@@ -48,6 +48,7 @@ object Libraries {
     const val COIL = "io.coil-kt:coil-compose:${Versions.COIL}"
 
     const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE}"
+    const val INDICATOR = "com.tbuonomo:dotsindicator:${Versions.INDICATOR}"
 }
 
 object UnitTest {
