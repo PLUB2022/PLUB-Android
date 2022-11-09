@@ -35,17 +35,12 @@ abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewMo
         uiInspector = UiInspector(this)
 
         initView()
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                initState(this)
-            }
-        }
+        initState()
     }
 
     protected abstract fun initView()
 
-    protected abstract suspend fun initState(coroutineScope: CoroutineScope)
+    protected abstract fun initState()
 
     protected fun bindProgressBar(progressBar: ProgressBar) {
         uiInspector.bindProgressView(progressBar)

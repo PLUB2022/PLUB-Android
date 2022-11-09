@@ -45,12 +45,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
         uiInspector = UiInspector(requireContext())
 
         initView()
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                initState(this)
-            }
-        }
+        initState()
     }
 
     protected fun bindProgressBar(progressBar: ProgressBar) {
@@ -59,7 +54,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
 
     protected abstract fun initView()
 
-    protected abstract suspend fun initState(coroutineScope: CoroutineScope)
+    protected abstract fun initState()
 
     override fun onDestroyView() {
         _binding = null
