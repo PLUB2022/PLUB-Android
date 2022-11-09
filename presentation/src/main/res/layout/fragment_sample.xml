@@ -29,7 +29,7 @@
             android:id="@+id/btn_save_ac_token"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.saveAcToken()}"
+            android:onClick="@{() -> viewModel.saveStringByDataStore()}"
             android:text="저장"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/et_ac_token_test" />
@@ -48,7 +48,7 @@
             android:id="@+id/btn_save_re_token"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.saveReToken()}"
+            android:onClick="@{() -> viewModel.saveBooleanByDataStore()}"
             android:text="저장"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/et_re_token_test" />
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:onClick="@{() -> viewModel.getAccessToken()}"
+            android:onClick="@{() -> viewModel.getStringByDataStore()}"
             android:text="acToken : "
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_re_token_test" />
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:onClick="@{() -> viewModel.getRefreshToken()}"
+            android:onClick="@{() -> viewModel.getBooleanByDataStore()}"
             android:text="reToken : "
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_ac_token_title" />

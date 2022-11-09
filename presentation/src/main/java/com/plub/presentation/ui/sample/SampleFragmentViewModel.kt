@@ -2,12 +2,9 @@ package com.plub.presentation.ui.sample
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
-import com.plub.domain.error.HttpError
 import com.plub.domain.error.UnauthorizedError
-import com.plub.domain.model.SampleLogin
-import com.plub.domain.repository.PlubJwtTokenRepository
-import com.plub.domain.successOrNull
 import com.plub.domain.model.state.SampleLoginPageState
+import com.plub.domain.repository.PrefDataStoreRepository
 import com.plub.domain.usecase.TrySampleLoginUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SampleFragmentViewModel @Inject constructor(
     private val trySampleLoginUseCase: TrySampleLoginUseCase,
-    private val plubJwtTokenRepository: PlubJwtTokenRepository
+    private val prefDataStoreRepository: PrefDataStoreRepository
 ) : BaseViewModel<SampleLoginPageState>(SampleLoginPageState()) {
 
     val acTokenInput = MutableStateFlow("")
@@ -34,20 +31,20 @@ class SampleFragmentViewModel @Inject constructor(
         trySampleLogin()
     }
 
-    fun saveAcToken() = viewModelScope.launch {
-        plubJwtTokenRepository.saveAccessToken(acTokenInput.value)
+    fun saveStringByDataStore() = viewModelScope.launch {
+        prefDataStoreRepository.setString("test", acTokenInput.value)
     }
 
-    fun saveReToken() = viewModelScope.launch {
-        plubJwtTokenRepository.saveAccessTokenAndRefreshToken(acTokenInput.value, reTokenInput.value)
+    fun saveBooleanByDataStore() = viewModelScope.launch {
+        prefDataStoreRepository.setBoolean("test", true)
     }
 
-    fun getAccessToken() = viewModelScope.launch {
-        _acToken.value = plubJwtTokenRepository.getAccessToken()
+    fun getStringByDataStore() = viewModelScope.launch {
+        _acToken.value = prefDataStoreRepository.getString("test").getOrDefault("")
     }
 
-    fun getRefreshToken() = viewModelScope.launch {
-        _reToken.value = plubJwtTokenRepository.getRefreshToken()
+    fun getBooleanByDataStore() = viewModelScope.launch {
+        _reToken.value = prefDataStoreRepository.getBoolean("test").getOrDefault(false).toString()
     }
 
     fun trySampleLogin() = viewModelScope.launch {
