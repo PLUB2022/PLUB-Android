@@ -11,7 +11,6 @@ import javax.inject.Singleton
 class ResourceProvider @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-    @Provides
     fun getString(@StringRes stringResId: Int): String {
         return context.getString(stringResId)
     }
