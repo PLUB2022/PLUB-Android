@@ -11,4 +11,7 @@
     <string name="onboarding_content_second">두번째 내용</string>
     <string name="onboarding_title_third">“ 해치지 않아요! ”</string>
     <string name="onboarding_content_third">세번째 내용</string>
+
+    <string name="login_plub_description">our play club,</string>
+    <string name="login_plub_name">PLUB!</string>
 </resources>
