@@ -2,7 +2,10 @@ package com.plub.data.repository
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
+import com.plub.data.base.BaseRepository
+import com.plub.domain.UiState
 import com.plub.domain.repository.PrefDataStoreRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -11,89 +14,32 @@ import javax.inject.Inject
 
 class PrefDataStoreRepositoryImpl @Inject constructor(
     private val dataStorePreference: DataStore<Preferences>
-) : PrefDataStoreRepository {
-    /**
-     * Exception 발생 시 빈 문자열("")을 반환합니다.
-     */
-    override suspend fun getString(key: String): Result<String> =
-        Result.runCatching {
-            val flow = dataStorePreference.data
-                .catch { exception ->
-                    if (exception is IOException) {
-                        emit(emptyPreferences())
-                    } else {
-                        throw exception
-                    }
-                }
-                .map { preferences ->
-                    preferences[stringPreferencesKey(key)]
-                }
-            val value = flow.firstOrNull() ?: ""
-            value
-        }
+) : PrefDataStoreRepository, BaseRepository() {
 
+    override suspend fun getString(key: String): UiState<String?> = request(dataStorePreference, stringPreferencesKey(key))
 
-    /**
-     * Exception 발생 시 -1을 반환합니다.
-     */
-    override suspend fun getInt(key: String): Result<Int> =
-        Result.runCatching {
-            val flow = dataStorePreference.data
-                .catch { exception ->
-                    if (exception is IOException) {
-                        emit(emptyPreferences())
-                    } else {
-                        throw exception
-                    }
-                }
-                .map { preferences ->
-                    preferences[intPreferencesKey(key)]
-                }
-            val value = flow.firstOrNull() ?: -1
-            value
-        }
+    override suspend fun getInt(key: String): Flow<Int?> =
+        dataStorePreference.data.map { preferences -> preferences[intPreferencesKey(key)] }
 
-    /**
-     * Exception 발생 시 null을 반환합니다.
-     */
-    override suspend fun getBoolean(key: String): Result<Boolean?> =
-        Result.runCatching {
-            val flow = dataStorePreference.data
-                .catch { exception ->
-                    if (exception is IOException) {
-                        emit(emptyPreferences())
-                    } else {
-                        throw exception
-                    }
-                }
-                .map { preferences ->
-                    preferences[booleanPreferencesKey(key)]
-                }
-            val value = flow.firstOrNull()
-            value
-        }
+    override suspend fun getBoolean(key: String): Flow<Boolean?> =
+        dataStorePreference.data.map { preferences -> preferences[booleanPreferencesKey(key)] }
 
     override suspend fun setString(key: String, value: String) {
-        Result.runCatching {
-            dataStorePreference.edit { preferences ->
-                preferences[stringPreferencesKey(key)] = value
-            }
+        dataStorePreference.edit { preferences ->
+            val a = stringPreferencesKey(key)
+            preferences[stringPreferencesKey(key)] = value
         }
     }
 
     override suspend fun setInt(key: String, value: Int) {
-        Result.runCatching {
-            dataStorePreference.edit { preferences ->
-                preferences[intPreferencesKey(key)] = value
-            }
+        dataStorePreference.edit { preferences ->
+            preferences[intPreferencesKey(key)] = value
         }
     }
 
     override suspend fun setBoolean(key: String, value: Boolean) {
-        Result.runCatching {
-            dataStorePreference.edit { preferences ->
-                preferences[booleanPreferencesKey(key)] = value
-            }
+        dataStorePreference.edit { preferences ->
+            preferences[booleanPreferencesKey(key)] = value
         }
     }
 }

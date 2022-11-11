@@ -1,11 +1,14 @@
 package com.plub.domain.repository
 
+import com.plub.domain.UiState
+import kotlinx.coroutines.flow.Flow
+
 interface PrefDataStoreRepository {
-    suspend fun getString(key: String): Result<String>
+    suspend fun getString(key: String): UiState<String?>
 
-    suspend fun getInt(key: String): Result<Int>
+    suspend fun getInt(key: String): Flow<Int?>
 
-    suspend fun getBoolean(key: String): Result<Boolean?>
+    suspend fun getBoolean(key: String): Flow<Boolean?>
 
     suspend fun setString(key: String, value: String)
 
