@@ -2,17 +2,13 @@ package com.plub.data.base
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.emptyPreferences
-import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.core.stringPreferencesKey
 import com.google.gson.Gson
 import com.plub.data.UiStateCallback
-import com.plub.domain.error.HttpError
+import com.plub.domain.error.UiError
 import com.plub.domain.UiState
 import com.plub.domain.base.DomainModel
 import com.plub.domain.result.Failure
 import com.plub.domain.result.StateResult
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -36,18 +32,18 @@ abstract class BaseRepository {
                 }
                 false -> {
                     val entity = Gson().fromJson(response.errorBody()?.string(), DataEntity::class.java)
-                    val error = HttpError.identifyError(response.code(),entity.customCode)
+                    val error = UiError.identifyHttpError(response.code(),entity.customCode)
                     result.onError(UiState.Error(error))
                 }
             }
         } catch (exception: Throwable) {
-            result.onError(UiState.Error(HttpError.ServiceUnavailable))
+            result.onError(UiState.Error(UiError.ServiceUnavailable))
         }
     }
 
     suspend fun <T> request(dataStore: DataStore<Preferences>, key: Preferences.Key<T>): UiState<T?> =
         dataStore.data
-            .catch { UiState.Error(HttpError.Invalided) }
+            .catch { UiState.Error(UiError.Invalided) }
             .map { preferences -> UiState.Success(preferences[key], StateResult.Succeed) }
             .first()
 }

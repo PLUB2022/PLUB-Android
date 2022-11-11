@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.ProgressBar
 import com.plub.domain.UiState
-import com.plub.domain.error.HttpError
+import com.plub.domain.error.UiError
 import com.plub.domain.result.CommonFailure
 import com.plub.domain.result.IndividualFailure
 import com.plub.domain.result.StateResult
@@ -60,7 +60,7 @@ class UiInspector(val context:Context) {
         commonProcessor.failProcess(failure)
     }
 
-    private fun handleError(httpError: HttpError) {
-        commonProcessor.errorProcess(httpError)
+    private fun handleError(uiError: UiError) {
+        commonProcessor.errorProcess(uiError)
     }
 }
