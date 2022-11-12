@@ -11,7 +11,7 @@ import javax.inject.Inject
 class GetBooleanFromDataStoreUseCase @Inject constructor(
     private val dataStoreRepository: PrefDataStoreRepository
 ) {
-    operator fun invoke(request: String): Flow<UiState<Boolean?>> {
-        return dataStoreRepository.getBoolean(request)
+    operator fun invoke(key: String): Flow<UiState<Boolean?>> {
+        return dataStoreRepository.getBoolean(key)
     }
 }
