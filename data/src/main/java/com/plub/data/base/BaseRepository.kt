@@ -58,6 +58,7 @@ abstract class BaseRepository {
         key: Preferences.Key<T>,
         value: T
     ): Flow<UiState<Nothing>> = flow {
+        emit(UiState.Loading)
         try {
             dataStore.edit { preferences ->
                 preferences[key] = value
