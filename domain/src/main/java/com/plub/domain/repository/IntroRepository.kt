@@ -1,7 +1,7 @@
 package com.plub.domain.repository
 
 import com.plub.domain.UiState
-import com.plub.domain.model.SampleLogin
+import com.plub.domain.model.vo.login.SampleLogin
 import kotlinx.coroutines.flow.Flow
 
 interface IntroRepository {

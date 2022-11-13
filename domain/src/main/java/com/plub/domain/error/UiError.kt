@@ -1,10 +1,10 @@
 package com.plub.domain.error
 
-sealed class HttpError:Throwable() {
+sealed class UiError:Throwable() {
     companion object{
         private const val UNAUTHORIZED_ERROR = 401
         private const val FORBIDDEN_ERROR = 403
-        fun identifyError(httpCode:Int,statusCode:Int) : HttpError {
+        fun identifyHttpError(httpCode:Int, statusCode:Int) : UiError {
             return when(httpCode) {
                 UNAUTHORIZED_ERROR -> UnauthorizedError.make(statusCode)
                 FORBIDDEN_ERROR -> ForbiddenError.make(statusCode)
@@ -13,6 +13,6 @@ sealed class HttpError:Throwable() {
         }
     }
 
-    object Invalided : HttpError()
-    object ServiceUnavailable : HttpError()
+    object Invalided : UiError()
+    object ServiceUnavailable : UiError()
 }

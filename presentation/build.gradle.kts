@@ -4,6 +4,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -47,8 +48,14 @@ dependencies {
 
     implementation(Libraries.COIL)
     implementation(Libraries.TIMBER)
+    implementation(Libraries.LOTTIE)
+    implementation(Libraries.INDICATOR)
 
     implementation(Google.MATERIAL)
     implementation(Google.HILT_ANDROID)
+
+    implementation(Glide.GLIDE)
+    annotationProcessor(Glide.GLIDE_COMPILER)
+
     kapt(Google.HILT_ANDROID_COMPILER)
 }

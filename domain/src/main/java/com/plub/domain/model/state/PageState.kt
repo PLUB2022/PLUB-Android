@@ -1,3 +1,6 @@
 package com.plub.domain.model.state
 
-interface PageState
+interface PageState {
+
+    object Default:PageState
+}
