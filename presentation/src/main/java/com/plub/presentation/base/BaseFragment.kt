@@ -9,17 +9,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.plub.domain.UiState
 import com.plub.domain.model.state.PageState
-import com.plub.domain.result.CommonFailure
 import com.plub.domain.result.IndividualFailure
-import com.plub.domain.result.StateResult
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewModel<STATE>>(
-    private val layoutRes:Int
+    private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> B,
 ) : Fragment() {
 
     protected abstract val viewModel: VM
@@ -35,7 +35,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        _binding = DataBindingUtil.inflate(layoutInflater, layoutRes, container, false)
+        _binding = inflater(layoutInflater, container, false)
         return binding.root
     }
 
@@ -46,12 +46,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
         uiInspector = UiInspector(requireContext())
 
         initView()
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                initState()
-            }
-        }
+        initState()
     }
 
     protected fun bindProgressBar(progressBar: ProgressBar) {
@@ -60,7 +55,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
 
     protected abstract fun initView()
 
-    protected abstract suspend fun initState()
+    protected abstract fun initState()
 
     override fun onDestroyView() {
         _binding = null
@@ -69,5 +64,11 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
 
     protected fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: ((T) -> Unit)? = null, individualFailCallback: ((T, IndividualFailure) -> Unit)? = null) {
         uiInspector.inspectUiState(uiState,succeedCallback, individualFailCallback)
+    }
+
+    protected fun LifecycleOwner.repeatOnStarted(viewLifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED, block)
+        }
     }
 }

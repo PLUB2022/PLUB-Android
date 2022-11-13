@@ -47,6 +47,9 @@ object Libraries {
     const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
 
     const val COIL = "io.coil-kt:coil-compose:${Versions.COIL}"
+
+    const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE}"
+    const val INDICATOR = "com.tbuonomo:dotsindicator:${Versions.INDICATOR}"
 }
 
 object UnitTest {
@@ -56,4 +59,9 @@ object UnitTest {
 object AndroidTest {
     const val ANDROID_JUNIT = "junit:junit:${Versions.ANDROID_JUNIT}"
     const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:${Versions.ESPRESSO_CORE}"
+}
+
+object Glide {
+    const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
+    const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:${Versions.GLIDE}"
 }
