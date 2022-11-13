@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
 import com.plub.domain.error.UnauthorizedError
 import com.plub.domain.model.state.SampleLoginPageState
-import com.plub.domain.repository.PrefDataStoreRepository
+import com.plub.domain.model.vo.datastore.DataStoreBooleanVo
 import com.plub.domain.usecase.GetBooleanFromDataStoreUseCase
 import com.plub.domain.usecase.SetBooleanFromDataStoreUseCase
 import com.plub.domain.usecase.TrySampleLoginUseCase
@@ -35,7 +35,7 @@ class SampleFragmentViewModel @Inject constructor(
     }
 
     fun saveBooleanByDataStore() = viewModelScope.launch {
-        setBooleanFromDataStoreUseCase("testBoolean", !reToken.value.toBoolean()).collect()
+        setBooleanFromDataStoreUseCase(DataStoreBooleanVo("testBoolean", !reToken.value.toBoolean())).collect()
     }
 
     fun getBooleanByDataStore() = viewModelScope.launch {
