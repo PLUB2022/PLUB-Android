@@ -25,13 +25,6 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding,OnboardingPage
                 adapter = pagerAdapter
                 dotsIndicator.attachTo(this)
             }
-
-            textViewSkip.setOnClickListener {
-                viewModel.onClickSkip()
-            }
-            buttonNext.setOnClickListener {
-                viewModel.onClickNext()
-            }
         }
         viewModel.fetchOnboardingData()
     }
