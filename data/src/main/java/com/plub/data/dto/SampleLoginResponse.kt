@@ -1,8 +1,8 @@
-package com.plub.data.model
+package com.plub.data.dto
 
-import com.plub.data.base.DataEntity
+import com.plub.data.base.DataDto
 
 data class SampleLoginResponse(
     val login: String,
     val register: String
-):DataEntity()
+):DataDto()

@@ -2,7 +2,6 @@ package com.plub.data.base
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import com.google.gson.Gson
 import com.plub.data.UiStateCallback
@@ -16,29 +15,28 @@ import retrofit2.Response
 
 abstract class BaseRepository {
 
-    suspend fun <E : DataEntity, D : DomainModel> request(
-        response: Response<E>,
-        mapper: Mapper<E, D>,
-        result: UiStateCallback<D>
+    suspend fun <D : DataDto, M : DomainModel> request(
+        response: Response<D>,
+        mapper: Mapper<D, M>,
+        result: UiStateCallback<M>
     ) {
         try {
             when (response.isSuccessful) {
                 true -> {
-                    val entity = response.body() as E
-                    val domainModel = mapper.mapFromEntity(entity)
+                    val dto = response.body() as D
+                    val domainModel = responseMapToModel(mapper,dto)
 
                     val stateResult: StateResult =
-                        when (entity.customCode == StateResult.SUCCEED_CODE) {
+                        when (dto.customCode == StateResult.SUCCEED_CODE) {
                             true -> StateResult.Succeed
-                            false -> Failure.identifyFailure(entity.customCode)
+                            false -> Failure.identifyFailure(dto.customCode)
                         }
 
-                    result.onSuccess(UiState.Success(domainModel, stateResult), entity.customCode)
+                    result.onSuccess(UiState.Success(domainModel, stateResult), dto.customCode)
                 }
                 false -> {
-                    val entity =
-                        Gson().fromJson(response.errorBody()?.string(), DataEntity::class.java)
-                    val error = UiError.identifyHttpError(response.code(), entity.customCode)
+                    val dto = Gson().fromJson(response.errorBody()?.string(), DataDto::class.java)
+                    val error = UiError.identifyHttpError(response.code(), dto.customCode)
                     result.onError(UiState.Error(error))
                 }
             }
@@ -66,5 +64,13 @@ abstract class BaseRepository {
         } catch (e: Exception) {
             emit(UiState.Error(UiError.Invalided))
         }
+    }
+
+    protected fun<D : DataDto, M : DomainModel> requestMapToDto(mapper: Mapper<D, M>, model:M):D {
+        return mapper.mapModelToDto(model)
+    }
+
+    protected fun<D : DataDto, M : DomainModel> responseMapToModel(mapper: Mapper<D, M>, dto:D):M {
+        return mapper.mapDtoToModel(dto)
     }
 }

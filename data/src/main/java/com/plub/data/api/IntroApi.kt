@@ -1,6 +1,6 @@
 package com.plub.data.api
 
-import com.plub.data.model.SampleLoginResponse
+import com.plub.data.dto.SampleLoginResponse
 import retrofit2.Response
 
 interface IntroApi {

@@ -2,7 +2,7 @@ package com.plub.data.base
 
 import com.google.gson.annotations.SerializedName
 
-open class DataEntity {
+open class DataDto {
 
     @SerializedName("code")
     val customCode:Int = 0
