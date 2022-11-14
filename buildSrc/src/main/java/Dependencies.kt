@@ -22,7 +22,8 @@ object AndroidX {
     const val NAVIGATION_FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION}"
     const val NAVIGATION_UI_KTX = "androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION}"
     const val LEGACY_SUPPORT = "androidx.legacy:legacy-support-v4:${Versions.LEGACY}"
-    const val DATA_STORE = "androidx.datastore:datastore:${Versions.DATA_STORE}"
+    const val DATA_STORE_PROTO = "androidx.datastore:datastore:${Versions.DATA_STORE}"
+    const val DATA_STORE_PREFERENCES = "androidx.datastore:datastore-preferences:${Versions.DATA_STORE}"
 }
 
 object Google {

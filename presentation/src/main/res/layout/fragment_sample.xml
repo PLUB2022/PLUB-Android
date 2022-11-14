@@ -15,70 +15,40 @@
         android:layout_height="match_parent"
         tools:context=".ui.sample.SampleFragment">
 
-        <EditText
-            android:id="@+id/et_ac_token_test"
+        <TextView
+            android:id="@+id/tv_re_token_test"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="ac token"
-            android:text="@={viewModel.acTokenInput}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btn_save_ac_token"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.saveAcToken()}"
-            android:text="저장"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/et_ac_token_test" />
-
-        <EditText
-            android:id="@+id/et_re_token_test"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="re token"
             android:text="@={viewModel.reTokenInput}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_ac_token_test" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_save_re_token"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.saveReToken()}"
-            android:text="저장"
+            android:onClick="@{() -> viewModel.saveBooleanByDataStore()}"
+            android:text="Boolean 저장"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/et_re_token_test" />
-
-        <Button
-            android:id="@+id/tv_ac_token_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:onClick="@{() -> viewModel.getAccessToken()}"
-            android:text="acToken : "
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_re_token_test" />
+            app:layout_constraintTop_toTopOf="@id/tv_re_token_test" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.acToken}"
-            app:layout_constraintStart_toEndOf="@id/tv_ac_token_title"
-            app:layout_constraintTop_toTopOf="@id/tv_ac_token_title" />
+            app:layout_constraintStart_toEndOf="@id/btn_save_re_token"
+            app:layout_constraintTop_toTopOf="@id/btn_save_re_token" />
 
         <Button
             android:id="@+id/tv_re_token_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:onClick="@{() -> viewModel.getRefreshToken()}"
-            android:text="reToken : "
+            android:onClick="@{() -> viewModel.getBooleanByDataStore()}"
+            android:text="저장된 Boolean 값 : "
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_ac_token_title" />
+            app:layout_constraintTop_toBottomOf="@id/btn_save_re_token" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -120,35 +90,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:showLoadingProgressBar="@{viewModel.uiState.loginData}" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/teal_700"
-            app:showErrorPage="@{viewModel.uiState.loginData}"
-            tools:visibility="gone">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="200dp"
-                android:text="This is Error Page"
-                android:textColor="@color/white"
-                android:textSize="28sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.trySampleLogin()}"
-                android:text="refresh"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

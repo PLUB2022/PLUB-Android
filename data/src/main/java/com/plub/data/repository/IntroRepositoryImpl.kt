@@ -4,9 +4,8 @@ import com.plub.data.UiStateCallback
 import com.plub.data.api.IntroApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.SampleLoginMapper
-import com.plub.domain.error.HttpError
+import com.plub.domain.error.UiError
 import com.plub.domain.UiState
-import com.plub.domain.result.IndividualFailure
 import com.plub.domain.result.LoginFailure
 import com.plub.domain.model.vo.login.SampleLogin
 import com.plub.domain.repository.IntroRepository
@@ -33,5 +32,5 @@ class IntroRepositoryImpl @Inject constructor(private val introApi: IntroApi) : 
                 emit(state)
             }
         })
-    }.catch { emit(UiState.Error(HttpError.Invalided)) }
+    }.catch { emit(UiState.Error(UiError.Invalided)) }
 }

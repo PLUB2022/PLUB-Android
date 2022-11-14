@@ -2,12 +2,11 @@ package com.plub.presentation.ui.sample
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
-import com.plub.domain.error.HttpError
 import com.plub.domain.error.UnauthorizedError
-import com.plub.domain.model.vo.login.SampleLogin
-import com.plub.domain.repository.PlubJwtTokenRepository
-import com.plub.domain.successOrNull
 import com.plub.domain.model.state.SampleLoginPageState
+import com.plub.domain.model.vo.datastore.DataStoreBooleanVo
+import com.plub.domain.usecase.GetBooleanFromDataStoreUseCase
+import com.plub.domain.usecase.SetBooleanFromDataStoreUseCase
 import com.plub.domain.usecase.TrySampleLoginUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SampleFragmentViewModel @Inject constructor(
     private val trySampleLoginUseCase: TrySampleLoginUseCase,
-    private val plubJwtTokenRepository: PlubJwtTokenRepository
+    private val getBooleanFromDataStoreUseCase: GetBooleanFromDataStoreUseCase,
+    private val setBooleanFromDataStoreUseCase: SetBooleanFromDataStoreUseCase
 ) : BaseViewModel<SampleLoginPageState>(SampleLoginPageState()) {
 
     val acTokenInput = MutableStateFlow("")
@@ -34,20 +34,18 @@ class SampleFragmentViewModel @Inject constructor(
         trySampleLogin()
     }
 
-    fun saveAcToken() = viewModelScope.launch {
-        plubJwtTokenRepository.saveAccessToken(acTokenInput.value)
+    fun saveBooleanByDataStore() = viewModelScope.launch {
+        setBooleanFromDataStoreUseCase(DataStoreBooleanVo("testBoolean", !reToken.value.toBoolean())).collect()
     }
 
-    fun saveReToken() = viewModelScope.launch {
-        plubJwtTokenRepository.saveAccessTokenAndRefreshToken(acTokenInput.value, reTokenInput.value)
-    }
-
-    fun getAccessToken() = viewModelScope.launch {
-        _acToken.value = plubJwtTokenRepository.getAccessToken()
-    }
-
-    fun getRefreshToken() = viewModelScope.launch {
-        _reToken.value = plubJwtTokenRepository.getRefreshToken()
+    fun getBooleanByDataStore() = viewModelScope.launch {
+        getBooleanFromDataStoreUseCase("testBoolean").collect { state ->
+            _reToken.value = when (state) {
+                is UiState.Loading -> "loading"
+                is UiState.Success -> state.data.toString()
+                is UiState.Error -> state.error.toString()
+            }
+        }
     }
 
     fun trySampleLogin() = viewModelScope.launch {

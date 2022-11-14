@@ -1,6 +1,6 @@
 package com.plub.domain.error
 
-sealed class ForbiddenError: HttpError() {
+sealed class ForbiddenError: UiError() {
     companion object{
 
         private const val STATUS_BLOCKED_USER = 400

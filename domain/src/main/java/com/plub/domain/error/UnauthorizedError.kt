@@ -1,6 +1,6 @@
 package com.plub.domain.error
 
-sealed class UnauthorizedError : HttpError() {
+sealed class UnauthorizedError : UiError() {
     companion object {
         fun make(statusCode: Int): UnauthorizedError {
             return Common
