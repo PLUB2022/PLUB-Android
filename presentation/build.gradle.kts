@@ -14,6 +14,8 @@ android {
         minSdk = Configs.MIN_SDK
         targetSdk = Configs.TARGET_SDK
 
+        vectorDrawables.useSupportLibrary = true
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -53,6 +55,7 @@ dependencies {
 
     implementation(Google.MATERIAL)
     implementation(Google.HILT_ANDROID)
+    implementation(Google.GOOGLE_PLAY_SERVICE)
 
     implementation(Glide.GLIDE)
     annotationProcessor(Glide.GLIDE_COMPILER)

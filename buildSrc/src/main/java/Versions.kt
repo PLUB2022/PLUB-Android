@@ -21,6 +21,7 @@ object Versions {
     const val CORE_KTX = "1.8.0"
 
     /* [ Google ] */
+    const val GOOGLE_PLAY_SERVICE = "20.3.0"
     const val HILT = "2.42"
     const val MATERIAL = "1.6.1"
     const val TINK = "1.7.0"

@@ -27,6 +27,7 @@ object AndroidX {
 }
 
 object Google {
+    const val GOOGLE_PLAY_SERVICE = "com.google.android.gms:play-services-auth:${Versions.GOOGLE_PLAY_SERVICE}"
     const val HILT_ANDROID = "com.google.dagger:hilt-android:${Versions.HILT}"
     const val HILT_ANDROID_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.HILT}"
     const val HILT_CORE = "com.google.dagger:hilt-core:${Versions.HILT}"
