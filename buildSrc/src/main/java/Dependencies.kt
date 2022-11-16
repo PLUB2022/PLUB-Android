@@ -24,6 +24,7 @@ object AndroidX {
     const val LEGACY_SUPPORT = "androidx.legacy:legacy-support-v4:${Versions.LEGACY}"
     const val DATA_STORE_PROTO = "androidx.datastore:datastore:${Versions.DATA_STORE}"
     const val DATA_STORE_PREFERENCES = "androidx.datastore:datastore-preferences:${Versions.DATA_STORE}"
+    const val RECYCLER_VIEW = "androidx.recyclerview:recyclerview:${Versions.RECYCLER_VIEW}"
 }
 
 object Google {

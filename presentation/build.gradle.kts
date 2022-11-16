@@ -45,6 +45,7 @@ dependencies {
     implementation(AndroidX.NAVIGATION_FRAGMENT_KTX)
     implementation(AndroidX.NAVIGATION_UI_KTX)
     implementation(AndroidX.LEGACY_SUPPORT)
+    implementation(AndroidX.RECYCLER_VIEW)
 
     implementation(Libraries.COIL)
     implementation(Libraries.TIMBER)
