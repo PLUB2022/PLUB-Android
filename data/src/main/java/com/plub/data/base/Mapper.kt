@@ -2,7 +2,11 @@ package com.plub.data.base
 
 import com.plub.domain.base.DomainModel
 
-abstract class Mapper<DTO:DataDto, DOMAIN_MODEL:DomainModel> {
-    abstract fun mapDtoToModel(type: DTO):DOMAIN_MODEL
-    abstract fun mapModelToDto(type: DOMAIN_MODEL):DTO
+interface Mapper {
+    interface RequestMapper<DTO:DataDto, DOMAIN_MODEL:DomainModel>:Mapper {
+        fun mapModelToDto(type: DOMAIN_MODEL):DTO
+    }
+    interface ResponseMapper<DTO:DataDto, DOMAIN_MODEL:DomainModel>:Mapper {
+        fun mapDtoToModel(type: DTO?):DOMAIN_MODEL
+    }
 }
