@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.plub.presentation">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +17,14 @@
         <activity
             android:name=".ui.home.MainActivity"
             android:exported="true">
+            android:name=".MainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.sign.SignActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -47,7 +47,8 @@ dependencies {
     implementation(AndroidX.CORE_KTX)
     implementation(AndroidX.APP_COMPAT)
     implementation(AndroidX.CONSTRAINT_LAYOUT)
-    implementation(AndroidX.DATA_STORE)
+    implementation(AndroidX.DATA_STORE_PROTO)
+    implementation(AndroidX.DATA_STORE_PREFERENCES)
     implementation(Google.MATERIAL)
     implementation(Google.TINK)
 

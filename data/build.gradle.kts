@@ -35,7 +35,8 @@ dependencies {
     implementation(Kotlin.COROUTINES_CORE)
     implementation(Kotlin.KOTLIN_SERIALIZATION_JSON)
 
-    implementation(AndroidX.DATA_STORE)
+    implementation(AndroidX.DATA_STORE_PROTO)
+    implementation(AndroidX.DATA_STORE_PREFERENCES)
 
     implementation(Libraries.RETROFIT)
     implementation(Libraries.RETROFIT_CONVERTER_GSON)
