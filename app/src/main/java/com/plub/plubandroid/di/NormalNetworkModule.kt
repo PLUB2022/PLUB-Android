@@ -75,10 +75,4 @@ object NormalNetworkModule {
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
-
-    @Singleton
-    @Provides
-    fun provideIntroApi(@NormalRetrofit retrofit: Retrofit): IntroApi {
-        return retrofit.create(IntroApi::class.java)
-    }
 }
