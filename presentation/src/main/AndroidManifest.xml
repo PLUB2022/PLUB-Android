@@ -16,9 +16,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.home.MainActivity"
-            android:exported="true">
-            android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="true"/>
 
         <activity
             android:name=".ui.sign.SignActivity"

@@ -5,7 +5,6 @@ import com.plub.domain.model.state.SampleLoginPageState
 import com.plub.domain.model.vo.login.SampleLogin
 import com.plub.domain.result.LoginFailure
 import com.plub.presentation.base.BaseFragment
-import com.plub.presentation.base.UiInspector
 import com.plub.presentation.databinding.FragmentSampleBinding
 import dagger.hilt.android.AndroidEntryPoint
 

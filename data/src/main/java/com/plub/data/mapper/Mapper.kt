@@ -6,7 +6,7 @@ import com.plub.data.model.SampleAuthInfoResponse
 import com.plub.data.model.SampleLoginResponse
 import com.plub.domain.model.SampleAccount
 import com.plub.domain.model.SampleAuthInfo
-import com.plub.domain.model.SampleLogin
+import com.plub.domain.model.vo.login.SampleLogin
 import retrofit2.Call
 import retrofit2.Response
 
