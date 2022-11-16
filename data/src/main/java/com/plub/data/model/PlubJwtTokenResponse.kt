@@ -4,11 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class PlubJwtTokenResponse(
     @SerializedName("data")
-    val data : PlubJwtTokenData,
+    val data : PlubJwtTokenData
+)
 
-    @SerializedName("message")
-    val message : String,
+data class PlubJwtTokenData(
+    @SerializedName("accessToken")
+    val accessToken : String,
 
-    @SerializedName("status")
-    val status : String
+    @SerializedName("refreshToken")
+    val refreshToken : String
 )

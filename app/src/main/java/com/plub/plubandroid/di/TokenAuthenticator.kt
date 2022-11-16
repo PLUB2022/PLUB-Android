@@ -2,7 +2,7 @@ package com.plub.plubandroid.di
 
 import com.plub.data.api.PlubJwtTokenApi
 import com.plub.data.model.PlubJwtTokenResponse
-import com.plub.data.model.ReIssueModel
+import com.plub.data.model.JWTTokenReIssueRequest
 import com.plub.domain.repository.PlubJwtTokenRepository
 import com.plub.plubandroid.util.RETROFIT_TAG
 import kotlinx.coroutines.*
@@ -18,7 +18,6 @@ import javax.inject.Singleton
 class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository: PlubJwtTokenRepository, private val plubJwtTokenApi: PlubJwtTokenApi) :
     Authenticator {
     override fun authenticate(route: Route?, response: okhttp3.Response): Request? {
-        //return null
         val access = runBlocking {
             plubJwtTokenRepository.getAccessToken()
         }
@@ -31,23 +30,17 @@ class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository:
                 plubJwtTokenRepository.getAccessToken()
             }
 
-            val reIssueModel = ReIssueModel(refresh)
-
             val isTokenRefreshed = if (access != newAccess) true else {
-                Tdebug("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: ${reIssueModel.refreshToken}")
-//                //TODO 재발행하는 코드
-//                val tokenResponse =
-//                    runBlocking { api.refreshToken(RequestTokenBody(access, refresh)) }
-//                handleResponse(tokenResponse)
+                Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
                 val tokenResponse =
                     runBlocking {
-                        plubJwtTokenApi.reIssueToken(reIssueModel)
+                        plubJwtTokenApi.reIssueToken(JWTTokenReIssueRequest(refresh))
                     }
                 handleResponse(tokenResponse)
             }
 
             return if (isTokenRefreshed) {
-                Tdebug("TokenAuthenticator - authenticate() called / 중단된 API 재요청")
+                Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 중단된 API 재요청")
                 response.request
                     .newBuilder()
                     .removeHeader("Authorization")
@@ -70,14 +63,7 @@ class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository:
             }
             true
         } else {
-            Tdebug("TokenAuthenticator - handleResponse() called / 리프레시 토큰이 만료되어 로그 아웃 되었습니다.")
+            Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - handleResponse() called / 리프레시 토큰이 만료되어 로그 아웃 되었습니다.")
             false
         }
-
-
-    fun Tdebug( content : String){
-        Timber.tag(RETROFIT_TAG).d(
-            content
-        )
-    }
 }

@@ -18,13 +18,9 @@ class AuthenticationInterceptor@Inject constructor(private val plubJwtTokenRepos
         val request = chain.request().newBuilder()
             .addHeader("Authorization", "Bearer $accessToken").build()
 
-        Tdebug("AuthenticationInterceptor - intercept() called / request header: ${request.headers}")
-        return chain.proceed(request)
-    }
-
-    fun Tdebug( content : String){
         Timber.tag(RETROFIT_TAG).d(
-            content
+            "AuthenticationInterceptor - intercept() called / request header: ${request.headers}"
         )
+        return chain.proceed(request)
     }
 }
