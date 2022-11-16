@@ -25,6 +25,8 @@ class SignActivity : BaseActivity<ActivitySignBinding,PageState.Default,SignView
     }
 
     override fun initState() {
+        super.initState()
+
 
     }
 

@@ -7,6 +7,7 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentOnboardingBinding
 import com.plub.presentation.ui.sign.onboarding.adapter.OnboardingViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -30,16 +31,19 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding,OnboardingPage
     }
 
     override fun initState() {
-        repeatOnStarted(viewLifecycleOwner) {
-            viewModel.uiState.collect {
-                pagerAdapter.submitList(it.onboardingDataList)
-                movePage(it.currentPage)
-            }
-        }
+        super.initState()
 
         repeatOnStarted(viewLifecycleOwner) {
-            viewModel.goToLoginFragment.collect {
-                goToLogin()
+            launch {
+                viewModel.uiState.collect {
+                    pagerAdapter.submitList(it.onboardingDataList)
+                    movePage(it.currentPage)
+                }
+            }
+            launch {
+                viewModel.goToLoginFragment.collect {
+                    goToLogin()
+                }
             }
         }
     }

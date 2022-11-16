@@ -16,6 +16,7 @@ import com.plub.domain.UiState
 import com.plub.domain.model.state.PageState
 import com.plub.domain.result.IndividualFailure
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewModel<STATE>>(
@@ -28,7 +29,8 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
     protected val binding
         get() = _binding!!
 
-    private lateinit var uiInspector:UiInspector
+    private lateinit var commonProcessor: CommonProcessor
+    private var progressView:ProgressBar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,32 +45,48 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
-        uiInspector = UiInspector(requireContext())
+        commonProcessor = CommonProcessor(requireContext())
 
         initView()
         initState()
     }
 
     protected fun bindProgressBar(progressBar: ProgressBar) {
-        uiInspector.bindProgressView(progressBar)
+        progressView = progressBar
     }
 
     protected abstract fun initView()
 
-    protected abstract fun initState()
+    protected open fun initState() {
+        repeatOnStarted(viewLifecycleOwner) {
+            launch {
+                viewModel.showProgress.collect {
+                    progressView?.visibility = if(it) View.VISIBLE else View.GONE
+                }
+            }
 
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
+            launch {
+                viewModel.commonFailure.collect {
+                    commonProcessor.failProcess(it)
+                }
+            }
 
-    protected fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: ((T) -> Unit)? = null, individualFailCallback: ((T, IndividualFailure) -> Unit)? = null) {
-        uiInspector.inspectUiState(uiState,succeedCallback, individualFailCallback)
+            launch {
+                viewModel.uiError.collect {
+                    commonProcessor.errorProcess(it)
+                }
+            }
+        }
     }
 
     protected fun LifecycleOwner.repeatOnStarted(viewLifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit) {
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED, block)
         }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }
