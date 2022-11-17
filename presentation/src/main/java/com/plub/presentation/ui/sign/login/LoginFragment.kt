@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.sign.login
 
 import android.content.Intent
+import android.graphics.Color
+import android.text.method.LinkMovementMethod
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -33,6 +35,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding,LoginPageState, LoginVie
 
         binding.apply {
             vm = viewModel
+
+            textViewTerms.apply {
+                movementMethod = LinkMovementMethod.getInstance()
+                highlightColor = Color.TRANSPARENT
+            }
 
             googleLogout.setOnClickListener {
                 //TODO 테스트 이후 뷰 xml과 같이 지워야함

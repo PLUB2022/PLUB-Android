@@ -1,16 +1,22 @@
 package com.plub.presentation.ui.sign.login
 
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextPaint
+import android.text.style.ClickableSpan
+import android.view.View
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.plub.domain.model.enums.SocialLoginType
+import com.plub.domain.model.enums.TermsType
 import com.plub.domain.model.state.LoginPageState
 import com.plub.domain.model.vo.login.SocialLoginRequestVo
 import com.plub.domain.model.vo.login.SocialLoginResponseVo
 import com.plub.domain.result.LoginFailure
-import com.plub.domain.successOrNull
 import com.plub.domain.usecase.PostSocialLoginUseCase
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.ResourceProvider
@@ -25,6 +31,9 @@ class LoginViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
     val postSocialLoginUseCase: PostSocialLoginUseCase
 ) : BaseViewModel<LoginPageState>(LoginPageState()) {
+
+    private val _termsText = MutableStateFlow(getTermsString())
+    val termsText: StateFlow<SpannableString> = _termsText.asStateFlow()
 
     private val _signInGoogle = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
     val signInGoogle: SharedFlow<Unit> = _signInGoogle.asSharedFlow()
@@ -54,7 +63,7 @@ class LoginViewModel @Inject constructor(
 
     private fun socialLogin(socialLoginType: SocialLoginType, authCode: String) {
         viewModelScope.launch {
-            val request = SocialLoginRequestVo(socialLoginType, authCode, false)
+            val request = SocialLoginRequestVo(socialLoginType, authCode, true)
             postSocialLoginUseCase(request).collect { state ->
                 inspectUiState(state, ::handleLoginSuccess) { _ , individual ->
                     handleLoginFailure(individual as LoginFailure)
@@ -78,5 +87,52 @@ class LoginViewModel @Inject constructor(
             }
             else -> Unit
         }
+    }
+
+    private fun getTermsString():SpannableString {
+        val termsText = getStringResource(R.string.login_plub_terms)
+        val privacyPosition = getTermsPosition(termsText, TermsType.PRIVACY)
+        val servicePosition = getTermsPosition(termsText, TermsType.SERVICE)
+
+        val termsSpannableString = SpannableString(termsText).apply {
+            setSpan(getTermsClickableSpan(TermsType.PRIVACY),privacyPosition.first, privacyPosition.second, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(getTermsClickableSpan(TermsType.SERVICE),servicePosition.first, servicePosition.second, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
+        return termsSpannableString
+    }
+
+    private fun getTermsPosition(termsString:String, termsType: TermsType):Pair<Int,Int> {
+        val termsTypeRes = when(termsType) {
+            TermsType.SERVICE -> R.string.word_terms_service
+            TermsType.PRIVACY -> R.string.word_terms_privacy
+        }
+        val termsTypeString = getStringResource(termsTypeRes)
+        val termsTypeStartIdx = termsString.indexOf(termsTypeString)
+        val termsTypeEndIdx = termsTypeStartIdx + termsTypeString.length
+
+        return Pair(termsTypeStartIdx, termsTypeEndIdx)
+    }
+
+    private fun getTermsClickableSpan(termsType: TermsType):ClickableSpan {
+        return object : ClickableSpan() {
+            override fun updateDrawState(textPaint: TextPaint) {
+                textPaint.isUnderlineText = true
+            }
+
+            override fun onClick(p0: View) {
+                goToTerms(termsType)
+            }
+        }
+    }
+
+    private fun goToTerms(termsType: TermsType) {
+        updateUiState { uiState ->
+            uiState.copy(authCode = termsType.toString())
+        }
+    }
+
+    private fun getStringResource(res: Int): String {
+        return resourceProvider.getString(res)
     }
 }
