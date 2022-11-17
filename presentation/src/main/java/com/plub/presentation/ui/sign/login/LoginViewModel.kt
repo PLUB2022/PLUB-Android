@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.sign.login
 
+import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
@@ -117,7 +118,8 @@ class LoginViewModel @Inject constructor(
     private fun getTermsClickableSpan(termsType: TermsType):ClickableSpan {
         return object : ClickableSpan() {
             override fun updateDrawState(textPaint: TextPaint) {
-                textPaint.isUnderlineText = true
+                textPaint.color = getColorResource(R.color.color_5f5ff9)
+                textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
             }
 
             override fun onClick(p0: View) {
@@ -134,5 +136,9 @@ class LoginViewModel @Inject constructor(
 
     private fun getStringResource(res: Int): String {
         return resourceProvider.getString(res)
+    }
+
+    private fun getColorResource(res: Int): Int {
+        return resourceProvider.getColor(res)
     }
 }
