@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">presentation</string>
     <string name="web_google_client_id">746494448016-j25cuo21ut0ofgbba9h4n6b63502uimi.apps.googleusercontent.com</string>
+    <string name="kakao_redirect_url_key">kakao5c988e60cc77ac9ad664f1f37293ee2d</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="word_skip_uppercase">SKIP</string>
     <string name="word_next">다음</string>
