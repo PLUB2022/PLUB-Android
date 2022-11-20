@@ -39,9 +39,18 @@ class LoginViewModel @Inject constructor(
     private val _signInGoogle = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
     val signInGoogle: SharedFlow<Unit> = _signInGoogle.asSharedFlow()
 
+    private val _signInKakao = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
+    val signInKakao: SharedFlow<Unit> = _signInKakao.asSharedFlow()
+
     fun onClickGoogleLogin() {
         viewModelScope.launch {
             _signInGoogle.emit(Unit)
+        }
+    }
+
+    fun onClickKakaoLogin() {
+        viewModelScope.launch {
+            _signInKakao.emit(Unit)
         }
     }
 

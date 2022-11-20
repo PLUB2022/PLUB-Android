@@ -57,6 +57,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding,LoginPageState, LoginVie
                     signInGoogle()
                 }
             }
+
+            launch {
+                viewModel.signInKakao.collect {
+                    signInKakao()
+                }
+            }
         }
     }
 
@@ -93,6 +99,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding,LoginPageState, LoginVie
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             viewModel.handleGoogleSignInResult(task)
         }
+    }
+
+    private fun signInKakao() {
+
     }
 
     private fun logout() {

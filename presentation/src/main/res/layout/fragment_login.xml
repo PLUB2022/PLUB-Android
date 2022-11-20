@@ -42,38 +42,90 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_plub_logo"
-            app:layout_constraintBottom_toTopOf="@+id/linear_layout_login"
+            android:src="@drawable/ic_plub_logo"
+            app:layout_constraintBottom_toTopOf="@+id/constraint_layout_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linear_layout_login"
+            android:id="@+id/constraint_layout_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
             android:layout_marginBottom="103dp"
-            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/text_view_terms">
 
-            <Button
-                android:id="@+id/button_kakao"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.gms.common.SignInButton
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_kakao"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                android:onClick="@{() -> vm.onClickGoogleLogin()}"
-                app:buttonSize="wide"
+                android:background="@drawable/bg_rectangle_filled_fee500_radius_5"
+                android:onClick="@{() -> vm.onClickKakaoLogin()}"
+                android:paddingHorizontal="20dp"
                 app:layout_constraintDimensionRatio="280:45"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_kakao" />
+                app:layout_constraintTop_toTopOf="parent">
 
+                <ImageView
+                    android:id="@+id/image_view_kakao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_kakao_login"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_view_kakao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/login_kakao_text"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_view_kakao"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_view_kakao"
+                    app:layout_constraintTop_toTopOf="@+id/image_view_kakao" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_google"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_5"
+                android:onClick="@{() -> vm.onClickGoogleLogin()}"
+                android:paddingHorizontal="20dp"
+                app:layout_constraintDimensionRatio="280:45"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraint_layout_kakao">
+
+                <ImageView
+                    android:id="@+id/image_view_google"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_kakao_login"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_view_google"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/login_google_text"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_view_google"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_view_google"
+                    app:layout_constraintTop_toTopOf="@+id/image_view_google" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView

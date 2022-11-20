@@ -17,5 +17,7 @@
     <string name="login_plub_description">our play club,</string>
     <string name="login_plub_name">PLUB!</string>
     <string name="login_plub_terms">가입을 진행할 경우, 서비스 약관 및\n개인정보 처리방침에 동의한 것으로 간주합니다.</string>
+    <string name="login_kakao_text">카카오톡으로 계속하기</string>
+    <string name="login_google_text">Google로 계속하기</string>
 
 </resources>
