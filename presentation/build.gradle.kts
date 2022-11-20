@@ -52,6 +52,7 @@ dependencies {
     implementation(Libraries.TIMBER)
     implementation(Libraries.LOTTIE)
     implementation(Libraries.INDICATOR)
+    implementation(Libraries.KAKAO)
 
     implementation(Google.MATERIAL)
     implementation(Google.HILT_ANDROID)

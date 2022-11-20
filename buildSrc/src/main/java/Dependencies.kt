@@ -51,6 +51,8 @@ object Libraries {
 
     const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE}"
     const val INDICATOR = "com.tbuonomo:dotsindicator:${Versions.INDICATOR}"
+
+    const val KAKAO = "com.kakao.sdk:v2-user:${Versions.KAKAO}"
 }
 
 object UnitTest {

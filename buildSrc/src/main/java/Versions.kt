@@ -37,6 +37,8 @@ object Versions {
     const val LOTTIE = "3.0.7"
     const val INDICATOR = "4.3"
 
+    const val KAKAO = "2.11.2"
+
     /* [ UnitTest ] */
     const val JUNIT = "4.13.2"
 
