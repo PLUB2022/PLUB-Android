@@ -18,35 +18,36 @@ import javax.inject.Singleton
 class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository: PlubJwtTokenRepository, private val plubJwtTokenApi: PlubJwtTokenApi) :
     Authenticator {
     override fun authenticate(route: Route?, response: okhttp3.Response): Request? {
-        val access = runBlocking {
-            plubJwtTokenRepository.getAccessToken()
-        }
-        val refresh = runBlocking {
-            plubJwtTokenRepository.getRefreshToken()
-        }
+        val access = GlobalScope.launch {
+            getAccessToken()
+        }.toString()
+        val refresh = GlobalScope.launch {
+            getRefreshToken()
+        }.toString()
 
         synchronized(this) {
-            val newAccess = runBlocking {
-                plubJwtTokenRepository.getAccessToken()
-            }
+            val newAccess = GlobalScope.launch {
+                getAccessToken()
+            }.toString()
 
             val isTokenRefreshed = if (access != newAccess) true else {
                 Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
-                val tokenResponse =
-                    runBlocking {
-                        plubJwtTokenApi.reIssueToken(JWTTokenReIssueRequest(refresh))
-                    }
-                handleResponse(tokenResponse)
+                val tokenResponse = plubJwtTokenApi.reIssueToken(JWTTokenReIssueRequest(refresh))
+                GlobalScope.launch {
+                    handleResponse(tokenResponse)
+                }
             }
 
-            return if (isTokenRefreshed) {
+            return if (isTokenRefreshed as Boolean) {
                 Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 중단된 API 재요청")
                 response.request
                     .newBuilder()
                     .removeHeader("Authorization")
                     .header(
                         "Authorization",
-                        "Bearer " + runBlocking { plubJwtTokenRepository.getRefreshToken() }
+                        "Bearer " +  GlobalScope.launch {
+                            getRefreshToken()
+                        }.toString()
                     )
                     .build()
             } else {
@@ -56,14 +57,26 @@ class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository:
 
     }
 
-    private fun handleResponse(tokenResponse: Response<PlubJwtTokenResponse>) =
+    private suspend fun handleResponse(tokenResponse: Response<PlubJwtTokenResponse>) =
         if (tokenResponse.isSuccessful) {
-            runBlocking {
-                plubJwtTokenRepository.saveAccessTokenAndRefreshToken(tokenResponse.body()!!.data.accessToken, tokenResponse.body()!!.data.refreshToken)
+            if(tokenResponse.body() != null){
+                plubJwtTokenRepository.saveAccessTokenAndRefreshToken(tokenResponse.body()!!.data!!.accessToken, tokenResponse.body()!!.data!!.refreshToken)
+                true
+            } else {
+                Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - handleResponse() called / tokenResponse의 body가 null 입니다.")
+                false
             }
-            true
+
         } else {
             Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - handleResponse() called / 리프레시 토큰이 만료되어 로그 아웃 되었습니다.")
             false
         }
+
+    private suspend fun getAccessToken(): String {
+        return plubJwtTokenRepository.getAccessToken()
+    }
+
+    private suspend fun getRefreshToken(): String {
+        return plubJwtTokenRepository.getRefreshToken()
+    }
 }

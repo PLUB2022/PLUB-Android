@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class PlubJwtTokenResponse(
     @SerializedName("data")
-    val data : PlubJwtTokenData
+    val data : PlubJwtTokenData?
 )
 
 data class PlubJwtTokenData(

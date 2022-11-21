@@ -56,7 +56,6 @@ dependencies {
 
     implementation(Libraries.RETROFIT)
     implementation(Libraries.RETROFIT_CONVERTER_GSON)
-    implementation("com.squareup.retrofit2:adapter-rxjava2:2.3.0")
     implementation(Libraries.OKHTTP)
     implementation(Libraries.OKHTTP_LOGGING_INTERCEPTOR)
     implementation(Libraries.TIMBER)
