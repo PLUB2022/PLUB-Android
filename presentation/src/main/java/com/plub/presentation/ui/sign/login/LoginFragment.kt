@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -16,6 +17,7 @@ import com.plub.domain.model.state.LoginPageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentLoginBinding
+import com.plub.presentation.ui.sign.onboarding.OnboardingFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -41,9 +43,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding,LoginPageState, LoginVie
                 highlightColor = Color.TRANSPARENT
             }
 
-            googleLogout.setOnClickListener {
+            textViewSignUp.setOnClickListener {
                 //TODO 테스트 이후 뷰 xml과 같이 지워야함
-                logout()
+                goToSignUp()
             }
         }
     }
@@ -105,9 +107,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding,LoginPageState, LoginVie
 
     }
 
-    private fun logout() {
-        googleSignInClient.signOut().addOnCompleteListener {
-            Toast.makeText(context, "logout", Toast.LENGTH_SHORT).show()
-        }
+    private fun goToSignUp() {
+        val action = LoginFragmentDirections.actionLoginToSignUp()
+        findNavController().navigate(action)
     }
 }

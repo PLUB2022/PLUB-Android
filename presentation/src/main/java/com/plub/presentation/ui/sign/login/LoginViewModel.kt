@@ -116,6 +116,7 @@ class LoginViewModel @Inject constructor(
         val termsTypeRes = when(termsType) {
             TermsType.SERVICE -> R.string.word_terms_service
             TermsType.PRIVACY -> R.string.word_terms_privacy
+            else -> R.string.word_terms_privacy
         }
         val termsTypeString = getStringResource(termsTypeRes)
         val termsTypeStartIdx = termsString.indexOf(termsTypeString)
