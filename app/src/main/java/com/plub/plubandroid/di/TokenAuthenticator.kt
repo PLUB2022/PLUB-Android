@@ -1,11 +1,14 @@
 package com.plub.plubandroid.di
 
 import com.plub.data.api.PlubJwtTokenApi
-import com.plub.data.model.PlubJwtTokenResponse
 import com.plub.data.model.JWTTokenReIssueRequest
+import com.plub.data.model.PlubJwtTokenResponse
 import com.plub.domain.repository.PlubJwtTokenRepository
 import com.plub.plubandroid.util.RETROFIT_TAG
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Route
@@ -17,45 +20,43 @@ import javax.inject.Singleton
 @Singleton
 class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository: PlubJwtTokenRepository, private val plubJwtTokenApi: PlubJwtTokenApi) :
     Authenticator {
-    override fun authenticate(route: Route?, response: okhttp3.Response): Request? {
-        val access = CoroutineScope(Dispatchers.IO).async {
-            getAccessToken()
-        }.getCompleted()
-        val refresh = CoroutineScope(Dispatchers.IO).async {
-            getRefreshToken()
-        }.getCompleted()
 
-        synchronized(this) {
-            val newAccess = CoroutineScope(Dispatchers.IO).async{
-                getAccessToken()
-            }.getCompleted()
+    @Synchronized
+    override fun authenticate(route: Route?, response: okhttp3.Response): Request? =
+        runBlocking {
+            withContext(Dispatchers.Default) {
+                val accessDeferred = async(Dispatchers.IO) { getAccessToken() }
+                val refreshDeferred = async(Dispatchers.IO) { getRefreshToken() }
 
-            val isTokenRefreshed = if (access != newAccess) true else {
-                Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
-                val tokenResponse = plubJwtTokenApi.reIssueToken(JWTTokenReIssueRequest(refresh))
-                CoroutineScope(Dispatchers.IO).async{
+                val accessToken = accessDeferred.await()
+                val refreshToken = refreshDeferred.await()
+
+                val newAccessToken = withContext(Dispatchers.IO) { getAccessToken() }
+                val isTokenRefreshed = if (accessToken != newAccessToken) true else {
+                    Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refreshToken")
+                    val tokenResponse = plubJwtTokenApi.reIssueToken(JWTTokenReIssueRequest(refreshToken))
                     handleResponse(tokenResponse)
                 }
-            }
 
-            return if (isTokenRefreshed as Boolean) {
-                Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 중단된 API 재요청")
-                response.request
-                    .newBuilder()
-                    .removeHeader("Authorization")
-                    .header(
-                        "Authorization",
-                        "Bearer " +  CoroutineScope(Dispatchers.IO).async {
-                            getRefreshToken()
-                        }.getCompleted()
-                    )
-                    .build()
-            } else {
-                null
+                val result = if (isTokenRefreshed) {
+                    val newRefreshToken = withContext(Dispatchers.IO) { getRefreshToken() }
+                    Timber.tag(RETROFIT_TAG)
+                        .d("TokenAuthenticator - authenticate() called / 중단된 API 재요청")
+                    response.request
+                        .newBuilder()
+                        .removeHeader("Authorization")
+                        .header(
+                            "Authorization",
+                            "Bearer $newRefreshToken"
+                        )
+                        .build()
+                } else {
+                    null
+                }
+
+                return@withContext result
             }
         }
-
-    }
 
     private suspend fun handleResponse(tokenResponse: Response<PlubJwtTokenResponse>) =
         if (tokenResponse.isSuccessful) {
