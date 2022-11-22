@@ -13,9 +13,9 @@ class AuthenticationInterceptor@Inject constructor(private val plubJwtTokenRepos
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
         val accessToken = CoroutineScope(Dispatchers.IO).async {
             plubJwtTokenRepository.getAccessToken()
-        }
+        }.getCompleted()
         val request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer $accessToken").build()
+            .addHeader("Authorization", "Bearer ${accessToken}").build()
 
         Timber.tag(RETROFIT_TAG).d(
             "AuthenticationInterceptor - intercept() called / request header: ${request.headers}"

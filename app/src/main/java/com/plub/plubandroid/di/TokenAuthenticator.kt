@@ -20,15 +20,15 @@ class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository:
     override fun authenticate(route: Route?, response: okhttp3.Response): Request? {
         val access = CoroutineScope(Dispatchers.IO).async {
             getAccessToken()
-        }
+        }.getCompleted()
         val refresh = CoroutineScope(Dispatchers.IO).async {
             getRefreshToken()
-        }.toString()
+        }.getCompleted()
 
         synchronized(this) {
             val newAccess = CoroutineScope(Dispatchers.IO).async{
                 getAccessToken()
-            }
+            }.getCompleted()
 
             val isTokenRefreshed = if (access != newAccess) true else {
                 Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
@@ -47,7 +47,7 @@ class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository:
                         "Authorization",
                         "Bearer " +  CoroutineScope(Dispatchers.IO).async {
                             getRefreshToken()
-                        }
+                        }.getCompleted()
                     )
                     .build()
             } else {
