@@ -16,13 +16,13 @@
         android:background="@color/color_d9d9d9">
 
         <TextView
-            android:id="@+id/google_logout"
+            android:id="@+id/text_view_sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@color/white"
             android:padding="10dp"
-            android:text="구글 로그아웃"
+            android:text="회원가입"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
