@@ -3,14 +3,9 @@ package com.plub.presentation.ui.sign.terms
 import android.graphics.Color
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.plub.domain.model.enums.TermsType
 import com.plub.domain.model.state.TermsPageState
-import com.plub.domain.model.vo.terms.TermsAgreementItemVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentTermsBinding
-import com.plub.presentation.databinding.IncludeItemTermsAgreementBinding
-import com.plub.presentation.ui.sign.terms.adapter.TermsAgreementAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

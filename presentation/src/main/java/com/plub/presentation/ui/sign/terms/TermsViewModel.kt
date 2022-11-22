@@ -3,7 +3,6 @@ package com.plub.presentation.ui.sign.terms
 import com.plub.domain.model.enums.TermsType
 import com.plub.domain.model.state.TermsPageState
 import com.plub.domain.model.vo.terms.TermsAgreementItemVo
-import com.plub.domain.usecase.FetchTermsAgreementUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.ResourceProvider
@@ -13,7 +12,6 @@ import javax.inject.Inject
 @HiltViewModel
 class TermsViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
-    val fetchTermsAgreementUseCase: FetchTermsAgreementUseCase
 ) : BaseViewModel<TermsPageState>(TermsPageState()) {
 
     fun onClickTermsExpand(termsType: TermsType, isExpanded: Boolean) {
