@@ -45,9 +45,7 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    it.mapVo
-                }
+
             }
         }
     }

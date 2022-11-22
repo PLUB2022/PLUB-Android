@@ -24,5 +24,5 @@ fun SignInButton.bindSignInClick(method: () -> Unit) {
 
 @BindingAdapter("loadUrl")
 fun loadUrl(view: WebView, url: String) {
-    view.loadUrl(url)
+    if(view.url != url) view.loadUrl(url)
 }
