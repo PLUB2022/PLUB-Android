@@ -18,22 +18,22 @@ import javax.inject.Singleton
 class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository: PlubJwtTokenRepository, private val plubJwtTokenApi: PlubJwtTokenApi) :
     Authenticator {
     override fun authenticate(route: Route?, response: okhttp3.Response): Request? {
-        val access = GlobalScope.launch {
+        val access = CoroutineScope(Dispatchers.IO).async {
             getAccessToken()
-        }.toString()
-        val refresh = GlobalScope.launch {
+        }
+        val refresh = CoroutineScope(Dispatchers.IO).async {
             getRefreshToken()
         }.toString()
 
         synchronized(this) {
-            val newAccess = GlobalScope.launch {
+            val newAccess = CoroutineScope(Dispatchers.IO).async{
                 getAccessToken()
-            }.toString()
+            }
 
             val isTokenRefreshed = if (access != newAccess) true else {
                 Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
                 val tokenResponse = plubJwtTokenApi.reIssueToken(JWTTokenReIssueRequest(refresh))
-                GlobalScope.launch {
+                CoroutineScope(Dispatchers.IO).async{
                     handleResponse(tokenResponse)
                 }
             }
@@ -45,9 +45,9 @@ class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository:
                     .removeHeader("Authorization")
                     .header(
                         "Authorization",
-                        "Bearer " +  GlobalScope.launch {
+                        "Bearer " +  CoroutineScope(Dispatchers.IO).async {
                             getRefreshToken()
-                        }.toString()
+                        }
                     )
                     .build()
             } else {

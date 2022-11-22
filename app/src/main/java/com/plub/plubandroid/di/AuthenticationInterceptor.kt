@@ -2,9 +2,7 @@ package com.plub.plubandroid.di
 
 import com.plub.domain.repository.PlubJwtTokenRepository
 import com.plub.plubandroid.util.RETROFIT_TAG
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import okhttp3.Interceptor
 import timber.log.Timber
 import javax.inject.Inject
@@ -13,9 +11,9 @@ import javax.inject.Singleton
 @Singleton
 class AuthenticationInterceptor@Inject constructor(private val plubJwtTokenRepository: PlubJwtTokenRepository) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
-        val accessToken = GlobalScope.launch {
+        val accessToken = CoroutineScope(Dispatchers.IO).async {
             plubJwtTokenRepository.getAccessToken()
-        }.toString()
+        }
         val request = chain.request().newBuilder()
             .addHeader("Authorization", "Bearer $accessToken").build()
 
