@@ -21,4 +21,12 @@
     <string name="login_kakao_text">카카오톡으로 계속하기</string>
     <string name="login_google_text">Google로 계속하기</string>
 
+    <string name="sign_up_terms_title">가입을 위한 약관 동의가 필요해요.</string>
+    <string name="sign_up_terms_description">서비스를 이용할 때 필요해요.</string>
+    <string name="sign_up_terms_all_title">전체 동의</string>
+    <string name="sign_up_terms_privacy_title">이용약관 및 개인정보취급방침 (필수)</string>
+    <string name="sign_up_terms_location_title">위치 기반 서비스 이용 약관 (필수)</string>
+    <string name="sign_up_terms_age_title">만 14세 이상 확인 (필수)</string>
+    <string name="sign_up_terms_collect_title">개인정보 수집 이용 동의 (필수)</string>
+    <string name="sign_up_terms_marketing_title">마케팅 활용 동의 (선택)</string>\
 </resources>

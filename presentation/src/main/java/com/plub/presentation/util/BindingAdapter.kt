@@ -1,12 +1,11 @@
 package com.plub.presentation.util
 
 import android.view.View
+import android.webkit.WebView
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.google.android.gms.common.SignInButton
 import com.plub.domain.UiState
-import com.plub.domain.successOrNull
 
 @BindingAdapter("showLoadingProgressBar")
 fun ProgressBar.bindShow(uiState: UiState<*>) {
@@ -21,4 +20,9 @@ fun View.bindShowErrorPage(uiState: UiState<*>) {
 @BindingAdapter("android:onClick")
 fun SignInButton.bindSignInClick(method: () -> Unit) {
     setOnClickListener { method.invoke() }
+}
+
+@BindingAdapter("loadUrl")
+fun loadUrl(view: WebView, url: String) {
+    view.loadUrl(url)
 }
