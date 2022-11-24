@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.sign.signup
 
 import androidx.fragment.app.viewModels
-import com.plub.domain.model.state.PageState
+import com.plub.domain.model.state.SignUpPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSignUpBinding
 import com.plub.presentation.ui.sign.signup.adapter.FragmentSignUpPagerAdapter
@@ -9,13 +9,22 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SignUpFragment : BaseFragment<FragmentSignUpBinding, PageState.Default, SignUpViewModel>(
+class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, SignUpViewModel>(
     FragmentSignUpBinding::inflate
 ) {
 
+    interface Delegate{
+        fun onChangeNextButtonEnable(isEnable:Boolean)
+    }
+
     override val viewModel: SignUpViewModel by viewModels()
+
     private val pagerAdapter: FragmentSignUpPagerAdapter by lazy {
-        FragmentSignUpPagerAdapter(this)
+        FragmentSignUpPagerAdapter(this, object: Delegate {
+            override fun onChangeNextButtonEnable(isEnable: Boolean) {
+                viewModel.onChangeNextButton(isEnable)
+            }
+        })
     }
 
     override fun initView() {

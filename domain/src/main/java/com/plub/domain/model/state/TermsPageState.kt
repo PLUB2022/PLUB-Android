@@ -7,6 +7,7 @@ import com.plub.domain.model.vo.login.SocialLoginResponseVo
 import com.plub.domain.model.vo.terms.TermsAgreementItemVo
 
 data class TermsPageState(
+    val isNextButtonEnable:Boolean = false,
     val mapVo:Map<TermsType,TermsAgreementItemVo> = hashMapOf(
         TermsType.ALL to TermsAgreementItemVo(TermsType.ALL),
         TermsType.PRIVACY to TermsAgreementItemVo(TermsType.PRIVACY),

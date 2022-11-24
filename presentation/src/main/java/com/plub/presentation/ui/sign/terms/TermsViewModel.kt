@@ -16,17 +16,23 @@ class TermsViewModel @Inject constructor(
 
     fun onClickTermsExpand(termsType: TermsType, isExpanded: Boolean) {
         val map = getChangeTermsExpandMap(termsType, isExpanded)
-        updateMapVo(map)
+        updateUiState { ui ->
+            ui.copy(mapVo = map)
+        }
     }
 
     fun onClickTermsChecked(termsType: TermsType, isChecked: Boolean) {
         val map = getChangeTermsCheckMap(termsType, isChecked)
-        updateMapVo(map)
+        updateUiState { ui ->
+            ui.copy(mapVo = map, isNextButtonEnable = isNextButtonEnable(map))
+        }
     }
 
     fun initTerms() {
         val map = getInitVoMap()
-        updateMapVo(map)
+        updateUiState { ui ->
+            ui.copy(mapVo = map)
+        }
     }
 
     private fun getChangeTermsExpandMap(termsType: TermsType, isExpanded: Boolean):Map<TermsType, TermsAgreementItemVo> {
@@ -86,12 +92,6 @@ class TermsViewModel @Inject constructor(
         }
     }
 
-    private fun updateMapVo(map: Map<TermsType, TermsAgreementItemVo>) {
-        updateUiState { ui ->
-            ui.copy(mapVo = map)
-        }
-    }
-
     private fun getTermsTitleString(type: TermsType): String {
         val titleRes = when (type) {
             TermsType.PRIVACY -> R.string.sign_up_terms_privacy_title
@@ -106,5 +106,19 @@ class TermsViewModel @Inject constructor(
 
     private fun getTermsUrl(type: TermsType): String {
         return "http://nextmatch.kr/privacy/youandi/agreement.html"
+    }
+
+    private fun isNextButtonEnable(map: Map<TermsType, TermsAgreementItemVo>):Boolean {
+        return map.filter { isEssentialTerms(it.key) }.all { it.value.isChecked }
+    }
+
+    private fun isEssentialTerms(termsType: TermsType):Boolean {
+        return when(termsType) {
+            TermsType.PRIVACY,
+            TermsType.LOCATION,
+            TermsType.AGE,
+            TermsType.COLLECT -> true
+            else -> false
+        }
     }
 }

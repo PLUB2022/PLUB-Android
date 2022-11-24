@@ -30,7 +30,9 @@ abstract class BaseViewModel<STATE:PageState>(
     val uiError: SharedFlow<UiError> = _uiError.asSharedFlow()
 
     protected fun updateUiState(update:(STATE) -> STATE) {
-        _uiState.update { update.invoke(it) }
+        viewModelScope.launch {
+            _uiState.update { update.invoke(it) }
+        }
     }
 
     protected fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: ((T) -> Unit)? = null, individualFailCallback: ((T, IndividualFailure) -> Unit)? = null) {
