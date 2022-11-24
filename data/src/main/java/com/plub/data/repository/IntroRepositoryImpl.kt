@@ -19,18 +19,19 @@ class IntroRepositoryImpl @Inject constructor(private val introApi: IntroApi) : 
     override fun trySampleLogin(): Flow<UiState<SampleLogin>> = flow {
         emit(UiState.Loading)
         delay(1000L)
+    }
 
-        request(introApi.trySampleLogin(),SampleLoginMapper,object : UiStateCallback<SampleLogin>() {
-            override suspend fun onSuccess(state: UiState.Success<SampleLogin>, customCode: Int) {
-                val uiState = super.uiStateMapResult(state) {
-                    LoginFailure.make(customCode)
-                }
-                emit(uiState)
-            }
-
-            override suspend fun onError(state: UiState.Error) {
-                emit(state)
-            }
-        })
-    }.catch { emit(UiState.Error(UiError.Invalided)) }
+//        request(introApi.trySampleLogin(),SampleLoginMapper,object : UiStateCallback<SampleLogin>() {
+//            override suspend fun onSuccess(state: UiState.Success<SampleLogin>, customCode: Int) {
+//                val uiState = super.uiStateMapResult(state) {
+//                    LoginFailure.make(customCode)
+//                }
+//                emit(uiState)
+//            }
+//
+//            override suspend fun onError(state: UiState.Error) {
+//                emit(state)
+//            }
+//        })
+   // }.catch { emit(UiState.Error(UiError.Invalided)) }
 }

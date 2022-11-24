@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class TrySampleLoginUseCase @Inject constructor(
     private val introRepository: IntroRepository
-):UseCase<Unit, SampleLogin>() {
+):UseCase<Unit, Flow<UiState<SampleLogin>>>() {
     override fun invoke(request: Unit): Flow<UiState<SampleLogin>> {
         return introRepository.trySampleLogin()
     }

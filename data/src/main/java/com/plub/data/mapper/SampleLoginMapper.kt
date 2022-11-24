@@ -4,11 +4,10 @@ import com.plub.data.base.Mapper
 import com.plub.data.model.SampleLoginResponse
 import com.plub.domain.model.vo.login.SampleLogin
 
-object SampleLoginMapper: Mapper<SampleLoginResponse, SampleLogin>() {
-
-    override fun mapFromEntity(type: SampleLoginResponse): SampleLogin {
-        return type.run {
+object SampleLoginMapper: Mapper.ResponseMapper<SampleLoginResponse, SampleLogin> {
+    override fun mapDtoToModel(type: SampleLoginResponse?): SampleLogin {
+        return type?.run {
             SampleLogin(login, register)
-        }
+        }?: SampleLogin("","")
     }
 }
