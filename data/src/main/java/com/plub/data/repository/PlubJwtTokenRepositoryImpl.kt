@@ -3,6 +3,7 @@ package com.plub.data.repository
 import androidx.datastore.core.DataStore
 import com.plub.data.util.PlubJwtToken
 import com.plub.domain.repository.PlubJwtTokenRepository
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -20,8 +21,12 @@ class PlubJwtTokenRepositoryImpl @Inject constructor(
         encryptedDataStore.updateData { it.toBuilder().setAccessToken(accessToken).setRefreshToken(refreshToken).build() }
     }
 
-    override suspend fun getAccessToken(): String = encryptedDataStore.data.first().accessToken
+    override suspend fun getAccessToken(): String = encryptedDataStore.data.catch { emit(
+        PlubJwtToken.getDefaultInstance()
+    ) }.first().accessToken
 
 
-    override suspend fun getRefreshToken(): String = encryptedDataStore.data.first().refreshToken
+    override suspend fun getRefreshToken(): String = encryptedDataStore.data.catch { emit(
+        PlubJwtToken.getDefaultInstance()
+    ) }.first().refreshToken
 }
