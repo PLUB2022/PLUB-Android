@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import com.plub.data.api.PlubJwtTokenApi
 import com.plub.data.mapper.PlubJwtTokenMapper
 import com.plub.data.model.JWTTokenReIssueRequest
+import com.plub.data.util.ApiResponse
 import com.plub.data.util.PlubJwtToken
 import com.plub.domain.model.vo.jwt_token.PlubJwtTokenData
 import com.plub.domain.model.vo.jwt_token.PlubJwtTokenVo
@@ -40,7 +41,7 @@ class PlubJwtTokenRepositoryImpl @Inject constructor(
             !tokenResponse.isSuccessful ->
                 PlubJwtTokenVo(PlubJwtTokenData("", ""))
             else ->
-                PlubJwtTokenMapper.mapDtoToModel(tokenResponse.body())
+                PlubJwtTokenMapper.mapDtoToModel((tokenResponse.body() as ApiResponse).data)
         }
     }
 }
