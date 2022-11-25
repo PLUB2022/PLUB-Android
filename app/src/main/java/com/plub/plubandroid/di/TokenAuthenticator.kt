@@ -3,6 +3,7 @@ package com.plub.plubandroid.di
 import com.plub.data.api.PlubJwtTokenApi
 import com.plub.data.model.JWTTokenReIssueRequest
 import com.plub.data.model.PlubJwtTokenResponse
+import com.plub.domain.model.vo.jwt_token.PlubJwtTokenData
 import com.plub.domain.repository.PlubJwtTokenRepository
 import com.plub.plubandroid.util.RETROFIT_TAG
 import kotlinx.coroutines.*
@@ -18,8 +19,7 @@ import javax.inject.Singleton
 
 @Singleton
 class TokenAuthenticator @Inject constructor(
-    private val plubJwtTokenRepository: PlubJwtTokenRepository,
-    private val plubJwtTokenApi: PlubJwtTokenApi
+    private val plubJwtTokenRepository: PlubJwtTokenRepository
 ) : Authenticator {
     private val mutex = Mutex()
 
@@ -36,7 +36,7 @@ class TokenAuthenticator @Inject constructor(
                     .removeHeader("Authorization")
                     .header(
                         "Authorization",
-                        "Bearer " + plubJwtTokenRepository.getRefreshToken()
+                        "Bearer " + plubJwtTokenRepository.getAccessToken()
                     )
                     .build()
             } else null
@@ -52,29 +52,18 @@ class TokenAuthenticator @Inject constructor(
         return if (access != newAccess) true else {
             Timber.tag(RETROFIT_TAG)
                 .d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
-            val tokenResponse = plubJwtTokenApi.reIssueToken(JWTTokenReIssueRequest(refresh))
-            handleResponse(tokenResponse)
+            val plubJwtToken = plubJwtTokenRepository.reIssueToken(refresh)
+            plubJwtTokenRepository.saveAccessTokenAndRefreshToken(
+                plubJwtToken.data?.accessToken ?: "",
+                plubJwtToken.data?.refreshToken ?: ""
+            )
+            val isTokenValid = plubJwtToken.data?.isTokenValid ?: false
+
+            if(!isTokenValid)
+                Timber.tag(RETROFIT_TAG)
+                    .d("TokenAuthenticator - verifyTokenIsRefreshed() called / 토큰 갱신 실패.")
+
+            isTokenValid
         }
     }
-
-    private suspend fun handleResponse(tokenResponse: Response<PlubJwtTokenResponse>) =
-        when {
-            !tokenResponse.isSuccessful -> {
-                Timber.tag(RETROFIT_TAG)
-                    .d("TokenAuthenticator - handleResponse() called / 리프레시 토큰이 만료되어 로그 아웃 되었습니다.")
-                false
-            }
-            tokenResponse.body()?.data == null -> {
-                Timber.tag(RETROFIT_TAG)
-                    .d("TokenAuthenticator - handleResponse() called / Response Body 또는 data가 null입니다.")
-                false
-            }
-            else -> {
-                plubJwtTokenRepository.saveAccessTokenAndRefreshToken(
-                    tokenResponse.body()?.data?.accessToken ?: "",
-                    tokenResponse.body()?.data?.refreshToken ?: ""
-                )
-                true
-            }
-        }
 }
