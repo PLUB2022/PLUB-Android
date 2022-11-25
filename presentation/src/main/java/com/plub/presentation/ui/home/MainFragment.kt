@@ -5,34 +5,54 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.state.SampleHomeState
 import com.plub.presentation.R
+import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.databinding.FragmentLoginBinding
+import com.plub.presentation.databinding.FragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class MainFragment : Fragment() {
+@AndroidEntryPoint
+class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFragmentViewModel>(FragmentMainBinding::inflate
+)  {
     lateinit var mainCategoryAdapter: MainCategoryAdapter
     lateinit var mainRecommendMeetXAdapter: MainRecommendMeetXAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override val viewModel: MainFragmentViewModel by viewModels()
+
+    override fun initView() {
+
+        binding.apply {
+            vm = viewModel
+            initRecycler()
+            //TODO 할 일
+        }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+    override fun initState() {
+        //TODO("Not yet implemented")
+//        repeatOnStarted(viewLifecycleOwner) {
+//            launch {
+//                viewModel.signInGoogle.collect {
+//                    signInGoogle()
+//                }
+//            }
+//
+//            launch {
+//                viewModel.signInKakao.collect {
+//                    signInKakao()
+//                }
+//            }
+//        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initRecycler(view)
-    }
+    fun initRecycler(){
 
-    fun initRecycler(view : View){
-        val rv_main = view.findViewById<RecyclerView>(R.id.rv_main_page)
+        val rv_main = binding.root.findViewById<RecyclerView>(R.id.rv_main_page)
         rv_main.setLayoutManager(LinearLayoutManager(context))
         mainCategoryAdapter = MainCategoryAdapter()
         mainRecommendMeetXAdapter = MainRecommendMeetXAdapter()
