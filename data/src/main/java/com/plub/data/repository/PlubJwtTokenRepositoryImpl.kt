@@ -9,9 +9,7 @@ import com.plub.data.util.PlubJwtToken
 import com.plub.domain.model.vo.jwt_token.PlubJwtTokenData
 import com.plub.domain.model.vo.jwt_token.PlubJwtTokenVo
 import com.plub.domain.repository.PlubJwtTokenRepository
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.*
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -22,26 +20,30 @@ class PlubJwtTokenRepositoryImpl @Inject constructor(
     private val encryptedDataStore: DataStore<PlubJwtToken>,
     private val plubJwtTokenApi: PlubJwtTokenApi
 ) : PlubJwtTokenRepository {
-    override suspend fun saveAccessToken(accessToken: String) {
+    override fun saveAccessToken(accessToken: String): Flow<Nothing> = flow {
         encryptedDataStore.updateData { it.toBuilder().setAccessToken(accessToken).build() }
     }
 
-    override suspend fun saveAccessTokenAndRefreshToken(accessToken: String, refreshToken: String) {
+    override fun saveAccessTokenAndRefreshToken(accessToken: String, refreshToken: String): Flow<Nothing> = flow {
         encryptedDataStore.updateData { it.toBuilder().setAccessToken(accessToken).setRefreshToken(refreshToken).build() }
     }
 
-    override suspend fun getAccessToken(): String = encryptedDataStore.data.firstOrNull()?.accessToken ?: ""
+    override fun getAccessToken(): Flow<String> = flow {
+        emit(encryptedDataStore.data.firstOrNull()?.accessToken ?: "")
+    }
 
 
-    override suspend fun getRefreshToken(): String = encryptedDataStore.data.firstOrNull()?.refreshToken ?: ""
+    override fun getRefreshToken(): Flow<String> = flow {
+        emit(encryptedDataStore.data.firstOrNull()?.refreshToken ?: "")
+    }
 
-    override suspend fun reIssueToken(refreshToken: String): PlubJwtTokenVo {
+    override fun reIssueToken(refreshToken: String): Flow<PlubJwtTokenVo> = flow {
         val tokenResponse = plubJwtTokenApi.reIssueToken(JWTTokenReIssueRequest(refreshToken))
-        return when {
+        when {
             !tokenResponse.isSuccessful ->
-                PlubJwtTokenVo(PlubJwtTokenData("", ""))
+                emit(PlubJwtTokenVo(PlubJwtTokenData("", "")))
             else ->
-                PlubJwtTokenMapper.mapDtoToModel((tokenResponse.body() as ApiResponse).data)
+                emit(PlubJwtTokenMapper.mapDtoToModel((tokenResponse.body() as ApiResponse).data))
         }
     }
 }

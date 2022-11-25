@@ -1,18 +1,19 @@
 package com.plub.domain.repository
 
 import com.plub.domain.model.vo.jwt_token.PlubJwtTokenVo
+import kotlinx.coroutines.flow.Flow
 
 interface PlubJwtTokenRepository {
-    suspend fun saveAccessToken(accessToken: String)
+    fun saveAccessToken(accessToken: String): Flow<Nothing>
 
-    suspend fun saveAccessTokenAndRefreshToken(accessToken: String, refreshToken: String)
+    fun saveAccessTokenAndRefreshToken(accessToken: String, refreshToken: String): Flow<Nothing>
 
-    suspend fun getAccessToken(): String
+    fun getAccessToken(): Flow<String>
 
-    suspend fun getRefreshToken(): String
+    fun getRefreshToken(): Flow<String>
 
     /**
      * 토큰 갱신 실패시 PlubJwtTokenData("", "")를 반환합니다.
      */
-    suspend fun reIssueToken(refreshToken : String): PlubJwtTokenVo
+    fun reIssueToken(refreshToken : String): Flow<PlubJwtTokenVo>
 }
