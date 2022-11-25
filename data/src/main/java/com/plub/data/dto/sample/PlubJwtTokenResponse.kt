@@ -1,12 +1,12 @@
 package com.plub.data.model
 
 import com.google.gson.annotations.SerializedName
-import com.plub.data.base.DataEntity
+import com.plub.data.base.DataDto
 
 data class PlubJwtTokenResponse(
     @SerializedName("data")
     val data : PlubJwtTokenData?
-):DataEntity()
+):DataDto
 
 data class PlubJwtTokenData(
     @SerializedName("accessToken")

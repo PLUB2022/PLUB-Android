@@ -37,10 +37,10 @@ class PlubJwtTokenRepositoryImpl @Inject constructor(
     override suspend fun reIssueToken(refreshToken: String): PlubJwtTokenVo {
         val tokenResponse = plubJwtTokenApi.reIssueToken(JWTTokenReIssueRequest(refreshToken))
         return when {
-            !tokenResponse.isSuccessful || tokenResponse.body() == null ->
+            !tokenResponse.isSuccessful ->
                 PlubJwtTokenVo(PlubJwtTokenData("", ""))
             else ->
-                PlubJwtTokenMapper.mapFromEntity(tokenResponse.body()!!)
+                PlubJwtTokenMapper.mapDtoToModel(tokenResponse.body())
         }
     }
 }
