@@ -9,4 +9,6 @@ data class PlubJwtTokenVo (
 data class PlubJwtTokenData (
     val accessToken : String,
     val refreshToken : String
-)
+) {
+    val isTokenValid = accessToken.isNotBlank() && refreshToken.isNotBlank()
+}

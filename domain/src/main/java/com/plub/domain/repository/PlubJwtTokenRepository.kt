@@ -11,5 +11,8 @@ interface PlubJwtTokenRepository {
 
     suspend fun getRefreshToken(): String
 
+    /**
+     * 토큰 갱신 실패시 PlubJwtTokenData("", "")를 반환합니다.
+     */
     suspend fun reIssueToken(refreshToken : String): PlubJwtTokenVo
 }
