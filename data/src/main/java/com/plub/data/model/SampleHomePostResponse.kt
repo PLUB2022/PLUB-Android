@@ -4,9 +4,5 @@ import com.google.gson.annotations.SerializedName
 import com.plub.data.base.DataDto
 
 data class SampleHomePostResponse(
-    @SerializedName("authCode")
-    val authCode : String = "",
-
-    @SerializedName("statusCode")
-    val statusCode : Int
+    val authCode : String
 ) : DataDto

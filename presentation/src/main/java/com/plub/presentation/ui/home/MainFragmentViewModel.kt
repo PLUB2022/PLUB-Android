@@ -24,10 +24,10 @@ class MainFragmentViewModel @Inject constructor(
     val testHomeData: StateFlow<String> = _testHomeData.asStateFlow()
 
     fun isHaveInterest()  = viewModelScope.launch {
-        testPostHomeUseCase.invoke(HomePostRequestVo("testcode", true)).collect { state ->
+        testPostHomeUseCase.invoke(HomePostRequestVo("123123", true)).collect { state ->
             _testHomeData.value = when(state){
                 is UiState.Loading -> "로딩"
-                is UiState.Success -> "${state.successOrNull()!!.authCode.toString()} + ${state.successOrNull()!!.statusCode.toString()}"
+                is UiState.Success -> "${state.successOrNull()!!.authCode.toString()}"
                 is UiState.Error -> "에러 ${state.error.toString()}"
             }
         }

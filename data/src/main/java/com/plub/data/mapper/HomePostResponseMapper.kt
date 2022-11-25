@@ -6,8 +6,8 @@ import com.plub.domain.model.vo.home.HomePostResponseVo
 
 object HomePostResponseMapper : Mapper.ResponseMapper<SampleHomePostResponse, HomePostResponseVo>{
     override fun mapDtoToModel(type: SampleHomePostResponse?): HomePostResponseVo {
-        return type.run {
-            HomePostResponseVo(this!!.authCode, this!!.statusCode)
-        }
+        return type?.run {
+            HomePostResponseVo(authCode)
+        } ?: HomePostResponseVo("")
     }
 }
