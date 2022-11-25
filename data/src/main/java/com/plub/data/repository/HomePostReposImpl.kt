@@ -9,7 +9,6 @@ import com.plub.domain.UiState
 import com.plub.domain.error.UiError
 import com.plub.domain.model.vo.home.HomePostRequestVo
 import com.plub.domain.model.vo.home.HomePostResponseVo
-import com.plub.domain.model.vo.home.SampleCategory
 import com.plub.domain.repository.HomePostRepository
 import com.plub.domain.result.LoginFailure
 import kotlinx.coroutines.flow.Flow

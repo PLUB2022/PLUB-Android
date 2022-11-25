@@ -5,5 +5,8 @@ import com.plub.data.base.DataDto
 
 data class SampleHomePostResponse(
     @SerializedName("authCode")
-    val authCode : String = ""
+    val authCode : String = "",
+
+    @SerializedName("statusCode")
+    val statusCode : Int
 ) : DataDto
