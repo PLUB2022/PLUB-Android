@@ -1,5 +1,7 @@
 package com.plub.domain.repository
 
+import com.plub.domain.model.vo.jwt_token.PlubJwtTokenVo
+
 interface PlubJwtTokenRepository {
     suspend fun saveAccessToken(accessToken: String)
 
@@ -9,4 +11,5 @@ interface PlubJwtTokenRepository {
 
     suspend fun getRefreshToken(): String
 
+    suspend fun reIssueToken(refreshToken : String): PlubJwtTokenVo
 }
