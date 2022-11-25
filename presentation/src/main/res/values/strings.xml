@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">presentation</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="web_google_client_id">746494448016-j25cuo21ut0ofgbba9h4n6b63502uimi.apps.googleusercontent.com</string>
+    <string name="kakao_redirect_url_key">kakao5c988e60cc77ac9ad664f1f37293ee2d</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fragment_text_category_name_art">예술</string>
     <string name="fragment_text_category_name_food">음식</string>
@@ -16,6 +17,8 @@
     </string>
     <string name="word_skip_uppercase">SKIP</string>
     <string name="word_next">다음</string>
+    <string name="word_terms_service">서비스 약관</string>
+    <string name="word_terms_privacy">개인정보 처리방침</string>
 
     <string name="onboarding_title_first">“ 새로운 사람과 설레는 시간 ”</string>
     <string name="onboarding_content_first">아직 불러 부끄러운 무성할 벌레는 새워 까닭입니다. 사람들의 나는 노새, 언덕 가을 거외다. 부끄러운 하나에 어머니, 잔디가 별 책상을 이제 없이 거외다.\n\n쉬이 하늘에는 내일 묻힌 까닭입니다. 마리아 아침이 써 이국 책상을 봅니다.</string>
@@ -23,4 +26,19 @@
     <string name="onboarding_content_second">두번째 내용</string>
     <string name="onboarding_title_third">“ 해치지 않아요! ”</string>
     <string name="onboarding_content_third">세번째 내용</string>
+
+    <string name="login_plub_description">our play club,</string>
+    <string name="login_plub_name">PLUB!</string>
+    <string name="login_plub_terms">가입을 진행할 경우, 서비스 약관 및\n개인정보 처리방침에 동의한 것으로 간주합니다.</string>
+    <string name="login_kakao_text">카카오톡으로 계속하기</string>
+    <string name="login_google_text">Google로 계속하기</string>
+
+    <string name="sign_up_terms_title">가입을 위한 약관 동의가 필요해요.</string>
+    <string name="sign_up_terms_description">서비스를 이용할 때 필요해요.</string>
+    <string name="sign_up_terms_all_title">전체 동의</string>
+    <string name="sign_up_terms_privacy_title">이용약관 및 개인정보취급방침 (필수)</string>
+    <string name="sign_up_terms_location_title">위치 기반 서비스 이용 약관 (필수)</string>
+    <string name="sign_up_terms_age_title">만 14세 이상 확인 (필수)</string>
+    <string name="sign_up_terms_collect_title">개인정보 수집 이용 동의 (필수)</string>
+    <string name="sign_up_terms_marketing_title">마케팅 활용 동의 (선택)</string>\
 </resources>

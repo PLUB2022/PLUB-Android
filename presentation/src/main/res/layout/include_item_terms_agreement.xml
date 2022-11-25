@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage,ContentDescription">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vo"
+            type="com.plub.domain.model.vo.terms.TermsAgreementItemVo" />
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.sign.terms.TermsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_expand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:onClick="@{() -> vm.onClickTermsExpand(vo.termsType, vo.expanded)}"
+                android:src="@drawable/ic_arrow_under"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@{vo.title}"
+                android:textColor="@color/color_8c8c8c"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_expand"
+                app:layout_constraintEnd_toStartOf="@+id/check_box"
+                app:layout_constraintStart_toEndOf="@+id/image_view_expand"
+                app:layout_constraintTop_toTopOf="@id/image_view_expand"
+                tools:text="이용약관 및 개인정보취급방침 (필수)" />
+
+            <CheckBox
+                android:id="@+id/check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="13dp"
+                android:button="@drawable/selector_check"
+                android:checked="@{vo.checked}"
+                android:onClick="@{() -> vm.onClickTermsChecked(vo.termsType, vo.checked)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_expand"
+            android:layout_width="match_parent"
+            android:layout_height="208dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="40dp"
+            android:paddingBottom="8dp"
+            android:visibility="@{vo.isExpanded ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@+id/constraint_layout_top"
+            tools:visibility="visible">
+
+            <com.plub.presentation.ui.custom.ScrollableWebView
+                android:id="@+id/web_view_terms"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:loadUrl="@{vo.url}" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_e4e4e4"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

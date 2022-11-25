@@ -2,6 +2,7 @@ package com.plub.presentation.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -25,7 +26,8 @@ abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewMo
     protected lateinit var binding: B
     protected abstract val viewModel: VM
 
-    private lateinit var uiInspector:UiInspector
+    private lateinit var commonProcessor: CommonProcessor
+    private var progressView:ProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +35,7 @@ abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewMo
         binding = inflater(layoutInflater)
         setContentView(binding.root)
         binding.lifecycleOwner = this
-        uiInspector = UiInspector(this)
+        commonProcessor = CommonProcessor(this)
 
         initView()
         initState()
@@ -41,14 +43,31 @@ abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewMo
 
     protected abstract fun initView()
 
-    protected abstract fun initState()
 
-    protected fun bindProgressBar(progressBar: ProgressBar) {
-        uiInspector.bindProgressView(progressBar)
+    protected open fun initState() {
+        repeatOnStarted {
+            launch {
+                viewModel.showProgress.collect {
+                    progressView?.visibility = if(it) View.VISIBLE else View.GONE
+                }
+            }
+
+            launch {
+                viewModel.commonFailure.collect {
+                    commonProcessor.failProcess(it)
+                }
+            }
+
+            launch {
+                viewModel.uiError.collect {
+                    commonProcessor.errorProcess(it)
+                }
+            }
+        }
     }
 
-    protected fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: (T) -> Unit, individualFailCallback: ((T, IndividualFailure) -> Unit)? = null) {
-        uiInspector.inspectUiState(uiState,succeedCallback, individualFailCallback)
+    protected fun bindProgressBar(progressBar: ProgressBar) {
+        progressView = progressBar
     }
 
     protected fun LifecycleOwner.repeatOnStarted(block: suspend CoroutineScope.() -> Unit) {

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.onboarding.OnboardingItemVo
-import com.plub.presentation.databinding.ItemOnboardingBinding
+import com.plub.presentation.databinding.IncludeItemOnboardingBinding
 
 class OnboardingViewPagerAdapter() : ListAdapter<OnboardingItemVo, RecyclerView.ViewHolder>(
     OnboardingDiffCallback()
@@ -19,7 +19,7 @@ class OnboardingViewPagerAdapter() : ListAdapter<OnboardingItemVo, RecyclerView.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = ItemOnboardingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = IncludeItemOnboardingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return OnboardingItemViewHolder(binding)
     }
 
