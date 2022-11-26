@@ -18,32 +18,27 @@ abstract class BaseRepository {
 
     suspend fun <D : DataDto, M : DomainModel> request(
         response: Response<ApiResponse<D>>,
-        responseMapper:Mapper.ResponseMapper<D,M>,
+        responseMapper: Mapper.ResponseMapper<D, M>,
         result: UiStateCallback<M>
     ) {
-        try {
-            when (response.isSuccessful) {
-                true -> {
-                    val apiResponse = response.body() as ApiResponse
-                    val statusCode = apiResponse.statusCode
-                    val data = responseMapper.mapDtoToModel(apiResponse.data)
+        when (response.isSuccessful) {
+            true -> {
+                val apiResponse = response.body() as ApiResponse
+                val statusCode = apiResponse.statusCode
+                val data = responseMapper.mapDtoToModel(apiResponse.data)
 
-                    val stateResult: StateResult = when (statusCode == StateResult.SUCCEED_CODE) {
-                        true -> StateResult.Succeed
-                        false -> Failure.identifyFailure(statusCode)
-                    }
+                val stateResult: StateResult = when (statusCode == StateResult.SUCCEED_CODE) {
+                    true -> StateResult.Succeed
+                    false -> Failure.identifyFailure(statusCode)
+                }
 
-                    result.onSuccess(UiState.Success(data, stateResult), statusCode)
-                }
-                false -> {
-                    val apiResponse = Gson().fromJson(response.errorBody()?.string(), ApiResponse::class.java)
-                    val error = UiError.identifyHttpError(response.code(), apiResponse.statusCode)
-                    result.onError(UiState.Error(error))
-                }
+                result.onSuccess(UiState.Success(data, stateResult), statusCode)
             }
-        } catch (exception: Throwable) {
-            exception.printStackTrace()
-            result.onError(UiState.Error(UiError.ServiceUnavailable))
+            false -> {
+                val apiResponse = Gson().fromJson(response.errorBody()?.string(), ApiResponse::class.java)
+                val error = UiError.identifyHttpError(response.code(), apiResponse.statusCode)
+                result.onError(UiState.Error(error))
+            }
         }
     }
 
