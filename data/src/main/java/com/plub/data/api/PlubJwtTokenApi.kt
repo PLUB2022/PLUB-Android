@@ -1,6 +1,6 @@
 package com.plub.data.api
 
-import com.plub.data.model.PlubJwtTokenResponse
+import com.plub.data.dto.sample.PlubJwtTokenResponse
 import com.plub.data.model.JWTTokenReIssueRequest
 import com.plub.data.util.ApiResponse
 import retrofit2.Response

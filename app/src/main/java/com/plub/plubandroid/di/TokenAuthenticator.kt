@@ -1,24 +1,18 @@
 package com.plub.plubandroid.di
 
-import com.plub.data.api.PlubJwtTokenApi
-import com.plub.data.model.JWTTokenReIssueRequest
-import com.plub.data.model.PlubJwtTokenResponse
 import com.plub.domain.model.vo.jwt_token.PlubJwtTokenData
-import com.plub.domain.repository.PlubJwtTokenRepository
 import com.plub.domain.usecase.FetchPlubAccessTokenUseCase
 import com.plub.domain.usecase.FetchPlubRefreshTokenUseCase
 import com.plub.domain.usecase.PostReIssueTokenUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.plubandroid.util.RETROFIT_TAG
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Route
-import retrofit2.Response
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
