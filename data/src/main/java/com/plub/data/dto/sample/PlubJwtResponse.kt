@@ -3,7 +3,7 @@ package com.plub.data.dto.sample
 import com.google.gson.annotations.SerializedName
 import com.plub.data.base.DataDto
 
-data class PlubJwtTokenResponse(
+data class PlubJwtResponse(
     @SerializedName("accessToken")
     val accessToken : String,
 

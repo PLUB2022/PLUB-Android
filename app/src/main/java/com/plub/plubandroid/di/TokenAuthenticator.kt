@@ -1,8 +1,7 @@
 package com.plub.plubandroid.di
 
-import com.plub.domain.model.vo.jwt_token.JWTTokenReIssueRequestVo
-import com.plub.domain.model.vo.jwt_token.PlubJwtTokenResponseVo
-import com.plub.domain.model.vo.jwt_token.SavePlubJwtTokenRequestVo
+import com.plub.domain.model.vo.jwt_token.PlubJwtReIssueRequestVo
+import com.plub.domain.model.vo.jwt_token.SavePlubJwtRequestVo
 import com.plub.domain.usecase.FetchPlubAccessTokenUseCase
 import com.plub.domain.usecase.FetchPlubRefreshTokenUseCase
 import com.plub.domain.usecase.PostReIssueTokenUseCase
@@ -58,11 +57,11 @@ class TokenAuthenticator @Inject constructor(
 
         return if (access != newAccess) true else {
             Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
-            val reIssueRequestVo = JWTTokenReIssueRequestVo(refresh)
+            val reIssueRequestVo = PlubJwtReIssueRequestVo(refresh)
             val plubJwtToken = postReIssueTokenUseCase(reIssueRequestVo).first()
-            val savePlubJwtTokenRequestVo = SavePlubJwtTokenRequestVo(plubJwtToken.accessToken, plubJwtToken.refreshToken)
+            val savePlubJwtRequestVo = SavePlubJwtRequestVo(plubJwtToken.accessToken, plubJwtToken.refreshToken)
 
-            savePlubAccessTokenAndRefreshTokenUseCase(savePlubJwtTokenRequestVo).first()
+            savePlubAccessTokenAndRefreshTokenUseCase(savePlubJwtRequestVo).first()
             plubJwtToken.isTokenValid.apply {
                 if(!this) Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - verifyTokenIsRefreshed() called / 토큰 갱신 실패.")
             }
