@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.home
 
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +37,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
                 viewModel.testHomeData.collect {
                     if(it.equals("")){
                         HasNotDataRecycler()
+                    }
+                    else if(it.equals("에러")){
+                        Log.d("MainFragmentTag", "에러난거임")
+                    }
+                    else if(it.equals("로딩")){
+                        Log.d("MainFragmentTag", "로딩중임")
                     }
                     else{
                         HasDataRecycler()

@@ -17,16 +17,16 @@ class InterestRegisterAdapter(private var mlist : List<String>) : RecyclerView.A
     }
 
     inner class ViewHolder( itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val btn_art : ImageButton
-        val tv_art : TextView
+//        val btn_art : ImageButton
+//        val tv_art : TextView
 
         init {
-            btn_art = itemView.findViewById(R.id.btn_art_category)
-            tv_art = itemView.findViewById(R.id.tv_art_category)
-
-            btn_art.setOnClickListener {
-                tv_art.text = "예술 클릭"
-            }
+//            btn_art = itemView.findViewById(R.id.btn_art_category)
+//            tv_art = itemView.findViewById(R.id.tv_art_category)
+//
+//            btn_art.setOnClickListener {
+//                tv_art.text = "예술 클릭"
+//            }
         }
     }
 
