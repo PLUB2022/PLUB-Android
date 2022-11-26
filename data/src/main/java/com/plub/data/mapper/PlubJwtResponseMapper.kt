@@ -1,7 +1,7 @@
 package com.plub.data.mapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.dto.sample.PlubJwtResponse
+import com.plub.data.dto.plubJwt.PlubJwtResponse
 import com.plub.domain.model.vo.jwt_token.PlubJwtResponseVo
 
 object PlubJwtResponseMapper: Mapper.ResponseMapper<PlubJwtResponse, PlubJwtResponseVo> {
