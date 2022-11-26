@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.plub.presentation.ui.home.MainFragment"
+        android:name="com.plub.presentation.ui.home.plubing.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
 </navigation>

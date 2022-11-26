@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home
+package com.plub.presentation.ui.home.plubing
 
 import com.plub.domain.model.state.PageState
 import com.plub.domain.model.state.SampleHomeState

@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home
+package com.plub.presentation.ui.home.plubing
 
 import android.util.Log
 import androidx.fragment.app.viewModels
@@ -9,6 +9,9 @@ import com.plub.domain.model.state.SampleHomeState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMainBinding
+import com.plub.presentation.ui.home.adapter.MainCategoryAdapter
+import com.plub.presentation.ui.home.adapter.MainRecommendMeetAdapter
+import com.plub.presentation.ui.home.adapter.MainRecommendMeetXAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

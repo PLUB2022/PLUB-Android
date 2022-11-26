@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.plub.presentation.ui.home.MainFragmentViewModel" />
+            type="com.plub.presentation.ui.home.plubing.MainFragmentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
