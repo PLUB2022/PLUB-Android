@@ -61,12 +61,9 @@ class TokenAuthenticator @Inject constructor(
             val savePlubJwtTokenRequestVo = SavePlubJwtTokenRequestVo(plubJwtToken.accessToken, plubJwtToken.refreshToken)
 
             savePlubAccessTokenAndRefreshTokenUseCase(savePlubJwtTokenRequestVo).first()
-            val isTokenValid = plubJwtToken.isTokenValid
-
-            if (!isTokenValid)
-                Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - verifyTokenIsRefreshed() called / 토큰 갱신 실패.")
-
-            isTokenValid
+            return plubJwtToken.isTokenValid.apply {
+                if(!this) Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - verifyTokenIsRefreshed() called / 토큰 갱신 실패.")
+            }
         }
     }
 }
