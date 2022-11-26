@@ -20,10 +20,6 @@ class PlubJwtTokenRepositoryImpl @Inject constructor(
     private val encryptedDataStore: DataStore<PlubJwtToken>,
     private val plubJwtTokenApi: PlubJwtTokenApi
 ) : PlubJwtTokenRepository {
-    override fun saveAccessToken(accessToken: String): Flow<Nothing> = flow {
-        encryptedDataStore.updateData { it.toBuilder().setAccessToken(accessToken).build() }
-    }
-
     override fun saveAccessTokenAndRefreshToken(accessToken: String, refreshToken: String): Flow<Boolean> = flow {
         encryptedDataStore.updateData {
             it.toBuilder().setAccessToken(accessToken).setRefreshToken(refreshToken).build()

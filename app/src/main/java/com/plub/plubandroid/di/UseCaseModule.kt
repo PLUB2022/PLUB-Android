@@ -41,12 +41,6 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesSavePlubAccessTokenUseCase(repository: PlubJwtTokenRepository): SavePlubAccessTokenUseCase {
-        return SavePlubAccessTokenUseCase(repository)
-    }
-
-    @Singleton
-    @Provides
     fun providesSavePlubAccessTokenAndRefreshTokenUseCase(repository: PlubJwtTokenRepository): SavePlubAccessTokenAndRefreshTokenUseCase {
         return SavePlubAccessTokenAndRefreshTokenUseCase(repository)
     }
