@@ -28,11 +28,13 @@ class TokenAuthenticator @Inject constructor(
     private val mutex = Mutex()
 
     override fun authenticate(route: Route?, response: okhttp3.Response): Request? = runBlocking {
-        val access = fetchPlubAccessTokenUseCase(Unit).first()
-        val refresh = fetchPlubRefreshTokenUseCase(Unit).first()
+        val access = async { fetchPlubAccessTokenUseCase(Unit).first() }
+        val refresh = async { fetchPlubRefreshTokenUseCase(Unit).first() }
+        val accessToken = access.await()
+        val refreshToken = refresh.await()
 
         mutex.withLock {
-            if (verifyTokenIsRefreshed(access, refresh)) {
+            if (verifyTokenIsRefreshed(accessToken, refreshToken)) {
                 Timber.tag(RETROFIT_TAG)
                     .d("TokenAuthenticator - authenticate() called / 중단된 API 재요청")
                 response.request
