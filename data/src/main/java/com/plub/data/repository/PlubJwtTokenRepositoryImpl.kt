@@ -1,30 +1,31 @@
 package com.plub.data.repository
 
 import androidx.datastore.core.DataStore
+import com.plub.data.UiStateCallback
 import com.plub.data.api.PlubJwtTokenApi
+import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.PlubJwtTokenMapper
-import com.plub.data.model.JWTTokenReIssueRequest
-import com.plub.data.util.ApiResponse
 import com.plub.data.util.PlubJwtToken
-import com.plub.domain.model.vo.jwt_token.PlubJwtTokenData
-import com.plub.domain.model.vo.jwt_token.PlubJwtTokenVo
+import com.plub.domain.UiState
+import com.plub.domain.error.UiError
+import com.plub.domain.model.vo.jwt_token.PlubJwtTokenResponseVo
+import com.plub.domain.model.vo.jwt_token.SavePlubJwtTokenRequestVo
 import com.plub.domain.repository.PlubJwtTokenRepository
 import kotlinx.coroutines.flow.*
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import timber.log.Timber
 import javax.inject.Inject
 
 class PlubJwtTokenRepositoryImpl @Inject constructor(
     private val encryptedDataStore: DataStore<PlubJwtToken>,
     private val plubJwtTokenApi: PlubJwtTokenApi
-) : PlubJwtTokenRepository {
-    override fun saveAccessTokenAndRefreshToken(accessToken: String, refreshToken: String): Flow<Boolean> = flow {
-        encryptedDataStore.updateData {
-            it.toBuilder().setAccessToken(accessToken).setRefreshToken(refreshToken).build()
+) : PlubJwtTokenRepository, BaseRepository() {
+
+    override fun saveAccessTokenAndRefreshToken(request: SavePlubJwtTokenRequestVo): Flow<Boolean> = flow {
+        request.run {
+            encryptedDataStore.updateData {
+                it.toBuilder().setAccessToken(accessToken).setRefreshToken(refreshToken).build()
+            }
+            emit(true)
         }
-        emit(true)
     }.catch { emit(false) }
 
     override fun getAccessToken(): Flow<String> = flow {
@@ -36,13 +37,20 @@ class PlubJwtTokenRepositoryImpl @Inject constructor(
         emit(encryptedDataStore.data.firstOrNull()?.refreshToken ?: "")
     }
 
-    override fun reIssueToken(refreshToken: String): Flow<PlubJwtTokenVo> = flow {
-        val tokenResponse = plubJwtTokenApi.reIssueToken(JWTTokenReIssueRequest(refreshToken))
-        when {
-            !tokenResponse.isSuccessful ->
-                emit(PlubJwtTokenVo(PlubJwtTokenData("", "")))
-            else ->
-                emit(PlubJwtTokenMapper.mapDtoToModel((tokenResponse.body() as ApiResponse).data))
-        }
+    override fun reIssueToken(refreshToken: String): Flow<UiState<PlubJwtTokenResponseVo>> = flow {
+        request(plubJwtTokenApi.reIssueToken(refreshToken),PlubJwtTokenMapper, object : UiStateCallback<PlubJwtTokenResponseVo>() {
+            override suspend fun onSuccess(state: UiState.Success<PlubJwtTokenResponseVo>, customCode: Int) {
+                val uiState = super.uiStateMapResult(state)
+                emit(uiState)
+            }
+
+            override suspend fun onError(state: UiState.Error) {
+                emit(state)
+            }
+
+        })
+    }.catch { e:Throwable ->
+        e.printStackTrace()
+        emit(UiState.Error(UiError.Invalided))
     }
 }
