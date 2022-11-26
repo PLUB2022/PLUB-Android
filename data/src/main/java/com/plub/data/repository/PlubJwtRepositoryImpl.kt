@@ -34,12 +34,11 @@ class PlubJwtRepositoryImpl @Inject constructor(
     }.catch { emit(false) }
 
     override fun getAccessToken(): Flow<String> = flow {
-        emit(encryptedDataStore.data.firstOrNull()?.accessToken ?: "")
+        emit(request(encryptedDataStore)?.accessToken ?: "")
     }
 
-
     override fun getRefreshToken(): Flow<String> = flow {
-        emit(encryptedDataStore.data.firstOrNull()?.refreshToken ?: "")
+        emit(request(encryptedDataStore)?.refreshToken ?: "")
     }
 
     override fun reIssueToken(request: PlubJwtReIssueRequestVo): Flow<UiState<PlubJwtResponseVo>> = flow {

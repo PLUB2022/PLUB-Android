@@ -49,9 +49,7 @@ abstract class BaseRepository {
             .map { preferences -> UiState.Success(preferences[key], StateResult.Succeed) }
 
     fun <T> request(
-        dataStore: DataStore<Preferences>,
-        key: Preferences.Key<T>,
-        value: T
+        dataStore: DataStore<Preferences>, key: Preferences.Key<T>, value: T
     ): Flow<UiState<Nothing>> = flow {
         emit(UiState.Loading)
         try {
@@ -61,5 +59,11 @@ abstract class BaseRepository {
         } catch (e: Exception) {
             emit(UiState.Error(UiError.Invalided))
         }
+    }
+
+    suspend fun <T> request(
+        dataStore: DataStore<T>
+    ): T? {
+        return dataStore.data.firstOrNull()
     }
 }
