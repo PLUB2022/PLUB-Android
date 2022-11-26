@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class SavePlubAccessTokenAndRefreshTokenUseCase @Inject constructor(
     private val plubJwtTokenRepository: PlubJwtTokenRepository
-):UseCase<PlubJwtTokenData, Flow<Nothing>>() {
-    override operator fun invoke(request: PlubJwtTokenData): Flow<Nothing> {
+):UseCase<PlubJwtTokenData, Flow<Boolean>>() {
+    override operator fun invoke(request: PlubJwtTokenData): Flow<Boolean> {
         return plubJwtTokenRepository.saveAccessTokenAndRefreshToken(request.accessToken, request.refreshToken)
     }
 }

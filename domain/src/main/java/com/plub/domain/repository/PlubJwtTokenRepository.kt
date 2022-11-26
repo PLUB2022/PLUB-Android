@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface PlubJwtTokenRepository {
     fun saveAccessToken(accessToken: String): Flow<Nothing>
 
-    fun saveAccessTokenAndRefreshToken(accessToken: String, refreshToken: String): Flow<Nothing>
+    fun saveAccessTokenAndRefreshToken(accessToken: String, refreshToken: String): Flow<Boolean>
 
     fun getAccessToken(): Flow<String>
 

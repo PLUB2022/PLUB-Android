@@ -11,6 +11,7 @@ import com.plub.domain.usecase.PostReIssueTokenUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.plubandroid.util.RETROFIT_TAG
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -67,7 +68,7 @@ class TokenAuthenticator @Inject constructor(
                     plubJwtToken.data?.accessToken ?: "",
                     plubJwtToken.data?.refreshToken ?: ""
                 )
-            )
+            ).first()
             val isTokenValid = plubJwtToken.data?.isTokenValid ?: false
 
             if (!isTokenValid)
