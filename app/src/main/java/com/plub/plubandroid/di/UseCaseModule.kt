@@ -1,9 +1,13 @@
 package com.plub.plubandroid.di
 
+import com.plub.domain.repository.HomePostRepository
 import com.plub.domain.repository.IntroRepository
 import com.plub.domain.repository.LoginRepository
 import com.plub.domain.repository.PlubJwtRepository
 import com.plub.domain.usecase.*
+import com.plub.domain.usecase.TestPostHomeUseCase
+import com.plub.domain.usecase.TrySampleLoginUseCase
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,5 +52,11 @@ object UseCaseModule {
     @Provides
     fun providesPostReIssueTokenUseCase(repository: PlubJwtRepository): PostReIssueTokenUseCase {
         return PostReIssueTokenUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesTestPostHomeUseCase(repository: HomePostRepository): TestPostHomeUseCase {
+        return TestPostHomeUseCase(repository)
     }
 }

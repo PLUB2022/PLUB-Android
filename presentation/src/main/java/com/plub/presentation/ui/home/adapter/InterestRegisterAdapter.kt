@@ -1,10 +1,8 @@
-package com.plub.presentation.ui.home
+package com.plub.presentation.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.R
 
@@ -17,16 +15,16 @@ class InterestRegisterAdapter(private var mlist : List<String>) : RecyclerView.A
     }
 
     inner class ViewHolder( itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val btn_art : ImageButton
-        val tv_art : TextView
+//        val btn_art : ImageButton
+//        val tv_art : TextView
 
         init {
-            btn_art = itemView.findViewById(R.id.btn_art_category)
-            tv_art = itemView.findViewById(R.id.tv_art_category)
-
-            btn_art.setOnClickListener {
-                tv_art.text = "예술 클릭"
-            }
+//            btn_art = itemView.findViewById(R.id.btn_art_category)
+//            tv_art = itemView.findViewById(R.id.tv_art_category)
+//
+//            btn_art.setOnClickListener {
+//                tv_art.text = "예술 클릭"
+//            }
         }
     }
 

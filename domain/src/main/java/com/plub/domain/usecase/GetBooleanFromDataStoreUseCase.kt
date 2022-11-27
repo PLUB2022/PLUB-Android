@@ -13,3 +13,4 @@ class GetBooleanFromDataStoreUseCase @Inject constructor(
         return dataStoreRepository.getBoolean(request)
     }
 }
+

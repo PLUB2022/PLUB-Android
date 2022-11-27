@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/sampleFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
-        android:id="@+id/sampleFragment"
-        android:name="com.plub.presentation.ui.sample.SampleFragment"
+        android:id="@+id/mainFragment"
+        android:name="com.plub.presentation.ui.home.plubing.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_sample" />
+        tools:layout="@layout/fragment_main" />
 </navigation>
