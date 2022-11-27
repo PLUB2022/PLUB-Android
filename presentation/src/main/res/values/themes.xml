@@ -16,4 +16,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="spinnerTheme">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_363636</item>
+    </style>
 </resources>

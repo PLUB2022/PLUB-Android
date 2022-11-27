@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_d9d9d9">
+        android:background="@color/color_f5f3f6">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/sign_up_terms_title"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_363636"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -46,10 +46,10 @@
                     android:id="@+id/text_view_terms_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
                     android:text="@string/sign_up_terms_description"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_363636"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_view_terms_title" />
@@ -143,7 +143,7 @@
             android:enabled="@{vm.uiState.nextButtonEnable}"
             android:onClick="@{() -> vm.onClickNextButton()}"
             android:text="@string/word_next"
-            android:textColor="@drawable/selector_color_8c8c8c_to_white"
+            android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             android:textSize="14dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/view_dim"
