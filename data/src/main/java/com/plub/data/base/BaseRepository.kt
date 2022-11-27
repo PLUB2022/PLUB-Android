@@ -2,7 +2,6 @@ package com.plub.data.base
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
 import com.google.gson.Gson
 import com.plub.data.UiStateCallback
 import com.plub.data.util.ApiResponse
@@ -17,7 +16,7 @@ import retrofit2.Response
 
 abstract class BaseRepository {
 
-    suspend fun <D : DataDto, M : DomainModel> request(
+    suspend fun <D : DataDto, M : DomainModel> apiLaunch(
         response: Response<ApiResponse<D>>,
         responseMapper: Mapper.ResponseMapper<D, M>,
         result: UiStateCallback<M>
@@ -43,18 +42,18 @@ abstract class BaseRepository {
         }
     }
 
-    fun <T> request(dataStore: DataStore<Preferences>, key: Preferences.Key<T>): Flow<UiState<T?>> = flow<UiState<T?>> {
+    fun <T> dataStoreLaunch(dataStore: DataStore<Preferences>, key: Preferences.Key<T>): Flow<UiState<T?>> = flow<UiState<T?>> {
             val data = DataStoreUtil.getPreferencesData(dataStore, key)
             emit(UiState.Success(data.first(),StateResult.Succeed))
         }.onStart { emit(UiState.Loading) }.catch { emit(UiState.Error(UiError.Invalided)) }
 
-    fun <T> request(dataStore: DataStore<Preferences>, key: Preferences.Key<T>, value: T): Flow<UiState<Nothing>> = flow<UiState<Nothing>> {
+    fun <T> dataStoreLaunch(dataStore: DataStore<Preferences>, key: Preferences.Key<T>, value: T): Flow<UiState<Nothing>> = flow<UiState<Nothing>> {
         DataStoreUtil.savePreferencesData(dataStore, key, value)
     }.onStart { emit(UiState.Loading) }.catch { emit(UiState.Error(UiError.Invalided)) }
 
-    suspend fun <T> request(dataStore: DataStore<T>): T? = DataStoreUtil.getProtoData(dataStore)
+    suspend fun <T> dataStoreLaunch(dataStore: DataStore<T>): T? = DataStoreUtil.getProtoData(dataStore)
 
-    suspend fun <T> request(dataStore: DataStore<T>, update: suspend (t: T) -> T) {
+    suspend fun <T> dataStoreLaunch(dataStore: DataStore<T>, update: suspend (t: T) -> T) {
         DataStoreUtil.saveProtoData(dataStore, update)
     }
 }

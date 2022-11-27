@@ -13,8 +13,8 @@ class PrefDataStoreRepositoryImpl @Inject constructor(
     private val dataStorePreference: DataStore<Preferences>
 ) : PrefDataStoreRepository, BaseRepository() {
     override fun getBoolean(key: String): Flow<UiState<Boolean?>> =
-        request(dataStorePreference, booleanPreferencesKey(key))
+        dataStoreLaunch(dataStorePreference, booleanPreferencesKey(key))
 
     override fun setBoolean(key: String, value: Boolean): Flow<UiState<Nothing>> =
-        request(dataStorePreference, booleanPreferencesKey(key), value)
+        dataStoreLaunch(dataStorePreference, booleanPreferencesKey(key), value)
 }
