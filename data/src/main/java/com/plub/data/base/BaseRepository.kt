@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.edit
 import com.google.gson.Gson
 import com.plub.data.UiStateCallback
 import com.plub.data.util.ApiResponse
+import com.plub.data.util.DataStoreUtil
 import com.plub.domain.error.UiError
 import com.plub.domain.UiState
 import com.plub.domain.base.DomainModel
@@ -43,19 +44,17 @@ abstract class BaseRepository {
     }
 
     fun <T> request(dataStore: DataStore<Preferences>, key: Preferences.Key<T>): Flow<UiState<T?>> = flow<UiState<T?>> {
-            val data = dataStore.data.map { preferences -> preferences[key] }
+            val data = DataStoreUtil.getPreferencesData(dataStore, key)
             emit(UiState.Success(data.first(),StateResult.Succeed))
         }.onStart { emit(UiState.Loading) }.catch { emit(UiState.Error(UiError.Invalided)) }
 
     fun <T> request(dataStore: DataStore<Preferences>, key: Preferences.Key<T>, value: T): Flow<UiState<Nothing>> = flow<UiState<Nothing>> {
-        dataStore.edit { preferences ->
-            preferences[key] = value
-        }
+        DataStoreUtil.savePreferencesData(dataStore, key, value)
     }.onStart { emit(UiState.Loading) }.catch { emit(UiState.Error(UiError.Invalided)) }
 
-    suspend fun <T> request(
-        dataStore: DataStore<T>
-    ): T? {
-        return dataStore.data.firstOrNull()
+    suspend fun <T> request(dataStore: DataStore<T>): T? = DataStoreUtil.getProtoData(dataStore)
+
+    suspend fun <T> request(dataStore: DataStore<T>, update: suspend (t: T) -> T) {
+        DataStoreUtil.saveProtoData(dataStore, update)
     }
 }

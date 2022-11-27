@@ -26,7 +26,7 @@ class PlubJwtRepositoryImpl @Inject constructor(
 
     override fun saveAccessTokenAndRefreshToken(request: SavePlubJwtRequestVo): Flow<Boolean> = flow {
         request.run {
-            encryptedDataStore.updateData {
+            request(encryptedDataStore) {
                 it.toBuilder().setAccessToken(accessToken).setRefreshToken(refreshToken).build()
             }
             emit(true)
