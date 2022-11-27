@@ -3,6 +3,18 @@
     <string name="web_google_client_id">746494448016-j25cuo21ut0ofgbba9h4n6b63502uimi.apps.googleusercontent.com</string>
     <string name="kakao_redirect_url_key">kakao5c988e60cc77ac9ad664f1f37293ee2d</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_text_category_name_art">예술</string>
+    <string name="fragment_text_category_name_food">음식</string>
+    <string name="fragment_text_category_name_investment">제테크/투자</string>
+    <string name="fragment_text_category_name_language">어학</string>
+    <string name="fragment_text_category_name_culture">문화</string>
+    <string name="fragment_text_category_name_sport">스포츠/피트니스</string>
+    <string name="fragment_text_category_name_employment">취업/창업</string>
+    <string name="fragment_text_category_name_computer">컴퓨터</string>
+
+    <string name="appbar_scrolling_view_behavior" translatable="false">
+        com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior
+    </string>
     <string name="word_skip_uppercase">SKIP</string>
     <string name="word_next">다음</string>
     <string name="word_terms_service">서비스 약관</string>

@@ -1,9 +1,8 @@
-package com.plub.presentation
+package com.plub.presentation.ui.home
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.plub.presentation.ui.sample.SampleActivity
+import com.plub.presentation.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

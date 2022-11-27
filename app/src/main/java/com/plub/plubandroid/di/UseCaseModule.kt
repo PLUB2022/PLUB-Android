@@ -2,9 +2,8 @@ package com.plub.plubandroid.di
 
 import com.plub.domain.repository.IntroRepository
 import com.plub.domain.repository.LoginRepository
-import com.plub.domain.usecase.PostSocialLoginUseCase
-import com.plub.domain.usecase.TrySampleLoginUseCase
-import dagger.Binds
+import com.plub.domain.repository.PlubJwtRepository
+import com.plub.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,5 +24,29 @@ object UseCaseModule {
     @Provides
     fun providesTrySampleLoginUseCase(repository: IntroRepository): TrySampleLoginUseCase {
         return TrySampleLoginUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFetchPlubAccessTokenUseCase(repository: PlubJwtRepository): FetchPlubAccessTokenUseCase {
+        return FetchPlubAccessTokenUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFetchPlubRefreshTokenUseCase(repository: PlubJwtRepository): FetchPlubRefreshTokenUseCase {
+        return FetchPlubRefreshTokenUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesSavePlubAccessTokenAndRefreshTokenUseCase(repository: PlubJwtRepository): SavePlubAccessTokenAndRefreshTokenUseCase {
+        return SavePlubAccessTokenAndRefreshTokenUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostReIssueTokenUseCase(repository: PlubJwtRepository): PostReIssueTokenUseCase {
+        return PostReIssueTokenUseCase(repository)
     }
 }

@@ -15,8 +15,8 @@
             android:name=".ui.sample.SampleActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
+            android:name=".ui.home.MainActivity"
+            android:exported="true"/>
 
         <activity
             android:name=".ui.sign.SignActivity"

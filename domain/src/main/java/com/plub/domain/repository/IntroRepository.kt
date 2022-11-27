@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface IntroRepository {
     fun trySampleLogin(): Flow<UiState<SampleLogin>>
+
 }

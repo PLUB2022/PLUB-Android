@@ -21,7 +21,7 @@ class LoginRepositoryImpl @Inject constructor(private val loginApi: LoginApi) : 
 
     override fun socialLogin(request: SocialLoginRequestVo): Flow<UiState<SocialLoginResponseVo>> = flow {
         val requestDto = SocialLoginRequestMapper.mapModelToDto(request)
-        request(loginApi.socialLogin(requestDto), SocialLoginResponseMapper, object : UiStateCallback<SocialLoginResponseVo>() {
+        apiLaunch(loginApi.socialLogin(requestDto), SocialLoginResponseMapper, object : UiStateCallback<SocialLoginResponseVo>() {
             override suspend fun onSuccess(state: UiState.Success<SocialLoginResponseVo>, customCode: Int) {
                 val uiState = super.uiStateMapResult(state) {
                     LoginFailure.make(customCode)
