@@ -5,5 +5,5 @@ import com.plub.domain.model.vo.login.SampleLogin
 import kotlinx.coroutines.flow.Flow
 
 abstract class UseCase<PARAM,MODEL> {
-    abstract fun invoke(request:PARAM): Flow<UiState<MODEL>>
+    abstract operator fun invoke(request:PARAM): MODEL
 }

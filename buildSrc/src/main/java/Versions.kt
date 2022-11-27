@@ -17,10 +17,12 @@ object Versions {
     const val NAVIGATION = "2.5.1"
     const val LEGACY = "1.0.0"
     const val DATA_STORE = "1.0.0"
+    const val RECYCLER_VIEW = "1.2.1"
 
     const val CORE_KTX = "1.8.0"
 
     /* [ Google ] */
+    const val GOOGLE_PLAY_SERVICE = "20.3.0"
     const val HILT = "2.42"
     const val MATERIAL = "1.6.1"
     const val TINK = "1.7.0"
@@ -35,6 +37,8 @@ object Versions {
 
     const val LOTTIE = "3.0.7"
     const val INDICATOR = "4.3"
+
+    const val KAKAO = "2.11.2"
 
     /* [ UnitTest ] */
     const val JUNIT = "4.13.2"

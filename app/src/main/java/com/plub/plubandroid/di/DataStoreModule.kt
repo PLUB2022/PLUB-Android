@@ -11,13 +11,13 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.plub.data.repository.PlubJwtTokenRepositoryImpl
+import com.plub.data.repository.PlubJwtRepositoryImpl
 import com.plub.data.repository.PrefDataStoreRepositoryImpl
 import com.plub.data.util.Crypto
 import com.plub.data.util.CryptoImpl
 import com.plub.data.util.PlubJwtToken
 import com.plub.data.util.PlubJwtTokenSerializer
-import com.plub.domain.repository.PlubJwtTokenRepository
+import com.plub.domain.repository.PlubJwtRepository
 import com.plub.domain.repository.PrefDataStoreRepository
 import dagger.Binds
 import dagger.Module
@@ -45,8 +45,8 @@ abstract class DataStoreModule {
     @Binds
     @Singleton
     abstract fun bindPlubJwtTokenRepository(
-        plubJwtTokenRepositoryImpl: PlubJwtTokenRepositoryImpl
-    ) : PlubJwtTokenRepository
+        plubJwtRepositoryImpl: PlubJwtRepositoryImpl
+    ) : PlubJwtRepository
 
     @Binds
     @Singleton

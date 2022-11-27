@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/btn_art_category"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="32dp"
+        android:clipToOutline="true"
+        android:elevation="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_art_category"
+        android:layout_width="66dp"
+        android:layout_height="17dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/fragment_text_category_name_art"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/btn_art_category"
+        app:layout_constraintStart_toStartOf="@id/btn_art_category"
+        app:layout_constraintTop_toBottomOf="@id/btn_art_category" />
+
+
+    <ImageButton
+        android:id="@+id/btn_food_category"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="32dp"
+        android:clipToOutline="true"
+        android:elevation="4dp"
+        app:layout_constraintStart_toEndOf="@id/btn_art_category"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_food_category"
+        android:layout_width="66dp"
+        android:layout_height="17dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/fragment_text_category_name_food"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/btn_food_category"
+        app:layout_constraintStart_toStartOf="@id/btn_food_category"
+        app:layout_constraintTop_toBottomOf="@id/btn_food_category" />
+
+    <ImageButton
+        android:id="@+id/btn_investm_category"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="32dp"
+        android:clipToOutline="true"
+        android:elevation="4dp"
+        app:layout_constraintStart_toEndOf="@id/btn_food_category"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_investm_category"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/fragment_text_category_name_investment"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/btn_investm_category"
+        app:layout_constraintStart_toStartOf="@id/btn_investm_category"
+        app:layout_constraintTop_toBottomOf="@id/btn_investm_category" />
+
+    <ImageButton
+        android:id="@+id/btn_language_category"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="32dp"
+        android:clipToOutline="true"
+        android:elevation="4dp"
+        app:layout_constraintStart_toEndOf="@id/btn_investm_category"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_language_category"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/fragment_text_category_name_language"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/btn_language_category"
+        app:layout_constraintStart_toStartOf="@id/btn_language_category"
+        app:layout_constraintTop_toBottomOf="@id/btn_language_category" />
+
+
+    <ImageButton
+        android:id="@+id/btn_culture_category"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="161dp"
+        android:clipToOutline="true"
+        android:elevation="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_culture_category"
+        android:layout_width="66dp"
+        android:layout_height="17dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/fragment_text_category_name_culture"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/btn_culture_category"
+        app:layout_constraintStart_toStartOf="@id/btn_culture_category"
+        app:layout_constraintTop_toBottomOf="@id/btn_culture_category" />
+
+    <ImageButton
+        android:id="@+id/btn_sport_category"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="161dp"
+        android:clipToOutline="true"
+        android:elevation="4dp"
+        app:layout_constraintStart_toEndOf="@id/btn_culture_category"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_sport_category"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/fragment_text_category_name_sport"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/btn_sport_category"
+        app:layout_constraintStart_toStartOf="@id/btn_sport_category"
+        app:layout_constraintTop_toBottomOf="@id/btn_sport_category" />
+
+    <ImageButton
+        android:id="@+id/btn_employm_category"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="161dp"
+        android:clipToOutline="true"
+        android:elevation="4dp"
+        app:layout_constraintStart_toEndOf="@id/btn_sport_category"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_employm_category"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/fragment_text_category_name_employment"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/btn_employm_category"
+        app:layout_constraintStart_toStartOf="@id/btn_employm_category"
+        app:layout_constraintTop_toBottomOf="@id/btn_employm_category" />
+
+    <ImageButton
+        android:id="@+id/btn_computer_category"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="161dp"
+        android:clipToOutline="true"
+        android:elevation="4dp"
+        app:layout_constraintStart_toEndOf="@id/btn_employm_category"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_computer_category"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/fragment_text_category_name_computer"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/btn_computer_category"
+        app:layout_constraintStart_toStartOf="@id/btn_computer_category"
+        app:layout_constraintTop_toBottomOf="@id/btn_computer_category" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

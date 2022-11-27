@@ -14,6 +14,8 @@ android {
         minSdk = Configs.MIN_SDK
         targetSdk = Configs.TARGET_SDK
 
+        vectorDrawables.useSupportLibrary = true
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -45,14 +47,17 @@ dependencies {
     implementation(AndroidX.NAVIGATION_FRAGMENT_KTX)
     implementation(AndroidX.NAVIGATION_UI_KTX)
     implementation(AndroidX.LEGACY_SUPPORT)
+    implementation(AndroidX.RECYCLER_VIEW)
 
     implementation(Libraries.COIL)
     implementation(Libraries.TIMBER)
     implementation(Libraries.LOTTIE)
     implementation(Libraries.INDICATOR)
+    implementation(Libraries.KAKAO)
 
     implementation(Google.MATERIAL)
     implementation(Google.HILT_ANDROID)
+    implementation(Google.GOOGLE_PLAY_SERVICE)
 
     implementation(Glide.GLIDE)
     annotationProcessor(Glide.GLIDE_COMPILER)

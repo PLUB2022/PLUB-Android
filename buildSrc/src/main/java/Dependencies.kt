@@ -24,9 +24,11 @@ object AndroidX {
     const val LEGACY_SUPPORT = "androidx.legacy:legacy-support-v4:${Versions.LEGACY}"
     const val DATA_STORE_PROTO = "androidx.datastore:datastore:${Versions.DATA_STORE}"
     const val DATA_STORE_PREFERENCES = "androidx.datastore:datastore-preferences:${Versions.DATA_STORE}"
+    const val RECYCLER_VIEW = "androidx.recyclerview:recyclerview:${Versions.RECYCLER_VIEW}"
 }
 
 object Google {
+    const val GOOGLE_PLAY_SERVICE = "com.google.android.gms:play-services-auth:${Versions.GOOGLE_PLAY_SERVICE}"
     const val HILT_ANDROID = "com.google.dagger:hilt-android:${Versions.HILT}"
     const val HILT_ANDROID_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.HILT}"
     const val HILT_CORE = "com.google.dagger:hilt-core:${Versions.HILT}"
@@ -50,6 +52,8 @@ object Libraries {
 
     const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE}"
     const val INDICATOR = "com.tbuonomo:dotsindicator:${Versions.INDICATOR}"
+
+    const val KAKAO = "com.kakao.sdk:v2-user:${Versions.KAKAO}"
 }
 
 object UnitTest {

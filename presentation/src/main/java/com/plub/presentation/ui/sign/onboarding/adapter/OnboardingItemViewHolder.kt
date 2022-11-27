@@ -2,11 +2,10 @@ package com.plub.presentation.ui.sign.onboarding.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.onboarding.OnboardingItemVo
-import com.plub.presentation.databinding.ItemOnboardingBinding
-import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.databinding.IncludeItemOnboardingBinding
 
 class OnboardingItemViewHolder(
-    private val binding: ItemOnboardingBinding,
+    private val binding: IncludeItemOnboardingBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: OnboardingItemVo) {
