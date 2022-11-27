@@ -42,24 +42,16 @@ abstract class BaseRepository {
         }
     }
 
-    fun <T> request(dataStore: DataStore<Preferences>, key: Preferences.Key<T>): Flow<UiState<T?>> =
-        dataStore.data
-            .onStart { UiState.Loading }
-            .catch { UiState.Error(UiError.Invalided) }
-            .map { preferences -> UiState.Success(preferences[key], StateResult.Succeed) }
+    fun <T> request(dataStore: DataStore<Preferences>, key: Preferences.Key<T>): Flow<UiState<T?>> = flow<UiState<T?>> {
+            val data = dataStore.data.map { preferences -> preferences[key] }
+            emit(UiState.Success(data.first(),StateResult.Succeed))
+        }.onStart { emit(UiState.Loading) }.catch { emit(UiState.Error(UiError.Invalided)) }
 
-    fun <T> request(
-        dataStore: DataStore<Preferences>, key: Preferences.Key<T>, value: T
-    ): Flow<UiState<Nothing>> = flow {
-        emit(UiState.Loading)
-        try {
-            dataStore.edit { preferences ->
-                preferences[key] = value
-            }
-        } catch (e: Exception) {
-            emit(UiState.Error(UiError.Invalided))
+    fun <T> request(dataStore: DataStore<Preferences>, key: Preferences.Key<T>, value: T): Flow<UiState<Nothing>> = flow<UiState<Nothing>> {
+        dataStore.edit { preferences ->
+            preferences[key] = value
         }
-    }
+    }.onStart { emit(UiState.Loading) }.catch { emit(UiState.Error(UiError.Invalided)) }
 
     suspend fun <T> request(
         dataStore: DataStore<T>

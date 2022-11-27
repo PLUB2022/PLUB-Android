@@ -1,12 +1,12 @@
 package com.plub.data.repository
 
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import com.plub.data.base.BaseRepository
 import com.plub.domain.UiState
 import com.plub.domain.repository.PrefDataStoreRepository
-import kotlinx.coroutines.flow.*
-import java.io.IOException
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class PrefDataStoreRepositoryImpl @Inject constructor(
