@@ -8,7 +8,7 @@
 
         <variable
             name="vo"
-            type="com.plub.domain.model.vo.terms.TermsAgreementItemVo" />
+            type="com.plub.domain.model.vo.signUp.terms.TermsAgreementItemVo" />
 
         <variable
             name="vm"

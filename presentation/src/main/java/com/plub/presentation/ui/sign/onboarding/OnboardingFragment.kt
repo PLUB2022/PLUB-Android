@@ -36,8 +36,9 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding,OnboardingPage
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-                    pagerAdapter.submitList(it.onboardingDataList)
-                    movePage(it.currentPage)
+                    pagerAdapter.submitList(it.onboardingDataList) {
+                        movePage(it.currentPage)
+                    }
                 }
             }
             launch {

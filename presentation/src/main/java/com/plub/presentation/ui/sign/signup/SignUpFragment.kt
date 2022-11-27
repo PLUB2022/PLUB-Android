@@ -1,7 +1,9 @@
 package com.plub.presentation.ui.sign.signup
 
 import androidx.fragment.app.viewModels
+import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.state.SignUpPageState
+import com.plub.domain.model.vo.signUp.SignUpPageVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSignUpBinding
 import com.plub.presentation.ui.sign.signup.adapter.FragmentSignUpPagerAdapter
@@ -14,15 +16,15 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
 ) {
 
     interface Delegate{
-        fun onChangeNextButtonEnable(isEnable:Boolean)
+        fun onMoveToNextPage(pageType: SignUpPageType, pageVo: SignUpPageVo)
     }
 
     override val viewModel: SignUpViewModel by viewModels()
 
     private val pagerAdapter: FragmentSignUpPagerAdapter by lazy {
         FragmentSignUpPagerAdapter(this, object: Delegate {
-            override fun onChangeNextButtonEnable(isEnable: Boolean) {
-                viewModel.onChangeNextButton(isEnable)
+            override fun onMoveToNextPage(pageType: SignUpPageType, pageVo: SignUpPageVo) {
+                viewModel.onMoveToNextPage(pageType, pageVo)
             }
         })
     }
@@ -43,7 +45,9 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-
+                viewModel.uiState.collect {
+                    binding.viewPager.currentItem = it.currentPage
+                }
             }
         }
     }

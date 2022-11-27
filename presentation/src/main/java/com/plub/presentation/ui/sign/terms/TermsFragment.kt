@@ -3,6 +3,7 @@ package com.plub.presentation.ui.sign.terms
 import android.graphics.Color
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
+import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.state.TermsPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentTermsBinding
@@ -53,8 +54,8 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    delegate?.onChangeNextButtonEnable(it.isNextButtonEnable)
+                viewModel.moveToNextPage.collect {
+                    delegate?.onMoveToNextPage(SignUpPageType.TERMS, it)
                 }
             }
         }

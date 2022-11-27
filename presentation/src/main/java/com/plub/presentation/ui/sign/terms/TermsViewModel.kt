@@ -1,18 +1,41 @@
 package com.plub.presentation.ui.sign.terms
 
+import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.TermsType
 import com.plub.domain.model.state.TermsPageState
-import com.plub.domain.model.vo.terms.TermsAgreementItemVo
+import com.plub.domain.model.vo.signUp.terms.TermsAgreementItemVo
+import com.plub.domain.model.vo.signUp.terms.TermsPageVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TermsViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
 ) : BaseViewModel<TermsPageState>(TermsPageState()) {
+
+    private val _moveToNextPage = MutableSharedFlow<TermsPageVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val moveToNextPage: SharedFlow<TermsPageVo> = _moveToNextPage.asSharedFlow()
+
+    fun onClickNextButton() {
+        viewModelScope.launch {
+            val vo = uiState.value.mapVo.run {
+                TermsPageVo(
+                    get(TermsType.PRIVACY)?.isChecked ?: false,
+                    get(TermsType.LOCATION)?.isChecked ?: false,
+                    get(TermsType.AGE)?.isChecked ?: false,
+                    get(TermsType.COLLECT)?.isChecked ?: false,
+                    get(TermsType.MARKETING)?.isChecked ?: false,
+                )
+            }
+            _moveToNextPage.emit(vo)
+        }
+    }
 
     fun onClickTermsExpand(termsType: TermsType, isExpanded: Boolean) {
         val map = getChangeTermsExpandMap(termsType, isExpanded)
