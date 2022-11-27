@@ -21,7 +21,7 @@ import javax.inject.Inject
 class HomePostReposImpl @Inject constructor(private val postHomeApi : PostHomeApi) : HomePostRepository, BaseRepository() {
     override fun trySampleData(request: HomePostRequestVo): Flow<UiState<HomePostResponseVo>> = flow {
         val requestDto = HomePostMapper.mapperToSampleRequest(request)
-        request(postHomeApi.postHome(requestDto), HomePostResponseMapper, object : UiStateCallback<HomePostResponseVo>() {
+        apiLaunch(postHomeApi.postHome(requestDto), HomePostResponseMapper, object : UiStateCallback<HomePostResponseVo>() {
             override suspend fun onSuccess(state: UiState.Success<HomePostResponseVo>, customCode: Int) {
                 val uiState = super.uiStateMapResult(state) {
                     LoginFailure.make(customCode)

@@ -10,7 +10,7 @@
         android:layout_height="72dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/f2f2f2"
+        android:background="@color/color_f2f2f2"
         android:clipToOutline="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
