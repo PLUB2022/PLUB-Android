@@ -3,6 +3,7 @@ package com.plub.presentation.ui.sign.terms
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.TermsType
 import com.plub.domain.model.state.TermsPageState
+import com.plub.domain.model.vo.signUp.SignUpPageVo
 import com.plub.domain.model.vo.signUp.terms.TermsAgreementItemVo
 import com.plub.domain.model.vo.signUp.terms.TermsPageVo
 import com.plub.presentation.R
@@ -24,15 +25,7 @@ class TermsViewModel @Inject constructor(
 
     fun onClickNextButton() {
         viewModelScope.launch {
-            val vo = uiState.value.mapVo.run {
-                TermsPageVo(
-                    get(TermsType.PRIVACY)?.isChecked ?: false,
-                    get(TermsType.LOCATION)?.isChecked ?: false,
-                    get(TermsType.AGE)?.isChecked ?: false,
-                    get(TermsType.COLLECT)?.isChecked ?: false,
-                    get(TermsType.MARKETING)?.isChecked ?: false,
-                )
-            }
+            val vo = mapToTermsPageVo(uiState.value.mapVo)
             _moveToNextPage.emit(vo)
         }
     }
@@ -58,9 +51,17 @@ class TermsViewModel @Inject constructor(
         }
     }
 
+    fun onInitPage(signUpPageVo: SignUpPageVo?) {
+        (signUpPageVo as? TermsPageVo)?.let {
+            updateUiState { ui ->
+                val newMap = getInitTermsAgreementMap(it)
+                ui.copy(mapVo = newMap, isNextButtonEnable = isNextButtonEnable(newMap))
+            }
+        }
+    }
+
     private fun getChangeTermsExpandMap(termsType: TermsType, isExpanded: Boolean):Map<TermsType, TermsAgreementItemVo> {
-        val newMap = uiState.value.mapVo.toMutableMap()
-        return newMap.mapValues {
+        return uiState.value.mapVo.toMutableMap().mapValues {
             val expanded = if (it.key == termsType) !isExpanded else it.value.isExpanded
             it.value.copy(
                 isExpanded = expanded
@@ -79,15 +80,13 @@ class TermsViewModel @Inject constructor(
     }
 
     private fun getAllCheckedMap(isChecked: Boolean):Map<TermsType, TermsAgreementItemVo> {
-        val newMap = uiState.value.mapVo.toMutableMap()
-        return newMap.mapValues {
+        return uiState.value.mapVo.toMutableMap().mapValues {
             it.value.copy(isChecked = !isChecked)
         }
     }
 
     private fun getOtherCheckedMap(termsType: TermsType, isChecked: Boolean):Map<TermsType, TermsAgreementItemVo> {
-        val newMap = uiState.value.mapVo.toMutableMap()
-        return newMap.mapValues {
+        return uiState.value.mapVo.toMutableMap().mapValues {
             val check = if (it.key == termsType) !isChecked else it.value.isChecked
             it.value.copy(
                 isChecked = check
@@ -143,5 +142,25 @@ class TermsViewModel @Inject constructor(
             TermsType.COLLECT -> true
             else -> false
         }
+    }
+
+    private fun mapToTermsPageVo(map: Map<TermsType, TermsAgreementItemVo>):TermsPageVo {
+        return TermsPageVo(
+            map[TermsType.PRIVACY]?.isChecked ?: false,
+            map[TermsType.LOCATION]?.isChecked ?: false,
+            map[TermsType.AGE]?.isChecked ?: false,
+            map[TermsType.COLLECT]?.isChecked ?: false,
+            map[TermsType.MARKETING]?.isChecked ?: false,
+        )
+    }
+
+    private fun getInitTermsAgreementMap(vo:TermsPageVo):Map<TermsType, TermsAgreementItemVo> {
+        val map = uiState.value.mapVo.toMutableMap()
+        map[TermsType.PRIVACY]?.isChecked = vo.privacy
+        map[TermsType.LOCATION]?.isChecked = vo.location
+        map[TermsType.AGE]?.isChecked = vo.age
+        map[TermsType.COLLECT]?.isChecked = vo.collect
+        map[TermsType.MARKETING]?.isChecked = vo.marketing
+        return getAllTypeCheckedMap(map)
     }
 }

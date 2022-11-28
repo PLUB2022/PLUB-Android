@@ -1,6 +1,9 @@
 package com.plub.presentation.ui.sign.signup
 
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.children
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.state.SignUpPageState
 import com.plub.domain.model.vo.signUp.SignUpPageVo
@@ -22,11 +25,17 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
     override val viewModel: SignUpViewModel by viewModels()
 
     private val pagerAdapter: FragmentSignUpPagerAdapter by lazy {
-        FragmentSignUpPagerAdapter(this, object: Delegate {
+        FragmentSignUpPagerAdapter(parentFragmentManager,lifecycle, object: Delegate {
             override fun onMoveToNextPage(pageType: SignUpPageType, pageVo: SignUpPageVo) {
                 viewModel.onMoveToNextPage(pageType, pageVo)
             }
         })
+    }
+
+    private val backPressedDispatcher = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            viewModel.onBackPressed(binding.viewPager.currentItem)
+        }
     }
 
     override fun initView() {
@@ -38,6 +47,8 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
                 dotsIndicator.attachTo(this)
             }
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(backPressedDispatcher)
     }
 
     override fun initState() {
@@ -47,6 +58,16 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
             launch {
                 viewModel.uiState.collect {
                     binding.viewPager.currentItem = it.currentPage
+                }
+            }
+            launch {
+                viewModel.navigationPop.collect {
+                    findNavController().popBackStack()
+                }
+            }
+            launch {
+                viewModel.initPage.collect {
+                    pagerAdapter.initPage(it.first, it.second)
                 }
             }
         }
