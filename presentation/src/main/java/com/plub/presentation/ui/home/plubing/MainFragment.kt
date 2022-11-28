@@ -2,6 +2,7 @@ package com.plub.presentation.ui.home.plubing
 
 import android.util.Log
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,7 @@ import com.plub.presentation.databinding.FragmentMainBinding
 import com.plub.presentation.ui.home.adapter.MainCategoryAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendMeetAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendMeetXAdapter
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -30,6 +32,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
             vm = viewModel
             viewModel.isHaveInterest()
             //TODO 할 일
+
+            //TODO REMOVE 메인 툴바 클릭 시 임시로 모임 생성 페이지 이동 구현함
+            mainToolbar.setOnClickListener {
+                findNavController().navigate(MainFragmentDirections.actionMainToCreateGathering())
+            }
         }
     }
 
