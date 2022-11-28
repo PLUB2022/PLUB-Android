@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.sign
 
+import android.content.Intent
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -8,6 +9,7 @@ import com.plub.domain.model.state.PageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseActivity
 import com.plub.presentation.databinding.ActivitySignBinding
+import com.plub.presentation.ui.home.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 
@@ -18,6 +20,9 @@ class SignActivity : BaseActivity<ActivitySignBinding,PageState.Default,SignView
     private lateinit var navController: NavController
 
     override fun initView() {
+        //TODO REMOVE
+        startActivity(Intent(this, MainActivity::class.java))
+
         binding.apply {
             vm = viewModel
             initNavigation()
