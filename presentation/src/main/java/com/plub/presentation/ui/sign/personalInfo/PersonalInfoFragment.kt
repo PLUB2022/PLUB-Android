@@ -46,8 +46,10 @@ class PersonalInfoFragment : BaseFragment<FragmentPersonalInfoBinding, PersonalI
             }
         }
 
+        viewModel.initSpinner()
     }
 
     override fun initPage(signUpPageVo: SignUpPageVo?) {
+        viewModel.onInitPage(signUpPageVo)
     }
 }
