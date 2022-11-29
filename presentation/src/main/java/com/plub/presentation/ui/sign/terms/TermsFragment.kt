@@ -5,18 +5,17 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.state.TermsPageState
-import com.plub.domain.model.vo.signUp.SignUpListener
-import com.plub.domain.model.vo.signUp.SignUpPageVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentTermsBinding
 import com.plub.presentation.ui.sign.signup.SignUpFragment
+import com.plub.presentation.ui.sign.signup.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsViewModel>(
     FragmentTermsBinding::inflate
-), SignUpListener {
+) {
 
     companion object {
         private const val VALUE_WEB_VIEW_TEXT_ZOOM = 100
@@ -28,6 +27,7 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
     }
 
     override val viewModel: TermsViewModel by viewModels()
+    private val parentViewModel: SignUpViewModel by viewModels({requireParentFragment()})
 
     private var delegate:SignUpFragment.Delegate? = null
 
@@ -56,13 +56,13 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    it.mapVo
+                viewModel.moveToNextPage.collect {
+                    delegate?.onMoveToNextPage(SignUpPageType.TERMS, it)
                 }
             }
             launch {
-                viewModel.moveToNextPage.collect {
-                    delegate?.onMoveToNextPage(SignUpPageType.TERMS, it)
+                parentViewModel.testInitPage.collect {
+                    viewModel.onInitPage(it)
                 }
             }
         }
@@ -82,9 +82,5 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
                 }
             }
         }
-    }
-
-    override fun initPage(signUpPageVo: SignUpPageVo?) {
-        viewModel.onInitPage(signUpPageVo)
     }
 }

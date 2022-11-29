@@ -1,7 +1,6 @@
 package com.plub.presentation.ui.sign.signup
 
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.plub.domain.model.enums.SignUpPageType
@@ -25,7 +24,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
     override val viewModel: SignUpViewModel by viewModels()
 
     private val pagerAdapter: FragmentSignUpPagerAdapter by lazy {
-        FragmentSignUpPagerAdapter(parentFragmentManager,lifecycle, object: Delegate {
+        FragmentSignUpPagerAdapter(this, object: Delegate {
             override fun onMoveToNextPage(pageType: SignUpPageType, pageVo: SignUpPageVo) {
                 viewModel.onMoveToNextPage(pageType, pageVo)
             }
@@ -63,11 +62,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
             launch {
                 viewModel.navigationPop.collect {
                     findNavController().popBackStack()
-                }
-            }
-            launch {
-                viewModel.initPage.collect {
-                    pagerAdapter.initPage(it.first, it.second)
                 }
             }
         }

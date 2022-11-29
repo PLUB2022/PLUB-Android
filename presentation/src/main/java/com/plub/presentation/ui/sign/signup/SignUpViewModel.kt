@@ -11,9 +11,7 @@ import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,6 +30,9 @@ class SignUpViewModel @Inject constructor(
     private val _initPage = MutableSharedFlow<Pair<SignUpPageType,SignUpPageVo?>>(0, 1, BufferOverflow.DROP_OLDEST)
     val initPage: SharedFlow<Pair<SignUpPageType,SignUpPageVo?>> = _initPage.asSharedFlow()
 
+    private val _testInitPage = MutableStateFlow(TermsPageVo())
+    val testInitPage: StateFlow<TermsPageVo> = _testInitPage.asStateFlow()
+
     fun onBackPressed(currentPage: Int) {
         val previousPage = currentPage - 1
         if (isFirstPage(currentPage)) goToNavUp() else moveToPage(previousPage)
@@ -44,6 +45,12 @@ class SignUpViewModel @Inject constructor(
         if (isLastPage(currentPage)) goToWelcome() else {
             moveToPage(nextPage)
             initPage(SignUpPageType.valueOf(nextPage))
+        }
+    }
+
+    fun testInit() {
+        viewModelScope.launch {
+            _testInitPage.emit(TermsPageVo(true,true,true,true,true,))
         }
     }
 
