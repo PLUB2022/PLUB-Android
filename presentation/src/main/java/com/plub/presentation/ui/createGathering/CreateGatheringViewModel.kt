@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.createGathering
 
+import com.plub.domain.model.enums.CreateGatheringPageType
 import com.plub.domain.model.state.CreateGatheringPageState
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.ViewPager.CREATE_GATHERING_PAGE_SIZE
@@ -11,7 +12,7 @@ class CreateGatheringViewModel @Inject constructor() :
     BaseViewModel<CreateGatheringPageState>(CreateGatheringPageState()) {
 
     private var currentPage = 0
-    private val maxPage = CREATE_GATHERING_PAGE_SIZE - 1
+    private val maxPage = CreateGatheringPageType.values().size - 1
 
     fun onMoveToNextPage() {
         if (isLastPage()) return
