@@ -7,13 +7,13 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.createGathering.gatheringTitleAndName.GatheringTitleAndNameViewModel" />
+            type="com.plub.presentation.ui.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNameViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.createGathering.gatheringTitleAndName.GatheringTitleAndNameFragment">
+        tools:context=".ui.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNameFragment">
 
         <TextView
             android:id="@+id/text_view_title"

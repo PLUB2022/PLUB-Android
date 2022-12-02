@@ -6,6 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class GatheringTitleAndNameViewModel @Inject constructor() : BaseViewModel<PageState.Default>(PageState.Default) {
+class CreateGatheringTitleAndNameViewModel @Inject constructor() : BaseViewModel<PageState.Default>(PageState.Default) {
 
 }
