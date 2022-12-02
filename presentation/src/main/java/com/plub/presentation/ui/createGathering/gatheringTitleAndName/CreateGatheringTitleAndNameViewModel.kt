@@ -9,7 +9,6 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateGatheringTitleAndNameViewModel @Inject constructor() :
     BaseViewModel<CreateGatheringTitleAndNamePageState>(CreateGatheringTitleAndNamePageState()) {
-    val test = 0
 
     fun updateIntroductionTitle(text: Editable) {
         updateUiState { uiState ->
