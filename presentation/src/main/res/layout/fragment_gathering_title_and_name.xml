@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="com.plub.presentation.ui.createGathering.gatheringTitleAndName.GatheringTitleAndNameViewModel" />
@@ -13,6 +14,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.createGathering.gatheringTitleAndName.GatheringTitleAndNameFragment">
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_gathering_title_and_name_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_title_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_gathering_title_and_name_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+
+        <TextView
+            android:id="@+id/text_view_introduction_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/create_gathering_title_and_name_introduction_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title_description" />
+
+        <EditText
+            android:id="@+id/edit_text_introduction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/create_gathering_title_and_name_introduction_title_hint"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_introduction_title" />
+
+        <TextView
+            android:id="@+id/text_view_gathering_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/create_gathering_title_and_name_gathering_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_introduction" />
+
+        <EditText
+            android:id="@+id/edit_text_gathering_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/create_gathering_title_and_name_gathering_name_hint"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_gathering_name_title" />
 
         <Button
             android:id="@+id/button_next"
