@@ -55,6 +55,15 @@
             app:layout_constraintTop_toBottomOf="@id/text_view_introduction_title" />
 
         <TextView
+            android:id="@+id/text_view_introduction_title_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/int_to_string(vm.uiState.introductionTitle.length())}"
+            app:layout_constraintEnd_toEndOf="@id/edit_text_introduction"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_introduction"
+            tools:text="0" />
+
+        <TextView
             android:id="@+id/text_view_gathering_name_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,6 +81,15 @@
             android:text="@{vm.uiState.gatheringName}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_gathering_name_title" />
+
+        <TextView
+            android:id="@+id/text_view_gathering_name_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/int_to_string(vm.uiState.gatheringName.length())}"
+            app:layout_constraintEnd_toEndOf="@id/edit_text_gathering_name"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_gathering_name"
+            tools:text="0" />
 
         <Button
             android:id="@+id/button_next"
