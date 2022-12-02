@@ -8,6 +8,10 @@
         <variable
             name="vm"
             type="com.plub.presentation.ui.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNameViewModel" />
+
+        <variable
+            name="parent_vm"
+            type="com.plub.presentation.ui.createGathering.CreateGatheringViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,6 +76,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="40dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:onClick="@{() -> parent_vm.onClickNextButton()}"
             android:text="@string/word_next"
             android:textColor="@drawable/selector_color_8c8c8c_to_white"
             android:textSize="14sp"
