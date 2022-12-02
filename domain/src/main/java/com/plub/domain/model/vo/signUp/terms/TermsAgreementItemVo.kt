@@ -1,4 +1,4 @@
-package com.plub.domain.model.vo.terms
+package com.plub.domain.model.vo.signUp.terms
 
 import com.plub.domain.model.enums.TermsType
 

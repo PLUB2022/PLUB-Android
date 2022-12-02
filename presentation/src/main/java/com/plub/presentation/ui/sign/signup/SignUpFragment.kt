@@ -1,7 +1,11 @@
 package com.plub.presentation.ui.sign.signup
 
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import com.plub.domain.model.state.PageState
+import androidx.navigation.fragment.findNavController
+import com.plub.domain.model.enums.SignUpPageType
+import com.plub.domain.model.state.SignUpPageState
+import com.plub.domain.model.vo.signUp.SignUpPageVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSignUpBinding
 import com.plub.presentation.ui.sign.signup.adapter.FragmentSignUpPagerAdapter
@@ -9,13 +13,28 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SignUpFragment : BaseFragment<FragmentSignUpBinding, PageState.Default, SignUpViewModel>(
+class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, SignUpViewModel>(
     FragmentSignUpBinding::inflate
 ) {
 
+    interface Delegate{
+        fun onMoveToNextPage(pageType: SignUpPageType, pageVo: SignUpPageVo)
+    }
+
     override val viewModel: SignUpViewModel by viewModels()
+
     private val pagerAdapter: FragmentSignUpPagerAdapter by lazy {
-        FragmentSignUpPagerAdapter(this)
+        FragmentSignUpPagerAdapter(this, object: Delegate {
+            override fun onMoveToNextPage(pageType: SignUpPageType, pageVo: SignUpPageVo) {
+                viewModel.onMoveToNextPage(pageType, pageVo)
+            }
+        })
+    }
+
+    private val backPressedDispatcher = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            viewModel.onBackPressed(binding.viewPager.currentItem)
+        }
     }
 
     override fun initView() {
@@ -27,6 +46,8 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, PageState.Default, Si
                 dotsIndicator.attachTo(this)
             }
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(backPressedDispatcher)
     }
 
     override fun initState() {
@@ -34,7 +55,14 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, PageState.Default, Si
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-
+                viewModel.uiState.collect {
+                    binding.viewPager.currentItem = it.currentPage
+                }
+            }
+            launch {
+                viewModel.navigationPop.collect {
+                    findNavController().popBackStack()
+                }
             }
         }
     }
