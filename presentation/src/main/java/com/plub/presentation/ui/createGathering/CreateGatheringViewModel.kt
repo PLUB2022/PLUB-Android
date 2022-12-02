@@ -3,7 +3,6 @@ package com.plub.presentation.ui.createGathering
 import com.plub.domain.model.enums.CreateGatheringPageType
 import com.plub.domain.model.state.CreateGatheringPageState
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.ViewPager.CREATE_GATHERING_PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

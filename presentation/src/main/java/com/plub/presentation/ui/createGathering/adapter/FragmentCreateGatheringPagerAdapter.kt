@@ -5,7 +5,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.plub.domain.model.enums.CreateGatheringPageType
 import com.plub.presentation.ui.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNameFragment
 import com.plub.presentation.ui.createGathering.selectPlubCategory.SelectPlubCategoryFragment
-import com.plub.presentation.util.ViewPager.CREATE_GATHERING_PAGE_SIZE
 
 class FragmentCreateGatheringPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
 
