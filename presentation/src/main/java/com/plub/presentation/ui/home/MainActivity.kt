@@ -1,8 +1,10 @@
 package com.plub.presentation.ui.home
 
+import android.widget.Toolbar
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.appbar.AppBarLayout
 import com.plub.domain.model.state.PageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseActivity
@@ -20,11 +22,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, PageState.Default, MainVi
             vm = viewModel
             initNavigation()
         }
+        setSupportActionBar(binding.mainToolbar)
     }
 
     override fun initState() {
         super.initState()
-
 
     }
 

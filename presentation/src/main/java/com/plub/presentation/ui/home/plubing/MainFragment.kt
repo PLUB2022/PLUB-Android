@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.home.plubing
 
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,6 +57,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
 
         }
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.id.)
+//    }
 
     fun HasDataRecycler(){
 
