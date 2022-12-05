@@ -1,8 +1,6 @@
 package com.plub.presentation.ui.home.plubing
 
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,8 +10,8 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMainBinding
 import com.plub.presentation.ui.home.adapter.MainCategoryAdapter
-import com.plub.presentation.ui.home.adapter.MainRecommendMeetAdapter
-import com.plub.presentation.ui.home.adapter.MainRecommendMeetXAdapter
+import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.ui.home.adapter.MainRecommendGatheringXAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -21,8 +19,8 @@ import kotlinx.coroutines.launch
 class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFragmentViewModel>(FragmentMainBinding::inflate
 )  {
     lateinit var mainCategoryAdapter: MainCategoryAdapter
-    lateinit var mainRecommendMeetXAdapter: MainRecommendMeetXAdapter
-    lateinit var mainRecommendMeetadapter: MainRecommendMeetAdapter
+    lateinit var mainRecommendMeetXAdapter: MainRecommendGatheringXAdapter
+    lateinit var mainRecommendMeetadapter: MainRecommendGatheringAdapter
 
     override val viewModel: MainFragmentViewModel by viewModels()
 
@@ -67,7 +65,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
         val rv_main = binding.root.findViewById<RecyclerView>(R.id.rv_main_page)
         rv_main.setLayoutManager(LinearLayoutManager(context))
         mainCategoryAdapter = MainCategoryAdapter()
-        mainRecommendMeetadapter = MainRecommendMeetAdapter()
+        mainRecommendMeetadapter = MainRecommendGatheringAdapter()
         val mConcatAdapter = ConcatAdapter()
         mConcatAdapter.addAdapter(mainCategoryAdapter)
         mConcatAdapter.addAdapter(mainRecommendMeetadapter)
@@ -79,7 +77,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
         val rv_main = binding.root.findViewById<RecyclerView>(R.id.rv_main_page)
         rv_main.setLayoutManager(LinearLayoutManager(context))
         mainCategoryAdapter = MainCategoryAdapter()
-        mainRecommendMeetXAdapter = MainRecommendMeetXAdapter()
+        mainRecommendMeetXAdapter = MainRecommendGatheringXAdapter()
         val mConcatAdapter = ConcatAdapter()
         mConcatAdapter.addAdapter(mainCategoryAdapter)
         mConcatAdapter.addAdapter(mainRecommendMeetXAdapter)

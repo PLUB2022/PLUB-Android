@@ -1,39 +1,32 @@
 package com.plub.presentation.ui.home.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.presentation.R
+import com.plub.domain.model.vo.home.GatheringItemVo
+import com.plub.presentation.databinding.LayoutRecyclerRecommendGatheringListItemBinding
+import com.plub.presentation.ui.home.adapter.viewholder.MainRecommentViewHolder
 
-class MainRecommendAdapter(title : List<String>, intro : List<String>) : RecyclerView.Adapter<MainRecommendAdapter.ViewHolder?>() {
 
-    var titles : List<String> = title
-    var intros : List<String> = intro
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.layout_recycler_recommend_meet_list_item, parent, false)
-        return ViewHolder(view)
-    }
-
-    inner class ViewHolder( itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val tv_title = itemView.findViewById<TextView>(R.id.tv_meet_title)
-        val tv_intro_text = itemView.findViewById<TextView>(R.id.tv_meet_oneline_introduce)
-        fun bind(title : String, intro : String){
-            tv_title.text = title
-            tv_intro_text.text = intro
+class MainRecommendAdapter() : ListAdapter<GatheringItemVo, RecyclerView.ViewHolder>(
+    MainGatheringDiffCallBack()
+){
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is MainRecommentViewHolder -> holder.bind(currentList[position])
         }
-
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(titles[position], intros[position])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val binding = LayoutRecyclerRecommendGatheringListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MainRecommentViewHolder(binding)
     }
 
+}
 
-    override fun getItemCount(): Int {
-        //TODO("Not yet implemented")
-        return titles.size
-    }
+class MainGatheringDiffCallBack : DiffUtil.ItemCallback<GatheringItemVo>() {
+    override fun areItemsTheSame(oldItem: GatheringItemVo, newItem: GatheringItemVo): Boolean = oldItem == newItem
+    override fun areContentsTheSame(oldItem: GatheringItemVo, newItem: GatheringItemVo): Boolean = oldItem == newItem
 }
