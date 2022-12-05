@@ -10,6 +10,13 @@ import javax.inject.Inject
 class CreateGatheringTitleAndNameViewModel @Inject constructor() :
     BaseViewModel<CreateGatheringTitleAndNamePageState>(CreateGatheringTitleAndNamePageState()) {
 
+    fun initUiState(savedUiState: CreateGatheringTitleAndNamePageState) {
+        updateUiState { uiState -> uiState.copy(
+            savedUiState.introductionTitle,
+            savedUiState.gatheringName
+        ) }
+    }
+
     fun updateIntroductionTitle(text: Editable) {
         updateUiState { uiState ->
             uiState.copy(introductionTitle = text.toString())

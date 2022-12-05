@@ -2,7 +2,6 @@ package com.plub.presentation.ui.createGathering.gatheringTitleAndName
 
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.state.CreateGatheringTitleAndNamePageState
-import com.plub.domain.model.state.PageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringTitleAndNameBinding
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
@@ -22,6 +21,18 @@ class CreateGatheringTitleAndNameFragment : BaseFragment<FragmentCreateGathering
         binding.apply {
             vm = viewModel
             parentVm = parentViewModel
+        }
+    }
+
+    override fun initState() {
+        super.initState()
+        repeatOnStarted(viewLifecycleOwner) {
+            launch {
+                parentViewModel.childrenPageStateFlow.collect {
+                    if(it is CreateGatheringTitleAndNamePageState)
+                        viewModel.initUiState(it)
+                }
+            }
         }
     }
 }

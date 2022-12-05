@@ -1,9 +1,16 @@
 package com.plub.presentation.ui.createGathering
 
+import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.CreateGatheringPageType
 import com.plub.domain.model.state.CreateGatheringPageState
+import com.plub.domain.model.state.CreateGatheringTitleAndNamePageState
+import com.plub.domain.model.state.PageState
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -13,12 +20,33 @@ class CreateGatheringViewModel @Inject constructor() :
     private var currentPage = 0
     private val maxPage = CreateGatheringPageType.values().size - 1
 
+    private val childrenPageStateMap: MutableMap<Int, PageState> = mutableMapOf(
+        CreateGatheringPageType.SELECT_PLUB_CATEGORY.idx to PageState.Default,
+        CreateGatheringPageType.GATHERING_TITLE_AND_NAME.idx to CreateGatheringTitleAndNamePageState()
+    )
+
+    private val _childrenPageStateFlow
+        = MutableStateFlow<PageState>(PageState.Default)
+    val childrenPageStateFlow: SharedFlow<PageState> = _childrenPageStateFlow.asStateFlow()
+
+    fun setChildrenPageState(idx: Int, pageState: PageState) {
+        childrenPageStateMap[idx] = pageState
+    }
+
+    private fun emitChildrenPageState(idx: Int) {
+        viewModelScope.launch {
+            val childrenPageState = childrenPageStateMap[idx] ?: PageState.Default
+            _childrenPageStateFlow.emit(childrenPageState)
+        }
+    }
+
     fun onMoveToNextPage() {
         if (isLastPage()) return
 
         updateUiState { uiState ->
             uiState.copy(currentPage = ++currentPage)
         }
+        emitChildrenPageState(currentPage)
     }
 
     fun isFirstPage() = currentPage == 0
