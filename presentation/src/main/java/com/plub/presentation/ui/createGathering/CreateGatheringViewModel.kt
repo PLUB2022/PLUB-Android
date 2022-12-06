@@ -29,7 +29,16 @@ class CreateGatheringViewModel @Inject constructor() :
         = MutableStateFlow<PageState>(PageState.Default)
     val childrenPageStateFlow: SharedFlow<PageState> = _childrenPageStateFlow.asStateFlow()
 
-    fun setChildrenPageState(idx: Int, pageState: PageState) {
+    fun onMoveToNextPage(pageState: PageState) {
+        if (isLastPage()) return
+        setChildrenPageState(currentPage, pageState)
+        updateUiState { uiState ->
+            uiState.copy(currentPage = ++currentPage)
+        }
+        emitChildrenPageState(currentPage)
+    }
+
+    private fun setChildrenPageState(idx: Int, pageState: PageState) {
         childrenPageStateMap[idx] = pageState
     }
 
@@ -38,15 +47,6 @@ class CreateGatheringViewModel @Inject constructor() :
             val childrenPageState = childrenPageStateMap[idx] ?: PageState.Default
             _childrenPageStateFlow.emit(childrenPageState)
         }
-    }
-
-    fun onMoveToNextPage() {
-        if (isLastPage()) return
-
-        updateUiState { uiState ->
-            uiState.copy(currentPage = ++currentPage)
-        }
-        emitChildrenPageState(currentPage)
     }
 
     fun isFirstPage() = currentPage == 0
