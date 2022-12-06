@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.SampleCategoryVo
+import com.plub.presentation.ui.home.plubing.MainFragmentViewModel
 
 
 class MainCategoryAdapter : RecyclerView.Adapter<MainCategoryAdapter.ViewHolder?>() {
     lateinit var mainCategoryItemAdapter: MainCategoryItemAdapter
+    private lateinit var viewmodel: MainFragmentViewModel
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.layout_recycler_main_category, parent, false)
         return ViewHolder(view)
@@ -28,7 +30,7 @@ class MainCategoryAdapter : RecyclerView.Adapter<MainCategoryAdapter.ViewHolder?
             val rv_category_item_list = itemView.findViewById<RecyclerView>(R.id.rv_main_category)
             val gridLayoutManager = GridLayoutManager(itemView.context, 4)
             rv_category_item_list.layoutManager = gridLayoutManager
-            mainCategoryItemAdapter = MainCategoryItemAdapter()
+            mainCategoryItemAdapter = MainCategoryItemAdapter(viewmodel)
             mainCategoryItemAdapter.submitList(dum_list)
             rv_category_item_list.adapter = mainCategoryItemAdapter
 
@@ -43,5 +45,9 @@ class MainCategoryAdapter : RecyclerView.Adapter<MainCategoryAdapter.ViewHolder?
     override fun getItemCount(): Int {
         //TODO("Not yet implemented")
         return 1
+    }
+
+    fun setViewModel(vm : MainFragmentViewModel){
+        viewmodel = vm
     }
 }

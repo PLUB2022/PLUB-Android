@@ -9,5 +9,15 @@
         android:id="@+id/mainFragment"
         android:name="com.plub.presentation.ui.home.plubing.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_main_to_category_choice"
+            app:destination="@id/categoryChoiceFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoryChoiceFragment"
+        android:name="com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceFragment"
+        android:label="fragment_category_choice"
+        tools:layout="@layout/fragment_category_choice"/>
 </navigation>
