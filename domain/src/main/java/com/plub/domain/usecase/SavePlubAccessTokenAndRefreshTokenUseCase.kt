@@ -1,7 +1,7 @@
 package com.plub.domain.usecase
 
 import com.plub.domain.base.UseCase
-import com.plub.domain.model.vo.jwt_token.SavePlubJwtRequestVo
+import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
 import com.plub.domain.repository.PlubJwtRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

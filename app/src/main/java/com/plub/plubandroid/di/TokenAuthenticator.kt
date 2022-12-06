@@ -1,7 +1,7 @@
 package com.plub.plubandroid.di
 
-import com.plub.domain.model.vo.jwt_token.PlubJwtReIssueRequestVo
-import com.plub.domain.model.vo.jwt_token.SavePlubJwtRequestVo
+import com.plub.domain.model.vo.jwt.PlubJwtReIssueRequestVo
+import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
 import com.plub.domain.usecase.FetchPlubAccessTokenUseCase
 import com.plub.domain.usecase.FetchPlubRefreshTokenUseCase
 import com.plub.domain.usecase.PostReIssueTokenUseCase

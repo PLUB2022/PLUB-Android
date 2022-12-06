@@ -1,4 +1,4 @@
-package com.plub.domain.model.vo.jwt_token
+package com.plub.domain.model.vo.jwt
 
 import com.plub.domain.base.DomainModel
 

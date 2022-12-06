@@ -9,9 +9,9 @@ import com.plub.data.mapper.PlubJwtResponseMapper
 import com.plub.data.util.PlubJwtToken
 import com.plub.domain.UiState
 import com.plub.domain.error.UiError
-import com.plub.domain.model.vo.jwt_token.PlubJwtReIssueRequestVo
-import com.plub.domain.model.vo.jwt_token.PlubJwtResponseVo
-import com.plub.domain.model.vo.jwt_token.SavePlubJwtRequestVo
+import com.plub.domain.model.vo.jwt.PlubJwtReIssueRequestVo
+import com.plub.domain.model.vo.jwt.PlubJwtResponseVo
+import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
 import com.plub.domain.repository.PlubJwtRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

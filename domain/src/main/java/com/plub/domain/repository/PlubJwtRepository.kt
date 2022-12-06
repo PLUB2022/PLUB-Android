@@ -1,9 +1,9 @@
 package com.plub.domain.repository
 
 import com.plub.domain.UiState
-import com.plub.domain.model.vo.jwt_token.PlubJwtReIssueRequestVo
-import com.plub.domain.model.vo.jwt_token.PlubJwtResponseVo
-import com.plub.domain.model.vo.jwt_token.SavePlubJwtRequestVo
+import com.plub.domain.model.vo.jwt.PlubJwtReIssueRequestVo
+import com.plub.domain.model.vo.jwt.PlubJwtResponseVo
+import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
 import kotlinx.coroutines.flow.Flow
 
 interface PlubJwtRepository {
