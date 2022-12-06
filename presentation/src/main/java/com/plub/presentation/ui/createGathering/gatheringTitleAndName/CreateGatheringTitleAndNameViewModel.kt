@@ -4,6 +4,9 @@ import android.text.Editable
 import com.plub.domain.model.state.CreateGatheringTitleAndNamePageState
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 
 @HiltViewModel
