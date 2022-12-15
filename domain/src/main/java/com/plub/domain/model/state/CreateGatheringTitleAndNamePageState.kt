@@ -4,6 +4,5 @@ data class CreateGatheringTitleAndNamePageState(
     val introductionTitle: String = "",
     val gatheringName: String = ""
 ) : PageState {
-    val isNextButtonEnabled
-        get() = introductionTitle.isNotBlank() && gatheringName.isNotBlank()
+    val isNextButtonEnabled = introductionTitle.isNotBlank() && gatheringName.isNotBlank()
 }
