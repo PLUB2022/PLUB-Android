@@ -6,6 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SelectPlubCategoryViewModel @Inject constructor() : BaseViewModel<PageState.Default>(PageState.Default) {
+class CreateGatheringSelectPlubCategoryViewModel @Inject constructor() : BaseViewModel<PageState.Default>(PageState.Default) {
 
 }

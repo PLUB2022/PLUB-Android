@@ -9,10 +9,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class SelectPlubCategoryFragment : BaseFragment<FragmentSelectPlubCategoryBinding, PageState.Default, SelectPlubCategoryViewModel>(
+class CreateGatheringSelectPlubCategoryFragment : BaseFragment<FragmentSelectPlubCategoryBinding, PageState.Default, CreateGatheringSelectPlubCategoryViewModel>(
     FragmentSelectPlubCategoryBinding::inflate
 ) {
-    override val viewModel: SelectPlubCategoryViewModel by viewModels()
+    override val viewModel: CreateGatheringSelectPlubCategoryViewModel by viewModels()
     private val parentViewModel: CreateGatheringViewModel by viewModels({requireParentFragment()})
 
     override fun initView() {

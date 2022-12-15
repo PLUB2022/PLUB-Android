@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.createGathering.selectPlubCategory.SelectPlubCategoryViewModel" />
+            type="com.plub.presentation.ui.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryViewModel" />
 
         <variable
             name="parent_vm"
@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.createGathering.selectPlubCategory.SelectPlubCategoryFragment">
+        tools:context=".ui.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryFragment">
 
         <Button
             android:id="@+id/button_next"
