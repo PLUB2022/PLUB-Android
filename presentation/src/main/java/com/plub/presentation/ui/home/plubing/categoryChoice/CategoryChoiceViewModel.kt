@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.home.plubing.categoryChoice
 
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
 import com.plub.domain.model.state.SampleHomeState
@@ -21,6 +22,9 @@ class CategoryChoiceViewModel @Inject constructor(
     private val _testHomeData = MutableStateFlow("")
     val testHomeData: StateFlow<String> = _testHomeData.asStateFlow()
 
+    private val _switchList = MutableStateFlow("")
+    val switchList: StateFlow<String> = _switchList.asStateFlow()
+
     fun isHaveInterest()  = viewModelScope.launch {
         testPostHomeUseCase.invoke(HomePostRequestVo("123123", true)).collect { state ->
             _testHomeData.value = when(state){
@@ -31,6 +35,20 @@ class CategoryChoiceViewModel @Inject constructor(
 
         }
     }
+
+    fun gridBtnClick(){
+        //TODO 그리드로 변경
+        Log.d("TAG", "그리드 변경 버튼")
+        _switchList.value = "그리드"
+    }
+
+    fun listBtnClick(){
+        //TODO 리스트로 변경
+        Log.d("TAG", "리스트 변경 버튼")
+        _switchList.value = "리스트"
+    }
+
+
 
 //    fun isHaveInterest()  = viewModelScope.launch {
 //        testPostHomeUseCase.invoke(HomePostRequestVo("testcode", false)).collect { state ->
