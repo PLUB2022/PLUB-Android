@@ -1,6 +1,5 @@
 package com.plub.presentation.ui.home.adapter.viewholder
 
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.SampleCategoryVo
 import com.plub.presentation.databinding.ItemMainCategoryBinding
