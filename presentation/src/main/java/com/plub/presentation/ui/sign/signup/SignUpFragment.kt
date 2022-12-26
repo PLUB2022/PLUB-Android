@@ -17,18 +17,10 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
     FragmentSignUpBinding::inflate
 ) {
 
-    interface Delegate{
-        fun onMoveToNextPage(pageType: SignUpPageType, pageVo: SignUpPageVo)
-    }
-
     override val viewModel: SignUpViewModel by viewModels()
 
     private val pagerAdapter: FragmentSignUpPagerAdapter by lazy {
-        FragmentSignUpPagerAdapter(this, object: Delegate {
-            override fun onMoveToNextPage(pageType: SignUpPageType, pageVo: SignUpPageVo) {
-                viewModel.onMoveToNextPage(pageType, pageVo)
-            }
-        })
+        FragmentSignUpPagerAdapter(this)
     }
 
     private val backPressedDispatcher = object : OnBackPressedCallback(true) {

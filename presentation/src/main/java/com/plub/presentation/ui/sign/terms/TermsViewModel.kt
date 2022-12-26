@@ -51,12 +51,10 @@ class TermsViewModel @Inject constructor(
         }
     }
 
-    fun onInitPage(signUpPageVo: SignUpPageVo?) {
-        (signUpPageVo as? TermsPageVo)?.let {
-            updateUiState { ui ->
-                val newMap = getInitTermsAgreementMap(it)
-                ui.copy(mapVo = newMap, isNextButtonEnable = isNextButtonEnable(newMap))
-            }
+    fun onInitTermsPageVo(termsPageVo: TermsPageVo) {
+        updateUiState { ui ->
+            val newMap = getInitTermsAgreementMap(termsPageVo)
+            ui.copy(mapVo = newMap, isNextButtonEnable = isNextButtonEnable(newMap))
         }
     }
 

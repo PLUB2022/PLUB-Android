@@ -51,4 +51,11 @@
 
     <string name="sign_up_personal_info_title">먼저, 성별과 태어난 날을 알려주세요.</string>
     <string name="sign_up_personal_info_description">서비스의 원활한 이용을 위하여 정확한 정보를 입력해주세요!</string>
+    <string name="sign_up_personal_info_birth_hint">생일을 입력해 주세요.</string>
+
+    <string name="sign_up_profile_compose_title">프로필을 만들어 볼까요?</string>
+    <string name="sign_up_profile_compose_description">멋진 사진을 등록하고 나만의 닉네임을 만들어 주세요!\n닉네임 변경은 1회 가능해요!</string>
+    <string name="sign_up_profile_compose_profile_image">프로필 사진</string>
+    <string name="sign_up_profile_compose_nickname">닉네임</string>
+    <string name="sign_up_profile_compose_nickname_hint">한글, 영문, 숫자 포함 8글자로 입력가능해요.</string>
 </resources>
