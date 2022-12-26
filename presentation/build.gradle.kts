@@ -54,6 +54,7 @@ dependencies {
     implementation(Libraries.LOTTIE)
     implementation(Libraries.INDICATOR)
     implementation(Libraries.KAKAO)
+    implementation(Libraries.TED_PERMISSION)
 
     implementation(Google.MATERIAL)
     implementation(Google.HILT_ANDROID)

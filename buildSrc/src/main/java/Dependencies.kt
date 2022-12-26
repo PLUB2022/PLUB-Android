@@ -54,6 +54,8 @@ object Libraries {
     const val INDICATOR = "com.tbuonomo:dotsindicator:${Versions.INDICATOR}"
 
     const val KAKAO = "com.kakao.sdk:v2-user:${Versions.KAKAO}"
+
+    const val TED_PERMISSION = "io.github.ParkSangGwon:tedpermission-normal:${Versions.TED_PERMISSION}"
 }
 
 object UnitTest {

@@ -40,6 +40,8 @@ object Versions {
 
     const val KAKAO = "2.11.2"
 
+    const val TED_PERMISSION = "3.3.0"
+
     /* [ UnitTest ] */
     const val JUNIT = "4.13.2"
 
