@@ -6,8 +6,7 @@ import com.gun0912.tedpermission.normal.TedPermission
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class PermissionManager @Inject constructor() {
+object PermissionManager {
 
     private fun setPermissionListener(doWhenPermissionGranted : () -> Unit): PermissionListener {
         val permissionListener: PermissionListener = object : PermissionListener {
