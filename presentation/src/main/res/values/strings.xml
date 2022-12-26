@@ -69,4 +69,7 @@
     <string name="create_gathering_goal_and_introduce_and_picture_gathering_introduce_title">모임 소개글</string>
     <string name="create_gathering_goal_and_introduce_and_picture_gathering_introduce_hint">우리 모임은요...!!</string>
     <string name="create_gathering_goal_and_introduce_and_picture_gathering_picture_title">모임 소개 사진 (선택)</string>
+
+    <string name="custom_view_add_single_image_imageview_descriptor">이미지 추가 아이콘</string>
+    <string name="custom_view_add_single_image_add_image_text">사진 추가하기</string>
 </resources>
