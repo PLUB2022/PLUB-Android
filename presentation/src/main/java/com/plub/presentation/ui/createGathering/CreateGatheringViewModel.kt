@@ -2,6 +2,7 @@ package com.plub.presentation.ui.createGathering
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.CreateGatheringPageType
+import com.plub.domain.model.state.CreateGatheringGoalAndIntroduceAndPicturePageState
 import com.plub.domain.model.state.CreateGatheringPageState
 import com.plub.domain.model.state.CreateGatheringTitleAndNamePageState
 import com.plub.domain.model.state.PageState
@@ -22,7 +23,8 @@ class CreateGatheringViewModel @Inject constructor() :
 
     private val childrenPageStateMap: MutableMap<Int, PageState> = mutableMapOf(
         CreateGatheringPageType.SELECT_PLUB_CATEGORY.idx to PageState.Default,
-        CreateGatheringPageType.GATHERING_TITLE_AND_NAME.idx to CreateGatheringTitleAndNamePageState()
+        CreateGatheringPageType.GATHERING_TITLE_AND_NAME.idx to CreateGatheringTitleAndNamePageState(),
+        CreateGatheringPageType.GOAL_INTRODUCE_PICTURE.idx to CreateGatheringGoalAndIntroduceAndPicturePageState()
     )
 
     private val _childrenPageStateFlow
@@ -31,15 +33,15 @@ class CreateGatheringViewModel @Inject constructor() :
 
     fun onMoveToNextPage(pageState: PageState) {
         if (isLastPage()) return
-        setChildrenPageState(currentPage, pageState)
+        setChildrenPageState(pageState)
         updateUiState { uiState ->
             uiState.copy(currentPage = ++currentPage)
         }
         emitChildrenPageState(currentPage)
     }
 
-    private fun setChildrenPageState(idx: Int, pageState: PageState) {
-        childrenPageStateMap[idx] = pageState
+    private fun setChildrenPageState(pageState: PageState) {
+        childrenPageStateMap[currentPage] = pageState
     }
 
     private fun emitChildrenPageState(idx: Int) {

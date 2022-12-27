@@ -28,6 +28,9 @@ class CreateGatheringTitleAndNameFragment : BaseFragment<FragmentCreateGathering
         super.initState()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
+                if(viewModel.uiState.value != CreateGatheringTitleAndNamePageState())
+                    return@launch
+
                 parentViewModel.childrenPageStateFlow.collect {
                     if(it is CreateGatheringTitleAndNamePageState)
                         viewModel.initUiState(it)

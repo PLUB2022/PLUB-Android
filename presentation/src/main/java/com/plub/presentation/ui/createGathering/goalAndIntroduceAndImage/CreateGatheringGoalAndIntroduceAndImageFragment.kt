@@ -36,6 +36,16 @@ class CreateGatheringGoalAndIntroduceAndImageFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
+                if(viewModel.uiState.value != CreateGatheringGoalAndIntroduceAndPicturePageState())
+                    return@launch
+
+                parentViewModel.childrenPageStateFlow.collect { pageState ->
+                    if (pageState is CreateGatheringGoalAndIntroduceAndPicturePageState)
+                        viewModel.initUiState(pageState)
+                }
+            }
+
+            launch {
                 viewModel.getImageFromGallery.collect {
                     PermissionManager.createGetImagePermission {
                         getImageFromGallery()
