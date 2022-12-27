@@ -15,6 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.plub.domain.UiState
 import com.plub.domain.model.state.PageState
 import com.plub.domain.result.IndividualFailure
+import com.plub.presentation.util.PlubLogger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -58,6 +59,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
     protected abstract fun initView()
 
     protected open fun initState() {
+        PlubLogger.logD("Base의 initState 실행")
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.showProgress.collect {

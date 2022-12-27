@@ -11,6 +11,7 @@ import com.plub.presentation.databinding.FragmentCreateGatheringGoalAndIntroduce
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
 import com.plub.presentation.util.IntentUtil
 import com.plub.presentation.util.PermissionManager
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -34,6 +35,7 @@ class CreateGatheringGoalAndIntroduceAndPictureFragment :
 
     override fun initState() {
         super.initState()
+        PlubLogger.logD("Main의 initState 실행")
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
