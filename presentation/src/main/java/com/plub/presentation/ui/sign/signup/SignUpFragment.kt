@@ -50,8 +50,8 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
         requireActivity().onBackPressedDispatcher.addCallback(backPressedDispatcher)
     }
 
-    override fun initState() {
-        super.initState()
+    override fun initStates() {
+        super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {

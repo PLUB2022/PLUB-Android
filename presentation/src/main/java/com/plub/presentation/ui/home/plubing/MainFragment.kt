@@ -40,7 +40,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
         }
     }
 
-    override fun initState() {
+    override fun initStates() {
         //TODO("Not yet implemented")
         repeatOnStarted(viewLifecycleOwner) {
             launch {

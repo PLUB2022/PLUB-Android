@@ -51,8 +51,8 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
         viewModel.initTerms()
     }
 
-    override fun initState() {
-        super.initState()
+    override fun initStates() {
+        super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {

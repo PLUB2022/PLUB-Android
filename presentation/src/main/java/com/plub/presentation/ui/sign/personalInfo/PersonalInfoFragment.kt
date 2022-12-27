@@ -30,8 +30,8 @@ class PersonalInfoFragment : BaseFragment<FragmentPersonalInfoBinding, PersonalI
         }
     }
 
-    override fun initState() {
-        super.initState()
+    override fun initStates() {
+        super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {

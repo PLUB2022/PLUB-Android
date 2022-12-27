@@ -30,8 +30,8 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding,OnboardingPage
         viewModel.fetchOnboardingData()
     }
 
-    override fun initState() {
-        super.initState()
+    override fun initStates() {
+        super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {

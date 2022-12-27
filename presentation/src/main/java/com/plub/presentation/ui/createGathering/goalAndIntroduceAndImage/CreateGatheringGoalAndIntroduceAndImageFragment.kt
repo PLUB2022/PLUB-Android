@@ -30,8 +30,8 @@ class CreateGatheringGoalAndIntroduceAndImageFragment :
         }
     }
 
-    override fun initState() {
-        super.initState()
+    override fun initStates() {
+        super.initStates()
         PlubLogger.logD("Main의 initState 실행")
 
         repeatOnStarted(viewLifecycleOwner) {
