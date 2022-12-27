@@ -1,13 +1,10 @@
-package com.plub.presentation.ui.createGathering.goalAndIntroduceAndPicture
+package com.plub.presentation.ui.createGathering.goalAndIntroduceAndImage
 
-import android.content.Intent
-import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.state.CreateGatheringGoalAndIntroduceAndPicturePageState
-import com.plub.domain.model.state.CreateGatheringTitleAndNamePageState
 import com.plub.presentation.base.BaseFragment
-import com.plub.presentation.databinding.FragmentCreateGatheringGoalAndIntroduceAndPictureBinding
+import com.plub.presentation.databinding.FragmentCreateGatheringGoalAndIntroduceAndImageBinding
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
 import com.plub.presentation.util.IntentUtil
 import com.plub.presentation.util.PermissionManager
@@ -16,14 +13,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CreateGatheringGoalAndIntroduceAndPictureFragment :
+class CreateGatheringGoalAndIntroduceAndImageFragment :
     BaseFragment<
-            FragmentCreateGatheringGoalAndIntroduceAndPictureBinding,
+            FragmentCreateGatheringGoalAndIntroduceAndImageBinding,
             CreateGatheringGoalAndIntroduceAndPicturePageState,
-            CreateGatheringGoalAndIntroduceAndPictureViewModel>
-        (FragmentCreateGatheringGoalAndIntroduceAndPictureBinding::inflate) {
+            CreateGatheringGoalAndIntroduceAndImageViewModel>
+        (FragmentCreateGatheringGoalAndIntroduceAndImageBinding::inflate) {
 
-    override val viewModel: CreateGatheringGoalAndIntroduceAndPictureViewModel by viewModels()
+    override val viewModel: CreateGatheringGoalAndIntroduceAndImageViewModel by viewModels()
     private val parentViewModel: CreateGatheringViewModel by viewModels({requireParentFragment()})
 
     override fun initView() {

@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.createGathering.goalAndIntroduceAndPicture.CreateGatheringGoalAndIntroduceAndPictureViewModel" />
+            type="com.plub.presentation.ui.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndImageViewModel" />
 
         <variable
             name="parent_vm"
@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.createGathering.goalAndIntroduceAndPicture.GoalAndIntroduceAndPictureFragment">
+        tools:context=".ui.createGathering.goalAndIntroduceAndImage.GoalAndIntroduceAndPictureFragment">
 
         <TextView
             android:id="@+id/text_view_title"
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{() -> vm.onClickAddSingleImageButton()}"
-            app:gatheringImage="@{vm.uiState.gatheringPicture}"
+            app:gatheringImage="@{vm.uiState.gatheringImage}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_gathering_picture_title" />
 

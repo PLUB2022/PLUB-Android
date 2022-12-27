@@ -1,10 +1,9 @@
-package com.plub.presentation.ui.createGathering.goalAndIntroduceAndPicture
+package com.plub.presentation.ui.createGathering.goalAndIntroduceAndImage
 
 import android.app.Activity.RESULT_OK
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.state.CreateGatheringGoalAndIntroduceAndPicturePageState
-import com.plub.domain.model.state.PageState
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.ImageUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +16,7 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateGatheringGoalAndIntroduceAndPictureViewModel @Inject constructor(
+class CreateGatheringGoalAndIntroduceAndImageViewModel @Inject constructor(
     private val imageUtil: ImageUtil
 ) :
     BaseViewModel<CreateGatheringGoalAndIntroduceAndPicturePageState>(
@@ -36,7 +35,7 @@ class CreateGatheringGoalAndIntroduceAndPictureViewModel @Inject constructor(
         if (result.resultCode == RESULT_OK) {
             result.data?.data?.let { uri ->
                 updateUiState { uiState ->
-                    uiState.copy(gatheringPicture = File(imageUtil.getRealPathFromURI(uri)))
+                    uiState.copy(gatheringImage = File(imageUtil.getRealPathFromURI(uri)))
                 }
             }
         }

@@ -5,7 +5,7 @@ import java.io.File
 data class CreateGatheringGoalAndIntroduceAndPicturePageState(
     val gatheringGoal: String = "",
     val gatheringIntroduce: String = "",
-    val gatheringPicture: File? = null
+    val gatheringImage: File? = null
 ) : PageState {
     val isNextButtonEnabled = gatheringGoal.isNotBlank() && gatheringIntroduce.isNotBlank()
 }
