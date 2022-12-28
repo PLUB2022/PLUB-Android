@@ -3,6 +3,7 @@ package com.plub.plubandroid.di
 import com.plub.domain.repository.IntroRepository
 import com.plub.domain.repository.LoginRepository
 import com.plub.domain.repository.PlubJwtRepository
+import com.plub.domain.repository.SignUpRepository
 import com.plub.domain.usecase.*
 import dagger.Module
 import dagger.Provides
@@ -48,5 +49,11 @@ object UseCaseModule {
     @Provides
     fun providesPostReIssueTokenUseCase(repository: PlubJwtRepository): PostReIssueTokenUseCase {
         return PostReIssueTokenUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetNicknameCheckUseCase(repository: SignUpRepository): GetNicknameCheckUseCase {
+        return GetNicknameCheckUseCase(repository)
     }
 }

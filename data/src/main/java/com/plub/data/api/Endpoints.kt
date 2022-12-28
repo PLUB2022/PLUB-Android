@@ -11,4 +11,9 @@ object Endpoints {
         private const val AUTH_URL = "/api/auth"
         const val SOCIAL_LOGIN = "$AUTH_URL/login"
     }
+
+    object ACCOUNT {
+        private const val ACCOUNT_URL = "/api/accounts"
+        const val NICKNAME_CHECK = "$ACCOUNT_URL/check/nickname/{nickname}"
+    }
 }
