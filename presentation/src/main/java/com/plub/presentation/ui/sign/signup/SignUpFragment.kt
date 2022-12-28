@@ -3,9 +3,7 @@ package com.plub.presentation.ui.sign.signup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.state.SignUpPageState
-import com.plub.domain.model.vo.signUp.SignUpPageVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSignUpBinding
 import com.plub.presentation.ui.sign.signup.adapter.FragmentSignUpPagerAdapter
@@ -42,8 +40,8 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
         requireActivity().onBackPressedDispatcher.addCallback(backPressedDispatcher)
     }
 
-    override fun initState() {
-        super.initState()
+    override fun initStates() {
+        super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {

@@ -7,7 +7,6 @@ import com.plub.domain.model.state.PersonalInfoPageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPersonalInfoBinding
-import com.plub.presentation.ui.sign.signup.SignUpFragment
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -27,8 +26,8 @@ class PersonalInfoFragment : BaseFragment<FragmentPersonalInfoBinding, PersonalI
         }
     }
 
-    override fun initState() {
-        super.initState()
+    override fun initStates() {
+        super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {

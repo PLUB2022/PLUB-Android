@@ -7,7 +7,6 @@ import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.state.TermsPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentTermsBinding
-import com.plub.presentation.ui.sign.signup.SignUpFragment
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -45,8 +44,8 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
         viewModel.initTerms()
     }
 
-    override fun initState() {
-        super.initState()
+    override fun initStates() {
+        super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {

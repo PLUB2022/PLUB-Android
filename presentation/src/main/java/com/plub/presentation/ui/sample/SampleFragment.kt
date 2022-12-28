@@ -19,4 +19,8 @@ class SampleFragment : BaseFragment<FragmentSampleBinding,SampleLoginPageState,S
         bindProgressBar(binding.loadingBar)
         binding.viewModel = viewModel
     }
+
+    override fun initStates() {
+        TODO("Not yet implemented")
+    }
 }

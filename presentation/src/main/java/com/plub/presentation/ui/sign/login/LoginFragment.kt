@@ -3,7 +3,6 @@ package com.plub.presentation.ui.sign.login
 import android.content.Intent
 import android.graphics.Color
 import android.text.method.LinkMovementMethod
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -17,7 +16,6 @@ import com.plub.domain.model.state.LoginPageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentLoginBinding
-import com.plub.presentation.ui.sign.onboarding.OnboardingFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -50,8 +48,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding,LoginPageState, LoginVie
         }
     }
 
-    override fun initState() {
-        super.initState()
+    override fun initStates() {
+        super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
