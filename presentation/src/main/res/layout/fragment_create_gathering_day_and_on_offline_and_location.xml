@@ -56,7 +56,6 @@
             app:paddingHorizontal="24"
             app:paddingVertical="10"
             app:text="월요일"
-            app:onCheckBoxClick="@{() -> vm.test()}"
             app:textWidth="40"
             tools:layout_width="100dp"
             tools:layout_height="40dp"

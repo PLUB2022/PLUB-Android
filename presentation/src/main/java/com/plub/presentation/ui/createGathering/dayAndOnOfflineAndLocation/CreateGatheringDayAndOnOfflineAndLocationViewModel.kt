@@ -11,7 +11,4 @@ class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
     BaseViewModel<CreateGatheringDayAndOnOfflineAndLocationPageState>(
         CreateGatheringDayAndOnOfflineAndLocationPageState()
     ) {
-    fun test() {
-        PlubLogger.logD("test")
-    }
 }
