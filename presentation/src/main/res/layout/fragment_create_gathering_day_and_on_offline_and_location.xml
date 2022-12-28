@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -13,16 +14,171 @@
             type="com.plub.presentation.ui.createGathering.CreateGatheringViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndOnOfflineAndLocationFragment">
 
-        <!-- TODO: Update blank fragment layout -->
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:id="@+id/text_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_gathering_day_and_on_offline_and_location_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </FrameLayout>
+        <TextView
+            android:id="@+id/text_view_title_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_gathering_day_and_on_offline_and_location_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+
+        <TextView
+            android:id="@+id/text_view_gathering_day_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_day_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title_description" />
+
+        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+            android:id="@+id/check_box_mon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedBackground="@drawable/bg_rectangle_filled_5f5ff9_radius_8"
+            app:checkedTextColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/check_box_tue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_gathering_day_title"
+            app:paddingHorizontal="24"
+            app:paddingVertical="10"
+            app:text="월요일"
+            app:onCheckBoxClick="@{() -> vm.test()}"
+            app:textWidth="40"
+            tools:layout_width="100dp"
+            tools:layout_height="40dp"
+            app:uncheckedBackground="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            app:uncheckedTextColor="@color/color_363636" />
+
+        <CheckBox
+            android:id="@+id/check_box_tue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+            android:button="@null"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="10dp"
+            android:text="화요일"
+            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:layout_constraintEnd_toStartOf="@id/check_box_wed"
+            app:layout_constraintStart_toEndOf="@id/check_box_mon"
+            app:layout_constraintTop_toTopOf="@id/check_box_mon" />
+
+        <CheckBox
+            android:id="@+id/check_box_wed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+            android:button="@null"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="10dp"
+            android:text="수요일"
+            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:layout_constraintEnd_toStartOf="@id/check_box_thr"
+            app:layout_constraintStart_toEndOf="@id/check_box_tue"
+            app:layout_constraintTop_toTopOf="@id/check_box_tue" />
+
+        <CheckBox
+            android:id="@+id/check_box_thr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+            android:button="@null"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="10dp"
+            android:text="목요일"
+            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/check_box_wed"
+            app:layout_constraintTop_toTopOf="@id/check_box_wed" />
+
+        <!-- -->
+
+        <CheckBox
+            android:id="@+id/check_box_fri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+            android:button="@null"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="10dp"
+            android:text="금요일"
+            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:layout_constraintEnd_toStartOf="@id/check_box_tue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/check_box_mon" />
+
+        <CheckBox
+            android:id="@+id/check_box_sat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+            android:button="@null"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="10dp"
+            android:text="토요일"
+            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:layout_constraintEnd_toStartOf="@id/check_box_wed"
+            app:layout_constraintStart_toEndOf="@id/check_box_fri"
+            app:layout_constraintTop_toTopOf="@id/check_box_fri" />
+
+        <CheckBox
+            android:id="@+id/check_box_sun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+            android:button="@null"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="10dp"
+            android:text="일요일"
+            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:layout_constraintEnd_toStartOf="@id/check_box_thr"
+            app:layout_constraintStart_toEndOf="@id/check_box_sat"
+            app:layout_constraintTop_toTopOf="@id/check_box_sat" />
+
+        <CheckBox
+            android:id="@+id/check_box_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+            android:button="@null"
+            android:paddingHorizontal="18dp"
+            android:paddingVertical="10dp"
+            android:text="요일 무관"
+            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/check_box_sun"
+            app:layout_constraintTop_toTopOf="@id/check_box_sun" />
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:enabled="@{vm.uiState.isNextButtonEnabled}"
+            android:onClick="@{() -> parent_vm.onMoveToNextPage(vm.uiState)}"
+            android:text="@string/word_next"
+            android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

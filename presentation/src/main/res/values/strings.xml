@@ -70,6 +70,13 @@
     <string name="create_gathering_goal_and_introduce_and_picture_gathering_introduce_hint">우리 모임은요...!!</string>
     <string name="create_gathering_goal_and_introduce_and_picture_gathering_picture_title">모임 소개 사진 (선택)</string>
 
+    <string name="create_gathering_day_and_on_offline_and_location_title">언제, 어디서 만날까요?</string>
+    <string name="create_gathering_day_and_on_offline_and_location_description">모임 요일, 온/오프라인, 장소정보를 적어주세요.</string>
+    <string name="create_gathering_day_and_on_offline_and_location_gathering_day_title">우리 언제 만나요?</string>
+    <string name="create_gathering_day_and_on_offline_and_location_gathering_on_offline_title">온/오프라인</string>
+    <string name="create_gathering_day_and_on_offline_and_location_gathering_location_title">모이는 장소를 알려주세요!</string>
+    <string name="create_gathering_day_and_on_offline_and_location_gathering_location_hint">장소를 검색해주세요</string>
+
     <string name="custom_view_add_single_image_imageview_descriptor">이미지 추가 아이콘</string>
     <string name="custom_view_add_single_image_add_image_text">사진 추가하기</string>
 </resources>
