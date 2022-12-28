@@ -16,7 +16,7 @@ import retrofit2.Response
 
 abstract class BaseRepository {
 
-    suspend fun <D : DataDto, M : DomainModel> apiLaunch(
+    suspend fun <D : DataDto, M> apiLaunch(
         response: Response<ApiResponse<D>>,
         responseMapper: Mapper.ResponseMapper<D, M>,
         result: UiStateCallback<M>
