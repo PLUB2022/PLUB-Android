@@ -1,7 +1,7 @@
 package com.plub.domain.model.state
 
 data class CreateGatheringDayAndOnOfflineAndLocationPageState(
-    val gatheringDays: List<String> = listOf(),
+    val gatheringDays: HashSet<String> = hashSetOf(),
     val gatheringOnOffline: String = "",
     val gatheringLocation: String = "",
     val placePositionX: Double = 0.0,
