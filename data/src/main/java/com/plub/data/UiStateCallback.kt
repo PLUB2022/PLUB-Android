@@ -4,7 +4,7 @@ import com.plub.domain.UiState
 import com.plub.domain.base.DomainModel
 import com.plub.domain.result.*
 
-abstract class UiStateCallback<T : DomainModel> {
+abstract class UiStateCallback<T> {
     abstract suspend fun onSuccess(state: UiState.Success<T>, customCode: Int)
     abstract suspend fun onError(state: UiState.Error)
 
@@ -25,16 +25,5 @@ abstract class UiStateCallback<T : DomainModel> {
                 }
             }
         }
-    }
-
-    /**
-     * 개별 api 실패처리가 없을 떄 사용
-     * 사실상 함수 호출 없이 return uiState 해버리면 되나
-     * 통일성을 위해 오버로딩
-     */
-    protected fun <T> uiStateMapResult(
-        uiState: UiState.Success<T>
-    ): UiState<T> {
-        return uiState
     }
 }

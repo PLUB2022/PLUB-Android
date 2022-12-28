@@ -44,8 +44,7 @@ class PlubJwtRepositoryImpl @Inject constructor(
         val requestDto = PlubJwtReissueRequestMapper.mapModelToDto(request)
         apiLaunch(plubJwtTokenApi.reIssueToken(requestDto),PlubJwtResponseMapper, object : UiStateCallback<PlubJwtResponseVo>() {
             override suspend fun onSuccess(state: UiState.Success<PlubJwtResponseVo>, customCode: Int) {
-                val uiState = super.uiStateMapResult(state)
-                emit(uiState)
+                emit(state)
             }
 
             override suspend fun onError(state: UiState.Error) {
