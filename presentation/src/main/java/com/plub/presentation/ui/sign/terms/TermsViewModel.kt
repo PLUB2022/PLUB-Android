@@ -2,6 +2,7 @@ package com.plub.presentation.ui.sign.terms
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.TermsType
+import com.plub.domain.model.state.PersonalInfoPageState
 import com.plub.domain.model.state.TermsPageState
 import com.plub.domain.model.vo.signUp.SignUpPageVo
 import com.plub.domain.model.vo.signUp.terms.TermsAgreementItemVo
@@ -52,6 +53,7 @@ class TermsViewModel @Inject constructor(
     }
 
     fun onInitTermsPageVo(termsPageVo: TermsPageVo) {
+        if(uiState.value != TermsPageState()) return
         updateUiState { ui ->
             val newMap = getInitTermsAgreementMap(termsPageVo)
             ui.copy(mapVo = newMap, isNextButtonEnable = isNextButtonEnable(newMap))

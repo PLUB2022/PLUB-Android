@@ -5,7 +5,6 @@ import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.state.SignUpPageState
 import com.plub.domain.model.vo.signUp.SignUpPageVo
 import com.plub.domain.model.vo.signUp.personalInfo.PersonalInfoVo
-import com.plub.domain.model.vo.signUp.profile.ProfileInfoVo
 import com.plub.domain.model.vo.signUp.terms.TermsPageVo
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.ResourceProvider

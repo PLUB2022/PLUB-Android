@@ -32,6 +32,7 @@ class PersonalInfoViewModel @Inject constructor(
     val showDatePickerDialog: SharedFlow<Calendar> = _showDatePickerDialog.asSharedFlow()
 
     fun onInitPersonalInfoVo(personalInfoVo: PersonalInfoVo) {
+        if(uiState.value != PersonalInfoPageState()) return
         val birthString = personalInfoVo.calendar?.let { getBirthString(it) } ?: ""
         updateUiState { ui ->
             ui.copy(
