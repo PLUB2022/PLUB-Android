@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FixedTextWidthCheckBox">
+        <attr name="text" format="reference|string" />
+        <attr name="textWidth" format="reference|integer" />
+
+        <attr name="paddingVertical" format="reference|integer"/>
+        <attr name="paddingHorizontal" format="reference|integer"/>
+
+        <attr name="checkedBackground" format="reference" />
+        <attr name="uncheckedBackground" format="reference" />
+
+        <attr name="checkedTextColor" format="reference" />
+        <attr name="uncheckedTextColor" format="reference" />
+    </declare-styleable>
+</resources>
