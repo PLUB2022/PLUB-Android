@@ -13,4 +13,9 @@
         <attr name="checkedTextColor" format="reference" />
         <attr name="uncheckedTextColor" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="IconEditText">
+        <attr name="icon" format="reference" />
+        <attr name="editTextClickable" format="reference" />
+    </declare-styleable>
 </resources>
