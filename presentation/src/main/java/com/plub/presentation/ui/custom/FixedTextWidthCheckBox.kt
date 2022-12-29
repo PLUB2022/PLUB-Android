@@ -29,7 +29,12 @@ class FixedTextWidthCheckBox @JvmOverloads constructor(
             setBackgroundResourceAndTextColor()
         }
 
-    var checkBoxClickEvent: (() -> Unit)? = null
+    /**
+     * https://stackoverflow.com/questions/60005152/cannot-use-same-bindingadapter-on-two-different-views
+     * Unit으로 할 경우 DataBinding Complier가 올바르지 않은 java code를 생성함.
+     * 따라서 Void를 사용
+     */
+    var checkBoxClickEvent: (() -> Void)? = null
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -57,7 +62,9 @@ class FixedTextWidthCheckBox @JvmOverloads constructor(
                 paddingVertical.dp)
             setOnClickListener {
                 isChecked = !isChecked
-                checkBoxClickEvent?.invoke()
+                checkBoxClickEvent?.let {
+                    it()
+                }
             }
         }
 
