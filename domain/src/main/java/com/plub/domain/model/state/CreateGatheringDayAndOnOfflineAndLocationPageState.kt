@@ -10,7 +10,7 @@ data class CreateGatheringDayAndOnOfflineAndLocationPageState(
     val placePositionY: Double = 0.0
 ) : PageState {
     val isNextButtonEnabled = gatheringDays.isNotEmpty() &&
-            if(gatheringOnOffline == OnOfflineType.ON.value)
+            if(gatheringOnOffline == OnOfflineType.OFF.value)
                 gatheringLocation.isNotBlank()
-            else gatheringOnOffline == OnOfflineType.OFF.value
+            else gatheringOnOffline == OnOfflineType.ON.value
 }
