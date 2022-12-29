@@ -5,8 +5,5 @@ import com.plub.presentation.ui.custom.FixedTextWidthCheckBox
 
 @BindingAdapter("android:onClick")
 fun FixedTextWidthCheckBox.bindFixedTextWidthCheckboxClickEvent(method: () -> Unit) {
-    this.setOnClickListener {
-        isChecked = !isChecked
-        method.invoke()
-    }
+    checkBoxClickEvent = method
 }

@@ -29,6 +29,8 @@ class FixedTextWidthCheckBox @JvmOverloads constructor(
             setBackgroundResourceAndTextColor()
         }
 
+    var checkBoxClickEvent: (() -> Unit)? = null
+
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         binding = DataBindingUtil.inflate(inflater, R.layout.custom_view_fixed_text_width_check_box, this, true)
@@ -53,6 +55,10 @@ class FixedTextWidthCheckBox @JvmOverloads constructor(
                 paddingVertical.dp,
                 paddingHorizontal.dp,
                 paddingVertical.dp)
+            setOnClickListener {
+                isChecked = !isChecked
+                checkBoxClickEvent?.invoke()
+            }
         }
 
         binding.textViewContent.apply {
