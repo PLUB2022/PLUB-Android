@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.plub.presentation.R
 import com.plub.presentation.databinding.CustomViewFixedTextWidthCheckBoxBinding
 import com.plub.presentation.databinding.CustomViewIconEditTextBinding
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.dp
 
 class IconEditText @JvmOverloads constructor(
@@ -21,6 +22,7 @@ class IconEditText @JvmOverloads constructor(
     private val binding: CustomViewIconEditTextBinding
     private val iconResourceId: Int
     private val editTextClickable: Boolean
+    private val editTextHint: String?
     val editText: EditText
 
     init {
@@ -33,7 +35,14 @@ class IconEditText @JvmOverloads constructor(
         binding.imageViewIc.setImageResource(iconResourceId)
 
         editTextClickable = typedArray.getBoolean(R.styleable.IconEditText_editTextClickable, true)
+        editTextHint = typedArray.getString(R.styleable.IconEditText_editTextHint)
         binding.editText.isClickable = editTextClickable
+        binding.editText.isLongClickable = editTextClickable
+        binding.editText.isFocusable = editTextClickable
+
+        editTextHint?.apply {
+            binding.editText.hint = this
+        }
 
         editText = binding.editText
 

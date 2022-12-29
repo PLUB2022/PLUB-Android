@@ -256,15 +256,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
+            <com.plub.presentation.ui.custom.IconEditText
                 android:id="@+id/edit_text_gathering_location_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/create_gathering_day_and_on_offline_and_location_gathering_location_hint"
+                app:icon="@drawable/icon_location"
+                app:editTextClickable="false"
+                app:editTextHint="@string/create_gathering_day_and_on_offline_and_location_gathering_location_hint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_gathering_location_title" />
+                app:layout_constraintTop_toBottomOf="@id/text_view_gathering_location_title"
+                tools:layout_height="40dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@
 
     <declare-styleable name="IconEditText">
         <attr name="icon" format="reference" />
-        <attr name="editTextClickable" format="reference" />
+        <attr name="editTextClickable" format="boolean" />
+        <attr name="editTextHint" format="reference|string" />
     </declare-styleable>
 </resources>
