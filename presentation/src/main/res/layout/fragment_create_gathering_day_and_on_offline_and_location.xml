@@ -12,6 +12,8 @@
         <variable
             name="parent_vm"
             type="com.plub.presentation.ui.createGathering.CreateGatheringViewModel" />
+
+        <import type="com.plub.domain.model.enums.DaysType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,8 +48,11 @@
 
         <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_mon"
+            day="@{DaysType.MON.value}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.MON.value)}"
             app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/check_box_tue"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,8 +67,11 @@
 
         <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_tue"
+            day="@{DaysType.TUE.value}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.TUE.value)}"
             app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/check_box_wed"
             app:layout_constraintStart_toEndOf="@id/check_box_mon"
@@ -78,8 +86,11 @@
 
         <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_wed"
+            day="@{DaysType.WED.value}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.WED.value)}"
             app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/check_box_thr"
             app:layout_constraintStart_toEndOf="@id/check_box_tue"
@@ -94,8 +105,11 @@
 
         <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_thr"
+            day="@{DaysType.THR.value}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.THR.value)}"
             app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/check_box_wed"
@@ -112,8 +126,11 @@
 
         <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_fri"
+            day="@{DaysType.FRI.value}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.FRI.value)}"
             app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/check_box_tue"
             app:layout_constraintStart_toStartOf="parent"
@@ -128,8 +145,11 @@
 
         <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_sat"
+            day="@{DaysType.SAT.value}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.SAT.value)}"
             app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/check_box_wed"
             app:layout_constraintStart_toEndOf="@id/check_box_fri"
@@ -144,8 +164,11 @@
 
         <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_sun"
+            day="@{DaysType.SUN.value}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.SUN.value)}"
             app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/check_box_thr"
             app:layout_constraintStart_toEndOf="@id/check_box_sat"
@@ -160,8 +183,11 @@
 
         <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_all"
+            day="@{DaysType.ALL.value}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.onClickAllCheckBox()}"
             app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/check_box_sun"
