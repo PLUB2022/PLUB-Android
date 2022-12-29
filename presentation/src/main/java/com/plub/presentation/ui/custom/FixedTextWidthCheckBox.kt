@@ -3,7 +3,6 @@ package com.plub.presentation.ui.custom
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -30,8 +29,6 @@ class FixedTextWidthCheckBox @JvmOverloads constructor(
             setBackgroundResourceAndTextColor()
         }
 
-    var onCheckBoxClick: (() -> Unit)? = null
-
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         binding = DataBindingUtil.inflate(inflater, R.layout.custom_view_fixed_text_width_check_box, this, true)
@@ -56,11 +53,6 @@ class FixedTextWidthCheckBox @JvmOverloads constructor(
                 paddingVertical.dp,
                 paddingHorizontal.dp,
                 paddingVertical.dp)
-
-            setOnClickListener {
-                isChecked = !isChecked
-                onCheckBoxClick?.let { it() }
-            }
         }
 
         binding.textViewContent.apply {
