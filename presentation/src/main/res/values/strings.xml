@@ -87,4 +87,6 @@
 
     <string name="custom_view_add_single_image_imageview_descriptor">이미지 추가 아이콘</string>
     <string name="custom_view_add_single_image_add_image_text">사진 추가하기</string>
+    <string name="word_online">온라인</string>
+    <string name="word_offline">오프라인</string>
 </resources>

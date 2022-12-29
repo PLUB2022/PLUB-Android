@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation
 
 import com.plub.domain.model.enums.DaysType
+import com.plub.domain.model.enums.OnOfflineType
 import com.plub.domain.model.state.CreateGatheringDayAndOnOfflineAndLocationPageState
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.PlubLogger
@@ -45,5 +46,21 @@ class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
         }
         PlubLogger.logD("gatheringDays = ${uiState.value.gatheringDays}")
         return null
+    }
+
+    fun onClickOnlineButton() {
+        updateUiState { uiState ->
+            uiState.copy(
+                gatheringOnOffline = OnOfflineType.ON.value
+            )
+        }
+    }
+
+    fun onClickOfflineButton() {
+        updateUiState { uiState ->
+            uiState.copy(
+                gatheringOnOffline = OnOfflineType.OFF.value
+            )
+        }
     }
 }

@@ -219,7 +219,8 @@
                 android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
                 android:button="@null"
                 android:gravity="center"
-                android:text="온라인"
+                android:onClick="@{() -> vm.onClickOnlineButton()}"
+                android:text="@string/word_online"
                 android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
 
             <RadioButton
@@ -231,7 +232,8 @@
                 android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
                 android:button="@null"
                 android:gravity="center"
-                android:text="오프라인"
+                android:onClick="@{() -> vm.onClickOfflineButton()}"
+                android:text="@string/word_offline"
                 android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
 
         </RadioGroup>
@@ -243,7 +245,8 @@
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radio_group_on_offline">
+            app:layout_constraintTop_toBottomOf="@id/radio_group_on_offline"
+            app:onOffline="@{vm.uiState.gatheringOnOffline}">
 
             <TextView
                 android:id="@+id/text_view_gathering_location_title"
