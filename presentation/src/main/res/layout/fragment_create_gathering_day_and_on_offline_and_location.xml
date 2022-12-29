@@ -48,119 +48,198 @@
             android:id="@+id/check_box_mon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:checkedBackground="@drawable/bg_rectangle_filled_5f5ff9_radius_8"
             app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/check_box_tue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_gathering_day_title"
             app:paddingHorizontal="24"
             app:paddingVertical="10"
-            app:text="월요일"
+            app:text="@string/word_monday"
             app:textWidth="40"
-            tools:layout_width="100dp"
+            app:uncheckedTextColor="@color/color_363636"
             tools:layout_height="40dp"
-            app:uncheckedBackground="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            app:uncheckedTextColor="@color/color_363636" />
+            tools:layout_width="80dp" />
 
-        <CheckBox
+        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_tue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
-            android:button="@null"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="10dp"
-            android:text="화요일"
-            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/check_box_wed"
             app:layout_constraintStart_toEndOf="@id/check_box_mon"
-            app:layout_constraintTop_toTopOf="@id/check_box_mon" />
+            app:layout_constraintTop_toTopOf="@id/check_box_mon"
+            app:paddingHorizontal="24"
+            app:paddingVertical="10"
+            app:text="@string/word_tuesday"
+            app:textWidth="40"
+            app:uncheckedTextColor="@color/color_363636"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
 
-        <CheckBox
+        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_wed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
-            android:button="@null"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="10dp"
-            android:text="수요일"
-            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/check_box_thr"
             app:layout_constraintStart_toEndOf="@id/check_box_tue"
-            app:layout_constraintTop_toTopOf="@id/check_box_tue" />
+            app:layout_constraintTop_toTopOf="@id/check_box_tue"
+            app:paddingHorizontal="24"
+            app:paddingVertical="10"
+            app:text="@string/word_wednesday"
+            app:textWidth="40"
+            app:uncheckedTextColor="@color/color_363636"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
 
-        <CheckBox
+        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_thr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
-            android:button="@null"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="10dp"
-            android:text="목요일"
-            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/check_box_wed"
-            app:layout_constraintTop_toTopOf="@id/check_box_wed" />
+            app:layout_constraintTop_toTopOf="@id/check_box_wed"
+            app:paddingHorizontal="24"
+            app:paddingVertical="10"
+            app:text="@string/word_thursday"
+            app:textWidth="40"
+            app:uncheckedTextColor="@color/color_363636"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
 
         <!-- -->
 
-        <CheckBox
+        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_fri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
-            android:button="@null"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="10dp"
-            android:text="금요일"
-            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/check_box_tue"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/check_box_mon" />
+            app:layout_constraintTop_toBottomOf="@id/check_box_mon"
+            app:paddingHorizontal="24"
+            app:paddingVertical="10"
+            app:text="@string/word_friday"
+            app:textWidth="40"
+            app:uncheckedTextColor="@color/color_363636"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
 
-        <CheckBox
+        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_sat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
-            android:button="@null"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="10dp"
-            android:text="토요일"
-            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/check_box_wed"
             app:layout_constraintStart_toEndOf="@id/check_box_fri"
-            app:layout_constraintTop_toTopOf="@id/check_box_fri" />
+            app:layout_constraintTop_toTopOf="@id/check_box_fri"
+            app:paddingHorizontal="24"
+            app:paddingVertical="10"
+            app:text="@string/word_saturday"
+            app:textWidth="40"
+            app:uncheckedTextColor="@color/color_363636"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
 
-        <CheckBox
+        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_sun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
-            android:button="@null"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="10dp"
-            android:text="일요일"
-            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/check_box_thr"
             app:layout_constraintStart_toEndOf="@id/check_box_sat"
-            app:layout_constraintTop_toTopOf="@id/check_box_sat" />
+            app:layout_constraintTop_toTopOf="@id/check_box_sat"
+            app:paddingHorizontal="24"
+            app:paddingVertical="10"
+            app:text="@string/word_sunday"
+            app:textWidth="40"
+            app:uncheckedTextColor="@color/color_363636"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
 
-        <CheckBox
+        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
             android:id="@+id/check_box_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
-            android:button="@null"
-            android:paddingHorizontal="18dp"
-            android:paddingVertical="10dp"
-            android:text="요일 무관"
-            android:textColor="@drawable/selector_check_color_363636_to_white"
+            app:checkedTextColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/check_box_sun"
-            app:layout_constraintTop_toTopOf="@id/check_box_sun" />
+            app:layout_constraintTop_toTopOf="@id/check_box_sun"
+            app:paddingHorizontal="24"
+            app:paddingVertical="10"
+            app:text="@string/word_all_day"
+            app:textWidth="60"
+            app:uncheckedTextColor="@color/color_363636"
+            tools:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_on_offline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/check_box_all">
+
+            <RadioButton
+                android:id="@+id/radio_button_online"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+                android:button="@null"
+                android:gravity="center"
+                android:text="온라인"
+                android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
+
+            <RadioButton
+                android:id="@+id/radio_button_offline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+                android:button="@null"
+                android:gravity="center"
+                android:text="오프라인"
+                android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
+
+        </RadioGroup>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_gathering_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio_group_on_offline">
+
+            <TextView
+                android:id="@+id/text_view_gathering_location_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_location_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_text_gathering_location_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/create_gathering_day_and_on_offline_and_location_gathering_location_hint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_gathering_location_title" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <Button
             android:id="@+id/button_next"
