@@ -10,6 +10,7 @@ import com.plub.domain.successOrNull
 import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,6 +25,9 @@ class CategoryChoiceViewModel @Inject constructor(
 
     private val _switchList = MutableStateFlow("")
     val switchList: StateFlow<String> = _switchList.asStateFlow()
+
+    private val _goToDetailRecruitmentFragment = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val goToDetailRecruitmentFragment: SharedFlow<Unit> = _goToDetailRecruitmentFragment.asSharedFlow()
 
     fun isHaveInterest()  = viewModelScope.launch {
         testPostHomeUseCase.invoke(HomePostRequestVo("123123", true)).collect { state ->
@@ -46,6 +50,12 @@ class CategoryChoiceViewModel @Inject constructor(
         //TODO 리스트로 변경
         Log.d("TAG", "리스트 변경 버튼")
         _switchList.value = "리스트"
+    }
+
+    fun goToCategoryChoice() {
+        viewModelScope.launch {
+            _goToDetailRecruitmentFragment.emit(Unit)
+        }
     }
 
 
