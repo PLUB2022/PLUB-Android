@@ -3,11 +3,15 @@ package com.plub.presentation.util
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
+import android.os.Environment
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import com.plub.presentation.BuildConfig
 import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,5 +29,13 @@ class ResourceProvider @Inject constructor(
 
     fun getCursor(uri: Uri, proj: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?): Cursor? {
         return context.contentResolver.query(uri, proj, selection, selectionArgs, sortOrder)
+    }
+
+    fun getUriFromTempFile():Uri {
+        val fileDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val fileName = System.currentTimeMillis().toString()
+        val file = File.createTempFile(fileName,ImageUtil.PREFIX,fileDir)
+        val authority = context.packageName + ".provider"
+        return FileProvider.getUriForFile(context, authority, file)
     }
 }

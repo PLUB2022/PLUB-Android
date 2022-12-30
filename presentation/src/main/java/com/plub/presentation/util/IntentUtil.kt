@@ -1,6 +1,7 @@
 package com.plub.presentation.util
 
 import android.content.Intent
+import android.net.Uri
 import android.provider.MediaStore
 
 object IntentUtil {
@@ -12,5 +13,11 @@ object IntentUtil {
         )
 
         return intent
+    }
+
+    fun getOpenCameraIntent(uri: Uri):Intent {
+        return Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+            putExtra(MediaStore.EXTRA_OUTPUT,uri)
+        }
     }
 }
