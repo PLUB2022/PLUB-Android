@@ -31,7 +31,7 @@ class IconEditText @JvmOverloads constructor(
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.IconEditText, defStyleAttr, 0)
 
-        iconResourceId = typedArray.getResourceId(R.styleable.IconEditText_icon, R.drawable.icon_location)
+        iconResourceId = typedArray.getResourceId(R.styleable.IconEditText_icon, R.drawable.ic_location)
         binding.imageViewIc.setImageResource(iconResourceId)
 
         editTextClickable = typedArray.getBoolean(R.styleable.IconEditText_editTextClickable, true)

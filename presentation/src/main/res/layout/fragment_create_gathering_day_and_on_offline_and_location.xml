@@ -261,7 +261,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:icon="@drawable/icon_location"
+                app:icon="@drawable/ic_location"
                 app:editTextClickable="false"
                 app:editTextHint="@string/create_gathering_day_and_on_offline_and_location_gathering_location_hint"
                 app:layout_constraintEnd_toEndOf="parent"
