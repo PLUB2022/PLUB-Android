@@ -58,4 +58,7 @@
     <string name="sign_up_profile_compose_profile_image">프로필 사진</string>
     <string name="sign_up_profile_compose_nickname">닉네임</string>
     <string name="sign_up_profile_compose_nickname_hint">한글, 영문, 숫자 포함 8글자로 입력가능해요.</string>
+    <string name="dialog_menu_camera_image">카메라로 촬영</string>
+    <string name="dialog_menu_album_image">앨범에서 사진 업로드</string>
+    <string name="dialog_menu_default_image">기본 이미지</string>
 </resources>
