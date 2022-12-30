@@ -1,12 +1,16 @@
 package com.plub.presentation.util
 
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.view.View
 import android.webkit.WebView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Spinner
 import androidx.databinding.BindingAdapter
 import com.plub.domain.UiState
+import java.io.File
 
 @BindingAdapter("showLoadingProgressBar")
 fun ProgressBar.bindShow(uiState: UiState<*>) {
@@ -31,4 +35,10 @@ fun Spinner.setEntries(entries: List<Int>, default:Int) {
     val defaultPosition = arrayAdapter.getPosition(default)
     adapter = arrayAdapter
     setSelection(defaultPosition)
+}
+
+@BindingAdapter("imageFile","defaultImage")
+fun ImageView.setImageFile(imageFile:File?, defaultImage:Drawable) {
+    if(imageFile == null) setImageDrawable(defaultImage)
+    else { GlideUtil.loadImage(context,imageFile,this) }
 }

@@ -5,6 +5,7 @@ import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.state.SignUpPageState
 import com.plub.domain.model.vo.signUp.SignUpPageVo
 import com.plub.domain.model.vo.signUp.personalInfo.PersonalInfoVo
+import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
 import com.plub.domain.model.vo.signUp.terms.TermsPageVo
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.ResourceProvider
@@ -48,6 +49,11 @@ class SignUpViewModel @Inject constructor(
             is PersonalInfoVo -> {
                 updateUiState {
                     it.copy(personalInfoVo = pageVo)
+                }
+            }
+            is ProfileComposeVo -> {
+                updateUiState {
+                    it.copy(profileComposeVo = pageVo)
                 }
             }
         }
