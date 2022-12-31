@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.SignUpPageType
 import com.plub.presentation.state.SignUpPageState
 import com.plub.domain.model.vo.signUp.SignUpPageVo
+import com.plub.domain.model.vo.signUp.moreInfo.MoreInfoVo
 import com.plub.domain.model.vo.signUp.personalInfo.PersonalInfoVo
 import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
 import com.plub.domain.model.vo.signUp.terms.TermsPageVo
@@ -54,6 +55,11 @@ class SignUpViewModel @Inject constructor(
             is ProfileComposeVo -> {
                 updateUiState {
                     it.copy(profileComposeVo = pageVo)
+                }
+            }
+            is MoreInfoVo -> {
+                updateUiState {
+                    it.copy(moreInfoVo = pageVo)
                 }
             }
         }

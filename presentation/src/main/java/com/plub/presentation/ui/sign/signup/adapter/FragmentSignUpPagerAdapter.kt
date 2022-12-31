@@ -21,7 +21,7 @@ class FragmentSignUpPagerAdapter(
             SignUpPageType.TERMS.idx -> TermsFragment()
             SignUpPageType.PERSONAL_INFO.idx -> PersonalInfoFragment()
             SignUpPageType.PROFILE.idx -> ProfileComposeFragment()
-            SignUpPageType.MORE_INFO.idx -> TermsFragment()
+            SignUpPageType.MORE_INFO.idx -> MoreInfoFragment()
             SignUpPageType.HOBBY.idx -> TermsFragment()
             else -> TermsFragment()
 //            else -> throw IllegalAccessException()
