@@ -1,6 +1,7 @@
-package com.plub.domain.model.state
+package com.plub.presentation.state.state
 
 import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
+import com.plub.presentation.state.PageState
 
 data class ProfileComposePageState(
     val isNextButtonEnable:Boolean = false,

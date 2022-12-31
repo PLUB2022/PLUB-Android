@@ -2,7 +2,7 @@ package com.plub.presentation.ui.sign.signup
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.SignUpPageType
-import com.plub.domain.model.state.SignUpPageState
+import com.plub.presentation.state.SignUpPageState
 import com.plub.domain.model.vo.signUp.SignUpPageVo
 import com.plub.domain.model.vo.signUp.personalInfo.PersonalInfoVo
 import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo

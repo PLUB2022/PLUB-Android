@@ -2,9 +2,7 @@ package com.plub.presentation.ui.sign.terms
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.TermsType
-import com.plub.domain.model.state.PersonalInfoPageState
-import com.plub.domain.model.state.TermsPageState
-import com.plub.domain.model.vo.signUp.SignUpPageVo
+import com.plub.presentation.state.TermsPageState
 import com.plub.domain.model.vo.signUp.terms.TermsAgreementItemVo
 import com.plub.domain.model.vo.signUp.terms.TermsPageVo
 import com.plub.presentation.R

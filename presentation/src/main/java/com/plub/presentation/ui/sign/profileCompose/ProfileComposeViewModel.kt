@@ -3,7 +3,7 @@ package com.plub.presentation.ui.sign.profileCompose
 import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogMenuItemType
-import com.plub.domain.model.state.ProfileComposePageState
+import com.plub.presentation.state.state.ProfileComposePageState
 import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
 import com.plub.domain.result.NicknameFailure
 import com.plub.domain.usecase.GetNicknameCheckUseCase

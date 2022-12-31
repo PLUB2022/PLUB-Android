@@ -3,7 +3,7 @@ package com.plub.presentation.ui.sign.signup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.plub.domain.model.state.SignUpPageState
+import com.plub.presentation.state.SignUpPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSignUpBinding
 import com.plub.presentation.ui.sign.signup.adapter.FragmentSignUpPagerAdapter

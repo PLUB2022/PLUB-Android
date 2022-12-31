@@ -2,17 +2,13 @@ package com.plub.presentation.ui.sign.profileCompose
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.tasks.Task
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.SignUpPageType
-import com.plub.domain.model.state.ProfileComposePageState
+import com.plub.presentation.state.state.ProfileComposePageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentProfileComposeBinding

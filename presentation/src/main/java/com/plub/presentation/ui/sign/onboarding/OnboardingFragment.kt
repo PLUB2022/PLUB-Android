@@ -2,7 +2,7 @@ package com.plub.presentation.ui.sign.onboarding
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.plub.domain.model.state.OnboardingPageState
+import com.plub.presentation.state.OnboardingPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentOnboardingBinding
 import com.plub.presentation.ui.sign.onboarding.adapter.OnboardingViewPagerAdapter
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class OnboardingFragment : BaseFragment<FragmentOnboardingBinding,OnboardingPageState, OnboardingViewModel>(
+class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPageState, OnboardingViewModel>(
     FragmentOnboardingBinding::inflate
 ) {
 

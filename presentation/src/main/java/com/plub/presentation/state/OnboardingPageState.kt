@@ -1,4 +1,4 @@
-package com.plub.domain.model.state
+package com.plub.presentation.state
 
 import com.plub.domain.model.vo.onboarding.OnboardingItemVo
 

@@ -1,9 +1,6 @@
-package com.plub.domain.model.state
+package com.plub.presentation.state
 
-import com.plub.domain.UiState
 import com.plub.domain.model.enums.TermsType
-import com.plub.domain.model.vo.login.SampleLogin
-import com.plub.domain.model.vo.login.SocialLoginResponseVo
 import com.plub.domain.model.vo.signUp.terms.TermsAgreementItemVo
 
 data class TermsPageState(

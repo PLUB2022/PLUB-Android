@@ -4,14 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
 import com.plub.domain.error.UiError
-import com.plub.domain.model.state.PageState
+import com.plub.presentation.state.PageState
 import com.plub.domain.result.CommonFailure
 import com.plub.domain.result.IndividualFailure
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<STATE:PageState>(
+abstract class BaseViewModel<STATE: PageState>(
     initialState: STATE
 ) : ViewModel() {
 

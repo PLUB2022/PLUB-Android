@@ -12,7 +12,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.plub.domain.model.enums.SocialLoginType
 import com.plub.domain.model.enums.TermsType
-import com.plub.domain.model.state.LoginPageState
+import com.plub.presentation.state.LoginPageState
 import com.plub.domain.model.vo.login.SocialLoginRequestVo
 import com.plub.domain.model.vo.login.SocialLoginResponseVo
 import com.plub.domain.result.LoginFailure
@@ -33,14 +33,17 @@ class LoginViewModel @Inject constructor(
     val postSocialLoginUseCase: PostSocialLoginUseCase
 ) : BaseViewModel<LoginPageState>(LoginPageState()) {
 
-    private val _termsText = MutableStateFlow(getTermsString())
-    val termsText: StateFlow<SpannableString> = _termsText.asStateFlow()
-
     private val _signInGoogle = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
     val signInGoogle: SharedFlow<Unit> = _signInGoogle.asSharedFlow()
 
     private val _signInKakao = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
     val signInKakao: SharedFlow<Unit> = _signInKakao.asSharedFlow()
+
+    init {
+        updateUiState { uiState ->
+            uiState.copy(termsText = getTermsString())
+        }
+    }
 
     fun onClickGoogleLogin() {
         viewModelScope.launch {

@@ -3,7 +3,7 @@ package com.plub.presentation.ui.sign.personalInfo
 import android.app.DatePickerDialog
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.enums.SignUpPageType
-import com.plub.domain.model.state.PersonalInfoPageState
+import com.plub.presentation.state.PersonalInfoPageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPersonalInfoBinding

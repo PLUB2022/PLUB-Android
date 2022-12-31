@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.enums.SignUpPageType
-import com.plub.domain.model.state.TermsPageState
+import com.plub.presentation.state.TermsPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentTermsBinding
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
