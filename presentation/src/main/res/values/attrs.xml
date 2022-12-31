@@ -15,7 +15,12 @@
     </declare-styleable>
 
     <declare-styleable name="IconEditText">
-        <attr name="icon" format="reference" />
+        <attr name="iconEditTextIcon" format="reference" />
         <attr name="editTextHint" format="reference|string" />
+    </declare-styleable>
+
+    <declare-styleable name="IconTextView">
+        <attr name="iconTextViewIcon" format="reference" />
+        <attr name="iconTextViewText" format="reference|string" />
     </declare-styleable>
 </resources>

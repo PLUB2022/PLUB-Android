@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:editTextHint="@string/bottom_sheet_search_gathering_location_hint"
-            app:icon="@drawable/ic_search"
+            app:iconEditTextIcon="@drawable/ic_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_title"
