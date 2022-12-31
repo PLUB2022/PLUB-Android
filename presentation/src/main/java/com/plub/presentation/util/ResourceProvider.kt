@@ -8,8 +8,6 @@ import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import com.plub.presentation.BuildConfig
-import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import javax.inject.Inject
@@ -21,6 +19,10 @@ class ResourceProvider @Inject constructor(
 ) {
     fun getString(@StringRes stringResId: Int): String {
         return context.getString(stringResId)
+    }
+
+    fun getString(@StringRes stringResId: Int, vararg formatArgs: Any?): String {
+        return context.getString(stringResId, *formatArgs)
     }
 
     fun getColor(@ColorRes colorResId: Int): Int {
