@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation
 
+import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.enums.OnOfflineType
 import com.plub.domain.model.state.CreateGatheringDayAndOnOfflineAndLocationPageState
@@ -8,6 +9,11 @@ import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.addOrRemoveElementAfterReturnNewHashSet
 import com.plub.presentation.util.removeElementAfterReturnNewHashSet
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,6 +22,15 @@ class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
         CreateGatheringDayAndOnOfflineAndLocationPageState()
     )
 {
+    private val _showBottomSheetSearchLocation = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
+    val showBottomSheetSearchLocation: SharedFlow<Unit> = _showBottomSheetSearchLocation.asSharedFlow()
+
+
+    fun onClickIconEditTextLocation() {
+        viewModelScope.launch {
+            _showBottomSheetSearchLocation.emit(Unit)
+        }
+    }
     /**
      * https://stackoverflow.com/questions/60005152/cannot-use-same-bindingadapter-on-two-different-views
      * Unit으로 할 경우 DataBinding Complier가 올바르지 않은 java code를 생성함.

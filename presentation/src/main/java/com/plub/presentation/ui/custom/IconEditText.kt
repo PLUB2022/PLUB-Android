@@ -5,13 +5,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.plub.presentation.R
-import com.plub.presentation.databinding.CustomViewFixedTextWidthCheckBoxBinding
 import com.plub.presentation.databinding.CustomViewIconEditTextBinding
-import com.plub.presentation.util.PlubLogger
-import com.plub.presentation.util.dp
 
 class IconEditText @JvmOverloads constructor(
     context: Context,
@@ -21,7 +17,6 @@ class IconEditText @JvmOverloads constructor(
     ConstraintLayout(context, attrs, defStyleAttr) {
     private val binding: CustomViewIconEditTextBinding
     private val iconResourceId: Int
-    private val editTextClickable: Boolean
     private val editTextHint: String?
     val editText: EditText
 
@@ -34,11 +29,7 @@ class IconEditText @JvmOverloads constructor(
         iconResourceId = typedArray.getResourceId(R.styleable.IconEditText_icon, R.drawable.ic_location)
         binding.imageViewIc.setImageResource(iconResourceId)
 
-        editTextClickable = typedArray.getBoolean(R.styleable.IconEditText_editTextClickable, true)
         editTextHint = typedArray.getString(R.styleable.IconEditText_editTextHint)
-        binding.editText.isClickable = editTextClickable
-        binding.editText.isLongClickable = editTextClickable
-        binding.editText.isFocusable = editTextClickable
 
         editTextHint?.apply {
             binding.editText.hint = this
