@@ -21,15 +21,14 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@+id/button_next"
+            app:layout_constraintBottom_toTopOf="@+id/view_dim"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/text_view_personal_info_title"
@@ -73,8 +72,8 @@
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:layout_marginTop="16dp"
-                    android:scaleType="fitXY"
                     android:onClick="@{() -> vm.onClickProfileImage()}"
+                    android:scaleType="fitXY"
                     app:defaultImage="@{@drawable/iv_default_profile}"
                     app:imageFile="@{vm.uiState.profileComposeVo.profileFile}"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -110,6 +109,7 @@
                         android:afterTextChanged="@{() -> vm.onTextChangedAfter()}"
                         android:background="@null"
                         android:hint="@string/sign_up_profile_compose_nickname_hint"
+                        android:importantForAutofill="no"
                         android:inputType="text"
                         android:lines="1"
                         android:maxLength="8"
@@ -125,6 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
+                        android:onClick="@{() -> vm.onClickNicknameDeleteButton()}"
                         android:padding="6dp"
                         android:src="@drawable/ic_delete_box_c4c4c4"
                         app:layout_constraintBottom_toBottomOf="parent"

@@ -40,14 +40,14 @@ class ProfileComposeViewModel @Inject constructor(
     val goToCamera: SharedFlow<Uri> = _goToCamera.asSharedFlow()
 
     private var isNetworkCall:Boolean = false
-    private var imageUri:Uri? = null
+    private var cameraTempImageUri:Uri? = null
 
     init {
         onTextChangedAfter()
     }
 
     fun onInitProfileComposeVo(profileComposeVo: ProfileComposeVo) {
-//        if(uiState.value != ProfileComposePageState()) return
+        if(uiState.value != ProfileComposePageState()) return
 
         updateUiState { ui ->
             ui.copy(
@@ -82,7 +82,7 @@ class ProfileComposeViewModel @Inject constructor(
     fun onClickImageMenuItemType(type:DialogMenuItemType) {
         when(type) {
             DialogMenuItemType.CAMERA_IMAGE -> viewModelScope.launch {
-                imageUri = resourceProvider.getUriFromTempFile().also {
+                cameraTempImageUri = resourceProvider.getUriFromTempFile().also {
                     _goToCamera.emit(it)
                 }
             }
@@ -98,7 +98,7 @@ class ProfileComposeViewModel @Inject constructor(
     }
 
     fun onTakeImageFromCamera() {
-        imageUri?.path?.let {
+        cameraTempImageUri?.path?.let {
             val file = File(it)
             updateProfileFile(file)
         }
@@ -110,27 +110,32 @@ class ProfileComposeViewModel @Inject constructor(
         }
     }
 
+    fun onClickNicknameDeleteButton() {
+        updateNickname("")
+        onTextChangedAfter()
+    }
+
     private fun defaultImage() {
         updateProfileFile(null)
     }
 
     private fun handleNicknameCheckSuccess(isAvailableNickname: Boolean) {
         isNetworkCall = false
-        updateNickname(isAvailableNickname, R.string.sign_up_profile_compose_nickname_available_description)
+        updateNicknameState(isAvailableNickname, R.string.sign_up_profile_compose_nickname_available_description)
     }
 
     private fun handleNicknameCheckFailure(nicknameFailure: NicknameFailure) {
         isNetworkCall = false
         when (nicknameFailure) {
-            is NicknameFailure.HasSpecialCharacter -> updateNickname(false, R.string.sign_up_profile_compose_nickname_special_character_description)
-            is NicknameFailure.HasBlankNickname -> updateNickname(false, R.string.sign_up_profile_compose_nickname_blank_description)
-            is NicknameFailure.DuplicatedNickname -> updateNickname(false, R.string.sign_up_profile_compose_nickname_duplicated_description)
-            is NicknameFailure.EmptyNickname -> updateNickname(null, R.string.sign_up_profile_compose_nickname_empty_description)
+            is NicknameFailure.HasSpecialCharacter -> updateNicknameState(false, R.string.sign_up_profile_compose_nickname_special_character_description)
+            is NicknameFailure.HasBlankNickname -> updateNicknameState(false, R.string.sign_up_profile_compose_nickname_blank_description)
+            is NicknameFailure.DuplicatedNickname -> updateNicknameState(false, R.string.sign_up_profile_compose_nickname_duplicated_description)
+            is NicknameFailure.EmptyNickname -> updateNicknameState(null, R.string.sign_up_profile_compose_nickname_empty_description)
             else -> Unit
         }
     }
 
-    private fun updateNickname(isActiveNickname: Boolean?, nicknameDescriptionRes: Int) {
+    private fun updateNicknameState(isActiveNickname: Boolean?, nicknameDescriptionRes: Int) {
         updateUiState { uiState ->
             uiState.copy(
                 isNextButtonEnable = isNextButtonEnable(isActiveNickname),
@@ -145,6 +150,16 @@ class ProfileComposeViewModel @Inject constructor(
             uiState.copy(
                 profileComposeVo = uiState.profileComposeVo.copy(
                     profileFile = file
+                )
+            )
+        }
+    }
+
+    private fun updateNickname(nickname: String) {
+        updateUiState { uiState ->
+            uiState.copy(
+                profileComposeVo = uiState.profileComposeVo.copy(
+                    nickname = nickname
                 )
             )
         }
