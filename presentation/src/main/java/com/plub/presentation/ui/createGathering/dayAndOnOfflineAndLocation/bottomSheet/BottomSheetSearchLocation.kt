@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -12,6 +14,7 @@ import com.plub.presentation.databinding.BottomSheetSearchLocationBinding
 import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bottomSheet.adapter.KakaoLocationRecyclerViewAdapter
 import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -32,8 +35,13 @@ class BottomSheetSearchLocation : BottomSheetDialogFragment() {
         binding.recyclerViewKakaoLocation.adapter = pagingDataAdapter
 
         lifecycleScope.launch {
-            viewModel.getLocation("투썸").collectLatest {
-                pagingDataAdapter.submitData(it)
+            launch {
+                viewModel.locationData.collectLatest { flow ->
+                    binding.recyclerViewKakaoLocation.scrollToPosition(0)
+                    flow.collectLatest {
+                        pagingDataAdapter.submitData(it)
+                    }
+                }
             }
         }
 

@@ -55,7 +55,6 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
     protected abstract fun initView()
 
     protected open fun initStates() {
-        PlubLogger.logD("Base의 initState 실행")
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.showProgress.collect {

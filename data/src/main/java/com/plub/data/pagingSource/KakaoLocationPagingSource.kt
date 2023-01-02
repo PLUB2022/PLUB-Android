@@ -21,7 +21,7 @@ class KakaoLocationPagingSource(
             LoadResult.Page(
                 data = KakaoLocationDocumentsMapper.mapDtoToModel(response).documents,
                 prevKey = if (page == 1) null else page - 1,
-                nextKey = if (response.documents.isEmpty()) null else page + 1
+                nextKey = if (response.documents.isEmpty() || response.meta.isEnd) null else page + 1
             )
         } catch (e: Exception) {
             return LoadResult.Error(e)

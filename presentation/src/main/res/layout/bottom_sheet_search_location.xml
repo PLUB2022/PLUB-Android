@@ -31,10 +31,12 @@
             android:layout_marginTop="10dp"
             android:imeOptions="actionSearch"
             app:editTextHint="@string/bottom_sheet_search_gathering_location_hint"
+            app:iconEditTextActionEvent="@{() -> vm.onClickKeyboardSearch()}"
             app:iconEditTextIcon="@drawable/ic_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_title"
+            app:updateIconEditText="@{vm.upDateEditTextValue}"
             tools:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
             tools:layout_height="40dp" />
 
