@@ -11,4 +11,8 @@ object Endpoints {
         private const val AUTH_URL = "/api/auth"
         const val SOCIAL_LOGIN = "$AUTH_URL/login"
     }
+
+    object KAKAO_LOCATION {
+        const val KEYWORD_URL = "/v2/local/search/keyword"
+    }
 }

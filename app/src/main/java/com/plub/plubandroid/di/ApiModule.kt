@@ -1,6 +1,7 @@
 package com.plub.plubandroid.di
 
 import com.plub.data.api.IntroApi
+import com.plub.data.api.KakaoLocationApi
 import com.plub.data.api.LoginApi
 import com.plub.data.api.PlubJwtTokenApi
 import com.plub.domain.repository.IntroRepository
@@ -13,6 +14,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -35,5 +37,11 @@ object ApiModule {
     @Provides
     fun providePlubJwtTokenApi(@NormalRetrofit retrofit: Retrofit): PlubJwtTokenApi {
         return retrofit.create(PlubJwtTokenApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideKakaoLocationApi(@KakaoLocationRetrofit retrofit: Retrofit): KakaoLocationApi {
+        return retrofit.create(KakaoLocationApi::class.java)
     }
 }

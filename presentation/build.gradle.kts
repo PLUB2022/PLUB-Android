@@ -48,6 +48,8 @@ dependencies {
     implementation(AndroidX.NAVIGATION_UI_KTX)
     implementation(AndroidX.LEGACY_SUPPORT)
     implementation(AndroidX.RECYCLER_VIEW)
+    implementation(AndroidX.PAGING3_RUNTIME)
+    implementation(AndroidX.PAGING3_COMMON_KTX)
 
     implementation(Libraries.COIL)
     implementation(Libraries.TIMBER)

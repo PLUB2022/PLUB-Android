@@ -14,5 +14,5 @@ dependencies {
 
     implementation(Google.HILT_CORE)
 
-    testImplementation(AndroidX.PAGING3_WITHOUT_ANDROID_DEPENDENCY)
+    implementation(AndroidX.PAGING3_WITHOUT_ANDROID_DEPENDENCY)
 }

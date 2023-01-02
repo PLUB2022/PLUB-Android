@@ -2,6 +2,7 @@ package com.plub.plubandroid.di
 
 import com.plub.domain.repository.HomePostRepository
 import com.plub.domain.repository.IntroRepository
+import com.plub.domain.repository.KakaoLocationRepository
 import com.plub.domain.repository.LoginRepository
 import com.plub.domain.repository.PlubJwtRepository
 import com.plub.domain.usecase.*
@@ -58,5 +59,11 @@ object UseCaseModule {
     @Provides
     fun providesTestPostHomeUseCase(repository: HomePostRepository): TestPostHomeUseCase {
         return TestPostHomeUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFetchKakaoLocationByKeywordUseCase(repository: KakaoLocationRepository) : FetchKakaoLocationByKeywordUseCase {
+        return FetchKakaoLocationByKeywordUseCase(repository)
     }
 }

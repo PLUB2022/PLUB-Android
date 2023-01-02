@@ -26,7 +26,8 @@ object AndroidX {
     const val DATA_STORE_PREFERENCES = "androidx.datastore:datastore-preferences:${Versions.DATA_STORE}"
     const val RECYCLER_VIEW = "androidx.recyclerview:recyclerview:${Versions.RECYCLER_VIEW}"
     const val PAGING3_WITHOUT_ANDROID_DEPENDENCY = "androidx.paging:paging-common:${Versions.PAGING3}"
-    const val PAGING3 = "androidx.paging:paging-runtime:${Versions.PAGING3}"
+    const val PAGING3_RUNTIME = "androidx.paging:paging-runtime:${Versions.PAGING3}"
+    const val PAGING3_COMMON_KTX = "androidx.paging:paging-common-ktx:${Versions.PAGING3}"
 }
 
 object Google {
