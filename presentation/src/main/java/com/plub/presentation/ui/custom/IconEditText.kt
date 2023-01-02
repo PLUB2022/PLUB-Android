@@ -3,11 +3,13 @@ package com.plub.presentation.ui.custom
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.plub.presentation.R
 import com.plub.presentation.databinding.CustomViewIconEditTextBinding
+
 
 class IconEditText @JvmOverloads constructor(
     context: Context,
@@ -33,6 +35,12 @@ class IconEditText @JvmOverloads constructor(
 
         editTextHint?.apply {
             binding.editText.hint = this
+        }
+
+        val imeOption: Int = typedArray.getInt(R.styleable.IconEditText_android_imeOptions, EditorInfo.IME_ACTION_NONE)
+        binding.editText.imeOptions = imeOption
+        if (imeOption == EditorInfo.IME_ACTION_SEARCH) {
+            binding.editText.setSingleLine()
         }
 
         editText = binding.editText

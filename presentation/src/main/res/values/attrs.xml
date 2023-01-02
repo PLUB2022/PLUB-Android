@@ -15,6 +15,7 @@
     </declare-styleable>
 
     <declare-styleable name="IconEditText">
+        <attr name="android:imeOptions" format="integer"/>
         <attr name="iconEditTextIcon" format="reference" />
         <attr name="editTextHint" format="reference|string" />
     </declare-styleable>

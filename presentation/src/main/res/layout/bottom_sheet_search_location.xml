@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:imeOptions="actionSearch"
             app:editTextHint="@string/bottom_sheet_search_gathering_location_hint"
             app:iconEditTextIcon="@drawable/ic_search"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,9 +42,9 @@
             android:id="@+id/recycler_view_kakao_location"
             android:layout_width="match_parent"
             android:layout_height="500dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/icon_edit_text_search_location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
