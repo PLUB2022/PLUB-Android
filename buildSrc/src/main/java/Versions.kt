@@ -18,6 +18,7 @@ object Versions {
     const val LEGACY = "1.0.0"
     const val DATA_STORE = "1.0.0"
     const val RECYCLER_VIEW = "1.2.1"
+    const val PAGING3 = "3.1.1"
 
     const val CORE_KTX = "1.8.0"
 

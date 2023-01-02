@@ -37,6 +37,7 @@ dependencies {
 
     implementation(AndroidX.DATA_STORE_PROTO)
     implementation(AndroidX.DATA_STORE_PREFERENCES)
+    implementation(AndroidX.PAGING3)
 
     implementation(Libraries.RETROFIT)
     implementation(Libraries.RETROFIT_CONVERTER_GSON)

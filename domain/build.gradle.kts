@@ -13,4 +13,6 @@ dependencies {
     implementation(Kotlin.COROUTINES_CORE)
 
     implementation(Google.HILT_CORE)
+
+    testImplementation(AndroidX.PAGING3_WITHOUT_ANDROID_DEPENDENCY)
 }
