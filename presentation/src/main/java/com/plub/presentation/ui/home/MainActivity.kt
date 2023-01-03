@@ -22,7 +22,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, PageState.Default, MainVi
             vm = viewModel
             initNavigation()
         }
-        setSupportActionBar(binding.mainToolbar)
     }
 
     override fun initState() {
