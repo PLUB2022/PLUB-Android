@@ -16,7 +16,8 @@ object KakaoLocationDocumentsMapper: Mapper.ResponseMapper<KakaoLocationInfoResp
                     placeName = document.placeName,
                     placePositionX = document.placePositionX,
                     placePositionY = document.placePositionY,
-                    roadAddressName = document.roadAddressName
+                    roadAddressName = document.roadAddressName,
+                    documentTotalCount = meta.documentTotalCount
                 ))
             }
             return KakaoLocationInfoVo(documentsVo)

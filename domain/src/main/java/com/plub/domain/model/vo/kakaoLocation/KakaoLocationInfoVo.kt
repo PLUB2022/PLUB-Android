@@ -10,5 +10,6 @@ data class KakaoLocationInfoDocumentVo(
     val placeName: String,
     val placePositionX: String,
     val placePositionY: String,
-    val roadAddressName: String
+    val roadAddressName: String,
+    val documentTotalCount: Int
 )

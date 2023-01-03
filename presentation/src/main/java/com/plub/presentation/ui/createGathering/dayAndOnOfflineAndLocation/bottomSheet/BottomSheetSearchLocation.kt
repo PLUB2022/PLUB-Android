@@ -16,6 +16,7 @@ import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 
@@ -31,15 +32,19 @@ class BottomSheetSearchLocation : BottomSheetDialogFragment() {
         binding.lifecycleOwner = this
 
         binding.vm = viewModel
-        val pagingDataAdapter = KakaoLocationRecyclerViewAdapter()
+        val pagingDataAdapter = KakaoLocationRecyclerViewAdapter { text ->
+            viewModel.onClickLocationRecyclerViewItem(text)
+        }
         binding.recyclerViewKakaoLocation.adapter = pagingDataAdapter
 
         lifecycleScope.launch {
-            launch {
-                viewModel.locationData.collectLatest { flow ->
-                    binding.recyclerViewKakaoLocation.scrollToPosition(0)
-                    flow.collectLatest {
-                        pagingDataAdapter.submitData(it)
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.locationData.collectLatest { flow ->
+                        binding.recyclerViewKakaoLocation.scrollToPosition(0)
+                        flow.collectLatest { pageData ->
+                            pagingDataAdapter.submitData(pageData)
+                        }
                     }
                 }
             }

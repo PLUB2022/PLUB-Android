@@ -31,6 +31,8 @@ class BottomSheetSearchLocationViewModel @Inject constructor(
 
     val editTextValue = MutableStateFlow("")
 
+    var selectedPlaceName = ""
+
     private val query = MutableStateFlow("")
 
     val upDateEditTextValue: (text: String) -> Unit = { text ->
@@ -39,6 +41,10 @@ class BottomSheetSearchLocationViewModel @Inject constructor(
 
     val locationData = query.mapLatest {  query ->
         fetchKakaoLocationByKeywordUseCase(query)
+    }
+
+    fun onClickLocationRecyclerViewItem(placeName: String) {
+        selectedPlaceName = placeName
     }
 
     fun onClickKeyboardSearch(): Void? {

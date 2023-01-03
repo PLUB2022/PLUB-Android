@@ -24,5 +24,7 @@ data class KakaoLocationInfoDocument(
 
 data class Meta(
     @SerializedName("is_end")
-    val isEnd: Boolean
+    val isEnd: Boolean,
+    @SerializedName("pageable_count")
+    val documentTotalCount: Int
 )
