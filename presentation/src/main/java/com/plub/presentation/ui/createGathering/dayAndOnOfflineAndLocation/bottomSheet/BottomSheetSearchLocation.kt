@@ -2,7 +2,9 @@ package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bott
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +14,7 @@ import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.databinding.BottomSheetSearchLocationBinding
 import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bottomSheet.adapter.KakaoLocationRecyclerViewAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -39,6 +42,7 @@ class BottomSheetSearchLocation(
             okButtonClickEvent?.let { method ->
                 method(viewModel.uiState.value.selectedLocation)
             }
+            dismiss()
         }
 
         lifecycleScope.launch {
@@ -49,6 +53,14 @@ class BottomSheetSearchLocation(
                         flow.collectLatest { pageData ->
                             pagingDataAdapter.submitData(pageData)
                         }
+                    }
+                }
+
+                launch {
+                    viewModel.hideKeyboard.collect {
+                        val inputMethodManager =
+                            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        inputMethodManager.hideSoftInputFromWindow(binding.iconEditTextSearchLocation.editText.windowToken, 0)
                     }
                 }
             }

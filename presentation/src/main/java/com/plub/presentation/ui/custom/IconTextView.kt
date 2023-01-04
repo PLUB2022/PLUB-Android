@@ -18,6 +18,8 @@ class IconTextView @JvmOverloads constructor(
     private val binding: CustomViewIconTextViewBinding
     private val iconResourceId: Int
     private val text: String?
+    val textView: TextView
+        get() = binding.textView
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
