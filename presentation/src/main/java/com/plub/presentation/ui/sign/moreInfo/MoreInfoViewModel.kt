@@ -52,6 +52,8 @@ class MoreInfoViewModel @Inject constructor(
 
     fun onInitMoreInfo(moreInfoVo: MoreInfoVo) {
         if(uiState.value != MoreInfoPageState()) return
+
+        updateIntroduceState(moreInfoVo.introduce)
     }
 
     private fun updateIntroduceState(introduce:String) {
