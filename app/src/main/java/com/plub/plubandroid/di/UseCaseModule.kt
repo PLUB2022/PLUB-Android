@@ -1,9 +1,6 @@
 package com.plub.plubandroid.di
 
-import com.plub.domain.repository.IntroRepository
-import com.plub.domain.repository.LoginRepository
-import com.plub.domain.repository.PlubJwtRepository
-import com.plub.domain.repository.SignUpRepository
+import com.plub.domain.repository.*
 import com.plub.domain.usecase.*
 import dagger.Module
 import dagger.Provides
@@ -55,5 +52,11 @@ object UseCaseModule {
     @Provides
     fun providesGetNicknameCheckUseCase(repository: SignUpRepository): GetNicknameCheckUseCase {
         return GetNicknameCheckUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetAllHobbiesUseCase(repository: HobbyRepository): GetAllHobbiesUseCase {
+        return GetAllHobbiesUseCase(repository)
     }
 }

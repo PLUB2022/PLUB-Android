@@ -1,9 +1,6 @@
 package com.plub.plubandroid.di
 
-import com.plub.data.api.IntroApi
-import com.plub.data.api.LoginApi
-import com.plub.data.api.PlubJwtTokenApi
-import com.plub.data.api.SignUpApi
+import com.plub.data.api.*
 import com.plub.domain.repository.IntroRepository
 import com.plub.domain.repository.LoginRepository
 import com.plub.domain.usecase.PostSocialLoginUseCase
@@ -24,6 +21,12 @@ object ApiModule {
     @Provides
     fun provideIntroApi(@NormalRetrofit retrofit: Retrofit): IntroApi {
         return retrofit.create(IntroApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideHobbyApi(@NormalRetrofit retrofit: Retrofit): HobbyApi {
+        return retrofit.create(HobbyApi::class.java)
     }
 
     @Singleton
