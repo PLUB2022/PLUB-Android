@@ -37,7 +37,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
             }
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(backPressedDispatcher)
+        requireActivity().onBackPressedDispatcher.addCallback(this, backPressedDispatcher)
     }
 
     override fun initStates() {
