@@ -1,5 +1,6 @@
 package com.plub.presentation.state
 
+import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.domain.model.vo.signUp.moreInfo.MoreInfoVo
 import com.plub.domain.model.vo.signUp.personalInfo.PersonalInfoVo
 import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
@@ -10,5 +11,6 @@ data class SignUpPageState(
     val termsPageVo: TermsPageVo = TermsPageVo(),
     val personalInfoVo: PersonalInfoVo = PersonalInfoVo(),
     val profileComposeVo: ProfileComposeVo = ProfileComposeVo(),
-    val moreInfoVo: MoreInfoVo = MoreInfoVo()
+    val moreInfoVo: MoreInfoVo = MoreInfoVo(),
+    val hobbyInfoVo: SignUpHobbiesVo = SignUpHobbiesVo()
 ) : PageState

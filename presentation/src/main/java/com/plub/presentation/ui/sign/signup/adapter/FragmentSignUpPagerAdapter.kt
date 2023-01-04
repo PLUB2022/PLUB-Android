@@ -3,6 +3,7 @@ package com.plub.presentation.ui.sign.signup.adapter
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.plub.domain.model.enums.SignUpPageType
+import com.plub.presentation.ui.sign.hobbies.HobbiesFragment
 import com.plub.presentation.ui.sign.moreInfo.MoreInfoFragment
 import com.plub.presentation.ui.sign.personalInfo.PersonalInfoFragment
 import com.plub.presentation.ui.sign.profileCompose.ProfileComposeFragment
@@ -12,9 +13,7 @@ class FragmentSignUpPagerAdapter(
     fragment: Fragment,
 ) : FragmentStateAdapter(fragment) {
 
-    override fun getItemCount(): Int = 10
-
-//    override fun getItemCount(): Int = SignUpPageType.values().size
+    override fun getItemCount(): Int = SignUpPageType.values().size
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
@@ -22,9 +21,8 @@ class FragmentSignUpPagerAdapter(
             SignUpPageType.PERSONAL_INFO.idx -> PersonalInfoFragment()
             SignUpPageType.PROFILE.idx -> ProfileComposeFragment()
             SignUpPageType.MORE_INFO.idx -> MoreInfoFragment()
-            SignUpPageType.HOBBY.idx -> TermsFragment()
-            else -> TermsFragment()
-//            else -> throw IllegalAccessException()
+            SignUpPageType.HOBBY.idx -> HobbiesFragment()
+            else -> throw IllegalAccessException()
         }
     }
 }
