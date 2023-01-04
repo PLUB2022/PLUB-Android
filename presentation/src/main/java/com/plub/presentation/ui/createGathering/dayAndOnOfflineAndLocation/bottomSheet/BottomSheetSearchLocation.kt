@@ -45,6 +45,11 @@ class BottomSheetSearchLocation(
             dismiss()
         }
 
+        pagingDataAdapter.addOnPagesUpdatedListener {
+            val size = pagingDataAdapter.itemCount
+            viewModel.upDateSearchResultCount(size)
+        }
+
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {

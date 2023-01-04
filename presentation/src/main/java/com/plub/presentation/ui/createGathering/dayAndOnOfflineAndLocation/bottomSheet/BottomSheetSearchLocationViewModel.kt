@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,7 +41,7 @@ class BottomSheetSearchLocationViewModel @Inject constructor(
         }
     }
 
-    private fun upDateSearchResultCount(count: Int) {
+    fun upDateSearchResultCount(count: Int) {
         updateUiState { uiState ->
             uiState.copy(
                 searchResultCount = count
@@ -49,12 +50,7 @@ class BottomSheetSearchLocationViewModel @Inject constructor(
     }
 
     val locationData = query.mapLatest { query ->
-        fetchKakaoLocationByKeywordUseCase(query).map { pageData ->
-            pageData.map {
-                upDateSearchResultCount(it.documentTotalCount)
-                it
-            }
-        }.cachedIn(viewModelScope)
+        fetchKakaoLocationByKeywordUseCase(query).cachedIn(viewModelScope)
     }
 
     fun onClickLocationRecyclerItem(selectedKakaoLocationDocument: KakaoLocationInfoDocumentVo) {
