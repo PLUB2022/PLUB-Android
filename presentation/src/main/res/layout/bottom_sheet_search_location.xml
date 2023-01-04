@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocationViewModel" />
@@ -31,6 +33,7 @@
             android:layout_marginTop="10dp"
             android:imeOptions="actionSearch"
             app:editTextHint="@string/bottom_sheet_search_gathering_location_hint"
+            app:editTextValue="@{vm.uiState.searchText}"
             app:iconEditTextActionEvent="@{() -> vm.onClickKeyboardSearch()}"
             app:iconEditTextIcon="@drawable/ic_search"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,14 +43,33 @@
             tools:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
             tools:layout_height="40dp" />
 
+        <TextView
+            android:id="@+id/text_view_search_result_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/int_to_string(vm.uiState.searchResultCount)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon_edit_text_search_location" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_kakao_location"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="360dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon_edit_text_search_location" />
+            app:layout_constraintTop_toBottomOf="@id/text_view_search_result_count" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="@{vm.uiState.okButtonEnabled}"
+            android:text="@string/word_ok"
+            android:visibility="@{vm.uiState.okButtonVisible ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_kakao_location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

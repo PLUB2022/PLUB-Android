@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.databinding.LayoutRecyclerKakaoLocationByKeywordBinding
-import com.plub.presentation.util.PlubLogger
 
 class KakaoLocationRecyclerViewAdapter(
-    private val itemClickEvent: (placeName: String) -> Unit
+    private val itemClickEvent: (data: KakaoLocationInfoDocumentVo) -> Unit
 ) : PagingDataAdapter<KakaoLocationInfoDocumentVo, KakaoLocationRecyclerViewAdapter.KakaoLocationViewHolder>(
     DiffCallback()
 ) {
-    private var selectedPlaceName = ""
-    private var prevSelectedPosition = 0
+    private var selectedPlaceData: KakaoLocationInfoDocumentVo? = null
+    private var prevSelectedPosition: Int = 0
+
     override fun onBindViewHolder(holder: KakaoLocationViewHolder, position: Int) {
         getItem(position)?.let { data ->
             holder.bind(data, position)
@@ -37,12 +37,13 @@ class KakaoLocationRecyclerViewAdapter(
         fun bind(data: KakaoLocationInfoDocumentVo, position: Int) {
             binding.data = data
             binding.root.setOnClickListener {
-                selectedPlaceName = data.placeName
+                selectedPlaceData = data
                 binding.textViewPlaceName.textSize = 30f
                 notifyItemChanged(prevSelectedPosition)
                 prevSelectedPosition = position
+                itemClickEvent(data)
             }
-            if (selectedPlaceName == data.placeName)
+            if (selectedPlaceData == data)
                 binding.textViewPlaceName.textSize = 30f
             else
                 binding.textViewPlaceName.textSize = 10f
@@ -64,5 +65,4 @@ class DiffCallback : DiffUtil.ItemCallback<KakaoLocationInfoDocumentVo>() {
     ): Boolean {
         return oldItem == newItem
     }
-
 }

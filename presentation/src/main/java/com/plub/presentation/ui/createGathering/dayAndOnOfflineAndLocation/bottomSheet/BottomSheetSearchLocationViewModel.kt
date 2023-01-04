@@ -1,23 +1,17 @@
 package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bottomSheet
 
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.plub.domain.model.state.PageState
+import androidx.paging.map
+import com.plub.domain.model.state.CreateGatheringKakaoLocationBottomSheetPageState
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.domain.usecase.FetchKakaoLocationByKeywordUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.switchMap
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,31 +19,48 @@ import javax.inject.Inject
 class BottomSheetSearchLocationViewModel @Inject constructor(
     private val fetchKakaoLocationByKeywordUseCase: FetchKakaoLocationByKeywordUseCase
 ) :
-    BaseViewModel<PageState.Default>(
-        PageState.Default
-    ) {
-
-    val editTextValue = MutableStateFlow("")
-
-    var selectedPlaceName = ""
-
+    BaseViewModel<CreateGatheringKakaoLocationBottomSheetPageState>(
+        CreateGatheringKakaoLocationBottomSheetPageState()
+    )
+{
     private val query = MutableStateFlow("")
 
     val upDateEditTextValue: (text: String) -> Unit = { text ->
-        editTextValue.value = text
+        updateUiState { uiState ->
+            uiState.copy(
+                searchText = text
+            )
+        }
     }
 
-    val locationData = query.mapLatest {  query ->
-        fetchKakaoLocationByKeywordUseCase(query)
+    private fun upDateSearchResultCount(count: Int) {
+        updateUiState { uiState ->
+            uiState.copy(
+                searchResultCount = count
+            )
+        }
     }
 
-    fun onClickLocationRecyclerViewItem(placeName: String) {
-        selectedPlaceName = placeName
+    val locationData = query.mapLatest { query ->
+        fetchKakaoLocationByKeywordUseCase(query).map { pageData ->
+            pageData.map {
+                upDateSearchResultCount(it.documentTotalCount)
+                it
+            }
+        }.cachedIn(viewModelScope)
+    }
+
+    fun onClickLocationRecyclerItem(selectedKakaoLocationDocument: KakaoLocationInfoDocumentVo) {
+        updateUiState { uiState ->
+            uiState.copy(
+                selectedLocation = selectedKakaoLocationDocument
+            )
+        }
     }
 
     fun onClickKeyboardSearch(): Void? {
         viewModelScope.launch {
-            query.value = editTextValue.value
+            query.value = uiState.value.searchText
         }
         return null
     }

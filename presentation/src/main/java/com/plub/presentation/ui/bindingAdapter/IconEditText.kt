@@ -6,6 +6,8 @@ import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import com.plub.presentation.ui.custom.FixedTextWidthCheckBox
 import com.plub.presentation.ui.custom.IconEditText
 

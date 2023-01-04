@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.enums.OnOfflineType
 import com.plub.domain.model.state.CreateGatheringDayAndOnOfflineAndLocationPageState
+import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.addOrRemoveElementAfterReturnNewHashSet
@@ -25,7 +26,15 @@ class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
     private val _showBottomSheetSearchLocation = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
     val showBottomSheetSearchLocation: SharedFlow<Unit> = _showBottomSheetSearchLocation.asSharedFlow()
 
-
+    fun updateGatheringLocationData(data: KakaoLocationInfoDocumentVo?) {
+        viewModelScope.launch {
+            updateUiState { uiState ->
+                uiState.copy(
+                    gatheringLocationData = data
+                )
+            }
+        }
+    }
     fun onClickIconEditTextLocation() {
         viewModelScope.launch {
             _showBottomSheetSearchLocation.emit(Unit)

@@ -21,6 +21,16 @@ class IconEditText @JvmOverloads constructor(
     private val iconResourceId: Int
     private val editTextHint: String?
     val editText: EditText
+        get() = binding.editText
+
+    var editTextValue: String = ""
+        set(value) {
+            val old = editText.text.toString()
+            if(old != value) {
+                field = value
+                editText.setText(editTextValue)
+            }
+        }
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -42,8 +52,6 @@ class IconEditText @JvmOverloads constructor(
         if (imeOption == EditorInfo.IME_ACTION_SEARCH) {
             binding.editText.setSingleLine()
         }
-
-        editText = binding.editText
 
         typedArray.recycle()
     }

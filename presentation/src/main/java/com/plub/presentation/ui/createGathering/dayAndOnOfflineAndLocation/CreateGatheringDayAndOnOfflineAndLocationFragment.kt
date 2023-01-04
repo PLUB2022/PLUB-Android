@@ -17,8 +17,7 @@ class CreateGatheringDayAndOnOfflineAndLocationFragment : BaseFragment<
     FragmentCreateGatheringDayAndOnOfflineAndLocationBinding::inflate
 ) {
     override val viewModel: CreateGatheringDayAndOnOfflineAndLocationViewModel by viewModels()
-    private val parentViewModel: CreateGatheringViewModel by viewModels({requireParentFragment()})
-    private lateinit var bottomSheetSearchLocation: BottomSheetSearchLocation
+    private val parentViewModel: CreateGatheringViewModel by viewModels({ requireParentFragment() })
 
     override fun initView() {
 
@@ -26,8 +25,6 @@ class CreateGatheringDayAndOnOfflineAndLocationFragment : BaseFragment<
             vm = viewModel
             parentVm = parentViewModel
         }
-
-        bottomSheetSearchLocation = BottomSheetSearchLocation()
     }
 
     override fun initStates() {
@@ -36,6 +33,9 @@ class CreateGatheringDayAndOnOfflineAndLocationFragment : BaseFragment<
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.showBottomSheetSearchLocation.collect {
+                    val bottomSheetSearchLocation = BottomSheetSearchLocation {
+                        data -> viewModel.updateGatheringLocationData(data)
+                    }
                     bottomSheetSearchLocation.show(
                         requireActivity().supportFragmentManager,
                         bottomSheetSearchLocation.tag

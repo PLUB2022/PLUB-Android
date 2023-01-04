@@ -91,4 +91,5 @@
     <string name="custom_view_add_single_image_add_image_text">사진 추가하기</string>
     <string name="bottom_sheet_search_gathering_location_title">장소 검색</string>
     <string name="bottom_sheet_search_gathering_location_hint">장소를 검색해주세요</string>
+    <string name="word_ok">확인</string>
 </resources>

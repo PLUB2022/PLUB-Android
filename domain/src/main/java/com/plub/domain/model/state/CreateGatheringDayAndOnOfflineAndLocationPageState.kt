@@ -1,16 +1,15 @@
 package com.plub.domain.model.state
 
 import com.plub.domain.model.enums.OnOfflineType
+import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 
 data class CreateGatheringDayAndOnOfflineAndLocationPageState(
     val gatheringDays: HashSet<String> = hashSetOf(),
     val gatheringOnOffline: String = "",
-    val gatheringLocation: String = "",
-    val placePositionX: Double = 0.0,
-    val placePositionY: Double = 0.0
+    val gatheringLocationData: KakaoLocationInfoDocumentVo? = null,
 ) : PageState {
     val isNextButtonEnabled = gatheringDays.isNotEmpty() &&
             if(gatheringOnOffline == OnOfflineType.OFF.value)
-                gatheringLocation.isNotBlank()
+                gatheringLocationData != null
             else gatheringOnOffline == OnOfflineType.ON.value
 }
