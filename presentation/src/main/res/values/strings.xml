@@ -39,6 +39,7 @@
     <string name="word_all_day">요일 무관</string>
     <string name="word_online">온라인</string>
     <string name="word_offline">오프라인</string>
+    <string name="word_ok">확인</string>
 
     <string name="onboarding_title_first">“ 새로운 사람과 설레는 시간 ”</string>
     <string name="onboarding_content_first">아직 불러 부끄러운 무성할 벌레는 새워 까닭입니다. 사람들의 나는 노새, 언덕 가을 거외다. 부끄러운 하나에 어머니, 잔디가 별 책상을 이제 없이 거외다.\n\n쉬이 하늘에는 내일 묻힌 까닭입니다. 마리아 아침이 써 이국 책상을 봅니다.</string>
@@ -89,7 +90,14 @@
 
     <string name="custom_view_add_single_image_imageview_descriptor">이미지 추가 아이콘</string>
     <string name="custom_view_add_single_image_add_image_text">사진 추가하기</string>
+
     <string name="bottom_sheet_search_gathering_location_title">장소 검색</string>
     <string name="bottom_sheet_search_gathering_location_hint">장소를 검색해주세요</string>
-    <string name="word_ok">확인</string>
+    <string name="bottom_sheet_search_gathering_location_search_descriptor">검색 설명 이미지</string>
+    <string name="bottom_sheet_search_gathering_location_search_description_title">장소 또는 지역을 검색해주세요</string>
+    <string name="bottom_sheet_search_gathering_location_search_description_description">예) 마포구, 강남역, 광화문 광장 등</string>
+    <string name="bottom_sheet_search_gathering_location_search_result_empty_descriptor">검색 결과 없음 이미지</string>
+    <string name="bottom_sheet_search_gathering_location_search_result_empty_title">검색 결과가 없어요</string>
+    <string name="bottom_sheet_search_gathering_location_search_result_empty_description">검색 결과 없음</string>
+
 </resources>

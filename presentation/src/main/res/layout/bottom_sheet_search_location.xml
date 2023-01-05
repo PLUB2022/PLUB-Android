@@ -32,8 +32,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:imeOptions="actionSearch"
+            app:defaultBackground="@{@drawable/bg_rectangle_filled_5f5ff9_radius_8}"
+            app:defaultTextColor="@{@color/black}"
             app:editTextHint="@string/bottom_sheet_search_gathering_location_hint"
             app:editTextValue="@{vm.uiState.searchText}"
+            app:hintBackground="@{@drawable/bg_rectangle_empty_8c8c8c_radius_8}"
+            app:hintTextColor="@{@color/color_c4c4c4}"
             app:iconEditTextActionEvent="@{() -> vm.onClickKeyboardSearch()}"
             app:iconEditTextIcon="@drawable/ic_search"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +63,84 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_search_result_count" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_search_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.uiState.showSearchDescription ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon_edit_text_search_location">
+
+            <ImageView
+                android:id="@+id/image_view_search_description"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/black"
+                android:contentDescription="@string/bottom_sheet_search_gathering_location_search_descriptor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_search_description_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bottom_sheet_search_gathering_location_search_description_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_search_description" />
+
+            <TextView
+                android:id="@+id/text_view_search_description_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bottom_sheet_search_gathering_location_search_description_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_search_description_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_search_result_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.uiState.showEmptyResult ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon_edit_text_search_location">
+
+            <ImageView
+                android:id="@+id/image_view_search_result_empty"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/black"
+                android:contentDescription="@string/bottom_sheet_search_gathering_location_search_result_empty_descriptor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_search_result_empty_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bottom_sheet_search_gathering_location_search_result_empty_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_search_result_empty" />
+
+            <TextView
+                android:id="@+id/text_view_search_result_empty_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bottom_sheet_search_gathering_location_search_result_empty_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_search_result_empty_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_ok"

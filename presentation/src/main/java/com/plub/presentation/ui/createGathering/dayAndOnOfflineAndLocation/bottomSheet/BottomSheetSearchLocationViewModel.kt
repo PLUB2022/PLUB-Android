@@ -41,6 +41,14 @@ class BottomSheetSearchLocationViewModel @Inject constructor(
         }
     }
 
+    private fun invisibleSearchDescription() {
+        updateUiState { uiState ->
+            uiState.copy(
+                showSearchDescription = false
+            )
+        }
+    }
+
     fun upDateSearchResultCount(count: Int) {
         updateUiState { uiState ->
             uiState.copy(
@@ -65,6 +73,7 @@ class BottomSheetSearchLocationViewModel @Inject constructor(
         viewModelScope.launch {
             query.value = uiState.value.searchText
             _hideKeyboard.emit(Unit)
+            invisibleSearchDescription()
         }
         return null
     }

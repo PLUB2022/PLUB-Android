@@ -1,5 +1,7 @@
 package com.plub.presentation.ui.bindingAdapter
 
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
@@ -10,6 +12,7 @@ import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.plub.presentation.ui.custom.FixedTextWidthCheckBox
 import com.plub.presentation.ui.custom.IconEditText
+import com.plub.presentation.util.afterTextChanged
 
 @BindingAdapter("iconEditTextActionEvent")
 fun IconEditText.bindEditTextActionEvent(method: () -> Void) {
@@ -31,17 +34,28 @@ fun IconEditText.bindEditTextActionEvent(method: () -> Void) {
 
 @BindingAdapter("updateIconEditText")
 fun IconEditText.bindUpdateIconEditText(method: (text: String) -> Unit) {
-    editText.addTextChangedListener(object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+    editText.afterTextChanged { text ->
+        method(text?.toString() ?: "")
+    }
+}
 
-        }
+@BindingAdapter(value = ["hintTextColor", "defaultTextColor"], requireAll = true)
+fun IconEditText.bindSetIconEditTextHintColor(
+    hintTextColor: Int,
+    defaultTextColor: Int
+) {
+    editText.setHintTextColor(hintTextColor)
+    editText.setTextColor(defaultTextColor)
+}
 
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-        }
-
-        override fun afterTextChanged(p0: Editable?) {
-            method(p0?.toString() ?: "")
-        }
-    })
+@BindingAdapter(value = ["hintBackground", "defaultBackground"], requireAll = true)
+fun IconEditText.bindSetIconEditTextHintBackground(
+    hintBackground: Drawable,
+    defaultBackground: Drawable
+) {
+    background = hintBackground
+    editText.afterTextChanged {
+        background = if(editText.text.isEmpty()) hintBackground
+        else defaultBackground
+    }
 }
