@@ -10,6 +10,7 @@ object Endpoints {
     object AUTH {
         private const val AUTH_URL = "/api/auth"
         const val SOCIAL_LOGIN = "$AUTH_URL/login"
+        const val SIGN_UP = "$AUTH_URL/signup"
     }
 
     object ACCOUNT {
