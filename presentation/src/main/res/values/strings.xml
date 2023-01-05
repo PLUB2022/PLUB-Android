@@ -100,4 +100,10 @@
     <string name="bottom_sheet_search_gathering_location_search_result_empty_title">검색 결과가 없어요</string>
     <string name="bottom_sheet_search_gathering_location_search_result_empty_description">검색 결과 없음</string>
 
+    <string name="create_gathering_people_number_title">몇명에서 만날까요?</string>
+    <string name="create_gathering_people_number_description">함께 하고자 하는 적정 인원 수를 적어주세요.</string>
+    <string name="create_gathering_people_number_seekbar_title">몇 명인가요?</string>
+    <string name="create_gathering_people_number_seekbar_min">4명</string>
+    <string name="create_gathering_people_number_seekbar_max">20명</string>
+
 </resources>
