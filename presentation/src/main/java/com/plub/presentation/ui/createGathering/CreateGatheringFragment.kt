@@ -1,8 +1,7 @@
 package com.plub.presentation.ui.createGathering
 
-import androidx.fragment.app.findFragment
 import androidx.fragment.app.viewModels
-import com.plub.domain.model.state.CreateGatheringPageState
+import com.plub.domain.model.state.createGathering.CreateGatheringPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringBinding
 import com.plub.presentation.ui.createGathering.adapter.FragmentCreateGatheringPagerAdapter

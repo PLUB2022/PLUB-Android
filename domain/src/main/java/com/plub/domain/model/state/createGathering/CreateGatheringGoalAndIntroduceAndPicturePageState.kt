@@ -1,5 +1,6 @@
-package com.plub.domain.model.state
+package com.plub.domain.model.state.createGathering
 
+import com.plub.domain.model.state.PageState
 import java.io.File
 
 data class CreateGatheringGoalAndIntroduceAndPicturePageState(

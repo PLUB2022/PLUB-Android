@@ -1,5 +1,6 @@
-package com.plub.domain.model.state
+package com.plub.domain.model.state.createGathering
 
+import com.plub.domain.model.state.PageState
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 
 data class CreateGatheringKakaoLocationBottomSheetPageState(
