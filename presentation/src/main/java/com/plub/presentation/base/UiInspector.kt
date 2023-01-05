@@ -1,29 +1,27 @@
 package com.plub.presentation.base
 
 import com.plub.domain.UiState
+import com.plub.domain.error.CommonError
+import com.plub.domain.error.IndividualError
 import com.plub.domain.error.UiError
-import com.plub.domain.result.CommonFailure
-import com.plub.domain.result.IndividualFailure
-import com.plub.domain.result.StateResult
 
 class UiInspector(private val delegate: Delegate) {
 
     interface Delegate {
         fun showLoading()
         fun hideLoading()
-        fun handleCommonFailure(failure: CommonFailure)
-        fun handleError(error: UiError)
+        fun handleCommonError(commonError: CommonError)
     }
 
-    fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: ((T) -> Unit)?, individualFailCallback: ((T, IndividualFailure) -> Unit)?) {
+    fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: (T) -> Unit, individualErrorCallback: ((T?, IndividualError) -> Unit)?) {
         when(uiState) {
             is UiState.Loading -> showLoading()
             is UiState.Success -> {
-                handleSuccess(uiState.data,uiState.result,succeedCallback, individualFailCallback)
+                succeedCallback.invoke(uiState.data)
                 hideLoading()
             }
             is UiState.Error -> {
-                handleError(uiState.error)
+                handleError(uiState.data, uiState.error, individualErrorCallback)
                 hideLoading()
             }
         }
@@ -37,26 +35,10 @@ class UiInspector(private val delegate: Delegate) {
         delegate.hideLoading()
     }
 
-    private fun<T> handleSuccess(data:T, result:StateResult, succeedCallback: ((T) -> Unit)?, individualFailCallback: ((T, IndividualFailure) -> Unit)?) {
-        when(result) {
-            is StateResult.Succeed -> succeedCallback?.invoke(data)
-            is StateResult.Fail -> handleFailure(data,result,individualFailCallback)
+    private fun<T> handleError(data:T?, error:UiError, individualErrorCallback: ((T?, IndividualError) -> Unit)?) {
+        when(error) {
+            is CommonError -> delegate.handleCommonError(error)
+            is IndividualError -> individualErrorCallback?.invoke(data, error)
         }
-    }
-
-    private fun<T> handleFailure(data:T, failure:StateResult.Fail, individualFailCallback: ((T, IndividualFailure) -> Unit)?) {
-        when(failure) {
-            is CommonFailure -> handleCommonFailure(failure)
-            is IndividualFailure -> individualFailCallback?.invoke(data, failure)
-        }
-    }
-
-
-    private fun handleCommonFailure(failure: CommonFailure) {
-        delegate.handleCommonFailure(failure)
-    }
-
-    private fun handleError(uiError: UiError) {
-        delegate.handleError(uiError)
     }
 }

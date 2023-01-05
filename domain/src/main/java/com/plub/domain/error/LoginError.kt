@@ -1,11 +1,11 @@
-package com.plub.domain.result
+package com.plub.domain.error
 
-sealed class LoginFailure: IndividualFailure() {
+sealed class LoginError: IndividualError() {
     companion object {
         private const val NOT_FOUND_USER_ACCOUNT = 400
         private const val INVALIDED_ACCOUNT_CODE = 456
 
-        fun make(statusCode: Int): LoginFailure {
+        fun make(statusCode: Int): LoginError {
             return when(statusCode) {
                 NOT_FOUND_USER_ACCOUNT -> NotFoundUserAccount("계정을 찾지 못함")
                 INVALIDED_ACCOUNT_CODE -> InvalidedAccount("잘못된 계정")
@@ -13,7 +13,7 @@ sealed class LoginFailure: IndividualFailure() {
             }
         }
     }
-    data class NotFoundUserAccount(val msg:String): LoginFailure()
-    data class InvalidedAccount(val msg:String): LoginFailure()
-    object Common: LoginFailure()
+    data class NotFoundUserAccount(val msg:String): LoginError()
+    data class InvalidedAccount(val msg:String): LoginError()
+    object Common: LoginError()
 }

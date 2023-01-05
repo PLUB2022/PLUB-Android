@@ -62,13 +62,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
             }
 
             launch {
-                viewModel.commonFailure.collect {
-                    commonProcessor.failProcess(it)
-                }
-            }
-
-            launch {
-                viewModel.uiError.collect {
+                viewModel.commonError.collect {
                     commonProcessor.errorProcess(it)
                 }
             }
