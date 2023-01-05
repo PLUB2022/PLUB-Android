@@ -1,11 +1,6 @@
 package com.plub.plubandroid.di
 
 import com.plub.data.api.*
-import com.plub.domain.repository.IntroRepository
-import com.plub.domain.repository.LoginRepository
-import com.plub.domain.usecase.PostSocialLoginUseCase
-import com.plub.domain.usecase.TrySampleLoginUseCase
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,12 +11,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {
-
-    @Singleton
-    @Provides
-    fun provideIntroApi(@NormalRetrofit retrofit: Retrofit): IntroApi {
-        return retrofit.create(IntroApi::class.java)
-    }
 
     @Singleton
     @Provides

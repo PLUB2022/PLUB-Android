@@ -20,12 +20,6 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesTrySampleLoginUseCase(repository: IntroRepository): TrySampleLoginUseCase {
-        return TrySampleLoginUseCase(repository)
-    }
-
-    @Singleton
-    @Provides
     fun providesFetchPlubAccessTokenUseCase(repository: PlubJwtRepository): FetchPlubAccessTokenUseCase {
         return FetchPlubAccessTokenUseCase(repository)
     }
