@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.SignUpPageType
-import com.plub.presentation.state.state.ProfileComposePageState
+import com.plub.presentation.state.ProfileComposePageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentProfileComposeBinding

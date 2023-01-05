@@ -1,4 +1,4 @@
-package com.plub.presentation.state.state
+package com.plub.presentation.state
 
 import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
 import com.plub.presentation.state.PageState
