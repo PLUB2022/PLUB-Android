@@ -2,14 +2,12 @@ package com.plub.presentation.ui.createGathering
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.CreateGatheringPageType
-import com.plub.domain.model.state.CreateGatheringGoalAndIntroduceAndPicturePageState
-import com.plub.domain.model.state.CreateGatheringPageState
-import com.plub.domain.model.state.CreateGatheringTitleAndNamePageState
+import com.plub.domain.model.state.createGathering.CreateGatheringGoalAndIntroduceAndPicturePageState
+import com.plub.domain.model.state.createGathering.CreateGatheringPageState
+import com.plub.domain.model.state.createGathering.CreateGatheringTitleAndNamePageState
 import com.plub.domain.model.state.PageState
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject

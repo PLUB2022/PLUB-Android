@@ -4,10 +4,9 @@ import android.app.Activity.RESULT_OK
 import android.text.Editable
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.state.CreateGatheringGoalAndIntroduceAndPicturePageState
+import com.plub.domain.model.state.createGathering.CreateGatheringGoalAndIntroduceAndPicturePageState
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.ImageUtil
-import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow

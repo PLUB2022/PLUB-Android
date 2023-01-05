@@ -1,4 +1,6 @@
-package com.plub.domain.model.state
+package com.plub.domain.model.state.createGathering
+
+import com.plub.domain.model.state.PageState
 
 data class CreateGatheringTitleAndNamePageState(
     val introductionTitle: String = "",

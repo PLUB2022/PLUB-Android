@@ -48,11 +48,12 @@
             android:id="@+id/seek_bar_people"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
             android:background="@null"
-            android:paddingStart="0dp"
-            android:layout_marginHorizontal="10dp"
-            android:paddingEnd="0dp"
+            android:max="16"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
             android:progressDrawable="@drawable/layout_list_seekbar_2e3c3c43_to_5f5ff9"
             android:splitTrack="false"
             android:thumb="@drawable/layer_list_spinner_thumb"
@@ -62,20 +63,20 @@
             tools:progress="20" />
 
         <TextView
-            app:layout_constraintTop_toBottomOf="@id/seek_bar_people"
-            app:layout_constraintStart_toStartOf="@id/seek_bar_people"
             android:id="@+id/text_view_seekbar_min"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/create_gathering_people_number_seekbar_min"/>
+            android:text="@string/create_gathering_people_number_seekbar_min"
+            app:layout_constraintStart_toStartOf="@id/seek_bar_people"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
 
         <TextView
-            app:layout_constraintTop_toBottomOf="@id/seek_bar_people"
-            app:layout_constraintEnd_toEndOf="@id/seek_bar_people"
             android:id="@+id/text_view_seekbar_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/create_gathering_people_number_seekbar_max"/>
+            android:text="@string/create_gathering_people_number_seekbar_max"
+            app:layout_constraintEnd_toEndOf="@id/seek_bar_people"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
 
         <Button
             android:id="@+id/button_next"
