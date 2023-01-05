@@ -2,6 +2,7 @@ package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation
 
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.state.CreateGatheringDayAndOnOfflineAndLocationPageState
+import com.plub.domain.model.state.CreateGatheringTitleAndNamePageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringDayAndOnOfflineAndLocationBinding
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
@@ -31,6 +32,16 @@ class CreateGatheringDayAndOnOfflineAndLocationFragment : BaseFragment<
         super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
+            launch {
+                if(viewModel.uiState.value != CreateGatheringDayAndOnOfflineAndLocationPageState())
+                    return@launch
+
+                parentViewModel.childrenPageStateFlow.collect {
+                    if(it is CreateGatheringDayAndOnOfflineAndLocationPageState)
+                        viewModel.initUiState(it)
+                }
+            }
+
             launch {
                 viewModel.showBottomSheetSearchLocation.collect {
                     val bottomSheetSearchLocation = BottomSheetSearchLocation {
