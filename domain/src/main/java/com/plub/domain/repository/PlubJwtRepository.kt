@@ -16,5 +16,5 @@ interface PlubJwtRepository {
     /**
      * 토큰 갱신 실패시 PlubJwtTokenData("", "")를 반환합니다.
      */
-    fun reIssueToken(request : PlubJwtReIssueRequestVo): Flow<UiState<PlubJwtResponseVo>>
+    suspend fun reIssueToken(request : PlubJwtReIssueRequestVo): Flow<UiState<PlubJwtResponseVo>>
 }

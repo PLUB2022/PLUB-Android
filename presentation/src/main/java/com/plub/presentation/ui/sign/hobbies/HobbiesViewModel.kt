@@ -5,12 +5,10 @@ import com.plub.domain.model.enums.HobbyViewType
 import com.plub.domain.model.vo.common.HobbyVo
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
-import com.plub.domain.model.vo.signUp.moreInfo.MoreInfoVo
 import com.plub.domain.usecase.GetAllHobbiesUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.HobbiesPageState
-import com.plub.presentation.state.MoreInfoPageState
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow

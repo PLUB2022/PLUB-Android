@@ -5,5 +5,5 @@ import com.plub.domain.model.vo.common.HobbyVo
 import kotlinx.coroutines.flow.Flow
 
 interface HobbyRepository {
-    fun allHobbies(): Flow<UiState<List<HobbyVo>>>
+    suspend fun allHobbies(): Flow<UiState<List<HobbyVo>>>
 }

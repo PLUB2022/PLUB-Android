@@ -2,13 +2,13 @@ package com.plub.presentation.ui.sign.profileCompose
 
 import android.net.Uri
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.NicknameError
 import com.plub.domain.model.enums.DialogMenuItemType
-import com.plub.presentation.state.state.ProfileComposePageState
 import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
-import com.plub.domain.result.NicknameFailure
 import com.plub.domain.usecase.GetNicknameCheckUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.state.ProfileComposePageState
 import com.plub.presentation.util.ImageUtil
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -67,7 +67,7 @@ class ProfileComposeViewModel @Inject constructor(
         viewModelScope.launch {
             getNicknameCheckUseCase(nickname).collect { state ->
                 inspectUiState(state, ::handleNicknameCheckSuccess) { _, individual ->
-                    handleNicknameCheckFailure(individual as NicknameFailure)
+                    handleNicknameCheckError(individual as NicknameError)
                 }
             }
         }
@@ -124,13 +124,13 @@ class ProfileComposeViewModel @Inject constructor(
         updateNicknameState(isAvailableNickname, R.string.sign_up_profile_compose_nickname_available_description)
     }
 
-    private fun handleNicknameCheckFailure(nicknameFailure: NicknameFailure) {
+    private fun handleNicknameCheckError(nicknameError: NicknameError) {
         isNetworkCall = false
-        when (nicknameFailure) {
-            is NicknameFailure.HasSpecialCharacter -> updateNicknameState(false, R.string.sign_up_profile_compose_nickname_special_character_description)
-            is NicknameFailure.HasBlankNickname -> updateNicknameState(false, R.string.sign_up_profile_compose_nickname_blank_description)
-            is NicknameFailure.DuplicatedNickname -> updateNicknameState(false, R.string.sign_up_profile_compose_nickname_duplicated_description)
-            is NicknameFailure.EmptyNickname -> updateNicknameState(null, R.string.sign_up_profile_compose_nickname_empty_description)
+        when (nicknameError) {
+            is NicknameError.HasSpecialCharacter -> updateNicknameState(false, R.string.sign_up_profile_compose_nickname_special_character_description)
+            is NicknameError.HasBlankNickname -> updateNicknameState(false, R.string.sign_up_profile_compose_nickname_blank_description)
+            is NicknameError.DuplicatedNickname -> updateNicknameState(false, R.string.sign_up_profile_compose_nickname_duplicated_description)
+            is NicknameError.EmptyNickname -> updateNicknameState(null, R.string.sign_up_profile_compose_nickname_empty_description)
             else -> Unit
         }
     }
