@@ -59,4 +59,10 @@ object UseCaseModule {
     fun providesPostSignUpUseCase(repository: SignUpRepository): PostSignUpUseCase {
         return PostSignUpUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesUploadFileUseCase(repository: MediaRepository): PostUploadFileUseCase {
+        return PostUploadFileUseCase(repository)
+    }
 }

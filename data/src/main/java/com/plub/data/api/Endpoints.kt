@@ -7,6 +7,10 @@ object Endpoints {
         const val LOGIN_TEST = "$TEST_URL/test"
     }
 
+    object FILE {
+        const val FILE_URL = "/api/files"
+    }
+
     object AUTH {
         private const val AUTH_URL = "/api/auth"
         const val SOCIAL_LOGIN = "$AUTH_URL/login"

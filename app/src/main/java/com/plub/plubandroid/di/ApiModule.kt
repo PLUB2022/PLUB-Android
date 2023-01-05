@@ -35,4 +35,10 @@ object ApiModule {
     fun providePlubJwtTokenApi(@NormalRetrofit retrofit: Retrofit): PlubJwtTokenApi {
         return retrofit.create(PlubJwtTokenApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideMediaApi(@NormalRetrofit retrofit: Retrofit): MediaApi {
+        return retrofit.create(MediaApi::class.java)
+    }
 }
