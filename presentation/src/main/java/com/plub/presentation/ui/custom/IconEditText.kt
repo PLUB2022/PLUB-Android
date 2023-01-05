@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.plub.presentation.R
@@ -22,6 +23,9 @@ class IconEditText @JvmOverloads constructor(
     private val editTextHint: String?
     val editText: EditText
         get() = binding.editText
+
+    val icon: ImageView
+        get() = binding.imageViewIc
 
     var editTextValue: String = ""
         set(value) {

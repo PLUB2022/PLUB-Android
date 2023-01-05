@@ -14,7 +14,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:afterSearchBackground="@{@color/white}"
+        app:beforeSearchBackground="@{@color/color_c4c4c4}"
+        app:isSearched="@{!vm.uiState.showSearchDescription}">
 
         <TextView
             android:id="@+id/text_view_title"
@@ -32,14 +35,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:imeOptions="actionSearch"
-            app:defaultBackground="@{@drawable/bg_rectangle_filled_5f5ff9_radius_8}"
+            app:afterIcon="@{@drawable/ic_search_363636}"
+            app:afterSearchBackground="@{@drawable/bg_rectangle_empty_8c8c8c_radius_8}"
+            app:beforeIcon="@{@drawable/ic_search_8c8c8c}"
+            app:beforeSearchBackground="@{@drawable/bg_rectangle_filled_5f5ff9_radius_8}"
             app:defaultTextColor="@{@color/black}"
             app:editTextHint="@string/bottom_sheet_search_gathering_location_hint"
             app:editTextValue="@{vm.uiState.searchText}"
-            app:hintBackground="@{@drawable/bg_rectangle_empty_8c8c8c_radius_8}"
             app:hintTextColor="@{@color/color_c4c4c4}"
             app:iconEditTextActionEvent="@{() -> vm.onClickKeyboardSearch()}"
-            app:iconEditTextIcon="@drawable/ic_search"
+            app:isSearched="@{!vm.uiState.showSearchDescription}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_title"
@@ -52,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{@string/int_to_string(vm.uiState.searchResultCount)}"
+            android:visibility="@{vm.uiState.showSearchDescription ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/icon_edit_text_search_location" />
 

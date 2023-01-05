@@ -48,14 +48,31 @@ fun IconEditText.bindSetIconEditTextHintColor(
     editText.setTextColor(defaultTextColor)
 }
 
-@BindingAdapter(value = ["hintBackground", "defaultBackground"], requireAll = true)
-fun IconEditText.bindSetIconEditTextHintBackground(
-    hintBackground: Drawable,
-    defaultBackground: Drawable
+@BindingAdapter(
+    value =
+    [
+        "isSearched",
+        "beforeSearchBackground",
+        "afterSearchBackground",
+        "beforeIcon",
+        "afterIcon"
+    ],
+    requireAll = false
+)
+fun IconEditText.bindSetIconEditTextHintBackgroundAndIcon(
+    isSearched: Boolean,
+    beforeSearchBackground: Drawable?,
+    afterSearchBackground: Drawable?,
+    beforeIcon: Drawable?,
+    afterIcon: Drawable?
 ) {
-    background = hintBackground
-    editText.afterTextChanged {
-        background = if(editText.text.isEmpty()) hintBackground
-        else defaultBackground
+    if(afterSearchBackground != null && beforeSearchBackground != null) {
+        background = if (isSearched) afterSearchBackground
+        else beforeSearchBackground
+    }
+
+    if(afterIcon != null && beforeIcon != null) {
+        if (isSearched) icon.setImageDrawable(afterIcon)
+        else icon.setImageDrawable(beforeIcon)
     }
 }
