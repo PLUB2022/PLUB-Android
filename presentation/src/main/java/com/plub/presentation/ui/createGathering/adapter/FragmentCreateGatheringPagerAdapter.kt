@@ -6,6 +6,7 @@ import com.plub.domain.model.enums.CreateGatheringPageType
 import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndOnOfflineAndLocationFragment
 import com.plub.presentation.ui.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNameFragment
 import com.plub.presentation.ui.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndImageFragment
+import com.plub.presentation.ui.createGathering.peopleNumber.CreateGatheringPeopleNumberFragment
 import com.plub.presentation.ui.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryFragment
 
 class FragmentCreateGatheringPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
@@ -17,6 +18,7 @@ class FragmentCreateGatheringPagerAdapter(fragment: Fragment): FragmentStateAdap
         CreateGatheringPageType.GATHERING_TITLE_AND_NAME.idx -> CreateGatheringTitleAndNameFragment()
         CreateGatheringPageType.GOAL_INTRODUCE_PICTURE.idx -> CreateGatheringGoalAndIntroduceAndImageFragment()
         CreateGatheringPageType.DAY_ON_OFF_LOCATION.idx -> CreateGatheringDayAndOnOfflineAndLocationFragment()
+        CreateGatheringPageType.PEOPLE_NUMBER.idx -> CreateGatheringPeopleNumberFragment()
         else -> throw IllegalAccessException()
     }
 }
