@@ -6,6 +6,8 @@ import com.plub.domain.model.state.createGathering.CreateGatheringGoalAndIntrodu
 import com.plub.domain.model.state.createGathering.CreateGatheringPageState
 import com.plub.domain.model.state.createGathering.CreateGatheringTitleAndNamePageState
 import com.plub.domain.model.state.PageState
+import com.plub.domain.model.state.createGathering.CreateGatheringDayAndOnOfflineAndLocationPageState
+import com.plub.domain.model.state.createGathering.CreateGatheringPeopleNumberPageState
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -22,7 +24,9 @@ class CreateGatheringViewModel @Inject constructor() :
     private val childrenPageStateMap: MutableMap<Int, PageState> = mutableMapOf(
         CreateGatheringPageType.SELECT_PLUB_CATEGORY.idx to PageState.Default,
         CreateGatheringPageType.GATHERING_TITLE_AND_NAME.idx to CreateGatheringTitleAndNamePageState(),
-        CreateGatheringPageType.GOAL_INTRODUCE_PICTURE.idx to CreateGatheringGoalAndIntroduceAndPicturePageState()
+        CreateGatheringPageType.GOAL_INTRODUCE_PICTURE.idx to CreateGatheringGoalAndIntroduceAndPicturePageState(),
+        CreateGatheringPageType.DAY_ON_OFF_LOCATION.idx to CreateGatheringDayAndOnOfflineAndLocationPageState(),
+        CreateGatheringPageType.PEOPLE_NUMBER.idx to CreateGatheringPeopleNumberPageState()
     )
 
     private val _childrenPageStateFlow
