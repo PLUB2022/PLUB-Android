@@ -62,8 +62,9 @@ abstract class BaseRepository {
             emit(UiState.Success(data.first()))
         }.onStart { emit(UiState.Loading) }.catch { emit(UiState.Error(null,CommonError.ServiceUnavailable)) }
 
-    fun <T> dataStoreLaunch(dataStore: DataStore<Preferences>, key: Preferences.Key<T>, value: T): Flow<UiState<Nothing>> = flow<UiState<Nothing>> {
+    fun <T> dataStoreLaunch(dataStore: DataStore<Preferences>, key: Preferences.Key<T>, value: T): Flow<UiState<Unit>> = flow<UiState<Unit>> {
         DataStoreUtil.savePreferencesData(dataStore, key, value)
+        emit(UiState.Success(Unit))
     }.onStart { emit(UiState.Loading) }.catch { emit(UiState.Error(null,CommonError.ServiceUnavailable)) }
 
     suspend fun <T> dataStoreLaunch(dataStore: DataStore<T>): T? = DataStoreUtil.getProtoData(dataStore)
