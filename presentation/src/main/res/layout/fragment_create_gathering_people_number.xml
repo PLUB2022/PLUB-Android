@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="com.plub.presentation.ui.createGathering.peopleNumber.CreateGatheringPeopleNumberViewModel" />
@@ -48,33 +50,73 @@
             android:id="@+id/seek_bar_people"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
             android:background="@null"
             android:max="16"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
+            android:paddingStart="28dp"
+            android:paddingEnd="28dp"
+            android:progress="@{vm.uiState.seekBarProgress}"
             android:progressDrawable="@drawable/layout_list_seekbar_2e3c3c43_to_5f5ff9"
             android:splitTrack="false"
             android:thumb="@drawable/layer_list_spinner_thumb"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_seekbar_title"
+            app:updateSeekBarProgressAndPosition="@{vm.updateSeekbarProgressAndPositionX}"
             tools:progress="20" />
+
+        <TextView
+            android:id="@+id/text_view_seekbar_mark"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{@string/word_people_number(vm.uiState.peopleNumber)}"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/seek_bar_people"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar_people"
+            app:textViewPositionX="@{vm.uiState.seekBarPositionX}" />
+
+        <TextView
+            android:id="@+id/text_view_highlight_seekbar_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:textColor="@color/color_5f5ff9"
+            android:text="@string/create_gathering_people_number_seekbar_min"
+            android:textSize="18sp"
+            android:visibility="@{vm.uiState.peopleNumber == 4 ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintStart_toStartOf="@id/seek_bar_people"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
 
         <TextView
             android:id="@+id/text_view_seekbar_min"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
             android:text="@string/create_gathering_people_number_seekbar_min"
+            android:visibility="@{vm.uiState.peopleNumber == 4 || vm.uiState.peopleNumber == 5 ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="@id/seek_bar_people"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
+
+        <TextView
+            android:id="@+id/text_view_highlight_seekbar_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:textColor="@color/color_5f5ff9"
+            android:text="@string/create_gathering_people_number_seekbar_max"
+            android:textSize="18sp"
+            android:visibility="@{vm.uiState.peopleNumber == 20 ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintEnd_toEndOf="@id/seek_bar_people"
             app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
 
         <TextView
             android:id="@+id/text_view_seekbar_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
             android:text="@string/create_gathering_people_number_seekbar_max"
+            android:visibility="@{vm.uiState.peopleNumber == 20 || vm.uiState.peopleNumber == 19 ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="@id/seek_bar_people"
             app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
 
