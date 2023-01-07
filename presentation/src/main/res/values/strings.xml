@@ -106,5 +106,12 @@
     <string name="create_gathering_people_number_seekbar_title">몇 명인가요?</string>
     <string name="create_gathering_people_number_seekbar_min">4명</string>
     <string name="create_gathering_people_number_seekbar_max">20명</string>
-
+    
+    <string name="create_gathering_question_title">어떤 게스트가 오면 좋을까요?</string>
+    <string name="create_gathering_question_description">함께 할 게스트에게 질문하고 싶은 내용을 적어주세요!\n꼭 적지 않아도 괜찮아요.</string>
+    <string name="create_gathering_question_need_question_radio">질문 하고 모집하기</string>
+    <string name="create_gathering_question_no_question_radio">질문 없이 모집하기</string>
+    <string name="create_gathering_question_hint">우리 동네 사진 모임</string>
+    <string name="create_gathering_question_add_question">질문 추가</string>
+    <string name="create_gathering_question_question_number">질문 %d</string>
 </resources>
