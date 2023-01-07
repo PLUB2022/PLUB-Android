@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_plus"
                     android:drawablePadding="6dp"
-                    android:text="질문 추가"
+                    android:text="@string/word_add_question"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recycler_view_question" />

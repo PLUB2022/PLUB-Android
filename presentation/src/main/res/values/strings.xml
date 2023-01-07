@@ -114,4 +114,5 @@
     <string name="create_gathering_question_hint">우리 동네 사진 모임</string>
     <string name="create_gathering_question_add_question">질문 추가</string>
     <string name="create_gathering_question_question_number">질문 %d</string>
+    <string name="word_add_question">질문 추가</string>
 </resources>
