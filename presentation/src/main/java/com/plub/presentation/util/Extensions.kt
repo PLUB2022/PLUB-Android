@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import android.widget.TextView
 import kotlin.math.roundToInt
 
 val Int.dp: Int
@@ -48,4 +49,13 @@ fun EditText.afterTextChanged(method: (editable: Editable?) -> Unit) {
             method(p0)
         }
     })
+}
+
+fun TextView.requestAndClearFocus() {
+    isFocusable = true
+    isFocusableInTouchMode = true
+    requestFocus()
+    clearFocus()
+    isFocusable = false
+    isFocusableInTouchMode = false
 }
