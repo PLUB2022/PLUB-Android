@@ -18,7 +18,7 @@
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/create_gathering_question_question_number(data.position)}"
+            android:text="@{@string/word_question(data.position)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="질문 1" />

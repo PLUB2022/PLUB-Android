@@ -8,6 +8,7 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringQuestionBinding
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
 import com.plub.presentation.ui.createGathering.question.adapter.QuestionRecyclerViewAdapter
+import com.plub.presentation.ui.createGathering.question.bottomSheet.BottomSheetDeleteQuestion
 import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -32,8 +33,8 @@ class CreateGatheringQuestionFragment : BaseFragment<
 
             questionRecyclerViewAdapter =
                 QuestionRecyclerViewAdapter(
-                    onClickDeleteButton = { data ->
-                        viewModel.deleteQuestion(data)
+                    onClickDeleteButton = { position ->
+                        viewModel.onClickRecyclerViewDeleteButton(position)
                     },
                     updateEditText = { data, text ->
                         viewModel.updateQuestion(data, text)
@@ -56,6 +57,19 @@ class CreateGatheringQuestionFragment : BaseFragment<
                     questionRecyclerViewAdapter.submitList(pageState.questions) {
                         PlubLogger.logD("테스트", "이후 값 ${questionRecyclerViewAdapter.currentList}")
                     }
+                }
+            }
+
+            launch {
+                viewModel.showBottomSheetDeleteQuestion.collectLatest { position ->
+                    val bottomSheetDeleteQuestion = BottomSheetDeleteQuestion(position) { position ->
+                        viewModel.deleteQuestion(position)
+                    }
+
+                    bottomSheetDeleteQuestion.show(
+                        requireActivity().supportFragmentManager,
+                        bottomSheetDeleteQuestion.tag
+                    )
                 }
             }
         }

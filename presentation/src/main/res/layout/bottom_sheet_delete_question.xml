@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_view_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{@string/word_question(position)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="질문 2" />
+
+        <TextView
+            android:id="@+id/text_view_question_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bottom_sheet_delete_question_description"
+            app:layout_constraintStart_toEndOf="@id/text_view_question"
+            app:layout_constraintTop_toTopOf="@id/text_view_question" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/bottom_sheet_delete_question_no"
+            app:layout_constraintEnd_toStartOf="@id/button_yes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_question" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_yes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/bottom_sheet_delete_question_yes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/button_no"
+            app:layout_constraintTop_toTopOf="@id/button_no" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -19,7 +19,16 @@ import javax.inject.Inject
 class CreateGatheringQuestionViewModel @Inject constructor() :
     BaseViewModel<CreateGatheringQuestionPageState>(CreateGatheringQuestionPageState()) {
 
-    val maxQuestionCount = 5
+    private val maxQuestionCount = 5
+
+    private val _showBottomSheetDeleteQuestion = MutableSharedFlow<Int>(0, 1, BufferOverflow.DROP_OLDEST)
+    val showBottomSheetDeleteQuestion: SharedFlow<Int> = _showBottomSheetDeleteQuestion.asSharedFlow()
+
+    fun onClickRecyclerViewDeleteButton(position: Int) {
+        viewModelScope.launch {
+            _showBottomSheetDeleteQuestion.emit(position)
+        }
+    }
     fun updateQuestion(data: CreateGatheringQuestion, text: String) {
         uiState.value.questions.find { it.key == data.key }?.question = text
         updateUiState { uiState ->
@@ -40,12 +49,14 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
             uiState.copy(
                 questions = uiState.questions.plus(emptyQuestion),
                 needUpdateRecyclerView = true,
-                isAddQuestionButtonVisible = uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != maxQuestionCount - 1
+                isAddQuestionButtonVisible = false
             )
         }
     }
 
-    fun deleteQuestion(data: CreateGatheringQuestion) {
+    fun deleteQuestion(position: Int) {
+        val data = uiState.value.questions.find { it.position == position } ?: return
+
         updateUiState { uiState ->
             val deleteIndex = uiState.questions.indexOf(data)
             val temp = uiState.questions.minus(data).deepCopy()

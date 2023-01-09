@@ -13,7 +13,7 @@ import com.plub.presentation.util.afterTextChanged
 import com.plub.presentation.util.requestAndClearFocus
 
 class QuestionRecyclerViewAdapter(
-    val onClickDeleteButton: (data: CreateGatheringQuestion) -> Unit,
+    val onClickDeleteButton: (position: Int) -> Unit,
     val updateEditText: (data: CreateGatheringQuestion, text: String) -> Unit
 ) :
     ListAdapter<CreateGatheringQuestion, QuestionRecyclerViewAdapter.QuestionViewHolder>(
@@ -54,7 +54,7 @@ class QuestionRecyclerViewAdapter(
                  * 다른 recyclerView item의 editText에 focus가 되어있을 수 있기 때문
                  */
                 binding.textViewTitle.requestAndClearFocus()
-                onClickDeleteButton(data)
+                onClickDeleteButton(data.position)
             }
             binding.executePendingBindings()
         }
