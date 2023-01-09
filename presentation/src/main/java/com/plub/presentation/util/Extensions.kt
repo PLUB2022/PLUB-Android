@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
+import com.plub.domain.model.state.createGathering.CreateGatheringQuestion
 import kotlin.math.roundToInt
 
 val Int.dp: Int
@@ -58,4 +59,12 @@ fun TextView.requestAndClearFocus() {
     clearFocus()
     isFocusable = false
     isFocusableInTouchMode = false
+}
+
+fun List<CreateGatheringQuestion>.deepCopy(): List<CreateGatheringQuestion> {
+    val temp = mutableListOf<CreateGatheringQuestion>()
+    forEach {
+        temp.add(it.copy())
+    }
+    return temp
 }

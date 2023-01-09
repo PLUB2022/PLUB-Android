@@ -6,6 +6,7 @@ import com.plub.domain.model.state.createGathering.CreateGatheringQuestion
 import com.plub.domain.model.state.createGathering.CreateGatheringQuestionPageState
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.util.deepCopy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,12 +18,14 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateGatheringQuestionViewModel @Inject constructor() :
     BaseViewModel<CreateGatheringQuestionPageState>(CreateGatheringQuestionPageState()) {
+
+    val maxQuestionCount = 5
     fun updateQuestion(data: CreateGatheringQuestion, text: String) {
         uiState.value.questions.find { it.key == data.key }?.question = text
         updateUiState { uiState ->
             uiState.copy(
                 needUpdateRecyclerView = false,
-                isAddQuestionButtonVisible = uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != 5
+                isAddQuestionButtonVisible = uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != maxQuestionCount
             )
         }
     }
@@ -37,7 +40,7 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
             uiState.copy(
                 questions = uiState.questions.plus(emptyQuestion),
                 needUpdateRecyclerView = true,
-                isAddQuestionButtonVisible = uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != 4
+                isAddQuestionButtonVisible = uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != maxQuestionCount - 1
             )
         }
     }
@@ -45,10 +48,7 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
     fun deleteQuestion(data: CreateGatheringQuestion) {
         updateUiState { uiState ->
             val deleteIndex = uiState.questions.indexOf(data)
-            val temp = mutableListOf<CreateGatheringQuestion>()
-            uiState.questions.minus(data).forEach {
-                temp.add(it.copy())
-            }
+            val temp = uiState.questions.minus(data).deepCopy()
             updateQuestionPosition(deleteIndex, temp)
             uiState.copy(
                 questions = temp,
