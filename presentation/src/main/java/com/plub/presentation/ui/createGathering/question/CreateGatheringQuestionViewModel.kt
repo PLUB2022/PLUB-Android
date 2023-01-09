@@ -21,14 +21,39 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
 
     private val maxQuestionCount = 5
 
-    private val _showBottomSheetDeleteQuestion = MutableSharedFlow<Int>(0, 1, BufferOverflow.DROP_OLDEST)
-    val showBottomSheetDeleteQuestion: SharedFlow<Int> = _showBottomSheetDeleteQuestion.asSharedFlow()
+    private val _showBottomSheetDeleteQuestion =
+        MutableSharedFlow<Int>(0, 1, BufferOverflow.DROP_OLDEST)
+    val showBottomSheetDeleteQuestion: SharedFlow<Int> =
+        _showBottomSheetDeleteQuestion.asSharedFlow()
+
+    fun onClickNeedQuestionButton() {
+        viewModelScope.launch {
+            updateUiState { uiState ->
+                uiState.copy(
+                    isNeedQuestionCheck = true,
+                    needUpdateRecyclerView = true
+                )
+            }
+        }
+    }
+
+    fun onClickNoQuestionButton() {
+        viewModelScope.launch {
+            updateUiState { uiState ->
+                uiState.copy(
+                    isNeedQuestionCheck = false,
+                    needUpdateRecyclerView = false
+                )
+            }
+        }
+    }
 
     fun onClickRecyclerViewDeleteButton(position: Int) {
         viewModelScope.launch {
             _showBottomSheetDeleteQuestion.emit(position)
         }
     }
+
     fun updateQuestion(data: CreateGatheringQuestion, text: String) {
         uiState.value.questions.find { it.key == data.key }?.question = text
         updateUiState { uiState ->
@@ -47,7 +72,7 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
                 position = uiState.questions.size + 1
             )
             uiState.copy(
-                questions = uiState.questions.plus(emptyQuestion),
+                _questions = uiState.questions.plus(emptyQuestion),
                 needUpdateRecyclerView = true,
                 isAddQuestionButtonVisible = false
             )
@@ -62,7 +87,7 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
             val temp = uiState.questions.minus(data).deepCopy()
             updateQuestionPosition(deleteIndex, temp)
             uiState.copy(
-                questions = temp,
+                _questions = temp,
                 needUpdateRecyclerView = true,
                 isAddQuestionButtonVisible = uiState.questions.find { it.question.isBlank() } == null
             )

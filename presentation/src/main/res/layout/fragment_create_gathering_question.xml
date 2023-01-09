@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="vm"
@@ -60,6 +60,7 @@
                     android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
                     android:button="@null"
                     android:gravity="center"
+                    android:onClick="@{() -> vm.onClickNeedQuestionButton()}"
                     android:text="@string/create_gathering_question_need_question_radio"
                     android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
 
@@ -72,6 +73,7 @@
                     android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
                     android:button="@null"
                     android:gravity="center"
+                    android:onClick="@{() -> vm.onClickNoQuestionButton()}"
                     android:text="@string/create_gathering_question_no_question_radio"
                     android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
 
@@ -84,7 +86,8 @@
                 android:layout_marginTop="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/radio_group_question">
+                app:layout_constraintTop_toBottomOf="@id/radio_group_question"
+                android:visibility="@{vm.uiState.isNeedQuestionCheck == true ? View.VISIBLE : View.INVISIBLE}">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_question"

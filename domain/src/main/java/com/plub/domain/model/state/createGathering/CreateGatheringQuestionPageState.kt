@@ -3,10 +3,14 @@ package com.plub.domain.model.state.createGathering
 import com.plub.domain.model.state.PageState
 
 data class CreateGatheringQuestionPageState(
-    val questions: List<CreateGatheringQuestion> = listOf(CreateGatheringQuestion()),
+    private val _questions: List<CreateGatheringQuestion> = listOf(CreateGatheringQuestion()),
+    val isNeedQuestionCheck: Boolean? = null,
     val needUpdateRecyclerView: Boolean = true,
     val isAddQuestionButtonVisible: Boolean = false
-) : PageState
+) : PageState {
+    val questions
+        get() = if(isNeedQuestionCheck == true) _questions else emptyList()
+}
 
 data class CreateGatheringQuestion(
     var key: Int = 0,
