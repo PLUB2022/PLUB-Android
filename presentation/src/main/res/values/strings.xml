@@ -43,6 +43,7 @@
     <string name="word_people_number">%d명</string>
     <string name="word_question">질문 %d</string>
     <string name="word_add_question">질문 추가</string>
+    <string name="word_introduce">소개</string>
 
     <string name="onboarding_title_first">“ 새로운 사람과 설레는 시간 ”</string>
     <string name="onboarding_content_first">아직 불러 부끄러운 무성할 벌레는 새워 까닭입니다. 사람들의 나는 노새, 언덕 가을 거외다. 부끄러운 하나에 어머니, 잔디가 별 책상을 이제 없이 거외다.\n\n쉬이 하늘에는 내일 묻힌 까닭입니다. 마리아 아침이 써 이국 책상을 봅니다.</string>
@@ -108,7 +109,7 @@
     <string name="create_gathering_people_number_seekbar_title">몇 명인가요?</string>
     <string name="create_gathering_people_number_seekbar_min">4명</string>
     <string name="create_gathering_people_number_seekbar_max">20명</string>
-    
+
     <string name="create_gathering_question_title">어떤 게스트가 오면 좋을까요?</string>
     <string name="create_gathering_question_description">함께 할 게스트에게 질문하고 싶은 내용을 적어주세요!\n꼭 적지 않아도 괜찮아요.</string>
     <string name="create_gathering_question_need_question_radio">질문 하고 모집하기</string>
@@ -119,4 +120,29 @@
     <string name="bottom_sheet_delete_question_description">를 삭제 할까요?</string>
     <string name="bottom_sheet_delete_question_no">아니요! 그냥 둘게요.</string>
     <string name="bottom_sheet_delete_question_yes">네, 삭제할게요.</string>
+    <string name="sign_up_personal_info_birth_hint">생일을 입력해 주세요.</string>
+
+    <string name="sign_up_profile_compose_title">프로필을 만들어 볼까요?</string>
+    <string name="sign_up_profile_compose_description">멋진 사진을 등록하고 나만의 닉네임을 만들어 주세요!\n닉네임 변경은 1회 가능해요!</string>
+    <string name="sign_up_profile_compose_profile_image">프로필 사진</string>
+    <string name="sign_up_profile_compose_nickname">닉네임</string>
+    <string name="sign_up_profile_compose_nickname_hint">한글, 영문, 숫자 포함 8글자로 입력가능해요.</string>
+    <string name="sign_up_profile_compose_nickname_available_description">사용가능한 닉네임이에요.</string>
+    <string name="sign_up_profile_compose_nickname_empty_description">닉네임 변경은 한번만 가능해요</string>
+    <string name="sign_up_profile_compose_nickname_special_character_description">특수문자는 사용할 수 없어요.</string>
+    <string name="sign_up_profile_compose_nickname_duplicated_description">이미 사용중인 닉네임이에요.</string>
+    <string name="sign_up_profile_compose_nickname_blank_description">띄어쓰기를 할 수 없어요.</string>
+
+    <string name="sign_up_more_info_title">%s님을 조금 더 알고싶어요!</string>
+    <string name="sign_up_more_info_description">자신을 소개하는 내용을 적어주세요. 취미, 관심사, 가치관, 종사하는 분야, 뭐든 좋아요.</string>
+    <string name="sign_up_more_info_introduce_hint">소개하는 내용을 입력해주세요</string>
+    <string name="sign_up_more_info_introduce_count">%s/150</string>
+
+    <string name="sign_up_hobbies_title">마지막으로,\n관심 있는 분야를 모두 선택해주세요.</string>
+    <string name="sign_up_hobbies_description">%s님이 흥미로워 할 만한 모임을 추천해 드릴게요.</string>
+    <string name="sign_up_hobbies_late_pick">아직 잘 모르겠어요, 나중에 고를게요</string>
+
+    <string name="dialog_menu_camera_image">카메라로 촬영</string>
+    <string name="dialog_menu_album_image">앨범에서 사진 업로드</string>
+    <string name="dialog_menu_default_image">기본 이미지</string>
 </resources>

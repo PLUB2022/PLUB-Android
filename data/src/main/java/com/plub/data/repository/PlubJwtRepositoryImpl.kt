@@ -1,14 +1,12 @@
 package com.plub.data.repository
 
 import androidx.datastore.core.DataStore
-import com.plub.data.UiStateCallback
 import com.plub.data.api.PlubJwtTokenApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.PlubJwtReissueRequestMapper
 import com.plub.data.mapper.PlubJwtResponseMapper
 import com.plub.data.util.PlubJwtToken
 import com.plub.domain.UiState
-import com.plub.domain.error.UiError
 import com.plub.domain.model.vo.jwt.PlubJwtReIssueRequestVo
 import com.plub.domain.model.vo.jwt.PlubJwtResponseVo
 import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
@@ -40,21 +38,8 @@ class PlubJwtRepositoryImpl @Inject constructor(
         emit(dataStoreLaunch(encryptedDataStore)?.refreshToken ?: "")
     }
 
-    override fun reIssueToken(request: PlubJwtReIssueRequestVo): Flow<UiState<PlubJwtResponseVo>> = flow {
+    override suspend fun reIssueToken(request: PlubJwtReIssueRequestVo): Flow<UiState<PlubJwtResponseVo>> {
         val requestDto = PlubJwtReissueRequestMapper.mapModelToDto(request)
-        apiLaunch(plubJwtTokenApi.reIssueToken(requestDto),PlubJwtResponseMapper, object : UiStateCallback<PlubJwtResponseVo>() {
-            override suspend fun onSuccess(state: UiState.Success<PlubJwtResponseVo>, customCode: Int) {
-                val uiState = super.uiStateMapResult(state)
-                emit(uiState)
-            }
-
-            override suspend fun onError(state: UiState.Error) {
-                emit(state)
-            }
-
-        })
-    }.catch { e:Throwable ->
-        e.printStackTrace()
-        emit(UiState.Error(UiError.Invalided))
+        return apiLaunch(plubJwtTokenApi.reIssueToken(requestDto),PlubJwtResponseMapper)
     }
 }

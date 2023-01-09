@@ -2,8 +2,7 @@ package com.plub.presentation.ui.sign.terms
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.TermsType
-import com.plub.domain.model.state.TermsPageState
-import com.plub.domain.model.vo.signUp.SignUpPageVo
+import com.plub.presentation.state.TermsPageState
 import com.plub.domain.model.vo.signUp.terms.TermsAgreementItemVo
 import com.plub.domain.model.vo.signUp.terms.TermsPageVo
 import com.plub.presentation.R
@@ -51,12 +50,11 @@ class TermsViewModel @Inject constructor(
         }
     }
 
-    fun onInitPage(signUpPageVo: SignUpPageVo?) {
-        (signUpPageVo as? TermsPageVo)?.let {
-            updateUiState { ui ->
-                val newMap = getInitTermsAgreementMap(it)
-                ui.copy(mapVo = newMap, isNextButtonEnable = isNextButtonEnable(newMap))
-            }
+    fun onInitTermsPageVo(termsPageVo: TermsPageVo) {
+        if(uiState.value != TermsPageState()) return
+        updateUiState { ui ->
+            val newMap = getInitTermsAgreementMap(termsPageVo)
+            ui.copy(mapVo = newMap, isNextButtonEnable = isNextButtonEnable(newMap))
         }
     }
 

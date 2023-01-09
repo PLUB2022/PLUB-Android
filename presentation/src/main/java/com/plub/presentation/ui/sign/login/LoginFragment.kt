@@ -12,7 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
-import com.plub.domain.model.state.LoginPageState
+import com.plub.presentation.state.LoginPageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentLoginBinding
@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment<FragmentLoginBinding,LoginPageState, LoginViewModel>(
+class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginViewModel>(
     FragmentLoginBinding::inflate
 ) {
 

@@ -9,6 +9,7 @@ import com.plub.domain.repository.LoginRepository
 import com.plub.domain.usecase.PostSocialLoginUseCase
 import com.plub.domain.usecase.TrySampleLoginUseCase
 import dagger.Binds
+import com.plub.data.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,14 +24,20 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideIntroApi(@NormalRetrofit retrofit: Retrofit): IntroApi {
-        return retrofit.create(IntroApi::class.java)
+    fun provideHobbyApi(@NormalRetrofit retrofit: Retrofit): HobbyApi {
+        return retrofit.create(HobbyApi::class.java)
     }
 
     @Singleton
     @Provides
     fun provideLoginApi(@NormalRetrofit retrofit: Retrofit): LoginApi {
         return retrofit.create(LoginApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSignUpApi(@NormalRetrofit retrofit: Retrofit): SignUpApi {
+        return retrofit.create(SignUpApi::class.java)
     }
 
     @Singleton
@@ -43,5 +50,11 @@ object ApiModule {
     @Provides
     fun provideKakaoLocationApi(@KakaoLocationRetrofit retrofit: Retrofit): KakaoLocationApi {
         return retrofit.create(KakaoLocationApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMediaApi(@NormalRetrofit retrofit: Retrofit): MediaApi {
+        return retrofit.create(MediaApi::class.java)
     }
 }

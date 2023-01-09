@@ -4,17 +4,15 @@ import android.content.Intent
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import com.plub.domain.model.state.PageState
+import com.plub.presentation.state.PageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseActivity
 import com.plub.presentation.databinding.ActivitySignBinding
 import com.plub.presentation.ui.home.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
 
 @AndroidEntryPoint
-class SignActivity : BaseActivity<ActivitySignBinding,PageState.Default,SignViewModel>(ActivitySignBinding::inflate) {
+class SignActivity : BaseActivity<ActivitySignBinding, PageState.Default,SignViewModel>(ActivitySignBinding::inflate) {
 
     override val viewModel: SignViewModel by viewModels()
     private lateinit var navController: NavController

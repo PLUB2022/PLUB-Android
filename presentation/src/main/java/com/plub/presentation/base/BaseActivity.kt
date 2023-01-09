@@ -10,7 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.plub.domain.model.state.PageState
+import com.plub.presentation.state.PageState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -48,13 +48,7 @@ abstract class BaseActivity<B : ViewDataBinding,STATE: PageState, VM: BaseViewMo
             }
 
             launch {
-                viewModel.commonFailure.collect {
-                    commonProcessor.failProcess(it)
-                }
-            }
-
-            launch {
-                viewModel.uiError.collect {
+                viewModel.commonError.collect {
                     commonProcessor.errorProcess(it)
                 }
             }

@@ -7,6 +7,11 @@ import javax.inject.Singleton
 
 @Singleton
 class ImageUtil @Inject constructor(private val resourceProvider: ResourceProvider) {
+
+    companion object {
+        const val PREFIX = ".jpg"
+    }
+
     private fun isFailGetColumnIndex(idx: Int) = idx == -1
 
     fun getRealPathFromURI(uri: Uri): String {

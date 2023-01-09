@@ -4,10 +4,9 @@ import android.graphics.Color
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.enums.SignUpPageType
-import com.plub.domain.model.state.TermsPageState
+import com.plub.presentation.state.TermsPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentTermsBinding
-import com.plub.presentation.ui.sign.signup.SignUpFragment
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -20,16 +19,10 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
     companion object {
         private const val VALUE_WEB_VIEW_TEXT_ZOOM = 100
         private const val VALUE_WEB_VIEW_DEFAULT_FONT_SIZE = 12
-
-        fun newInstance(delegate: SignUpFragment.Delegate) = TermsFragment().apply {
-            this.delegate = delegate
-        }
     }
 
     override val viewModel: TermsViewModel by viewModels()
     private val parentViewModel: SignUpViewModel by viewModels({requireParentFragment()})
-
-    private var delegate:SignUpFragment.Delegate? = null
 
     private val normalTerms by lazy {
         listOf(
@@ -57,12 +50,12 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.moveToNextPage.collect {
-                    delegate?.onMoveToNextPage(SignUpPageType.TERMS, it)
+                    parentViewModel.onMoveToNextPage(SignUpPageType.TERMS, it)
                 }
             }
             launch {
-                parentViewModel.testInitPage.collect {
-                    viewModel.onInitPage(it)
+                parentViewModel.uiState.collect {
+                    viewModel.onInitTermsPageVo(it.termsPageVo)
                 }
             }
         }

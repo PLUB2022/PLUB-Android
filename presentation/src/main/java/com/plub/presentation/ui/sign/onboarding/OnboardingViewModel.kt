@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.sign.onboarding
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.state.OnboardingPageState
+import com.plub.presentation.state.OnboardingPageState
 import com.plub.domain.model.vo.onboarding.OnboardingItemVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel

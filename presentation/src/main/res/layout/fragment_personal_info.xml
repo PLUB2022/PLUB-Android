@@ -92,7 +92,7 @@
             app:layout_constraintTop_toTopOf="@+id/toggle_button_man" />
 
         <TextView
-            android:id="@+id/text_view_birth"
+            android:id="@+id/text_view_birth_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -104,48 +104,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toggle_button_man" />
 
-        <Spinner
-            android:id="@+id/spinner_birth_year"
-            style="@style/spinnerTheme"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_birth"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
-            app:default="@{vm.uiState.defaultYear}"
-            app:entries="@{vm.uiState.yearList}"
-            app:layout_constraintEnd_toStartOf="@id/spinner_birth_month"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintHorizontal_weight="4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_birth" />
+            android:background="@{vm.uiState.birthIsActive ? @drawable/bg_rectangle_empty_5f5ff9_radius_8 : @drawable/bg_rectangle_empty_8c8c8c_radius_8}"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_birth_title">
 
-        <Spinner
-            android:id="@+id/spinner_birth_month"
-            style="@style/spinnerTheme"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            app:default="@{vm.uiState.defaultMonth}"
-            app:entries="@{vm.uiState.monthList}"
-            app:layout_constraintEnd_toStartOf="@id/spinner_birth_day"
-            app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintStart_toEndOf="@+id/spinner_birth_year"
-            app:layout_constraintTop_toTopOf="@+id/spinner_birth_year" />
+            <TextView
+                android:id="@+id/text_view_birth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/sign_up_personal_info_birth_hint"
+                android:lines="1"
+                android:paddingHorizontal="8dp"
+                android:text="@{vm.uiState.birthString}"
+                android:textColor="@color/color_363636"
+                android:textColorHint="@color/color_8c8c8c"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_birth"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
-            android:id="@+id/spinner_birth_day"
-            style="@style/spinnerTheme"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:default="@{vm.uiState.defaultDay}"
-            app:entries="@{vm.uiState.dayList}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintStart_toEndOf="@+id/spinner_birth_month"
-            app:layout_constraintTop_toTopOf="@+id/spinner_birth_year" />
-
+            <ImageView
+                android:id="@+id/image_view_birth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:onClick="@{() -> vm.onClickBirthImage()}"
+                android:src="@{vm.uiState.birthIsActive ? @drawable/ic_schedule_active : @drawable/ic_schedule_inactive}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/view_dim"
