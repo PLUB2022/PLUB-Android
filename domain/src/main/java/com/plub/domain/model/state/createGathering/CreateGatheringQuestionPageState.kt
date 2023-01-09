@@ -10,6 +10,12 @@ data class CreateGatheringQuestionPageState(
 ) : PageState {
     val questions
         get() = if(isNeedQuestionCheck == true) _questions else emptyList()
+    val isNextButtonEnabled =
+        if(isNeedQuestionCheck == true) {
+            _questions.find { it.question.isBlank() } == null
+        } else {
+            true
+        }
 }
 
 data class CreateGatheringQuestion(

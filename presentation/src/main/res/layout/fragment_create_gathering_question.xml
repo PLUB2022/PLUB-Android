@@ -16,105 +16,131 @@
             type="com.plub.presentation.ui.createGathering.CreateGatheringViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:context=".ui.createGathering.question.CreateGatheringQuestionFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/text_view_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/create_gathering_question_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_view_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/create_gathering_question_description"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_title" />
-
-            <RadioGroup
-                android:id="@+id/radio_group_question"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_description">
-
-                <RadioButton
-                    android:id="@+id/radio_button_need_question"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:onClick="@{() -> vm.onClickNeedQuestionButton()}"
-                    android:text="@string/create_gathering_question_need_question_radio"
-                    android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
-
-                <RadioButton
-                    android:id="@+id/radio_button_no_question"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:onClick="@{() -> vm.onClickNoQuestionButton()}"
-                    android:text="@string/create_gathering_question_no_question_radio"
-                    android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
-
-            </RadioGroup>
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constrain_layout_question"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/radio_group_question"
-                android:visibility="@{vm.uiState.isNeedQuestionCheck == true ? View.VISIBLE : View.INVISIBLE}">
+                android:layout_height="match_parent"
+                android:paddingBottom="100dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_question"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/text_view_title"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/create_gathering_question_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button_add_question"
+                <TextView
+                    android:id="@+id/text_view_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_plus"
-                    android:drawablePadding="6dp"
-                    android:onClick="@{() -> vm.addQuestion()}"
-                    android:text="@string/word_add_question"
-                    android:visibility="@{vm.uiState.addQuestionButtonVisible ? View.VISIBLE : View.INVISIBLE}"
+                    android:text="@string/create_gathering_question_description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/recycler_view_question" />
+                    app:layout_constraintTop_toBottomOf="@id/text_view_description">
 
+                    <RadioButton
+                        android:id="@+id/radio_button_need_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:onClick="@{() -> vm.onClickNeedQuestionButton()}"
+                        android:text="@string/create_gathering_question_need_question_radio"
+                        android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
+
+                    <RadioButton
+                        android:id="@+id/radio_button_no_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:onClick="@{() -> vm.onClickNoQuestionButton()}"
+                        android:text="@string/create_gathering_question_no_question_radio"
+                        android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
+
+                </RadioGroup>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constrain_layout_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:visibility="@{vm.uiState.isNeedQuestionCheck == true ? View.VISIBLE : View.INVISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/radio_group_question">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button_add_question"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_plus"
+                        android:drawablePadding="6dp"
+                        android:onClick="@{() -> vm.addQuestion()}"
+                        android:text="@string/word_add_question"
+                        android:visibility="@{vm.uiState.addQuestionButtonVisible ? View.VISIBLE : View.INVISIBLE}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/recycler_view_question" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:enabled="@{vm.uiState.isNextButtonEnabled}"
+            android:onClick="@{() -> parent_vm.onMoveToNextPage(vm.uiState)}"
+            android:text="@string/word_next"
+            android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
