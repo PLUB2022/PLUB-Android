@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.createGathering.gatheringTitleAndName
 
 import androidx.fragment.app.viewModels
-import com.plub.domain.model.state.createGathering.CreateGatheringTitleAndNamePageState
+import com.plub.presentation.state.createGathering.CreateGatheringTitleAndNamePageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringTitleAndNameBinding
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel

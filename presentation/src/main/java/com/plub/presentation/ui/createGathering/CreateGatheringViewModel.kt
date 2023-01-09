@@ -2,14 +2,14 @@ package com.plub.presentation.ui.createGathering
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.CreateGatheringPageType
-import com.plub.domain.model.state.createGathering.CreateGatheringGoalAndIntroduceAndPicturePageState
-import com.plub.domain.model.state.createGathering.CreateGatheringPageState
-import com.plub.domain.model.state.createGathering.CreateGatheringTitleAndNamePageState
-import com.plub.domain.model.state.PageState
-import com.plub.domain.model.state.createGathering.CreateGatheringDayAndOnOfflineAndLocationPageState
-import com.plub.domain.model.state.createGathering.CreateGatheringPeopleNumberPageState
-import com.plub.domain.model.state.createGathering.CreateGatheringQuestionPageState
+import com.plub.presentation.state.createGathering.CreateGatheringGoalAndIntroduceAndPicturePageState
+import com.plub.presentation.state.createGathering.CreateGatheringPageState
+import com.plub.presentation.state.createGathering.CreateGatheringTitleAndNamePageState
+import com.plub.presentation.state.createGathering.CreateGatheringDayAndOnOfflineAndLocationPageState
+import com.plub.presentation.state.createGathering.CreateGatheringPeopleNumberPageState
+import com.plub.presentation.state.createGathering.CreateGatheringQuestionPageState
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

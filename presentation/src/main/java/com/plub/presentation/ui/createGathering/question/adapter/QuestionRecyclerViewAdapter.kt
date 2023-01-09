@@ -1,14 +1,12 @@
 package com.plub.presentation.ui.createGathering.question.adapter
 
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.state.createGathering.CreateGatheringQuestion
+import com.plub.presentation.state.createGathering.CreateGatheringQuestion
 import com.plub.presentation.databinding.LayoutRecyclerCreateGatheringQuestionBinding
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.afterTextChanged
 import com.plub.presentation.util.requestAndClearFocus
 

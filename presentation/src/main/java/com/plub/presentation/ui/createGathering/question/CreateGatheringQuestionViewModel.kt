@@ -1,11 +1,9 @@
 package com.plub.presentation.ui.createGathering.question
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.state.PageState
-import com.plub.domain.model.state.createGathering.CreateGatheringQuestion
-import com.plub.domain.model.state.createGathering.CreateGatheringQuestionPageState
+import com.plub.presentation.state.createGathering.CreateGatheringQuestion
+import com.plub.presentation.state.createGathering.CreateGatheringQuestionPageState
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.deepCopy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow

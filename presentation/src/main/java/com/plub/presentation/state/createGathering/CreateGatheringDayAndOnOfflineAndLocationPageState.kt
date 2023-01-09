@@ -1,8 +1,8 @@
-package com.plub.domain.model.state.createGathering
+package com.plub.presentation.state.createGathering
 
 import com.plub.domain.model.enums.OnOfflineType
-import com.plub.domain.model.state.PageState
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
+import com.plub.presentation.state.PageState
 
 data class CreateGatheringDayAndOnOfflineAndLocationPageState(
     val gatheringDays: HashSet<String> = hashSetOf(),

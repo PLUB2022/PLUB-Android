@@ -3,10 +3,10 @@ package com.plub.presentation.ui.home
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.plub.domain.model.state.PageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseActivity
 import com.plub.presentation.databinding.ActivityMainBinding
+import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.home.plubing.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation
 
 import androidx.fragment.app.viewModels
-import com.plub.domain.model.state.createGathering.CreateGatheringDayAndOnOfflineAndLocationPageState
+import com.plub.presentation.state.createGathering.CreateGatheringDayAndOnOfflineAndLocationPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringDayAndOnOfflineAndLocationBinding
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel

@@ -4,7 +4,7 @@ import com.plub.data.dto.plubJwt.PlubJwtResponse
 import com.plub.data.dto.signUp.NicknameCheckResponse
 import com.plub.data.dto.signUp.SignUpRequest
 import com.plub.data.util.ApiResponse
-import com.plub.domain.model.vo.jwt_token.PlubJwtResponseVo
+import com.plub.domain.model.vo.jwt.PlubJwtResponseVo
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

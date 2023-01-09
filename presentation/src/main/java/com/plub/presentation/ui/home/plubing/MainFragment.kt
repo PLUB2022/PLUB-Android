@@ -6,14 +6,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.state.SampleHomeState
+import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMainBinding
 import com.plub.presentation.ui.home.adapter.MainCategoryAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendMeetAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendMeetXAdapter
-import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

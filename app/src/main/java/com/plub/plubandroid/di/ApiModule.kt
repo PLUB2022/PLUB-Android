@@ -1,13 +1,10 @@
 package com.plub.plubandroid.di
 
-import com.plub.data.api.IntroApi
 import com.plub.data.api.KakaoLocationApi
 import com.plub.data.api.LoginApi
 import com.plub.data.api.PlubJwtTokenApi
-import com.plub.domain.repository.IntroRepository
 import com.plub.domain.repository.LoginRepository
 import com.plub.domain.usecase.PostSocialLoginUseCase
-import com.plub.domain.usecase.TrySampleLoginUseCase
 import dagger.Binds
 import com.plub.data.api.*
 import dagger.Module

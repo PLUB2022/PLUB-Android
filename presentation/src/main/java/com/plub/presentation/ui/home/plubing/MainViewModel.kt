@@ -1,9 +1,7 @@
 package com.plub.presentation.ui.home.plubing
 
-import com.plub.domain.model.state.PageState
-import com.plub.domain.model.state.SampleHomeState
-import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

@@ -1,9 +1,9 @@
 package com.plub.presentation.ui.createGathering.selectPlubCategory
 
 import androidx.fragment.app.viewModels
-import com.plub.domain.model.state.PageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringSelectPlubCategoryBinding
+import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
