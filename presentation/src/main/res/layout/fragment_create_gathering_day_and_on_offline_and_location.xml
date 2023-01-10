@@ -256,14 +256,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.plub.presentation.ui.custom.IconTextView
+            <com.plub.presentation.ui.custom.IconTextViewSmall
                 android:id="@+id/edit_text_gathering_location_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:onClick="@{() -> vm.onClickIconEditTextLocation()}"
-                app:iconTextViewIcon="@drawable/ic_location"
-                app:iconTextViewTextLocation="@{vm.uiState.gatheringLocationData}"
+                app:iconTextViewSmallIcon="@drawable/ic_location"
+                app:iconTextViewSmallTextLocation="@{vm.uiState.gatheringLocationData}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_gathering_location_title"

@@ -20,8 +20,8 @@
         <attr name="editTextHint" format="reference|string" />
     </declare-styleable>
 
-    <declare-styleable name="IconTextView">
-        <attr name="iconTextViewIcon" format="reference" />
-        <attr name="iconTextViewText" format="reference|string" />
+    <declare-styleable name="IconTextViewSmall">
+        <attr name="iconTextViewSmallIcon" format="reference" />
+        <attr name="iconTextViewSmallText" format="reference|string" />
     </declare-styleable>
 </resources>
