@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.plub.presentation.R
-import com.plub.presentation.databinding.CustomViewIconTextViewBinding
+import com.plub.presentation.databinding.CustomViewIconTextViewSmallBinding
 
 class IconTextViewSmall @JvmOverloads constructor(
     context: Context,
@@ -15,7 +15,7 @@ class IconTextViewSmall @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) :
     ConstraintLayout(context, attrs, defStyleAttr) {
-    private val binding: CustomViewIconTextViewBinding
+    private val binding: CustomViewIconTextViewSmallBinding
     private val iconResourceId: Int
     private val text: String?
     val textView: TextView
@@ -23,7 +23,7 @@ class IconTextViewSmall @JvmOverloads constructor(
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        binding = DataBindingUtil.inflate(inflater, R.layout.custom_view_icon_text_view, this, true)
+        binding = DataBindingUtil.inflate(inflater, R.layout.custom_view_icon_text_view_small, this, true)
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.IconTextViewSmall, defStyleAttr, 0)
 
