@@ -3,6 +3,7 @@ package com.plub.plubandroid.di
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import com.google.gson.JsonSyntaxException
+import com.plub.data.api.BrowseApi
 import com.plub.data.api.IntroApi
 import com.plub.data.api.PlubJwtTokenApi
 import com.plub.data.api.PostHomeApi
@@ -94,5 +95,11 @@ object NormalNetworkModule {
     @Provides
     fun providePostHomeApi(@NormalRetrofit retrofit: Retrofit): PostHomeApi {
         return retrofit.create(PostHomeApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideBrowseApi(@NormalRetrofit retrofit: Retrofit): BrowseApi {
+        return retrofit.create(BrowseApi::class.java)
     }
 }

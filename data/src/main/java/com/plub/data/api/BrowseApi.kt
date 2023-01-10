@@ -1,5 +1,6 @@
 package com.plub.data.api
 
+import com.plub.data.model.CategoryListResponse
 import com.plub.data.model.SampleHomePostRequest
 import com.plub.data.model.SampleHomePostResponse
 import com.plub.data.util.ApiResponse
@@ -21,5 +22,5 @@ interface BrowseApi {
     ) : Response<ApiResponse<SampleHomePostResponse>>
 
     @GET("/api/categories")
-    suspend fun browseCategoryList() : Response<ApiResponse<SampleHomePostResponse>>
+    suspend fun browseCategoryList() : Response<ApiResponse<CategoryListResponse>>
 }

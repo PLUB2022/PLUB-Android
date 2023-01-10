@@ -1,7 +1,9 @@
 package com.plub.plubandroid.di
 
+import com.plub.data.repository.CategoryListResposImpl
 import com.plub.data.repository.HomePostReposImpl
 import com.plub.data.repository.IntroRepositoryImpl
+import com.plub.domain.repository.CategoryListRepository
 import com.plub.domain.repository.HomePostRepository
 import com.plub.domain.repository.IntroRepository
 import dagger.Binds
@@ -21,4 +23,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesHomePostRepository(homePostReposImpl: HomePostReposImpl): HomePostRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesCategoryListRepository(categoryListResposImpl: CategoryListResposImpl): CategoryListRepository
 }
