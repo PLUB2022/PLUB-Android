@@ -7,6 +7,6 @@ object DateFormatUtil {
     private val signUpFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
 
     fun getSignUpBirthday(birthday:Calendar):String {
-        return signUpFormat.format(birthday)
+        return signUpFormat.format(birthday.time)
     }
 }
