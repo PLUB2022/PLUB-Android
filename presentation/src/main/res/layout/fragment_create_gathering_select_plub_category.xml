@@ -19,6 +19,30 @@
         android:layout_height="match_parent"
         tools:context=".ui.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryFragment">
 
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_gathering_select_plub_category_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_selected_category_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/int_to_string(vm.uiState.categoriesSelectedVo.hobbies.size)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+
         <Button
             android:id="@+id/button_next"
             android:layout_width="0dp"
@@ -26,6 +50,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="40dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:enabled="@{vm.uiState.nextButtonEnabled}"
             android:onClick="@{() -> parent_vm.onMoveToNextPage(vm.uiState)}"
             android:text="@string/word_next"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
