@@ -36,7 +36,13 @@ class MainFragmentViewModel @Inject constructor(
             }
 
         }
-        browseUseCase.invoke().collect()
+        browseUseCase.invoke().collect { state ->
+            when(state){
+                is UiState.Loading -> "로딩"
+                is UiState.Success -> Log.d("뷰모델 테스트", "${state.successOrNull()?.data?.categories?.get(1)?.name.toString()}")
+                is UiState.Error -> "에러"
+            }
+        }
     }
 
     fun goToCategoryChoice() {
