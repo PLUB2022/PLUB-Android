@@ -90,6 +90,8 @@
     <string name="create_gathering_day_and_on_offline_and_location_title">언제, 어디서 만날까요?</string>
     <string name="create_gathering_day_and_on_offline_and_location_description">모임 요일, 온/오프라인, 장소정보를 적어주세요.</string>
     <string name="create_gathering_day_and_on_offline_and_location_gathering_day_title">우리 언제 만나요?</string>
+    <string name="create_gathering_day_and_on_offline_and_location_gathering_time_title">몇시에 만나요?</string>
+    <string name="create_gathering_day_and_on_offline_and_location_gathering_time_hint">시간을 선택해주세요.</string>
     <string name="create_gathering_day_and_on_offline_and_location_gathering_on_offline_title">온/오프라인</string>
     <string name="create_gathering_day_and_on_offline_and_location_gathering_location_title">모이는 장소를 알려주세요!</string>
     <string name="create_gathering_day_and_on_offline_and_location_gathering_location_hint">장소를 검색해주세요</string>

@@ -201,6 +201,33 @@
             tools:layout_height="40dp"
             tools:layout_width="80dp" />
 
+        <TextView
+            android:id="@+id/text_view_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_time_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/check_box_all" />
+
+        <com.plub.presentation.ui.custom.IconTextViewMedium
+            android:id="@+id/icon_text_view_medium_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:iconTextViewMediumIcon="@drawable/ic_clock_inactive"
+            app:iconTextViewMediumText="@string/create_gathering_day_and_on_offline_and_location_gathering_time_hint"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_time_title"
+            tools:background="@color/black"
+            tools:layout_height="50dp" />
+
+        <TextView
+            android:id="@+id/text_view_on_offline_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_on_offline_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon_text_view_medium_time" />
+
         <RadioGroup
             android:id="@+id/radio_group_on_offline"
             android:layout_width="match_parent"
@@ -208,7 +235,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/check_box_all">
+            app:layout_constraintTop_toBottomOf="@id/text_view_on_offline_title">
 
             <RadioButton
                 android:id="@+id/radio_button_online"
@@ -267,6 +294,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_gathering_location_title"
+                tools:background="@color/black"
                 tools:layout_height="40dp" />
 
 

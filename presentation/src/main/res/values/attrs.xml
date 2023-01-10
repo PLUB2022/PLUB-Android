@@ -24,4 +24,9 @@
         <attr name="iconTextViewSmallIcon" format="reference" />
         <attr name="iconTextViewSmallText" format="reference|string" />
     </declare-styleable>
+
+    <declare-styleable name="IconTextViewMedium">
+        <attr name="iconTextViewMediumIcon" format="reference" />
+        <attr name="iconTextViewMediumText" format="reference|string" />
+    </declare-styleable>
 </resources>
