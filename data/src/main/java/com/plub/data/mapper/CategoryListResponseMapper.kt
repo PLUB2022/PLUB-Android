@@ -1,5 +1,6 @@
 package com.plub.data.mapper
 
+import android.util.Log
 import com.plub.data.base.Mapper
 import com.plub.data.model.CategoryListResponse
 import com.plub.domain.model.vo.home.CategoryListResponseVo
@@ -10,11 +11,11 @@ import com.plub.domain.model.vo.home.categorylistresponsevo.CategoryListDataResp
 object CategoryListResponseMapper : Mapper.ResponseMapper<CategoryListResponse, CategoryListResponseVo>{
     override fun mapDtoToModel(type: CategoryListResponse?): CategoryListResponseVo {
         return type?.run {
+            Log.d("매퍼 테그", type.toString())
             CategoryListResponseVo(
-                statusCode,
-                data.map {
-                    CategoryListDataResponseMapper.mapDtoToModel(it)
-                }
+                //statusCode,
+                    CategoryListDataResponseMapper.mapDtoToModel(data)
+
             )
         }!!
     }
