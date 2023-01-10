@@ -7,6 +7,7 @@ import com.plub.presentation.state.createGathering.CreateGatheringDayAndOnOfflin
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.util.TimeFormatter
 import com.plub.presentation.util.addOrRemoveElementAfterReturnNewHashSet
 import com.plub.presentation.util.removeElementAfterReturnNewHashSet
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +26,24 @@ class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
 {
     private val _showBottomSheetSearchLocation = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
     val showBottomSheetSearchLocation: SharedFlow<Unit> = _showBottomSheetSearchLocation.asSharedFlow()
+    private val _showTimePickerDialog = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
+    val showTimePickerDialog: SharedFlow<Unit> = _showTimePickerDialog
+
+    fun onClickTimeTextView() {
+        viewModelScope.launch {
+            _showTimePickerDialog.emit(Unit)
+        }
+    }
+
+    fun setGatheringHourAndMinuteAndFormattedText(hour: Int, min: Int) {
+        updateUiState { ui ->
+            ui.copy(
+                gatheringHour = hour,
+                gatheringMin = min,
+                gatheringFormattedTime = TimeFormatter.getAmPmHourMin(hour, min)
+            )
+        }
+    }
 
     fun initUiState(savedUiState: CreateGatheringDayAndOnOfflineAndLocationPageState) {
         updateUiState { uiState -> uiState.copy(

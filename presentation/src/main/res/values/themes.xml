@@ -34,4 +34,17 @@
 
         <item name="cornerSize">10dp</item>
     </style>
+
+    <style name="PlubTimePickerStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/color_5f5ff9</item>
+        <!-- dialog의 배경 변경 -->
+        <item name="background">@color/white</item>
+        <!-- 선택한 날짜를 표시할 색상 -->
+        <item name="colorControlActivated">@color/color_5f5ff9</item>
+        <item name="colorControlHighlight">@color/color_5f5ff9</item>
+        <!-- 취소/확인버튼 색상 -->
+        <item name="android:textColor">@color/color_5f5ff9</item>
+
+        <item name="cornerSize">10dp</item>
+    </style>
 </resources>
