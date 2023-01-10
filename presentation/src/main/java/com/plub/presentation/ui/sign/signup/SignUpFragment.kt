@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.sign.signup
 
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -52,6 +53,12 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
             launch {
                 viewModel.navigationPop.collect {
                     findNavController().popBackStack()
+                }
+            }
+
+            launch {
+                viewModel.showSignUpErrorDialog.collect {
+                    Toast.makeText(context, it, Toast.LENGTH_LONG).show()
                 }
             }
         }
