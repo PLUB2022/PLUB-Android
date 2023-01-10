@@ -35,9 +35,12 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="타이틀" />
 
+        <!-- layout_width에 고정 값을 준 이유  -->
+        <!-- dotsIndicator에는 총 8개의 dots가있는데 그 중 마지막 2개의 dots는 보이면 안되기 때문  -->
+        <!-- 따라서 고정 값을 줘서 마지막 2개의 dots는 짤리게함  -->
         <com.plub.presentation.ui.custom.OvalDotsIndicator
             android:id="@+id/oval_dots_indicator"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="18dp"
