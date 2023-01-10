@@ -22,7 +22,7 @@ class CreateGatheringFragment : BaseFragment<FragmentCreateGatheringBinding, Cre
             viewPager.apply {
                 isUserInputEnabled = false
                 adapter = pagerAdapter
-                dotsIndicator.attachTo(this)
+                ovalDotsIndicator.attachTo(this)
             }
         }
     }
