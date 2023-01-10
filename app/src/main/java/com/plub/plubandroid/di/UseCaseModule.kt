@@ -65,4 +65,16 @@ object UseCaseModule {
     fun providesUploadFileUseCase(repository: MediaRepository): PostUploadFileUseCase {
         return PostUploadFileUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesSetDataStoreUseCase(repository: PrefDataStoreRepository): SetDataStoreUseCase {
+        return SetDataStoreUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetStringFromDataStoreUseCase(repository: PrefDataStoreRepository): GetStringFromDataStoreUseCase {
+        return GetStringFromDataStoreUseCase(repository)
+    }
 }
