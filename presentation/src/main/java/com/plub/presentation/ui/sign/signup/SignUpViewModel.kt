@@ -45,6 +45,9 @@ class SignUpViewModel @Inject constructor(
     private val _showSignUpErrorDialog = MutableSharedFlow<String>(0, 1, BufferOverflow.DROP_OLDEST)
     val showSignUpErrorDialog: SharedFlow<String> = _showSignUpErrorDialog.asSharedFlow()
 
+    private val _goToWelcome = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
+    val goToWelcome: SharedFlow<Unit> = _goToWelcome.asSharedFlow()
+
     fun onBackPressed(currentPage: Int) {
         val previousPage = currentPage - 1
         if (isFirstPage(currentPage)) goToNavUp() else moveToPage(previousPage)
@@ -173,7 +176,9 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun goToWelcome() {
-
+        viewModelScope.launch {
+            _goToWelcome.emit(Unit)
+        }
     }
 
     private fun goToNavUp() {

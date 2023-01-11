@@ -4,9 +4,9 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.plub.presentation.state.SignUpPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSignUpBinding
+import com.plub.presentation.state.SignUpPageState
 import com.plub.presentation.ui.sign.signup.adapter.FragmentSignUpPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -59,6 +59,13 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
             launch {
                 viewModel.showSignUpErrorDialog.collect {
                     Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                }
+            }
+
+            launch {
+                viewModel.goToWelcome.collect {
+                    val action = SignUpFragmentDirections.actionSignUpToWelcome()
+                    findNavController().navigate(action)
                 }
             }
         }
