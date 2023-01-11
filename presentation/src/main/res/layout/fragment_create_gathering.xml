@@ -40,6 +40,7 @@
         <!-- 따라서 고정 값을 줘서 마지막 2개의 dots는 짤리게함  -->
         <com.plub.presentation.ui.custom.OvalDotsIndicator
             android:id="@+id/oval_dots_indicator"
+            createGatheringCurrentPage="@{vm.uiState.currentPage}"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
