@@ -5,6 +5,7 @@ import com.plub.domain.error.SignUpError
 import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.jwt_token.PlubJwtResponseVo
+import com.plub.domain.model.vo.jwt_token.SavePlubJwtRequestVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.signUp.SignUpPageVo
 import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
@@ -14,6 +15,7 @@ import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
 import com.plub.domain.model.vo.signUp.terms.TermsPageVo
 import com.plub.domain.usecase.PostSignUpUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
+import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.SignUpPageState
 import com.plub.presentation.util.DataStoreUtil
@@ -32,6 +34,7 @@ class SignUpViewModel @Inject constructor(
     val datsStoreUtil: DataStoreUtil,
     val postSignUpUseCase: PostSignUpUseCase,
     val postUploadFileUseCase: PostUploadFileUseCase,
+    val savePlubAccessTokenAndRefreshTokenUseCase: SavePlubAccessTokenAndRefreshTokenUseCase
 ) : BaseViewModel<SignUpPageState>(SignUpPageState()) {
 
     private var isNetworkCall = false
@@ -125,7 +128,7 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    private fun signUp(profileUrl:String, signToken:String) {
+    private fun signUp(signToken:String, profileUrl:String) {
         viewModelScope.launch {
             val request = uiState.value.getSignUpRequestVo(signToken, profileUrl)
             postSignUpUseCase(request).collect { state ->
@@ -139,6 +142,10 @@ class SignUpViewModel @Inject constructor(
 
     private fun signUpSuccess(jwtResponseVo: PlubJwtResponseVo) {
         isNetworkCall = false
+        val request = SavePlubJwtRequestVo(jwtResponseVo.accessToken, jwtResponseVo.refreshToken)
+        saveToken(request) {
+            goToWelcome()
+        }
     }
 
     private fun handleSignUpError(signUpError: SignUpError) {
@@ -154,6 +161,14 @@ class SignUpViewModel @Inject constructor(
     private fun signUpErrorDialog(string: String) {
         viewModelScope.launch {
             _showSignUpErrorDialog.emit(string)
+        }
+    }
+
+    private fun saveToken(request:SavePlubJwtRequestVo, onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            savePlubAccessTokenAndRefreshTokenUseCase(request).collect {
+                if(it) onSuccess()
+            }
         }
     }
 
