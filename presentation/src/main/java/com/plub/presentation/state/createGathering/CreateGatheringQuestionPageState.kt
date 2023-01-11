@@ -11,10 +11,14 @@ data class CreateGatheringQuestionPageState(
     val questions
         get() = if(isNeedQuestionCheck == true) _questions else emptyList()
     val isNextButtonEnabled =
-        if(isNeedQuestionCheck == true) {
-            _questions.find { it.question.isBlank() } == null
-        } else {
-            true
+        when (isNeedQuestionCheck) {
+            true -> {
+                _questions.find { it.question.isBlank() } == null
+            }
+            false -> {
+                true
+            }
+            else -> false // null인 경우 (아무 것도 선택 되지 않은 상태)
         }
 }
 
