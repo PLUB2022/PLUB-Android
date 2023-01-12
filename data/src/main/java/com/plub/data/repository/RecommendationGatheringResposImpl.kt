@@ -19,22 +19,8 @@ import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 class RecommendationGatheringResposImpl @Inject constructor(private val browseApi: BrowseApi) : RecommendationGatheringRepository, BaseRepository() {
-    override fun getRecommendationGatheringList(request: RecommendationGatheringRequestVo): Flow<UiState<RecommendationGatheringResponseVo>> = flow {
+    override suspend fun getRecommendationGatheringList(request: RecommendationGatheringRequestVo): Flow<UiState<RecommendationGatheringResponseVo>> {
         val requestDto = RecommendationGatheringRequestMapper.mapDtoToModel(request)
-        request(browseApi.browseRecommendationGathering(requestDto.pageNum, requestDto.accessToken), RecommendationGatheringResponseMapper, object : UiStateCallback<RecommendationGatheringResponseVo>() {
-            override suspend fun onSuccess(state: UiState.Success<RecommendationGatheringResponseVo>, customCode: Int) {
-                val uiState = super.uiStateMapResult(state) {
-                    LoginFailure.make(customCode)
-                }
-                emit(uiState)
-            }
-
-            override suspend fun onError(state: UiState.Error) {
-                emit(state)
-            }
-        })
-    }.onStart { emit(UiState.Loading) }.catch { e:Throwable ->
-        e.printStackTrace()
-        emit(UiState.Error(UiError.Invalided))
+        return apiLaunch(browseApi.browseRecommendationGathering(requestDto.pageNum, requestDto.accessToken), RecommendationGatheringResponseMapper)
     }
 }

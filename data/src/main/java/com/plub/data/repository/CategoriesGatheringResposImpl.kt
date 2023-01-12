@@ -18,22 +18,11 @@ import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 class CategoriesGatheringResposImpl @Inject constructor(private val browseApi: BrowseApi) : CategoriesGatheringRepository, BaseRepository() {
-    override fun getCategoriesGatheringList(request: CategoriesGatheringRequestVo): Flow<UiState<RecommendationGatheringResponseVo>> = flow {
+    override suspend fun getCategoriesGatheringList(request: CategoriesGatheringRequestVo): Flow<UiState<RecommendationGatheringResponseVo>> {
         val requestDto = CategoriesGatheringRequestMapper.mapDtoToModel(request)
-        request(browseApi.browseCategoriesGathering(requestDto.categoryId, requestDto.pageNumber, requestDto.accessToken), RecommendationGatheringResponseMapper, object : UiStateCallback<RecommendationGatheringResponseVo>() {
-            override suspend fun onSuccess(state: UiState.Success<RecommendationGatheringResponseVo>, customCode: Int) {
-                val uiState = super.uiStateMapResult(state) {
-                    LoginFailure.make(customCode)
-                }
-                emit(uiState)
-            }
-
-            override suspend fun onError(state: UiState.Error) {
-                emit(state)
-            }
-        })
-    }.onStart { emit(UiState.Loading) }.catch { e:Throwable ->
-        e.printStackTrace()
-        emit(UiState.Error(UiError.Invalided))
+        return apiLaunch(browseApi.browseCategoriesGathering(
+                requestDto.categoryId,
+                requestDto.pageNumber,
+                requestDto.accessToken), RecommendationGatheringResponseMapper)
     }
 }

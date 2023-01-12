@@ -6,5 +6,5 @@ import com.plub.domain.model.vo.home.HomePostResponseVo
 import kotlinx.coroutines.flow.Flow
 
 interface HomePostRepository {
-    fun trySampleData(request: HomePostRequestVo) : Flow<UiState<HomePostResponseVo>>
+    suspend fun trySampleData(request: HomePostRequestVo) : Flow<UiState<HomePostResponseVo>>
 }

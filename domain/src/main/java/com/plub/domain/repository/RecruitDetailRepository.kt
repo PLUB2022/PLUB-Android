@@ -6,5 +6,5 @@ import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import kotlinx.coroutines.flow.Flow
 
 interface RecruitDetailRepository {
-    fun getRecruitDetail(request : RecruitDetailRequestVo) : Flow<UiState<RecruitDetailResponseVo>>
+    suspend fun getRecruitDetail(request : RecruitDetailRequestVo) : Flow<UiState<RecruitDetailResponseVo>>
 }

@@ -24,22 +24,12 @@ import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 class RecruitDetailResposImpl @Inject constructor(private val browseApi: BrowseApi) : RecruitDetailRepository, BaseRepository() {
-    override fun getRecruitDetail(request: RecruitDetailRequestVo): Flow<UiState<RecruitDetailResponseVo>> = flow {
+    override suspend fun getRecruitDetail(request: RecruitDetailRequestVo): Flow<UiState<RecruitDetailResponseVo>> {
         val requestDto = RecruitDetailRequestMapper.mapDtoToModel(request)
-        request(browseApi.browseRecruitDetail(requestDto.plubbingId, requestDto.accessToken), RecruitDetailResponseMapper, object : UiStateCallback<RecruitDetailResponseVo>() {
-            override suspend fun onSuccess(state: UiState.Success<RecruitDetailResponseVo>, customCode: Int) {
-                val uiState = super.uiStateMapResult(state) {
-                    LoginFailure.make(customCode)
-                }
-                emit(uiState)
-            }
-
-            override suspend fun onError(state: UiState.Error) {
-                emit(state)
-            }
-        })
-    }.onStart { emit(UiState.Loading) }.catch { e:Throwable ->
-        e.printStackTrace()
-        emit(UiState.Error(UiError.Invalided))
+        return apiLaunch(
+            browseApi.browseRecruitDetail(
+                requestDto.plubbingId,
+                requestDto.accessToken
+            ), RecruitDetailResponseMapper)
     }
 }

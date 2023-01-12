@@ -7,5 +7,5 @@ import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGat
 import kotlinx.coroutines.flow.Flow
 
 interface RecommendationGatheringRepository {
-    fun getRecommendationGatheringList(request : RecommendationGatheringRequestVo) : Flow<UiState<RecommendationGatheringResponseVo>>
+    suspend fun getRecommendationGatheringList(request : RecommendationGatheringRequestVo) : Flow<UiState<RecommendationGatheringResponseVo>>
 }
