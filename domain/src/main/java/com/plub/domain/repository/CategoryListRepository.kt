@@ -5,5 +5,5 @@ import com.plub.domain.model.vo.home.CategoryListResponseVo
 import kotlinx.coroutines.flow.Flow
 
 interface CategoryListRepository {
-    fun getCategoryList() : Flow<UiState<CategoryListResponseVo>>
+    suspend fun getCategoryList() : Flow<UiState<CategoryListResponseVo>>
 }

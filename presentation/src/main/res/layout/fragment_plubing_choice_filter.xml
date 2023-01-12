@@ -168,7 +168,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_alignParentTop="true"
         android:layout_marginTop="656dp"
-        android:background="@color/c4c4c4"
+        android:background="@color/color_c4c4c4"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

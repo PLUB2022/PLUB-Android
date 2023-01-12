@@ -14,6 +14,12 @@ object ApiModule {
 
     @Singleton
     @Provides
+    fun provideBrwoseApi(@NormalRetrofit retrofit: Retrofit): BrowseApi {
+        return retrofit.create(BrowseApi::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideHobbyApi(@NormalRetrofit retrofit: Retrofit): HobbyApi {
         return retrofit.create(HobbyApi::class.java)
     }
@@ -40,5 +46,11 @@ object ApiModule {
     @Provides
     fun provideMediaApi(@NormalRetrofit retrofit: Retrofit): MediaApi {
         return retrofit.create(MediaApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePostApi(@NormalRetrofit retrofit: Retrofit): PostHomeApi {
+        return retrofit.create(PostHomeApi::class.java)
     }
 }

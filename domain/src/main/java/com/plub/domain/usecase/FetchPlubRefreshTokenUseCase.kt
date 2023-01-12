@@ -8,7 +8,7 @@ import javax.inject.Inject
 class FetchPlubRefreshTokenUseCase @Inject constructor(
     private val plubJwtRepository: PlubJwtRepository
 ):UseCase<Unit, Flow<String>>() {
-    override operator fun invoke(request: Unit): Flow<String> {
+    override suspend operator fun invoke(request: Unit): Flow<String> {
         return plubJwtRepository.getRefreshToken()
     }
 }

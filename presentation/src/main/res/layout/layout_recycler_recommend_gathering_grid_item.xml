@@ -14,7 +14,7 @@
         android:layout_height="252dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/c4c4c4"
+        android:background="@color/color_c4c4c4"
         />
 
     <TextView

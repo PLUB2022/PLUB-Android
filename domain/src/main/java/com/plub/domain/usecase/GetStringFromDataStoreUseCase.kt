@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetStringFromDataStoreUseCase @Inject constructor(
     private val dataStoreRepository: PrefDataStoreRepository
 ): UseCase<String, Flow<UiState<String?>>>() {
-    override operator fun invoke(request: String): Flow<UiState<String?>> {
+    override suspend operator fun invoke(request: String): Flow<UiState<String?>> {
         return dataStoreRepository.getString(request)
     }
 }

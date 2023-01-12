@@ -22,7 +22,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="45.5dp"
-            android:background="@color/c4c4c4"
+            android:background="@color/color_c4c4c4"
             android:clipToOutline="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +52,7 @@
                 android:id="@+id/image_btn_category_choice_search"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="@color/c4c4c4"
+                android:background="@color/color_c4c4c4"
                 android:clipToOutline="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -92,7 +92,7 @@
                     android:id="@+id/image_btn_category_choice_filter"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:background="@color/c4c4c4"
+                    android:background="@color/color_c4c4c4"
                     android:clipToOutline="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -17,11 +17,11 @@ class DataStoreUtil @Inject constructor(
         private const val SIGN_UP_TOKEN_KEY = "SIGN_UP_TOKEN_KEY"
     }
 
-    fun setSignUpToken(value: String): Flow<UiState<Unit>> {
+    suspend fun setSignUpToken(value: String): Flow<UiState<Unit>> {
         return setDataStoreUseCase(DataStoreRequestVo(SIGN_UP_TOKEN_KEY, value))
     }
 
-    fun getSignUpToken(): Flow<UiState<String?>> {
+    suspend fun getSignUpToken(): Flow<UiState<String?>> {
         return getStringFromDataStoreUseCase(SIGN_UP_TOKEN_KEY)
     }
 }

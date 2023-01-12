@@ -12,7 +12,7 @@ import javax.inject.Inject
 class PostSignUpUseCase @Inject constructor(
     private val signUpRepository: SignUpRepository,
 ) : UseCase<SignUpRequestVo, Flow<UiState<PlubJwtResponseVo>>>() {
-    override operator fun invoke(request: SignUpRequestVo): Flow<UiState<PlubJwtResponseVo>> = flow {
+    override suspend operator fun invoke(request: SignUpRequestVo): Flow<UiState<PlubJwtResponseVo>> = flow {
         signUpRepository.signUp(request).collect { emit(it) }
     }
 }

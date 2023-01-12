@@ -12,7 +12,7 @@ import javax.inject.Inject
 class GetNicknameCheckUseCase @Inject constructor(
     private val signUpRepository: SignUpRepository
 ) : UseCase<String, Flow<UiState<Boolean>>>() {
-    override operator fun invoke(request: String): Flow<UiState<Boolean>> = flow {
+    override suspend operator fun invoke(request: String): Flow<UiState<Boolean>> = flow {
         when {
             request.isEmpty() -> emit(UiState.Error(false, NicknameError.EmptyNickname("비어있는 닉네임")))
             RegexUtil.hasSpecialCharacter(request) -> emit(UiState.Error(false, NicknameError.HasSpecialCharacter("특수문자 포함된 닉네임")))

@@ -35,8 +35,8 @@ class CategoryChoiceFragment : BaseFragment<FragmentCategoryChoiceBinding, Sampl
         }
     }
 
-    override fun initState() {
-        //TODO("Not yet implemented")
+    override fun initStates() {
+        super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.testHomeData.collect {
@@ -79,7 +79,6 @@ class CategoryChoiceFragment : BaseFragment<FragmentCategoryChoiceBinding, Sampl
 
             }
         }
-
     }
 
     fun HasDataRecycler(){

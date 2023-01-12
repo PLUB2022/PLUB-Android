@@ -34,7 +34,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="75dp"
-                android:background="@color/c4c4c4"
+                android:background="@color/color_c4c4c4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -121,7 +121,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="210dp"
-                android:background="@color/c4c4c4"
+                android:background="@color/color_c4c4c4"
                 android:clipToOutline="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
