@@ -1,13 +1,7 @@
 package com.plub.plubandroid.di
 
-import com.plub.domain.repository.CategoryListRepository
-import com.plub.domain.repository.HomePostRepository
-import com.plub.domain.repository.IntroRepository
-import com.plub.domain.repository.RecommendationGatheringRepository
-import com.plub.domain.usecase.BrowseUseCase
-import com.plub.domain.usecase.RecommendationGatheringUsecase
-import com.plub.domain.usecase.TestPostHomeUseCase
-import com.plub.domain.usecase.TrySampleLoginUseCase
+import com.plub.domain.repository.*
+import com.plub.domain.usecase.*
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -41,5 +35,11 @@ object UseCaseModule {
     @Provides
     fun providesRecommendationGatheringUseCase(repository: RecommendationGatheringRepository): RecommendationGatheringUsecase {
         return RecommendationGatheringUsecase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesRecruitDetailUseCase(repository: RecruitDetailRepository): RecruitDetailUseCase {
+        return RecruitDetailUseCase(repository)
     }
 }

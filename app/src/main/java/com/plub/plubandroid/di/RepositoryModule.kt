@@ -1,13 +1,7 @@
 package com.plub.plubandroid.di
 
-import com.plub.data.repository.CategoryListResposImpl
-import com.plub.data.repository.HomePostReposImpl
-import com.plub.data.repository.IntroRepositoryImpl
-import com.plub.data.repository.RecommendationGatheringResposImpl
-import com.plub.domain.repository.CategoryListRepository
-import com.plub.domain.repository.HomePostRepository
-import com.plub.domain.repository.IntroRepository
-import com.plub.domain.repository.RecommendationGatheringRepository
+import com.plub.data.repository.*
+import com.plub.domain.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -33,4 +27,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesRecommendationGatheringRepository(recommendationGatheringResposImpl: RecommendationGatheringResposImpl): RecommendationGatheringRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailResposImpl): RecruitDetailRepository
 }

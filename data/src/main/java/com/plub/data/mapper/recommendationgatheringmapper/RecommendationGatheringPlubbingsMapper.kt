@@ -1,10 +1,8 @@
 package com.plub.data.mapper.recommendationgatheringmapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.model.RecommendationGatheringResponse
 import com.plub.data.model.recommendationgatheringdata.RecommendationGatheringData
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
-import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 
 object RecommendationGatheringPlubbingsMapper : Mapper.ResponseMapper<RecommendationGatheringData, RecommendationGatheringDataResponseVo>{
     override fun mapDtoToModel(type: RecommendationGatheringData?): RecommendationGatheringDataResponseVo {
