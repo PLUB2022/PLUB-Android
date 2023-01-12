@@ -8,6 +8,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface LoginApi {
-    @POST(Endpoints.TEST.LOGIN_TEST)
+    @POST(Endpoints.AUTH.SOCIAL_LOGIN)
     suspend fun socialLogin(@Body request: SocialLoginRequest) : Response<ApiResponse<SocialLoginResponse>>
 }

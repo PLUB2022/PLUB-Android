@@ -146,6 +146,10 @@
     <string name="sign_up_hobbies_description">%s님이 흥미로워 할 만한 모임을 추천해 드릴게요.</string>
     <string name="sign_up_hobbies_late_pick">아직 잘 모르겠어요, 나중에 고를게요</string>
 
+    <string name="sign_up_welcome_title">“ 환영합니다! ”</string>
+    <string name="sign_up_welcome_description">%s님이 흥미로워 할 만한 모임을 추천해 드릴게요.</string>
+    <string name="sign_up_welcome_start_button">Plub 시작!</string>
+
     <string name="dialog_menu_camera_image">카메라로 촬영</string>
     <string name="dialog_menu_album_image">앨범에서 사진 업로드</string>
     <string name="dialog_menu_default_image">기본 이미지</string>

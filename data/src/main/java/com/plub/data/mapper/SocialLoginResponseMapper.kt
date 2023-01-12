@@ -8,7 +8,11 @@ object SocialLoginResponseMapper: Mapper.ResponseMapper<SocialLoginResponse, Soc
 
     override fun mapDtoToModel(type: SocialLoginResponse?): SocialLoginResponseVo {
         return type?.run {
-            SocialLoginResponseVo(authCode)
+            SocialLoginResponseVo(
+                accessToken = accessToken,
+                refreshToken = refreshToken,
+                signToken = signToken,
+            )
         }?: SocialLoginResponseVo()
     }
 }

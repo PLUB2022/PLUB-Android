@@ -12,6 +12,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
 import com.plub.presentation.state.LoginPageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
@@ -42,8 +44,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
             }
 
             textViewSignUp.setOnClickListener {
-                //TODO 테스트 이후 뷰 xml과 같이 지워야함
-                goToSignUp()
+                val action = LoginFragmentDirections.actionLoginToSignUp()
+                findNavController().navigate(action)
             }
         }
     }
@@ -61,6 +63,31 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
             launch {
                 viewModel.signInKakao.collect {
                     signInKakao()
+                }
+            }
+
+            launch {
+                viewModel.signInKakaoEmail.collect {
+                    signInKakaoEmail()
+                }
+            }
+
+            launch {
+                viewModel.goToMain.collect {
+
+                }
+            }
+
+            launch {
+                viewModel.goToSignUp.collect {
+                    val action = LoginFragmentDirections.actionLoginToSignUp()
+                    findNavController().navigate(action)
+                }
+            }
+
+            launch {
+                viewModel.goToTerms.collect {
+
                 }
             }
         }
@@ -102,11 +129,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
     }
 
     private fun signInKakao() {
-
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
+            signInKakaoApp()
+        } else {
+            signInKakaoEmail()
+        }
     }
 
-    private fun goToSignUp() {
-        val action = LoginFragmentDirections.actionLoginToSignUp()
-        findNavController().navigate(action)
+    private fun signInKakaoApp() {
+        UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
+            viewModel.handleKakaoSignInAppResult(token,error)
+        }
+    }
+
+    private fun signInKakaoEmail() {
+        UserApiClient.instance.loginWithKakaoAccount(requireContext()) { token, error ->
+            viewModel.handleKakaoSignInEmailResult(token,error)
+        }
     }
 }

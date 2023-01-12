@@ -74,6 +74,18 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun providesSetDataStoreUseCase(repository: PrefDataStoreRepository): SetDataStoreUseCase {
+        return SetDataStoreUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetStringFromDataStoreUseCase(repository: PrefDataStoreRepository): GetStringFromDataStoreUseCase {
+        return GetStringFromDataStoreUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun providesTestPostHomeUseCase(repository: HomePostRepository): TestPostHomeUseCase {
         return TestPostHomeUseCase(repository)
     }

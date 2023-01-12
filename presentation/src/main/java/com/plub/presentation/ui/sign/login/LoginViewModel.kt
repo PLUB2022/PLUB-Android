@@ -10,15 +10,21 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.model.ClientError
+import com.kakao.sdk.common.model.ClientErrorCause
 import com.plub.domain.error.LoginError
 import com.plub.domain.model.enums.SocialLoginType
 import com.plub.domain.model.enums.TermsType
+import com.plub.domain.model.vo.jwt_token.SavePlubJwtRequestVo
 import com.plub.domain.model.vo.login.SocialLoginRequestVo
 import com.plub.domain.model.vo.login.SocialLoginResponseVo
 import com.plub.domain.usecase.PostSocialLoginUseCase
+import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.LoginPageState
+import com.plub.presentation.util.DataStoreUtil
 import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,7 +38,9 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
-    val postSocialLoginUseCase: PostSocialLoginUseCase
+    val postSocialLoginUseCase: PostSocialLoginUseCase,
+    val savePlubAccessTokenAndRefreshTokenUseCase: SavePlubAccessTokenAndRefreshTokenUseCase,
+    val dataStoreUtil: DataStoreUtil,
 ) : BaseViewModel<LoginPageState>(LoginPageState()) {
 
     private val _signInGoogle = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
@@ -40,6 +48,18 @@ class LoginViewModel @Inject constructor(
 
     private val _signInKakao = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
     val signInKakao: SharedFlow<Unit> = _signInKakao.asSharedFlow()
+
+    private val _signInKakaoEmail = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
+    val signInKakaoEmail: SharedFlow<Unit> = _signInKakaoEmail.asSharedFlow()
+
+    private val _goToSignUp = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
+    val goToSignUp: SharedFlow<Unit> = _goToSignUp.asSharedFlow()
+
+    private val _goToMain = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
+    val goToMain: SharedFlow<Unit> = _goToMain.asSharedFlow()
+
+    private val _goToTerms = MutableSharedFlow<TermsType>(0, 1, BufferOverflow.DROP_OLDEST)
+    val goToTerms: SharedFlow<TermsType> = _goToTerms.asSharedFlow()
 
     init {
         updateUiState { uiState ->
@@ -63,44 +83,85 @@ class LoginViewModel @Inject constructor(
         try {
             val account = completedTask.getResult(ApiException::class.java)
             account.serverAuthCode?.let {
-                socialLogin(SocialLoginType.GOOGLE, it)
+                val request = SocialLoginRequestVo(SocialLoginType.GOOGLE, authCode = it)
+                socialLogin(request)
             }
         } catch (e: ApiException) {
             PlubLogger.logD("구글로그인", "실패 : ${e.statusCode}")
         }
     }
 
-    fun alreadyGoogleSignIn(account:GoogleSignInAccount) {
-        account.serverAuthCode?.let {
-            socialLogin(SocialLoginType.GOOGLE, it)
+    fun handleKakaoSignInAppResult(token: OAuthToken?, error: Throwable?) {
+        token?.let {
+            val request = SocialLoginRequestVo(SocialLoginType.KAKAO, accessToken = it.accessToken)
+            socialLogin(request)
+        } ?: run {
+            val userCancel = error is ClientError && error.reason == ClientErrorCause.Cancelled
+            if (!userCancel) viewModelScope.launch {
+                _signInKakaoEmail.emit(Unit)
+            }
         }
     }
 
-    private fun socialLogin(socialLoginType: SocialLoginType, authCode: String) {
+    fun handleKakaoSignInEmailResult(token: OAuthToken?, error: Throwable?) {
+        token?.let {
+            val request = SocialLoginRequestVo(SocialLoginType.KAKAO, accessToken = it.accessToken)
+            socialLogin(request)
+        }
+    }
+
+    fun alreadyGoogleSignIn(account:GoogleSignInAccount) {
+        account.serverAuthCode?.let {
+            val request = SocialLoginRequestVo(SocialLoginType.GOOGLE, it)
+            socialLogin(request)
+        }
+    }
+
+    private fun socialLogin(request: SocialLoginRequestVo) {
         viewModelScope.launch {
-            val request = SocialLoginRequestVo(socialLoginType, authCode, true)
             postSocialLoginUseCase(request).collect { state ->
-                inspectUiState(state, ::handleLoginSuccess) { _ , individual ->
-                    handleLoginError(individual as LoginError)
+                inspectUiState(state, ::handleLoginSuccess) { data , individual ->
+                    handleLoginError(data, individual as LoginError)
                 }
             }
         }
     }
 
     private fun handleLoginSuccess(loginResponseVo: SocialLoginResponseVo) {
-        updateUiState { uiState ->
-            uiState.copy(authCode = loginResponseVo.authCode)
+        val savePlubJwtRequestVo = SavePlubJwtRequestVo(loginResponseVo.accessToken,loginResponseVo.refreshToken)
+        savePlubToken(savePlubJwtRequestVo) {
+            goToMain()
         }
     }
 
-    private fun handleLoginError(loginError: LoginError) {
+    private fun savePlubToken(saveRequestVo: SavePlubJwtRequestVo, saveCallback:() -> Unit) {
+        viewModelScope.launch {
+            savePlubAccessTokenAndRefreshTokenUseCase(saveRequestVo).collect {
+                if(it) saveCallback.invoke()
+            }
+        }
+    }
+
+    private fun handleLoginError(data: SocialLoginResponseVo?, loginError: LoginError) {
         when(loginError) {
-            is LoginError.NotFoundUserAccount -> {
-                updateUiState { uiState ->
-                    uiState.copy(authCode = loginError.msg)
+            is LoginError.NeedSignUp -> {
+                data?.let {
+                    saveSignUpToken(it.signToken) {
+                        goToSignUp()
+                    }
                 }
             }
             else -> Unit
+        }
+    }
+
+    private fun saveSignUpToken(signUpToken:String, saveCallback:() -> Unit) {
+        viewModelScope.launch {
+            dataStoreUtil.setSignUpToken(signUpToken).collect {
+                inspectUiState(it, {
+                    saveCallback.invoke()
+                })
+            }
         }
     }
 
@@ -143,9 +204,21 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    private fun goToSignUp() {
+        viewModelScope.launch {
+            _goToSignUp.emit(Unit)
+        }
+    }
+
+    private fun goToMain() {
+        viewModelScope.launch {
+            _goToMain.emit(Unit)
+        }
+    }
+
     private fun goToTerms(termsType: TermsType) {
-        updateUiState { uiState ->
-            uiState.copy(authCode = termsType.toString())
+        viewModelScope.launch {
+            _goToTerms.emit(termsType)
         }
     }
 

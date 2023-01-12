@@ -14,15 +14,9 @@ class GetNicknameCheckUseCase @Inject constructor(
 ) : UseCase<String, Flow<UiState<Boolean>>>() {
     override operator fun invoke(request: String): Flow<UiState<Boolean>> = flow {
         when {
-            request.isEmpty() -> flow {
-                emit(UiState.Error(false, NicknameError.EmptyNickname("비어있는 닉네임")))
-            }
-            RegexUtil.hasSpecialCharacter(request) -> flow {
-                emit(UiState.Error(false, NicknameError.HasSpecialCharacter("특수문자 포함된 닉네임")))
-            }
-            RegexUtil.hasBlackCharacter(request) -> flow {
-                emit(UiState.Error(false, NicknameError.HasBlankNickname("공백 포함된 닉네임")))
-            }
+            request.isEmpty() -> emit(UiState.Error(false, NicknameError.EmptyNickname("비어있는 닉네임")))
+            RegexUtil.hasSpecialCharacter(request) -> emit(UiState.Error(false, NicknameError.HasSpecialCharacter("특수문자 포함된 닉네임")))
+            RegexUtil.hasBlackCharacter(request) -> emit(UiState.Error(false, NicknameError.HasBlankNickname("공백 포함된 닉네임")))
             else -> signUpRepository.nicknameCheck(request).collect { emit(it) }
         }
     }

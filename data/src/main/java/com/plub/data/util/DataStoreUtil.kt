@@ -15,11 +15,11 @@ object DataStoreUtil {
         key: Preferences.Key<T>
     ): Flow<T?> = dataStore.data.map { preferences -> preferences[key] }
 
-    fun <T> savePreferencesData(
+    suspend fun <T> savePreferencesData(
         dataStore: DataStore<Preferences>,
         key: Preferences.Key<T>,
         value: T
-    ) = flow<Nothing> {
+    ) {
         dataStore.edit { preferences ->
             preferences[key] = value
         }

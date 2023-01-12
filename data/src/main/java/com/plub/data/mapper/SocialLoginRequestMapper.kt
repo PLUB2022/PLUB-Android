@@ -8,7 +8,11 @@ object SocialLoginRequestMapper: Mapper.RequestMapper<SocialLoginRequest, Social
 
     override fun mapModelToDto(type: SocialLoginRequestVo): SocialLoginRequest {
         return type.run {
-            SocialLoginRequest(authCode,isLoginSuccess)
+            SocialLoginRequest(
+                accessToken = this.accessToken,
+                authorizationCode = authCode,
+                socialType = this.socialLoginType.value
+            )
         }
     }
 }
