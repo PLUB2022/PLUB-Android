@@ -8,7 +8,7 @@ import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemHobbyBinding
 import com.plub.presentation.ui.common.GridSpaceDecoration
 import com.plub.presentation.util.GlideUtil
-import com.plub.presentation.util.dp
+import com.plub.presentation.util.px
 
 class HobbyViewHolder(
     private val binding: IncludeItemHobbyBinding,
@@ -39,7 +39,7 @@ class HobbyViewHolder(
                     }
                 }
             }
-            addItemDecoration(GridSpaceDecoration(TOTAL_SPAN_SIZE, ITEM_SPACE.dp, false))
+            addItemDecoration(GridSpaceDecoration(TOTAL_SPAN_SIZE, ITEM_SPACE.px, false))
             adapter = listAdapter
         }
     }
