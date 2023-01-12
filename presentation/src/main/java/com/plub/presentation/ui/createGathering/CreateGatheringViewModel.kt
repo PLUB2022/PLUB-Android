@@ -11,6 +11,7 @@ import com.plub.presentation.state.createGathering.CreateGatheringQuestionPageSt
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.PageState
 import com.plub.presentation.state.createGathering.CreateGatheringSelectPlubCategoryPageState
+import com.plub.presentation.ui.createGathering.finish.CreateGatheringFinishPageState
 import com.plub.presentation.ui.createGathering.preview.CreateGatheringPreviewPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -25,13 +26,14 @@ class CreateGatheringViewModel @Inject constructor() :
     private val maxPage = CreateGatheringPageType.values().size - 1
 
     private val childrenPageStateMap: MutableMap<Int, PageState> = mutableMapOf(
-        CreateGatheringPageType.SELECT_PLUB_CATEGORY.idx to CreateGatheringSelectPlubCategoryPageState(),
-        CreateGatheringPageType.GATHERING_TITLE_AND_NAME.idx to CreateGatheringTitleAndNamePageState(),
-        CreateGatheringPageType.GOAL_INTRODUCE_PICTURE.idx to CreateGatheringGoalAndIntroduceAndPicturePageState(),
-        CreateGatheringPageType.DAY_ON_OFF_LOCATION.idx to CreateGatheringDayAndOnOfflineAndLocationPageState(),
-        CreateGatheringPageType.PEOPLE_NUMBER.idx to CreateGatheringPeopleNumberPageState(),
-        CreateGatheringPageType.QUESTION.idx to CreateGatheringQuestionPageState(),
-        CreateGatheringPageType.PREVIEW.idx to CreateGatheringPreviewPageState()
+            CreateGatheringPageType.SELECT_PLUB_CATEGORY.idx to CreateGatheringSelectPlubCategoryPageState(),
+            CreateGatheringPageType.GATHERING_TITLE_AND_NAME.idx to CreateGatheringTitleAndNamePageState(),
+            CreateGatheringPageType.GOAL_INTRODUCE_PICTURE.idx to CreateGatheringGoalAndIntroduceAndPicturePageState(),
+            CreateGatheringPageType.DAY_ON_OFF_LOCATION.idx to CreateGatheringDayAndOnOfflineAndLocationPageState(),
+            CreateGatheringPageType.PEOPLE_NUMBER.idx to CreateGatheringPeopleNumberPageState(),
+            CreateGatheringPageType.QUESTION.idx to CreateGatheringQuestionPageState(),
+            CreateGatheringPageType.PREVIEW.idx to CreateGatheringPreviewPageState(),
+            CreateGatheringPageType.FINISH.idx to CreateGatheringFinishPageState()
     )
 
     private val _childrenPageStateFlow

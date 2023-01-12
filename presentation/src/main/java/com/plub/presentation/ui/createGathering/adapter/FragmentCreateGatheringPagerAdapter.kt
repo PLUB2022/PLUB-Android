@@ -4,6 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.plub.domain.model.enums.CreateGatheringPageType
 import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndOnOfflineAndLocationFragment
+import com.plub.presentation.ui.createGathering.finish.CreateGatheringFinishFragment
+import com.plub.presentation.ui.createGathering.finish.CreateGatheringFinishPageState
 import com.plub.presentation.ui.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNameFragment
 import com.plub.presentation.ui.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndImageFragment
 import com.plub.presentation.ui.createGathering.peopleNumber.CreateGatheringPeopleNumberFragment
@@ -23,6 +25,7 @@ class FragmentCreateGatheringPagerAdapter(fragment: Fragment): FragmentStateAdap
         CreateGatheringPageType.PEOPLE_NUMBER.idx -> CreateGatheringPeopleNumberFragment()
         CreateGatheringPageType.QUESTION.idx -> CreateGatheringQuestionFragment()
         CreateGatheringPageType.PREVIEW.idx -> CreateGatheringPreviewFragment()
+        CreateGatheringPageType.FINISH.idx -> CreateGatheringFinishFragment()
         else -> throw IllegalAccessException()
     }
 }

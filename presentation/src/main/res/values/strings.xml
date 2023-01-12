@@ -121,6 +121,11 @@
     <string name="create_gathering_question_hint">우리 동네 사진 모임</string>
     <string name="create_gathering_question_add_question">질문 추가</string>
 
+    <string name="create_gathering_finish_image_descriptor">모임 생성 완료 이미지</string>
+    <string name="create_gathering_finish_description">모임 생성 완료!</string>
+    <string name="create_gathering_finish_show_my_article">내가 쓴 글 보기</string>
+    <string name="create_gathering_finish_go_to_main">메인으로</string>
+
     <string name="bottom_sheet_delete_question_description">를 삭제 할까요?</string>
     <string name="bottom_sheet_delete_question_no">아니요! 그냥 둘게요.</string>
     <string name="bottom_sheet_delete_question_yes">네, 삭제할게요.</string>

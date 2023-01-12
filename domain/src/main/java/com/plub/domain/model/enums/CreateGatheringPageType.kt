@@ -7,5 +7,6 @@ enum class CreateGatheringPageType(val idx: Int) {
     DAY_ON_OFF_LOCATION(3),
     PEOPLE_NUMBER(4),
     QUESTION(5),
-    PREVIEW(6)
+    PREVIEW(6),
+    FINISH(7)
 }
