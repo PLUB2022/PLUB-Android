@@ -6,11 +6,19 @@ import com.plub.data.util.ApiResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface BrowseApi {
     @GET("/api/plubbings/recommendation")
     suspend fun browseRecommendationGathering(
+        @Query("pageNum") pageNum : Int,
+        @Header("accessToken") accessToken : String
+    ) : Response<ApiResponse<RecommendationGatheringResponse>>
+
+    @GET("/api/plubbings/categories/{categoryId}")
+    suspend fun browseCategoriesGathering(
+        @Path("categoryId") categoryId : Int,
         @Query("pageNum") pageNum : Int,
         @Header("accessToken") accessToken : String
     ) : Response<ApiResponse<RecommendationGatheringResponse>>
