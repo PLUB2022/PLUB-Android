@@ -25,9 +25,6 @@
         </provider>
 
         <activity
-            android:name=".ui.sample.SampleActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.home.MainActivity"
             android:exported="true" />
 

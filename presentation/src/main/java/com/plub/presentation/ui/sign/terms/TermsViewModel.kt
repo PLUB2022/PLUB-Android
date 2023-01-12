@@ -125,7 +125,7 @@ class TermsViewModel @Inject constructor(
     }
 
     private fun getTermsUrl(type: TermsType): String {
-        return "http://nextmatch.kr/privacy/youandi/agreement.html"
+        return "http://plub.co.kr/policy"
     }
 
     private fun isNextButtonEnable(map: Map<TermsType, TermsAgreementItemVo>):Boolean {

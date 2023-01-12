@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.sign.onboarding
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.SignUpPageType
 import com.plub.presentation.state.OnboardingPageState
 import com.plub.domain.model.vo.onboarding.OnboardingItemVo
 import com.plub.presentation.R
@@ -17,14 +18,17 @@ class OnboardingViewModel @Inject constructor(
     private val resourceProvider: ResourceProvider,
 ) : BaseViewModel<OnboardingPageState>(OnboardingPageState()) {
 
-    companion object {
-        private const val DEFAULT_PAGE = 0
-    }
-
-    private var currentPage = DEFAULT_PAGE
     private var maxPage:Int? = null
     private val _goToLoginFragment = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val goToLoginFragment: SharedFlow<Unit> = _goToLoginFragment.asSharedFlow()
+
+    private val _navigationPop = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
+    val navigationPop: SharedFlow<Unit> = _navigationPop.asSharedFlow()
+
+    fun onBackPressed(currentPage: Int) {
+        val previousPage = currentPage - 1
+        if (isFirstPage(currentPage)) goToNavUp() else moveToPage(previousPage)
+    }
 
     fun fetchOnboardingData() {
         val onboardingList = generateOnboardingItemVoList()
@@ -40,19 +44,14 @@ class OnboardingViewModel @Inject constructor(
 
     fun onClickNext() {
         maxPage?.let {
-            if(currentPage == it) goToLogin() else moveToNextPage()
+            var currentPage = uiState.value.currentPage
+            if(currentPage == it) goToLogin() else moveToPage(++currentPage)
         }
     }
 
     private fun goToLogin() {
         viewModelScope.launch {
             _goToLoginFragment.emit(Unit)
-        }
-    }
-
-    private fun moveToNextPage() {
-        updateUiState { uiState ->
-            uiState.copy(currentPage = ++currentPage)
         }
     }
 
@@ -78,5 +77,19 @@ class OnboardingViewModel @Inject constructor(
 
     private fun getStringResource(res: Int): String {
         return resourceProvider.getString(res)
+    }
+
+    private fun isFirstPage(currentPage: Int) = currentPage == 0
+
+    private fun goToNavUp() {
+        viewModelScope.launch {
+            _navigationPop.emit(Unit)
+        }
+    }
+
+    private fun moveToPage(page: Int) {
+        updateUiState { uiState ->
+            uiState.copy(currentPage = page)
+        }
     }
 }
