@@ -1,5 +1,6 @@
 package com.plub.plubandroid.di
 
+
 import com.plub.data.repository.*
 import com.plub.domain.repository.*
 import dagger.Binds
@@ -12,9 +13,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
 
-    @Singleton
-    @Binds
-    abstract fun providesIntroRepository(repositoryImpl: IntroRepositoryImpl): IntroRepository
+
 
     @Singleton
     @Binds
@@ -31,4 +30,20 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailResposImpl): RecruitDetailRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesLoginRepository(repositoryImpl: LoginRepositoryImpl): LoginRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesHobbyRepository(repositoryImpl: HobbyRepositoryImpl): HobbyRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesSignUpRepository(repositoryImpl: SignUpRepositoryImpl): SignUpRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesMediaRepository(repositoryImpl: MediaRepositoryImpl): MediaRepository
 }

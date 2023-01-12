@@ -20,5 +20,27 @@
         android:id="@+id/loginFragment"
         android:name="com.plub.presentation.ui.sign.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_login_to_sign_up"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.plub.presentation.ui.sign.signup.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up">
+
+        <action
+            android:id="@+id/action_sign_up_to_welcome"
+            app:destination="@id/welcomeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.plub.presentation.ui.sign.welcome.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" />
 </navigation>

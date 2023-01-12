@@ -3,6 +3,8 @@
     package="com.plub.presentation">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -11,24 +13,45 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PlubAndroid">
-        <activity
-            android:name=".ui.sample.SampleActivity"
-            android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.plub.plubandroid.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
         <activity
             android:name=".ui.home.MainActivity"
-            android:exported="true">
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.sign.SignActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
-            android:name=".ui.sign.SignActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="@string/kakao_redirect_url_key" />
+            </intent-filter>
         </activity>
     </application>
 

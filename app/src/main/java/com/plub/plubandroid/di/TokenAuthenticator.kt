@@ -1,82 +1,70 @@
 package com.plub.plubandroid.di
 
-import com.plub.data.api.PlubJwtTokenApi
-import com.plub.data.model.PlubJwtTokenResponse
-import com.plub.data.model.JWTTokenReIssueRequest
-import com.plub.domain.repository.PlubJwtTokenRepository
+import com.plub.domain.model.vo.jwt_token.PlubJwtReIssueRequestVo
+import com.plub.domain.model.vo.jwt_token.SavePlubJwtRequestVo
+import com.plub.domain.usecase.FetchPlubAccessTokenUseCase
+import com.plub.domain.usecase.FetchPlubRefreshTokenUseCase
+import com.plub.domain.usecase.PostReIssueTokenUseCase
+import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.plubandroid.util.RETROFIT_TAG
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Route
-import retrofit2.Response
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TokenAuthenticator @Inject constructor(private val plubJwtTokenRepository: PlubJwtTokenRepository, private val plubJwtTokenApi: PlubJwtTokenApi) :
-    Authenticator {
-    override fun authenticate(route: Route?, response: okhttp3.Response): Request? {
-        val access = CoroutineScope(Dispatchers.IO).async {
-            getAccessToken()
-        }.getCompleted()
-        val refresh = CoroutineScope(Dispatchers.IO).async {
-            getRefreshToken()
-        }.getCompleted()
+class TokenAuthenticator @Inject constructor(
+    private val fetchPlubAccessTokenUseCase: FetchPlubAccessTokenUseCase,
+    private val fetchPlubRefreshTokenUseCase: FetchPlubRefreshTokenUseCase,
+    private val savePlubAccessTokenAndRefreshTokenUseCase: SavePlubAccessTokenAndRefreshTokenUseCase,
+    private val postReIssueTokenUseCase: PostReIssueTokenUseCase
+) : Authenticator {
+    private val mutex = Mutex()
 
-        synchronized(this) {
-            val newAccess = CoroutineScope(Dispatchers.IO).async{
-                getAccessToken()
-            }.getCompleted()
+    override fun authenticate(route: Route?, response: okhttp3.Response): Request? = runBlocking {
+        val access = async { fetchPlubAccessTokenUseCase(Unit).first() }
+        val refresh = async { fetchPlubRefreshTokenUseCase(Unit).first() }
+        val accessToken = access.await()
+        val refreshToken = refresh.await()
 
-            val isTokenRefreshed = if (access != newAccess) true else {
-                Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
-                val tokenResponse = plubJwtTokenApi.reIssueToken(JWTTokenReIssueRequest(refresh))
-                CoroutineScope(Dispatchers.IO).async{
-                    handleResponse(tokenResponse)
-                }
-            }
-
-            return if (isTokenRefreshed as Boolean) {
-                Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 중단된 API 재요청")
+        mutex.withLock {
+            if (verifyTokenIsRefreshed(accessToken, refreshToken)) {
+                Timber.tag(RETROFIT_TAG)
+                    .d("TokenAuthenticator - authenticate() called / 중단된 API 재요청")
                 response.request
                     .newBuilder()
                     .removeHeader("Authorization")
                     .header(
                         "Authorization",
-                        "Bearer " +  CoroutineScope(Dispatchers.IO).async {
-                            getRefreshToken()
-                        }.getCompleted()
+                        "Bearer " + fetchPlubAccessTokenUseCase(Unit).first()
                     )
                     .build()
-            } else {
-                null
-            }
+            } else null
         }
-
     }
 
-    private suspend fun handleResponse(tokenResponse: Response<PlubJwtTokenResponse>) =
-        if (tokenResponse.isSuccessful) {
-            if(tokenResponse.body() != null){
-                plubJwtTokenRepository.saveAccessTokenAndRefreshToken(tokenResponse.body()!!.data!!.accessToken, tokenResponse.body()!!.data!!.refreshToken)
-                true
-            } else {
-                Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - handleResponse() called / tokenResponse의 body가 null 입니다.")
-                false
+    private suspend fun verifyTokenIsRefreshed(
+        access: String,
+        refresh: String
+    ): Boolean {
+        val newAccess = fetchPlubAccessTokenUseCase(Unit).first()
+
+        return if (access != newAccess) true else {
+            Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
+            val reIssueRequestVo = PlubJwtReIssueRequestVo(refresh)
+            val plubJwtToken = postReIssueTokenUseCase(reIssueRequestVo).first()
+            val savePlubJwtRequestVo = SavePlubJwtRequestVo(plubJwtToken.accessToken, plubJwtToken.refreshToken)
+
+            savePlubAccessTokenAndRefreshTokenUseCase(savePlubJwtRequestVo).first()
+            plubJwtToken.isTokenValid.apply {
+                if(!this) Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - verifyTokenIsRefreshed() called / 토큰 갱신 실패.")
             }
-
-        } else {
-            Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - handleResponse() called / 리프레시 토큰이 만료되어 로그 아웃 되었습니다.")
-            false
         }
-
-    private suspend fun getAccessToken(): String {
-        return plubJwtTokenRepository.getAccessToken()
-    }
-
-    private suspend fun getRefreshToken(): String {
-        return plubJwtTokenRepository.getRefreshToken()
     }
 }

@@ -5,18 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.plub.domain.UiState
-import com.plub.domain.model.state.PageState
-import com.plub.domain.result.IndividualFailure
+import com.plub.presentation.state.PageState
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewModel<STATE>>(
@@ -48,7 +44,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
         commonProcessor = CommonProcessor(requireContext())
 
         initView()
-        initState()
+        initStates()
     }
 
     protected fun bindProgressBar(progressBar: ProgressBar) {
@@ -57,7 +53,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
 
     protected abstract fun initView()
 
-    protected open fun initState() {
+    protected open fun initStates() {
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.showProgress.collect {
@@ -66,13 +62,7 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
             }
 
             launch {
-                viewModel.commonFailure.collect {
-                    commonProcessor.failProcess(it)
-                }
-            }
-
-            launch {
-                viewModel.uiError.collect {
+                viewModel.commonError.collect {
                     commonProcessor.errorProcess(it)
                 }
             }

@@ -12,7 +12,135 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_f5f3f6">
+
+        <TextView
+            android:id="@+id/text_view_sign_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:text="회원가입"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{vm.uiState.authCode}"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_plub_logo"
+            app:layout_constraintBottom_toTopOf="@+id/constraint_layout_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="103dp"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_terms">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_kakao"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_rectangle_filled_fee500_radius_5"
+                android:onClick="@{() -> vm.onClickKakaoLogin()}"
+                android:paddingHorizontal="20dp"
+                app:layout_constraintDimensionRatio="280:45"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_view_kakao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_kakao_login"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_view_kakao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/login_kakao_text"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_view_kakao"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_view_kakao"
+                    app:layout_constraintTop_toTopOf="@+id/image_view_kakao" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_google"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_5"
+                android:onClick="@{() -> vm.onClickGoogleLogin()}"
+                android:paddingHorizontal="20dp"
+                app:layout_constraintDimensionRatio="280:45"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraint_layout_kakao">
+
+                <ImageView
+                    android:id="@+id/image_view_google"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_google_login"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_view_google"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/login_google_text"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_view_google"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_view_google"
+                    app:layout_constraintTop_toTopOf="@+id/image_view_google" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_view_terms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="29dp"
+            android:gravity="center"
+            android:text="@{vm.uiState.termsText}"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="가입을 진행할 경우, 서비스 약관 및\n개인정보 처리방침에 동의한 것으로 간주합니다." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

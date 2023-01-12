@@ -3,15 +3,14 @@ package com.plub.presentation.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
-import com.plub.domain.error.UiError
-import com.plub.domain.model.state.PageState
-import com.plub.domain.result.CommonFailure
-import com.plub.domain.result.IndividualFailure
+import com.plub.domain.error.CommonError
+import com.plub.domain.error.IndividualError
+import com.plub.presentation.state.PageState
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<STATE:PageState>(
+abstract class BaseViewModel<STATE: PageState>(
     initialState: STATE
 ) : ViewModel() {
 
@@ -23,18 +22,17 @@ abstract class BaseViewModel<STATE:PageState>(
     private val _showProgress = MutableSharedFlow<Boolean>(0, 1, BufferOverflow.DROP_OLDEST)
     val showProgress: SharedFlow<Boolean> = _showProgress.asSharedFlow()
 
-    private val _commonFailure = MutableSharedFlow<CommonFailure>(0, 1, BufferOverflow.DROP_OLDEST)
-    val commonFailure: SharedFlow<CommonFailure> = _commonFailure.asSharedFlow()
-
-    private val _uiError = MutableSharedFlow<UiError>(0, 1, BufferOverflow.DROP_OLDEST)
-    val uiError: SharedFlow<UiError> = _uiError.asSharedFlow()
+    private val _commonError = MutableSharedFlow<CommonError>(0, 1, BufferOverflow.DROP_OLDEST)
+    val commonError: SharedFlow<CommonError> = _commonError.asSharedFlow()
 
     protected fun updateUiState(update:(STATE) -> STATE) {
-        _uiState.update { update.invoke(it) }
+        viewModelScope.launch {
+            _uiState.update { update.invoke(it) }
+        }
     }
 
-    protected fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: ((T) -> Unit)? = null, individualFailCallback: ((T, IndividualFailure) -> Unit)? = null) {
-        uiInspector.inspectUiState(uiState,succeedCallback, individualFailCallback)
+    protected fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: ((T) -> Unit), individualErrorCallback: ((T?, IndividualError) -> Unit)? = null) {
+        uiInspector.inspectUiState(uiState,succeedCallback, individualErrorCallback)
     }
 
     private fun delegate():UiInspector.Delegate {
@@ -51,15 +49,9 @@ abstract class BaseViewModel<STATE:PageState>(
                 }
             }
 
-            override fun handleCommonFailure(failure: CommonFailure) {
+            override fun handleCommonError(commonError: CommonError) {
                 viewModelScope.launch {
-                    _commonFailure.emit(failure)
-                }
-            }
-
-            override fun handleError(error: UiError) {
-                viewModelScope.launch {
-                    _uiError.emit(error)
+                    _commonError.emit(commonError)
                 }
             }
         }

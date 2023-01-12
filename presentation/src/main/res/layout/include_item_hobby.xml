@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage,ContentDescription">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/bg_rectangle_filled_white_radius_10"
+        android:minHeight="64dp">
+
+        <ImageView
+            android:id="@+id/image_view_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/color_363636"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_icon"
+            app:layout_constraintStart_toEndOf="@+id/image_view_icon"
+            app:layout_constraintTop_toTopOf="@id/image_view_icon"
+            tools:text="예술" />
+
+        <ImageView
+            android:id="@+id/image_view_expand"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="13dp"
+            android:src="@drawable/ic_arrow_under"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/image_view_icon" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_sub_hobbies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:paddingBottom="16dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_icon"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

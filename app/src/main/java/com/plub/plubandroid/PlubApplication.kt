@@ -1,6 +1,8 @@
 package com.plub.plubandroid
 
 import android.app.Application
+import com.kakao.sdk.common.KakaoSdk
+import com.plub.plubandroid.util.KAKAO_NATIVE_KEY
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -10,5 +12,6 @@ class PlubApplication : Application() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
+        KakaoSdk.init(this, KAKAO_NATIVE_KEY)
     }
 }

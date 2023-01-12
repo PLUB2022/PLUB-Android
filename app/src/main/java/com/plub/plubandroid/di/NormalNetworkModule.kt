@@ -4,7 +4,6 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import com.google.gson.JsonSyntaxException
 import com.plub.data.api.BrowseApi
-import com.plub.data.api.IntroApi
 import com.plub.data.api.PlubJwtTokenApi
 import com.plub.data.api.PostHomeApi
 import com.plub.plubandroid.util.BASE_URL
@@ -83,12 +82,6 @@ object NormalNetworkModule {
     @Provides
     fun providePlubJwtTokenApi(@NormalRetrofit retrofit: Retrofit): PlubJwtTokenApi {
         return retrofit.create(PlubJwtTokenApi::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun provideIntroApi(@NormalRetrofit retrofit: Retrofit): IntroApi {
-        return retrofit.create(IntroApi::class.java)
     }
 
     @Singleton

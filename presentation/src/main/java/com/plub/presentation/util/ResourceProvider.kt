@@ -1,9 +1,15 @@
 package com.plub.presentation.util
 
 import android.content.Context
+import android.database.Cursor
+import android.net.Uri
+import android.os.Environment
+import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
-import dagger.Provides
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,5 +19,25 @@ class ResourceProvider @Inject constructor(
 ) {
     fun getString(@StringRes stringResId: Int): String {
         return context.getString(stringResId)
+    }
+
+    fun getString(@StringRes stringResId: Int, vararg formatArgs: Any?): String {
+        return context.getString(stringResId, *formatArgs)
+    }
+
+    fun getColor(@ColorRes colorResId: Int): Int {
+        return ContextCompat.getColor(context, colorResId)
+    }
+
+    fun getCursor(uri: Uri, proj: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?): Cursor? {
+        return context.contentResolver.query(uri, proj, selection, selectionArgs, sortOrder)
+    }
+
+    fun getUriFromTempFile():Uri {
+        val fileDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val fileName = System.currentTimeMillis().toString()
+        val file = File.createTempFile(fileName,ImageUtil.PREFIX,fileDir)
+        val authority = context.packageName + ".provider"
+        return FileProvider.getUriForFile(context, authority, file)
     }
 }

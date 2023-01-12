@@ -2,15 +2,16 @@ package com.plub.presentation.ui.sign.onboarding
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.plub.domain.model.state.OnboardingPageState
+import com.plub.presentation.state.OnboardingPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentOnboardingBinding
 import com.plub.presentation.ui.sign.onboarding.adapter.OnboardingViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class OnboardingFragment : BaseFragment<FragmentOnboardingBinding,OnboardingPageState, OnboardingViewModel>(
+class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPageState, OnboardingViewModel>(
     FragmentOnboardingBinding::inflate
 ) {
 
@@ -25,28 +26,25 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding,OnboardingPage
                 adapter = pagerAdapter
                 dotsIndicator.attachTo(this)
             }
-
-            textViewSkip.setOnClickListener {
-                viewModel.onClickSkip()
-            }
-            buttonNext.setOnClickListener {
-                viewModel.onClickNext()
-            }
         }
         viewModel.fetchOnboardingData()
     }
 
-    override fun initState() {
-        repeatOnStarted(viewLifecycleOwner) {
-            viewModel.uiState.collect {
-                pagerAdapter.submitList(it.onboardingDataList)
-                movePage(it.currentPage)
-            }
-        }
+    override fun initStates() {
+        super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
-            viewModel.goToLoginFragment.collect {
-                goToLogin()
+            launch {
+                viewModel.uiState.collect {
+                    pagerAdapter.submitList(it.onboardingDataList) {
+                        movePage(it.currentPage)
+                    }
+                }
+            }
+            launch {
+                viewModel.goToLoginFragment.collect {
+                    goToLogin()
+                }
             }
         }
     }
