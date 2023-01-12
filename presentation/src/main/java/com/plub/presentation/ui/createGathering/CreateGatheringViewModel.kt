@@ -2,15 +2,14 @@ package com.plub.presentation.ui.createGathering
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.CreateGatheringPageType
-import com.plub.presentation.state.createGathering.CreateGatheringGoalAndIntroduceAndPicturePageState
-import com.plub.presentation.state.createGathering.CreateGatheringPageState
-import com.plub.presentation.state.createGathering.CreateGatheringTitleAndNamePageState
-import com.plub.presentation.state.createGathering.CreateGatheringDayAndOnOfflineAndLocationPageState
-import com.plub.presentation.state.createGathering.CreateGatheringPeopleNumberPageState
-import com.plub.presentation.state.createGathering.CreateGatheringQuestionPageState
+import com.plub.presentation.ui.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndPicturePageState
+import com.plub.presentation.ui.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNamePageState
+import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndOnOfflineAndLocationPageState
+import com.plub.presentation.ui.createGathering.peopleNumber.CreateGatheringPeopleNumberPageState
+import com.plub.presentation.ui.createGathering.question.CreateGatheringQuestionPageState
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.PageState
-import com.plub.presentation.state.createGathering.CreateGatheringSelectPlubCategoryPageState
+import com.plub.presentation.ui.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryPageState
 import com.plub.presentation.ui.createGathering.finish.CreateGatheringFinishPageState
 import com.plub.presentation.ui.createGathering.preview.CreateGatheringPreviewPageState
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,10 +1,8 @@
 package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation
 
 import android.app.TimePickerDialog
-import android.widget.TimePicker
 import androidx.fragment.app.viewModels
 import com.plub.presentation.R
-import com.plub.presentation.state.createGathering.CreateGatheringDayAndOnOfflineAndLocationPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringDayAndOnOfflineAndLocationBinding
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel

@@ -5,11 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringSelectPlubCategoryBinding
-import com.plub.presentation.state.createGathering.CreateGatheringPeopleNumberPageState
-import com.plub.presentation.state.createGathering.CreateGatheringSelectPlubCategoryPageState
 import com.plub.presentation.ui.common.VerticalSpaceDecoration
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
-import com.plub.presentation.ui.sign.hobbies.HobbiesFragment
 import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 import com.plub.presentation.util.dp
 import dagger.hilt.android.AndroidEntryPoint

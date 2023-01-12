@@ -1,6 +1,5 @@
 package com.plub.presentation.ui.createGathering.peopleNumber
 
-import com.plub.presentation.state.createGathering.CreateGatheringPeopleNumberPageState
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

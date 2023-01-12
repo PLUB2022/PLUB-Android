@@ -1,4 +1,4 @@
-package com.plub.presentation.state.createGathering
+package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bottomSheet
 
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.state.PageState

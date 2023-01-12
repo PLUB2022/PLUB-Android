@@ -3,7 +3,6 @@ package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.enums.OnOfflineType
-import com.plub.presentation.state.createGathering.CreateGatheringDayAndOnOfflineAndLocationPageState
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.PlubLogger

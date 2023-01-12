@@ -1,4 +1,4 @@
-package com.plub.presentation.state.createGathering
+package com.plub.presentation.ui.createGathering
 
 import com.plub.presentation.state.PageState
 

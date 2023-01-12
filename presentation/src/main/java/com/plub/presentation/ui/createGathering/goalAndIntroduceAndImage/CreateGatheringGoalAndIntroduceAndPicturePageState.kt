@@ -1,4 +1,4 @@
-package com.plub.presentation.state.createGathering
+package com.plub.presentation.ui.createGathering.goalAndIntroduceAndImage
 
 import com.plub.presentation.state.PageState
 import java.io.File

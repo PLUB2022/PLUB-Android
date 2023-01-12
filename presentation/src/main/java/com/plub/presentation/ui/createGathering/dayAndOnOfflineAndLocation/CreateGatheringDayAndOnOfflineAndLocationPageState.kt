@@ -1,4 +1,4 @@
-package com.plub.presentation.state.createGathering
+package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation
 
 import com.plub.domain.model.enums.OnOfflineType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo

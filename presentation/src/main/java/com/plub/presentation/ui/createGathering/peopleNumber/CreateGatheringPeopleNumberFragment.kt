@@ -1,7 +1,6 @@
 package com.plub.presentation.ui.createGathering.peopleNumber
 
 import androidx.fragment.app.viewModels
-import com.plub.presentation.state.createGathering.CreateGatheringPeopleNumberPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringPeopleNumberBinding
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel

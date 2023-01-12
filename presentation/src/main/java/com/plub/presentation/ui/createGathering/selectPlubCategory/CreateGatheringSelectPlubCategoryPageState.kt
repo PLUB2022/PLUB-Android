@@ -1,7 +1,6 @@
-package com.plub.presentation.state.createGathering
+package com.plub.presentation.ui.createGathering.selectPlubCategory
 
 import com.plub.domain.model.vo.common.HobbyVo
-import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.presentation.state.PageState
 

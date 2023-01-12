@@ -2,7 +2,6 @@ package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bott
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.plub.presentation.state.createGathering.CreateGatheringKakaoLocationBottomSheetPageState
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.domain.usecase.FetchKakaoLocationByKeywordUseCase
 import com.plub.presentation.base.BaseViewModel

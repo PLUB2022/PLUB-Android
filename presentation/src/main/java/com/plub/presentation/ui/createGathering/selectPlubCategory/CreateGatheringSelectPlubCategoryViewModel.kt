@@ -5,10 +5,6 @@ import com.plub.domain.model.vo.common.HobbyVo
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.usecase.GetAllHobbiesUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.state.PageState
-import com.plub.presentation.state.createGathering.CreateGatheringPeopleNumberPageState
-import com.plub.presentation.state.createGathering.CreateGatheringSelectPlubCategoryPageState
-import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow

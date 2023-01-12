@@ -1,8 +1,6 @@
 package com.plub.presentation.ui.createGathering.question
 
 import androidx.lifecycle.viewModelScope
-import com.plub.presentation.state.createGathering.CreateGatheringQuestion
-import com.plub.presentation.state.createGathering.CreateGatheringQuestionPageState
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.deepCopy
 import dagger.hilt.android.lifecycle.HiltViewModel

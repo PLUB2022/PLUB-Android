@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.presentation.state.createGathering.CreateGatheringQuestion
+import com.plub.presentation.ui.createGathering.question.CreateGatheringQuestion
 import com.plub.presentation.databinding.LayoutRecyclerCreateGatheringQuestionBinding
 import com.plub.presentation.util.afterTextChanged
 import com.plub.presentation.util.requestAndClearFocus

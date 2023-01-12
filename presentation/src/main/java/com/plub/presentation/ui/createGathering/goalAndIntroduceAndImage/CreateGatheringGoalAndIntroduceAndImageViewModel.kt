@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.text.Editable
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
-import com.plub.presentation.state.createGathering.CreateGatheringGoalAndIntroduceAndPicturePageState
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.ImageUtil
 import dagger.hilt.android.lifecycle.HiltViewModel

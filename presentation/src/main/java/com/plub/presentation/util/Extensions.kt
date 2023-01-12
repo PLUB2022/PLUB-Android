@@ -5,7 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
-import com.plub.presentation.state.createGathering.CreateGatheringQuestion
+import com.plub.presentation.ui.createGathering.question.CreateGatheringQuestion
 
 val Int.dp: Int
     get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
