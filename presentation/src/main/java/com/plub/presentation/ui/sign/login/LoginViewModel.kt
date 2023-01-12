@@ -16,7 +16,7 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.plub.domain.error.LoginError
 import com.plub.domain.model.enums.SocialLoginType
 import com.plub.domain.model.enums.TermsType
-import com.plub.domain.model.vo.jwt_token.SavePlubJwtRequestVo
+import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
 import com.plub.domain.model.vo.login.SocialLoginRequestVo
 import com.plub.domain.model.vo.login.SocialLoginResponseVo
 import com.plub.domain.usecase.PostSocialLoginUseCase

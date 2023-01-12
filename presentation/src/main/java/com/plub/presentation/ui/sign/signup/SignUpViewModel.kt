@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.error.SignUpError
 import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.enums.UploadFileType
-import com.plub.domain.model.vo.jwt_token.PlubJwtResponseVo
-import com.plub.domain.model.vo.jwt_token.SavePlubJwtRequestVo
+import com.plub.domain.model.vo.jwt.PlubJwtResponseVo
+import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.signUp.SignUpPageVo
 import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
