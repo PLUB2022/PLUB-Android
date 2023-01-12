@@ -18,6 +18,8 @@ data class KakaoLocationInfoDocument(
     val placePositionX: String,
     @SerializedName("y")
     val placePositionY: String,
+    @SerializedName("address_name")
+    val addressName: String,
     @SerializedName("road_address_name")
     val roadAddressName: String
 )
