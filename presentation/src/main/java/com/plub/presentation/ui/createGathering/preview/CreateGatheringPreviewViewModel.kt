@@ -7,4 +7,6 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateGatheringPreviewViewModel @Inject constructor() :
     BaseViewModel<CreateGatheringPreviewPageState>(CreateGatheringPreviewPageState()) {
+
+
 }
