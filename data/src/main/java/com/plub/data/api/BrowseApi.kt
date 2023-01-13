@@ -1,6 +1,6 @@
 package com.plub.data.api
 
-import com.plub.data.model.recommendationgatheringdata.RecommendationGatheringResponse
+import com.plub.data.dto.plubJwt.recommendationgatheringdata.RecommendationGatheringResponse
 import com.plub.data.model.categorylistdata.CategoryListData
 import com.plub.data.model.recruitdetail.RecruitDetailResponse
 import com.plub.data.util.ApiResponse

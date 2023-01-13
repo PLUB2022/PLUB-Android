@@ -1,4 +1,4 @@
-package com.plub.domain.model.vo.home.categoriesgatheringresponse
+package com.plub.domain.model.vo.home.categoriesgatheringvo
 
 import com.plub.domain.base.DomainModel
 

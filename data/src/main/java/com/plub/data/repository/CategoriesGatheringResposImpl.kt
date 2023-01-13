@@ -5,7 +5,7 @@ import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.categoriesgatheringrequestmapper.CategoriesGatheringRequestMapper
 import com.plub.data.mapper.recommendationgatheringmapper.RecommendationGatheringResponseMapper
 import com.plub.domain.UiState
-import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
+import com.plub.domain.model.vo.home.categoriesgatheringvo.CategoriesGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.repository.CategoriesGatheringRepository
 import kotlinx.coroutines.flow.Flow

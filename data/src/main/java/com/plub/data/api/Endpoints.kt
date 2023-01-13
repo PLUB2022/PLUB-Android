@@ -26,4 +26,13 @@ object Endpoints {
         private const val CATEGORY_URL = "/api/categories"
         const val GET_ALL_CATEGORIES = "$CATEGORY_URL/all"
     }
+
+    object PLUBBING {
+        private const val PLUBBING_URL = "/api/plubbings"
+    }
+
+    object RECRUIT {
+        private const val RECRUIT_URL = "/api/plubbings/{plubbingId}/recruit"
+        const val APPLICANTS_RECRUIT = "$RECRUIT_URL/applicants"
+    }
 }

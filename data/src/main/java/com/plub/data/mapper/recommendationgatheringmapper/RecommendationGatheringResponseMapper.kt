@@ -1,7 +1,7 @@
 package com.plub.data.mapper.recommendationgatheringmapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.model.recommendationgatheringdata.RecommendationGatheringResponse
+import com.plub.data.dto.plubJwt.recommendationgatheringdata.RecommendationGatheringResponse
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 
