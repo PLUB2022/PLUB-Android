@@ -10,6 +10,7 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.ProfileComposePageState
 import com.plub.presentation.util.ImageUtil
+import com.plub.presentation.util.PermissionManager
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
@@ -24,7 +25,7 @@ import javax.inject.Inject
 class ProfileComposeViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
     val imageUtil: ImageUtil,
-    val getNicknameCheckUseCase: GetNicknameCheckUseCase
+    val getNicknameCheckUseCase: GetNicknameCheckUseCase,
 ) : BaseViewModel<ProfileComposePageState>(ProfileComposePageState()) {
 
     private val _showSelectImageBottomSheetDialog = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
@@ -74,8 +75,10 @@ class ProfileComposeViewModel @Inject constructor(
     }
 
     fun onClickProfileImage() {
-        viewModelScope.launch {
-            _showSelectImageBottomSheetDialog.emit(Unit)
+        checkPermission {
+            viewModelScope.launch {
+                _showSelectImageBottomSheetDialog.emit(Unit)
+            }
         }
     }
 
@@ -89,6 +92,10 @@ class ProfileComposeViewModel @Inject constructor(
             DialogMenuItemType.ALBUM_IMAGE -> viewModelScope.launch { _goToAlbum.emit(Unit) }
             else -> defaultImage()
         }
+    }
+
+    private fun checkPermission(onSuccess:() -> Unit) {
+        PermissionManager.createGetImagePermission(onSuccess)
     }
 
     fun onSelectImageFromAlbum(uri:Uri) {
