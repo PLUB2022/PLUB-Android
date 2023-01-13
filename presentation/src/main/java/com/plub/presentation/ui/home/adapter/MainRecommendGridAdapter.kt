@@ -2,16 +2,13 @@ package com.plub.presentation.ui.home.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.GatheringItemVo
 import com.plub.presentation.databinding.LayoutRecyclerRecommendGatheringGridItemBinding
-import com.plub.presentation.databinding.LayoutRecyclerRecommendGatheringListItemBinding
 import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendGridViewHodler
-import com.plub.presentation.ui.home.adapter.viewholder.MainRecommentViewHolder
 
 
 class MainRecommendGridAdapter() : ListAdapter<GatheringItemVo, RecyclerView.ViewHolder>(

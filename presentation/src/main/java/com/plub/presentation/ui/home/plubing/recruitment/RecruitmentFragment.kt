@@ -2,7 +2,7 @@ package com.plub.presentation.ui.home.plubing.recruitment
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.plub.domain.model.state.SampleHomeState
+import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import dagger.hilt.android.AndroidEntryPoint

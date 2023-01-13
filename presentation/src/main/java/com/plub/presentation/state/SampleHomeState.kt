@@ -1,6 +1,5 @@
-package com.plub.domain.model.state
+package com.plub.presentation.state
 
-import com.plub.presentation.state.PageState
 
 data class SampleHomeState(
     val authCode : String =""

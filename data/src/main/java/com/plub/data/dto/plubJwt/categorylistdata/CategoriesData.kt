@@ -1,7 +1,6 @@
-package com.plub.data.model.categorylistdata
+package com.plub.data.dto.plubJwt.categorylistdata
 
 import com.plub.data.base.DataDto
-import com.plub.domain.base.DomainModel
 
 data class CategoriesData(
     val id : Int,

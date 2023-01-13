@@ -8,7 +8,6 @@ import com.plub.data.mapper.SignUpRequestMapper
 import com.plub.domain.UiState
 import com.plub.domain.error.NicknameError
 import com.plub.domain.error.SignUpError
-import com.plub.domain.error.UiError
 import com.plub.domain.model.vo.jwt_token.PlubJwtResponseVo
 import com.plub.domain.model.vo.signUp.SignUpRequestVo
 import com.plub.domain.repository.SignUpRepository

@@ -1,4 +1,4 @@
-package com.plub.data.model.categoriesgathering
+package com.plub.data.dto.plubJwt.categoriesgathering
 
 data class CategoriesGatheringRequest (
     val categoryId : Int,

@@ -2,8 +2,6 @@ package com.plub.data.dto.signUp
 
 import com.google.gson.annotations.SerializedName
 import com.plub.data.base.DataDto
-import com.plub.domain.model.enums.Gender
-import com.plub.domain.model.enums.SocialLoginType
 
 data class SignUpRequest(
     @SerializedName("signToken")

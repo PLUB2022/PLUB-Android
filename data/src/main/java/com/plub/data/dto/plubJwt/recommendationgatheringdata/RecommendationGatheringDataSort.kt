@@ -1,4 +1,4 @@
-package com.plub.data.model.recommendationgatheringdata
+package com.plub.data.dto.plubJwt.recommendationgatheringdata
 
 import com.plub.data.base.DataDto
 
