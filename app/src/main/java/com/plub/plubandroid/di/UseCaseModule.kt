@@ -110,7 +110,7 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesApprovalApplicantsRecruitUseCase(repository: ApprovalApplicantsRecruitRepository): ApprovalApplicantsRecruitUseCase {
-        return ApprovalApplicantsRecruitUseCase(repository)
+    fun providesReplyApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): ReplyApplicantsRecruitUseCase {
+        return ReplyApplicantsRecruitUseCase(repository)
     }
 }

@@ -53,5 +53,5 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providesApprovalApplicantsRepository(repositoryImpl: ApprovalApplicantsRecruitResposImpl): ApprovalApplicantsRecruitRepository
+    abstract fun providesReplyApplicantsRepository(repositoryImpl: ReplyApplicantsRecruitResposImpl): ReplyApplicantsRecruitRepository
 }
