@@ -46,4 +46,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesMediaRepository(repositoryImpl: MediaRepositoryImpl): MediaRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesApplicantsRecruitRepository(repositoryImpl: ApplicantsRecruitResposImpl): ApplicantsRecruitRepository
 }
