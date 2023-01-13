@@ -24,15 +24,15 @@ data class CreateGatheringRequest(
     @SerializedName("onOff")
     val onOff: String,
     @SerializedName("address")
-    val address: String,
+    val address: String?,
     @SerializedName("roadAddress")
-    val roadAddress: String,
+    val roadAddress: String?,
     @SerializedName("placeName")
-    val placeName: String,
+    val placeName: String?,
     @SerializedName("placePositionX")
-    val placePositionX: Float,
+    val placePositionX: Float?,
     @SerializedName("placePositionY")
-    val placePositionY: Float,
+    val placePositionY: Float?,
     @SerializedName("maxAccountNum")
     val maxAccountNum: Int,
     @SerializedName("questions")

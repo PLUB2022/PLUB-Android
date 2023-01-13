@@ -12,11 +12,11 @@ data class CreateGatheringRequestVo(
     val time: String,
     val days: List<String>,
     val onOff: String,
-    val address: String,
-    val roadAddress: String,
-    val placeName: String,
-    val placePositionX: Float,
-    val placePositionY: Float,
+    val address: String?,
+    val roadAddress: String?,
+    val placeName: String?,
+    val placePositionX: Float?,
+    val placePositionY: Float?,
     val maxAccountNum: Int,
     val questions: List<String>
 ): DomainModel()
