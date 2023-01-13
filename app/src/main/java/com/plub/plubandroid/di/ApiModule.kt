@@ -54,4 +54,10 @@ object ApiModule {
     fun provideMediaApi(@NormalRetrofit retrofit: Retrofit): MediaApi {
         return retrofit.create(MediaApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideGatheringApi(@AuthRetrofit retrofit: Retrofit): GatheringApi {
+        return retrofit.create(GatheringApi::class.java)
+    }
 }

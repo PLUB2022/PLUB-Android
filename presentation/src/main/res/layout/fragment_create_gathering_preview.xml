@@ -26,7 +26,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="40dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
-            android:onClick="@{() -> parent_vm.onMoveToNextPage(vm.uiState)}"
+            android:onClick="@{() -> parent_vm.onClickNextButtonInPreViewPage()}"
             android:text="@string/word_next"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             android:textSize="14sp"

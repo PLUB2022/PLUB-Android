@@ -95,4 +95,10 @@ object UseCaseModule {
     fun providesFetchKakaoLocationByKeywordUseCase(repository: KakaoLocationRepository) : FetchKakaoLocationByKeywordUseCase {
         return FetchKakaoLocationByKeywordUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesPostCreateGatheringUseCase(repository: GatheringRepository): PostCreateGatheringUseCase {
+        return PostCreateGatheringUseCase(repository)
+    }
 }

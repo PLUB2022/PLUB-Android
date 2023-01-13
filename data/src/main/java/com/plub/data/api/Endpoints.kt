@@ -30,4 +30,8 @@ object Endpoints {
     object KAKAO_LOCATION {
         const val KEYWORD_URL = "/v2/local/search/keyword"
     }
+
+    object GATHERING {
+        const val CREATE_GATHERING = "/api/plubbings"
+    }
 }
