@@ -18,6 +18,7 @@ import com.plub.presentation.state.LoginPageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentLoginBinding
+import com.plub.presentation.ui.home.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -74,7 +75,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
 
             launch {
                 viewModel.goToMain.collect {
-
+                    goToMainActivity()
                 }
             }
 
@@ -146,5 +147,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
         UserApiClient.instance.loginWithKakaoAccount(requireContext()) { token, error ->
             viewModel.handleKakaoSignInEmailResult(token,error)
         }
+    }
+
+    private fun goToMainActivity(){
+        val intent = Intent(context, MainActivity::class.java)
+        startActivity(intent)
     }
 }

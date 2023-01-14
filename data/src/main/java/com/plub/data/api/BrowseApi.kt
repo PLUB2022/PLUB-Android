@@ -14,20 +14,20 @@ interface BrowseApi {
     @GET("/api/plubbings/recommendation")
     suspend fun browseRecommendationGathering(
         @Query("pageNum") pageNum : Int,
-        @Header("accessToken") accessToken : String
+        @Header("Authorization") accessToken : String
     ) : Response<ApiResponse<RecommendationGatheringResponse>>
 
     @GET("/api/plubbings/categories/{categoryId}")
     suspend fun browseCategoriesGathering(
         @Path("categoryId") categoryId : Int,
         @Query("pageNum") pageNum : Int,
-        @Header("accessToken") accessToken : String
+        @Header("Authorization") accessToken : String
     ) : Response<ApiResponse<RecommendationGatheringResponse>>
 
     @GET("/api/plubbings/{plubbingId}/recruit")
     suspend fun browseRecruitDetail(
         @Path("plubbingId") plubbingId : Int,
-        @Header("accessToken") accessToken : String
+        @Header("Authorization") accessToken : String
     ) : Response<ApiResponse<RecruitDetailResponse>>
 
     @GET("/api/categories")

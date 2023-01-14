@@ -8,6 +8,7 @@ import com.plub.domain.model.vo.home.HomePostRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.successOrNull
 import com.plub.domain.usecase.BrowseUseCase
+import com.plub.domain.usecase.FetchPlubAccessTokenUseCase
 import com.plub.domain.usecase.RecommendationGatheringUsecase
 import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
@@ -21,7 +22,8 @@ import javax.inject.Inject
 class MainFragmentViewModel @Inject constructor(
     val testPostHomeUseCase: TestPostHomeUseCase,
     val browseUseCase: BrowseUseCase,
-    val recommendationGatheringUsecase: RecommendationGatheringUsecase
+    val recommendationGatheringUsecase: RecommendationGatheringUsecase,
+    val fetchPlubAccessTokenUseCase: FetchPlubAccessTokenUseCase
 ) : BaseViewModel<SampleHomeState>(SampleHomeState()) {
 
     private val _testHomeData = MutableStateFlow("")
@@ -47,7 +49,7 @@ class MainFragmentViewModel @Inject constructor(
             }
         }
 
-        recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0, "123")).collect{ state->
+        recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0, fetchPlubAccessTokenUseCase.invoke(Unit).first())).collect{ state->
             when(state){
                 is UiState.Loading -> "로딩"
                 is UiState.Success -> Log.d("뷰모델 테스트", "${state.successOrNull()?.toString()}")

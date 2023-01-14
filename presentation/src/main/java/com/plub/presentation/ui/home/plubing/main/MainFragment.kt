@@ -86,6 +86,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
         val rv_main = binding.root.findViewById<RecyclerView>(R.id.rv_main_page)
         rv_main.setLayoutManager(LinearLayoutManager(context))
         mainCategoryAdapter = MainCategoryAdapter()
+        mainCategoryAdapter.setViewModel(viewModel)
         mainRecommendMeetXAdapter = MainRecommendGatheringXAdapter()
         val mConcatAdapter = ConcatAdapter()
         mConcatAdapter.addAdapter(mainCategoryAdapter)

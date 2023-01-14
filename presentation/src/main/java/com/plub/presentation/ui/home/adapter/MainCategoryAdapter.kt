@@ -11,7 +11,7 @@ import com.plub.presentation.ui.home.plubing.main.MainFragmentViewModel
 
 
 class MainCategoryAdapter : RecyclerView.Adapter<MainCategoryAdapter.ViewHolder?>() {
-    lateinit var mainCategoryItemAdapter: MainCategoryItemAdapter
+ //   lateinit var mainCategoryItemAdapter: MainCategoryItemAdapter
     private lateinit var viewmodel: MainFragmentViewModel
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.layout_recycler_main_category, parent, false)
@@ -30,7 +30,7 @@ class MainCategoryAdapter : RecyclerView.Adapter<MainCategoryAdapter.ViewHolder?
             val rv_category_item_list = itemView.findViewById<RecyclerView>(R.id.rv_main_category)
             val gridLayoutManager = GridLayoutManager(itemView.context, 4)
             rv_category_item_list.layoutManager = gridLayoutManager
-            mainCategoryItemAdapter = MainCategoryItemAdapter(viewmodel)
+            val mainCategoryItemAdapter = MainCategoryItemAdapter(viewmodel)
             mainCategoryItemAdapter.submitList(dum_list)
             rv_category_item_list.adapter = mainCategoryItemAdapter
 
