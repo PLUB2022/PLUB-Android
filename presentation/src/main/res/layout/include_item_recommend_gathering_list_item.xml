@@ -72,8 +72,8 @@
 
         <ImageView
             android:id="@+id/image_view_ic_location"
-            android:layout_width="8dp"
-            android:layout_height="12dp"
+            android:layout_width="13dp"
+            android:layout_height="14dp"
             app:layout_constraintTop_toTopOf="@id/text_view_location"
             app:layout_constraintBottom_toBottomOf="@id/text_view_location"
             app:layout_constraintStart_toStartOf="parent"
