@@ -7,7 +7,7 @@ object CategoriesGatheringRequestMapper {
     fun mapDtoToModel(type: CategoriesGatheringRequestVo?): CategoriesGatheringRequest {
         return type?.run {
             CategoriesGatheringRequest(
-                categoryId, pageNumber, accessToken)
-        }  ?: CategoriesGatheringRequest(0, 0, "")
+                categoryId, pageNumber)
+        }  ?: CategoriesGatheringRequest(0, 0)
     }
 }

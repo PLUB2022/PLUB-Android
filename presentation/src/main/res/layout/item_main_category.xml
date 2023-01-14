@@ -4,17 +4,18 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="74dp"
+        android:layout_height="90dp">
     <ImageView
         android:id="@+id/icon_category"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/color_c4c4c4"
         android:clipToOutline="true"
+        android:background="@color/transparent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -23,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="1dp"
         android:gravity="center_horizontal|center_vertical"
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="1sp"

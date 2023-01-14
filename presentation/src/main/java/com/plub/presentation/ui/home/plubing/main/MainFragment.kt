@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
 import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
@@ -23,6 +24,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
     lateinit var mainCategoryAdapter: MainCategoryAdapter
     lateinit var mainRecommendMeetXAdapter: MainRecommendGatheringXAdapter
     lateinit var mainRecommendMeetadapter: MainRecommendGatheringAdapter
+    private lateinit var categoriesData : List<CategoriesDataResponseVo>
 
     override val viewModel: MainFragmentViewModel by viewModels()
 
@@ -39,27 +41,27 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
         super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.testHomeData.collect {
-                    if(it.equals("")){
-                        HasNotDataRecycler()
-                    }
-                    else if(it.equals("에러")){
-                        Log.d("MainFragmentTag", "에러난거임")
-                    }
-                    else if(it.equals("로딩")){
-                        Log.d("MainFragmentTag", "로딩중임")
-                    }
-                    else{
-                        HasDataRecycler()
+                viewModel.categoryData.collect{
+                    categoriesData = it.data.categories
+                }
+            }
+
+            launch {
+                viewModel.recommendationData.collect{
+                    Log.d("테스트 테그", it.plubbings.toString())
+                    when(it.plubbings.content.size){
+                        0 -> HasNotDataRecycler()
+                        else -> HasDataRecycler()
                     }
                 }
             }
 
-        }
-        repeatOnStarted(viewLifecycleOwner) {
-            viewModel.goToCategoryChoiceFragment.collect {
-                goToCategoryChoice()
+            launch {
+                viewModel.goToCategoryChoiceFragment.collect {
+                    goToCategoryChoice()
+                }
             }
+
         }
     }
 
@@ -72,7 +74,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
 
         val rv_main = binding.root.findViewById<RecyclerView>(R.id.rv_main_page)
         rv_main.setLayoutManager(LinearLayoutManager(context))
-        mainCategoryAdapter = MainCategoryAdapter()
+        mainCategoryAdapter = MainCategoryAdapter(categoriesData)
         mainCategoryAdapter.setViewModel(viewModel)
         mainRecommendMeetadapter = MainRecommendGatheringAdapter()
         val mConcatAdapter = ConcatAdapter()
@@ -85,7 +87,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
 
         val rv_main = binding.root.findViewById<RecyclerView>(R.id.rv_main_page)
         rv_main.setLayoutManager(LinearLayoutManager(context))
-        mainCategoryAdapter = MainCategoryAdapter()
+        mainCategoryAdapter = MainCategoryAdapter(categoriesData)
         mainCategoryAdapter.setViewModel(viewModel)
         mainRecommendMeetXAdapter = MainRecommendGatheringXAdapter()
         val mConcatAdapter = ConcatAdapter()
@@ -93,4 +95,5 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
         mConcatAdapter.addAdapter(mainRecommendMeetXAdapter)
         rv_main.adapter = mConcatAdapter
     }
+
 }
