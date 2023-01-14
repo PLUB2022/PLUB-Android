@@ -2,10 +2,10 @@ package com.plub.presentation.ui.home.adapter.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.GatheringItemVo
-import com.plub.presentation.databinding.LayoutRecyclerRecommendGatheringListItemBinding
+import com.plub.presentation.databinding.IncludeItemRecommendGatheringListItemBinding
 
 class MainRecommentViewHolder(
-    private val binding: LayoutRecyclerRecommendGatheringListItemBinding
+    private val binding: IncludeItemRecommendGatheringListItemBinding
 ): RecyclerView.ViewHolder(binding.root){
     fun bind(item: GatheringItemVo) {
         binding.apply {

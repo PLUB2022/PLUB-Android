@@ -2,16 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#F5F3F6"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/constraint_layout_register_interest"
         android:id="@+id/tv_recommend_meet_title"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="16dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="27dp"
         android:text="플럽이 추천하는 모임!"
@@ -24,8 +24,7 @@
     <ImageButton
         app:layout_constraintTop_toTopOf="@id/tv_recommend_meet_title"
         app:layout_constraintBottom_toBottomOf="@id/tv_recommend_meet_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="@id/constraint_layout_register_interest"
         android:src="@drawable/ic_setting"
         android:background="@color/transparent"
         android:id="@+id/btn_setting"
@@ -33,17 +32,15 @@
         android:layout_height="32dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="3dp"
         android:clipToOutline="true"
         />
 
     <TextView
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/constraint_layout_register_interest"
         app:layout_constraintTop_toBottomOf="@id/tv_recommend_meet_title"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="16dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="8dp"
         android:text="관심사 등록한 내용을 기반으로 모임을 추천해드려요!"
@@ -58,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_recommend_meet_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/group_407"
+        android:id="@+id/constraint_layout_register_interest"
         android:layout_width="327dp"
         android:layout_height="180dp"
         android:layout_alignParentLeft="true"
