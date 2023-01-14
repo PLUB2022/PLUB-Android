@@ -17,7 +17,6 @@ class RecruitDetailResposImpl @Inject constructor(private val browseApi: BrowseA
         return apiLaunch(
             browseApi.browseRecruitDetail(
                 requestDto.plubbingId,
-                requestDto.accessToken
             ), RecruitDetailResponseMapper)
     }
 }

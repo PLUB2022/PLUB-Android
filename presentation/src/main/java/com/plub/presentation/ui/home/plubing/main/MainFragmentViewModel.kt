@@ -49,7 +49,7 @@ class MainFragmentViewModel @Inject constructor(
             }
         }
 
-        recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0, fetchPlubAccessTokenUseCase.invoke(Unit).first())).collect{ state->
+        recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0)).collect{ state->
             when(state){
                 is UiState.Loading -> "로딩"
                 is UiState.Success -> Log.d("뷰모델 테스트", "${state.successOrNull()?.toString()}")

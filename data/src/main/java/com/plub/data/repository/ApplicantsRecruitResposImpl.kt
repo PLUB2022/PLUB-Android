@@ -14,6 +14,6 @@ import javax.inject.Inject
 class ApplicantsRecruitResposImpl @Inject constructor(private val recruitApi: RecruitApi) : ApplicantsRecruitRepository, BaseRepository() {
     override suspend fun applicantsRecruit(request: ApplicantsRecruitRequestVo): Flow<UiState<ApplicantsRecruitResponseVo>> {
         val requestDto = ApplicantsRecruitRequestMapper.mapModelToDto(request)
-        return apiLaunch(recruitApi.applicantsRecruit(request.plubbingId, request.accessToken,requestDto), ApplicantsRecruitResponseMapper)
+        return apiLaunch(recruitApi.applicantsRecruit(request.plubbingId ,requestDto), ApplicantsRecruitResponseMapper)
     }
 }

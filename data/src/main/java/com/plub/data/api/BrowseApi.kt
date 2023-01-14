@@ -13,21 +13,18 @@ import retrofit2.http.Query
 interface BrowseApi {
     @GET("/api/plubbings/recommendation")
     suspend fun browseRecommendationGathering(
-        @Query("pageNum") pageNum : Int,
-        @Header("Authorization") accessToken : String
+        @Query("pageNum") pageNum : Int
     ) : Response<ApiResponse<RecommendationGatheringResponse>>
 
     @GET("/api/plubbings/categories/{categoryId}")
     suspend fun browseCategoriesGathering(
         @Path("categoryId") categoryId : Int,
-        @Query("pageNum") pageNum : Int,
-        @Header("Authorization") accessToken : String
+        @Query("pageNum") pageNum : Int
     ) : Response<ApiResponse<RecommendationGatheringResponse>>
 
     @GET("/api/plubbings/{plubbingId}/recruit")
     suspend fun browseRecruitDetail(
         @Path("plubbingId") plubbingId : Int,
-        @Header("Authorization") accessToken : String
     ) : Response<ApiResponse<RecruitDetailResponse>>
 
     @GET("/api/categories")
