@@ -11,7 +11,7 @@ import com.plub.presentation.R
 class MainRecommendGatheringAdapter : RecyclerView.Adapter<MainRecommendGatheringAdapter.ViewHolder?>() {
     lateinit var mainRecommendAdapter: MainRecommendAdapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.layout_recycler_main_recommend_gathering, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.include_item_layout_main_recommend_gathering, parent, false)
         return ViewHolder(view)
     }
 
