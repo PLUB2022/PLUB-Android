@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_f5f3f6"
         tools:context=".ui.createGathering.CreateGatheringFragment">
 
         <ImageView
@@ -23,17 +24,8 @@
             android:paddingVertical="18dp"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_view_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image_view_back"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="타이틀" />
+            android:contentDescription="@string/image_descriptor_back_button" />
 
         <!-- layout_width에 고정 값을 준 이유  -->
         <!-- dotsIndicator에는 총 8개의 dots가있는데 그 중 마지막 2개의 dots는 보이면 안되기 때문  -->
@@ -53,7 +45,6 @@
             currentPage="@{vm.uiState.currentPage}"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginVertical="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

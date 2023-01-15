@@ -44,6 +44,7 @@
     <string name="word_question">질문 %d</string>
     <string name="word_add_question">질문 추가</string>
     <string name="word_introduce">소개</string>
+    <string name="word_count">%d개</string>
 
     <string name="onboarding_title_first">“ 새로운 사람과 설레는 시간 ”</string>
     <string name="onboarding_content_first">아직 불러 부끄러운 무성할 벌레는 새워 까닭입니다. 사람들의 나는 노새, 언덕 가을 거외다. 부끄러운 하나에 어머니, 잔디가 별 책상을 이제 없이 거외다.\n\n쉬이 하늘에는 내일 묻힌 까닭입니다. 마리아 아침이 써 이국 책상을 봅니다.</string>
@@ -158,4 +159,6 @@
     <string name="dialog_menu_camera_image">카메라로 촬영</string>
     <string name="dialog_menu_album_image">앨범에서 사진 업로드</string>
     <string name="dialog_menu_default_image">기본 이미지</string>
+    <string name="image_descriptor_back_button">뒤로 가기 버튼</string>
+    <string name="word_selected">선택됨</string>
 </resources>
