@@ -4,9 +4,10 @@ import android.graphics.Color
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.enums.SignUpPageType
-import com.plub.presentation.state.TermsPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentTermsBinding
+import com.plub.presentation.event.TermsEvent
+import com.plub.presentation.state.TermsPageState
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -49,8 +50,8 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.moveToNextPage.collect {
-                    parentViewModel.onMoveToNextPage(SignUpPageType.TERMS, it)
+                viewModel.eventFlow.collect {
+                    inspectEventFlow(it as TermsEvent)
                 }
             }
             launch {
@@ -73,6 +74,14 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
                     defaultFontSize = VALUE_WEB_VIEW_DEFAULT_FONT_SIZE
                     builtInZoomControls = false
                 }
+            }
+        }
+    }
+
+    private fun inspectEventFlow(event: TermsEvent) {
+        when(event) {
+            is TermsEvent.MoveToNext -> {
+                parentViewModel.onMoveToNextPage(SignUpPageType.TERMS, event.vo)
             }
         }
     }

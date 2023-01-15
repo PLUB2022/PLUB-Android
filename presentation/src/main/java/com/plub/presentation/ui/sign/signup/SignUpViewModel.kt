@@ -17,14 +17,11 @@ import com.plub.domain.usecase.PostSignUpUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.event.SignUpEvent
 import com.plub.presentation.state.SignUpPageState
 import com.plub.presentation.util.DataStoreUtil
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,15 +35,6 @@ class SignUpViewModel @Inject constructor(
 ) : BaseViewModel<SignUpPageState>(SignUpPageState()) {
 
     private var isNetworkCall = false
-
-    private val _navigationPop = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val navigationPop: SharedFlow<Unit> = _navigationPop.asSharedFlow()
-
-    private val _showSignUpErrorDialog = MutableSharedFlow<String>(0, 1, BufferOverflow.DROP_OLDEST)
-    val showSignUpErrorDialog: SharedFlow<String> = _showSignUpErrorDialog.asSharedFlow()
-
-    private val _goToWelcome = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val goToWelcome: SharedFlow<Unit> = _goToWelcome.asSharedFlow()
 
     fun onBackPressed(currentPage: Int) {
         val previousPage = currentPage - 1
@@ -162,9 +150,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun signUpErrorDialog(string: String) {
-        viewModelScope.launch {
-            _showSignUpErrorDialog.emit(string)
-        }
+        emitEventFlow(SignUpEvent.ShowSignUpErrorDialog(string))
     }
 
     private fun saveToken(request:SavePlubJwtRequestVo, onSuccess: () -> Unit) {
@@ -176,15 +162,11 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun goToWelcome() {
-        viewModelScope.launch {
-            _goToWelcome.emit(Unit)
-        }
+        emitEventFlow(SignUpEvent.GoToWelcome)
     }
 
     private fun goToNavUp() {
-        viewModelScope.launch {
-            _navigationPop.emit(Unit)
-        }
+        emitEventFlow(SignUpEvent.NavigationPopEvent)
     }
 
     private fun isFirstPage(currentPage: Int) = currentPage == 0

@@ -12,6 +12,7 @@ import com.plub.presentation.state.ProfileComposePageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentProfileComposeBinding
+import com.plub.presentation.event.ProfileComposeEvent
 import com.plub.presentation.ui.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
 import com.plub.presentation.util.IntentUtil
@@ -43,34 +44,14 @@ class ProfileComposeFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.showSelectImageBottomSheetDialog.collect {
-                    showBottomSheetDialogSelectImage()
+                viewModel.eventFlow.collect {
+                    inspectEventFlow(it as ProfileComposeEvent)
                 }
             }
 
             launch {
                 viewModel.uiState.collect {
                     nicknameIsActiveState(it.nicknameIsActive)
-                }
-            }
-
-            launch {
-                viewModel.goToAlbum.collect {
-                    val intent = IntentUtil.getSingleImageIntent()
-                    albumLauncher.launch(intent)
-                }
-            }
-
-            launch {
-                viewModel.goToCamera.collect {
-                    val intent = IntentUtil.getOpenCameraIntent(it)
-                    cameraLauncher.launch(intent)
-                }
-            }
-
-            launch {
-                viewModel.moveToNextPage.collect {
-                    parentViewModel.onMoveToNextPage(SignUpPageType.PROFILE, it)
                 }
             }
 
@@ -101,6 +82,23 @@ class ProfileComposeFragment :
         cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if(result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
             viewModel.onTakeImageFromCamera()
+        }
+    }
+
+    private fun inspectEventFlow(event: ProfileComposeEvent) {
+        when(event) {
+            is ProfileComposeEvent.GoToAlbum -> {
+                val intent = IntentUtil.getSingleImageIntent()
+                albumLauncher.launch(intent)
+            }
+            is ProfileComposeEvent.GoToCamera -> {
+                val intent = IntentUtil.getOpenCameraIntent(event.uri)
+                cameraLauncher.launch(intent)
+            }
+            is ProfileComposeEvent.MoveToNext -> {
+                parentViewModel.onMoveToNextPage(SignUpPageType.PROFILE, event.vo)
+            }
+            is ProfileComposeEvent.ShowSelectImageBottomSheetDialog -> showBottomSheetDialogSelectImage()
         }
     }
 

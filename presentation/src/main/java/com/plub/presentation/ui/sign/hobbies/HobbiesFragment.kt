@@ -6,6 +6,7 @@ import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHobbiesBinding
+import com.plub.presentation.event.HobbiesEvent
 import com.plub.presentation.state.HobbiesPageState
 import com.plub.presentation.ui.common.VerticalSpaceDecoration
 import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
@@ -65,8 +66,8 @@ class HobbiesFragment : BaseFragment<FragmentHobbiesBinding, HobbiesPageState, H
         repeatOnStarted(viewLifecycleOwner) {
 
             launch {
-                viewModel.moveToNextPage.collect {
-                    parentViewModel.onMoveToNextPage(SignUpPageType.HOBBY, it)
+                viewModel.eventFlow.collect {
+                    inspectEventFlow(it as HobbiesEvent)
                 }
             }
 
@@ -83,17 +84,19 @@ class HobbiesFragment : BaseFragment<FragmentHobbiesBinding, HobbiesPageState, H
                     listAdapter.submitList(it.hobbiesVo)
                 }
             }
+        }
+    }
 
-            launch {
-                viewModel.notifySubHobby.collect {
-                    listAdapter.notifySubItemUpdate(it)
-                }
+    private fun inspectEventFlow(event: HobbiesEvent) {
+        when(event) {
+            is HobbiesEvent.NotifyAllHobby -> {
+                listAdapter.notifyAllItemUpdate()
             }
-
-            launch {
-                viewModel.notifyAllHobby.collect {
-                    listAdapter.notifyAllItemUpdate()
-                }
+            is HobbiesEvent.NotifySubHobby -> {
+                listAdapter.notifySubItemUpdate(event.vo)
+            }
+            is HobbiesEvent.MoveToNext -> {
+                parentViewModel.onMoveToNextPage(SignUpPageType.HOBBY, event.vo)
             }
         }
     }
