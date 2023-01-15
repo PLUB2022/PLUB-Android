@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragmentViewModel>(
     FragmentMainBinding::inflate)
 {
-    lateinit var mainRecommendMeetXAdapter: MainRecommendGatheringXAdapter
     override val viewModel: MainFragmentViewModel by viewModels()
 
     private val categorylistAdapter: MainCategoryAdapter by lazy {
@@ -31,6 +30,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
 
     private val recommendationListAdapter : MainRecommendGatheringAdapter by lazy {
         MainRecommendGatheringAdapter(object : MainRecommendGatheringAdapter.Delegate {
+            //TODO 리스너 달기
+        })
+    }
+
+    private val mainRecommendMeetXAdapter : MainRecommendGatheringXAdapter by lazy {
+        MainRecommendGatheringXAdapter(object : MainRecommendGatheringXAdapter.Delegate {
             //TODO 리스너 달기
         })
     }
@@ -89,8 +94,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
     }
 
     fun HasNotDataRecycler(){
-        mainRecommendMeetXAdapter = MainRecommendGatheringXAdapter()
         val mConcatAdapter = ConcatAdapter()
+        mainRecommendMeetXAdapter.submitList(arrayListOf(0))
         mConcatAdapter.addAdapter(categorylistAdapter)
         mConcatAdapter.addAdapter(mainRecommendMeetXAdapter)
         binding.rvMainPage.apply {

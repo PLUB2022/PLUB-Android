@@ -1,100 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#F5F3F6"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="@id/constraint_layout_register_interest"
-        android:id="@+id/tv_recommend_meet_title"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="27dp"
-        android:text="플럽이 추천하는 모임!"
-        android:textSize="20dp"
-        android:letterSpacing="-0.01"
-        android:textColor="#000000"
-        android:gravity="center_vertical"
-        />
-
-    <ImageButton
-        app:layout_constraintTop_toTopOf="@id/tv_recommend_meet_title"
-        app:layout_constraintBottom_toBottomOf="@id/tv_recommend_meet_title"
-        app:layout_constraintEnd_toEndOf="@id/constraint_layout_register_interest"
-        android:src="@drawable/ic_setting"
-        android:background="@color/transparent"
-        android:id="@+id/btn_setting"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:clipToOutline="true"
-        />
-
-    <TextView
-        app:layout_constraintStart_toStartOf="@id/constraint_layout_register_interest"
-        app:layout_constraintTop_toBottomOf="@id/tv_recommend_meet_title"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="8dp"
-        android:text="관심사 등록한 내용을 기반으로 모임을 추천해드려요!"
-        android:textSize="12sp"
-        android:letterSpacing="-0.01"
-        android:textColor="#8C8C8C"
-        android:lineSpacingExtra="1sp"
-        android:gravity="center_vertical"
-        />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        app:layout_constraintTop_toBottomOf="@id/tv_recommend_meet_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/constraint_layout_register_interest"
-        android:layout_width="327dp"
-        android:layout_height="180dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="52dp"
-        android:background="#E4E4E4"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F5F3F6">
         <TextView
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/constraint_layout_register_interest"
+            android:id="@+id/tv_recommend_meet_title"
             android:layout_width="wrap_content"
-            android:layout_height="23dp"
+            android:layout_height="24dp"
             android:layout_alignParentLeft="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="50dp"
-            android:text="관심사 등록 하기"
-            android:textSize="18sp"
+            android:layout_marginTop="27dp"
+            android:text="플럽이 추천하는 모임!"
+            android:textSize="20dp"
             android:letterSpacing="-0.01"
-            android:textColor="#8C8C8C"
-            android:lineSpacingExtra="2sp"
+            android:textColor="#000000"
             android:gravity="center_vertical"
             />
 
-        <ImageView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <ImageButton
+            app:layout_constraintTop_toTopOf="@id/tv_recommend_meet_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_recommend_meet_title"
+            app:layout_constraintEnd_toEndOf="@id/constraint_layout_register_interest"
+            android:src="@drawable/ic_setting"
+            android:background="@color/transparent"
+            android:id="@+id/btn_setting"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="86.79dp"
-            android:src="@drawable/ic_plus"
-            android:background="@color/transparent"
+            android:clipToOutline="true"
             />
+
+        <TextView
+            app:layout_constraintStart_toStartOf="@id/constraint_layout_register_interest"
+            app:layout_constraintTop_toBottomOf="@id/tv_recommend_meet_title"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:text="관심사 등록한 내용을 기반으로 모임을 추천해드려요!"
+            android:textSize="12sp"
+            android:letterSpacing="-0.01"
+            android:textColor="#8C8C8C"
+            android:lineSpacingExtra="1sp"
+            android:gravity="center_vertical"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toBottomOf="@id/tv_recommend_meet_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/constraint_layout_register_interest"
+            android:layout_width="327dp"
+            android:layout_height="180dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="52dp"
+            android:background="#E4E4E4"
+            >
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="23dp"
+                android:layout_alignParentLeft="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="50dp"
+                android:text="관심사 등록 하기"
+                android:textSize="18sp"
+                android:letterSpacing="-0.01"
+                android:textColor="#8C8C8C"
+                android:lineSpacingExtra="2sp"
+                android:gravity="center_vertical"
+                />
+
+            <ImageView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="86.79dp"
+                android:src="@drawable/ic_plus"
+                android:background="@color/transparent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
