@@ -41,9 +41,7 @@
 
         <ImageView
             android:layout_width="13dp"
-            android:layout_height="12dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
+            android:layout_height="14dp"
             android:src="@drawable/ic_location"
             android:layout_marginTop="1dp"
             app:layout_constraintBottom_toBottomOf="@id/text_view_location"
