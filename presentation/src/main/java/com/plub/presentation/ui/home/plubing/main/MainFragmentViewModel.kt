@@ -1,19 +1,14 @@
 package com.plub.presentation.ui.home.plubing.main
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.home.CategoryListResponseVo
-import com.plub.presentation.state.SampleHomeState
-import com.plub.domain.model.vo.home.HomePostRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
-import com.plub.domain.successOrNull
 import com.plub.domain.usecase.BrowseUseCase
-import com.plub.domain.usecase.FetchPlubAccessTokenUseCase
 import com.plub.domain.usecase.RecommendationGatheringUsecase
-import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.MainPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
@@ -23,8 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
     val browseUseCase: BrowseUseCase,
-    val recommendationGatheringUsecase: RecommendationGatheringUsecase,
-) : BaseViewModel<SampleHomeState>(SampleHomeState()) {
+    val recommendationGatheringUsecase: RecommendationGatheringUsecase
+) : BaseViewModel<MainPageState>(MainPageState()) {
 
     private val _categoryData = MutableSharedFlow<CategoryListResponseVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val categoryData: SharedFlow<CategoryListResponseVo> = _categoryData.asSharedFlow()
@@ -37,13 +32,8 @@ class MainFragmentViewModel @Inject constructor(
 
     fun isHaveInterest()  = viewModelScope.launch {
         browseUseCase.invoke().collect { state ->
-            when(state){
-                is UiState.Loading -> "로딩"
-                is UiState.Success -> _categoryData.emit(state.data)
-                is UiState.Error -> "에러"
-            }
+            inspectUiState(state, ::handleGetCategoriesSuccess)
         }
-
 
         viewModelScope.launch {
             recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0)).collect{ state->
@@ -57,25 +47,20 @@ class MainFragmentViewModel @Inject constructor(
         }
     }
 
+    private fun handleGetCategoriesSuccess(data: CategoryListResponseVo) {
+        updateUiState { ui ->
+            ui.copy(
+                categoryVo = data
+            )
+        }
+    }
+
+
     fun goToCategoryChoice() {
         viewModelScope.launch {
             _goToCategoryChoiceFragment.emit(Unit)
         }
     }
 
-//    fun isHaveInterest()  = viewModelScope.launch {
-//        testPostHomeUseCase.invoke(HomePostRequestVo("testcode", false)).collect { state ->
-//            when(state){
-//                is UiState.Loading -> updateUiState { uiState ->
-//                    uiState.copy("로딩")
-//                }
-//                is UiState.Success -> updateUiState { uiState ->
-//                    uiState.copy("성공 + ${state.data.toString()}")
-//                }
-//                is UiState.Error -> updateUiState { uiState ->
-//                    uiState.copy("실패 + ${state.error.toString()}")
-//                }
-//            }
-//        }
 
 }

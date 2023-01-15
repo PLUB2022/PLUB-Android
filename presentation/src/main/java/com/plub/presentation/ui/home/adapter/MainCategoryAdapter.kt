@@ -1,47 +1,48 @@
 package com.plub.presentation.ui.home.adapter
 
-import com.plub.presentation.R
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
-import com.plub.presentation.ui.home.plubing.main.MainFragmentViewModel
+import com.plub.domain.model.vo.home.categorylistresponsevo.CategoryListDataResponseVo
+import com.plub.presentation.databinding.IncludeItemLayoutMainCategoryBinding
+import com.plub.presentation.ui.home.adapter.viewholder.MainCategoryParentViewHoler
+import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 
 
-class MainCategoryAdapter(val categoryDataList : List<CategoriesDataResponseVo>) : RecyclerView.Adapter<MainCategoryAdapter.ViewHolder?>() {
- //   lateinit var mainCategoryItemAdapter: MainCategoryItemAdapter
-    private lateinit var viewmodel: MainFragmentViewModel
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.include_item_layout_main_category, parent, false)
-        return ViewHolder(view)
+class MainCategoryAdapter(private val listener: Delegate) : ListAdapter<CategoryListDataResponseVo, RecyclerView.ViewHolder>(
+    MainCategoryDiffCallBack()
+){
+    private val subListenerList: MutableSet<HobbiesAdapter.SubListener> = mutableSetOf()
+
+    interface Delegate {
+          val categoryList:List<CategoriesDataResponseVo>
+//        fun onClickExpand(hobbyId: Int)
+//        fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo)
+//        fun onClickLatePick()
     }
 
-    inner class ViewHolder( itemView: View) : RecyclerView.ViewHolder(itemView) {
+    interface SubListener {
+        fun onNotifySubItemChange(parentId: Int, subId: Int)
+    }
 
-        init {
-            val rv_category_item_list = itemView.findViewById<RecyclerView>(R.id.rv_main_category)
-            val gridLayoutManager = GridLayoutManager(itemView.context, 4)
-            rv_category_item_list.layoutManager = gridLayoutManager
-            val mainCategoryItemAdapter = MainCategoryItemAdapter(viewmodel)
-            mainCategoryItemAdapter.submitList(categoryDataList)
-            rv_category_item_list.adapter = mainCategoryItemAdapter
-
-
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is MainCategoryParentViewHoler -> holder.bind(currentList[position])
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val binding = IncludeItemLayoutMainCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MainCategoryParentViewHoler(binding, listener)
     }
 
-
-    override fun getItemCount(): Int {
-        //TODO("Not yet implemented")
-        return 1
-    }
-
-    fun setViewModel(vm : MainFragmentViewModel){
-        viewmodel = vm
-    }
 }
+
+class MainCategoryDiffCallBack : DiffUtil.ItemCallback<CategoryListDataResponseVo>() {
+    override fun areItemsTheSame(oldItem:CategoryListDataResponseVo, newItem: CategoryListDataResponseVo): Boolean = oldItem == newItem
+    override fun areContentsTheSame(oldItem: CategoryListDataResponseVo, newItem: CategoryListDataResponseVo): Boolean = oldItem == newItem
+}
+
