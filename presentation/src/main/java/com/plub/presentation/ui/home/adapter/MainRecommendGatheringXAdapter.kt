@@ -20,7 +20,7 @@ class MainRecommendGatheringXAdapter : RecyclerView.Adapter<MainRecommendGatheri
 
 
         init {
-            addSection = itemView.findViewById(R.id.group_407)
+            addSection = itemView.findViewById(R.id.constraint_layout_register_interest)
 
             addSection.setOnClickListener {
                 Log.d("TAG", "관심사 추가 클릭")
