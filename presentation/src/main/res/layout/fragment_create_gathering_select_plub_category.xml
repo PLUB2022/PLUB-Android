@@ -76,6 +76,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/image_descriptor_shadow"
             android:scaleType="centerCrop"
             android:src="@drawable/dim_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
