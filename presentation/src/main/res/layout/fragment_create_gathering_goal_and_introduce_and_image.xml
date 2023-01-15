@@ -17,104 +17,165 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_f5f3f6"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
         tools:context=".ui.createGathering.goalAndIntroduceAndImage.GoalAndIntroduceAndPictureFragment">
 
-        <TextView
-            android:id="@+id/text_view_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_gathering_goal_and_introduce_and_picture_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_view_title_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_gathering_goal_and_introduce_and_picture_description"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
-        <TextView
-            android:id="@+id/text_view_gathering_goal_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/create_gathering_goal_and_introduce_and_picture_gathering_goal_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_title_description" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edit_text_goal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:afterTextChanged="@{(text) -> vm.updateGatheringGoal(text)}"
-            android:hint="@string/create_gathering_title_and_name_introduction_title_hint"
-            android:text="@{vm.uiState.gatheringGoal}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_gathering_goal_title" />
+                <TextView
+                    android:id="@+id/text_view_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_gathering_goal_and_introduce_and_picture_title"
+                    android:textColor="@color/color_363636"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_view_introduction_title_length"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{@string/int_to_string(vm.uiState.gatheringGoal.length())}"
-            app:layout_constraintEnd_toEndOf="@id/edit_text_goal"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_goal"
-            tools:text="0" />
+                <TextView
+                    android:id="@+id/text_view_title_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_gathering_goal_and_introduce_and_picture_description"
+                    android:textColor="@color/color_8c8c8c"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_title" />
 
-        <TextView
-            android:id="@+id/text_view_gathering_name_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/create_gathering_goal_and_introduce_and_picture_gathering_introduce_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_goal" />
+                <TextView
+                    android:id="@+id/text_view_gathering_goal_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/create_gathering_goal_and_introduce_and_picture_gathering_goal_title"
+                    android:textColor="@color/color_363636"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_title_description" />
 
-        <EditText
-            android:id="@+id/edit_text_gathering_introduce"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:afterTextChanged="@{(text) -> vm.updateGatheringIntroduce(text)}"
-            android:hint="@string/create_gathering_goal_and_introduce_and_picture_gathering_introduce_hint"
-            android:text="@{vm.uiState.gatheringIntroduce}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_gathering_name_title" />
+                <EditText
+                    android:id="@+id/edit_text_goal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:afterTextChanged="@{(text) -> vm.updateGatheringGoal(text)}"
+                    android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                    android:hint="@string/create_gathering_title_and_name_introduction_title_hint"
+                    android:inputType="textMultiLine"
+                    android:maxLength="300"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="11dp"
+                    android:text="@{vm.uiState.gatheringGoal}"
+                    android:textColorHint="@color/color_c4c4c4"
+                    android:textCursorDrawable="@null"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_gathering_goal_title" />
 
-        <TextView
-            android:id="@+id/text_view_gathering_name_length"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{@string/int_to_string(vm.uiState.gatheringIntroduce.length())}"
-            app:layout_constraintEnd_toEndOf="@id/edit_text_gathering_introduce"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_gathering_introduce"
-            tools:text="0" />
+                <TextView
+                    android:id="@+id/text_view_goal_length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/int_to_string(vm.uiState.gatheringGoal.length())}"
+                    android:textColor="@{vm.uiState.gatheringGoal.length() == 0 ? @color/color_c4c4c4 : @color/color_363636}"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toStartOf="@id/text_view_goal_length_max"
+                    app:layout_constraintTop_toBottomOf="@id/edit_text_goal"
+                    tools:text="30" />
 
-        <TextView
-            android:id="@+id/text_view_gathering_picture_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/create_gathering_goal_and_introduce_and_picture_gathering_picture_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_gathering_introduce" />
+                <TextView
+                    android:id="@+id/text_view_goal_length_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/word_slash_300"
+                    android:textColor="@color/color_8c8c8c"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_view_goal_length" />
 
-        <com.plub.presentation.ui.custom.AddSingleImageView
-            android:id="@+id/add_single_image_view_gathering_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.onClickAddSingleImageButton()}"
-            app:gatheringImage="@{vm.uiState.gatheringImage}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_gathering_picture_title" />
+                <TextView
+                    android:id="@+id/text_view_gathering_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/create_gathering_goal_and_introduce_and_picture_gathering_introduce_title"
+                    android:textColor="@color/color_363636"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_text_goal" />
+
+                <EditText
+                    android:id="@+id/edit_text_gathering_introduce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:afterTextChanged="@{(text) -> vm.updateGatheringIntroduce(text)}"
+                    android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                    android:hint="@string/create_gathering_goal_and_introduce_and_picture_gathering_introduce_hint"
+                    android:inputType="textMultiLine"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="11dp"
+                    android:text="@{vm.uiState.gatheringIntroduce}"
+                    android:textColorHint="@color/color_c4c4c4"
+                    android:textCursorDrawable="@null"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_gathering_name_title" />
+
+                <TextView
+                    android:id="@+id/text_view_gathering_picture_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/create_gathering_goal_and_introduce_and_picture_gathering_picture_title"
+                    android:textColor="@color/color_363636"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_text_gathering_introduce" />
+
+                <com.plub.presentation.ui.custom.AddSingleImageView
+                    android:id="@+id/add_single_image_view_gathering_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:onClick="@{() -> vm.onClickAddSingleImageButton()}"
+                    app:gatheringImage="@{vm.uiState.gatheringImage}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_gathering_picture_title"
+                    tools:background="@color/color_5f5ff9"
+                    tools:layout_height="100dp"
+                    tools:layout_width="match_parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:layout_constraintTop_toBottomOf="@id/add_single_image_view_gathering_picture" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
 
         <Button
             android:id="@+id/button_next"
             android:layout_width="0dp"
             android:layout_height="44dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="26dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
             android:enabled="@{vm.uiState.isNextButtonEnabled}"
             android:onClick="@{() -> parent_vm.onMoveToNextPage(vm.uiState)}"
@@ -127,4 +188,5 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

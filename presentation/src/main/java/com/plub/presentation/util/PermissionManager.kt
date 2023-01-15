@@ -20,7 +20,6 @@ object PermissionManager {
     }
 
     fun createGetImagePermission(doWhenPermissionGranted : () -> Unit) {
-        PlubLogger.logD("권한 요청")
         val permissionListener = setPermissionListener { doWhenPermissionGranted() }
 
         TedPermission.create()
