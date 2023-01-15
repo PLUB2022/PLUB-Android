@@ -1,10 +1,10 @@
 package com.plub.presentation.ui.home.plubing.main
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.UiState
 import com.plub.domain.model.vo.home.CategoryListResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
+import com.plub.domain.successOrNull
 import com.plub.domain.usecase.BrowseUseCase
 import com.plub.domain.usecase.RecommendationGatheringUsecase
 import com.plub.presentation.base.BaseViewModel
@@ -30,19 +30,14 @@ class MainFragmentViewModel @Inject constructor(
     private val _goToCategoryChoiceFragment = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val goToCategoryChoiceFragment: SharedFlow<Unit> = _goToCategoryChoiceFragment.asSharedFlow()
 
-    fun isHaveInterest()  = viewModelScope.launch {
+    fun initMainPage()  = viewModelScope.launch {
         browseUseCase.invoke().collect { state ->
             inspectUiState(state, ::handleGetCategoriesSuccess)
         }
 
         viewModelScope.launch {
             recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0)).collect{ state->
-                when(state){
-                    is UiState.Loading -> "로딩"
-                    is UiState.Success -> _recommendationData.emit(state.data)
-                    is UiState.Error -> "에러"
-                }
-
+                state.successOrNull()?.let { _recommendationData.emit(it) }
             }
         }
     }
@@ -54,6 +49,7 @@ class MainFragmentViewModel @Inject constructor(
             )
         }
     }
+
 
 
     fun goToCategoryChoice() {

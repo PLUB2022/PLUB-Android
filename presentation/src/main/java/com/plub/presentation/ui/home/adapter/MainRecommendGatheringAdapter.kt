@@ -1,46 +1,49 @@
 package com.plub.presentation.ui.home.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.GatheringItemVo
-import com.plub.presentation.R
+import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
+import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
+import com.plub.presentation.databinding.IncludeItemLayoutMainRecommendGatheringBinding
+import com.plub.presentation.databinding.IncludeItemRecommendGatheringListItemBinding
+import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendViewHolder
+import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 
-class MainRecommendGatheringAdapter : RecyclerView.Adapter<MainRecommendGatheringAdapter.ViewHolder?>() {
-    lateinit var mainRecommendAdapter: MainRecommendAdapter
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.include_item_layout_main_recommend_gathering, parent, false)
-        return ViewHolder(view)
+
+class MainRecommendGatheringAdapter(private val listener: Delegate) : ListAdapter<RecommendationGatheringDataResponseVo, RecyclerView.ViewHolder>(
+    MainRecommendGatheringDiffCallBack()
+){
+    private val subListenerList: MutableSet<HobbiesAdapter.SubListener> = mutableSetOf()
+
+    interface Delegate {
+//        val categoryList:List<CategoriesDataResponseVo>
+//        fun onClickExpand(hobbyId: Int)
+//        fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo)
+//        fun onClickLatePick()
     }
 
-    inner class ViewHolder( itemView: View) : RecyclerView.ViewHolder(itemView) {
- //       val addSection : ConstraintLayout
+    interface SubListener {
+        fun onNotifySubItemChange(parentId: Int, subId: Int)
+    }
 
-
-        init {
-            val titlelist = listOf("1번타이들", "2번타이틀", "3번타이틀", "4번타이틀", "5번타이틀")
-            val introlist = listOf("1번소개내용","2번소개내용", "3번소개내용", "4번소개내용", "5번소개내용")
-            val dum_list = mutableListOf<GatheringItemVo>()
-            for(i in 0..titlelist.size - 1){
-                dum_list.add(GatheringItemVo("", titlelist[i], introlist[i]))
-            }
-            val rv_main_list = itemView.findViewById<RecyclerView>(R.id.recycler_recommend_meet_list)
-            rv_main_list.setLayoutManager(LinearLayoutManager(itemView.context))
-            mainRecommendAdapter = MainRecommendAdapter()
-            mainRecommendAdapter.submitList(dum_list)
-            rv_main_list.adapter = mainRecommendAdapter
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is MainRecommendViewHolder -> holder.bind(currentList[position])
         }
-
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val binding = IncludeItemLayoutMainRecommendGatheringBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MainRecommendViewHolder(binding, listener)
     }
 
+}
 
-    override fun getItemCount(): Int {
-        //TODO("Not yet implemented")
-        return 1
-    }
+class MainRecommendGatheringDiffCallBack : DiffUtil.ItemCallback<RecommendationGatheringDataResponseVo>() {
+    override fun areItemsTheSame(oldItem: RecommendationGatheringDataResponseVo, newItem: RecommendationGatheringDataResponseVo): Boolean = oldItem == newItem
+    override fun areContentsTheSame(oldItem: RecommendationGatheringDataResponseVo, newItem: RecommendationGatheringDataResponseVo): Boolean = oldItem == newItem
 }
