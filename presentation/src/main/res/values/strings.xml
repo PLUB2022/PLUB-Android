@@ -17,15 +17,23 @@
     </string>
     <string name="word_skip_uppercase">SKIP</string>
     <string name="word_next">다음</string>
+    <string name="word_gender">성별</string>
+    <string name="word_man">남성</string>
+    <string name="word_woman">여성</string>
+    <string name="word_birth">생년월일</string>
+    <string name="word_birth_year">%s년</string>
+    <string name="word_birth_month">%s월</string>
+    <string name="word_birth_day">%s일</string>
     <string name="word_terms_service">서비스 약관</string>
     <string name="word_terms_privacy">개인정보 처리방침</string>
+    <string name="word_introduce">소개</string>
 
-    <string name="onboarding_title_first">“ 새로운 사람과 설레는 시간 ”</string>
-    <string name="onboarding_content_first">아직 불러 부끄러운 무성할 벌레는 새워 까닭입니다. 사람들의 나는 노새, 언덕 가을 거외다. 부끄러운 하나에 어머니, 잔디가 별 책상을 이제 없이 거외다.\n\n쉬이 하늘에는 내일 묻힌 까닭입니다. 마리아 아침이 써 이국 책상을 봅니다.</string>
-    <string name="onboarding_title_second">“ 나도 좋아해 ”</string>
-    <string name="onboarding_content_second">두번째 내용</string>
-    <string name="onboarding_title_third">“ 해치지 않아요! ”</string>
-    <string name="onboarding_content_third">세번째 내용</string>
+    <string name="onboarding_title_first">취향을 함께</string>
+    <string name="onboarding_content_first">좋아하는 것들을\n함께 나눌 사람들을 찾아보아요</string>
+    <string name="onboarding_title_second">성장을 함께</string>
+    <string name="onboarding_content_second">같은 목표를 가진 사람들과 꾸준하고\n깊이 있는 소통을 하며 발전할 수 있어요</string>
+    <string name="onboarding_title_third">친구와 함께</string>
+    <string name="onboarding_content_third">주변 친구들과 모임을 만들어\n편하게 관리하고 즐거운 추억을 쌓을 수 있어요</string>
 
     <string name="login_plub_description">our play club,</string>
     <string name="login_plub_name">PLUB!</string>
@@ -40,5 +48,37 @@
     <string name="sign_up_terms_location_title">위치 기반 서비스 이용 약관 (필수)</string>
     <string name="sign_up_terms_age_title">만 14세 이상 확인 (필수)</string>
     <string name="sign_up_terms_collect_title">개인정보 수집 이용 동의 (필수)</string>
-    <string name="sign_up_terms_marketing_title">마케팅 활용 동의 (선택)</string>\
+    <string name="sign_up_terms_marketing_title">마케팅 활용 동의 (선택)</string>
+
+    <string name="sign_up_personal_info_title">먼저, 성별과 태어난 날을 알려주세요.</string>
+    <string name="sign_up_personal_info_description">서비스의 원활한 이용을 위하여 정확한 정보를 입력해주세요!</string>
+    <string name="sign_up_personal_info_birth_hint">생일을 입력해 주세요.</string>
+
+    <string name="sign_up_profile_compose_title">프로필을 만들어 볼까요?</string>
+    <string name="sign_up_profile_compose_description">멋진 사진을 등록하고 나만의 닉네임을 만들어 주세요!\n닉네임 변경은 1회 가능해요!</string>
+    <string name="sign_up_profile_compose_profile_image">프로필 사진</string>
+    <string name="sign_up_profile_compose_nickname">닉네임</string>
+    <string name="sign_up_profile_compose_nickname_hint">한글, 영문, 숫자 포함 8글자로 입력가능해요.</string>
+    <string name="sign_up_profile_compose_nickname_available_description">사용가능한 닉네임이에요.</string>
+    <string name="sign_up_profile_compose_nickname_empty_description">닉네임 변경은 한번만 가능해요</string>
+    <string name="sign_up_profile_compose_nickname_special_character_description">특수문자는 사용할 수 없어요.</string>
+    <string name="sign_up_profile_compose_nickname_duplicated_description">이미 사용중인 닉네임이에요.</string>
+    <string name="sign_up_profile_compose_nickname_blank_description">띄어쓰기를 할 수 없어요.</string>
+
+    <string name="sign_up_more_info_title">%s님을 조금 더 알고싶어요!</string>
+    <string name="sign_up_more_info_description">자신을 소개하는 내용을 적어주세요. 취미, 관심사, 가치관, 종사하는 분야, 뭐든 좋아요.</string>
+    <string name="sign_up_more_info_introduce_hint">소개하는 내용을 입력해주세요</string>
+    <string name="sign_up_more_info_introduce_count">%s/150</string>
+
+    <string name="sign_up_hobbies_title">마지막으로,\n관심 있는 분야를 모두 선택해주세요.</string>
+    <string name="sign_up_hobbies_description">%s님이 흥미로워 할 만한 모임을 추천해 드릴게요.</string>
+    <string name="sign_up_hobbies_late_pick">아직 잘 모르겠어요, 나중에 고를게요</string>
+
+    <string name="sign_up_welcome_title">“ 환영합니다! ”</string>
+    <string name="sign_up_welcome_description">%s님이 흥미로워 할 만한 모임을 추천해 드릴게요.</string>
+    <string name="sign_up_welcome_start_button">Plub 시작!</string>
+
+    <string name="dialog_menu_camera_image">카메라로 촬영</string>
+    <string name="dialog_menu_album_image">앨범에서 사진 업로드</string>
+    <string name="dialog_menu_default_image">기본 이미지</string>
 </resources>

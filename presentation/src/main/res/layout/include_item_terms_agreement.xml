@@ -10,7 +10,7 @@
 
         <variable
             name="vo"
-            type="com.plub.domain.model.vo.terms.TermsAgreementItemVo" />
+            type="com.plub.domain.model.vo.signUp.terms.TermsAgreementItemVo" />
 
         <variable
             name="vm"
@@ -19,8 +19,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout_top"

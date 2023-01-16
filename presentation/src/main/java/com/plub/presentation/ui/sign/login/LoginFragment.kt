@@ -3,7 +3,6 @@ package com.plub.presentation.ui.sign.login
 import android.content.Intent
 import android.graphics.Color
 import android.text.method.LinkMovementMethod
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -13,16 +12,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
-import com.plub.domain.model.state.LoginPageState
+import com.kakao.sdk.user.UserApiClient
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentLoginBinding
-import com.plub.presentation.ui.sign.onboarding.OnboardingFragmentDirections
+import com.plub.presentation.event.LoginEvent
+import com.plub.presentation.state.LoginPageState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment<FragmentLoginBinding,LoginPageState, LoginViewModel>(
+class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginViewModel>(
     FragmentLoginBinding::inflate
 ) {
 
@@ -44,25 +44,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding,LoginPageState, LoginVie
             }
 
             textViewSignUp.setOnClickListener {
-                //TODO 테스트 이후 뷰 xml과 같이 지워야함
-                goToSignUp()
+                val action = LoginFragmentDirections.actionLoginToSignUp()
+                findNavController().navigate(action)
             }
         }
     }
 
-    override fun initState() {
-        super.initState()
+    override fun initStates() {
+        super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.signInGoogle.collect {
-                    signInGoogle()
-                }
-            }
-
-            launch {
-                viewModel.signInKakao.collect {
-                    signInKakao()
+                viewModel.eventFlow.collect {
+                    inspectEventFlow(it as LoginEvent)
                 }
             }
         }
@@ -104,11 +98,36 @@ class LoginFragment : BaseFragment<FragmentLoginBinding,LoginPageState, LoginVie
     }
 
     private fun signInKakao() {
-
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
+            signInKakaoApp()
+        } else {
+            signInKakaoEmail()
+        }
     }
 
-    private fun goToSignUp() {
-        val action = LoginFragmentDirections.actionLoginToSignUp()
-        findNavController().navigate(action)
+    private fun signInKakaoApp() {
+        UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
+            viewModel.handleKakaoSignInAppResult(token,error)
+        }
+    }
+
+    private fun signInKakaoEmail() {
+        UserApiClient.instance.loginWithKakaoAccount(requireContext()) { token, error ->
+            viewModel.handleKakaoSignInEmailResult(token,error)
+        }
+    }
+
+    private fun inspectEventFlow(event: LoginEvent) {
+        when(event) {
+            is LoginEvent.GoToMain -> {}
+            is LoginEvent.GoToSignUp -> {
+                val action = LoginFragmentDirections.actionLoginToSignUp()
+                findNavController().navigate(action)
+            }
+            is LoginEvent.GoToTerms -> {}
+            is LoginEvent.SignInGoogle -> signInGoogle()
+            is LoginEvent.SignInKakao -> signInKakao()
+            is LoginEvent.SignInKakaoEmail -> signInKakaoEmail()
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
+import java.io.File
 
 object GlideUtil {
     fun loadImage(context: Context,url: String,view: ImageView) {
@@ -19,6 +20,10 @@ object GlideUtil {
         load(context, url, view,listener = listener)
     }
 
+    fun loadImage(context: Context, file: File, view: ImageView) {
+        load(context, file, view)
+    }
+
     private fun load(
         context: Context,
         url: String,
@@ -27,6 +32,21 @@ object GlideUtil {
         listener: RequestListener<Drawable>? = null
     ) {
         Glide.with(context).load(url).listener(listener).apply {
+            placeHolder?.let {
+                error(it).placeholder(it)
+            }
+            into(view)
+        }
+    }
+
+    private fun load(
+        context: Context,
+        file: File,
+        view: ImageView,
+        placeHolder: Int? = null,
+        listener: RequestListener<Drawable>? = null
+    ) {
+        Glide.with(context).load(file).listener(listener).apply {
             placeHolder?.let {
                 error(it).placeholder(it)
             }

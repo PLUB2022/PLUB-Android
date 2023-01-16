@@ -4,5 +4,7 @@ import com.plub.domain.base.DomainModel
 import com.plub.domain.model.enums.SocialLoginType
 
 data class SocialLoginResponseVo(
-    val authCode:String = "",
+    val signToken:String = "",
+    val accessToken:String = "",
+    val refreshToken:String = ""
 ): DomainModel()

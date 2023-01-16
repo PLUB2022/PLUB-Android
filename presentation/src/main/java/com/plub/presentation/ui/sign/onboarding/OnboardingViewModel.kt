@@ -1,15 +1,12 @@
 package com.plub.presentation.ui.sign.onboarding
 
-import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.state.OnboardingPageState
 import com.plub.domain.model.vo.onboarding.OnboardingItemVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.event.OnboardingEvent
+import com.plub.presentation.state.OnboardingPageState
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,14 +14,12 @@ class OnboardingViewModel @Inject constructor(
     private val resourceProvider: ResourceProvider,
 ) : BaseViewModel<OnboardingPageState>(OnboardingPageState()) {
 
-    companion object {
-        private const val DEFAULT_PAGE = 0
-    }
-
-    private var currentPage = DEFAULT_PAGE
     private var maxPage:Int? = null
-    private val _goToLoginFragment = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val goToLoginFragment: SharedFlow<Unit> = _goToLoginFragment.asSharedFlow()
+
+    fun onBackPressed(currentPage: Int) {
+        val previousPage = currentPage - 1
+        if (isFirstPage(currentPage)) goToNavUp() else moveToPage(previousPage)
+    }
 
     fun fetchOnboardingData() {
         val onboardingList = generateOnboardingItemVoList()
@@ -40,20 +35,13 @@ class OnboardingViewModel @Inject constructor(
 
     fun onClickNext() {
         maxPage?.let {
-            if(currentPage == it) goToLogin() else moveToNextPage()
+            var currentPage = uiState.value.currentPage
+            if(currentPage == it) goToLogin() else moveToPage(++currentPage)
         }
     }
 
     private fun goToLogin() {
-        viewModelScope.launch {
-            _goToLoginFragment.emit(Unit)
-        }
-    }
-
-    private fun moveToNextPage() {
-        updateUiState { uiState ->
-            uiState.copy(currentPage = ++currentPage)
-        }
+        emitEventFlow(OnboardingEvent.GoToLoginFragment)
     }
 
     private fun generateOnboardingItemVoList(): List<OnboardingItemVo> {
@@ -78,5 +66,17 @@ class OnboardingViewModel @Inject constructor(
 
     private fun getStringResource(res: Int): String {
         return resourceProvider.getString(res)
+    }
+
+    private fun isFirstPage(currentPage: Int) = currentPage == 0
+
+    private fun goToNavUp() {
+        emitEventFlow(OnboardingEvent.NavigationPopEvent)
+    }
+
+    private fun moveToPage(page: Int) {
+        updateUiState { uiState ->
+            uiState.copy(currentPage = page)
+        }
     }
 }

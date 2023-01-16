@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName
 import com.plub.data.base.DataDto
 
 data class SocialLoginResponse(
-    @SerializedName("authCode")
-    val authCode:String = "",
+    @SerializedName("signToken")
+    val signToken:String = "",
+    @SerializedName("accessToken")
+    val accessToken:String = "",
+    @SerializedName("refreshToken")
+    val refreshToken:String = "",
 ):DataDto
