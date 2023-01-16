@@ -19,295 +19,308 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_f5f3f6"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
         tools:context=".ui.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndOnOfflineAndLocationFragment">
 
-        <TextView
-            android:id="@+id/text_view_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_gathering_day_and_on_offline_and_location_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_view_title_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_gathering_day_and_on_offline_and_location_description"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_title" />
-
-        <TextView
-            android:id="@+id/text_view_gathering_day_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_day_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_title_description" />
-
-        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_mon"
-            day="@{DaysType.MON.value}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.onClickCheckBox(DaysType.MON.value)}"
-            app:checkedTextColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/check_box_tue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_gathering_day_title"
-            app:paddingHorizontal="24"
-            app:paddingVertical="10"
-            app:text="@string/word_monday"
-            app:textWidth="40"
-            app:uncheckedTextColor="@color/color_363636"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
-
-        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_tue"
-            day="@{DaysType.TUE.value}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.onClickCheckBox(DaysType.TUE.value)}"
-            app:checkedTextColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/check_box_wed"
-            app:layout_constraintStart_toEndOf="@id/check_box_mon"
-            app:layout_constraintTop_toTopOf="@id/check_box_mon"
-            app:paddingHorizontal="24"
-            app:paddingVertical="10"
-            app:text="@string/word_tuesday"
-            app:textWidth="40"
-            app:uncheckedTextColor="@color/color_363636"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
-
-        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_wed"
-            day="@{DaysType.WED.value}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.onClickCheckBox(DaysType.WED.value)}"
-            app:checkedTextColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/check_box_thr"
-            app:layout_constraintStart_toEndOf="@id/check_box_tue"
-            app:layout_constraintTop_toTopOf="@id/check_box_tue"
-            app:paddingHorizontal="24"
-            app:paddingVertical="10"
-            app:text="@string/word_wednesday"
-            app:textWidth="40"
-            app:uncheckedTextColor="@color/color_363636"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
-
-        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_thr"
-            day="@{DaysType.THR.value}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.onClickCheckBox(DaysType.THR.value)}"
-            app:checkedTextColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/check_box_wed"
-            app:layout_constraintTop_toTopOf="@id/check_box_wed"
-            app:paddingHorizontal="24"
-            app:paddingVertical="10"
-            app:text="@string/word_thursday"
-            app:textWidth="40"
-            app:uncheckedTextColor="@color/color_363636"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
-
-        <!-- -->
-
-        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_fri"
-            day="@{DaysType.FRI.value}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.onClickCheckBox(DaysType.FRI.value)}"
-            app:checkedTextColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/check_box_tue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/check_box_mon"
-            app:paddingHorizontal="24"
-            app:paddingVertical="10"
-            app:text="@string/word_friday"
-            app:textWidth="40"
-            app:uncheckedTextColor="@color/color_363636"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
-
-        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_sat"
-            day="@{DaysType.SAT.value}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.onClickCheckBox(DaysType.SAT.value)}"
-            app:checkedTextColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/check_box_wed"
-            app:layout_constraintStart_toEndOf="@id/check_box_fri"
-            app:layout_constraintTop_toTopOf="@id/check_box_fri"
-            app:paddingHorizontal="24"
-            app:paddingVertical="10"
-            app:text="@string/word_saturday"
-            app:textWidth="40"
-            app:uncheckedTextColor="@color/color_363636"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
-
-        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_sun"
-            day="@{DaysType.SUN.value}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.onClickCheckBox(DaysType.SUN.value)}"
-            app:checkedTextColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/check_box_thr"
-            app:layout_constraintStart_toEndOf="@id/check_box_sat"
-            app:layout_constraintTop_toTopOf="@id/check_box_sat"
-            app:paddingHorizontal="24"
-            app:paddingVertical="10"
-            app:text="@string/word_sunday"
-            app:textWidth="40"
-            app:uncheckedTextColor="@color/color_363636"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
-
-        <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_all"
-            day="@{DaysType.ALL.value}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.onClickAllCheckBox()}"
-            app:checkedTextColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/check_box_sun"
-            app:layout_constraintTop_toTopOf="@id/check_box_sun"
-            app:paddingHorizontal="24"
-            app:paddingVertical="10"
-            app:text="@string/word_all_day"
-            app:textWidth="60"
-            app:uncheckedTextColor="@color/color_363636"
-            tools:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
-
-        <TextView
-            android:id="@+id/text_view_time_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_time_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/check_box_all" />
-
-        <com.plub.presentation.ui.custom.IconTextViewMedium
-            android:id="@+id/icon_text_view_medium_time"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.onClickTimeTextView()}"
-            app:iconTextViewMediumIcon="@drawable/ic_clock_inactive"
-            app:iconTextViewMediumTextTime="@{vm.uiState.gatheringFormattedTime}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_time_title"
-            tools:background="@color/black"
-            tools:layout_height="50dp" />
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@id/button_next"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/text_view_on_offline_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_on_offline_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon_text_view_medium_time" />
-
-        <RadioGroup
-            android:id="@+id/radio_group_on_offline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_on_offline_title">
-
-            <RadioButton
-                android:id="@+id/radio_button_online"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
-                android:layout_weight="1"
-                android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
-                android:button="@null"
-                android:gravity="center"
-                android:onClick="@{() -> vm.onClickOnlineButton()}"
-                android:text="@string/word_online"
-                android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
+                android:paddingBottom="46dp">
 
-            <RadioButton
-                android:id="@+id/radio_button_offline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_weight="1"
-                android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
-                android:button="@null"
-                android:gravity="center"
-                android:onClick="@{() -> vm.onClickOfflineButton()}"
-                android:text="@string/word_offline"
-                android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
+                <TextView
+                    android:id="@+id/text_view_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_gathering_day_and_on_offline_and_location_title"
+                    android:textColor="@color/color_363636"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </RadioGroup>
+                <TextView
+                    android:id="@+id/text_view_title_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_gathering_day_and_on_offline_and_location_description"
+                    android:textColor="@color/color_8c8c8c"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_title" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint_layout_gathering_location"
+                <TextView
+                    android:id="@+id/text_view_gathering_day_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_day_title"
+                    android:textColor="@color/color_363636"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_title_description" />
+
+                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_mon"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.MON.value}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:onClick="@{() -> vm.onClickCheckBox(DaysType.MON.value)}"
+                    app:layout_constraintEnd_toStartOf="@id/check_box_tue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_gathering_day_title"
+                    app:text="@string/word_monday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
+
+                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_tue"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.TUE.value}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginEnd="12dp"
+                    android:onClick="@{() -> vm.onClickCheckBox(DaysType.TUE.value)}"
+                    app:layout_constraintEnd_toStartOf="@id/check_box_wed"
+                    app:layout_constraintStart_toEndOf="@id/check_box_mon"
+                    app:layout_constraintTop_toTopOf="@id/check_box_mon"
+                    app:text="@string/word_tuesday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
+
+                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_wed"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.WED.value}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginEnd="12dp"
+                    android:onClick="@{() -> vm.onClickCheckBox(DaysType.WED.value)}"
+                    app:layout_constraintEnd_toStartOf="@id/check_box_thr"
+                    app:layout_constraintStart_toEndOf="@id/check_box_tue"
+                    app:layout_constraintTop_toTopOf="@id/check_box_tue"
+                    app:text="@string/word_wednesday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
+
+                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_thr"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.THR.value}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:onClick="@{() -> vm.onClickCheckBox(DaysType.THR.value)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/check_box_wed"
+                    app:layout_constraintTop_toTopOf="@id/check_box_wed"
+                    app:text="@string/word_thursday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
+
+                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_fri"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.FRI.value}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:onClick="@{() -> vm.onClickCheckBox(DaysType.FRI.value)}"
+                    app:layout_constraintEnd_toStartOf="@id/check_box_sat"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/check_box_mon"
+                    app:text="@string/word_friday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
+
+                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_sat"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.SAT.value}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginEnd="12dp"
+                    android:onClick="@{() -> vm.onClickCheckBox(DaysType.SAT.value)}"
+                    app:layout_constraintEnd_toStartOf="@id/check_box_sun"
+                    app:layout_constraintStart_toEndOf="@id/check_box_fri"
+                    app:layout_constraintTop_toTopOf="@id/check_box_fri"
+                    app:text="@string/word_saturday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
+
+                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_sun"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.SUN.value}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginEnd="12dp"
+                    android:onClick="@{() -> vm.onClickCheckBox(DaysType.SUN.value)}"
+                    app:layout_constraintEnd_toStartOf="@id/check_box_all"
+                    app:layout_constraintStart_toEndOf="@id/check_box_sat"
+                    app:layout_constraintTop_toTopOf="@id/check_box_sat"
+                    app:text="@string/word_sunday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
+
+                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_all"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.ALL.value}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:onClick="@{() -> vm.onClickAllCheckBox()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/check_box_sun"
+                    app:layout_constraintTop_toTopOf="@id/check_box_sun"
+                    app:text="@string/word_all_day"
+                    tools:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
+
+                <TextView
+                    android:id="@+id/text_view_time_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_time_title"
+                    android:textColor="@color/color_363636"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/check_box_all" />
+
+                <com.plub.presentation.ui.custom.IconTextViewMedium
+                    android:id="@+id/icon_text_view_medium_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:onClick="@{() -> vm.onClickTimeTextView()}"
+                    app:iconTextViewMediumIcon="@drawable/ic_clock_inactive"
+                    app:iconTextViewMediumTextAndIconAndBackgroundCreateGatheringTime="@{vm.uiState.gatheringFormattedTime}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_time_title"
+                    tools:background="@color/black"
+                    tools:layout_height="50dp" />
+
+                <TextView
+                    android:id="@+id/text_view_on_offline_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_on_offline_title"
+                    android:textColor="@color/color_363636"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/icon_text_view_medium_time" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_on_offline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_on_offline_title">
+
+                    <RadioButton
+                        android:id="@+id/radio_button_online"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:onClick="@{() -> vm.onClickOnlineButton()}"
+                        android:paddingVertical="11dp"
+                        android:text="@string/word_online"
+                        android:textColor="@drawable/selector_check_color_8c8c8c_to_white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <RadioButton
+                        android:id="@+id/radio_button_offline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:onClick="@{() -> vm.onClickOfflineButton()}"
+                        android:paddingVertical="11dp"
+                        android:text="@string/word_offline"
+                        android:textColor="@drawable/selector_check_color_8c8c8c_to_white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RadioGroup>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_layout_gathering_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/radio_group_on_offline"
+                    app:onOffline="@{vm.uiState.gatheringOnOffline}">
+
+                    <TextView
+                        android:id="@+id/text_view_gathering_location_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_location_title"
+                        android:textColor="@color/color_8c8c8c"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.plub.presentation.ui.custom.IconTextViewSmall
+                        android:id="@+id/edit_text_gathering_location_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:onClick="@{() -> vm.onClickIconEditTextLocation()}"
+                        app:iconTextViewSmallIcon="@drawable/ic_location_inactive"
+                        app:iconTextViewSmallTextAndIconAndBackgroundCreateGatheringLocation="@{vm.uiState.gatheringLocationData}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_view_gathering_location_title"
+                        tools:background="@color/black"
+                        tools:layout_height="40dp" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="104dp"
+            android:contentDescription="@string/image_descriptor_shadow"
+            android:scaleType="fitXY"
+            android:src="@drawable/dim_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radio_group_on_offline"
-            app:onOffline="@{vm.uiState.gatheringOnOffline}">
-
-            <TextView
-                android:id="@+id/text_view_gathering_location_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_location_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.plub.presentation.ui.custom.IconTextViewSmall
-                android:id="@+id/edit_text_gathering_location_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:onClick="@{() -> vm.onClickIconEditTextLocation()}"
-                app:iconTextViewSmallIcon="@drawable/ic_location"
-                app:iconTextViewSmallTextLocation="@{vm.uiState.gatheringLocationData}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_gathering_location_title"
-                tools:background="@color/black"
-                tools:layout_height="40dp" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/button_next"
             android:layout_width="0dp"
             android:layout_height="44dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="26dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
             android:enabled="@{vm.uiState.isNextButtonEnabled}"
             android:onClick="@{() -> parent_vm.onMoveToNextPage(vm.uiState)}"

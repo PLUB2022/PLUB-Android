@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
+import com.plub.presentation.R
 import com.plub.presentation.databinding.LayoutRecyclerKakaoLocationByKeywordBinding
 
 class KakaoLocationRecyclerViewAdapter(
@@ -38,15 +39,15 @@ class KakaoLocationRecyclerViewAdapter(
             binding.data = data
             binding.root.setOnClickListener {
                 selectedPlaceData = data
-                binding.textViewPlaceName.textSize = 30f
+                binding.root.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8_5f5ff9_shadow)
                 notifyItemChanged(prevSelectedPosition)
                 prevSelectedPosition = position
                 itemClickEvent(data)
             }
             if (selectedPlaceData == data)
-                binding.textViewPlaceName.textSize = 30f
+                binding.root.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8_5f5ff9_shadow)
             else
-                binding.textViewPlaceName.textSize = 10f
+                binding.root.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8_shadow)
         }
     }
 }

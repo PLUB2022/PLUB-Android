@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.bindingAdapter
 
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.text.Editable
@@ -36,6 +37,14 @@ fun IconEditText.bindEditTextActionEvent(method: () -> Void) {
 fun IconEditText.bindUpdateIconEditText(method: (text: String) -> Unit) {
     editText.afterTextChanged { text ->
         method(text?.toString() ?: "")
+    }
+}
+
+@BindingAdapter("updateIconEditTextKakaoLocation")
+fun IconEditText.bindUpdateIconEditTextKakaoLocation(method: (text: String) -> Unit) {
+    editText.afterTextChanged { text ->
+        method(text?.toString() ?: "")
+        editText.typeface = if(text?.isEmpty() == true) Typeface.DEFAULT else Typeface.DEFAULT_BOLD
     }
 }
 

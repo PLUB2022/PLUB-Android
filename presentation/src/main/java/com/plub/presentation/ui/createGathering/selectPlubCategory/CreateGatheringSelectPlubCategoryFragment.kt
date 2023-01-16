@@ -9,6 +9,7 @@ import com.plub.presentation.ui.common.VerticalSpaceDecoration
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
 import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 import com.plub.presentation.util.dp
+import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -52,7 +53,7 @@ class CreateGatheringSelectPlubCategoryFragment : BaseFragment<FragmentCreateGat
             recyclerViewCategories.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = listAdapter
-                addItemDecoration(VerticalSpaceDecoration(ITEM_VERTICAL_SPACE.dp))
+                addItemDecoration(VerticalSpaceDecoration(ITEM_VERTICAL_SPACE.px))
             }
         }
         viewModel.fetchHobbiesData()

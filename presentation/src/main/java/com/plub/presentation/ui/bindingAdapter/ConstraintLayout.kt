@@ -13,13 +13,3 @@ fun ConstraintLayout.setCreateGatheringLocationVisible(
 ) {
     visibility = if(onOffline == OnOfflineType.OFF.value) View.VISIBLE else View.GONE
 }
-
-@BindingAdapter(value = ["isSearched","beforeSearchBackground", "afterSearchBackground"], requireAll = true)
-fun ConstraintLayout.bindSetConstraintLayoutBackground(
-    isSearched: Boolean,
-    beforeSearchBackground: Drawable,
-    afterSearchBackground: Drawable
-) {
-    background = if(isSearched) afterSearchBackground
-    else beforeSearchBackground
-}

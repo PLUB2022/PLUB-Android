@@ -8,7 +8,7 @@ data class CreateGatheringDayAndOnOfflineAndLocationPageState(
     val gatheringDays: HashSet<String> = hashSetOf(),
     val gatheringOnOffline: String = "",
     val gatheringLocationData: KakaoLocationInfoDocumentVo? = null,
-    val gatheringHour: Int = 0,
+    val gatheringHour: Int = 19,
     val gatheringMin: Int = 0,
     val gatheringFormattedTime: String = ""
 ) : PageState {

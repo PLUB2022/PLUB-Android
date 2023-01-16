@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.plub.presentation.ui.createGathering.question.CreateGatheringQuestion
 
 val Int.dp: Int
-    get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
+    get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 
 val Int.px: Int
     get() = (this * Resources.getSystem().displayMetrics.density).toInt()

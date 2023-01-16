@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.plub.presentation.R
 import com.plub.presentation.databinding.CustomViewFixedTextWidthCheckBoxBinding
-import com.plub.presentation.util.dp
+import com.plub.presentation.util.px
 
 class FixedTextWidthCheckBox @JvmOverloads constructor(
     context: Context,
@@ -56,10 +56,10 @@ class FixedTextWidthCheckBox @JvmOverloads constructor(
 
         binding.constraintLayoutCheckBox.apply {
             setPadding(
-                paddingHorizontal.dp,
-                paddingVertical.dp,
-                paddingHorizontal.dp,
-                paddingVertical.dp)
+                paddingHorizontal.px,
+                paddingVertical.px,
+                paddingHorizontal.px,
+                paddingVertical.px)
             setOnClickListener {
                 isChecked = !isChecked
                 checkBoxClickEvent?.let {
@@ -69,7 +69,7 @@ class FixedTextWidthCheckBox @JvmOverloads constructor(
         }
 
         binding.textViewContent.apply {
-            width = textWidth.dp
+            width = textWidth.px
             this.text = text
         }
 

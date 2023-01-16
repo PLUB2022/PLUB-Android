@@ -31,7 +31,7 @@ class IconTextViewMedium @JvmOverloads constructor(
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.IconTextViewMedium, defStyleAttr, 0)
 
-        iconResourceId = typedArray.getResourceId(R.styleable.IconTextViewMedium_iconTextViewMediumIcon, R.drawable.ic_location)
+        iconResourceId = typedArray.getResourceId(R.styleable.IconTextViewMedium_iconTextViewMediumIcon, R.drawable.ic_location_inactive)
         binding.imageViewIc.setImageResource(iconResourceId)
 
         text = typedArray.getString(R.styleable.IconTextViewMedium_iconTextViewMediumText)

@@ -90,7 +90,7 @@ class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
     fun onClickAllCheckBox(): Void? {
         updateUiState { uiState ->
             uiState.copy(
-                gatheringDays = hashSetOf(DaysType.ALL.value)
+                gatheringDays = if(DaysType.ALL.value in uiState.gatheringDays) hashSetOf() else hashSetOf(DaysType.ALL.value)
             )
         }
         PlubLogger.logD("gatheringDays = ${uiState.value.gatheringDays}")
