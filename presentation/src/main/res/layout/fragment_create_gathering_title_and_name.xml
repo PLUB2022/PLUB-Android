@@ -179,6 +179,16 @@
 
         </ScrollView>
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:contentDescription="@string/image_descriptor_shadow"
+            android:scaleType="fitXY"
+            android:src="@drawable/dim_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
             android:id="@+id/button_next"
             android:layout_width="0dp"
