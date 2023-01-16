@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.error.NicknameError
 import com.plub.domain.model.enums.DialogMenuItemType
+import com.plub.domain.model.vo.signUp.profile.NicknameCheckRequestVo
 import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
 import com.plub.domain.usecase.GetNicknameCheckUseCase
 import com.plub.presentation.R
@@ -51,7 +52,8 @@ class ProfileComposeViewModel @Inject constructor(
     fun fetchNicknameCheck(nickname: String) {
         isNetworkCall = true
         viewModelScope.launch {
-            getNicknameCheckUseCase(nickname).collect { state ->
+            val request = NicknameCheckRequestVo(nickname, this)
+            getNicknameCheckUseCase(request).collect { state ->
                 inspectUiState(state, ::handleNicknameCheckSuccess) { _, individual ->
                     handleNicknameCheckError(individual as NicknameError)
                 }

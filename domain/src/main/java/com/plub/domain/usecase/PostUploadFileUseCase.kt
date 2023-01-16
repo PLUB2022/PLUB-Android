@@ -13,7 +13,7 @@ class PostUploadFileUseCase @Inject constructor(
     private val mediaRepository: MediaRepository,
 ) : UseCase<UploadFileRequestVo, Flow<UiState<UploadFileResponseVo>>>() {
 
-    override operator fun invoke(request: UploadFileRequestVo): Flow<UiState<UploadFileResponseVo>> = flow {
-        mediaRepository.uploadFile(request).collect { emit(it) }
+    override suspend operator fun invoke(request: UploadFileRequestVo): Flow<UiState<UploadFileResponseVo>> {
+        return mediaRepository.uploadFile(request)
     }
 }

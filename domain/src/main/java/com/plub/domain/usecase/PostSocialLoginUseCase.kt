@@ -12,7 +12,7 @@ import javax.inject.Inject
 class PostSocialLoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository
 ):UseCase<SocialLoginRequestVo, Flow<UiState<SocialLoginResponseVo>>>() {
-    override operator fun invoke(request: SocialLoginRequestVo): Flow<UiState<SocialLoginResponseVo>> = flow {
-        loginRepository.socialLogin(request).collect{ emit(it) }
+    override suspend operator fun invoke(request: SocialLoginRequestVo): Flow<UiState<SocialLoginResponseVo>> {
+        return loginRepository.socialLogin(request)
     }
 }
