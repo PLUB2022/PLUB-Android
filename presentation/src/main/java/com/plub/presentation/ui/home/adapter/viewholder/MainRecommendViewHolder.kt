@@ -15,7 +15,7 @@ import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
 
 class MainRecommendViewHolder(
     private val binding: IncludeItemLayoutMainRecommendGatheringBinding,
-    private val listener: MainRecommendGatheringAdapter.Delegate
+    private val listener: MainRecommendGatheringAdapter.MainRecommendGatheringDelegate
 ): RecyclerView.ViewHolder(binding.root){
 
     private val listAdapter = MainRecommendAdapter(listener)

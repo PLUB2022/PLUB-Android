@@ -9,7 +9,7 @@ import com.plub.presentation.ui.home.adapter.MainCategoryItemAdapter
 
 class MainCategoryParentViewHoler (
     private val binding : IncludeItemLayoutMainCategoryBinding,
-    private val listener: MainCategoryAdapter.Delegate
+    private val listener: MainCategoryAdapter.MainCategoryDelegate
 ) : RecyclerView.ViewHolder(binding.root){
 
     private val listAdapter = MainCategoryItemAdapter(listener)

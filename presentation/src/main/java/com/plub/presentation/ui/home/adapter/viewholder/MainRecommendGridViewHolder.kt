@@ -1,11 +1,10 @@
 package com.plub.presentation.ui.home.adapter.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.GatheringItemVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
 import com.plub.presentation.databinding.IncludeItemRecommendGatheringGridBinding
 
-class MainRecommendGridViewHodler(
+class MainRecommendGridViewHolder(
     private val binding: IncludeItemRecommendGatheringGridBinding
 ): RecyclerView.ViewHolder(binding.root){
 

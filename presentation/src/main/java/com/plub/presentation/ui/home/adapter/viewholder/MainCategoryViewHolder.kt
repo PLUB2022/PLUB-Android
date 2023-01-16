@@ -8,14 +8,19 @@ import com.plub.presentation.util.GlideUtil
 
 class MainCategoryViewHolder (
     private val binding : IncludeItemMainCategoryBinding,
-    private val listener : MainCategoryAdapter.Delegate
+    private val listener : MainCategoryAdapter.MainCategoryDelegate
 ) : RecyclerView.ViewHolder(binding.root){
+
 
     fun bind(item: CategoriesDataResponseVo) {
         binding.apply {
             GlideUtil.loadImage(root.context, item.icon, iconCategory)
             tvTitleCategory.text = item.name
 
+
+            constraintLayoutCategoryTouch.setOnClickListener {
+                listener.onClick(item.id)
+            }
         }
     }
 }

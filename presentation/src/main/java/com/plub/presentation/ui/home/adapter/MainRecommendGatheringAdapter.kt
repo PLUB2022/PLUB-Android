@@ -14,12 +14,12 @@ import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendViewHolder
 import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 
 
-class MainRecommendGatheringAdapter(private val listener: Delegate) : ListAdapter<RecommendationGatheringDataResponseVo, RecyclerView.ViewHolder>(
+class MainRecommendGatheringAdapter(private val listener: MainRecommendGatheringDelegate) : ListAdapter<RecommendationGatheringDataResponseVo, RecyclerView.ViewHolder>(
     MainRecommendGatheringDiffCallBack()
 ){
     private val subListenerList: MutableSet<HobbiesAdapter.SubListener> = mutableSetOf()
 
-    interface Delegate {
+    interface MainRecommendGatheringDelegate {
 //        val categoryList:List<CategoriesDataResponseVo>
 //        fun onClickExpand(hobbyId: Int)
 //        fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo)

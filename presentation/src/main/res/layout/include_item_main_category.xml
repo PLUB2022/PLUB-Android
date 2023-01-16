@@ -4,6 +4,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_categoryTouch"
         android:layout_width="74dp"
         android:layout_height="90dp">
     <ImageView

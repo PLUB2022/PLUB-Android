@@ -15,7 +15,7 @@ import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendViewHolder
 import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceViewModel
 
 
-class MainRecommendAdapter(private val listener: MainRecommendGatheringAdapter.Delegate) : ListAdapter<RecommendationGatheringResponseContentListVo, RecyclerView.ViewHolder>(
+class MainRecommendAdapter(private val listener: MainRecommendGatheringAdapter.MainRecommendGatheringDelegate) : ListAdapter<RecommendationGatheringResponseContentListVo, RecyclerView.ViewHolder>(
     MainGatheringDiffCallBack()
 ){
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

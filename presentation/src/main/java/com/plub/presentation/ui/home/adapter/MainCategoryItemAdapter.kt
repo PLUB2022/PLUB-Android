@@ -10,7 +10,7 @@ import com.plub.presentation.databinding.IncludeItemMainCategoryBinding
 import com.plub.presentation.ui.home.adapter.viewholder.MainCategoryViewHolder
 
 
-class MainCategoryItemAdapter(private val listener: MainCategoryAdapter.Delegate) : ListAdapter<CategoriesDataResponseVo, RecyclerView.ViewHolder>(
+class MainCategoryItemAdapter(private val listener: MainCategoryAdapter.MainCategoryDelegate) : ListAdapter<CategoriesDataResponseVo, RecyclerView.ViewHolder>(
     MainCategoryItemDiffCallBack()
 ){
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
