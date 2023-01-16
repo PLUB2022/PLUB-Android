@@ -7,20 +7,25 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.GatheringItemVo
+import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
 import com.plub.presentation.databinding.IncludeItemRecommendGatheringGridBinding
 import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendGridViewHodler
 
 
-class MainRecommendGridAdapter() : ListAdapter<GatheringItemVo, RecyclerView.ViewHolder>(
+class MainRecommendGridAdapter() : ListAdapter<RecommendationGatheringDataResponseVo, RecyclerView.ViewHolder>(
     MainGatheringGridDiffCallBack()
 ){
+
+    interface Delegate {
+//        val categoryList:List<CategoriesDataResponseVo>
+//        fun onClickExpand(hobbyId: Int)
+//        fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo)
+//        fun onClickLatePick()
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MainRecommendGridViewHodler -> holder.bind(currentList[position])
-        }
-        holder.itemView.setOnClickListener {
-            Log.d("어뎁터에서 클릭", currentList[position].title)
         }
     }
 
@@ -31,7 +36,7 @@ class MainRecommendGridAdapter() : ListAdapter<GatheringItemVo, RecyclerView.Vie
 
 }
 
-class MainGatheringGridDiffCallBack : DiffUtil.ItemCallback<GatheringItemVo>() {
-    override fun areItemsTheSame(oldItem: GatheringItemVo, newItem: GatheringItemVo): Boolean = oldItem == newItem
-    override fun areContentsTheSame(oldItem: GatheringItemVo, newItem: GatheringItemVo): Boolean = oldItem == newItem
+class MainGatheringGridDiffCallBack : DiffUtil.ItemCallback<RecommendationGatheringDataResponseVo>() {
+    override fun areItemsTheSame(oldItem: RecommendationGatheringDataResponseVo, newItem: RecommendationGatheringDataResponseVo): Boolean = oldItem == newItem
+    override fun areContentsTheSame(oldItem: RecommendationGatheringDataResponseVo, newItem: RecommendationGatheringDataResponseVo): Boolean = oldItem == newItem
 }
