@@ -14,7 +14,7 @@ class PostCreateGatheringUseCase @Inject constructor(
     private val gatheringRepository: GatheringRepository
 ):UseCase<CreateGatheringRequestVo, Flow<UiState<CreateGatheringResponseVo>>>() {
 
-    override operator fun invoke(request: CreateGatheringRequestVo): Flow<UiState<CreateGatheringResponseVo>> = flow {
-        gatheringRepository.createGathering(request).collect { emit(it) }
+    override suspend operator fun invoke(request: CreateGatheringRequestVo): Flow<UiState<CreateGatheringResponseVo>> {
+        return gatheringRepository.createGathering(request)
     }
 }

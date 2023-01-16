@@ -3,10 +3,11 @@ package com.plub.presentation.ui.sign.personalInfo
 import android.app.DatePickerDialog
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.enums.SignUpPageType
-import com.plub.presentation.state.PersonalInfoPageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPersonalInfoBinding
+import com.plub.presentation.event.PersonalInfoEvent
+import com.plub.presentation.state.PersonalInfoPageState
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -31,8 +32,8 @@ class PersonalInfoFragment : BaseFragment<FragmentPersonalInfoBinding, PersonalI
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.moveToNextPage.collect {
-                    parentViewModel.onMoveToNextPage(SignUpPageType.PERSONAL_INFO, it)
+                viewModel.eventFlow.collect {
+                    inspectEventFlow(it as PersonalInfoEvent)
                 }
             }
 
@@ -41,11 +42,17 @@ class PersonalInfoFragment : BaseFragment<FragmentPersonalInfoBinding, PersonalI
                     viewModel.onInitPersonalInfoVo(it.personalInfoVo)
                 }
             }
+        }
+    }
 
-            launch {
-                viewModel.showDatePickerDialog.collect {
-                    showDialogDatePicker(it)
-                }
+
+    private fun inspectEventFlow(event: PersonalInfoEvent) {
+        when(event) {
+            is PersonalInfoEvent.MoveToNext -> {
+                parentViewModel.onMoveToNextPage(SignUpPageType.PERSONAL_INFO, event.vo)
+            }
+            is PersonalInfoEvent.ShowDatePickerDialog -> {
+                showDialogDatePicker(event.calendar)
             }
         }
     }

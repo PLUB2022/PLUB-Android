@@ -10,7 +10,7 @@ import javax.inject.Inject
 class SetBooleanFromDataStoreUseCase @Inject constructor(
     private val dataStoreRepository: PrefDataStoreRepository
 ): UseCase<DataStoreBooleanVo, Flow<UiState<Unit>>>() {
-    override operator fun invoke(request: DataStoreBooleanVo): Flow<UiState<Unit>> {
+    override suspend operator fun invoke(request: DataStoreBooleanVo): Flow<UiState<Unit>> {
         return dataStoreRepository.setBoolean(request.key, request.value)
     }
 }

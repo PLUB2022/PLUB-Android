@@ -10,8 +10,14 @@ import com.plub.presentation.ui.createGathering.question.CreateGatheringQuestion
 val Int.dp: Int
     get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 
+val Float.dp: Float
+    get() = this / Resources.getSystem().displayMetrics.density
+
 val Int.px: Int
     get() = (this * Resources.getSystem().displayMetrics.density).toInt()
+
+val Float.px: Float
+    get() = this * Resources.getSystem().displayMetrics.density
 
 fun <T> HashSet<T>.removeElementAfterReturnNewHashSet(element: T): HashSet<T> {
     val tempHashSet = this.toHashSet()

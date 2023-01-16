@@ -12,7 +12,7 @@ import javax.inject.Inject
 class TestPostHomeUseCase @Inject constructor(
     private val homePostRepository: HomePostRepository
 ) : UseCase<HomePostRequestVo, Flow<UiState<HomePostResponseVo>>>(){
-    override fun invoke(request: HomePostRequestVo): Flow<UiState<HomePostResponseVo>> {
+    override suspend fun invoke(request: HomePostRequestVo): Flow<UiState<HomePostResponseVo>> {
         return homePostRepository.trySampleData(request)
     }
 }

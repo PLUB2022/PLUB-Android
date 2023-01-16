@@ -29,4 +29,18 @@
         <attr name="iconTextViewMediumIcon" format="reference" />
         <attr name="iconTextViewMediumText" format="reference|string" />
     </declare-styleable>
+
+    <declare-styleable name="RadiusImageView">
+        <attr name="radius" format="dimension"/>
+        <attr name="borderWidth" format="dimension"/>
+        <attr name="borderColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="circle_border_width" format="dimension" />
+        <attr name="circle_border_color" format="color" />
+        <attr name="circle_border_overlay" format="boolean" />
+        <attr name="circle_fill_color" format="color" />
+        <attr name="circle_background_color" format="color" />
+    </declare-styleable>
 </resources>

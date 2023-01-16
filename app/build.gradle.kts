@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
     id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
@@ -51,6 +52,7 @@ dependencies {
     implementation(AndroidX.DATA_STORE_PREFERENCES)
     implementation(Google.MATERIAL)
     implementation(Google.TINK)
+    implementation(platform(Google.FIREBASE_BOM))
 
     testImplementation(UnitTest.JUNIT)
 

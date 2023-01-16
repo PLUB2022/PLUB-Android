@@ -2,17 +2,16 @@ package com.plub.presentation.ui.sign.hobbies
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHobbiesBinding
+import com.plub.presentation.event.HobbiesEvent
 import com.plub.presentation.state.HobbiesPageState
 import com.plub.presentation.ui.common.VerticalSpaceDecoration
-import com.plub.presentation.ui.dialog.adapter.DialogMenuAdapter
 import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
-import com.plub.presentation.util.dp
+import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -55,7 +54,7 @@ class HobbiesFragment : BaseFragment<FragmentHobbiesBinding, HobbiesPageState, H
             recyclerViewHobbies.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = listAdapter
-                addItemDecoration(VerticalSpaceDecoration(ITEM_VERTICAL_SPACE.dp))
+                addItemDecoration(VerticalSpaceDecoration(ITEM_VERTICAL_SPACE.px))
             }
         }
         viewModel.fetchHobbiesData()
@@ -67,8 +66,8 @@ class HobbiesFragment : BaseFragment<FragmentHobbiesBinding, HobbiesPageState, H
         repeatOnStarted(viewLifecycleOwner) {
 
             launch {
-                viewModel.moveToNextPage.collect {
-                    parentViewModel.onMoveToNextPage(SignUpPageType.HOBBY, it)
+                viewModel.eventFlow.collect {
+                    inspectEventFlow(it as HobbiesEvent)
                 }
             }
 
@@ -85,17 +84,19 @@ class HobbiesFragment : BaseFragment<FragmentHobbiesBinding, HobbiesPageState, H
                     listAdapter.submitList(it.hobbiesVo)
                 }
             }
+        }
+    }
 
-            launch {
-                viewModel.notifySubHobby.collect {
-                    listAdapter.notifySubItemUpdate(it)
-                }
+    private fun inspectEventFlow(event: HobbiesEvent) {
+        when(event) {
+            is HobbiesEvent.NotifyAllHobby -> {
+                listAdapter.notifyAllItemUpdate()
             }
-
-            launch {
-                viewModel.notifyAllHobby.collect {
-                    listAdapter.notifyAllItemUpdate()
-                }
+            is HobbiesEvent.NotifySubHobby -> {
+                listAdapter.notifySubItemUpdate(event.vo)
+            }
+            is HobbiesEvent.MoveToNext -> {
+                parentViewModel.onMoveToNextPage(SignUpPageType.HOBBY, event.vo)
             }
         }
     }

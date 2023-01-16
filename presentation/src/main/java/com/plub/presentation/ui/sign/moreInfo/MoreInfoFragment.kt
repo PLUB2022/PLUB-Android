@@ -2,9 +2,10 @@ package com.plub.presentation.ui.sign.moreInfo
 
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.enums.SignUpPageType
-import com.plub.presentation.state.MoreInfoPageState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMoreInfoBinding
+import com.plub.presentation.event.MoreInfoEvent
+import com.plub.presentation.state.MoreInfoPageState
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -29,8 +30,8 @@ class MoreInfoFragment : BaseFragment<FragmentMoreInfoBinding, MoreInfoPageState
         repeatOnStarted(viewLifecycleOwner) {
 
             launch {
-                viewModel.moveToNextPage.collect {
-                    parentViewModel.onMoveToNextPage(SignUpPageType.MORE_INFO, it)
+                viewModel.eventFlow.collect {
+                    inspectEventFlow(it as MoreInfoEvent)
                 }
             }
 
@@ -39,6 +40,14 @@ class MoreInfoFragment : BaseFragment<FragmentMoreInfoBinding, MoreInfoPageState
                     viewModel.onSaveNickname(it.profileComposeVo.nickname)
                     viewModel.onInitMoreInfo(it.moreInfoVo)
                 }
+            }
+        }
+    }
+
+    private fun inspectEventFlow(event: MoreInfoEvent) {
+        when(event) {
+            is MoreInfoEvent.MoveToNext -> {
+                parentViewModel.onMoveToNextPage(SignUpPageType.MORE_INFO, event.vo)
             }
         }
     }

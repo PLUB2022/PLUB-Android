@@ -67,13 +67,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_view_personal_info_description" />
 
-                <ImageView
+                <com.plub.presentation.ui.custom.CircleImageView
                     android:id="@+id/image_view_profile"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:layout_marginTop="16dp"
                     android:onClick="@{() -> vm.onClickProfileImage()}"
-                    android:scaleType="fitXY"
                     app:defaultImage="@{@drawable/iv_default_profile}"
                     app:imageFile="@{vm.uiState.profileComposeVo.profileFile}"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +95,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_layout_nickname"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="46dp"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/bg_rectangle_empty_c4c4c4_radius_8"
@@ -116,7 +115,7 @@
                         android:paddingHorizontal="8dp"
                         android:text="@={vm.uiState.profileComposeVo.nickname}"
                         android:textColorHint="@color/color_c4c4c4"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toStartOf="@+id/image_view_nickname_delete"
                         app:layout_constraintStart_toStartOf="parent" />
 
@@ -165,7 +164,7 @@
         <Button
             android:id="@+id/button_next"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="46dp"
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
             android:enabled="@{vm.uiState.nextButtonEnable}"

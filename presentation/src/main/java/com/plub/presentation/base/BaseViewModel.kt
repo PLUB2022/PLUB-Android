@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
 import com.plub.domain.error.CommonError
 import com.plub.domain.error.IndividualError
+import com.plub.presentation.event.Event
 import com.plub.presentation.state.PageState
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
@@ -19,6 +20,9 @@ abstract class BaseViewModel<STATE: PageState>(
     private val _uiState = MutableStateFlow(initialState)
     val uiState: StateFlow<STATE> = _uiState.asStateFlow()
 
+    private val _eventFlow = MutableSharedFlow<Event>(0, 1, BufferOverflow.DROP_OLDEST)
+    val eventFlow: SharedFlow<Event> = _eventFlow.asSharedFlow()
+
     private val _showProgress = MutableSharedFlow<Boolean>(0, 1, BufferOverflow.DROP_OLDEST)
     val showProgress: SharedFlow<Boolean> = _showProgress.asSharedFlow()
 
@@ -28,6 +32,12 @@ abstract class BaseViewModel<STATE: PageState>(
     protected fun updateUiState(update:(STATE) -> STATE) {
         viewModelScope.launch {
             _uiState.update { update.invoke(it) }
+        }
+    }
+
+    protected fun emitEventFlow(event: Event) {
+        viewModelScope.launch {
+            _eventFlow.emit(event)
         }
     }
 

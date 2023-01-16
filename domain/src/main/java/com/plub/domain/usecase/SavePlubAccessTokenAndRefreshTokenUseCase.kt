@@ -9,7 +9,7 @@ import javax.inject.Inject
 class SavePlubAccessTokenAndRefreshTokenUseCase @Inject constructor(
     private val plubJwtRepository: PlubJwtRepository
 ):UseCase<SavePlubJwtRequestVo, Flow<Boolean>>() {
-    override operator fun invoke(request: SavePlubJwtRequestVo): Flow<Boolean> {
+    override suspend operator fun invoke(request: SavePlubJwtRequestVo): Flow<Boolean> {
         return plubJwtRepository.saveAccessTokenAndRefreshToken(request)
     }
 }

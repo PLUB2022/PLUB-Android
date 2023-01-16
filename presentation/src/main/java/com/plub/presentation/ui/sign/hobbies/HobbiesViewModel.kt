@@ -8,13 +8,10 @@ import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.domain.usecase.GetAllHobbiesUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.event.HobbiesEvent
 import com.plub.presentation.state.HobbiesPageState
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,17 +24,8 @@ class HobbiesViewModel @Inject constructor(
 
     private val selectedList: MutableList<SelectedHobbyVo> = mutableListOf()
 
-    private val _moveToNextPage = MutableSharedFlow<SignUpHobbiesVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val moveToNextPage: SharedFlow<SignUpHobbiesVo> = _moveToNextPage.asSharedFlow()
-    private val _notifySubHobby = MutableSharedFlow<SelectedHobbyVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val notifySubHobby: SharedFlow<SelectedHobbyVo> = _notifySubHobby.asSharedFlow()
-    private val _notifyAllHobby = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val notifyAllHobby: SharedFlow<Unit> = _notifyAllHobby.asSharedFlow()
-
     fun onClickNextButton() {
-        viewModelScope.launch {
-            _moveToNextPage.emit(uiState.value.hobbiesSelectedVo)
-        }
+        emitEventFlow(HobbiesEvent.MoveToNext(uiState.value.hobbiesSelectedVo))
     }
 
     fun onSaveNickname(nickname:String) {
@@ -66,9 +54,7 @@ class HobbiesViewModel @Inject constructor(
     }
 
     fun onClickLatePick() {
-        viewModelScope.launch {
-            _moveToNextPage.emit(SignUpHobbiesVo(emptyList()))
-        }
+        emitEventFlow(HobbiesEvent.MoveToNext(SignUpHobbiesVo(emptyList())))
     }
 
     fun fetchHobbiesData() {
@@ -94,15 +80,11 @@ class HobbiesViewModel @Inject constructor(
     }
 
     private fun notifySubItem(selectedHobbyVo: SelectedHobbyVo) {
-        viewModelScope.launch {
-            _notifySubHobby.emit(selectedHobbyVo)
-        }
+        emitEventFlow(HobbiesEvent.NotifySubHobby(selectedHobbyVo))
     }
 
     private fun notifyAllItem() {
-        viewModelScope.launch {
-            _notifyAllHobby.emit(Unit)
-        }
+        emitEventFlow(HobbiesEvent.NotifyAllHobby)
     }
 
     private fun addHobby(selectedHobbyVo: SelectedHobbyVo) {

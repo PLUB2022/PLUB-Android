@@ -23,15 +23,12 @@ import com.plub.domain.usecase.PostSocialLoginUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.event.LoginEvent
 import com.plub.presentation.state.LoginPageState
 import com.plub.presentation.util.DataStoreUtil
 import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,24 +40,6 @@ class LoginViewModel @Inject constructor(
     val dataStoreUtil: DataStoreUtil,
 ) : BaseViewModel<LoginPageState>(LoginPageState()) {
 
-    private val _signInGoogle = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val signInGoogle: SharedFlow<Unit> = _signInGoogle.asSharedFlow()
-
-    private val _signInKakao = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val signInKakao: SharedFlow<Unit> = _signInKakao.asSharedFlow()
-
-    private val _signInKakaoEmail = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val signInKakaoEmail: SharedFlow<Unit> = _signInKakaoEmail.asSharedFlow()
-
-    private val _goToSignUp = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val goToSignUp: SharedFlow<Unit> = _goToSignUp.asSharedFlow()
-
-    private val _goToMain = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val goToMain: SharedFlow<Unit> = _goToMain.asSharedFlow()
-
-    private val _goToTerms = MutableSharedFlow<TermsType>(0, 1, BufferOverflow.DROP_OLDEST)
-    val goToTerms: SharedFlow<TermsType> = _goToTerms.asSharedFlow()
-
     init {
         updateUiState { uiState ->
             uiState.copy(termsText = getTermsString())
@@ -68,15 +47,11 @@ class LoginViewModel @Inject constructor(
     }
 
     fun onClickGoogleLogin() {
-        viewModelScope.launch {
-            _signInGoogle.emit(Unit)
-        }
+        emitEventFlow(LoginEvent.SignInGoogle)
     }
 
     fun onClickKakaoLogin() {
-        viewModelScope.launch {
-            _signInKakao.emit(Unit)
-        }
+        emitEventFlow(LoginEvent.SignInKakao)
     }
 
     fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
@@ -98,7 +73,7 @@ class LoginViewModel @Inject constructor(
         } ?: run {
             val userCancel = error is ClientError && error.reason == ClientErrorCause.Cancelled
             if (!userCancel) viewModelScope.launch {
-                _signInKakaoEmail.emit(Unit)
+                emitEventFlow(LoginEvent.SignInKakaoEmail)
             }
         }
     }
@@ -110,7 +85,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun alreadyGoogleSignIn(account:GoogleSignInAccount) {
+    fun alreadyGoogleSignIn(account: GoogleSignInAccount) {
         account.serverAuthCode?.let {
             val request = SocialLoginRequestVo(SocialLoginType.GOOGLE, it)
             socialLogin(request)
@@ -120,7 +95,7 @@ class LoginViewModel @Inject constructor(
     private fun socialLogin(request: SocialLoginRequestVo) {
         viewModelScope.launch {
             postSocialLoginUseCase(request).collect { state ->
-                inspectUiState(state, ::handleLoginSuccess) { data , individual ->
+                inspectUiState(state, ::handleLoginSuccess) { data, individual ->
                     handleLoginError(data, individual as LoginError)
                 }
             }
@@ -128,22 +103,23 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun handleLoginSuccess(loginResponseVo: SocialLoginResponseVo) {
-        val savePlubJwtRequestVo = SavePlubJwtRequestVo(loginResponseVo.accessToken,loginResponseVo.refreshToken)
+        val savePlubJwtRequestVo =
+            SavePlubJwtRequestVo(loginResponseVo.accessToken, loginResponseVo.refreshToken)
         savePlubToken(savePlubJwtRequestVo) {
             goToMain()
         }
     }
 
-    private fun savePlubToken(saveRequestVo: SavePlubJwtRequestVo, saveCallback:() -> Unit) {
+    private fun savePlubToken(saveRequestVo: SavePlubJwtRequestVo, saveCallback: () -> Unit) {
         viewModelScope.launch {
             savePlubAccessTokenAndRefreshTokenUseCase(saveRequestVo).collect {
-                if(it) saveCallback.invoke()
+                if (it) saveCallback.invoke()
             }
         }
     }
 
     private fun handleLoginError(data: SocialLoginResponseVo?, loginError: LoginError) {
-        when(loginError) {
+        when (loginError) {
             is LoginError.NeedSignUp -> {
                 data?.let {
                     saveSignUpToken(it.signToken) {
@@ -155,7 +131,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun saveSignUpToken(signUpToken:String, saveCallback:() -> Unit) {
+    private fun saveSignUpToken(signUpToken: String, saveCallback: () -> Unit) {
         viewModelScope.launch {
             dataStoreUtil.setSignUpToken(signUpToken).collect {
                 inspectUiState(it, {
@@ -165,21 +141,21 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun getTermsString():SpannableString {
+    private fun getTermsString(): SpannableString {
         val termsText = getStringResource(R.string.login_plub_terms)
         val privacyPosition = getTermsPosition(termsText, TermsType.PRIVACY)
         val servicePosition = getTermsPosition(termsText, TermsType.SERVICE)
 
         val termsSpannableString = SpannableString(termsText).apply {
-            setSpan(getTermsClickableSpan(TermsType.PRIVACY),privacyPosition.first, privacyPosition.second, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            setSpan(getTermsClickableSpan(TermsType.SERVICE),servicePosition.first, servicePosition.second, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(getTermsClickableSpan(TermsType.PRIVACY), privacyPosition.first, privacyPosition.second, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(getTermsClickableSpan(TermsType.SERVICE), servicePosition.first, servicePosition.second, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
         return termsSpannableString
     }
 
-    private fun getTermsPosition(termsString:String, termsType: TermsType):Pair<Int,Int> {
-        val termsTypeRes = when(termsType) {
+    private fun getTermsPosition(termsString: String, termsType: TermsType): Pair<Int, Int> {
+        val termsTypeRes = when (termsType) {
             TermsType.SERVICE -> R.string.word_terms_service
             TermsType.PRIVACY -> R.string.word_terms_privacy
             else -> R.string.word_terms_privacy
@@ -191,7 +167,7 @@ class LoginViewModel @Inject constructor(
         return Pair(termsTypeStartIdx, termsTypeEndIdx)
     }
 
-    private fun getTermsClickableSpan(termsType: TermsType):ClickableSpan {
+    private fun getTermsClickableSpan(termsType: TermsType): ClickableSpan {
         return object : ClickableSpan() {
             override fun updateDrawState(textPaint: TextPaint) {
                 textPaint.color = getColorResource(R.color.color_5f5ff9)
@@ -205,21 +181,15 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun goToSignUp() {
-        viewModelScope.launch {
-            _goToSignUp.emit(Unit)
-        }
+        emitEventFlow(LoginEvent.GoToSignUp)
     }
 
     private fun goToMain() {
-        viewModelScope.launch {
-            _goToMain.emit(Unit)
-        }
+        emitEventFlow(LoginEvent.GoToMain)
     }
 
     private fun goToTerms(termsType: TermsType) {
-        viewModelScope.launch {
-            _goToTerms.emit(termsType)
-        }
+        emitEventFlow(LoginEvent.GoToTerms(termsType))
     }
 
     private fun getStringResource(res: Int): String {

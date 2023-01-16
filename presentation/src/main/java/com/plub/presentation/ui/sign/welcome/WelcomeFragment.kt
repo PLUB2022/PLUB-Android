@@ -1,11 +1,10 @@
 package com.plub.presentation.ui.sign.welcome
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentWelcomeBinding
+import com.plub.presentation.event.WelcomeEvent
 import com.plub.presentation.state.PageState
-import com.plub.presentation.ui.sign.login.LoginFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -27,9 +26,17 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, PageState.Default, 
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.goToMain.collect {
-
+                viewModel.eventFlow.collect {
+                    inspectEventFlow(it as WelcomeEvent)
                 }
+            }
+        }
+    }
+
+    private fun inspectEventFlow(event: WelcomeEvent) {
+        when(event) {
+            is WelcomeEvent.GoToMain -> {
+
             }
         }
     }
