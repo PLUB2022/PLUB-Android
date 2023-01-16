@@ -22,7 +22,7 @@ class MainInterestRegisterFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val rv_category_item = view.findViewById<RecyclerView>(R.id.rv_interests_category)
+        val rv_category_item = view.findViewById<RecyclerView>(R.id.recycler_view_interests_category)
         //TODO 더미문자열
 
     }

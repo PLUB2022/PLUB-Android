@@ -29,7 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, PageState.Default, MainVi
     }
 
     private fun initNavigation() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fc_main_host) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view_main_host) as NavHostFragment
         navController = navHostFragment.navController
     }
 

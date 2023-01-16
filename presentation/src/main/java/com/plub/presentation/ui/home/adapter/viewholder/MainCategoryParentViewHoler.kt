@@ -16,7 +16,7 @@ class MainCategoryParentViewHoler (
 
     init {
 
-        binding.rvMainCategory.apply {
+        binding.recyclerViewMainCategory.apply {
             layoutManager = GridLayoutManager(context, 4)
             adapter = listAdapter
         }

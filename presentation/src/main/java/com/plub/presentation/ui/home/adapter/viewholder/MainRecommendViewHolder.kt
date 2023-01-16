@@ -21,7 +21,7 @@ class MainRecommendViewHolder(
     private val listAdapter = MainRecommendAdapter(listener)
 
     init {
-        binding.recyclerRecommendMeetList.apply {
+        binding.recyclerViewRecommendMeetList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = listAdapter
         }

@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F5F3F6">
+        android:background="@color/color_f5f3f6">
 
         <TextView
             android:layout_width="176dp"
@@ -24,7 +24,7 @@
             />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_main_category"
+            android:id="@+id/recycler_view_main_category"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

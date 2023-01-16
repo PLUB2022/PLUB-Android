@@ -40,7 +40,7 @@ class MainFragmentViewModel @Inject constructor(
     )
     val goToCategoryChoiceFragment: SharedFlow<Unit> = _goToCategoryChoiceFragment.asSharedFlow()
 
-    fun initMainPage() =
+    fun fetchMainPageData() =
         viewModelScope.launch {
             browseUseCase.invoke().collect { state ->
                 inspectUiState(state, ::handleGetCategoriesSuccess)

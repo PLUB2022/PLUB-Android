@@ -48,7 +48,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
             vm = viewModel
             //TODO 할 일
         }
-        viewModel.initMainPage()
+        viewModel.fetchMainPageData()
     }
 
     override fun initStates() {
@@ -89,7 +89,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
         recommendationListAdapter.submitList(arrayListOf(data.plubbings))
         mConcatAdapter.addAdapter(mainCategoryAdapter)
         mConcatAdapter.addAdapter(recommendationListAdapter)
-        binding.rvMainPage.apply {
+        binding.recyclerViewMainPage.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mConcatAdapter
         }
@@ -100,7 +100,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
         mainRecommendMeetXAdapter.submitList(arrayListOf(0))
         mConcatAdapter.addAdapter(mainCategoryAdapter)
         mConcatAdapter.addAdapter(mainRecommendMeetXAdapter)
-        binding.rvMainPage.apply {
+        binding.recyclerViewMainPage.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mConcatAdapter
         }

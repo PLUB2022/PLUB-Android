@@ -14,8 +14,8 @@ class MainCategoryViewHolder (
 
     fun bind(item: CategoriesDataResponseVo) {
         binding.apply {
-            GlideUtil.loadImage(root.context, item.icon, iconCategory)
-            tvTitleCategory.text = item.name
+            GlideUtil.loadImage(root.context, item.icon, imageViewCategory)
+            textViewTitleCategory.text = item.name
 
 
             constraintLayoutCategoryTouch.setOnClickListener {

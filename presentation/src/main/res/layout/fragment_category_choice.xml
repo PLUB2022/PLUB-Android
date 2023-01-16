@@ -15,7 +15,7 @@
 
 
         <ImageButton
-            android:id="@+id/btn_back"
+            android:id="@+id/image_btn_back"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentLeft="true"
@@ -102,7 +102,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageButton
-                android:id="@+id/list_to_grid_btn"
+                android:id="@+id/image_btn_list_to_grid"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="200dp"
@@ -113,7 +113,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/grid_to_list_btn"
+                android:id="@+id/image_btn_grid_to_list"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="220dp"

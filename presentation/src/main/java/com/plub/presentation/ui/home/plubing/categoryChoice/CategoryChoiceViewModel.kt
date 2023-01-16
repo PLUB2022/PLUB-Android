@@ -1,16 +1,12 @@
 package com.plub.presentation.ui.home.plubing.categoryChoice
 
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.UiState
 import com.plub.presentation.state.SampleHomeState
-import com.plub.domain.model.vo.home.HomePostRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.successOrNull
 import com.plub.domain.usecase.RecommendationGatheringUsecase
-import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
@@ -35,7 +31,7 @@ class CategoryChoiceViewModel @Inject constructor(
     private val _goToDetailRecruitmentFragment = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val goToDetailRecruitmentFragment: SharedFlow<Unit> = _goToDetailRecruitmentFragment.asSharedFlow()
 
-    fun isHaveInterest()  =
+    fun fetchRecommendationGatheringData()  =
         viewModelScope.launch {
             recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0)).collect{ state->
                 state.successOrNull()?.let { _recommendationData.emit(it) }
