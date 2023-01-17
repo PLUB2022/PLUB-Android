@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
@@ -46,6 +47,16 @@ class CategoryChoiceFragment :
             vm = viewModel
             viewModel.fetchRecommendationGatheringData(categoryId.categoryId.toInt())
             //TODO 할 일
+            recyclerViewCategoryChoiceList.addOnScrollListener((object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    // 스크롤이 끝에 도달했는지 확인
+                    if (!recyclerViewCategoryChoiceList.canScrollVertically(1)) {
+                        Log.d("최하단", "최하단")
+                    }
+                }
+            }))
         }
     }
 
