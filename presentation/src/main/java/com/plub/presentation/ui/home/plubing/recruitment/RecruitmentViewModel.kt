@@ -27,20 +27,4 @@ class RecruitmentViewModel @Inject constructor(
         }
     }
 
-
-//    fun isHaveInterest()  = viewModelScope.launch {
-//        testPostHomeUseCase.invoke(HomePostRequestVo("testcode", false)).collect { state ->
-//            when(state){
-//                is UiState.Loading -> updateUiState { uiState ->
-//                    uiState.copy("로딩")
-//                }
-//                is UiState.Success -> updateUiState { uiState ->
-//                    uiState.copy("성공 + ${state.data.toString()}")
-//                }
-//                is UiState.Error -> updateUiState { uiState ->
-//                    uiState.copy("실패 + ${state.error.toString()}")
-//                }
-//            }
-//        }
-
 }

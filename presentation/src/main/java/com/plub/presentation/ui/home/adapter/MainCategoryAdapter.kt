@@ -17,15 +17,7 @@ class MainCategoryAdapter(private val listener: MainCategoryDelegate) : ListAdap
 ){
 
     interface MainCategoryDelegate {
-//          val categoryList:List<CategoriesDataResponseVo>
-//        fun onClickExpand(hobbyId: Int)
-//        fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo)
-//        fun onClickLatePick()
-        fun onClick(categoryId : Int)
-    }
-
-    interface SubListener {
-        fun onNotifySubItemChange(parentId: Int, subId: Int)
+        fun onClick(categoryId: Int)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

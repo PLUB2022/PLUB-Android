@@ -21,6 +21,11 @@
             app:argType="string"
             android:defaultValue="0"
             />
+        <argument
+            android:name="plubbingId"
+            app:argType="string"
+            android:defaultValue="0"
+            />
     </fragment>
 
     <fragment
@@ -34,7 +39,12 @@
         <argument
             android:name="categoryId"
             app:argType="string"
-            android:defaultValue=""
+            android:defaultValue="0"
+            />
+        <argument
+            android:name="plubbingId"
+            app:argType="string"
+            android:defaultValue="0"
             />
     </fragment>
 
@@ -47,6 +57,11 @@
         <action
             android:id="@+id/action_recruitmentFragment_to_applyPlubbingFragment"
             app:destination="@id/applyPlubbingFragment" />
+        <argument
+            android:name="plubbingId"
+            app:argType="string"
+            android:defaultValue="0"
+            />
     </fragment>
 
     <fragment
@@ -54,5 +69,11 @@
         android:name="com.plub.presentation.ui.home.plubing.recruitment.ApplyPlubbingFragment"
         android:label="fragment_apply_plubbing"
         tools:layout="@layout/fragment_apply_plubbing"
-        />
+        >
+        <argument
+            android:name="plubbingId"
+            app:argType="string"
+            android:defaultValue="0"
+            />
+    </fragment>
 </navigation>

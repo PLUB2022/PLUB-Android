@@ -29,9 +29,6 @@ class CategoryChoiceViewModel @Inject constructor(
     val recommendationData: SharedFlow<RecommendationGatheringResponseVo> =
         _recommendationData.asSharedFlow()
 
-    private val _goToDetailRecruitmentFragment = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val goToDetailRecruitmentFragment: SharedFlow<Unit> = _goToDetailRecruitmentFragment.asSharedFlow()
-
     fun fetchRecommendationGatheringData(categoryId : Int)  =
         viewModelScope.launch {
             categoriesGatheringUseCase.invoke(CategoriesGatheringRequestVo(categoryId, 0)).collect{ state->
@@ -54,12 +51,6 @@ class CategoryChoiceViewModel @Inject constructor(
             ui.copy(
                 listOrGrid = false
             )
-        }
-    }
-
-    fun goToRecruitmentFragment() {
-        viewModelScope.launch {
-            _goToDetailRecruitmentFragment.emit(Unit)
         }
     }
 
