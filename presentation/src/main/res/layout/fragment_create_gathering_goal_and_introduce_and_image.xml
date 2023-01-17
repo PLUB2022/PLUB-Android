@@ -62,7 +62,7 @@
                     android:id="@+id/text_view_gathering_goal_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="48dp"
                     android:text="@string/create_gathering_goal_and_introduce_and_picture_gathering_goal_title"
                     android:textColor="@color/color_363636"
                     android:textSize="16sp"

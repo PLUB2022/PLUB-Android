@@ -19,7 +19,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_f5f3f6"
         android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
         tools:context=".ui.createGathering.peopleNumber.CreateGatheringPeopleNumberFragment">
 
         <TextView
@@ -27,6 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_gathering_people_number_title"
+            android:textColor="@color/color_363636"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,6 +40,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_gathering_people_number_description"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_title" />
 
@@ -42,8 +50,11 @@
             android:id="@+id/text_view_seekbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="48dp"
             android:text="@string/create_gathering_people_number_seekbar_title"
+            android:textColor="@color/color_363636"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_description" />
 
@@ -51,7 +62,7 @@
             android:id="@+id/seek_bar_people"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="41dp"
             android:background="@null"
             android:max="16"
             android:paddingStart="16dp"
@@ -71,8 +82,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
+            android:layout_marginTop="4dp"
             android:text="@string/create_gathering_people_number_seekbar_min"
-            android:visibility="@{vm.uiState.peopleNumber == 4 || vm.uiState.peopleNumber == 5 ? View.INVISIBLE : View.VISIBLE}"
+            android:textColor="@color/color_363636"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/seek_bar_people"
             app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
 
@@ -80,9 +93,11 @@
             android:id="@+id/text_view_seekbar_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="14dp"
             android:text="@string/create_gathering_people_number_seekbar_max"
-            android:visibility="@{vm.uiState.peopleNumber == 20 || vm.uiState.peopleNumber == 19 ? View.INVISIBLE : View.VISIBLE}"
+            android:textColor="@color/color_363636"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/seek_bar_people"
             app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
 
@@ -97,7 +112,6 @@
 
         <TextView
             android:id="@+id/text_view_seekbar_mark"
-            style="bold"
             android:layout_width="58dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
@@ -108,6 +122,7 @@
             android:text="@{@string/word_people_number(vm.uiState.peopleNumber)}"
             android:textColor="@color/white"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/seek_bar_people"
             app:layout_constraintStart_toStartOf="@id/seek_bar_people"
             app:textViewPositionX="@{vm.uiState.seekBarPositionX}"
@@ -117,8 +132,7 @@
             android:id="@+id/button_next"
             android:layout_width="0dp"
             android:layout_height="44dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="26dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
             android:onClick="@{() -> parent_vm.onMoveToNextPage(vm.uiState)}"
             android:text="@string/word_next"
