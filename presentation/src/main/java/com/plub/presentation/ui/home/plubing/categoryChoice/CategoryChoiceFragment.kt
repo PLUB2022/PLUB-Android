@@ -7,11 +7,9 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.presentation.R
-import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
 import com.plub.presentation.state.CategoryChoiceState
-import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.home.adapter.MainRecommendAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGridAdapter
@@ -26,14 +24,15 @@ class CategoryChoiceFragment :
     ) {
     private val categorygridAdapter: MainRecommendGridAdapter by lazy {
         MainRecommendGridAdapter(object : MainRecommendGridAdapter.MainRecommendGridDelegate {
-            //TODO 리스너 달기
+            override fun onClick(plubbingId: Int) {
+                goToDetailRecruitment(plubbingId)
+            }
         })
     }
     private val categorylistAdapter: MainRecommendAdapter by lazy {
         MainRecommendAdapter(object : MainRecommendGatheringAdapter.MainRecommendGatheringDelegate {
-            //TODO 리스너 달기
             override fun onClick(plubbingId: Int) {
-                //TODO
+                goToDetailRecruitment(plubbingId)
             }
         })
     }
@@ -58,6 +57,7 @@ class CategoryChoiceFragment :
                     when (it.plubbings.content.size) {
                         0 -> Log.d("TAG", "nothing")//HasNotDataRecycler()
                         else -> {
+                            categorygridAdapter.submitList(it.plubbings.content)
                             categorylistAdapter.submitList(it.plubbings.content)
                             setListRecycler()
                         }
@@ -104,9 +104,9 @@ class CategoryChoiceFragment :
         }
     }
 
-    fun goToDetailRecruitment() {
+    fun goToDetailRecruitment(plubbingId : Int) {
         val action =
-            CategoryChoiceFragmentDirections.actionCategoryChoiceFragmentToRecruitmentFragment()
+            CategoryChoiceFragmentDirections.actionCategoryChoiceFragmentToRecruitmentFragment(plubbingId.toString())
         findNavController().navigate(action)
     }
 }

@@ -5,13 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.GatheringItemVo
-import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
 import com.plub.presentation.databinding.IncludeItemLayoutMainRecommendGatheringBinding
-import com.plub.presentation.databinding.IncludeItemRecommendGatheringListItemBinding
 import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendViewHolder
-import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 
 
 class MainRecommendGatheringAdapter(private val listener: MainRecommendGatheringDelegate) : ListAdapter<RecommendationGatheringDataResponseVo, RecyclerView.ViewHolder>(

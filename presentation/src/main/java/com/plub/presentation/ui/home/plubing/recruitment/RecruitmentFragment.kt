@@ -27,18 +27,17 @@ class RecruitmentFragment : BaseFragment<FragmentDetailRecruitmentPlubingBinding
             buttonJoin.setOnClickListener {
                 goToApplyPlubbingFragment(returnFragmentArgs())
             }
+            viewModel.fetchRecruitmentDetail(returnFragmentArgs().toInt())
         }
     }
 
     override fun initStates() {
-        //TODO("Not yet implemented")
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-//                viewModel.goToApplyFragment.collect{
-//                    goToApplyPlubbingFragment()
-//                }
+                viewModel.recruitMentDetailData.collect{
+                    //데이터 바인딩
+                }
             }
-
         }
     }
 
@@ -54,7 +53,4 @@ class RecruitmentFragment : BaseFragment<FragmentDetailRecruitmentPlubingBinding
         else
             return plubbingIdForMain.plubbingId
     }
-
-
-
 }

@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.home.adapter.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
+import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseContentListVo
 import com.plub.presentation.databinding.IncludeItemRecommendGatheringGridBinding
 import com.plub.presentation.ui.home.adapter.MainRecommendGridAdapter
 
@@ -10,10 +10,12 @@ class MainRecommendGridViewHolder(
     private val listener : MainRecommendGridAdapter.MainRecommendGridDelegate
 ): RecyclerView.ViewHolder(binding.root){
 
-    fun bind(item: RecommendationGatheringDataResponseVo) {
+    fun bind(item: RecommendationGatheringResponseContentListVo) {
         binding.apply {
-            //iconCategory = item.img_res
-            //textViewPlubbingGatheringName.text = item.title
+            imageViewRecommendGrid.setOnClickListener {
+                listener.onClick(item.plubbingId)
+            }
+
         }
     }
 }

@@ -5,20 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
+import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseContentListVo
 import com.plub.presentation.databinding.IncludeItemRecommendGatheringGridBinding
 import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendGridViewHolder
 
 
-class MainRecommendGridAdapter(private val listener: MainRecommendGridAdapter.MainRecommendGridDelegate) : ListAdapter<RecommendationGatheringDataResponseVo, RecyclerView.ViewHolder>(
+class MainRecommendGridAdapter(private val listener: MainRecommendGridAdapter.MainRecommendGridDelegate) : ListAdapter<RecommendationGatheringResponseContentListVo, RecyclerView.ViewHolder>(
     MainGatheringGridDiffCallBack()
 ){
 
     interface MainRecommendGridDelegate {
-//        val categoryList:List<CategoriesDataResponseVo>
-//        fun onClickExpand(hobbyId: Int)
-//        fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo)
-//        fun onClickLatePick()
+        fun onClick(plubbingId : Int)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -34,7 +31,7 @@ class MainRecommendGridAdapter(private val listener: MainRecommendGridAdapter.Ma
 
 }
 
-class MainGatheringGridDiffCallBack : DiffUtil.ItemCallback<RecommendationGatheringDataResponseVo>() {
-    override fun areItemsTheSame(oldItem: RecommendationGatheringDataResponseVo, newItem: RecommendationGatheringDataResponseVo): Boolean = oldItem == newItem
-    override fun areContentsTheSame(oldItem: RecommendationGatheringDataResponseVo, newItem: RecommendationGatheringDataResponseVo): Boolean = oldItem == newItem
+class MainGatheringGridDiffCallBack : DiffUtil.ItemCallback<RecommendationGatheringResponseContentListVo>() {
+    override fun areItemsTheSame(oldItem: RecommendationGatheringResponseContentListVo, newItem: RecommendationGatheringResponseContentListVo): Boolean = oldItem == newItem
+    override fun areContentsTheSame(oldItem: RecommendationGatheringResponseContentListVo, newItem: RecommendationGatheringResponseContentListVo): Boolean = oldItem == newItem
 }

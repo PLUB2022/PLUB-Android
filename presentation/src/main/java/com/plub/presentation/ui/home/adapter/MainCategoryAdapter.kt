@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoryListDataResponseVo
 import com.plub.presentation.databinding.IncludeItemLayoutMainCategoryBinding
 import com.plub.presentation.ui.home.adapter.viewholder.MainCategoryParentViewHoler
-import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 
 
 class MainCategoryAdapter(private val listener: MainCategoryDelegate) : ListAdapter<CategoryListDataResponseVo, RecyclerView.ViewHolder>(
