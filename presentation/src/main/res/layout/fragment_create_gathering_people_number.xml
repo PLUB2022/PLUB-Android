@@ -118,7 +118,7 @@
             android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:paddingVertical="2dp"
+            android:paddingVertical="4dp"
             android:text="@{@string/word_people_number(vm.uiState.peopleNumber)}"
             android:textColor="@color/white"
             android:textSize="16sp"
