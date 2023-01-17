@@ -11,129 +11,152 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <ImageButton
-            android:id="@+id/image_btn_back"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="45.5dp"
-            android:background="@color/color_c4c4c4"
-            android:clipToOutline="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="@color/color_f5f3f6">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="305dp"
-            android:layout_height="32dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="39dp"
-            android:layout_marginTop="43dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/constraint_layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="92dp"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/text_view_category_choice_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="예술"
-                android:textColor="@color/black"
-                android:textSize="24sp"
+            <ImageButton
+                android:id="@+id/image_btn_back"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/transparent"
+                android:clipToOutline="true"
+                android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/text_view_category_name"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
+                android:text="예술"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@id/image_btn_back"
+                app:layout_constraintStart_toEndOf="@id/image_btn_back"
+                app:layout_constraintTop_toTopOf="@id/image_btn_back" />
+
             <ImageButton
-                android:id="@+id/image_btn_category_choice_search"
+                android:id="@+id/image_btn_search"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="@color/color_c4c4c4"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="15dp"
+                android:background="@color/transparent"
                 android:clipToOutline="true"
+                android:src="@drawable/ic_search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/text_view_see_all_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:layout_marginStart="16dp"
+                android:text="전체"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/image_btn_filter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/image_btn_filter" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="329dp"
-            android:layout_height="32dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="77dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            <ImageButton
+                android:id="@+id/image_btn_filter"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="52dp"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_filter"
+                app:layout_constraintStart_toEndOf="@id/text_view_see_all_btn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/image_btn_list"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="209dp"
+                android:layout_marginTop="52dp"
+                android:background="@color/transparent"
+                android:onClick="@{() -> vm.listBtnClick()}"
+                android:src="@drawable/ic_list_item_active"
+                app:layout_constraintEnd_toStartOf="@id/image_btn_grid"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/image_btn_grid"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginEnd="4dp"
+                android:background="@color/transparent"
+                android:onClick="@{()->vm.gridBtnClick()}"
+                android:src="@drawable/ic_grid_item_inactive"
+                app:layout_constraintEnd_toStartOf="@id/constraint_layout_sort"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="56dp"
+                android:id="@+id/constraint_layout_sort"
+                android:layout_width="68dp"
                 android:layout_height="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+
+                android:background="@drawable/bg_rectangle_empty_5f5ff9_radius_12"
+                app:layout_constraintBottom_toBottomOf="@id/image_btn_grid"
+                app:layout_constraintEnd_toEndOf="@id/image_btn_search"
+                app:layout_constraintTop_toTopOf="@id/image_btn_grid">
 
                 <TextView
-                    android:id="@+id/text_view_category_choice_see_all_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="전체"
-                    android:textColor="#5F5FF9"
-                    android:textSize="16sp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="10dp"
+                    android:text="인기순"
+                    android:textColor="@color/color_5f5ff9"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
-                    android:id="@+id/image_btn_category_choice_filter"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="@color/color_c4c4c4"
-                    android:clipToOutline="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_arrow_triangle_down"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageButton
-                android:id="@+id/image_btn_list_to_grid"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="200dp"
-                android:background="@color/black"
-                android:clipToOutline="true"
-                android:onClick="@{()->vm.gridBtnClick()}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/image_btn_grid_to_list"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="220dp"
-                android:background="@color/purple_200"
-                android:clipToOutline="true"
-                android:onClick="@{()->vm.listBtnClick()}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_category_choice_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_top">
 
         </androidx.recyclerview.widget.RecyclerView>
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/dim_home_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="360:40"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
