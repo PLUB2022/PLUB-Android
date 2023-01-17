@@ -85,6 +85,7 @@
                 android:src="@drawable/ic_location_blue"/>
 
             <TextView
+                android:id="@+id/text_view_location"
                 app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="58dp"
@@ -96,21 +97,6 @@
                 android:layout_height="18dp"
                 />
 
-
-            <TextView
-                android:id="@+id/text_view_plubbing_start_day"
-                android:layout_width="45dp"
-                android:layout_height="16dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="291dp"
-                android:layout_marginTop="77dp"
-
-                android:lineSpacingExtra="1sp"
-                android:text="22.07.05"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/text_view_plubbing_goal"

@@ -3,11 +3,14 @@ package com.plub.presentation.ui.home.plubing.recruitment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
+import com.plub.presentation.R
 import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceFragmentArgs
 import com.plub.presentation.ui.home.plubing.main.MainFragmentArgs
+import com.plub.presentation.util.GlideUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -35,7 +38,7 @@ class RecruitmentFragment : BaseFragment<FragmentDetailRecruitmentPlubingBinding
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.recruitMentDetailData.collect{
-                    //데이터 바인딩
+                    initDetailPage(it)
                 }
             }
         }
@@ -52,5 +55,25 @@ class RecruitmentFragment : BaseFragment<FragmentDetailRecruitmentPlubingBinding
         }
         else
             return plubbingIdForMain.plubbingId
+    }
+
+    fun initDetailPage(data : RecruitDetailResponseVo){
+        binding.apply {
+            if(data.isBookmarked){
+                imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
+            }
+            textViewPlubbingName.text = data.plubbingName
+            textViewPlubbingTitle.text = data.recruitTitle
+            //textViewLocation.text = data.location
+            textViewPlubbingGoal.text = "“${data.plubbingGoal}”"
+            //textViewPeople.text = "모집 인원 ${data.maxAccountNum}명"
+            textViewDate.text = "매주~~"
+            imageViewPlubbingImage
+            GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
+            textViewPlubbingDetailIntro.text = "[ ${data.plubbingName} ] 모임은요...!"
+            textViewPlubbingDetail.text = data.recruitIntroduce
+            //recycler_view_plubbing_hobby
+            //recycler_view_plubbing_people_profile
+        }
     }
 }
