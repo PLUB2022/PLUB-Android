@@ -10,7 +10,7 @@ import com.plub.presentation.databinding.IncludeItemRecommendGatheringGridBindin
 import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendGridViewHolder
 
 
-class MainRecommendGridAdapter() : ListAdapter<RecommendationGatheringDataResponseVo, RecyclerView.ViewHolder>(
+class MainRecommendGridAdapter(private val listener: MainRecommendGridAdapter.MainRecommendGridDelegate) : ListAdapter<RecommendationGatheringDataResponseVo, RecyclerView.ViewHolder>(
     MainGatheringGridDiffCallBack()
 ){
 
@@ -29,7 +29,7 @@ class MainRecommendGridAdapter() : ListAdapter<RecommendationGatheringDataRespon
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = IncludeItemRecommendGatheringGridBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MainRecommendGridViewHolder(binding)
+        return MainRecommendGridViewHolder(binding, listener)
     }
 
 }

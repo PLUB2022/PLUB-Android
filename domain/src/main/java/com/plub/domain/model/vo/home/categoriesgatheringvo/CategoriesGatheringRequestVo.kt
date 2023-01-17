@@ -4,5 +4,5 @@ import com.plub.domain.base.DomainModel
 
 data class CategoriesGatheringRequestVo(
     val categoryId : Int,
-    val pageNumber : Int,
+    val pageNumber : Int
 ) : DomainModel()

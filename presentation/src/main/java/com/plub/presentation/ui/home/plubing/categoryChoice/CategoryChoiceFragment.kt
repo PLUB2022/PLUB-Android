@@ -3,34 +3,43 @@ package com.plub.presentation.ui.home.plubing.categoryChoice
 import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
+import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.home.adapter.MainRecommendAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGridAdapter
+import com.plub.presentation.ui.home.plubing.main.MainFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CategoryChoiceFragment : BaseFragment<FragmentCategoryChoiceBinding, SampleHomeState, CategoryChoiceViewModel>(
+class CategoryChoiceFragment : BaseFragment<FragmentCategoryChoiceBinding, PageState.Default, CategoryChoiceViewModel>(
     FragmentCategoryChoiceBinding::inflate
 )  {
-    lateinit var categorygridAdapter: MainRecommendGridAdapter
+    private val categorygridAdapter : MainRecommendGridAdapter by lazy {
+        MainRecommendGridAdapter(object : MainRecommendGridAdapter.MainRecommendGridDelegate {
+            //TODO 리스너 달기
+        })
+    }
     private val categorylistAdapter : MainRecommendAdapter by lazy {
         MainRecommendAdapter(object : MainRecommendGatheringAdapter.MainRecommendGatheringDelegate {
             //TODO 리스너 달기
         })
     }
+
+    private val categoryId : MainFragmentArgs by navArgs()
     override val viewModel: CategoryChoiceViewModel by viewModels()
 
     override fun initView() {
 
         binding.apply {
             vm = viewModel
-            viewModel.fetchRecommendationGatheringData()
+            viewModel.fetchRecommendationGatheringData(categoryId.categoryId.toInt())
             //TODO 할 일
         }
     }
@@ -82,7 +91,7 @@ class CategoryChoiceFragment : BaseFragment<FragmentCategoryChoiceBinding, Sampl
     fun changeGridRecycler(){
         binding.recyclerViewCategoryChoiceList.apply {
             layoutManager = GridLayoutManager(context, 2)
-            adapter = categorylistAdapter
+            adapter = categorygridAdapter
         }
     }
 

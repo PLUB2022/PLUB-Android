@@ -16,6 +16,11 @@
         <action
             android:id="@+id/action_mainFragment_to_recruitmentFragment"
             app:destination="@id/recruitmentFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            android:defaultValue="0"
+            />
     </fragment>
 
     <fragment
@@ -26,6 +31,11 @@
         <action
             android:id="@+id/action_categoryChoiceFragment_to_recruitmentFragment"
             app:destination="@id/recruitmentFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            android:defaultValue=""
+            />
     </fragment>
 
     <fragment

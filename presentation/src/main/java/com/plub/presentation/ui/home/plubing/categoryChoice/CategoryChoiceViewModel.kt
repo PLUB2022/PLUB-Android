@@ -2,12 +2,14 @@ package com.plub.presentation.ui.home.plubing.categoryChoice
 
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.vo.home.categoriesgatheringvo.CategoriesGatheringRequestVo
 import com.plub.presentation.state.SampleHomeState
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.successOrNull
-import com.plub.domain.usecase.RecommendationGatheringUsecase
+import com.plub.domain.usecase.GetCategoriesGatheringUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
@@ -16,8 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryChoiceViewModel @Inject constructor(
-    val recommendationGatheringUsecase: RecommendationGatheringUsecase
-) : BaseViewModel<SampleHomeState>(SampleHomeState()) {
+    val categoriesGatheringUseCase: GetCategoriesGatheringUseCase
+) : BaseViewModel<PageState.Default>(PageState.Default) {
 
 
     private val _switchList = MutableStateFlow("")
@@ -31,9 +33,9 @@ class CategoryChoiceViewModel @Inject constructor(
     private val _goToDetailRecruitmentFragment = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val goToDetailRecruitmentFragment: SharedFlow<Unit> = _goToDetailRecruitmentFragment.asSharedFlow()
 
-    fun fetchRecommendationGatheringData()  =
+    fun fetchRecommendationGatheringData(categoryId : Int)  =
         viewModelScope.launch {
-            recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0)).collect{ state->
+            categoriesGatheringUseCase.invoke(CategoriesGatheringRequestVo(categoryId, 0)).collect{ state->
                 state.successOrNull()?.let { _recommendationData.emit(it) }
             }
     }

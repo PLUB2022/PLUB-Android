@@ -21,6 +21,10 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
+    abstract fun providesCategoriesGatheringRepository(categoriesGatheringResposImpl: CategoriesGatheringResposImpl): CategoriesGatheringRepository
+
+    @Singleton
+    @Binds
     abstract fun providesCategoryListRepository(categoryListResposImpl: CategoryListResposImpl): CategoryListRepository
 
     @Singleton
