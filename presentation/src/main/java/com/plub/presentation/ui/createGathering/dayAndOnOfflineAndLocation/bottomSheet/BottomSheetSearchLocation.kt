@@ -51,7 +51,7 @@ class BottomSheetSearchLocation(
         }
 
         pagingDataAdapter.addOnPagesUpdatedListener {
-            val size = pagingDataAdapter.itemCount
+            val size = pagingDataAdapter.snapshot()[0]?.documentTotalCount ?: 0
             viewModel.upDateSearchResultCount(size)
         }
 
