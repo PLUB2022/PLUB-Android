@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
 
         <variable
             name="position"
@@ -53,15 +54,15 @@
 
         <TextView
             android:id="@+id/text_view_change_no_question_description"
-            app:layout_constraintTop_toBottomOf="@id/text_view_question_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bottom_sheet_delete_change_no_question_description"
             android:textColor="@color/color_363636"
-            android:visibility="@{question_count == 1 ? View.VISIBLE : View.GONE}"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:visibility="@{question_count == 1 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_question_description" />
 
         <Button
             android:id="@+id/button_no"
@@ -69,13 +70,14 @@
             android:layout_height="46dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="12dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/bg_rectangle_filled_e4e4e4_radius_10"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:stateListAnimator="@null"
             android:text="@string/bottom_sheet_delete_question_no"
             android:textColor="@color/color_8c8c8c"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/button_yes"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_change_no_question_description" />
@@ -84,13 +86,14 @@
             android:id="@+id/button_yes"
             android:layout_width="0dp"
             android:layout_height="46dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@drawable/bg_rectangle_filled_f75b2b_radius_10"
             android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_rectangle_filled_f75b2b_radius_10"
+            android:stateListAnimator="@null"
             android:text="@string/bottom_sheet_delete_question_yes"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/button_no"
             app:layout_constraintTop_toTopOf="@id/button_no" />
