@@ -213,6 +213,7 @@
                 app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
                 app:layout_constraintTop_toBottomOf="@id/text_view_plubbing_detail"
                 android:layout_marginTop="24dp"
+                android:overScrollMode="never"
                 android:layout_width="327dp"
                 android:layout_height="wrap_content"/>
 
@@ -234,6 +235,7 @@
                 app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_hobby"
                 android:layout_marginTop="54dp"
                 android:orientation="horizontal"
+                android:overScrollMode="never"
                 android:layout_width="328dp"
                 android:layout_height="wrap_content"/>
 
@@ -244,7 +246,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/bg_rectangle_filled_e4e4e4_radius_10"
-                android:text="같이 할래요!"
+                android:text="모임 둘러보기"
                 android:textColor="#8C8C8C"
                 android:textSize="14dp"
                 android:textStyle="bold"
