@@ -8,23 +8,27 @@ object RecruitDetailResponseMapper: Mapper.ResponseMapper<RecruitDetailResponse,
     override fun mapDtoToModel(type: RecruitDetailResponse?): RecruitDetailResponseVo {
         return type?.run {
             RecruitDetailResponseVo(
-                recruitTitle,
-                recruitIntroduce,
+                title,
+                introduce,
                 categories,
-                plubbingName,
-                plubbingGoal,
-                plubbingMainImage,
-                plubbingDays,
-                plubbingTime,
+                name,
+                goal,
+                days,
+                address,
+                roadAddress,
+                placeName,
+                placePositionX,
+                placePositionY,
+                remainAccountNum,
+                time,
                 isBookmarked,
-                isApplied,
-                curAccountNum,
+                isApplied, curAccountNum,
                 joinedAccounts.map {
                     RecruitDetailJoinedAccountsMapper.mapDtoToModel(it)
                 }
             )
-        }?: RecruitDetailResponseVo("", "", emptyList(),"","","", emptyList(),"",
-        false,false,0, emptyList()
+        }?: RecruitDetailResponseVo("", "", emptyList(), "", "", emptyList(), ""
+        , "", "", 0.0, 0.0, 0, "", false, false, 0, emptyList()
         )
     }
 }

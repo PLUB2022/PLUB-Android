@@ -8,8 +8,8 @@ object RecruitDetailJoinedAccountsMapper: Mapper.ResponseMapper<RecruitDetailJoi
     override fun mapDtoToModel(type: RecruitDetailJoinedAccountsList?): RecruitDetailJoinedAccountsListVo {
         return type?.run {
             RecruitDetailJoinedAccountsListVo(
-                accountId, profileImage
+                accountId, //profileImage
             )
-        }?: RecruitDetailJoinedAccountsListVo(0, "")
+        }?: RecruitDetailJoinedAccountsListVo(0)
     }
 }
