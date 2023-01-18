@@ -31,8 +31,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
 
     private val recommendationListAdapter : MainRecommendGatheringAdapter by lazy {
         MainRecommendGatheringAdapter(object : MainRecommendGatheringAdapter.MainRecommendGatheringDelegate {
-            override fun onClick(plubbingId: Int) {
+            override fun onClickGoRecruitDetail(plubbingId: Int) {
                 goToRecruitmentFragment(plubbingId)
+            }
+
+            override fun onClickBookmark(plubbingId: Int) {
+                viewModel.clickBookmark(plubbingId)
             }
         })
     }

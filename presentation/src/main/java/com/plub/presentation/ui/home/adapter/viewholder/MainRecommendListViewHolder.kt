@@ -5,7 +5,6 @@ import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGat
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemRecommendGatheringListItemBinding
 import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
-import com.plub.presentation.util.GlideUtil
 
 class MainRecommendListViewHolder(
     private val binding: IncludeItemRecommendGatheringListItemBinding,
@@ -13,13 +12,25 @@ class MainRecommendListViewHolder(
 ): RecyclerView.ViewHolder(binding.root){
 
     fun bind(item: RecommendationGatheringResponseContentListVo) {
+        var bookmarkFlag = item.isBookmarked
         binding.apply {
             constraintLayoutItemLayout.setOnClickListener{
-                listener.onClick(item.plubbingId)
+                listener.onClickGoRecruitDetail(item.plubbingId)
+            }
+
+            imageBtnBookmark.setOnClickListener {
+                if(bookmarkFlag){
+                    imageBtnBookmark.setImageResource(R.drawable.ic_unchecked_bookmark)
+                }
+                else{
+                    imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
+                }
+                bookmarkFlag = !bookmarkFlag
+                listener.onClickBookmark(item.plubbingId)
             }
 
             //GlideUtil.loadImage(root.context, item.mainImage, imageViewMeet)
-            if(item.isBookmarked){
+            if(bookmarkFlag){
                 imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
             }
             textViewMeetTitle.text = item.title

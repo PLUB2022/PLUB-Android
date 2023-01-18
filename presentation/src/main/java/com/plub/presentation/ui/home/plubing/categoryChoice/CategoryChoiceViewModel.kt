@@ -8,6 +8,7 @@ import com.plub.presentation.state.SampleHomeState
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.successOrNull
+import com.plub.domain.usecase.BookmarkUsecase
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.CategoryChoiceState
@@ -20,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryChoiceViewModel @Inject constructor(
-    val categoriesGatheringUseCase: GetCategoriesGatheringUseCase
+    val categoriesGatheringUseCase: GetCategoriesGatheringUseCase,
+    val bookmarkUsecase: BookmarkUsecase
 ) : BaseViewModel<CategoryChoiceState>(CategoryChoiceState()) {
 
 
@@ -34,6 +36,12 @@ class CategoryChoiceViewModel @Inject constructor(
             categoriesGatheringUseCase.invoke(CategoriesGatheringRequestVo(categoryId, 0)).collect{ state->
                 state.successOrNull()?.let { _recommendationData.emit(it) }
             }
+    }
+
+    fun clickBookmark(plubbingId : Int){
+        viewModelScope.launch{
+            bookmarkUsecase.invoke(plubbingId)
+        }
     }
 
     fun gridBtnClick(){

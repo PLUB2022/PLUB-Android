@@ -14,7 +14,8 @@ class MainRecommendGatheringAdapter(private val listener: MainRecommendGathering
     MainRecommendGatheringDiffCallBack()
 ){
     interface MainRecommendGatheringDelegate {
-        fun onClick(plubbingId : Int)
+        fun onClickGoRecruitDetail(plubbingId : Int)
+        fun onClickBookmark(plubbingId: Int)
     }
 
 
