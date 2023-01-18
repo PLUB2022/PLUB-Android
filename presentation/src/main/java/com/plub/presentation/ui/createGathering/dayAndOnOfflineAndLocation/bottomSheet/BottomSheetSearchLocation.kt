@@ -18,6 +18,7 @@ import com.plub.presentation.databinding.BottomSheetSearchLocationBinding
 import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bottomSheet.adapter.KakaoLocationRecyclerViewAdapter
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -50,11 +51,6 @@ class BottomSheetSearchLocation(
             dismiss()
         }
 
-        pagingDataAdapter.addOnPagesUpdatedListener {
-            val size = pagingDataAdapter.snapshot()[0]?.documentTotalCount ?: 0
-            viewModel.upDateSearchResultCount(size)
-        }
-
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
@@ -71,6 +67,16 @@ class BottomSheetSearchLocation(
                         val inputMethodManager =
                             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                         inputMethodManager.hideSoftInputFromWindow(binding.iconEditTextSearchLocation.editText.windowToken, 0)
+                    }
+                }
+
+                launch {
+                    pagingDataAdapter.onPagesUpdatedFlow.collectLatest {
+                        val currentList = pagingDataAdapter.snapshot()
+
+                        val size = if(currentList.isEmpty()) 0 else currentList[0]?.documentTotalCount ?: 0
+                        viewModel.upDateSearchResultCount(size)
+                        viewModel.updateSearchedText()
                     }
                 }
             }

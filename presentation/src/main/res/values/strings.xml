@@ -107,8 +107,8 @@
     <string name="bottom_sheet_search_gathering_location_search_description_title">장소 또는 지역을 검색해주세요</string>
     <string name="bottom_sheet_search_gathering_location_search_description_description">예) 마포구, 강남역, 광화문 광장 등</string>
     <string name="bottom_sheet_search_gathering_location_search_result_empty_descriptor">검색 결과 없음 이미지</string>
-    <string name="bottom_sheet_search_gathering_location_search_result_empty_title">검색 결과가 없어요</string>
-    <string name="bottom_sheet_search_gathering_location_search_result_empty_description">검색 결과 없음</string>
+    <string name="bottom_sheet_search_gathering_location_search_result_empty_title">\'%s\'에 대한 검색 결과가 없어요.</string>
+    <string name="bottom_sheet_search_gathering_location_search_result_empty_description"><li>단어의 철자가 정확한지 확인해 보세요.</li>\n<li>검색어의 단어 수를 줄이거나, 보다 일반적인 검색어로 다시 검색해 보세요.</li></string>
 
     <string name="create_gathering_people_number_title">몇명에서 만날까요?</string>
     <string name="create_gathering_people_number_description">함께 하고자 하는 적정 인원 수를 적어주세요.</string>
