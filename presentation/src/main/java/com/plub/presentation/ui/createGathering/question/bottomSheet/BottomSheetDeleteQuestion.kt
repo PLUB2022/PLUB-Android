@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class BottomSheetDeleteQuestion(
     private val position: Int,
+    private val questionCount: Int,
     private val okButtonClickEvent: ((position: Int) -> Unit)? = null
 ) : BottomSheetDialogFragment() {
     private lateinit var binding: BottomSheetDeleteQuestionBinding
@@ -32,6 +33,7 @@ class BottomSheetDeleteQuestion(
         super.setupDialog(dialog, style)
         binding = BottomSheetDeleteQuestionBinding.inflate(LayoutInflater.from(context))
         binding.position = position
+        binding.questionCount = questionCount
 
         binding.buttonYes.setOnClickListener {
             okButtonClickEvent?.let { it(position) }

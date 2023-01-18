@@ -8,6 +8,7 @@ import com.plub.presentation.ui.createGathering.question.adapter.QuestionRecycle
 import com.plub.presentation.ui.createGathering.question.bottomSheet.BottomSheetDeleteQuestion
 import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -46,24 +47,30 @@ class CreateGatheringQuestionFragment : BaseFragment<
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collectLatest { pageState ->
-                    if(pageState.needUpdateRecyclerView.not()) return@collectLatest
-                    PlubLogger.logD("테스트", "이전 값 ${questionRecyclerViewAdapter.currentList}")
-                    questionRecyclerViewAdapter.submitList(pageState.questions) {
-                        PlubLogger.logD("테스트", "이후 값 ${questionRecyclerViewAdapter.currentList}")
-                    }
+                    if (pageState.needUpdateRecyclerView.not()) return@collectLatest
+                    questionRecyclerViewAdapter.submitList(pageState.questions)
                 }
             }
 
             launch {
-                viewModel.showBottomSheetDeleteQuestion.collectLatest { position ->
-                    val bottomSheetDeleteQuestion = BottomSheetDeleteQuestion(position) { position ->
-                        viewModel.deleteQuestion(position)
+                viewModel.showBottomSheetDeleteQuestion.collectLatest { (size, position) ->
+                    val bottomSheetDeleteQuestion = BottomSheetDeleteQuestion(
+                        position,
+                        size
+                    ) { _ ->
+                        viewModel.onClickBottomSheetDelete(size, position)
                     }
 
                     bottomSheetDeleteQuestion.show(
                         requireActivity().supportFragmentManager,
                         bottomSheetDeleteQuestion.tag
                     )
+                }
+            }
+
+            launch {
+                viewModel.performClickNoQuestionRadioButton.collect {
+                    binding.radioButtonNoQuestion.performClick()
                 }
             }
         }

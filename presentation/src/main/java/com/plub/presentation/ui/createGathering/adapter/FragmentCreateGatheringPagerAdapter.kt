@@ -18,7 +18,7 @@ class FragmentCreateGatheringPagerAdapter(fragment: Fragment): FragmentStateAdap
     override fun getItemCount(): Int = CreateGatheringPageType.values().size
 
     override fun createFragment(position: Int): Fragment = when(position) {
-        CreateGatheringPageType.SELECT_PLUB_CATEGORY.idx -> CreateGatheringSelectPlubCategoryFragment()
+        CreateGatheringPageType.SELECT_PLUB_CATEGORY.idx -> CreateGatheringQuestionFragment()//CreateGatheringSelectPlubCategoryFragment()
         CreateGatheringPageType.GATHERING_TITLE_AND_NAME.idx -> CreateGatheringTitleAndNameFragment()
         CreateGatheringPageType.GOAL_INTRODUCE_PICTURE.idx -> CreateGatheringGoalAndIntroduceAndImageFragment()
         CreateGatheringPageType.DAY_ON_OFF_LOCATION.idx -> CreateGatheringDayAndOnOfflineAndLocationFragment()

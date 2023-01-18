@@ -43,7 +43,7 @@ class QuestionRecyclerViewAdapter(
                 updateEditText(data, text.toString())
             }
 
-            binding.textViewDelete.setOnClickListener {
+            binding.imageViewDelete.setOnClickListener {
                 /**
                  * recyclerView의 animation을 disable한 상태로
                  * editText가 focus된 상태로 recyclerView의 아이템이 갱신되면

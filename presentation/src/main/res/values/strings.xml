@@ -129,6 +129,7 @@
     <string name="create_gathering_finish_go_to_main">메인으로</string>
 
     <string name="bottom_sheet_delete_question_description">를 삭제 할까요?</string>
+    <string name="bottom_sheet_delete_change_no_question_description">삭제할 경우 질문 없이 모집하기로 변경돼요.</string>
     <string name="bottom_sheet_delete_question_no">아니요! 그냥 둘게요.</string>
     <string name="bottom_sheet_delete_question_yes">네, 삭제할게요.</string>
     <string name="sign_up_personal_info_birth_hint">생일을 입력해 주세요.</string>
@@ -165,4 +166,5 @@
     <string name="word_slash_300">/300</string>
     <string name="word_slash_60">/60</string>
     <string name="word_search_result">검색결과</string>
+    <string name="image_descriptor_delete_button">삭제 버튼</string>
 </resources>
