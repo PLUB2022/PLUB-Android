@@ -119,4 +119,10 @@ object UseCaseModule {
     fun providesCategoriesRecommendGatheringUseCase(repository: CategoriesGatheringRepository): GetCategoriesGatheringUseCase {
         return GetCategoriesGatheringUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesBookmarkUseCase(repository: BookmarkRepository): BookmarkUsecase {
+        return BookmarkUsecase(repository)
+    }
 }
