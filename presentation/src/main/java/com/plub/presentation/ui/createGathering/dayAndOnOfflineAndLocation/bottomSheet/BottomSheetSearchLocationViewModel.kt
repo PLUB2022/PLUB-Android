@@ -7,6 +7,7 @@ import com.plub.domain.usecase.FetchKakaoLocationByKeywordUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -26,12 +27,12 @@ class BottomSheetSearchLocationViewModel @Inject constructor(
     private val _hideKeyboard = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
     val hideKeyboard: SharedFlow<Unit> = _hideKeyboard.asSharedFlow()
 
-    private val query = MutableStateFlow("")
+    val query = MutableStateFlow("")
 
     val upDateEditTextValue: (text: String) -> Unit = { text ->
         updateUiState { uiState ->
             uiState.copy(
-                searchText = text
+                searchingText = text
             )
         }
     }
@@ -66,10 +67,20 @@ class BottomSheetSearchLocationViewModel @Inject constructor(
 
     fun onClickKeyboardSearch(): Void? {
         viewModelScope.launch {
-            query.value = uiState.value.searchText
+            query.value = uiState.value.searchingText
             _hideKeyboard.emit(Unit)
             invisibleSearchDescription()
         }
         return null
+    }
+
+    fun updateSearchedText() {
+        viewModelScope.launch {
+            updateUiState { ui ->
+                ui.copy(
+                    searchedText = query.value
+                )
+            }
+        }
     }
 }

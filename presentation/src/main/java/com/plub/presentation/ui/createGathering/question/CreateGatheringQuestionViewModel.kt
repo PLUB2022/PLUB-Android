@@ -2,6 +2,7 @@ package com.plub.presentation.ui.createGathering.question
 
 import androidx.lifecycle.viewModelScope
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.deepCopy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
@@ -17,10 +18,21 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
 
     private val maxQuestionCount = 5
 
+    /**
+     * Pair first = size, second = position
+     */
     private val _showBottomSheetDeleteQuestion =
-        MutableSharedFlow<Int>(0, 1, BufferOverflow.DROP_OLDEST)
-    val showBottomSheetDeleteQuestion: SharedFlow<Int> =
+        MutableSharedFlow<Pair<Int, Int>>(0, 1, BufferOverflow.DROP_OLDEST)
+    /**
+     * Pair first = size, second = position
+     */
+    val showBottomSheetDeleteQuestion: SharedFlow<Pair<Int, Int>> =
         _showBottomSheetDeleteQuestion.asSharedFlow()
+
+    private val _performClickNoQuestionRadioButton =
+        MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
+    val performClickNoQuestionRadioButton: SharedFlow<Unit> =
+        _performClickNoQuestionRadioButton.asSharedFlow()
 
     fun onClickNeedQuestionButton() {
         viewModelScope.launch {
@@ -46,7 +58,7 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
 
     fun onClickRecyclerViewDeleteButton(position: Int) {
         viewModelScope.launch {
-            _showBottomSheetDeleteQuestion.emit(position)
+            _showBottomSheetDeleteQuestion.emit(Pair(uiState.value.questions.size, position))
         }
     }
 
@@ -55,7 +67,7 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
         updateUiState { uiState ->
             uiState.copy(
                 needUpdateRecyclerView = false,
-                isAddQuestionButtonVisible = uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != maxQuestionCount
+                isAddQuestionButtonVisible = uiState.questions.isNotEmpty() && uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != maxQuestionCount
             )
         }
     }
@@ -75,17 +87,26 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
         }
     }
 
-    fun deleteQuestion(position: Int) {
+    fun onClickBottomSheetDelete(size: Int, position: Int) {
+        deleteQuestionOrMakeQuestionSizeToOne(position)
+        viewModelScope.launch {
+            if(size == 1)
+                _performClickNoQuestionRadioButton.emit(Unit)
+        }
+    }
+
+    private fun deleteQuestionOrMakeQuestionSizeToOne(position: Int) {
         val data = uiState.value.questions.find { it.position == position } ?: return
 
         updateUiState { uiState ->
             val deleteIndex = uiState.questions.indexOf(data)
-            val temp = uiState.questions.minus(data).deepCopy()
+            val temp = uiState.questions.minus(data).deepCopy().ifEmpty { listOf(CreateGatheringQuestion()) }
+
             updateQuestionPosition(deleteIndex, temp)
             uiState.copy(
                 _questions = temp,
                 needUpdateRecyclerView = true,
-                isAddQuestionButtonVisible = uiState.questions.find { it.question.isBlank() } == null
+                isAddQuestionButtonVisible = temp.find { it.question.isBlank() } == null
             )
         }
     }

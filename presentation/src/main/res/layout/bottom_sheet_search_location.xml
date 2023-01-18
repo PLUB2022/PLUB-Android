@@ -37,12 +37,12 @@
             android:layout_marginTop="24dp"
             android:imeOptions="actionSearch"
             app:afterIcon="@{@drawable/ic_search_363636}"
-            app:afterSearchBackground="@{@drawable/bg_rectangle_filled_e4e4e4_radius_8}"
+            app:afterSearchBackground="@{@drawable/bg_rectangle_filled_white_radius_8}"
             app:beforeIcon="@{@drawable/ic_search_8c8c8c}"
-            app:beforeSearchBackground="@{@drawable/bg_rectangle_filled_white_radius_8}"
+            app:beforeSearchBackground="@{@drawable/bg_rectangle_filled_e4e4e4_radius_8}"
             app:defaultTextColor="@{@color/color_363636}"
             app:editTextHint="@string/bottom_sheet_search_gathering_location_hint"
-            app:editTextValue="@{vm.uiState.searchText}"
+            app:editTextValue="@{vm.uiState.searchingText}"
             app:hintTextColor="@{@color/color_8c8c8c}"
             app:iconEditTextActionEvent="@{() -> vm.onClickKeyboardSearch()}"
             app:isSearched="@{!vm.uiState.showSearchDescription}"
@@ -54,29 +54,29 @@
             tools:layout_height="40dp" />
 
         <TextView
-            app:layout_constraintTop_toTopOf="@id/text_view_search_result_count"
-            app:layout_constraintEnd_toStartOf="@id/text_view_search_result_count"
             android:id="@+id/text_view_search_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:layout_marginEnd="3dp"
-            android:visibility="@{vm.uiState.showSearchDescription ? View.INVISIBLE : View.VISIBLE}"
+            android:text="@string/word_search_result"
             android:textColor="@color/color_363636"
-            android:text="@string/word_search_result"/>
+            android:textSize="12sp"
+            android:visibility="@{vm.uiState.showSearchDescription || vm.uiState.showEmptyResult ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintEnd_toStartOf="@id/text_view_search_result_count"
+            app:layout_constraintTop_toTopOf="@id/text_view_search_result_count" />
 
         <TextView
             android:id="@+id/text_view_search_result_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            tools:text="20개"
-            android:textSize="12sp"
             android:text="@{@string/word_count(vm.uiState.searchResultCount)}"
             android:textColor="@color/color_5f5ff9"
-            android:visibility="@{vm.uiState.showSearchDescription ? View.INVISIBLE : View.VISIBLE}"
+            android:textSize="12sp"
+            android:visibility="@{vm.uiState.showSearchDescription || vm.uiState.showEmptyResult ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon_edit_text_search_location" />
+            app:layout_constraintTop_toBottomOf="@id/icon_edit_text_search_location"
+            tools:text="20개" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_kakao_location"
@@ -85,6 +85,7 @@
             android:layout_marginTop="16dp"
             android:clipToPadding="false"
             android:paddingBottom="32dp"
+            android:visibility="@{vm.uiState.showSearchDescription || vm.uiState.showEmptyResult ? View.INVISIBLE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,14 +99,15 @@
             android:visibility="@{vm.uiState.showSearchDescription ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon_edit_text_search_location">
+            app:layout_constraintTop_toBottomOf="@id/icon_edit_text_search_location"
+            tools:visibility="visible">
 
             <ImageView
                 android:id="@+id/image_view_search_description"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/bottom_sheet_search_gathering_location_search_descriptor"
+                android:src="@drawable/ic_search_result_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -114,7 +116,7 @@
                 android:id="@+id/text_view_search_description_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/bottom_sheet_search_gathering_location_search_description_title"
                 android:textColor="@color/color_363636"
                 android:textSize="14sp"
@@ -127,7 +129,7 @@
                 android:id="@+id/text_view_search_description_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/bottom_sheet_search_gathering_location_search_description_description"
                 android:textColor="@color/color_8c8c8c"
                 android:textSize="12sp"
@@ -142,17 +144,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="58dp"
-            android:visibility="@{vm.uiState.showEmptyResult ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{vm.uiState.showEmptyResult &amp;&amp; !vm.uiState.searchedText.empty ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon_edit_text_search_location">
+            app:layout_constraintTop_toBottomOf="@id/icon_edit_text_search_location"
+            tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/image_view_search_result_empty"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/bottom_sheet_search_gathering_location_search_result_empty_descriptor"
+                android:src="@drawable/ic_search_result_empty"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -161,20 +164,23 @@
                 android:id="@+id/text_view_search_result_empty_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/bottom_sheet_search_gathering_location_search_result_empty_title"
+                android:layout_marginTop="32dp"
                 android:textColor="@color/color_363636"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_view_search_result_empty" />
+                app:layout_constraintTop_toBottomOf="@id/image_view_search_result_empty"
+                app:searchResultEmptyTextStyle="@{vm.uiState.searchedText}"
+                tools:text="~~에 대한 검색결과가 없어요" />
 
             <TextView
                 android:id="@+id/text_view_search_result_empty_description"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="45dp"
                 android:text="@string/bottom_sheet_search_gathering_location_search_result_empty_description"
                 android:textColor="@color/color_8c8c8c"
                 android:textSize="12sp"
@@ -201,6 +207,7 @@
             android:layout_height="44dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
             android:enabled="@{vm.uiState.okButtonEnabled}"
+            android:stateListAnimator="@null"
             android:text="@string/word_ok"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             android:textSize="14sp"

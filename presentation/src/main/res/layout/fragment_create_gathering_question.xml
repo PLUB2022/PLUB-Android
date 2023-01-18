@@ -19,11 +19,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_f5f3f6"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
         tools:context=".ui.createGathering.question.CreateGatheringQuestionFragment">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@id/button_next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -31,13 +36,16 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="100dp">
+                android:paddingBottom="20dp">
 
                 <TextView
                     android:id="@+id/text_view_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/create_gathering_question_title"
+                    android:textColor="@color/color_363636"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,6 +54,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/create_gathering_question_description"
+                    android:textColor="@color/color_8c8c8c"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_view_title" />
 
@@ -69,8 +80,11 @@
                         android:button="@null"
                         android:gravity="center"
                         android:onClick="@{() -> vm.onClickNeedQuestionButton()}"
+                        android:paddingVertical="11dp"
                         android:text="@string/create_gathering_question_need_question_radio"
-                        android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
+                        android:textColor="@drawable/selector_check_color_8c8c8c_to_white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <RadioButton
                         android:id="@+id/radio_button_no_question"
@@ -82,8 +96,11 @@
                         android:button="@null"
                         android:gravity="center"
                         android:onClick="@{() -> vm.onClickNoQuestionButton()}"
+                        android:paddingVertical="11dp"
                         android:text="@string/create_gathering_question_no_question_radio"
-                        android:textColor="@drawable/selector_check_color_8c8c8c_to_white" />
+                        android:textColor="@drawable/selector_check_color_8c8c8c_to_white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </RadioGroup>
 
@@ -109,11 +126,19 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/button_add_question"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_40"
                         android:drawableStart="@drawable/ic_plus"
                         android:drawablePadding="6dp"
                         android:onClick="@{() -> vm.addQuestion()}"
+                        android:paddingHorizontal="18dp"
+                        android:paddingVertical="9dp"
+                        android:stateListAnimator="@null"
                         android:text="@string/word_add_question"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
                         android:visibility="@{vm.uiState.addQuestionButtonVisible ? View.VISIBLE : View.INVISIBLE}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -125,15 +150,25 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:contentDescription="@string/image_descriptor_shadow"
+            android:scaleType="fitXY"
+            android:src="@drawable/dim_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
             android:id="@+id/button_next"
             android:layout_width="0dp"
             android:layout_height="44dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="26dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
             android:enabled="@{vm.uiState.isNextButtonEnabled}"
             android:onClick="@{() -> parent_vm.onMoveToNextPage(vm.uiState)}"
+            android:stateListAnimator="@null"
             android:text="@string/word_next"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             android:textSize="14sp"

@@ -10,7 +10,7 @@ fun SeekBar.updateSeekBarProgressAndPosition(method: (progress: Int, position: F
     setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar?, p1: Int, p2: Boolean) {
             seekBar?.let { seekBar ->
-                method(seekBar.progress, (((seekBar.width - seekBar.paddingStart * 2)/seekBar.max) * seekBar.progress).toFloat())
+                method(seekBar.progress, (((seekBar.width - (seekBar.paddingStart + seekBar.paddingEnd))/seekBar.max) * seekBar.progress).toFloat())
             }
         }
 

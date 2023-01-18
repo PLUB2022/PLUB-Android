@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -27,6 +27,7 @@
             android:layout_marginBottom="40dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
             android:onClick="@{() -> parent_vm.onClickNextButtonInPreViewPage()}"
+            android:stateListAnimator="@null"
             android:text="@string/word_next"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             android:textSize="14sp"
