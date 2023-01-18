@@ -6,6 +6,7 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentWelcomeBinding
 import com.plub.presentation.event.WelcomeEvent
 import com.plub.presentation.state.PageState
+import com.plub.presentation.ui.home.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -37,7 +38,8 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, PageState.Default, 
     private fun inspectEventFlow(event: WelcomeEvent) {
         when (event) {
             is WelcomeEvent.GoToMain -> {
-
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(intent)
             }
         }
     }
