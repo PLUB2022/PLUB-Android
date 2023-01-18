@@ -12,13 +12,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
-import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
-import com.plub.presentation.state.LoginPageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentLoginBinding
-import com.plub.presentation.ui.home.MainActivity
+import com.plub.presentation.event.LoginEvent
+import com.plub.presentation.state.LoginPageState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -56,39 +55,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.signInGoogle.collect {
-                    signInGoogle()
-                }
-            }
-
-            launch {
-                viewModel.signInKakao.collect {
-                    signInKakao()
-                }
-            }
-
-            launch {
-                viewModel.signInKakaoEmail.collect {
-                    signInKakaoEmail()
-                }
-            }
-
-            launch {
-                viewModel.goToMain.collect {
-                    goToMainActivity()
-                }
-            }
-
-            launch {
-                viewModel.goToSignUp.collect {
-                    val action = LoginFragmentDirections.actionLoginToSignUp()
-                    findNavController().navigate(action)
-                }
-            }
-
-            launch {
-                viewModel.goToTerms.collect {
-
+                viewModel.eventFlow.collect {
+                    inspectEventFlow(it as LoginEvent)
                 }
             }
         }
@@ -149,8 +117,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
         }
     }
 
-    private fun goToMainActivity(){
-        val intent = Intent(context, MainActivity::class.java)
-        startActivity(intent)
+    private fun inspectEventFlow(event: LoginEvent) {
+        when(event) {
+            is LoginEvent.GoToMain -> {}
+            is LoginEvent.GoToSignUp -> {
+                val action = LoginFragmentDirections.actionLoginToSignUp()
+                findNavController().navigate(action)
+            }
+            is LoginEvent.GoToTerms -> {}
+            is LoginEvent.SignInGoogle -> signInGoogle()
+            is LoginEvent.SignInKakao -> signInKakao()
+            is LoginEvent.SignInKakaoEmail -> signInKakaoEmail()
+        }
     }
 }

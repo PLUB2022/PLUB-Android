@@ -11,7 +11,7 @@ import javax.inject.Inject
 class GetAllHobbiesUseCase @Inject constructor(
     private val hobbyRepository: HobbyRepository
 ) : UseCase<Unit, Flow<UiState<List<HobbyVo>>>>() {
-    override suspend operator fun invoke(request: Unit): Flow<UiState<List<HobbyVo>>> = flow {
-        hobbyRepository.allHobbies().collect{ emit(it) }
+    override suspend operator fun invoke(request: Unit): Flow<UiState<List<HobbyVo>>> {
+        return hobbyRepository.allHobbies()
     }
 }

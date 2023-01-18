@@ -40,6 +40,8 @@ object Versions {
 
     const val KAKAO = "2.11.2"
 
+    const val TED_PERMISSION = "3.3.0"
+
     /* [ UnitTest ] */
     const val JUNIT = "4.13.2"
 
@@ -48,4 +50,7 @@ object Versions {
     const val ESPRESSO_CORE = "3.4.0"
 
     const val GLIDE = "4.13.2"
+
+    const val FIREBASE = "4.3.13"
+    const val FIREBASE_BOM = "31.1.1"
 }

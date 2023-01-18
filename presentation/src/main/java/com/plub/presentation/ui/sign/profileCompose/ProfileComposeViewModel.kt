@@ -4,18 +4,17 @@ import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.error.NicknameError
 import com.plub.domain.model.enums.DialogMenuItemType
+import com.plub.domain.model.vo.signUp.profile.NicknameCheckRequestVo
 import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
 import com.plub.domain.usecase.GetNicknameCheckUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.event.ProfileComposeEvent
 import com.plub.presentation.state.ProfileComposePageState
 import com.plub.presentation.util.ImageUtil
+import com.plub.presentation.util.PermissionManager
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -24,20 +23,8 @@ import javax.inject.Inject
 class ProfileComposeViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
     val imageUtil: ImageUtil,
-    val getNicknameCheckUseCase: GetNicknameCheckUseCase
+    val getNicknameCheckUseCase: GetNicknameCheckUseCase,
 ) : BaseViewModel<ProfileComposePageState>(ProfileComposePageState()) {
-
-    private val _showSelectImageBottomSheetDialog = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val showSelectImageBottomSheetDialog: SharedFlow<Unit> = _showSelectImageBottomSheetDialog.asSharedFlow()
-
-    private val _moveToNextPage = MutableSharedFlow<ProfileComposeVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val moveToNextPage: SharedFlow<ProfileComposeVo> = _moveToNextPage.asSharedFlow()
-
-    private val _goToAlbum = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val goToAlbum: SharedFlow<Unit> = _goToAlbum.asSharedFlow()
-
-    private val _goToCamera = MutableSharedFlow<Uri>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val goToCamera: SharedFlow<Uri> = _goToCamera.asSharedFlow()
 
     private var isNetworkCall:Boolean = false
     private var cameraTempImageUri:Uri? = null
@@ -65,7 +52,8 @@ class ProfileComposeViewModel @Inject constructor(
     fun fetchNicknameCheck(nickname: String) {
         isNetworkCall = true
         viewModelScope.launch {
-            getNicknameCheckUseCase(nickname).collect { state ->
+            val request = NicknameCheckRequestVo(nickname, this)
+            getNicknameCheckUseCase(request).collect { state ->
                 inspectUiState(state, ::handleNicknameCheckSuccess) { _, individual ->
                     handleNicknameCheckError(individual as NicknameError)
                 }
@@ -74,21 +62,25 @@ class ProfileComposeViewModel @Inject constructor(
     }
 
     fun onClickProfileImage() {
-        viewModelScope.launch {
-            _showSelectImageBottomSheetDialog.emit(Unit)
+        checkPermission {
+            emitEventFlow(ProfileComposeEvent.ShowSelectImageBottomSheetDialog)
         }
     }
 
     fun onClickImageMenuItemType(type:DialogMenuItemType) {
         when(type) {
-            DialogMenuItemType.CAMERA_IMAGE -> viewModelScope.launch {
+            DialogMenuItemType.CAMERA_IMAGE -> {
                 cameraTempImageUri = resourceProvider.getUriFromTempFile().also {
-                    _goToCamera.emit(it)
+                    emitEventFlow(ProfileComposeEvent.GoToCamera(it))
                 }
             }
-            DialogMenuItemType.ALBUM_IMAGE -> viewModelScope.launch { _goToAlbum.emit(Unit) }
+            DialogMenuItemType.ALBUM_IMAGE -> emitEventFlow(ProfileComposeEvent.GoToAlbum)
             else -> defaultImage()
         }
+    }
+
+    private fun checkPermission(onSuccess:() -> Unit) {
+        PermissionManager.createGetImagePermission(onSuccess)
     }
 
     fun onSelectImageFromAlbum(uri:Uri) {
@@ -105,9 +97,7 @@ class ProfileComposeViewModel @Inject constructor(
     }
 
     fun onClickNextButton() {
-        viewModelScope.launch {
-            _moveToNextPage.emit(uiState.value.profileComposeVo)
-        }
+        emitEventFlow(ProfileComposeEvent.MoveToNext(uiState.value.profileComposeVo))
     }
 
     fun onClickNicknameDeleteButton() {

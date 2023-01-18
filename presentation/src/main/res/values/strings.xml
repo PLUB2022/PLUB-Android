@@ -28,12 +28,12 @@
     <string name="word_terms_privacy">개인정보 처리방침</string>
     <string name="word_introduce">소개</string>
 
-    <string name="onboarding_title_first">“ 새로운 사람과 설레는 시간 ”</string>
-    <string name="onboarding_content_first">아직 불러 부끄러운 무성할 벌레는 새워 까닭입니다. 사람들의 나는 노새, 언덕 가을 거외다. 부끄러운 하나에 어머니, 잔디가 별 책상을 이제 없이 거외다.\n\n쉬이 하늘에는 내일 묻힌 까닭입니다. 마리아 아침이 써 이국 책상을 봅니다.</string>
-    <string name="onboarding_title_second">“ 나도 좋아해 ”</string>
-    <string name="onboarding_content_second">두번째 내용</string>
-    <string name="onboarding_title_third">“ 해치지 않아요! ”</string>
-    <string name="onboarding_content_third">세번째 내용</string>
+    <string name="onboarding_title_first">취향을 함께</string>
+    <string name="onboarding_content_first">좋아하는 것들을\n함께 나눌 사람들을 찾아보아요</string>
+    <string name="onboarding_title_second">성장을 함께</string>
+    <string name="onboarding_content_second">같은 목표를 가진 사람들과 꾸준하고\n깊이 있는 소통을 하며 발전할 수 있어요</string>
+    <string name="onboarding_title_third">친구와 함께</string>
+    <string name="onboarding_content_third">주변 친구들과 모임을 만들어\n편하게 관리하고 즐거운 추억을 쌓을 수 있어요</string>
 
     <string name="login_plub_description">our play club,</string>
     <string name="login_plub_name">PLUB!</string>

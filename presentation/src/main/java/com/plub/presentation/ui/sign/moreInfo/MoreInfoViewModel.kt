@@ -3,18 +3,13 @@ package com.plub.presentation.ui.sign.moreInfo
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.signUp.moreInfo.MoreInfoVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.event.MoreInfoEvent
 import com.plub.presentation.state.MoreInfoPageState
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -23,17 +18,12 @@ class MoreInfoViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
 ) : BaseViewModel<MoreInfoPageState>(MoreInfoPageState()) {
 
-    private val _moveToNextPage = MutableSharedFlow<MoreInfoVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val moveToNextPage: SharedFlow<MoreInfoVo> = _moveToNextPage.asSharedFlow()
-
     init {
         onIntroChangedAfter()
     }
 
     fun onClickNextButton() {
-        viewModelScope.launch {
-            _moveToNextPage.emit(uiState.value.moreInfoVo)
-        }
+        emitEventFlow(MoreInfoEvent.MoveToNext(uiState.value.moreInfoVo))
     }
 
     fun onIntroChangedAfter() {

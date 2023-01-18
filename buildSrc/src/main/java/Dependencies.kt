@@ -38,6 +38,7 @@ object Google {
     const val TINK = "com.google.crypto.tink:tink-android:${Versions.TINK}"
     const val PROTOBUF = "com.google.protobuf:protobuf-javalite:${Versions.PROTOBUF}"
     const val PROTOC = "com.google.protobuf:protoc:${Versions.PROTOBUF}"
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
 }
 
 object Libraries {
@@ -54,6 +55,8 @@ object Libraries {
     const val INDICATOR = "com.tbuonomo:dotsindicator:${Versions.INDICATOR}"
 
     const val KAKAO = "com.kakao.sdk:v2-user:${Versions.KAKAO}"
+
+    const val TED_PERMISSION = "io.github.ParkSangGwon:tedpermission-normal:${Versions.TED_PERMISSION}"
 }
 
 object UnitTest {
