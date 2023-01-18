@@ -73,7 +73,7 @@
     <string name="sign_up_personal_info_description">서비스의 원활한 이용을 위하여 정확한 정보를 입력해주세요!</string>
 
     <string name="create_gathering_select_plub_category_title">취미에 진심인 우리!\n어떤 플러빙을 시작해 볼까요?</string>
-
+    <string name="create_gathering_select_plub_category_balloon">5개까지 선택할 수 있어요!</string>
     <string name="create_gathering_title_and_name_title">이 모임을 뭐라고 부를까요?</string>
     <string name="create_gathering_title_and_name_description">소개 타이틀, 모임 이름을 적어주세요.</string>
     <string name="create_gathering_title_and_name_introduction_title">소개 타이틀</string>

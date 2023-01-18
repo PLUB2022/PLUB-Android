@@ -21,13 +21,13 @@
         android:layout_height="match_parent"
         android:background="@color/color_f5f3f6"
         android:paddingHorizontal="16dp"
-        android:paddingTop="16dp"
         tools:context=".ui.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryFragment">
 
         <TextView
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/create_gathering_select_plub_category_title"
             android:textColor="@color/color_363636"
             android:textSize="20sp"
@@ -35,16 +35,48 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:src="@{vm.uiState.categoriesSelectedVo.hobbies.size == 0 ? @drawable/bg_select_category_shadow_inactive : @drawable/bg_select_category_shadow_active}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/bg_select_category_shadow_active" />
+
+        <TextView
+            android:id="@+id/text_view_selected_category_count_balloon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_filled_white_radius_10"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:text="@string/create_gathering_select_plub_category_balloon"
+            android:textColor="@color/color_363636"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_view_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:src="@drawable/ic_arrow_down_white"
+            app:layout_constraintEnd_toEndOf="@id/text_view_selected_category_count"
+            app:layout_constraintStart_toStartOf="@id/text_view_selected_category_count"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/text_view_selected_category_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="20dp"
             android:text="@{@string/word_count(vm.uiState.categoriesSelectedVo.hobbies.size)}"
-            android:textColor="@color/color_5f5ff9"
+            android:textColor="@{vm.uiState.categoriesSelectedVo.hobbies.size == 0 ? @color/color_c4c4c4 : @color/color_5f5ff9}"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:visibility="@{vm.uiState.categoriesSelectedVo.hobbies.size == 0 ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="@id/text_view_word_selected"
             app:layout_constraintStart_toStartOf="@id/text_view_word_selected"
             app:layout_constraintTop_toTopOf="parent"
@@ -54,10 +86,11 @@
             android:id="@+id/text_view_word_selected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:text="@string/word_selected"
+            android:textColor="@{vm.uiState.categoriesSelectedVo.hobbies.size == 0 ? @color/color_c4c4c4 : @color/color_8c8c8c}"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:visibility="@{vm.uiState.categoriesSelectedVo.hobbies.size == 0 ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_selected_category_count" />
 
