@@ -8,6 +8,7 @@ import com.plub.presentation.R
 import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
+import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceFragmentArgs
 import com.plub.presentation.ui.home.plubing.main.MainFragmentArgs
 import com.plub.presentation.util.GlideUtil
@@ -15,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RecruitmentFragment : BaseFragment<FragmentDetailRecruitmentPlubingBinding, SampleHomeState, RecruitmentViewModel>(
+class RecruitmentFragment : BaseFragment<FragmentDetailRecruitmentPlubingBinding, PageState.Default, RecruitmentViewModel>(
     FragmentDetailRecruitmentPlubingBinding::inflate
 )  {
     private val plubbingIdForMain: MainFragmentArgs by navArgs()
