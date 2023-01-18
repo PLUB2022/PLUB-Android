@@ -47,6 +47,11 @@
     <string name="word_count">%d개</string>
     <string name="word_selected">선택됨</string>
 
+    <string name="bottom_navigation_main">메인</string>
+    <string name="bottom_navigation_gathering">내 모임</string>
+    <string name="bottom_navigation_noti">알림</string>
+    <string name="bottom_navigation_profile">프로필</string>
+
     <string name="onboarding_title_first">취향을 함께</string>
     <string name="onboarding_content_first">좋아하는 것들을\n함께 나눌 사람들을 찾아보아요</string>
     <string name="onboarding_title_second">성장을 함께</string>
