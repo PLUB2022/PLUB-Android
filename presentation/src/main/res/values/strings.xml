@@ -48,6 +48,7 @@
     <string name="word_selected">선택됨</string>
     <string name="word_double_quotation_marks">\"%s\"</string>
     <string name="word_with_us">With Us!</string>
+    <string name="word_middle_line">%s | %s</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>

@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.bindingAdapter
 
 import androidx.databinding.BindingAdapter
+import com.plub.domain.model.enums.DaysType
 import com.plub.presentation.ui.custom.FixedTextWidthCheckBox
 
 /**
@@ -15,8 +16,8 @@ fun FixedTextWidthCheckBox.bindFixedTextWidthCheckboxClickEvent(method: () -> Vo
 
 @BindingAdapter("dayHashSet", "day")
 fun FixedTextWidthCheckBox.verifyIsChecked(
-    dayHashSet: HashSet<String>,
-    day: String
+    dayHashSet: HashSet<DaysType>,
+    day: DaysType
 ) {
     isChecked = day in dayHashSet
 }

@@ -5,7 +5,9 @@ import android.text.SpannableString
 import android.text.style.TextAppearanceSpan
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.plub.domain.model.enums.DaysType
 import com.plub.presentation.R
+import com.plub.presentation.util.TimeFormatter
 import com.plub.presentation.util.px
 
 
@@ -45,4 +47,15 @@ fun TextView.bindSearchResultEmptyTextStyle(searchText: String) {
     )
 
     setText(highlightedDescription, TextView.BufferType.SPANNABLE)
+}
+
+@BindingAdapter("previewDays", "previewHour", "previewMin")
+fun TextView.bindPreviewDays(
+    daySet: HashSet<DaysType>,
+    hour: Int,
+    min: Int
+) {
+    val days = daySet.sortedBy { it.idx }.joinToString(",") { it.kor }
+    val time = TimeFormatter.getAmPmHourMin(hour, min)
+    text = context.getString(R.string.word_middle_line, days, time)
 }

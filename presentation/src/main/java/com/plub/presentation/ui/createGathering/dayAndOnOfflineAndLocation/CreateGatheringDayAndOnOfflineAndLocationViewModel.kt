@@ -70,15 +70,14 @@ class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
      * Unit으로 할 경우 DataBinding Complier가 올바르지 않은 java code를 생성함.
      * 따라서 Void를 사용
      */
-        fun onClickCheckBox(element: String): Void? {
+        fun onClickCheckBox(element: DaysType): Void? {
             updateUiState { uiState ->
                 uiState.copy(
                     gatheringDays = uiState.gatheringDays
                         .addOrRemoveElementAfterReturnNewHashSet(element)
-                        .removeElementAfterReturnNewHashSet(DaysType.ALL.value)
+                        .removeElementAfterReturnNewHashSet(DaysType.ALL)
                 )
             }
-            PlubLogger.logD("gatheringDays = ${uiState.value.gatheringDays}")
             return null
         }
 
@@ -90,10 +89,9 @@ class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
     fun onClickAllCheckBox(): Void? {
         updateUiState { uiState ->
             uiState.copy(
-                gatheringDays = if(DaysType.ALL.value in uiState.gatheringDays) hashSetOf() else hashSetOf(DaysType.ALL.value)
+                gatheringDays = if(DaysType.ALL in uiState.gatheringDays) hashSetOf() else hashSetOf(DaysType.ALL)
             )
         }
-        PlubLogger.logD("gatheringDays = ${uiState.value.gatheringDays}")
         return null
     }
 

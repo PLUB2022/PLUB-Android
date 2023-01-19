@@ -116,7 +116,7 @@ class CreateGatheringViewModel @Inject constructor(
                     dayAndOnOfflineAndLocationPageState.gatheringHour,
                     dayAndOnOfflineAndLocationPageState.gatheringMin
                 ),
-                days = dayAndOnOfflineAndLocationPageState.gatheringDays.toList(),
+                days = dayAndOnOfflineAndLocationPageState.gatheringDays.map { it.eng },
                 onOff = dayAndOnOfflineAndLocationPageState.gatheringOnOffline,
                 address = gatheringLocationData?.addressName,
                 roadAddress = gatheringLocationData?.roadAddressName,
