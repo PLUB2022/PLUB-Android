@@ -19,5 +19,7 @@ class CreateGatheringPreviewFragment : BaseFragment<
             vm = viewModel
             parentVm = parentViewModel
         }
+
+        parentViewModel.updateChildrenPageState()
     }
 }

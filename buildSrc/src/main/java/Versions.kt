@@ -28,6 +28,7 @@ object Versions {
     const val MATERIAL = "1.6.1"
     const val TINK = "1.7.0"
     const val PROTOBUF = "3.21.7"
+    const val FLEX_BOX = "3.0.0"
 
     /* [ Libraries ] */
     const val RETROFIT = "2.9.0"

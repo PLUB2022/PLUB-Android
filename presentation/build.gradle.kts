@@ -61,6 +61,7 @@ dependencies {
     implementation(Google.MATERIAL)
     implementation(Google.HILT_ANDROID)
     implementation(Google.GOOGLE_PLAY_SERVICE)
+    implementation(Google.FLEX_BOX)
 
     implementation(Glide.GLIDE)
     annotationProcessor(Glide.GLIDE_COMPILER)

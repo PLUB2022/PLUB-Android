@@ -31,4 +31,8 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/color_363636</item>
     </style>
+    
+    <style name="category_text">
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

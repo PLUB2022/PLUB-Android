@@ -42,6 +42,7 @@ object Google {
     const val PROTOBUF = "com.google.protobuf:protobuf-javalite:${Versions.PROTOBUF}"
     const val PROTOC = "com.google.protobuf:protoc:${Versions.PROTOBUF}"
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
+    const val FLEX_BOX = "com.google.android.flexbox:flexbox:${Versions.FLEX_BOX}"
 }
 
 object Libraries {

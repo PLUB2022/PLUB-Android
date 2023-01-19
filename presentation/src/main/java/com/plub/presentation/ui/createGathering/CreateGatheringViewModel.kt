@@ -99,8 +99,6 @@ class CreateGatheringViewModel @Inject constructor(
     }
 
     private fun getCreateGatheringRequestVo(mainImageUrl: String): CreateGatheringRequestVo {
-        updateChildrenPageState()
-
         with(uiState.value) {
             val gatheringLocationData =
                 if (dayAndOnOfflineAndLocationPageState.gatheringOnOffline == OnOfflineType.OFF.value)
@@ -131,7 +129,7 @@ class CreateGatheringViewModel @Inject constructor(
         }
     }
 
-    private fun updateChildrenPageState() {
+    fun updateChildrenPageState() {
         val selectPlubCategoryPageState =
             childrenPageStateMap[SELECT_PLUB_CATEGORY.idx] as? CreateGatheringSelectPlubCategoryPageState
                 ?: CreateGatheringSelectPlubCategoryPageState()

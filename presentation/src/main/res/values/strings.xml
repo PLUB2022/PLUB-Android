@@ -46,6 +46,8 @@
     <string name="word_introduce">소개</string>
     <string name="word_count">%d개</string>
     <string name="word_selected">선택됨</string>
+    <string name="word_double_quotation_marks">\"%s\"</string>
+    <string name="word_with_us">With Us!</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>
@@ -127,6 +129,9 @@
     <string name="create_gathering_question_no_question_radio">질문 없이 모집하기</string>
     <string name="create_gathering_question_hint">우리 동네 사진 모임</string>
     <string name="create_gathering_question_add_question">질문 추가</string>
+
+    <string name="create_gathering_preview_people">모집 인원 %s명</string>
+    <string name="create_gathering_preview_our_gathering_is">[ %s ] 모임은요…!</string>
 
     <string name="create_gathering_finish_image_descriptor">모임 생성 완료 이미지</string>
     <string name="create_gathering_finish_description">모임 생성 완료!</string>
