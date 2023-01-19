@@ -101,4 +101,10 @@ object UseCaseModule {
     fun providesPostCreateGatheringUseCase(repository: GatheringRepository): PostCreateGatheringUseCase {
         return PostCreateGatheringUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesFetchMyInfoUseCase(repository: AccountRepository): FetchMyInfoUseCase {
+        return FetchMyInfoUseCase(repository)
+    }
 }

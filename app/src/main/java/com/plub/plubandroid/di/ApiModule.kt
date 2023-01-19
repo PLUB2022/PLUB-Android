@@ -60,4 +60,10 @@ object ApiModule {
     fun provideGatheringApi(@AuthRetrofit retrofit: Retrofit): GatheringApi {
         return retrofit.create(GatheringApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideAccountApi(@AuthRetrofit retrofit: Retrofit): AccountApi {
+        return retrofit.create(AccountApi::class.java)
+    }
 }
