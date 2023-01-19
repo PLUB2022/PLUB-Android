@@ -20,7 +20,7 @@ DetailRecruitProfileDiffCallBack()
         when (holder) {
             is DetailRecruitProfileViewHolder -> {
                 if (position < 8){
-                    holder.bind(currentList[position], currentList.size, position + 1)
+                    holder.bind(currentList[position], position + 1)
                 }
             }
         }

@@ -10,25 +10,31 @@ class MainRecommendListViewHolder(
     private val binding: IncludeItemRecommendGatheringListItemBinding,
     private val listener : MainRecommendGatheringAdapter.MainRecommendGatheringDelegate
 ): RecyclerView.ViewHolder(binding.root){
+    private var bookmarkFlag = false
+    private var plubbingId = 0
 
-    fun bind(item: RecommendationGatheringResponseContentListVo) {
-        var bookmarkFlag = item.isBookmarked
+    init {
         binding.apply {
-            constraintLayoutItemLayout.setOnClickListener{
-                listener.onClickGoRecruitDetail(item.plubbingId)
+            constraintLayoutItemLayout.setOnClickListener {
+                listener.onClickGoRecruitDetail(plubbingId)
             }
 
             imageBtnBookmark.setOnClickListener {
-                if(bookmarkFlag){
+                if (bookmarkFlag) {
                     imageBtnBookmark.setImageResource(R.drawable.ic_unchecked_bookmark)
-                }
-                else{
+                } else {
                     imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
                 }
                 bookmarkFlag = !bookmarkFlag
-                listener.onClickBookmark(item.plubbingId)
+                listener.onClickBookmark(plubbingId)
             }
+        }
+    }
 
+    fun bind(item: RecommendationGatheringResponseContentListVo) {
+        bookmarkFlag = item.isBookmarked
+        plubbingId = item.plubbingId
+        binding.apply {
             //GlideUtil.loadImage(root.context, item.mainImage, imageViewMeet)
             if(bookmarkFlag){
                 imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
