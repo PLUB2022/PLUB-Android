@@ -92,62 +92,75 @@ class CreateGatheringViewModel @Inject constructor(
         viewModelScope.launch {
             val request = getCreateGatheringRequestVo(mainImageUrl)
 
-            if (request == null) {
-                //TODO 알 수 없는 에러 처리
-                return@launch
-            }
-
             postCreateGatheringUseCase(request).collect { state ->
                 inspectUiState(state, { onSuccess() })
             }
         }
     }
 
-    private fun getCreateGatheringRequestVo(mainImageUrl: String): CreateGatheringRequestVo? {
+    private fun getCreateGatheringRequestVo(mainImageUrl: String): CreateGatheringRequestVo {
+        updateChildrenPageState()
+
+        with(uiState.value) {
+            val gatheringLocationData =
+                if (dayAndOnOfflineAndLocationPageState.gatheringOnOffline == OnOfflineType.OFF.value)
+                    dayAndOnOfflineAndLocationPageState.gatheringLocationData
+                else null
+
+            return CreateGatheringRequestVo(
+                subCategoryIds = selectPlubCategoryPageState.categoriesSelectedVo.hobbies.map { it.subId },
+                title = titleAndNamePageState.introductionTitle,
+                name = titleAndNamePageState.gatheringName,
+                goal = goalAndIntroduceAndPicturePageState.gatheringGoal,
+                introduce = goalAndIntroduceAndPicturePageState.gatheringIntroduce,
+                mainImage = mainImageUrl,
+                time = TimeFormatter.getHHmm(
+                    dayAndOnOfflineAndLocationPageState.gatheringHour,
+                    dayAndOnOfflineAndLocationPageState.gatheringMin
+                ),
+                days = dayAndOnOfflineAndLocationPageState.gatheringDays.toList(),
+                onOff = dayAndOnOfflineAndLocationPageState.gatheringOnOffline,
+                address = gatheringLocationData?.addressName,
+                roadAddress = gatheringLocationData?.roadAddressName,
+                placeName = gatheringLocationData?.placeName,
+                placePositionX = gatheringLocationData?.placePositionX?.toFloat(),
+                placePositionY = gatheringLocationData?.placePositionY?.toFloat(),
+                maxAccountNum = peopleNumberPageState.peopleNumber,
+                questions = questionPageState.questions.map { it.question }
+            )
+        }
+    }
+
+    private fun updateChildrenPageState() {
         val selectPlubCategoryPageState =
             childrenPageStateMap[SELECT_PLUB_CATEGORY.idx] as? CreateGatheringSelectPlubCategoryPageState
-                ?: return null
+                ?: CreateGatheringSelectPlubCategoryPageState()
         val titleAndNamePageState =
             childrenPageStateMap[GATHERING_TITLE_AND_NAME.idx] as? CreateGatheringTitleAndNamePageState
-                ?: return null
+                ?: CreateGatheringTitleAndNamePageState()
         val goalAndIntroduceAndPicturePageState =
             childrenPageStateMap[GOAL_INTRODUCE_PICTURE.idx] as? CreateGatheringGoalAndIntroduceAndPicturePageState
-                ?: return null
+                ?: CreateGatheringGoalAndIntroduceAndPicturePageState()
         val dayAndOnOfflineAndLocationPageState =
             childrenPageStateMap[DAY_ON_OFF_LOCATION.idx] as? CreateGatheringDayAndOnOfflineAndLocationPageState
-                ?: return null
+                ?: CreateGatheringDayAndOnOfflineAndLocationPageState()
         val peopleNumberPageState =
             childrenPageStateMap[PEOPLE_NUMBER.idx] as? CreateGatheringPeopleNumberPageState
-                ?: return null
+                ?: CreateGatheringPeopleNumberPageState()
         val questionPageState =
-            childrenPageStateMap[QUESTION.idx] as? CreateGatheringQuestionPageState ?: return null
+            childrenPageStateMap[QUESTION.idx] as? CreateGatheringQuestionPageState
+                ?: CreateGatheringQuestionPageState()
 
-        val gatheringLocationData =
-            if (dayAndOnOfflineAndLocationPageState.gatheringOnOffline == OnOfflineType.OFF.value)
-                dayAndOnOfflineAndLocationPageState.gatheringLocationData
-            else null
-
-        return CreateGatheringRequestVo(
-            subCategoryIds = selectPlubCategoryPageState.categoriesSelectedVo.hobbies.map { it.subId },
-            title = titleAndNamePageState.introductionTitle,
-            name = titleAndNamePageState.gatheringName,
-            goal = goalAndIntroduceAndPicturePageState.gatheringGoal,
-            introduce = goalAndIntroduceAndPicturePageState.gatheringIntroduce,
-            mainImage = mainImageUrl,
-            time = TimeFormatter.getHHmm(
-                dayAndOnOfflineAndLocationPageState.gatheringHour,
-                dayAndOnOfflineAndLocationPageState.gatheringMin
-            ),
-            days = dayAndOnOfflineAndLocationPageState.gatheringDays.toList(),
-            onOff = dayAndOnOfflineAndLocationPageState.gatheringOnOffline,
-            address = gatheringLocationData?.addressName,
-            roadAddress = gatheringLocationData?.roadAddressName,
-            placeName = gatheringLocationData?.placeName,
-            placePositionX = gatheringLocationData?.placePositionX?.toFloat(),
-            placePositionY = gatheringLocationData?.placePositionY?.toFloat(),
-            maxAccountNum = peopleNumberPageState.peopleNumber,
-            questions = questionPageState.questions.map { it.question }
-        )
+        updateUiState { ui ->
+            ui.copy(
+                selectPlubCategoryPageState = selectPlubCategoryPageState,
+                titleAndNamePageState = titleAndNamePageState,
+                goalAndIntroduceAndPicturePageState = goalAndIntroduceAndPicturePageState,
+                dayAndOnOfflineAndLocationPageState = dayAndOnOfflineAndLocationPageState,
+                peopleNumberPageState = peopleNumberPageState,
+                questionPageState = questionPageState
+            )
+        }
     }
 
     private fun uploadPlubbingMainImage(onSuccess: (String) -> Unit) = viewModelScope.launch {
