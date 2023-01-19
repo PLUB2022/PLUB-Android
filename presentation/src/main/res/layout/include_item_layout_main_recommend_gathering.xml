@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter" />
+            type="com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

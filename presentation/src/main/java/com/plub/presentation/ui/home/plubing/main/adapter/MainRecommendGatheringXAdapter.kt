@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.databinding.IncludeItemLayoutMainRecommendGatheringNoChocieBinding
-import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendXViewHolder
+import com.plub.presentation.ui.home.plubing.main.viewholer.MainRecommendXViewHolder
 
 
 class MainRecommendGatheringXAdapter(private val listener: MainRecommendGatheringXDelegate) : ListAdapter<Int, RecyclerView.ViewHolder>(

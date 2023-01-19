@@ -1,6 +1,5 @@
 package com.plub.presentation.ui.home.plubing.main
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
@@ -8,15 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMainBinding
-import com.plub.presentation.state.MainPageState
-import com.plub.presentation.ui.home.adapter.MainCategoryAdapter
-import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.state.PageState
+import com.plub.presentation.ui.home.plubing.main.adapter.MainCategoryAdapter
+import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGatheringXAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragmentViewModel>(
+class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFragmentViewModel>(
     FragmentMainBinding::inflate)
 {
     override val viewModel: MainFragmentViewModel by viewModels()

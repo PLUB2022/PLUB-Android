@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.adapter.viewholder
+package com.plub.presentation.ui.home.plubing.recruitment.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.databinding.IncludeItemPlubbingSubHobbyBinding

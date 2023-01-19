@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.adapter
+package com.plub.presentation.ui.home.plubing.recruitment.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
 import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
-import com.plub.presentation.ui.home.adapter.viewholder.DetailRecruitProfileViewHolder
+import com.plub.presentation.ui.home.plubing.recruitment.viewholder.DetailRecruitProfileViewHolder
 
 class DetailRecruitProfileAdapter(private val listener : DetailProfileDegelate) : ListAdapter<RecruitDetailJoinedAccountsListVo, RecyclerView.ViewHolder>(
 DetailRecruitProfileDiffCallBack()

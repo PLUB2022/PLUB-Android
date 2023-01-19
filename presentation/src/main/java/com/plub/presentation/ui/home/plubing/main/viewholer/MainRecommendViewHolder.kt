@@ -1,11 +1,11 @@
-package com.plub.presentation.ui.home.adapter.viewholder
+package com.plub.presentation.ui.home.plubing.main.viewholer
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
 import com.plub.presentation.databinding.IncludeItemLayoutMainRecommendGatheringBinding
-import com.plub.presentation.ui.home.adapter.MainRecommendAdapter
-import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendAdapter
+import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
 
 class MainRecommendViewHolder(
     private val binding: IncludeItemLayoutMainRecommendGatheringBinding,

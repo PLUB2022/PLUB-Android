@@ -1,9 +1,9 @@
-package com.plub.presentation.ui.home.adapter.viewholder
+package com.plub.presentation.ui.home.plubing.recruitment.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
 import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
-import com.plub.presentation.ui.home.adapter.DetailRecruitProfileAdapter
+import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitProfileAdapter
 
 class DetailRecruitProfileViewHolder(
     private val binding: IncludeItemCircleProfileBinding,
