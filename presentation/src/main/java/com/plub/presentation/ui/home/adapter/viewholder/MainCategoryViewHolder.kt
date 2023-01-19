@@ -13,8 +13,10 @@ class MainCategoryViewHolder (
     private var categoryId : Int = 0
 
     init {
-        binding.constraintLayoutCategoryTouch.setOnClickListener {
-            listener.onClick(categoryId)
+        binding.apply {
+            constraintLayoutCategoryTouch.setOnClickListener {
+                listener.onClick(categoryId, textViewTitleCategory.text.toString())
+            }
         }
     }
 

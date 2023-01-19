@@ -11,14 +11,10 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
 import com.plub.presentation.state.CategoryChoiceState
-import com.plub.presentation.ui.common.GridSpaceDecoration
 import com.plub.presentation.ui.home.adapter.MainRecommendAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGridAdapter
 import com.plub.presentation.ui.home.plubing.main.MainFragmentArgs
-import com.plub.presentation.ui.sign.hobbies.adapter.HobbyViewHolder
-import com.plub.presentation.util.dp
-import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -50,14 +46,13 @@ class CategoryChoiceFragment :
         })
     }
 
-    private val categoryId: MainFragmentArgs by navArgs()
+    private val mainArgs: MainFragmentArgs by navArgs()
     override val viewModel: CategoryChoiceViewModel by viewModels()
 
     override fun initView() {
 
         binding.apply {
             vm = viewModel
-            viewModel.fetchRecommendationGatheringData(categoryId.categoryId.toInt())
             //TODO 할 일
             recyclerViewCategoryChoiceList.addOnScrollListener((object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -69,7 +64,15 @@ class CategoryChoiceFragment :
                     }
                 }
             }))
+
+            imageBtnBack.setOnClickListener {
+                backMainPage()
+            }
+
+            textViewCategoryName.text = mainArgs.categoryName
+
         }
+        viewModel.fetchRecommendationGatheringData(mainArgs.categoryId.toInt())
     }
 
     override fun initStates() {
@@ -131,5 +134,9 @@ class CategoryChoiceFragment :
         val action =
             CategoryChoiceFragmentDirections.actionCategoryChoiceFragmentToRecruitmentFragment(plubbingId.toString())
         findNavController().navigate(action)
+    }
+
+    fun backMainPage(){
+        //fragmentManager?.popBackStackImmediate()
     }
 }

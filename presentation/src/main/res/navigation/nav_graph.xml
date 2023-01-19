@@ -22,6 +22,11 @@
             android:defaultValue="0"
             />
         <argument
+            android:name="categoryName"
+            app:argType="string"
+            android:defaultValue=""
+            />
+        <argument
             android:name="plubbingId"
             app:argType="string"
             android:defaultValue="0"
@@ -40,6 +45,11 @@
             android:name="categoryId"
             app:argType="string"
             android:defaultValue="0"
+            />
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            android:defaultValue=""
             />
         <argument
             android:name="plubbingId"

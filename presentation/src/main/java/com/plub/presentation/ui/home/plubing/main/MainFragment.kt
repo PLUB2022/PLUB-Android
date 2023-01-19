@@ -23,8 +23,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
 
     private val mainCategoryAdapter: MainCategoryAdapter by lazy {
         MainCategoryAdapter(object : MainCategoryAdapter.MainCategoryDelegate {
-            override fun onClick(categoryId: Int) {
-                goToCategoryChoice(categoryId)
+            override fun onClick(categoryId: Int, categoryName: String) {
+                goToCategoryChoice(categoryId, categoryName)
             }
         })
     }
@@ -53,7 +53,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
 
         binding.apply {
             vm = viewModel
-            //TODO 할 일
+
         }
         viewModel.fetchMainPageData()
     }
@@ -79,8 +79,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
         }
     }
 
-    fun goToCategoryChoice(categoryId : Int){
-        val action = MainFragmentDirections.actionMainToCategoryChoice(categoryId.toString())
+    fun goToCategoryChoice(categoryId : Int, categoryName : String){
+        val action = MainFragmentDirections.actionMainToCategoryChoice(categoryId.toString(), categoryName)
         findNavController().navigate(action)
     }
 

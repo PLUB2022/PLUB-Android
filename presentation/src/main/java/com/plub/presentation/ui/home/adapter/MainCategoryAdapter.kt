@@ -15,7 +15,7 @@ class MainCategoryAdapter(private val listener: MainCategoryDelegate) : ListAdap
 ){
 
     interface MainCategoryDelegate {
-        fun onClick(categoryId: Int)
+        fun onClick(categoryId: Int, categoryName : String)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
