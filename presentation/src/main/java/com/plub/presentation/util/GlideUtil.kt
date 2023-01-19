@@ -4,9 +4,9 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
 import java.io.File
 
 object GlideUtil {
@@ -34,8 +34,8 @@ object GlideUtil {
     /**
      * radiusDp값의 경우 .dp 또는 .px을 사용하여 변환할 필요가 없습니다.
      */
-    fun loadRadiusImage(context: Context, file: File, view: ImageView, radiusDp: Int) {
-        load(context, file, view, radiusDp)
+    fun loadRadiusImageScaleTypeCenterCrop(context: Context, file: File, view: ImageView, radiusDp: Int) {
+        loadScaleTypeCenterCrop(context, file, view, radiusDp)
     }
 
     private fun load(
@@ -68,7 +68,7 @@ object GlideUtil {
         }
     }
 
-    private fun load(
+    private fun loadScaleTypeCenterCrop(
         context: Context,
         file: File,
         view: ImageView,
@@ -77,7 +77,8 @@ object GlideUtil {
         listener: RequestListener<Drawable>? = null
     ) {
         Glide.with(context).load(file)
-            .apply(RequestOptions.bitmapTransform(RoundedCorners(radiusDp.px))).listener(listener)
+            .transform(CenterCrop(), RoundedCorners(radiusDp.px))
+            .listener(listener)
             .apply {
                 placeHolder?.let {
                     error(it).placeholder(it)

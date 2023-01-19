@@ -25,7 +25,7 @@ class AddSingleImageView @JvmOverloads constructor(
             return
         }
         binding.imageViewSelectedGathering.visibility = View.VISIBLE
-        GlideUtil.loadImage(context, value, binding.imageViewSelectedGathering)
+        GlideUtil.loadRadiusImageScaleTypeCenterCrop(context, value, binding.imageViewSelectedGathering, 6)
     }
 
     init {

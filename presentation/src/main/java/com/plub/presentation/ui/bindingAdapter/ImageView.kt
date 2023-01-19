@@ -16,5 +16,5 @@ fun ImageView.bindImageViewPositionX(positionX: Float) {
 @BindingAdapter("imageFile","defaultImage","radiusDp")
 fun ImageView.setImageFile(imageFile: File?, defaultImage: Drawable, radius: Int) {
     if(imageFile == null) setImageDrawable(defaultImage)
-    else { GlideUtil.loadRadiusImage(context,imageFile,this, radius) }
+    else { GlideUtil.loadRadiusImageScaleTypeCenterCrop(context,imageFile,this, radius) }
 }
