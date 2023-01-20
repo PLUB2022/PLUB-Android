@@ -107,4 +107,10 @@ object UseCaseModule {
     fun providesFetchMyInfoUseCase(repository: AccountRepository): FetchMyInfoUseCase {
         return FetchMyInfoUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesFetchRecentSearchUseCase(repository: SearchRepository): FetchRecentSearchUseCase {
+        return FetchRecentSearchUseCase(repository)
+    }
 }
