@@ -18,3 +18,9 @@ fun ImageView.setImageFile(imageFile: File?, defaultImage: Drawable, radius: Int
     if(imageFile == null) setImageDrawable(defaultImage)
     else { GlideUtil.loadRadiusImageScaleTypeCenterCrop(context,imageFile,this, radius) }
 }
+
+@BindingAdapter("imageUrl","defaultImage")
+fun ImageView.setImageFile(imageUrl: String?, defaultImage: Drawable) {
+    if(imageUrl.isNullOrEmpty()) setImageDrawable(defaultImage)
+    else { GlideUtil.loadImage(context,imageUrl,this) }
+}
