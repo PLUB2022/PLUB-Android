@@ -81,4 +81,19 @@
     <string name="dialog_menu_camera_image">카메라로 촬영</string>
     <string name="dialog_menu_album_image">앨범에서 사진 업로드</string>
     <string name="dialog_menu_default_image">기본 이미지</string>
+
+    <string name="apply_plubbing_title">함께 하기 위한 질문</string>
+    <string name="apply_plubbing_descrip">우리와 함께 하는 것에 대한 질문입니다. 상세하게 적어줄 수록 당신의 취미 레벨을 선정하기 쉬워집니다.</string>
+    <string name="apply_plubbing_apply_button">지원하기</string>
+
+    <string name="category_choice_see_all">전체</string>
+    <string name="detail_recruitment_see_others">모임 둘러보기</string>
+    <string name="detail_recruitment_together">같이 할래요!</string>
+
+    <string name="main_title">좋아하는 분야에서 모임을 시작하세요!</string>
+
+    <string name="main_recommend_gathering">추천 모임</string>
+    <string name="main_recommend_no_interests_title">플럽이 추천하는 모임!</string>
+    <string name="main_recommend_descrip_no_interests">관심사 등록한 내용을 기반으로 모임을 추천해드려요!</string>
+    <string name="main_add_interests">관심사 등록 하기</string>
 </resources>

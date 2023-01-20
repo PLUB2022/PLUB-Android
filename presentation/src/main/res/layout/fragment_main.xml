@@ -12,7 +12,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F5F3F6"
+        android:background="@color/color_f5f3f6"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -28,7 +28,7 @@
                 android:id="@+id/toolbar_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#F5F3F6"
+                android:background="@color/color_f5f3f6"
                 app:contentInsetStart="0dp"
                 app:layout_scrollFlags="scroll|enterAlways">
                 
@@ -41,7 +41,7 @@
                     android:src="@drawable/ic_plub_logo"/>
 
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/image_btn_bookmark"
                     android:layout_gravity="right"
                     android:layout_marginStart="16dp"
@@ -51,7 +51,7 @@
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_bookmark"/>
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/image_btn_search"
                     android:layout_gravity="end"
                     android:layout_marginStart="16dp"

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="vm"
             type="com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter" />
@@ -14,45 +15,38 @@
         android:background="@color/color_f5f3f6">
 
 
-    <TextView
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/tv_recommend_meet_title"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="16dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="38dp"
-        android:text="추천 모임"
-        android:textSize="20dp"
-        android:letterSpacing="-0.01"
-        android:textColor="#000000"
-        android:gravity="center_vertical"
-        />
+        <TextView
+            android:id="@+id/tv_recommend_meet_title"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="38dp"
+            android:gravity="center_vertical"
+            android:text="@string/main_recommend_gathering"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        app:layout_constraintTop_toTopOf="@id/tv_recommend_meet_title"
-        app:layout_constraintBottom_toBottomOf="@id/tv_recommend_meet_title"
-        app:layout_constraintStart_toEndOf="@id/tv_recommend_meet_title"
-        android:id="@+id/image_btn_setting"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="3dp"
-        android:clipToOutline="true"
-        />
+        <ImageView
+            android:id="@+id/image_btn_setting"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="3dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_recommend_meet_title"
+            app:layout_constraintStart_toEndOf="@id/tv_recommend_meet_title"
+            app:layout_constraintTop_toTopOf="@id/tv_recommend_meet_title" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_recommend_meet_list"
-        app:layout_constraintTop_toBottomOf="@id/tv_recommend_meet_title"
-        android:layout_marginTop="16dp"
-        android:clipToPadding="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_recommend_meet_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_recommend_meet_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
