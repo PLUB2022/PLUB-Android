@@ -6,6 +6,9 @@ import com.plub.domain.model.vo.jwt.PlubJwtReIssueRequestVo
 import com.plub.domain.model.vo.jwt.PlubJwtResponseVo
 import com.plub.domain.repository.PlubJwtRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectIndexed
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -14,10 +17,12 @@ class PostReIssueTokenUseCase @Inject constructor(
     private val plubJwtRepository: PlubJwtRepository
 ):UseCase<PlubJwtReIssueRequestVo, Flow<PlubJwtResponseVo>>() {
     override suspend operator fun invoke(request: PlubJwtReIssueRequestVo): Flow<PlubJwtResponseVo> = flow {
-        plubJwtRepository.reIssueToken(request).map {
-            when(it) {
-                is UiState.Success -> emit(it.data)
-                else -> emit(PlubJwtResponseVo("",""))
+        plubJwtRepository.reIssueToken(request).collectIndexed { index, value ->
+            if(index == 1) {
+                when(value) {
+                    is UiState.Success -> emit(value.data)
+                    else -> emit(PlubJwtResponseVo("",""))
+                }
             }
         }
     }

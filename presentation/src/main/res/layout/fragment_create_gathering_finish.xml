@@ -24,11 +24,11 @@
             android:id="@+id/image_view_finish"
             android:layout_width="262dp"
             android:layout_height="262dp"
-            android:layout_marginTop="186dp"
+            android:layout_marginBottom="16dp"
             android:contentDescription="@string/create_gathering_finish_image_descriptor"
+            app:layout_constraintBottom_toTopOf="@id/text_view_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:background="@color/black" />
 
         <TextView
@@ -36,13 +36,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="103dp"
             android:text="@string/create_gathering_finish_description"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/button_show_my_article"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_view_finish" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/button_show_my_article"

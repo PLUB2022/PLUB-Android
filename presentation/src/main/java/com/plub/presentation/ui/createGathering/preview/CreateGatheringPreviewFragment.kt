@@ -21,5 +21,6 @@ class CreateGatheringPreviewFragment : BaseFragment<
         }
 
         parentViewModel.updateChildrenPageState()
+        viewModel.fetchMyInfoUrl()
     }
 }
