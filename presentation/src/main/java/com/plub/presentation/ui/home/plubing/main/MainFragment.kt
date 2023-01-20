@@ -43,7 +43,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFr
     private val mainRecommendMeetXAdapter : MainRecommendGatheringXAdapter by lazy {
         MainRecommendGatheringXAdapter(object : MainRecommendGatheringXAdapter.MainRecommendGatheringXDelegate {
             override fun onClick() {
-                //카테고리 등록 화면으로 이동하기.
+                goToRegisterInterest()
             }
         })
     }
@@ -108,6 +108,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFr
             layoutManager = LinearLayoutManager(context)
             adapter = mConcatAdapter
         }
+    }
+
+    fun goToRegisterInterest(){
+        val action = MainFragmentDirections.actionMainFragmentToRegisterInterestFragment()
+        findNavController().navigate(action)
     }
 
 }

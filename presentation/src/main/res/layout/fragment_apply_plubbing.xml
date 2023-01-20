@@ -20,7 +20,7 @@
             android:layout_height="match_parent">
 
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/image_btn_back_btn"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
