@@ -105,4 +105,8 @@
     <string name="host_detail_recruit_edit">편집</string>
     <string name="host_detail_recruit_see_applicants">지원자 확인하기</string>
     <string name="host_detail_recruit_end">모집 끝내기</string>
+
+    <string name="include_item_question_hint">소개하는 내용을 입력해주세요</string>
+    <string name="include_item_question_max_text">/300</string>
+    <string name="include_item_question_now_text">0</string>
 </resources>
