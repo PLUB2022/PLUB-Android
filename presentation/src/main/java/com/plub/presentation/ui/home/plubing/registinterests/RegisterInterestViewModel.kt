@@ -6,7 +6,7 @@ import com.plub.domain.model.vo.common.HobbyVo
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.domain.usecase.GetAllHobbiesUseCase
-import com.plub.presentation.R
+import com.plub.domain.usecase.InterestUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.HobbiesEvent
 import com.plub.presentation.state.HobbiesPageState
@@ -16,17 +16,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterInterestViewModel @Inject constructor(
-    val getAllHobbiesUseCase: GetAllHobbiesUseCase
+    val getAllHobbiesUseCase: GetAllHobbiesUseCase,
+    val interestUseCase: InterestUseCase
 ) : BaseViewModel<HobbiesPageState>(HobbiesPageState()) {
     private val selectedList: MutableList<SelectedHobbyVo> = mutableListOf()
 
     fun onClickNextButton() {
         emitEventFlow(HobbiesEvent.MoveToNext(uiState.value.hobbiesSelectedVo))
-    }
-
-    fun onInitHobbyInfo(hobbiesVo: SignUpHobbiesVo) {
-        if (uiState.value != HobbiesPageState()) return
-        addAllHobby(hobbiesVo.hobbies)
     }
 
     fun onClickExpand(hobbyId: Int) {
@@ -54,7 +50,7 @@ class RegisterInterestViewModel @Inject constructor(
     }
 
     private fun handleGetAllHobbiesSuccess(list: List<HobbyVo>) {
-        val addedList = getAddedHobbyFooterList(list)
+        val addedList = getAddedHobbyFirstList(list)
         updateHobbies(addedList)
     }
 
@@ -71,10 +67,6 @@ class RegisterInterestViewModel @Inject constructor(
         emitEventFlow(HobbiesEvent.NotifySubHobby(selectedHobbyVo))
     }
 
-    private fun notifyAllItem() {
-        emitEventFlow(HobbiesEvent.NotifyAllHobby)
-    }
-
     private fun addHobby(selectedHobbyVo: SelectedHobbyVo) {
         selectedList.add(selectedHobbyVo)
         updateSelectList()
@@ -85,13 +77,6 @@ class RegisterInterestViewModel @Inject constructor(
         selectedList.remove(selectedHobbyVo)
         updateSelectList()
         notifySubItem(selectedHobbyVo)
-    }
-
-    private fun addAllHobby(list: List<SelectedHobbyVo>) {
-        selectedList.clear()
-        selectedList.addAll(list)
-        updateSelectList()
-        notifyAllItem()
     }
 
     private fun updateHobbies(hobbies:List<HobbyVo>) {
@@ -106,9 +91,20 @@ class RegisterInterestViewModel @Inject constructor(
         return selectedList.isNotEmpty()
     }
 
-    private fun getAddedHobbyFooterList(list:List<HobbyVo>):List<HobbyVo> {
+    private fun getAddedHobbyFirstList(list:List<HobbyVo>):List<HobbyVo> {
         return list.toMutableList().apply {
-            add(HobbyVo(viewType = HobbyViewType.LATE_PICK))
+            add(0, HobbyVo(viewType = HobbyViewType.FIRST_TOPIC))
+        }
+    }
+
+    fun registerInterest(selectedList: List<SelectedHobbyVo>){
+        var list : MutableList<Int> = emptyList<Int>().toMutableList()
+        for (data in selectedList){
+            list.add(data.subId)
+        }
+
+        viewModelScope.launch {
+            interestUseCase.invoke(list)
         }
     }
 

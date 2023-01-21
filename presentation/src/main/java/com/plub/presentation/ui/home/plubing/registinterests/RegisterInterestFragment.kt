@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.home.plubing.registinterests
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
@@ -10,6 +11,7 @@ import com.plub.presentation.event.HobbiesEvent
 import com.plub.presentation.state.HobbiesPageState
 import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.common.VerticalSpaceDecoration
+import com.plub.presentation.ui.home.plubing.main.MainFragmentDirections
 import com.plub.presentation.ui.sign.hobbies.HobbiesViewModel
 import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
@@ -26,7 +28,6 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
     }
 
     override val viewModel: RegisterInterestViewModel by viewModels()
-    private val selectedHobbiesList:MutableList<SelectedHobbyVo> = mutableListOf()
 
     private val listAdapter: HobbiesAdapter by lazy {
         HobbiesAdapter(object : HobbiesAdapter.Delegate {
@@ -42,7 +43,7 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
             }
 
             override fun onClickLatePick() {
-                viewModel.onClickLatePick()
+                //여기서는 아무것도 안함
             }
         })
     }
@@ -55,6 +56,11 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
                 layoutManager = LinearLayoutManager(context)
                 adapter = listAdapter
                 addItemDecoration(VerticalSpaceDecoration(ITEM_VERTICAL_SPACE.px))
+            }
+
+            buttonCompleteChoice.setOnClickListener {
+                setInterestList(viewModel.uiState.value.hobbiesSelectedVo.hobbies)
+                moveMainPage()
             }
         }
         viewModel.fetchHobbiesData()
@@ -73,7 +79,6 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
 
             launch {
                 viewModel.uiState.collect {
-                    updateSelectedHobbies(it.hobbiesSelectedVo.hobbies)
                     listAdapter.submitList(it.hobbiesVo)
                 }
             }
@@ -88,16 +93,18 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
             is HobbiesEvent.NotifySubHobby -> {
                 listAdapter.notifySubItemUpdate(event.vo)
             }
-//            is HobbiesEvent.MoveToNext -> {
-//                parentViewModel.onMoveToNextPage(SignUpPageType.HOBBY, event.vo)
-//            }
             else -> {}
         }
     }
 
-    private fun updateSelectedHobbies(hobbies:List<SelectedHobbyVo>) {
-        selectedHobbiesList.clear()
-        selectedHobbiesList.addAll(hobbies)
+
+    private fun setInterestList(list : List<SelectedHobbyVo>){
+        viewModel.registerInterest(list)
+    }
+
+    private fun moveMainPage(){
+        val action = RegisterInterestFragmentDirections.actionRegisterInterestFragmentToMainFragment()
+        findNavController().navigate(action)
     }
 
 }

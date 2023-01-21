@@ -59,4 +59,10 @@ object ApiModule {
     fun provideRecruiApi(@AuthRetrofit retrofit: Retrofit): RecruitApi {
         return retrofit.create(RecruitApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideInterestApi(@AuthRetrofit retrofit: Retrofit): InterestApi {
+        return retrofit.create(InterestApi::class.java)
+    }
 }

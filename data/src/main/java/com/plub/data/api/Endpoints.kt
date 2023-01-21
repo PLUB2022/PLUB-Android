@@ -20,6 +20,8 @@ object Endpoints {
     object ACCOUNT {
         private const val ACCOUNT_URL = "/api/accounts"
         const val NICKNAME_CHECK = "$ACCOUNT_URL/check/nickname/{nickname}"
+        const val REGIST_INTEREST = "$ACCOUNT_URL/interest"
+        const val BROWSE_INTEREST = "$ACCOUNT_URL/me/interest"
     }
 
     object CATEGORY {
@@ -38,4 +40,5 @@ object Endpoints {
         const val REFUSE_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/refuse"
         const val BOOKMARK_RECRUIT = "$RECRUIT_URL/bookmarks"
     }
+
 }

@@ -30,6 +30,4 @@ interface BrowseApi {
     @GET("/api/categories")
     suspend fun browseCategoryList() : Response<ApiResponse<CategoryListData>>
 
-    @GET("/api/account/interest")
-    suspend fun browseRegistedInterest()
 }

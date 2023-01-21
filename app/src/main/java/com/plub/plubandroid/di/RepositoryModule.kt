@@ -62,4 +62,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesBookmarkRepository(repositoryImpl: BookmarkReposImpl): BookmarkRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesInterestRepository(repositoryImpl: InterestReposImpl): InterestRepository
 }

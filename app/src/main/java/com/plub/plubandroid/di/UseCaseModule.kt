@@ -125,4 +125,10 @@ object UseCaseModule {
     fun providesBookmarkUseCase(repository: BookmarkRepository): BookmarkUsecase {
         return BookmarkUsecase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesInterestUseCase(repository: InterestRepository): InterestUseCase {
+        return InterestUseCase(repository)
+    }
 }
