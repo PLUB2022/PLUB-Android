@@ -1,9 +1,12 @@
 package com.plub.presentation.ui.createGathering.question
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringQuestionBinding
+import com.plub.presentation.ui.createGathering.CreateGatheringEvent
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
+import com.plub.presentation.ui.createGathering.peopleNumber.CreateGatheringPeopleNumberPageState
 import com.plub.presentation.ui.createGathering.question.adapter.QuestionRecyclerViewAdapter
 import com.plub.presentation.ui.createGathering.question.bottomSheet.BottomSheetDeleteQuestion
 import com.plub.presentation.util.PlubLogger
@@ -45,6 +48,29 @@ class CreateGatheringQuestionFragment : BaseFragment<
         super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
+            launch {
+                if (viewModel.uiState.value != CreateGatheringQuestionPageState())
+                    return@launch
+
+                parentViewModel.childrenPageStateFlow.collect { pageState ->
+                    if (pageState is CreateGatheringQuestionPageState)
+                        viewModel.initUiState(pageState)
+                }
+            }
+
+            launch {
+                parentViewModel.eventFlow.collect {
+                    if(viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
+
+                    when (it) {
+                        is CreateGatheringEvent.GoToPrevPage -> {
+                            parentViewModel.setChildrenPageState(viewModel.uiState.value)
+                            parentViewModel.goToPrevPageAndEmitChildrenPageState()
+                        }
+                    }
+                }
+            }
+
             launch {
                 viewModel.uiState.collectLatest { pageState ->
                     if (pageState.needUpdateRecyclerView.not()) return@collectLatest

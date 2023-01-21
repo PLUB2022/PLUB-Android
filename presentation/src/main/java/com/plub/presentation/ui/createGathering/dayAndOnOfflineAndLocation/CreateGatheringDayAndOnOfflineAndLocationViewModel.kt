@@ -21,10 +21,11 @@ import javax.inject.Inject
 class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
     BaseViewModel<CreateGatheringDayAndOnOfflineAndLocationPageState>(
         CreateGatheringDayAndOnOfflineAndLocationPageState()
-    )
-{
-    private val _showBottomSheetSearchLocation = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val showBottomSheetSearchLocation: SharedFlow<Unit> = _showBottomSheetSearchLocation.asSharedFlow()
+    ) {
+    private val _showBottomSheetSearchLocation =
+        MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
+    val showBottomSheetSearchLocation: SharedFlow<Unit> =
+        _showBottomSheetSearchLocation.asSharedFlow()
     private val _showTimePickerDialog = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
     val showTimePickerDialog: SharedFlow<Unit> = _showTimePickerDialog
 
@@ -45,12 +46,19 @@ class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
     }
 
     fun initUiState(savedUiState: CreateGatheringDayAndOnOfflineAndLocationPageState) {
-        updateUiState { uiState -> uiState.copy(
-            gatheringDays = savedUiState.gatheringDays,
-            gatheringOnOffline = savedUiState.gatheringOnOffline,
-            gatheringLocationData = savedUiState.gatheringLocationData
-        ) }
+        updateUiState { uiState ->
+            uiState.copy(
+                gatheringDays = savedUiState.gatheringDays,
+                gatheringOnOffline = savedUiState.gatheringOnOffline,
+                gatheringHour = savedUiState.gatheringHour,
+                gatheringMin = savedUiState.gatheringMin,
+                gatheringFormattedTime = savedUiState.gatheringFormattedTime
+            )
+        }
+
+        updateGatheringLocationData(savedUiState.gatheringLocationData)
     }
+
     fun updateGatheringLocationData(data: KakaoLocationInfoDocumentVo?) {
         viewModelScope.launch {
             updateUiState { uiState ->
@@ -60,26 +68,28 @@ class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
             }
         }
     }
+
     fun onClickIconEditTextLocation() {
         viewModelScope.launch {
             _showBottomSheetSearchLocation.emit(Unit)
         }
     }
+
     /**
      * https://stackoverflow.com/questions/60005152/cannot-use-same-bindingadapter-on-two-different-views
      * Unit으로 할 경우 DataBinding Complier가 올바르지 않은 java code를 생성함.
      * 따라서 Void를 사용
      */
-        fun onClickCheckBox(element: DaysType): Void? {
-            updateUiState { uiState ->
-                uiState.copy(
-                    gatheringDays = uiState.gatheringDays
-                        .addOrRemoveElementAfterReturnNewHashSet(element)
-                        .removeElementAfterReturnNewHashSet(DaysType.ALL)
-                )
-            }
-            return null
+    fun onClickCheckBox(element: DaysType): Void? {
+        updateUiState { uiState ->
+            uiState.copy(
+                gatheringDays = uiState.gatheringDays
+                    .addOrRemoveElementAfterReturnNewHashSet(element)
+                    .removeElementAfterReturnNewHashSet(DaysType.ALL)
+            )
         }
+        return null
+    }
 
     /**
      * https://stackoverflow.com/questions/60005152/cannot-use-same-bindingadapter-on-two-different-views
@@ -89,7 +99,9 @@ class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
     fun onClickAllCheckBox(): Void? {
         updateUiState { uiState ->
             uiState.copy(
-                gatheringDays = if(DaysType.ALL in uiState.gatheringDays) hashSetOf() else hashSetOf(DaysType.ALL)
+                gatheringDays = if (DaysType.ALL in uiState.gatheringDays) hashSetOf() else hashSetOf(
+                    DaysType.ALL
+                )
             )
         }
         return null

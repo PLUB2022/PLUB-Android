@@ -26,6 +26,7 @@ import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryPageState
 import com.plub.presentation.ui.createGathering.finish.CreateGatheringFinishPageState
 import com.plub.presentation.ui.createGathering.preview.CreateGatheringPreviewPageState
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -56,34 +57,10 @@ class CreateGatheringViewModel @Inject constructor(
     private val _childrenPageStateFlow = MutableStateFlow<PageState>(PageState.Default)
     val childrenPageStateFlow: SharedFlow<PageState> = _childrenPageStateFlow.asStateFlow()
 
-    fun onMoveToNextPage(pageState: PageState) {
-        if (isLastPage()) return
-        setChildrenPageState(pageState)
-        goToNextPage()
-        emitChildrenPageState(currentPage)
-    }
-
-    private fun goToNextPage() {
-        updateUiState { uiState ->
-            uiState.copy(currentPage = ++currentPage)
-        }
-    }
-
-    private fun setChildrenPageState(pageState: PageState) {
-        childrenPageStateMap[currentPage] = pageState
-    }
-
-    private fun emitChildrenPageState(idx: Int) {
-        viewModelScope.launch {
-            val childrenPageState = childrenPageStateMap[idx] ?: PageState.Default
-            _childrenPageStateFlow.emit(childrenPageState)
-        }
-    }
-
     fun onClickNextButtonInPreViewPage() {
         uploadPlubbingMainImage {
             createGathering(it) {
-                goToNextPage()
+                goToNextPageAndEmitChildrenPageState()
             }
         }
     }
@@ -184,6 +161,49 @@ class CreateGatheringViewModel @Inject constructor(
         }
     }
 
-    fun isFirstPage() = currentPage == 0
-    fun isLastPage() = currentPage == maxPage
+    fun onMoveToNextPage(pageState: PageState) {
+        if (isLastPage()) return
+        setChildrenPageStateAndGoToNextPageAndEmitChildrenPageState(pageState)
+    }
+
+    private fun setChildrenPageStateAndGoToNextPageAndEmitChildrenPageState(pageState: PageState) {
+        updateUiState { uiState ->
+            setChildrenPageState(pageState)
+            emitChildrenPageState(++currentPage)
+            uiState.copy(currentPage = currentPage)
+        }
+    }
+
+    private fun goToNextPageAndEmitChildrenPageState() {
+        updateUiState { uiState ->
+            emitChildrenPageState(++currentPage)
+            uiState.copy(currentPage = currentPage)
+        }
+    }
+
+    fun setChildrenPageState(pageState: PageState) {
+        childrenPageStateMap[currentPage] = pageState
+    }
+
+    private fun emitChildrenPageState(idx: Int) {
+        viewModelScope.launch {
+            val childrenPageState = childrenPageStateMap[idx] ?: PageState.Default
+            _childrenPageStateFlow.emit(childrenPageState)
+        }
+    }
+
+    fun onBackPressed() {
+        if(isFirstPage()) emitEventFlow(CreateGatheringEvent.NavigationPopEvent)
+        else emitEventFlow(CreateGatheringEvent.GoToPrevPage)
+    }
+
+    fun goToPrevPageAndEmitChildrenPageState() {
+        updateUiState { uiState ->
+            emitChildrenPageState(--currentPage)
+            uiState.copy(currentPage = currentPage)
+        }
+    }
+
+    private fun isFirstPage() = currentPage == 0
+    private fun isLastPage() = currentPage == maxPage
 }

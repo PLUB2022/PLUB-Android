@@ -2,6 +2,7 @@ package com.plub.presentation.ui.createGathering.question
 
 import androidx.lifecycle.viewModelScope
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.ui.createGathering.peopleNumber.CreateGatheringPeopleNumberPageState
 import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.deepCopy
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,6 +35,17 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
     val performClickNoQuestionRadioButton: SharedFlow<Unit> =
         _performClickNoQuestionRadioButton.asSharedFlow()
 
+    fun initUiState(savedUiState: CreateGatheringQuestionPageState) {
+        updateUiState { uiState ->
+            uiState.copy(
+                _questions = savedUiState.copy(isNeedQuestionCheck = true).questions.deepCopy(),
+                isNeedQuestionCheck = savedUiState.isNeedQuestionCheck,
+                needUpdateRecyclerView = true,
+                isAddQuestionButtonVisible = savedUiState.isAddQuestionButtonVisible
+            )
+        }
+    }
+
     fun onClickNeedQuestionButton() {
         viewModelScope.launch {
             updateUiState { uiState ->
@@ -63,12 +75,17 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
     }
 
     fun updateQuestion(data: CreateGatheringQuestion, text: String) {
-        uiState.value.questions.find { it.key == data.key }?.question = text
         updateUiState { uiState ->
-            uiState.copy(
+            uiState.questions.find { it.key == data.key }?.question = text
+            PlubLogger.logD("테스트", "업뎃 전 : ${uiState.questions}")
+
+            val newUiState = uiState.copy(
                 needUpdateRecyclerView = false,
                 isAddQuestionButtonVisible = uiState.questions.isNotEmpty() && uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != maxQuestionCount
             )
+
+            PlubLogger.logD("테스트", "업뎃 후 : ${uiState.questions}")
+            newUiState
         }
     }
 

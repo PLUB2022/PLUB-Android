@@ -1,8 +1,10 @@
 package com.plub.presentation.ui.createGathering.gatheringTitleAndName
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringTitleAndNameBinding
+import com.plub.presentation.ui.createGathering.CreateGatheringEvent
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -32,6 +34,19 @@ class CreateGatheringTitleAndNameFragment : BaseFragment<FragmentCreateGathering
                 parentViewModel.childrenPageStateFlow.collect {
                     if(it is CreateGatheringTitleAndNamePageState)
                         viewModel.initUiState(it)
+                }
+            }
+
+            launch {
+                parentViewModel.eventFlow.collect {
+                    if(viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
+
+                    when (it) {
+                        is CreateGatheringEvent.GoToPrevPage -> {
+                            parentViewModel.setChildrenPageState(viewModel.uiState.value)
+                            parentViewModel.goToPrevPageAndEmitChildrenPageState()
+                        }
+                    }
                 }
             }
         }

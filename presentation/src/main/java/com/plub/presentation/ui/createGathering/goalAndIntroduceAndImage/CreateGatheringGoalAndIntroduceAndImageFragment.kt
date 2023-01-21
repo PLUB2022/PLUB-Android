@@ -4,9 +4,11 @@ import android.app.Activity
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringGoalAndIntroduceAndImageBinding
+import com.plub.presentation.ui.createGathering.CreateGatheringEvent
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
 import com.plub.presentation.ui.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.util.IntentUtil
@@ -43,6 +45,19 @@ class CreateGatheringGoalAndIntroduceAndImageFragment :
                 parentViewModel.childrenPageStateFlow.collect { pageState ->
                     if (pageState is CreateGatheringGoalAndIntroduceAndPicturePageState)
                         viewModel.initUiState(pageState)
+                }
+            }
+
+            launch {
+                parentViewModel.eventFlow.collect {
+                    if(viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
+
+                    when (it) {
+                        is CreateGatheringEvent.GoToPrevPage -> {
+                            parentViewModel.setChildrenPageState(viewModel.uiState.value)
+                            parentViewModel.goToPrevPageAndEmitChildrenPageState()
+                        }
+                    }
                 }
             }
 

@@ -2,10 +2,12 @@ package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation
 
 import android.app.TimePickerDialog
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringDayAndOnOfflineAndLocationBinding
+import com.plub.presentation.ui.createGathering.CreateGatheringEvent
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
 import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocation
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,6 +52,19 @@ class CreateGatheringDayAndOnOfflineAndLocationFragment : BaseFragment<
                 parentViewModel.childrenPageStateFlow.collect {
                     if (it is CreateGatheringDayAndOnOfflineAndLocationPageState)
                         viewModel.initUiState(it)
+                }
+            }
+
+            launch {
+                parentViewModel.eventFlow.collect {
+                    if(viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
+
+                    when (it) {
+                        is CreateGatheringEvent.GoToPrevPage -> {
+                            parentViewModel.setChildrenPageState(viewModel.uiState.value)
+                            parentViewModel.goToPrevPageAndEmitChildrenPageState()
+                        }
+                    }
                 }
             }
 
