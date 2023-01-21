@@ -131,4 +131,10 @@ object UseCaseModule {
     fun providesInterestUseCase(repository: InterestRepository): InterestUseCase {
         return InterestUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesHostEndRecruitUseCase(repository: HostRecruitRepository): HostRecruitUseCase {
+        return HostRecruitUseCase(repository)
+    }
 }
