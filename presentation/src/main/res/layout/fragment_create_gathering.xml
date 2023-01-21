@@ -20,12 +20,13 @@
             android:id="@+id/image_view_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/image_descriptor_back_button"
+            android:onClick="@{() -> vm.onBackPressed()}"
             android:paddingHorizontal="16dp"
             android:paddingVertical="18dp"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/image_descriptor_back_button" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- layout_width에 고정 값을 준 이유  -->
         <!-- dotsIndicator에는 총 8개의 dots가있는데 그 중 마지막 2개의 dots는 보이면 안되기 때문  -->
