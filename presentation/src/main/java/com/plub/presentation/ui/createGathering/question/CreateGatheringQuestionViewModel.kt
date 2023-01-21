@@ -19,22 +19,6 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
 
     private val maxQuestionCount = 5
 
-    /**
-     * Pair first = size, second = position
-     */
-    private val _showBottomSheetDeleteQuestion =
-        MutableSharedFlow<Pair<Int, Int>>(0, 1, BufferOverflow.DROP_OLDEST)
-    /**
-     * Pair first = size, second = position
-     */
-    val showBottomSheetDeleteQuestion: SharedFlow<Pair<Int, Int>> =
-        _showBottomSheetDeleteQuestion.asSharedFlow()
-
-    private val _performClickNoQuestionRadioButton =
-        MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val performClickNoQuestionRadioButton: SharedFlow<Unit> =
-        _performClickNoQuestionRadioButton.asSharedFlow()
-
     fun initUiState(savedUiState: CreateGatheringQuestionPageState) {
         updateUiState { uiState ->
             uiState.copy(
@@ -69,23 +53,17 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
     }
 
     fun onClickRecyclerViewDeleteButton(position: Int) {
-        viewModelScope.launch {
-            _showBottomSheetDeleteQuestion.emit(Pair(uiState.value.questions.size, position))
-        }
+        emitEventFlow(CreateGatheringQuestionEvent.ShowBottomSheetDeleteQuestion(uiState.value.questions.size, position))
     }
 
     fun updateQuestion(data: CreateGatheringQuestion, text: String) {
         updateUiState { uiState ->
             uiState.questions.find { it.key == data.key }?.question = text
-            PlubLogger.logD("테스트", "업뎃 전 : ${uiState.questions}")
 
-            val newUiState = uiState.copy(
+            uiState.copy(
                 needUpdateRecyclerView = false,
                 isAddQuestionButtonVisible = uiState.questions.isNotEmpty() && uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != maxQuestionCount
             )
-
-            PlubLogger.logD("테스트", "업뎃 후 : ${uiState.questions}")
-            newUiState
         }
     }
 
@@ -106,10 +84,8 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
 
     fun onClickBottomSheetDelete(size: Int, position: Int) {
         deleteQuestionOrMakeQuestionSizeToOne(position)
-        viewModelScope.launch {
             if(size == 1)
-                _performClickNoQuestionRadioButton.emit(Unit)
-        }
+                emitEventFlow(CreateGatheringQuestionEvent.PerformClickNoQuestionRadioButton)
     }
 
     private fun deleteQuestionOrMakeQuestionSizeToOne(position: Int) {

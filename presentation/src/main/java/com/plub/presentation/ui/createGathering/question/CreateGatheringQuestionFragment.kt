@@ -6,6 +6,7 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringQuestionBinding
 import com.plub.presentation.ui.createGathering.CreateGatheringEvent
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
+import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationEvent
 import com.plub.presentation.ui.createGathering.peopleNumber.CreateGatheringPeopleNumberPageState
 import com.plub.presentation.ui.createGathering.question.adapter.QuestionRecyclerViewAdapter
 import com.plub.presentation.ui.createGathering.question.bottomSheet.BottomSheetDeleteQuestion
@@ -79,26 +80,32 @@ class CreateGatheringQuestionFragment : BaseFragment<
             }
 
             launch {
-                viewModel.showBottomSheetDeleteQuestion.collectLatest { (size, position) ->
-                    val bottomSheetDeleteQuestion = BottomSheetDeleteQuestion(
-                        position,
-                        size
-                    ) { _ ->
-                        viewModel.onClickBottomSheetDelete(size, position)
+                viewModel.eventFlow.collect {
+                    when(it) {
+                        is CreateGatheringQuestionEvent.ShowBottomSheetDeleteQuestion -> {
+                            showBottomSheetDeleteQuestion(it)
+                        }
+
+                        is CreateGatheringQuestionEvent.PerformClickNoQuestionRadioButton -> {
+                            binding.radioButtonNoQuestion.performClick()
+                        }
                     }
-
-                    bottomSheetDeleteQuestion.show(
-                        requireActivity().supportFragmentManager,
-                        bottomSheetDeleteQuestion.tag
-                    )
-                }
-            }
-
-            launch {
-                viewModel.performClickNoQuestionRadioButton.collect {
-                    binding.radioButtonNoQuestion.performClick()
                 }
             }
         }
+    }
+
+    private fun showBottomSheetDeleteQuestion(it: CreateGatheringQuestionEvent.ShowBottomSheetDeleteQuestion) {
+        val bottomSheetDeleteQuestion = BottomSheetDeleteQuestion(
+            it.position,
+            it.size
+        ) { _ ->
+            viewModel.onClickBottomSheetDelete(it.position, it.size)
+        }
+
+        bottomSheetDeleteQuestion.show(
+            requireActivity().supportFragmentManager,
+            bottomSheetDeleteQuestion.tag
+        )
     }
 }
