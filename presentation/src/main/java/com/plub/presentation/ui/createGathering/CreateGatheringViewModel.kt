@@ -18,7 +18,7 @@ import com.plub.domain.usecase.PostCreateGatheringUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.ui.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndPicturePageState
 import com.plub.presentation.ui.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNamePageState
-import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndOnOfflineAndLocationPageState
+import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState
 import com.plub.presentation.ui.createGathering.peopleNumber.CreateGatheringPeopleNumberPageState
 import com.plub.presentation.ui.createGathering.question.CreateGatheringQuestionPageState
 import com.plub.presentation.base.BaseViewModel
@@ -26,7 +26,6 @@ import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryPageState
 import com.plub.presentation.ui.createGathering.finish.CreateGatheringFinishPageState
 import com.plub.presentation.ui.createGathering.preview.CreateGatheringPreviewPageState
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -47,7 +46,7 @@ class CreateGatheringViewModel @Inject constructor(
         SELECT_PLUB_CATEGORY.idx to CreateGatheringSelectPlubCategoryPageState(),
         GATHERING_TITLE_AND_NAME.idx to CreateGatheringTitleAndNamePageState(),
         GOAL_INTRODUCE_PICTURE.idx to CreateGatheringGoalAndIntroduceAndPicturePageState(),
-        DAY_ON_OFF_LOCATION.idx to CreateGatheringDayAndOnOfflineAndLocationPageState(),
+        DAY_ON_OFF_LOCATION.idx to CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState(),
         PEOPLE_NUMBER.idx to CreateGatheringPeopleNumberPageState(),
         QUESTION.idx to CreateGatheringQuestionPageState(),
         PREVIEW.idx to CreateGatheringPreviewPageState(),
@@ -117,8 +116,8 @@ class CreateGatheringViewModel @Inject constructor(
             childrenPageStateMap[GOAL_INTRODUCE_PICTURE.idx] as? CreateGatheringGoalAndIntroduceAndPicturePageState
                 ?: CreateGatheringGoalAndIntroduceAndPicturePageState()
         val dayAndOnOfflineAndLocationPageState =
-            childrenPageStateMap[DAY_ON_OFF_LOCATION.idx] as? CreateGatheringDayAndOnOfflineAndLocationPageState
-                ?: CreateGatheringDayAndOnOfflineAndLocationPageState()
+            childrenPageStateMap[DAY_ON_OFF_LOCATION.idx] as? CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState
+                ?: CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState()
         val peopleNumberPageState =
             childrenPageStateMap[PEOPLE_NUMBER.idx] as? CreateGatheringPeopleNumberPageState
                 ?: CreateGatheringPeopleNumberPageState()

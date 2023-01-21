@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.createGathering
 
 import com.plub.presentation.state.PageState
-import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndOnOfflineAndLocationPageState
+import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState
 import com.plub.presentation.ui.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNamePageState
 import com.plub.presentation.ui.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndPicturePageState
 import com.plub.presentation.ui.createGathering.peopleNumber.CreateGatheringPeopleNumberPageState
@@ -13,7 +13,7 @@ data class CreateGatheringPageState(
     val selectPlubCategoryPageState: CreateGatheringSelectPlubCategoryPageState = CreateGatheringSelectPlubCategoryPageState(),
     val titleAndNamePageState: CreateGatheringTitleAndNamePageState = CreateGatheringTitleAndNamePageState(),
     val goalAndIntroduceAndPicturePageState: CreateGatheringGoalAndIntroduceAndPicturePageState = CreateGatheringGoalAndIntroduceAndPicturePageState(),
-    val dayAndOnOfflineAndLocationPageState: CreateGatheringDayAndOnOfflineAndLocationPageState = CreateGatheringDayAndOnOfflineAndLocationPageState(),
+    val dayAndOnOfflineAndLocationPageState: CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState = CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState(),
     val peopleNumberPageState: CreateGatheringPeopleNumberPageState = CreateGatheringPeopleNumberPageState(),
     val questionPageState: CreateGatheringQuestionPageState = CreateGatheringQuestionPageState()
 ) : PageState

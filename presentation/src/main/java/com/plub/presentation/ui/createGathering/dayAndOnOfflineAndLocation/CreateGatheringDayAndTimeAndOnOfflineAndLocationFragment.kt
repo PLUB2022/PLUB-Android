@@ -3,10 +3,8 @@ package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation
 import android.app.TimePickerDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
-import com.plub.presentation.databinding.FragmentCreateGatheringDayAndOnOfflineAndLocationBinding
+import com.plub.presentation.databinding.FragmentCreateGatheringDayAndTimeAndOnOfflineAndLocationBinding
 import com.plub.presentation.ui.createGathering.CreateGatheringEvent
 import com.plub.presentation.ui.createGathering.CreateGatheringViewModel
 import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocation
@@ -14,13 +12,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CreateGatheringDayAndOnOfflineAndLocationFragment : BaseFragment<
-        FragmentCreateGatheringDayAndOnOfflineAndLocationBinding,
-        CreateGatheringDayAndOnOfflineAndLocationPageState,
-        CreateGatheringDayAndOnOfflineAndLocationViewModel>(
-    FragmentCreateGatheringDayAndOnOfflineAndLocationBinding::inflate
+class CreateGatheringDayAndTimeAndOnOfflineAndLocationFragment : BaseFragment<
+        FragmentCreateGatheringDayAndTimeAndOnOfflineAndLocationBinding,
+        CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState,
+        CreateGatheringDayAndTimeAndOnOfflineAndLocationViewModel>(
+    FragmentCreateGatheringDayAndTimeAndOnOfflineAndLocationBinding::inflate
 ) {
-    override val viewModel: CreateGatheringDayAndOnOfflineAndLocationViewModel by viewModels()
+    override val viewModel: CreateGatheringDayAndTimeAndOnOfflineAndLocationViewModel by viewModels()
     private val parentViewModel: CreateGatheringViewModel by viewModels({ requireParentFragment() })
 
     private val timePickerDialog: TimePickerDialog by lazy {
@@ -46,11 +44,11 @@ class CreateGatheringDayAndOnOfflineAndLocationFragment : BaseFragment<
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                if (viewModel.uiState.value != CreateGatheringDayAndOnOfflineAndLocationPageState())
+                if (viewModel.uiState.value != CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState())
                     return@launch
 
                 parentViewModel.childrenPageStateFlow.collect {
-                    if (it is CreateGatheringDayAndOnOfflineAndLocationPageState)
+                    if (it is CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState)
                         viewModel.initUiState(it)
                 }
             }

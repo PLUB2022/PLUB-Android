@@ -5,7 +5,6 @@ import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.enums.OnOfflineType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.TimeFormatter
 import com.plub.presentation.util.addOrRemoveElementAfterReturnNewHashSet
 import com.plub.presentation.util.removeElementAfterReturnNewHashSet
@@ -18,9 +17,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
-    BaseViewModel<CreateGatheringDayAndOnOfflineAndLocationPageState>(
-        CreateGatheringDayAndOnOfflineAndLocationPageState()
+class CreateGatheringDayAndTimeAndOnOfflineAndLocationViewModel @Inject constructor() :
+    BaseViewModel<CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState>(
+        CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState()
     ) {
     private val _showBottomSheetSearchLocation =
         MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
@@ -45,7 +44,7 @@ class CreateGatheringDayAndOnOfflineAndLocationViewModel @Inject constructor() :
         }
     }
 
-    fun initUiState(savedUiState: CreateGatheringDayAndOnOfflineAndLocationPageState) {
+    fun initUiState(savedUiState: CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState) {
         updateUiState { uiState ->
             uiState.copy(
                 gatheringDays = savedUiState.gatheringDays,
