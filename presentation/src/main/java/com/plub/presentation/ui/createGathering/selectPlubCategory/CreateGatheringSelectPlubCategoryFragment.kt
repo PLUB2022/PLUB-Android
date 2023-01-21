@@ -80,14 +80,16 @@ class CreateGatheringSelectPlubCategoryFragment : BaseFragment<FragmentCreateGat
             }
 
             launch {
-                viewModel.notifySubHobby.collect {
-                    listAdapter.notifySubItemUpdate(it)
-                }
-            }
+                viewModel.eventFlow.collect {
+                    when(it) {
+                        is CreateGatheringSelectPlubCategoryEvent.NotifySubHobby -> {
+                            listAdapter.notifySubItemUpdate(it.selectedHobbyVo)
+                        }
 
-            launch {
-                viewModel.notifyAllHobby.collect {
-                    listAdapter.notifyAllItemUpdate()
+                        is CreateGatheringSelectPlubCategoryEvent.NotifyAllHobby -> {
+                            listAdapter.notifyAllItemUpdate()
+                        }
+                    }
                 }
             }
         }

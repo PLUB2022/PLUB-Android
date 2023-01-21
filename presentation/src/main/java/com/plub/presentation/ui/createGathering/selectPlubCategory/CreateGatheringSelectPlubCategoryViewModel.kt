@@ -22,11 +22,6 @@ class CreateGatheringSelectPlubCategoryViewModel @Inject constructor(
     ) {
     private val maxCategoryCount = 5
 
-    private val _notifySubHobby = MutableSharedFlow<SelectedHobbyVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val notifySubHobby: SharedFlow<SelectedHobbyVo> = _notifySubHobby.asSharedFlow()
-    private val _notifyAllHobby = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val notifyAllHobby: SharedFlow<Unit> = _notifyAllHobby.asSharedFlow()
-
     fun initUiState(savedUiState: CreateGatheringSelectPlubCategoryPageState) {
         updateUiState { uiState ->
             uiState.copy(
@@ -67,15 +62,11 @@ class CreateGatheringSelectPlubCategoryViewModel @Inject constructor(
     }
 
     private fun notifySubItem(selectedHobbyVo: SelectedHobbyVo) {
-        viewModelScope.launch {
-            _notifySubHobby.emit(selectedHobbyVo)
-        }
+        emitEventFlow(CreateGatheringSelectPlubCategoryEvent.NotifySubHobby(selectedHobbyVo))
     }
 
     private fun notifyAllItem() {
-        viewModelScope.launch {
-            _notifyAllHobby.emit(Unit)
-        }
+        emitEventFlow(CreateGatheringSelectPlubCategoryEvent.NotifyAllHobby)
     }
 
     private fun addHobby(selectedHobbyVo: SelectedHobbyVo) {
