@@ -27,20 +27,6 @@ class CreateGatheringGoalAndIntroduceAndImageViewModel @Inject constructor(
         CreateGatheringGoalAndIntroduceAndPicturePageState()
     ) {
 
-    private val _showSelectImageBottomSheetDialog = MutableSharedFlow<Unit>(
-        replay = 0,
-        extraBufferCapacity = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
-    val showSelectImageBottomSheetDialog: SharedFlow<Unit> =
-        _showSelectImageBottomSheetDialog.asSharedFlow()
-
-    private val _getImageFromGallery = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val getImageFromGallery: SharedFlow<Unit> = _getImageFromGallery.asSharedFlow()
-
-    private val _getImageFromCamera = MutableSharedFlow<Uri>(0, 1, BufferOverflow.DROP_OLDEST)
-    val getImageFromCamera: SharedFlow<Uri> = _getImageFromCamera.asSharedFlow()
-
     private var cameraTempImageUri: Uri? = null
 
     fun initUiState(savedUiState: CreateGatheringGoalAndIntroduceAndPicturePageState) {
@@ -66,9 +52,7 @@ class CreateGatheringGoalAndIntroduceAndImageViewModel @Inject constructor(
     }
 
     fun onClickAddSingleImageButton() {
-        viewModelScope.launch {
-            _showSelectImageBottomSheetDialog.emit(Unit)
-        }
+        emitEventFlow(CreateGatheringGoalAndIntroduceAndImageEvent.ShowSelectImageBottomSheetDialog)
     }
 
     fun proceedGatheringImageFromGalleryResult(result: ActivityResult) {
@@ -90,13 +74,12 @@ class CreateGatheringGoalAndIntroduceAndImageViewModel @Inject constructor(
 
     fun onClickImageMenuItemType(type: DialogMenuItemType) {
         when (type) {
-            DialogMenuItemType.CAMERA_IMAGE -> viewModelScope.launch {
+            DialogMenuItemType.CAMERA_IMAGE ->
                 cameraTempImageUri = resourceProvider.getUriFromTempFile().also {
-                    _getImageFromCamera.emit(it)
+                    emitEventFlow(CreateGatheringGoalAndIntroduceAndImageEvent.GetImageFromCamera(it))
                 }
-            }
 
-            DialogMenuItemType.ALBUM_IMAGE -> viewModelScope.launch { _getImageFromGallery.emit(Unit) }
+            DialogMenuItemType.ALBUM_IMAGE -> emitEventFlow(CreateGatheringGoalAndIntroduceAndImageEvent.GetImageFromGallery)
             else -> defaultImage()
         }
     }

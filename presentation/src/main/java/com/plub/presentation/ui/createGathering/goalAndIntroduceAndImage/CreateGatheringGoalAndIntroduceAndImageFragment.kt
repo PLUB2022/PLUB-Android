@@ -62,22 +62,22 @@ class CreateGatheringGoalAndIntroduceAndImageFragment :
             }
 
             launch {
-                viewModel.showSelectImageBottomSheetDialog.collect {
-                    PermissionManager.createGetImagePermission {
-                        showBottomSheetDialogSelectImage()
+                viewModel.eventFlow.collect {
+                    when(it) {
+                        is CreateGatheringGoalAndIntroduceAndImageEvent.ShowSelectImageBottomSheetDialog -> {
+                            PermissionManager.createGetImagePermission {
+                                showBottomSheetDialogSelectImage()
+                            }
+                        }
+
+                        is CreateGatheringGoalAndIntroduceAndImageEvent.GetImageFromCamera -> {
+                            getImageFromCamera(it.uri)
+                        }
+
+                        is CreateGatheringGoalAndIntroduceAndImageEvent.GetImageFromGallery -> {
+                            getImageFromGallery()
+                        }
                     }
-                }
-            }
-
-            launch {
-                viewModel.getImageFromCamera.collect {
-                    getImageFromCamera(it)
-                }
-            }
-
-            launch {
-                viewModel.getImageFromGallery.collect {
-                    getImageFromGallery()
                 }
             }
         }
