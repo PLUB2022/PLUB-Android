@@ -21,17 +21,8 @@ class CreateGatheringDayAndTimeAndOnOfflineAndLocationViewModel @Inject construc
     BaseViewModel<CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState>(
         CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState()
     ) {
-    private val _showBottomSheetSearchLocation =
-        MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val showBottomSheetSearchLocation: SharedFlow<Unit> =
-        _showBottomSheetSearchLocation.asSharedFlow()
-    private val _showTimePickerDialog = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val showTimePickerDialog: SharedFlow<Unit> = _showTimePickerDialog
-
     fun onClickTimeTextView() {
-        viewModelScope.launch {
-            _showTimePickerDialog.emit(Unit)
-        }
+        emitEventFlow(CreateGatheringDayAndTimeAndOnOfflineAndLocationEvent.ShowTimePickerDialog)
     }
 
     fun setGatheringHourAndMinuteAndFormattedText(hour: Int, min: Int) {
@@ -69,9 +60,7 @@ class CreateGatheringDayAndTimeAndOnOfflineAndLocationViewModel @Inject construc
     }
 
     fun onClickIconEditTextLocation() {
-        viewModelScope.launch {
-            _showBottomSheetSearchLocation.emit(Unit)
-        }
+        emitEventFlow(CreateGatheringDayAndTimeAndOnOfflineAndLocationEvent.ShowBottomSheetSearchLocation)
     }
 
     /**
