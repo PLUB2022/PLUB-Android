@@ -70,13 +70,7 @@ class CreateGatheringDayAndTimeAndOnOfflineAndLocationFragment : BaseFragment<
                 viewModel.eventFlow.collect {
                     when(it) {
                         is CreateGatheringDayAndTimeAndOnOfflineAndLocationEvent.ShowBottomSheetSearchLocation -> {
-                            val bottomSheetSearchLocation = BottomSheetSearchLocation { data ->
-                                viewModel.updateGatheringLocationData(data)
-                            }
-                            bottomSheetSearchLocation.show(
-                                requireActivity().supportFragmentManager,
-                                bottomSheetSearchLocation.tag
-                            )
+                            showBottomSheetLocation()
                         }
 
                         is CreateGatheringDayAndTimeAndOnOfflineAndLocationEvent.ShowTimePickerDialog -> {
@@ -86,5 +80,15 @@ class CreateGatheringDayAndTimeAndOnOfflineAndLocationFragment : BaseFragment<
                 }
             }
         }
+    }
+
+    private fun showBottomSheetLocation() {
+        val bottomSheetSearchLocation = BottomSheetSearchLocation { data ->
+            viewModel.updateGatheringLocationData(data)
+        }
+        bottomSheetSearchLocation.show(
+            requireActivity().supportFragmentManager,
+            bottomSheetSearchLocation.tag
+        )
     }
 }
