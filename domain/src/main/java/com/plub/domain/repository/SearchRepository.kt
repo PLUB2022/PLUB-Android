@@ -7,4 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface SearchRepository {
     suspend fun getRecentSearches(): Flow<UiState<List<RecentSearchVo>>>
+    suspend fun deleteRecentSearch(id:Int): Flow<UiState<Unit>>
+    suspend fun deleteAllRecentSearch(): Flow<UiState<Unit>>
+    suspend fun insertRecentSearch(currentSize:Int, recentSearchVo: RecentSearchVo): Flow<UiState<Unit>>
 }
