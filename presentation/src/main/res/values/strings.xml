@@ -49,6 +49,9 @@
     <string name="word_double_quotation_marks">\"%s\"</string>
     <string name="word_with_us">With Us!</string>
     <string name="word_middle_line">%s | %s</string>
+    <string name="word_slash_300">/300</string>
+    <string name="word_slash_60">/60</string>
+    <string name="word_search_result">검색결과</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>
@@ -172,10 +175,13 @@
     <string name="dialog_menu_camera_image">카메라로 촬영</string>
     <string name="dialog_menu_album_image">앨범에서 사진 업로드</string>
     <string name="dialog_menu_default_image">기본 이미지</string>
+
     <string name="image_descriptor_back_button">뒤로 가기 버튼</string>
     <string name="image_descriptor_shadow">그림자 이미지</string>
-    <string name="word_slash_300">/300</string>
-    <string name="word_slash_60">/60</string>
-    <string name="word_search_result">검색결과</string>
     <string name="image_descriptor_delete_button">삭제 버튼</string>
+
+    <string name="search_recent_searches">최근 검색어</string>
+    <string name="search_all_delete">모두 지우기</string>
+    <string name="search_empty_title">제목, 모임 이름, 키워드로 검색해보세요</string>
+>>>>>>> cd451a8 (feat-137 : SearchingFragment, SearchingViewModel 및 레이아웃 생성)
 </resources>
