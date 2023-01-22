@@ -28,6 +28,9 @@ class RecruitmentViewModel @Inject constructor(
     private val _recruitMentDetailData = MutableSharedFlow<RecruitDetailResponseVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val recruitMentDetailData: SharedFlow<RecruitDetailResponseVo> = _recruitMentDetailData.asSharedFlow()
 
+    private val _goToApplyPlubbingFrag = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val goToApplyPlubbingFrag: SharedFlow<Unit> = _goToApplyPlubbingFrag.asSharedFlow()
+
 
     fun fetchRecruitmentDetail(plubbingId : Int){
         viewModelScope.launch {
@@ -40,6 +43,12 @@ class RecruitmentViewModel @Inject constructor(
     fun clickBookmark(plubbingId : Int){
         viewModelScope.launch{
             bookmarkUsecase.invoke(plubbingId)
+        }
+    }
+
+    fun goToApplyPlubbingFragment(){
+        viewModelScope.launch {
+            _goToApplyPlubbingFrag.emit(Unit)
         }
     }
 

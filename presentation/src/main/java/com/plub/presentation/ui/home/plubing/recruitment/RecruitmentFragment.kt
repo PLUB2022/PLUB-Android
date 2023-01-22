@@ -45,7 +45,7 @@ class RecruitmentFragment :
             vm = viewModel
             //TODO 할 일
             buttonJoin.setOnClickListener {
-                goToApplyPlubbingFragment(returnFragmentArgs())
+                viewModel
             }
             viewModel.fetchRecruitmentDetail(returnFragmentArgs().toInt())
         }
@@ -56,6 +56,12 @@ class RecruitmentFragment :
             launch {
                 viewModel.recruitMentDetailData.collect {
                     initDetailPage(it)
+                }
+            }
+
+            launch {
+                viewModel.goToApplyPlubbingFrag.collect{
+                    goToApplyPlubbingFragment(returnFragmentArgs())
                 }
             }
         }
