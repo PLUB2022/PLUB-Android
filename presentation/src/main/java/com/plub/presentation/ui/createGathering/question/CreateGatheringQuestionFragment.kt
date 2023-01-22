@@ -97,10 +97,10 @@ class CreateGatheringQuestionFragment : BaseFragment<
 
     private fun showBottomSheetDeleteQuestion(it: CreateGatheringQuestionEvent.ShowBottomSheetDeleteQuestion) {
         val bottomSheetDeleteQuestion = BottomSheetDeleteQuestion(
-            it.position,
-            it.size
+            position = it.position,
+            questionCount = it.size
         ) { _ ->
-            viewModel.onClickBottomSheetDelete(it.position, it.size)
+            viewModel.onClickBottomSheetDelete(it.size, it.position)
         }
 
         bottomSheetDeleteQuestion.show(
