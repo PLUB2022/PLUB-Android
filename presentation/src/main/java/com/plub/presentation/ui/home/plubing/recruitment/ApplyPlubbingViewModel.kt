@@ -51,6 +51,5 @@ class ApplyPlubbingViewModel @Inject constructor(
                 isApplyButtonEnable = flag
             )
         }
-
     }
 }

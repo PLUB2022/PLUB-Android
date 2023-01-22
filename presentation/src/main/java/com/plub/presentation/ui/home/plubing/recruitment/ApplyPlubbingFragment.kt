@@ -27,7 +27,6 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
             override fun isNotEmpty(flag: Boolean) {
                 viewModel.updateButtonState(flag)
             }
-
         })
     }
 
@@ -56,9 +55,9 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
                     questionsAdapter.submitList(it.questions)
                 }
             }
-
         }
     }
+
     fun getAnswerList() : List<ApplicantsRecruitAnswerListVo>{
         val list : MutableList<ApplicantsRecruitAnswerListVo> = mutableListOf()
         for(i in 0 until questionsAdapter.itemCount){

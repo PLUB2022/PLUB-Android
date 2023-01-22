@@ -20,7 +20,10 @@ class CategoryChoiceViewModel @Inject constructor(
     val bookmarkUsecase: BookmarkUsecase
 ) : BaseViewModel<CategoryChoiceState>(CategoryChoiceState()) {
 
-
+    private val _backMainPage =
+        MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
+    val backMainPage: SharedFlow<Unit> =
+        _backMainPage.asSharedFlow()
     private val _recommendationData =
         MutableSharedFlow<RecommendationGatheringResponseVo>(0, 1, BufferOverflow.DROP_OLDEST)
     val recommendationData: SharedFlow<RecommendationGatheringResponseVo> =
@@ -54,6 +57,12 @@ class CategoryChoiceViewModel @Inject constructor(
             ui.copy(
                 listOrGrid = false
             )
+        }
+    }
+
+    fun backMainPage(){
+        viewModelScope.launch {
+            _backMainPage.emit(Unit)
         }
     }
 

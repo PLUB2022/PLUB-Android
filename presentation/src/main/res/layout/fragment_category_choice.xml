@@ -28,6 +28,7 @@
                 android:layout_height="32dp"
                 android:layout_marginLeft="7dp"
                 android:layout_marginTop="12dp"
+                android:onClick="@{()->vm.backMainPage()}"
                 android:background="@color/transparent"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"

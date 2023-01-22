@@ -65,10 +65,6 @@ class CategoryChoiceFragment :
                 }
             }))
 
-            imageBtnBack.setOnClickListener {
-                backMainPage()
-            }
-
             textViewCategoryName.text = mainArgs.categoryName
 
         }
@@ -100,6 +96,12 @@ class CategoryChoiceFragment :
                         setListRecycler()
                     }
                     changeListAndGridButton(it.listOrGrid)
+                }
+            }
+
+            launch {
+                viewModel.backMainPage.collect{
+                    backMainPage()
                 }
             }
         }
