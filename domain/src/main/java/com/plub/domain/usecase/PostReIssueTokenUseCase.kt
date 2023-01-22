@@ -17,12 +17,11 @@ class PostReIssueTokenUseCase @Inject constructor(
     private val plubJwtRepository: PlubJwtRepository
 ):UseCase<PlubJwtReIssueRequestVo, Flow<PlubJwtResponseVo>>() {
     override suspend operator fun invoke(request: PlubJwtReIssueRequestVo): Flow<PlubJwtResponseVo> = flow {
-        plubJwtRepository.reIssueToken(request).collectIndexed { index, value ->
-            if(index == 1) {
-                when(value) {
-                    is UiState.Success -> emit(value.data)
-                    else -> emit(PlubJwtResponseVo("",""))
-                }
+        plubJwtRepository.reIssueToken(request).collect {
+            when(it) {
+                is UiState.Loading -> {  }
+                is UiState.Success -> emit(it.data)
+                else -> emit(PlubJwtResponseVo("",""))
             }
         }
     }
