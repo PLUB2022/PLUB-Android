@@ -10,6 +10,7 @@ import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswer
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentApplyPlubbingBinding
+import com.plub.presentation.state.ApplyPageState
 import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.QuestionsAdapter
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.QuestionsViewHolder
@@ -17,12 +18,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, PageState.Default, ApplyPlubbingViewModel>(
+class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPageState, ApplyPlubbingViewModel>(
     FragmentApplyPlubbingBinding::inflate
 )  {
 
     private val questionsAdapter: QuestionsAdapter by lazy {
-        QuestionsAdapter()
+        QuestionsAdapter(object : QuestionsAdapter.QuestionsDegelate{
+            override fun isNotEmpty(flag: Boolean) {
+                viewModel.updateButtonState(flag)
+            }
+
+        })
     }
 
     val recruitArgs : RecruitmentFragmentArgs by navArgs()
@@ -70,4 +76,5 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, PageSta
             }
         }
     }
+
 }

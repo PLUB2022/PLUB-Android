@@ -8,10 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 import com.plub.presentation.databinding.IncludeItemQuestionBinding
 
-class QuestionsAdapter() :
+class QuestionsAdapter(private val listener : QuestionsDegelate) :
     ListAdapter<QuestionsDataVo, RecyclerView.ViewHolder>(
         QuestionsDiffCallBack()
     ) {
+
+    interface QuestionsDegelate{
+        fun isNotEmpty(flag : Boolean)
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -24,7 +28,7 @@ class QuestionsAdapter() :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
             IncludeItemQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return QuestionsViewHolder(binding)
+        return QuestionsViewHolder(binding, listener)
     }
 }
 

@@ -12,6 +12,7 @@ import com.plub.domain.usecase.GetQuestionUseCase
 import com.plub.presentation.state.SampleHomeState
 import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.ApplyPageState
 import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
@@ -25,7 +26,7 @@ import javax.inject.Inject
 class ApplyPlubbingViewModel @Inject constructor(
     val getQuestionUseCase: GetQuestionUseCase,
     val applicantsRecruitUseCase: ApplicantsRecruitUseCase
-) : BaseViewModel<PageState.Default>(PageState.Default) {
+) : BaseViewModel<ApplyPageState>(ApplyPageState()) {
 
     private val _recruitQuestionData = MutableSharedFlow<QuestionsResponseVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val recruitQuestionData: SharedFlow<QuestionsResponseVo> = _recruitQuestionData.asSharedFlow()
@@ -44,4 +45,12 @@ class ApplyPlubbingViewModel @Inject constructor(
         }
     }
 
+    fun updateButtonState(flag : Boolean){
+        updateUiState { ui ->
+            ui.copy(
+                isApplyButtonEnable = flag
+            )
+        }
+
+    }
 }
