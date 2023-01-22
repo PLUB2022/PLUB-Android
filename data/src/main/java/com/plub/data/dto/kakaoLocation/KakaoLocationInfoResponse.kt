@@ -5,28 +5,28 @@ import com.plub.data.base.DataDto
 
 data class KakaoLocationInfoResponse(
     @SerializedName("documents")
-    val documents: List<KakaoLocationInfoDocument>,
+    val documents: List<KakaoLocationInfoDocument> = emptyList(),
 
     @SerializedName("meta")
-    val meta: Meta
+    val meta: Meta = Meta()
 ): DataDto
 
 data class KakaoLocationInfoDocument(
     @SerializedName("place_name")
-    val placeName: String,
+    val placeName: String = "",
     @SerializedName("x")
-    val placePositionX: String,
+    val placePositionX: String = "",
     @SerializedName("y")
-    val placePositionY: String,
+    val placePositionY: String = "",
     @SerializedName("address_name")
-    val addressName: String,
+    val addressName: String = "",
     @SerializedName("road_address_name")
-    val roadAddressName: String
+    val roadAddressName: String = ""
 )
 
 data class Meta(
     @SerializedName("is_end")
-    val isEnd: Boolean,
+    val isEnd: Boolean = false,
     @SerializedName("pageable_count")
-    val documentTotalCount: Int
+    val documentTotalCount: Int = 0
 )

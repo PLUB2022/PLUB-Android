@@ -6,5 +6,5 @@ import com.plub.domain.model.enums.SocialLoginType
 
 data class CreateGatheringResponse(
     @SerializedName("plubbingId")
-    val plubbingId: Int
+    val plubbingId: Int = -1
 ): DataDto

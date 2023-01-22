@@ -5,17 +5,17 @@ import com.plub.data.base.DataDto
 
 data class MyInfoResponse(
     @SerializedName("email")
-    val email: String,
+    val email: String = "",
     @SerializedName("nickname")
-    val nickname: String,
+    val nickname: String = "",
     @SerializedName("socialType")
-    val socialType: String,
+    val socialType: String = "",
     @SerializedName("birthday")
-    val birthday: String,
+    val birthday: String = "",
     @SerializedName("gender")
-    val gender: String,
+    val gender: String = "",
     @SerializedName("introduce")
-    val introduce: String,
+    val introduce: String = "",
     @SerializedName("profileImage")
-    val profileImage: String?
+    val profileImage: String = ""
 ): DataDto
