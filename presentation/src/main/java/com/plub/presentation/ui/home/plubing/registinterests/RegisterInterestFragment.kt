@@ -52,6 +52,7 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
         binding.apply {
             vm = viewModel
 
+
             recyclerViewInterestsCategory.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = listAdapter
