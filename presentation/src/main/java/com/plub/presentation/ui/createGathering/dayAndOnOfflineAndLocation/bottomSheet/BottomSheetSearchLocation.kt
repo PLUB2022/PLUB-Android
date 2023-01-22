@@ -3,8 +3,10 @@ package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bott
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -27,15 +29,24 @@ import kotlinx.coroutines.launch
 class BottomSheetSearchLocation(
     private val okButtonClickEvent: ((data: KakaoLocationInfoDocumentVo?) -> Unit)? = null
 ) : BottomSheetDialogFragment() {
-    private lateinit var binding: BottomSheetSearchLocationBinding
+
+    private val binding: BottomSheetSearchLocationBinding by lazy {
+        BottomSheetSearchLocationBinding.inflate(layoutInflater)
+    }
     private val viewModel: BottomSheetSearchLocationViewModel by viewModels()
 
-    @SuppressLint("RestrictedApi")
-    override fun setupDialog(dialog: Dialog, style: Int) {
-        super.setupDialog(dialog, style)
-        binding = BottomSheetSearchLocationBinding.inflate(LayoutInflater.from(context))
-        binding.lifecycleOwner = this
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.lifecycleOwner = this
         (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
 
         binding.vm = viewModel
@@ -66,7 +77,10 @@ class BottomSheetSearchLocation(
                     viewModel.hideKeyboard.collect {
                         val inputMethodManager =
                             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        inputMethodManager.hideSoftInputFromWindow(binding.iconEditTextSearchLocation.editText.windowToken, 0)
+                        inputMethodManager.hideSoftInputFromWindow(
+                            binding.iconEditTextSearchLocation.editText.windowToken,
+                            0
+                        )
                     }
                 }
 
@@ -74,14 +88,14 @@ class BottomSheetSearchLocation(
                     pagingDataAdapter.onPagesUpdatedFlow.collectLatest {
                         val currentList = pagingDataAdapter.snapshot()
 
-                        val size = if(currentList.isEmpty()) 0 else currentList[0]?.documentTotalCount ?: 0
+                        val size =
+                            if (currentList.isEmpty()) 0 else currentList[0]?.documentTotalCount
+                                ?: 0
                         viewModel.upDateSearchResultCount(size)
                         viewModel.updateSearchedText()
                     }
                 }
             }
         }
-
-        dialog.setContentView(binding.root)
     }
 }

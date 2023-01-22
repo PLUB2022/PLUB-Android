@@ -3,7 +3,10 @@ package com.plub.presentation.ui.createGathering.question.bottomSheet
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -26,12 +29,21 @@ class BottomSheetDeleteQuestion(
     private val questionCount: Int,
     private val okButtonClickEvent: ((position: Int) -> Unit)? = null
 ) : BottomSheetDialogFragment() {
-    private lateinit var binding: BottomSheetDeleteQuestionBinding
+    private val binding: BottomSheetDeleteQuestionBinding by lazy {
+        BottomSheetDeleteQuestionBinding.inflate(layoutInflater)
+    }
 
-    @SuppressLint("RestrictedApi")
-    override fun setupDialog(dialog: Dialog, style: Int) {
-        super.setupDialog(dialog, style)
-        binding = BottomSheetDeleteQuestionBinding.inflate(LayoutInflater.from(context))
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.position = position
         binding.questionCount = questionCount
 
@@ -43,8 +55,5 @@ class BottomSheetDeleteQuestion(
         binding.buttonNo.setOnClickListener {
             dismiss()
         }
-
-
-        dialog.setContentView(binding.root)
     }
 }
