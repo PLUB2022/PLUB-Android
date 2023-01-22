@@ -2,12 +2,13 @@ package com.plub.presentation.ui.home.plubing.recruitment.adapter
 
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 import com.plub.presentation.databinding.IncludeItemQuestionBinding
 
 class QuestionsViewHolder(
     private val binding: IncludeItemQuestionBinding,
-    private val listener: QuestionsAdapter.QuestionsDegelate
 ) : RecyclerView.ViewHolder(binding.root) {
 
     companion object {

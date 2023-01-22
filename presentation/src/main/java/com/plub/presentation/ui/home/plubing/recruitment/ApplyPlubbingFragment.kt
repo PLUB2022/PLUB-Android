@@ -1,12 +1,18 @@
 package com.plub.presentation.ui.home.plubing.recruitment
 
+import android.util.Log
+import android.widget.EditText
+import androidx.core.view.get
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentApplyPlubbingBinding
 import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.QuestionsAdapter
+import com.plub.presentation.ui.home.plubing.recruitment.adapter.QuestionsViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -14,12 +20,9 @@ import kotlinx.coroutines.launch
 class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, PageState.Default, ApplyPlubbingViewModel>(
     FragmentApplyPlubbingBinding::inflate
 )  {
+
     private val questionsAdapter: QuestionsAdapter by lazy {
-        QuestionsAdapter(object : QuestionsAdapter.QuestionsDegelate {
-            override fun onProfileClick(accountId: Int) {
-                //
-            }
-        })
+        QuestionsAdapter()
     }
 
     val recruitArgs : RecruitmentFragmentArgs by navArgs()
@@ -31,7 +34,8 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, PageSta
             vm = viewModel
             initRecycler()
             buttonApply.setOnClickListener {
-                viewModel.applyRecruit(recruitArgs.plubbingId.toInt())
+                viewModel.applyRecruit(recruitArgs.plubbingId.toInt(), getAnswerList())
+                //어디로 가야하지?
             }
         }
         viewModel.fetchQuestions(recruitArgs.plubbingId.toInt())
@@ -48,6 +52,14 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, PageSta
             }
 
         }
+    }
+    fun getAnswerList() : List<ApplicantsRecruitAnswerListVo>{
+        val list : MutableList<ApplicantsRecruitAnswerListVo> = mutableListOf()
+        for(i in 0 until questionsAdapter.itemCount){
+            list.add(ApplicantsRecruitAnswerListVo(questionsAdapter.currentList[i].id,
+                binding.recyclerViewQuestions.get(i).findViewById<EditText>(R.id.edit_text_answer).text.toString()))
+        }
+        return list
     }
 
     fun initRecycler(){

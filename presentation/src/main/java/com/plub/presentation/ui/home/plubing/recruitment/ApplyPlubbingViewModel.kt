@@ -2,9 +2,12 @@ package com.plub.presentation.ui.home.plubing.recruitment
 
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.domain.successOrNull
+import com.plub.domain.usecase.ApplicantsRecruitUseCase
 import com.plub.domain.usecase.GetQuestionUseCase
 import com.plub.presentation.state.SampleHomeState
 import com.plub.domain.usecase.TestPostHomeUseCase
@@ -20,7 +23,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ApplyPlubbingViewModel @Inject constructor(
-    val getQuestionUseCase: GetQuestionUseCase
+    val getQuestionUseCase: GetQuestionUseCase,
+    val applicantsRecruitUseCase: ApplicantsRecruitUseCase
 ) : BaseViewModel<PageState.Default>(PageState.Default) {
 
     private val _recruitQuestionData = MutableSharedFlow<QuestionsResponseVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
@@ -34,8 +38,10 @@ class ApplyPlubbingViewModel @Inject constructor(
         }
     }
 
-    fun applyRecruit(plubbingId: Int){
-
+    fun applyRecruit(plubbingId: Int, list : List<ApplicantsRecruitAnswerListVo>){
+        viewModelScope.launch {
+            applicantsRecruitUseCase.invoke(ApplicantsRecruitRequestVo(plubbingId, list))
+        }
     }
 
 }

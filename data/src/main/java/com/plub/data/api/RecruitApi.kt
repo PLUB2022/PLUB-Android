@@ -15,7 +15,7 @@ interface RecruitApi {
 
     @POST(Endpoints.RECRUIT.APPLICANTS_RECRUIT)
     suspend fun applicantsRecruit(
-        @Path("plubbingID") plubbingID : Int,
+        @Path("plubbingId") plubbingID : Int,
         @Body request : ApplicantsRecruitRequest
     ) : Response<ApiResponse<ApplicantsRecruitResponse>>
 
