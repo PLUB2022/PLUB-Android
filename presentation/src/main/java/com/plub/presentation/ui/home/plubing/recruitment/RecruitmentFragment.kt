@@ -96,10 +96,11 @@ class RecruitmentFragment :
             textViewPlubbingTitle.text = data.recruitTitle
             textViewLocation.text = data.placeName
             textViewPlubbingGoal.text = "“${data.plubbingGoal}”"
-            textViewPeople.text = "모집 인원 ${data.curAccountNum + data.remainAccountNum}명"
+
+            textViewPeople.text = getString(R.string.detail_recruitment_people,(data.curAccountNum + data.remainAccountNum).toString())
             textViewDate.text = "${data.plubbingDays}"
             //GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
-            textViewPlubbingDetailIntro.text = "[ ${data.plubbingName} ] 모임은요...!"
+            textViewPlubbingDetailIntro.text = getString(R.string.detail_recruit_about_my_gathering,data.recruitIntroduce)
             textViewPlubbingDetail.text = data.recruitIntroduce
 
             detailRecruitCategoryAdapter.submitList(data.categories)
