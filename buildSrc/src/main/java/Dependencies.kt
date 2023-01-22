@@ -61,6 +61,11 @@ object Libraries {
     const val KAKAO = "com.kakao.sdk:v2-user:${Versions.KAKAO}"
 
     const val TED_PERMISSION = "io.github.ParkSangGwon:tedpermission-normal:${Versions.TED_PERMISSION}"
+
+    /**
+     * API 26 미만에서 java.time 패키지를 사용할 수 있게 해주는 라이브러리
+     */
+    const val THREE_TEN_ABP = "com.jakewharton.threetenabp:threetenabp:${Versions.THREE_TEN_ABP}"
 }
 
 object UnitTest {

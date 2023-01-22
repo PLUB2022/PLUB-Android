@@ -62,6 +62,7 @@ dependencies {
     implementation(Libraries.OKHTTP_LOGGING_INTERCEPTOR)
     implementation(Libraries.TIMBER)
     implementation(Libraries.KAKAO)
+    implementation(Libraries.THREE_TEN_ABP)
 
     implementation(Google.HILT_ANDROID)
     kapt(Google.HILT_ANDROID_COMPILER)

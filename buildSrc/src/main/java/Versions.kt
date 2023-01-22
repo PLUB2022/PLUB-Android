@@ -44,6 +44,8 @@ object Versions {
 
     const val TED_PERMISSION = "3.3.0"
 
+    const val THREE_TEN_ABP = "1.4.4"
+
     /* [ UnitTest ] */
     const val JUNIT = "4.13.2"
 
