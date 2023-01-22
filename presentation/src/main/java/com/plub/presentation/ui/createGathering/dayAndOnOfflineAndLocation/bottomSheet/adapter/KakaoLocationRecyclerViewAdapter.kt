@@ -35,15 +35,26 @@ class KakaoLocationRecyclerViewAdapter(
 
     inner class KakaoLocationViewHolder(val binding: LayoutRecyclerKakaoLocationByKeywordBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        private var data: KakaoLocationInfoDocumentVo? = null
+        private var position: Int? = null
+        init {
+            binding.constraintLayoutLocation.setOnClickListener {
+                data?.let { data ->
+                    position?.let { position ->
+                        selectedPlaceData = data
+                        binding.constraintLayoutLocation.setBackgroundResource(R.drawable.bg_rectangle_filled_white_width_2_radius_8_5f5ff9)
+                        notifyItemChanged(prevSelectedPosition)
+                        prevSelectedPosition = position
+                        itemClickEvent(data)
+                    }
+                }
+            }
+        }
         fun bind(data: KakaoLocationInfoDocumentVo, position: Int) {
             binding.data = data
-            binding.constraintLayoutLocation.setOnClickListener {
-                selectedPlaceData = data
-                binding.constraintLayoutLocation.setBackgroundResource(R.drawable.bg_rectangle_filled_white_width_2_radius_8_5f5ff9)
-                notifyItemChanged(prevSelectedPosition)
-                prevSelectedPosition = position
-                itemClickEvent(data)
-            }
+            this.data = data
+            this.position = position
+
             if (selectedPlaceData == data)
                 binding.constraintLayoutLocation.setBackgroundResource(R.drawable.bg_rectangle_filled_white_width_2_radius_8_5f5ff9)
             else
