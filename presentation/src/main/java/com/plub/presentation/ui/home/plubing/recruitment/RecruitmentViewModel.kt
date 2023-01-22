@@ -10,6 +10,7 @@ import com.plub.domain.usecase.RecruitDetailUseCase
 import com.plub.presentation.state.SampleHomeState
 import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.DetailRecruitPageState
 import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
@@ -23,7 +24,7 @@ import javax.inject.Inject
 class RecruitmentViewModel @Inject constructor(
     val recruitDetailUseCase: RecruitDetailUseCase,
     val bookmarkUsecase: BookmarkUsecase
-) : BaseViewModel<PageState.Default>(PageState.Default) {
+) : BaseViewModel<DetailRecruitPageState>(DetailRecruitPageState()) {
 
     private val _recruitMentDetailData = MutableSharedFlow<RecruitDetailResponseVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val recruitMentDetailData: SharedFlow<RecruitDetailResponseVo> = _recruitMentDetailData.asSharedFlow()
@@ -49,6 +50,14 @@ class RecruitmentViewModel @Inject constructor(
     fun goToApplyPlubbingFragment(){
         viewModelScope.launch {
             _goToApplyPlubbingFrag.emit(Unit)
+        }
+    }
+
+    fun updateState(flag : Boolean){
+        updateUiState { ui->
+            ui.copy(
+                canApply = !flag
+            )
         }
     }
 
