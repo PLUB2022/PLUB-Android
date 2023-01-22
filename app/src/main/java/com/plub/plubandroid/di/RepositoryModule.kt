@@ -70,4 +70,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesHostRecruitRepository(repositoryImpl: HostRecruitReposImpl): HostRecruitRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesRecruitApplyRepository(repositoryImpl: RecruitApplyReposImpl): RecruitApplyRepository
 }

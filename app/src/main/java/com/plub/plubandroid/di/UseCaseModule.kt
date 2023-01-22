@@ -137,4 +137,10 @@ object UseCaseModule {
     fun providesHostEndRecruitUseCase(repository: HostRecruitRepository): HostRecruitUseCase {
         return HostRecruitUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesGetQuestionsUseCase(repository: RecruitApplyRepository): GetQuestionUseCase {
+        return GetQuestionUseCase(repository)
+    }
 }

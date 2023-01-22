@@ -3,6 +3,7 @@ package com.plub.data.api
 import com.plub.data.dto.plubJwt.applicantsrecruit.ApplicantsRecruitRequest
 import com.plub.data.dto.plubJwt.applicantsrecruit.ApplicantsRecruitResponse
 import com.plub.data.dto.plubJwt.applicantsrecruit.reply.ReplyApplicantsRecruitResponse
+import com.plub.data.dto.plubJwt.applyrecruit.QuestionsResponse
 import com.plub.data.dto.plubJwt.bookmarks.BookmarkResponse
 import com.plub.data.dto.plubJwt.recruitdetail.host.EndRecruitResponse
 import com.plub.data.dto.plubJwt.recruitdetail.host.HostApplicantsResponse
@@ -44,4 +45,9 @@ interface RecruitApi {
     suspend fun seeApplicants(
         @Path("plubbingId") plubbingID: Int
     ) : Response<ApiResponse<HostApplicantsResponse>>
+
+    @GET(Endpoints.RECRUIT.RECRUIT_QUESTIONS)
+    suspend fun getQustions(
+        @Path("plubbingId") plubbingID: Int
+    ) : Response<ApiResponse<QuestionsResponse>>
 }

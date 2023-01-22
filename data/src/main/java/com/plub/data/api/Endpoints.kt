@@ -40,6 +40,7 @@ object Endpoints {
         const val REFUSE_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/refuse"
         const val BOOKMARK_RECRUIT = "$RECRUIT_URL/bookmarks"
         const val RECRUIT_END = "$RECRUIT_URL/end"
+        const val RECRUIT_QUESTIONS = "$RECRUIT_URL/questions"
     }
 
 }
