@@ -44,12 +44,10 @@
             app:editTextHint="@string/bottom_sheet_search_gathering_location_hint"
             app:editTextValue="@{vm.uiState.searchingText}"
             app:hintTextColor="@{@color/color_8c8c8c}"
-            app:iconEditTextActionEvent="@{() -> vm.onClickKeyboardSearch()}"
             app:isSearched="@{!vm.uiState.showSearchDescription}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_title"
-            app:updateIconEditTextKakaoLocation="@{vm.upDateEditTextValue}"
             tools:background="@drawable/bg_rectangle_filled_e4e4e4_radius_8"
             tools:layout_height="40dp" />
 
@@ -209,6 +207,7 @@
             android:enabled="@{vm.uiState.okButtonEnabled}"
             android:stateListAnimator="@null"
             android:text="@string/word_ok"
+            android:onClick="@{() -> vm.onClickConfirm()}"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             android:textSize="14sp"
             android:textStyle="bold"

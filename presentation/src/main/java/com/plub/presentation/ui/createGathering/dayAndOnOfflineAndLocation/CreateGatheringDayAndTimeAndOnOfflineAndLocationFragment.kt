@@ -83,7 +83,7 @@ class CreateGatheringDayAndTimeAndOnOfflineAndLocationFragment : BaseFragment<
     }
 
     private fun showBottomSheetLocation() {
-        val bottomSheetSearchLocation = BottomSheetSearchLocation { data ->
+        val bottomSheetSearchLocation = BottomSheetSearchLocation.newInstance { data ->
             viewModel.updateGatheringLocationData(data)
         }
         bottomSheetSearchLocation.show(

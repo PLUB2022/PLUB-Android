@@ -15,39 +15,6 @@ import com.plub.presentation.ui.custom.FixedTextWidthCheckBox
 import com.plub.presentation.ui.custom.IconEditText
 import com.plub.presentation.util.afterTextChanged
 
-@BindingAdapter("iconEditTextActionEvent")
-fun IconEditText.bindEditTextActionEvent(method: () -> Void) {
-    editText.setOnEditorActionListener(object : TextView.OnEditorActionListener {
-        override fun onEditorAction(
-            textView: TextView?,
-            actionId: Int,
-            keyEvent: KeyEvent?
-        ): Boolean {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                method()
-                return true
-            }
-            return false
-        }
-    }
-    )
-}
-
-@BindingAdapter("updateIconEditText")
-fun IconEditText.bindUpdateIconEditText(method: (text: String) -> Unit) {
-    editText.afterTextChanged { text ->
-        method(text?.toString() ?: "")
-    }
-}
-
-@BindingAdapter("updateIconEditTextKakaoLocation")
-fun IconEditText.bindUpdateIconEditTextKakaoLocation(method: (text: String) -> Unit) {
-    editText.afterTextChanged { text ->
-        method(text?.toString() ?: "")
-        editText.typeface = if(text?.isEmpty() == true) Typeface.DEFAULT else Typeface.DEFAULT_BOLD
-    }
-}
-
 @BindingAdapter(value = ["hintTextColor", "defaultTextColor"], requireAll = true)
 fun IconEditText.bindSetIconEditTextHintColor(
     hintTextColor: Int,

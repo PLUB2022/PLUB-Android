@@ -1,101 +1,130 @@
 package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bottomSheet
 
-import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Context
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
+import com.plub.presentation.base.BaseBottomSheetFragment
 import com.plub.presentation.databinding.BottomSheetSearchLocationBinding
+import com.plub.presentation.event.KakaoLocationEvent
 import com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bottomSheet.adapter.KakaoLocationRecyclerViewAdapter
-import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class BottomSheetSearchLocation(
-    private val okButtonClickEvent: ((data: KakaoLocationInfoDocumentVo?) -> Unit)? = null
-) : BottomSheetDialogFragment() {
+class BottomSheetSearchLocation :
+    BaseBottomSheetFragment<BottomSheetSearchLocationBinding, CreateGatheringKakaoLocationBottomSheetPageState, BottomSheetSearchLocationViewModel>(
+        BottomSheetSearchLocationBinding::inflate
+    ) {
+    companion object {
 
-    private val binding: BottomSheetSearchLocationBinding by lazy {
-        BottomSheetSearchLocationBinding.inflate(layoutInflater)
-    }
-    private val viewModel: BottomSheetSearchLocationViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.lifecycleOwner = this
-        (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
-
-        binding.vm = viewModel
-        val pagingDataAdapter = KakaoLocationRecyclerViewAdapter { data ->
-            viewModel.onClickLocationRecyclerItem(data)
+        private const val POSITION_TOP = 0
+        fun newInstance(
+            onConfirmButtonClick: (data: KakaoLocationInfoDocumentVo?) -> Unit
+        ) = BottomSheetSearchLocation().apply {
+            this.onConfirmButtonClick = onConfirmButtonClick
         }
+    }
 
-        binding.recyclerViewKakaoLocation.adapter = pagingDataAdapter
-        binding.buttonOk.setOnClickListener {
-            okButtonClickEvent?.let { method ->
-                method(viewModel.uiState.value.selectedLocation)
+    override val viewModel: BottomSheetSearchLocationViewModel by viewModels()
+
+    private var onConfirmButtonClick: ((data: KakaoLocationInfoDocumentVo?) -> Unit)? = null
+
+    private val pagingDataAdapter: KakaoLocationRecyclerViewAdapter by lazy {
+        KakaoLocationRecyclerViewAdapter(object : KakaoLocationRecyclerViewAdapter.Delegate {
+            override fun onClickItem(data: KakaoLocationInfoDocumentVo, position:Int) {
+                viewModel.onClickLocationRecyclerItem(data, position)
             }
+
+            override val selectedVo: KakaoLocationInfoDocumentVo?
+                get() = viewModel.uiState.value.selectedLocation
+        })
+    }
+
+    override fun initView() {
+        (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            vm = viewModel
+
+            recyclerViewKakaoLocation.adapter = pagingDataAdapter
+            iconEditTextSearchLocation.editText.apply {
+                setOnEditorActionListener(object : TextView.OnEditorActionListener {
+                    override fun onEditorAction(
+                        textView: TextView?,
+                        actionId: Int,
+                        keyEvent: KeyEvent?
+                    ): Boolean {
+                        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                            viewModel.onClickKeyboardSearch(text.toString())
+                            return true
+                        }
+                        return false
+                    }
+                })
+            }
+        }
+    }
+
+    override fun initStates() {
+        super.initStates()
+
+        repeatOnStarted(viewLifecycleOwner) {
+            launch {
+                viewModel.pagingData.collectLatest {
+                    pagingDataAdapter.submitData(it)
+                }
+            }
+
+            launch {
+                pagingDataAdapter.onPagesUpdatedFlow.collect {
+                    viewModel.onPageUpdated(pagingDataAdapter.snapshot())
+                }
+            }
+
+            launch {
+                viewModel.eventFlow.collect {
+                    inspectEventFlow(it as KakaoLocationEvent)
+                }
+            }
+        }
+    }
+
+
+    private fun inspectEventFlow(event: KakaoLocationEvent) {
+        when (event) {
+            is KakaoLocationEvent.ConfirmDialog -> onConfirmDialog(event.data)
+            is KakaoLocationEvent.HideKeyboard -> hideKeyboard()
+            is KakaoLocationEvent.ScrollToTop -> scrollToTop()
+            is KakaoLocationEvent.NotifyItemChanged -> notifyChanged(event.position)
+        }
+    }
+
+    private fun onConfirmDialog(data: KakaoLocationInfoDocumentVo?) {
+        onConfirmButtonClick?.let {
+            it.invoke(data)
             dismiss()
         }
-
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.locationData.collectLatest { flow ->
-                        binding.recyclerViewKakaoLocation.scrollToPosition(0)
-                        flow.collectLatest { pageData ->
-                            pagingDataAdapter.submitData(pageData)
-                        }
-                    }
-                }
-
-                launch {
-                    viewModel.hideKeyboard.collect {
-                        val inputMethodManager =
-                            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        inputMethodManager.hideSoftInputFromWindow(
-                            binding.iconEditTextSearchLocation.editText.windowToken,
-                            0
-                        )
-                    }
-                }
-
-                launch {
-                    pagingDataAdapter.onPagesUpdatedFlow.collectLatest {
-                        val currentList = pagingDataAdapter.snapshot()
-
-                        val size =
-                            if (currentList.isEmpty()) 0 else currentList[0]?.documentTotalCount
-                                ?: 0
-                        viewModel.upDateSearchResultCount(size)
-                        viewModel.updateSearchedText()
-                    }
-                }
-            }
-        }
     }
+
+    private fun hideKeyboard() {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.iconEditTextSearchLocation.editText.windowToken, 0)
+    }
+
+    private fun scrollToTop() {
+        binding.recyclerViewKakaoLocation.scrollToPosition(POSITION_TOP)
+    }
+
+    private fun notifyChanged(position:Int) {
+        pagingDataAdapter.notifyItemChanged(position)
+    }
+
 }

@@ -1,88 +1,78 @@
 package com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bottomSheet
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.ItemSnapshotList
 import androidx.paging.cachedIn
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.domain.usecase.FetchKakaoLocationByKeywordUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.event.KakaoLocationEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class BottomSheetSearchLocationViewModel @Inject constructor(
     private val fetchKakaoLocationByKeywordUseCase: FetchKakaoLocationByKeywordUseCase
-) :
-    BaseViewModel<CreateGatheringKakaoLocationBottomSheetPageState>(
-        CreateGatheringKakaoLocationBottomSheetPageState()
-    )
-{
-    private val _hideKeyboard = MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
-    val hideKeyboard: SharedFlow<Unit> = _hideKeyboard.asSharedFlow()
+) : BaseViewModel<CreateGatheringKakaoLocationBottomSheetPageState>(
+    CreateGatheringKakaoLocationBottomSheetPageState()
+) {
 
-    private val query = MutableStateFlow("")
-
-    val upDateEditTextValue: (text: String) -> Unit = { text ->
-        updateUiState { uiState ->
-            uiState.copy(
-                searchingText = text
-            )
-        }
+    private var selectedPosition:Int? = null
+    private val searchQuery = MutableStateFlow("")
+    val pagingData = searchQuery.flatMapLatest {
+        fetchKakaoLocationByKeywordUseCase(it).cachedIn(viewModelScope)
     }
 
-    private fun invisibleSearchDescription() {
-        updateUiState { uiState ->
-            uiState.copy(
-                showSearchDescription = false
-            )
-        }
-    }
-
-    fun upDateSearchResultCount(count: Int) {
-        updateUiState { uiState ->
-            uiState.copy(
-                searchResultCount = count
-            )
-        }
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val locationData = query.mapLatest { query ->
-        fetchKakaoLocationByKeywordUseCase(query).cachedIn(viewModelScope)
-    }
-
-    fun onClickLocationRecyclerItem(selectedKakaoLocationDocument: KakaoLocationInfoDocumentVo) {
+    fun onClickLocationRecyclerItem(selectedKakaoLocationDocument: KakaoLocationInfoDocumentVo, position:Int) {
         updateUiState { uiState ->
             uiState.copy(
                 selectedLocation = selectedKakaoLocationDocument
             )
         }
+        notifySelectedItemChange(position)
     }
 
-    fun onClickKeyboardSearch(): Void? {
+    fun onClickKeyboardSearch(text:String) {
         viewModelScope.launch {
-            query.value = uiState.value.searchingText
-            _hideKeyboard.emit(Unit)
-            invisibleSearchDescription()
+            searchQuery.emit(text)
         }
-        return null
+        updateUiState { uiState ->
+            uiState.copy(
+                searchedText = text,
+                showSearchDescription = false,
+                selectedLocation = null
+            )
+        }
+        selectedPosition = null
+        emitEventFlow(KakaoLocationEvent.HideKeyboard)
     }
 
-    fun updateSearchedText() {
-        viewModelScope.launch {
-            updateUiState { ui ->
-                ui.copy(
-                    searchedText = query.value
-                )
-            }
+    fun onClickConfirm() {
+        val selectedVo = uiState.value.selectedLocation
+        emitEventFlow(KakaoLocationEvent.ConfirmDialog(selectedVo))
+    }
+
+    fun onPageUpdated(snapshotList: ItemSnapshotList<KakaoLocationInfoDocumentVo>) {
+        val totalCount = snapshotList.items.firstOrNull()?.documentTotalCount
+        updatePageTotalCount(totalCount ?: 0)
+    }
+
+    private fun notifySelectedItemChange(position: Int) {
+        emitEventFlow(KakaoLocationEvent.NotifyItemChanged(position))
+        selectedPosition?.let {
+            emitEventFlow(KakaoLocationEvent.NotifyItemChanged(it))
+        }
+        selectedPosition = position
+    }
+
+    private fun updatePageTotalCount(count: Int) {
+        updateUiState { uiState ->
+            uiState.copy(
+                searchResultCount = count
+            )
         }
     }
 }
