@@ -68,7 +68,6 @@ class CreateGatheringSelectPlubCategoryFragment : BaseFragment<FragmentCreateGat
                     return@launch
 
                 parentViewModel.childrenPageStateFlow.collect { pageState ->
-                    if (pageState is CreateGatheringSelectPlubCategoryPageState)
                         viewModel.initUiState(pageState)
                 }
             }

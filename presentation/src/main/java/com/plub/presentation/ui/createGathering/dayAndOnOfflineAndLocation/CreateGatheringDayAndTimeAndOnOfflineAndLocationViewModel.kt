@@ -5,6 +5,7 @@ import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.enums.OnOfflineType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.PageState
 import com.plub.presentation.util.TimeFormatter
 import com.plub.presentation.util.addOrRemoveElementAfterReturnNewHashSet
 import com.plub.presentation.util.removeElementAfterReturnNewHashSet
@@ -35,18 +36,23 @@ class CreateGatheringDayAndTimeAndOnOfflineAndLocationViewModel @Inject construc
         }
     }
 
-    fun initUiState(savedUiState: CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState) {
-        updateUiState { uiState ->
-            uiState.copy(
-                gatheringDays = savedUiState.gatheringDays,
-                gatheringOnOffline = savedUiState.gatheringOnOffline,
-                gatheringHour = savedUiState.gatheringHour,
-                gatheringMin = savedUiState.gatheringMin,
-                gatheringFormattedTime = savedUiState.gatheringFormattedTime
-            )
-        }
+    fun initUiState(savedUiState: PageState) {
+        if (uiState.value != CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState())
+            return
 
-        updateGatheringLocationData(savedUiState.gatheringLocationData)
+        if (savedUiState is CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState) {
+            updateUiState { uiState ->
+                uiState.copy(
+                    gatheringDays = savedUiState.gatheringDays,
+                    gatheringOnOffline = savedUiState.gatheringOnOffline,
+                    gatheringHour = savedUiState.gatheringHour,
+                    gatheringMin = savedUiState.gatheringMin,
+                    gatheringFormattedTime = savedUiState.gatheringFormattedTime
+                )
+            }
+
+            updateGatheringLocationData(savedUiState.gatheringLocationData)
+        }
     }
 
     fun updateGatheringLocationData(data: KakaoLocationInfoDocumentVo?) {

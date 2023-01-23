@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.PageState
 import com.plub.presentation.util.ImageUtil
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,13 +30,18 @@ class CreateGatheringGoalAndIntroduceAndImageViewModel @Inject constructor(
 
     private var cameraTempImageUri: Uri? = null
 
-    fun initUiState(savedUiState: CreateGatheringGoalAndIntroduceAndPicturePageState) {
-        updateUiState { uiState ->
-            uiState.copy(
-                gatheringGoal = savedUiState.gatheringGoal,
-                gatheringIntroduce = savedUiState.gatheringIntroduce,
-                gatheringImage = savedUiState.gatheringImage
-            )
+    fun initUiState(savedUiState: PageState) {
+        if (uiState.value != CreateGatheringGoalAndIntroduceAndPicturePageState())
+            return
+
+        if (savedUiState is CreateGatheringGoalAndIntroduceAndPicturePageState) {
+            updateUiState { uiState ->
+                uiState.copy(
+                    gatheringGoal = savedUiState.gatheringGoal,
+                    gatheringIntroduce = savedUiState.gatheringIntroduce,
+                    gatheringImage = savedUiState.gatheringImage
+                )
+            }
         }
     }
 
@@ -79,7 +85,10 @@ class CreateGatheringGoalAndIntroduceAndImageViewModel @Inject constructor(
                     emitEventFlow(CreateGatheringGoalAndIntroduceAndImageEvent.GetImageFromCamera(it))
                 }
 
-            DialogMenuItemType.ALBUM_IMAGE -> emitEventFlow(CreateGatheringGoalAndIntroduceAndImageEvent.GetImageFromGallery)
+            DialogMenuItemType.ALBUM_IMAGE -> emitEventFlow(
+                CreateGatheringGoalAndIntroduceAndImageEvent.GetImageFromGallery
+            )
+
             else -> defaultImage()
         }
     }

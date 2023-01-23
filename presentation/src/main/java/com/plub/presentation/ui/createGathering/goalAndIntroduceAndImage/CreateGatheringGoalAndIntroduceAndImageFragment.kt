@@ -39,18 +39,14 @@ class CreateGatheringGoalAndIntroduceAndImageFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                if (viewModel.uiState.value != CreateGatheringGoalAndIntroduceAndPicturePageState())
-                    return@launch
-
                 parentViewModel.childrenPageStateFlow.collect { pageState ->
-                    if (pageState is CreateGatheringGoalAndIntroduceAndPicturePageState)
-                        viewModel.initUiState(pageState)
+                    viewModel.initUiState(pageState)
                 }
             }
 
             launch {
                 parentViewModel.eventFlow.collect {
-                    if(viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
+                    if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
 
                     when (it) {
                         is CreateGatheringEvent.GoToPrevPage -> {
@@ -63,7 +59,7 @@ class CreateGatheringGoalAndIntroduceAndImageFragment :
 
             launch {
                 viewModel.eventFlow.collect {
-                    when(it) {
+                    when (it) {
                         is CreateGatheringGoalAndIntroduceAndImageEvent.ShowSelectImageBottomSheetDialog -> {
                             PermissionManager.createGetImagePermission {
                                 showBottomSheetDialogSelectImage()
@@ -88,9 +84,10 @@ class CreateGatheringGoalAndIntroduceAndImageFragment :
         gatheringImageFromCameraResult.launch(intent)
     }
 
-    private val gatheringImageFromCameraResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        viewModel.proceedGatheringImageFromCameraResult(it)
-    }
+    private val gatheringImageFromCameraResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            viewModel.proceedGatheringImageFromCameraResult(it)
+        }
 
     private fun getImageFromGallery() {
         val intent = IntentUtil.getSingleImageIntent()

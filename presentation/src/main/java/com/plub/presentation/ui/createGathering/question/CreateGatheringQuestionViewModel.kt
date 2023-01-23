@@ -2,6 +2,7 @@ package com.plub.presentation.ui.createGathering.question
 
 import androidx.lifecycle.viewModelScope
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.createGathering.peopleNumber.CreateGatheringPeopleNumberPageState
 import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.deepCopy
@@ -19,14 +20,19 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
 
     private val maxQuestionCount = 5
 
-    fun initUiState(savedUiState: CreateGatheringQuestionPageState) {
-        updateUiState { uiState ->
-            uiState.copy(
-                _questions = savedUiState.copy(isNeedQuestionCheck = true).questions.deepCopy(),
-                isNeedQuestionCheck = savedUiState.isNeedQuestionCheck,
-                needUpdateRecyclerView = true,
-                isAddQuestionButtonVisible = savedUiState.isAddQuestionButtonVisible
-            )
+    fun initUiState(savedUiState: PageState) {
+        if (uiState.value != CreateGatheringQuestionPageState())
+            return
+
+        if (savedUiState is CreateGatheringQuestionPageState) {
+            updateUiState { uiState ->
+                uiState.copy(
+                    _questions = savedUiState.copy(isNeedQuestionCheck = true).questions.deepCopy(),
+                    isNeedQuestionCheck = savedUiState.isNeedQuestionCheck,
+                    needUpdateRecyclerView = true,
+                    isAddQuestionButtonVisible = savedUiState.isAddQuestionButtonVisible
+                )
+            }
         }
     }
 
@@ -53,7 +59,12 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
     }
 
     fun onClickRecyclerViewDeleteButton(position: Int) {
-        emitEventFlow(CreateGatheringQuestionEvent.ShowBottomSheetDeleteQuestion(uiState.value.questions.size, position))
+        emitEventFlow(
+            CreateGatheringQuestionEvent.ShowBottomSheetDeleteQuestion(
+                uiState.value.questions.size,
+                position
+            )
+        )
     }
 
     fun updateQuestion(data: CreateGatheringQuestion, text: String) {
@@ -84,8 +95,8 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
 
     fun onClickBottomSheetDelete(size: Int, position: Int) {
         deleteQuestionOrMakeQuestionSizeToOne(position)
-            if(size == 1)
-                emitEventFlow(CreateGatheringQuestionEvent.PerformClickNoQuestionRadioButton)
+        if (size == 1)
+            emitEventFlow(CreateGatheringQuestionEvent.PerformClickNoQuestionRadioButton)
     }
 
     private fun deleteQuestionOrMakeQuestionSizeToOne(position: Int) {
@@ -93,7 +104,8 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
 
         updateUiState { uiState ->
             val deleteIndex = uiState.questions.indexOf(data)
-            val temp = uiState.questions.minus(data).deepCopy().ifEmpty { listOf(CreateGatheringQuestion()) }
+            val temp = uiState.questions.minus(data).deepCopy()
+                .ifEmpty { listOf(CreateGatheringQuestion()) }
 
             updateQuestionPosition(deleteIndex, temp)
             uiState.copy(

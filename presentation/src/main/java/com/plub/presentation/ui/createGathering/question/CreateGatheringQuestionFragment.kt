@@ -50,18 +50,14 @@ class CreateGatheringQuestionFragment : BaseFragment<
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                if (viewModel.uiState.value != CreateGatheringQuestionPageState())
-                    return@launch
-
                 parentViewModel.childrenPageStateFlow.collect { pageState ->
-                    if (pageState is CreateGatheringQuestionPageState)
-                        viewModel.initUiState(pageState)
+                    viewModel.initUiState(pageState)
                 }
             }
 
             launch {
                 parentViewModel.eventFlow.collect {
-                    if(viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
+                    if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
 
                     when (it) {
                         is CreateGatheringEvent.GoToPrevPage -> {
@@ -81,7 +77,7 @@ class CreateGatheringQuestionFragment : BaseFragment<
 
             launch {
                 viewModel.eventFlow.collect {
-                    when(it) {
+                    when (it) {
                         is CreateGatheringQuestionEvent.ShowBottomSheetDeleteQuestion -> {
                             showBottomSheetDeleteQuestion(it)
                         }

@@ -44,18 +44,14 @@ class CreateGatheringDayAndTimeAndOnOfflineAndLocationFragment : BaseFragment<
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                if (viewModel.uiState.value != CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState())
-                    return@launch
-
                 parentViewModel.childrenPageStateFlow.collect {
-                    if (it is CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState)
-                        viewModel.initUiState(it)
+                    viewModel.initUiState(it)
                 }
             }
 
             launch {
                 parentViewModel.eventFlow.collect {
-                    if(viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
+                    if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
 
                     when (it) {
                         is CreateGatheringEvent.GoToPrevPage -> {
@@ -68,7 +64,7 @@ class CreateGatheringDayAndTimeAndOnOfflineAndLocationFragment : BaseFragment<
 
             launch {
                 viewModel.eventFlow.collect {
-                    when(it) {
+                    when (it) {
                         is CreateGatheringDayAndTimeAndOnOfflineAndLocationEvent.ShowBottomSheetSearchLocation -> {
                             showBottomSheetLocation()
                         }

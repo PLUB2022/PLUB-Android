@@ -2,6 +2,7 @@ package com.plub.presentation.ui.createGathering.gatheringTitleAndName
 
 import android.text.Editable
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -9,11 +10,17 @@ import javax.inject.Inject
 class CreateGatheringTitleAndNameViewModel @Inject constructor() :
     BaseViewModel<CreateGatheringTitleAndNamePageState>(CreateGatheringTitleAndNamePageState()) {
 
-    fun initUiState(savedUiState: CreateGatheringTitleAndNamePageState) {
-        updateUiState { uiState -> uiState.copy(
-            savedUiState.introductionTitle,
-            savedUiState.gatheringName
-        ) }
+    fun initUiState(savedUiState: PageState) {
+        if (uiState.value != CreateGatheringTitleAndNamePageState())
+            return
+        if (savedUiState is CreateGatheringTitleAndNamePageState) {
+            updateUiState { uiState ->
+                uiState.copy(
+                    introductionTitle = savedUiState.introductionTitle,
+                    gatheringName = savedUiState.gatheringName
+                )
+            }
+        }
     }
 
     fun updateIntroductionTitle(text: Editable) {

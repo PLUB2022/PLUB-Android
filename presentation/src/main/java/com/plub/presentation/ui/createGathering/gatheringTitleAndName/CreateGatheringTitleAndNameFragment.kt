@@ -10,12 +10,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CreateGatheringTitleAndNameFragment : BaseFragment<FragmentCreateGatheringTitleAndNameBinding, CreateGatheringTitleAndNamePageState, CreateGatheringTitleAndNameViewModel>(
-    FragmentCreateGatheringTitleAndNameBinding::inflate
-) {
+class CreateGatheringTitleAndNameFragment :
+    BaseFragment<FragmentCreateGatheringTitleAndNameBinding, CreateGatheringTitleAndNamePageState, CreateGatheringTitleAndNameViewModel>(
+        FragmentCreateGatheringTitleAndNameBinding::inflate
+    ) {
 
     override val viewModel: CreateGatheringTitleAndNameViewModel by viewModels()
-    private val parentViewModel: CreateGatheringViewModel by viewModels({requireParentFragment()})
+    private val parentViewModel: CreateGatheringViewModel by viewModels({ requireParentFragment() })
 
     override fun initView() {
         binding.apply {
@@ -28,18 +29,14 @@ class CreateGatheringTitleAndNameFragment : BaseFragment<FragmentCreateGathering
         super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                if(viewModel.uiState.value != CreateGatheringTitleAndNamePageState())
-                    return@launch
-
                 parentViewModel.childrenPageStateFlow.collect {
-                    if(it is CreateGatheringTitleAndNamePageState)
-                        viewModel.initUiState(it)
+                    viewModel.initUiState(it)
                 }
             }
 
             launch {
                 parentViewModel.eventFlow.collect {
-                    if(viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
+                    if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
 
                     when (it) {
                         is CreateGatheringEvent.GoToPrevPage -> {

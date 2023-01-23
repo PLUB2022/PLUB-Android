@@ -5,6 +5,7 @@ import com.plub.domain.model.vo.common.HobbyVo
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.usecase.GetAllHobbiesUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -22,17 +23,23 @@ class CreateGatheringSelectPlubCategoryViewModel @Inject constructor(
     ) {
     private val maxCategoryCount = 5
 
-    fun initUiState(savedUiState: CreateGatheringSelectPlubCategoryPageState) {
-        updateUiState { uiState ->
-            uiState.copy(
-                categoriesVo = savedUiState.categoriesVo,
-                categoriesSelectedVo = savedUiState.categoriesSelectedVo
-            )
+    fun initUiState(savedUiState: PageState) {
+        if (uiState.value != CreateGatheringSelectPlubCategoryPageState())
+            return
+
+        if (savedUiState is CreateGatheringSelectPlubCategoryPageState) {
+            updateUiState { uiState ->
+                uiState.copy(
+                    categoriesVo = savedUiState.categoriesVo,
+                    categoriesSelectedVo = savedUiState.categoriesSelectedVo
+                )
+            }
         }
     }
+
     fun onClickExpand(hobbyId: Int) {
         val hobbiesList = uiState.value.categoriesVo.map {
-            val expanded = if(it.id == hobbyId) !it.isExpand else it.isExpand
+            val expanded = if (it.id == hobbyId) !it.isExpand else it.isExpand
             it.copy(isExpand = expanded)
         }
         updateHobbies(hobbiesList)
@@ -41,6 +48,7 @@ class CreateGatheringSelectPlubCategoryViewModel @Inject constructor(
     fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo) {
         if (isClicked) removeHobby(selectedHobbyVo) else addHobby(selectedHobbyVo)
     }
+
     fun fetchHobbiesData() {
         viewModelScope.launch {
             getAllHobbiesUseCase(Unit).collect { state ->
@@ -70,7 +78,7 @@ class CreateGatheringSelectPlubCategoryViewModel @Inject constructor(
     }
 
     private fun addHobby(selectedHobbyVo: SelectedHobbyVo) {
-        if(uiState.value.categoriesSelectedVo.hobbies.size == maxCategoryCount) return
+        if (uiState.value.categoriesSelectedVo.hobbies.size == maxCategoryCount) return
 
         updateSelectList(uiState.value.categoriesSelectedVo.hobbies.plus(selectedHobbyVo))
         notifySubItem(selectedHobbyVo)
@@ -87,7 +95,7 @@ class CreateGatheringSelectPlubCategoryViewModel @Inject constructor(
         notifyAllItem()
     }
 
-    private fun updateHobbies(categories:List<HobbyVo>) {
+    private fun updateHobbies(categories: List<HobbyVo>) {
         updateUiState { uiState ->
             uiState.copy(
                 categoriesVo = categories

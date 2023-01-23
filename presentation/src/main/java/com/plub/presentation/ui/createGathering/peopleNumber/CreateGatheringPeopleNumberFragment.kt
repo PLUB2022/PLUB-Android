@@ -15,7 +15,7 @@ class CreateGatheringPeopleNumberFragment :
         FragmentCreateGatheringPeopleNumberBinding::inflate
     ) {
     override val viewModel: CreateGatheringPeopleNumberViewModel by viewModels()
-    private val parentViewModel: CreateGatheringViewModel by viewModels({requireParentFragment()})
+    private val parentViewModel: CreateGatheringViewModel by viewModels({ requireParentFragment() })
 
     override fun initView() {
         with(binding) {
@@ -29,18 +29,14 @@ class CreateGatheringPeopleNumberFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                if (viewModel.uiState.value != CreateGatheringPeopleNumberPageState())
-                    return@launch
-
                 parentViewModel.childrenPageStateFlow.collect { pageState ->
-                    if (pageState is CreateGatheringPeopleNumberPageState)
-                        viewModel.initUiState(pageState)
+                    viewModel.initUiState(pageState)
                 }
             }
 
             launch {
                 parentViewModel.eventFlow.collect {
-                    if(viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
+                    if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
 
                     when (it) {
                         is CreateGatheringEvent.GoToPrevPage -> {
