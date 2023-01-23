@@ -92,7 +92,7 @@ class CreateGatheringQuestionFragment : BaseFragment<
     }
 
     private fun showBottomSheetDeleteQuestion(it: CreateGatheringQuestionEvent.ShowBottomSheetDeleteQuestion) {
-        val bottomSheetDeleteQuestion = BottomSheetDeleteQuestion(
+        val bottomSheetDeleteQuestion = BottomSheetDeleteQuestion.newInstance(
             position = it.position,
             questionCount = it.size
         ) { _ ->
