@@ -100,7 +100,7 @@ class CreateGatheringQuestionFragment : BaseFragment<
         }
 
         bottomSheetDeleteQuestion.show(
-            requireActivity().supportFragmentManager,
+            parentFragmentManager,
             bottomSheetDeleteQuestion.tag
         )
     }

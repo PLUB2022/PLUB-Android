@@ -83,7 +83,7 @@ class CreateGatheringDayAndTimeAndOnOfflineAndLocationFragment : BaseFragment<
             viewModel.updateGatheringLocationData(data)
         }
         bottomSheetSearchLocation.show(
-            requireActivity().supportFragmentManager,
+            parentFragmentManager,
             bottomSheetSearchLocation.tag
         )
     }
