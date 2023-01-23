@@ -17,7 +17,7 @@ class PostReIssueTokenUseCase @Inject constructor(
     private val plubJwtRepository: PlubJwtRepository
 ):UseCase<PlubJwtReIssueRequestVo, Flow<PlubJwtResponseVo>>() {
     override suspend operator fun invoke(request: PlubJwtReIssueRequestVo): Flow<PlubJwtResponseVo> = flow {
-        plubJwtRepository.reIssueToken(request).collect {
+        plubJwtRepository.reIssueToken(request).map {
             when(it) {
                 is UiState.Loading -> {  }
                 is UiState.Success -> emit(it.data)
