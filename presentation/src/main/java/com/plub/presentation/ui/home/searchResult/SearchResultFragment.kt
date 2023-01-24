@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.home.searchResult
 
+import android.content.Context
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -129,10 +131,16 @@ class SearchResultFragment :
     private fun inspectEventFlow(event: SearchResultEvent) {
         when (event) {
             is SearchResultEvent.ScrollToTop -> scrollToTop()
+            is SearchResultEvent.HideKeyboard -> hideKeyboard()
         }
     }
 
     private fun scrollToTop() {
         binding.recyclerViewSearch.scrollToPosition(POSITION_TOP)
+    }
+
+    private fun hideKeyboard() {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.editTextSearch.windowToken, 0)
     }
 }

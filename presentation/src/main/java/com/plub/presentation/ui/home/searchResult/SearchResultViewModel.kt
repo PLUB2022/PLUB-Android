@@ -76,6 +76,8 @@ class SearchResultViewModel @Inject constructor(
     }
 
     private fun searchSuccess(vo: PlubCardListVo) {
+        newSearchProcess()
+        emitEventFlow(SearchResultEvent.HideKeyboard)
         val mappedList = mapToCardType(vo.content)
         val mergedList = getMergeList(mappedList)
         updateUiState { ui ->
@@ -85,10 +87,11 @@ class SearchResultViewModel @Inject constructor(
                 isEmptyViewVisible = mergedList.isEmpty()
             )
         }
-        if (page++ == FIRST_PAGE) scrollToTop()
+        page++
     }
 
-    private fun scrollToTop() {
+    private fun newSearchProcess() {
+        if (page == FIRST_PAGE) return
         emitEventFlow(SearchResultEvent.ScrollToTop)
     }
 
