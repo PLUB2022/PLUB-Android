@@ -3,10 +3,15 @@ package com.plub.data.repository
 import com.plub.data.api.SearchApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.dao.RecentSearchDao
+import com.plub.data.mapper.PlubCardListResponseMapper
 import com.plub.data.mapper.RecentSearchRequestMapper
 import com.plub.data.mapper.RecentSearchResponseMapper
+import com.plub.data.mapper.SearchPlubRecruitRequestMapper
 import com.plub.domain.UiState
+import com.plub.domain.error.SearchError
 import com.plub.domain.model.vo.home.search.RecentSearchVo
+import com.plub.domain.model.vo.plub.PlubCardListVo
+import com.plub.domain.model.vo.search.SearchPlubRecruitRequestVo
 import com.plub.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -53,6 +58,13 @@ class SearchRepositoryImpl @Inject constructor(
         } else flow {
             recentSearchDao.insert(entity)
             emit(UiState.Success(Unit))
+        }
+    }
+
+    override suspend fun searchPlubRecruit(request: SearchPlubRecruitRequestVo): Flow<UiState<PlubCardListVo>> {
+        val requestMap = SearchPlubRecruitRequestMapper.mapModelToDto(request)
+        return apiLaunch(searchApi.plubSearch(requestMap), PlubCardListResponseMapper) {
+            SearchError.make(it)
         }
     }
 }

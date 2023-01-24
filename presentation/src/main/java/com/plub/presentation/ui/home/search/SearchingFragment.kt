@@ -3,16 +3,13 @@ package com.plub.presentation.ui.home.search
 import android.content.Context
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.plub.domain.model.enums.PlubSearchType
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSearchingBinding
 import com.plub.presentation.event.SearchingEvent
 import com.plub.presentation.ui.common.GridSpaceDecoration
-import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceFragmentDirections
 import com.plub.presentation.ui.home.search.adapter.RecentSearchAdapter
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint

@@ -38,6 +38,6 @@ object Endpoints {
 
     object PLUBBING {
         private const val PLUBBING_URL = "/api/plubbings"
-        const val SEARCH = "$PLUBBING_URL/search"
+        const val RECRUIT = "$PLUBBING_URL/recruit"
     }
 }
