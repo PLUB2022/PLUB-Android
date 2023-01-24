@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.createGathering.CreateGatheringViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f5f3f6"
+        tools:context=".ui.createGathering.CreateGatheringFragment">
+
+        <ImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/image_descriptor_back_button"
+            android:onClick="@{() -> vm.onBackPressed()}"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="18dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- layout_width에 고정 값을 준 이유  -->
+        <!-- dotsIndicator에는 총 8개의 dots가있는데 그 중 마지막 2개의 dots는 보이면 안되기 때문  -->
+        <!-- 따라서 고정 값을 줘서 마지막 2개의 dots는 짤리게함  -->
+        <com.plub.presentation.ui.custom.OvalDotsIndicator
+            android:id="@+id/oval_dots_indicator"
+            createGatheringCurrentPage="@{vm.uiState.currentPage}"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_back" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            currentPage="@{vm.uiState.currentPage}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oval_dots_indicator" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

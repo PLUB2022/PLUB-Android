@@ -22,6 +22,7 @@ object Endpoints {
         const val NICKNAME_CHECK = "$ACCOUNT_URL/check/nickname/{nickname}"
         const val REGIST_INTEREST = "$ACCOUNT_URL/interest"
         const val BROWSE_INTEREST = "$ACCOUNT_URL/me/interest"
+        const val FETCH_MY_INFO = "$ACCOUNT_URL/me"
     }
 
     object CATEGORY {
@@ -43,4 +44,11 @@ object Endpoints {
         const val RECRUIT_QUESTIONS = "$RECRUIT_URL/questions"
     }
 
+    object KAKAO_LOCATION {
+        const val KEYWORD_URL = "/v2/local/search/keyword"
+    }
+
+    object GATHERING {
+        const val CREATE_GATHERING = "/api/plubbings"
+    }
 }

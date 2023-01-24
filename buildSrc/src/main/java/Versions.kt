@@ -18,6 +18,7 @@ object Versions {
     const val LEGACY = "1.0.0"
     const val DATA_STORE = "1.0.0"
     const val RECYCLER_VIEW = "1.2.1"
+    const val PAGING3 = "3.1.1"
 
     const val CORE_KTX = "1.8.0"
 
@@ -27,6 +28,7 @@ object Versions {
     const val MATERIAL = "1.6.1"
     const val TINK = "1.7.0"
     const val PROTOBUF = "3.21.7"
+    const val FLEX_BOX = "3.0.0"
 
     /* [ Libraries ] */
     const val RETROFIT = "2.9.0"
@@ -41,6 +43,8 @@ object Versions {
     const val KAKAO = "2.11.2"
 
     const val TED_PERMISSION = "3.3.0"
+
+    const val THREE_TEN_ABP = "1.4.4"
 
     /* [ UnitTest ] */
     const val JUNIT = "4.13.2"

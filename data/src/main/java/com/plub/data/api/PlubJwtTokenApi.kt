@@ -8,7 +8,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface PlubJwtTokenApi {
-    @POST("/api/auth/reissue/")
+    @POST("/api/auth/reissue")
     suspend fun reIssueToken(
         @Body request : PlubJwtReIssueRequest
     ) : Response<ApiResponse<PlubJwtResponse>>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_main"
-        android:title="Main"
-        android:icon="@drawable/ic_baseline_home_24" />
-    <item android:id="@+id/nav_mymeet"
-        android:title="M_Meet"
-        android:icon="@drawable/ic_baseline_crop_square_24" />
-    <item android:id="@+id/nav_notification"
-        android:title="Notification"
-        android:icon="@drawable/ic_baseline_notifications_24" />
-    <item android:id="@+id/nav_profile"
-        android:title="Profile"
-        android:icon="@drawable/ic_baseline_emoji_people_24" />
+    <item android:id="@+id/menu_navigation_main"
+        android:title="@string/bottom_navigation_main"
+        android:icon="@drawable/selector_ic_bottom_navigation_main" />
+    <item android:id="@+id/menu_navigation_gathering"
+        android:title="@string/bottom_navigation_gathering"
+        android:icon="@drawable/selector_ic_bottom_navigation_gathering" />
+    <item android:id="@+id/menu_navigation_noti"
+        android:title="@string/bottom_navigation_noti"
+        android:icon="@drawable/selector_ic_bottom_navigation_noti" />
+    <item android:id="@+id/menu_navigation_profile"
+        android:title="@string/bottom_navigation_profile"
+        android:icon="@drawable/selector_ic_bottom_navigation_profile" />
 </menu>

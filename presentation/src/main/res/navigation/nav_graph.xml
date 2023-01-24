@@ -98,5 +98,9 @@
             app:argType="string"
             android:defaultValue="0"
             />
-    </fragment>
+    <fragment
+        android:id="@+id/createGatheringFragment"
+        android:name="com.plub.presentation.ui.createGathering.CreateGatheringFragment"
+        android:label="CreateGatheringFragment"
+        tools:layout="@layout/fragment_create_gathering"/>
 </navigation>

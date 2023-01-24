@@ -13,7 +13,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
 
-
+    @Singleton
+    @Binds
+    abstract fun providesLoginRepository(repositoryImpl: LoginRepositoryImpl): LoginRepository
 
     @Singleton
     @Binds
@@ -38,6 +40,10 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesLoginRepository(repositoryImpl: LoginRepositoryImpl): LoginRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesKakaoLocationRepository(repositoryImpl: KakaoLocationRepositoryImpl): KakaoLocationRepository
 
     @Singleton
     @Binds
@@ -74,4 +80,12 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesRecruitApplyRepository(repositoryImpl: RecruitApplyReposImpl): RecruitApplyRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesGatheringRepository(repositoryImpl: GatheringRepositoryImpl): GatheringRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesAccountRepository(repositoryImpl: AccountRepositoryImpl): AccountRepository
 }

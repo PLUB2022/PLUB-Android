@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.plub.presentation.ui.createGathering.question.CreateGatheringQuestion" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/word_question(data.position)}"
+            android:textColor="@color/color_363636"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="질문 1" />
+
+        <ImageView
+            android:id="@+id/image_view_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete_recycle_bin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/image_descriptor_delete_button"/>
+
+        <EditText
+            android:id="@+id/edit_text_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_filled_white_radius_8"
+            android:hint="@string/create_gathering_question_hint"
+            android:inputType="textMultiLine"
+            android:maxLength="300"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="11dp"
+            android:text="@{data.question}"
+            android:textColorHint="@color/color_c4c4c4"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_view_delete" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

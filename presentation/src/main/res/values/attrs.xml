@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="FixedTextWidthCheckBox">
+        <attr name="text" format="reference|string" />
+        <attr name="textWidth" format="reference|integer" />
+
+        <attr name="paddingVertical" format="reference|integer"/>
+        <attr name="paddingHorizontal" format="reference|integer"/>
+
+        <attr name="checkedBackground" format="reference" />
+        <attr name="uncheckedBackground" format="reference" />
+
+        <attr name="checkedTextColor" format="reference" />
+        <attr name="uncheckedTextColor" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="IconEditText">
+        <attr name="android:imeOptions" format="integer"/>
+        <attr name="iconEditTextIcon" format="reference" />
+        <attr name="editTextHint" format="reference|string" />
+    </declare-styleable>
+
+    <declare-styleable name="IconTextViewSmall">
+        <attr name="iconTextViewSmallIcon" format="reference" />
+        <attr name="iconTextViewSmallText" format="reference|string" />
+    </declare-styleable>
+
+    <declare-styleable name="IconTextViewMedium">
+        <attr name="iconTextViewMediumIcon" format="reference" />
+        <attr name="iconTextViewMediumText" format="reference|string" />
+    </declare-styleable>
+
     <declare-styleable name="RadiusImageView">
         <attr name="radius" format="dimension"/>
         <attr name="borderWidth" format="dimension"/>

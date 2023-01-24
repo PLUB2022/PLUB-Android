@@ -3,10 +3,8 @@ package com.plub.plubandroid.di
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import com.google.gson.JsonSyntaxException
-import com.plub.data.api.BrowseApi
-import com.plub.data.api.PlubJwtTokenApi
-import com.plub.data.api.PostHomeApi
 import com.plub.plubandroid.util.BASE_URL
+import com.plub.plubandroid.util.KAKAO_LOCATION_BASE_URL
 import com.plub.plubandroid.util.RETROFIT_TAG
 import com.plub.plubandroid.util.isJsonArray
 import com.plub.plubandroid.util.isJsonObject
@@ -73,6 +71,20 @@ object NormalNetworkModule {
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    @KakaoLocationRetrofit
+    fun provideKakaoLocationRetrofit(
+        @NormalOkHttpClient okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(KAKAO_LOCATION_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()

@@ -92,8 +92,20 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun providesFetchKakaoLocationByKeywordUseCase(repository: KakaoLocationRepository): FetchKakaoLocationByKeywordUseCase {
+        return FetchKakaoLocationByKeywordUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun providesRecommendationGatheringUseCase(repository: RecommendationGatheringRepository): RecommendationGatheringUsecase {
         return RecommendationGatheringUsecase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostCreateGatheringUseCase(repository: GatheringRepository): PostCreateGatheringUseCase {
+        return PostCreateGatheringUseCase(repository)
     }
 
     @Singleton
@@ -142,5 +154,11 @@ object UseCaseModule {
     @Provides
     fun providesGetQuestionsUseCase(repository: RecruitApplyRepository): GetQuestionUseCase {
         return GetQuestionUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFetchMyInfoUseCase(repository: AccountRepository): FetchMyInfoUseCase {
+        return FetchMyInfoUseCase(repository)
     }
 }

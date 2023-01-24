@@ -15,6 +15,5 @@ class HomePostReposImpl @Inject constructor(private val postHomeApi : PostHomeAp
     override suspend fun trySampleData(request: HomePostRequestVo): Flow<UiState<HomePostResponseVo>> {
         val requestDto = HomePostMapper.mapperToSampleRequest(request)
         return apiLaunch(postHomeApi.postHome(requestDto), HomePostResponseMapper)
-
     }
 }

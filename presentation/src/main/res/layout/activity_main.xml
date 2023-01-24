@@ -13,7 +13,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/nav_graph" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_container_view_main_host"
@@ -26,5 +32,23 @@
                 app:navGraph="@navigation/nav_graph" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_rectangle_filled_f5f9f9f9_radius_top_10"
+            app:elevation="16dp"
+            app:itemIconSize="24dp"
+            app:itemIconTint="@drawable/selector_color_8c8c8c_to_5f5ff9"
+            app:itemPaddingBottom="5dp"
+            app:itemPaddingTop="16dp"
+            app:itemRippleColor="@android:color/transparent"
+            app:itemTextAppearanceActive="@style/bottom_navigation_text_style_active"
+            app:itemTextAppearanceInactive="@style/bottom_navigation_text_style_inactive"
+            app:itemTextColor="@drawable/selector_color_8c8c8c_to_5f5ff9"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/nav_manu" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
