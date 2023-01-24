@@ -76,11 +76,11 @@ class CategoryChoiceFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.recommendationData.collect {
-                    when (it.plubbings.content.size) {
+                    when (it.content.size) {
                         0 -> Log.d("TAG", "nothing")//HasNotDataRecycler()
                         else -> {
-                            categorygridAdapter.submitList(it.plubbings.content)
-                            categorylistAdapter.submitList(it.plubbings.content)
+                            categorygridAdapter.submitList(it.content)
+                            categorylistAdapter.submitList(it.content)
                             setListRecycler()
                         }
                     }

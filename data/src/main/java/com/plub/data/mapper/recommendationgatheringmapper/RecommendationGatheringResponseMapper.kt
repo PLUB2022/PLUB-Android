@@ -9,8 +9,13 @@ object RecommendationGatheringResponseMapper : Mapper.ResponseMapper<Recommendat
     override fun mapDtoToModel(type: RecommendationGatheringResponse?): RecommendationGatheringResponseVo {
         return type?.run {
             RecommendationGatheringResponseVo(
-                RecommendationGatheringPlubbingsMapper.mapDtoToModel(plubbings)
+                content.map {
+                    RecommendationGatheringContentMapper.mapDtoToModel(it)
+                },
+                last,
+                totalPages,
+                totalElements
             )
-        }  ?: RecommendationGatheringResponseVo(RecommendationGatheringDataResponseVo(emptyList(), false,false,false,0,0,0,0,0))
+        }  ?: RecommendationGatheringResponseVo(emptyList(),false,0,0)
     }
 }

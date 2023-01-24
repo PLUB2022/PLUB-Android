@@ -71,7 +71,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFr
 
             launch {
                 viewModel.recommendationData.collect{
-                    when(it.plubbings.content.size){
+                    when(it.content.size){
                         0 -> HasNotDataRecycler()
                         else -> HasDataRecycler(it)
                     }
@@ -93,7 +93,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFr
 
     fun HasDataRecycler(data : RecommendationGatheringResponseVo){
         val mConcatAdapter = ConcatAdapter()
-        recommendationListAdapter.submitList(arrayListOf(data.plubbings))
+        recommendationListAdapter.submitList(arrayListOf(data))
         mConcatAdapter.addAdapter(mainCategoryAdapter)
         mConcatAdapter.addAdapter(recommendationListAdapter)
         binding.recyclerViewMainPage.apply {
