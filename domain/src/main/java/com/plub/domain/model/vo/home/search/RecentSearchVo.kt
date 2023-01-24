@@ -1,7 +1,7 @@
 package com.plub.domain.model.vo.home.search
 
 data class RecentSearchVo(
-    val id:Int = -1,
+    val id:Int = 0,
     val search:String = "",
-    val saveTime:Long = -1
+    val saveTime:Long = 0
 )
