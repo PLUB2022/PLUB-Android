@@ -10,11 +10,13 @@ import com.plub.domain.usecase.PostReIssueTokenUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.plubandroid.util.RETROFIT_TAG
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.single
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import okhttp3.Authenticator
@@ -64,7 +66,20 @@ class TokenAuthenticator @Inject constructor(
         return if (access != newAccess) true else {
             Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
             val reIssueRequestVo = PlubJwtReIssueRequestVo(refresh)
-            val plubJwtToken = postReIssueTokenUseCase(reIssueRequestVo).first()
+
+            var plubJwtToken = PlubJwtResponseVo("", "")
+            postReIssueTokenUseCase(reIssueRequestVo).collect { state ->
+                when(state) {
+                    is UiState.Loading -> { }
+                    is UiState.Success -> {
+                        plubJwtToken = state.data
+                        return@collect
+                    }
+                    else -> {
+                        return@collect
+                    }
+                }
+            }
 
             val savePlubJwtRequestVo = SavePlubJwtRequestVo(plubJwtToken.accessToken, plubJwtToken.refreshToken)
 
