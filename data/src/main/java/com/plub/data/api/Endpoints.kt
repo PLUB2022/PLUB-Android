@@ -35,4 +35,9 @@ object Endpoints {
     object GATHERING {
         const val CREATE_GATHERING = "/api/plubbings"
     }
+
+    object PLUBBING {
+        private const val PLUBBING_URL = "/api/plubbings"
+        const val SEARCH = "$PLUBBING_URL/search"
+    }
 }
