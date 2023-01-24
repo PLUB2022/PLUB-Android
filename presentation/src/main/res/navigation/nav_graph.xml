@@ -9,31 +9,31 @@
         android:id="@+id/mainFragment"
         android:name="com.plub.presentation.ui.home.plubing.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_main_to_category_choice"
-            app:destination="@id/categoryChoiceFragment"/>
+            app:destination="@id/categoryChoiceFragment" />
         <action
             android:id="@+id/action_mainFragment_to_recruitmentFragment"
             app:destination="@id/recruitmentFragment" />
         <action
             android:id="@+id/action_mainFragment_to_registerInterestFragment"
-            app:destination="@id/registerInterestFragment"/>
+            app:destination="@id/registerInterestFragment" />
+        <action
+            android:id="@+id/actionMainToCreateGathering"
+            app:destination="@+id/createGatheringFragment"/>
         <argument
             android:name="categoryId"
-            app:argType="string"
             android:defaultValue="0"
-            />
+            app:argType="string" />
         <argument
             android:name="categoryName"
-            app:argType="string"
             android:defaultValue=""
-            />
+            app:argType="string" />
         <argument
             android:name="plubbingId"
-            app:argType="string"
             android:defaultValue="0"
-            />
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -56,51 +56,45 @@
             app:destination="@id/recruitmentFragment" />
         <argument
             android:name="categoryId"
-            app:argType="string"
             android:defaultValue="0"
-            />
+            app:argType="string" />
         <argument
             android:name="categoryName"
-            app:argType="string"
             android:defaultValue=""
-            />
+            app:argType="string" />
         <argument
             android:name="plubbingId"
-            app:argType="string"
             android:defaultValue="0"
-            />
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/recruitmentFragment"
         android:name="com.plub.presentation.ui.home.plubing.recruitment.RecruitmentFragment"
         android:label="fragment_recruitment_detail"
-        tools:layout="@layout/fragment_detail_recruitment_plubing"
-        >
+        tools:layout="@layout/fragment_detail_recruitment_plubing">
         <action
             android:id="@+id/action_recruitmentFragment_to_applyPlubbingFragment"
             app:destination="@id/applyPlubbingFragment" />
         <argument
             android:name="plubbingId"
-            app:argType="string"
             android:defaultValue="0"
-            />
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/applyPlubbingFragment"
         android:name="com.plub.presentation.ui.home.plubing.recruitment.ApplyPlubbingFragment"
         android:label="fragment_apply_plubbing"
-        tools:layout="@layout/fragment_apply_plubbing"
-        >
+        tools:layout="@layout/fragment_apply_plubbing">
         <argument
             android:name="plubbingId"
-            app:argType="string"
             android:defaultValue="0"
-            />
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/createGatheringFragment"
         android:name="com.plub.presentation.ui.createGathering.CreateGatheringFragment"
         android:label="CreateGatheringFragment"
-        tools:layout="@layout/fragment_create_gathering"/>
+        tools:layout="@layout/fragment_create_gathering" />
 </navigation>

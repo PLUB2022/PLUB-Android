@@ -14,7 +14,6 @@ import com.plub.presentation.base.BaseActivity
 import com.plub.presentation.databinding.ActivityMainBinding
 import com.plub.presentation.state.PageState
 import com.plub.presentation.event.MainEvent
-import com.plub.presentation.ui.home.plubing.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
