@@ -7,11 +7,8 @@ import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.domain.successOrNull
 import com.plub.domain.usecase.BookmarkUsecase
 import com.plub.domain.usecase.RecruitDetailUseCase
-import com.plub.presentation.state.SampleHomeState
-import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.DetailRecruitPageState
-import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow

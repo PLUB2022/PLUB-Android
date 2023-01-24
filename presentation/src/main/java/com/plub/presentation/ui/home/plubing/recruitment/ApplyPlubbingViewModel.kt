@@ -5,15 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.domain.successOrNull
 import com.plub.domain.usecase.ApplicantsRecruitUseCase
 import com.plub.domain.usecase.GetQuestionUseCase
-import com.plub.presentation.state.SampleHomeState
-import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.ApplyPageState
-import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow

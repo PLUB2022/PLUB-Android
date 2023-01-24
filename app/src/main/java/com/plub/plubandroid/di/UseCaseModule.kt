@@ -78,11 +78,6 @@ object UseCaseModule {
         return GetStringFromDataStoreUseCase(repository)
     }
 
-    @Singleton
-    @Provides
-    fun providesTestPostHomeUseCase(repository: HomePostRepository): TestPostHomeUseCase {
-        return TestPostHomeUseCase(repository)
-    }
 
     @Singleton
     @Provides
