@@ -36,8 +36,8 @@ class SearchRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteRecentSearch(id: Int): Flow<UiState<Unit>> = flow {
-        recentSearchDao.deleteById(id)
+    override suspend fun deleteRecentSearch(search: String): Flow<UiState<Unit>> = flow {
+        recentSearchDao.deleteBySearch(search)
         emit(UiState.Success(Unit))
     }
 
@@ -47,17 +47,18 @@ class SearchRepositoryImpl @Inject constructor(
     }
 
     override suspend fun insertRecentSearch(
-        currentSize: Int,
         recentSearchVo: RecentSearchVo
     ): Flow<UiState<Unit>> {
         val entity = RecentSearchRequestMapper.mapModelToDto(recentSearchVo)
-        return if (currentSize == RECENT_SEARCH_INSERT_MAX_COUNT) flow {
+        return flow {
             recentSearchDao.insert(entity)
-            recentSearchDao.deleteOldestSearch(RECENT_SEARCH_DELETE_OLDEST_COUNT)
-            emit(UiState.Success(Unit))
-        } else flow {
-            recentSearchDao.insert(entity)
-            emit(UiState.Success(Unit))
+            val searchesCount = recentSearchDao.getSearchesCount()
+            if (searchesCount > RECENT_SEARCH_INSERT_MAX_COUNT) {
+                recentSearchDao.deleteOldestSearch(RECENT_SEARCH_DELETE_OLDEST_COUNT)
+                emit(UiState.Success(Unit))
+            } else {
+                emit(UiState.Success(Unit))
+            }
         }
     }
 

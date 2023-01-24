@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 class InsertRecentSearchUseCase @Inject constructor(
     private val searchRepository: SearchRepository
-) : UseCase<InsertRecentSearchVo, Flow<UiState<Unit>>>() {
-    override suspend operator fun invoke(request: InsertRecentSearchVo): Flow<UiState<Unit>> {
-        return searchRepository.insertRecentSearch(request.currentSearchSize, request.recentSearchVo)
+) : UseCase<RecentSearchVo, Flow<UiState<Unit>>>() {
+    override suspend operator fun invoke(request: RecentSearchVo): Flow<UiState<Unit>> {
+        return searchRepository.insertRecentSearch(request)
     }
 }

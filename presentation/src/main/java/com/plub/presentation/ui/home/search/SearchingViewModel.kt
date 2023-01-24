@@ -1,8 +1,6 @@
 package com.plub.presentation.ui.home.search
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.enums.PlubSearchType
-import com.plub.domain.model.vo.home.search.InsertRecentSearchVo
 import com.plub.domain.model.vo.home.search.RecentSearchVo
 import com.plub.domain.usecase.DeleteAllRecentSearchUseCase
 import com.plub.domain.usecase.DeleteRecentSearchUseCase
@@ -11,7 +9,6 @@ import com.plub.domain.usecase.InsertRecentSearchUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.SearchingEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,11 +20,9 @@ class SearchingViewModel @Inject constructor(
     val insertRecentSearchUseCase: InsertRecentSearchUseCase,
 ) : BaseViewModel<SearchingPageState>(SearchingPageState()) {
 
-    private var recentSearchCurrentSize: Int? = null
-
-    fun onDeleteRecentSearch(id: Int) {
+    fun onDeleteRecentSearch(search: String) {
         viewModelScope.launch {
-            deleteRecentSearchUseCase(id).collect {
+            deleteRecentSearchUseCase(search).collect {
                 inspectUiState(it, {
                     fetchRecentSearchList()
                 })
@@ -56,19 +51,16 @@ class SearchingViewModel @Inject constructor(
     }
 
     fun onSearch(text: String) {
-        recentSearchCurrentSize?.let {
-            insertRecentSearch(it, text)
-        }
+        insertRecentSearch(text)
     }
 
     fun onRecentSearch(text: String) {
         goToSearchResult(text)
     }
 
-    private fun insertRecentSearch(currentSize: Int, text: String) {
+    private fun insertRecentSearch(text: String) {
         viewModelScope.launch {
-            val searchVo = RecentSearchVo(search = text, saveTime = System.currentTimeMillis())
-            val request = InsertRecentSearchVo(currentSize, searchVo)
+            val request = RecentSearchVo(search = text, saveTime = System.currentTimeMillis())
             insertRecentSearchUseCase(request).collect {
                 inspectUiState(it, {
                     goToSearchResult(text)
@@ -84,7 +76,6 @@ class SearchingViewModel @Inject constructor(
     }
 
     private fun updateSearchList(list: List<RecentSearchVo>) {
-        recentSearchCurrentSize = list.size
         updateUiState { uiState ->
             uiState.copy(
                 recentSearchList = list,

@@ -31,8 +31,8 @@ class SearchingFragment : BaseFragment<FragmentSearchingBinding, SearchingPageSt
 
     private val listAdapter: RecentSearchAdapter by lazy {
         RecentSearchAdapter(object : RecentSearchAdapter.Delegate {
-            override fun onClickDelete(id: Int) {
-                viewModel.onDeleteRecentSearch(id)
+            override fun onClickDelete(text: String) {
+                viewModel.onDeleteRecentSearch(text)
             }
 
             override fun onClickRecentSearch(text: String) {

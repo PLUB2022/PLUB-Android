@@ -20,7 +20,7 @@ class RecentSearchViewHolder(
 
         binding.imageViewDeleteIcon.setOnClickListener {
             vo?.let {
-                listener.onClickDelete(it.id)
+                listener.onClickDelete(it.search)
             }
         }
     }

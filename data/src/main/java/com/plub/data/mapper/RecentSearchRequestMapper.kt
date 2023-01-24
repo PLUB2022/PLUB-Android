@@ -11,7 +11,6 @@ object RecentSearchRequestMapper: Mapper.RequestMapper<RecentSearchEntity, Recen
     override fun mapModelToDto(type: RecentSearchVo): RecentSearchEntity {
         return type.run {
             RecentSearchEntity(
-                id = id,
                 search = search,
                 saveTime = saveTime
             )

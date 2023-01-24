@@ -14,7 +14,7 @@ class RecentSearchAdapter(
 
     interface Delegate {
         fun onClickRecentSearch(text:String)
-        fun onClickDelete(id: Int)
+        fun onClickDelete(text: String)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -31,8 +31,8 @@ class RecentSearchAdapter(
 
 class RecentSearchDiffCallback : DiffUtil.ItemCallback<RecentSearchVo>() {
     override fun areItemsTheSame(oldItem: RecentSearchVo, newItem: RecentSearchVo): Boolean =
-        oldItem.id == newItem.id
+        oldItem.search == newItem.search
 
     override fun areContentsTheSame(oldItem: RecentSearchVo, newItem: RecentSearchVo): Boolean =
-        oldItem.search == newItem.search && oldItem.saveTime == newItem.saveTime
+        oldItem == newItem
 }

@@ -10,7 +10,6 @@ object RecentSearchResponseMapper: Mapper.ResponseMapper<List<RecentSearchEntity
     override fun mapDtoToModel(type: List<RecentSearchEntity>?): List<RecentSearchVo> {
         return type?.map {
             RecentSearchVo(
-                it.id,
                 it.search,
                 it.saveTime
             )

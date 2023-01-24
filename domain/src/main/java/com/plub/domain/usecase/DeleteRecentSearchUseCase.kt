@@ -9,8 +9,8 @@ import javax.inject.Inject
 
 class DeleteRecentSearchUseCase @Inject constructor(
     private val searchRepository: SearchRepository
-) : UseCase<Int, Flow<UiState<Unit>>>() {
-    override suspend operator fun invoke(request: Int): Flow<UiState<Unit>> {
+) : UseCase<String, Flow<UiState<Unit>>>() {
+    override suspend operator fun invoke(request: String): Flow<UiState<Unit>> {
         return searchRepository.deleteRecentSearch(request)
     }
 }
