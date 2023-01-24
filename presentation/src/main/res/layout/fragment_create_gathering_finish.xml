@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.createGathering.finish.CreateGatheringFinishViewModel" />
+
+        <variable
+            name="parent_vm"
+            type="com.plub.presentation.ui.createGathering.CreateGatheringViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
+        tools:context=".ui.createGathering.finish.CreateGatheringFinishFragment">
+
+        <ImageView
+            android:id="@+id/image_view_finish"
+            android:layout_width="262dp"
+            android:layout_height="262dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/create_gathering_finish_image_descriptor"
+            app:layout_constraintBottom_toTopOf="@id/text_view_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:background="@color/black" />
+
+        <TextView
+            android:id="@+id/text_view_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="103dp"
+            android:text="@string/create_gathering_finish_description"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/button_show_my_article"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_show_my_article"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_rectangle_filled_e4e4e4_radius_10"
+            android:stateListAnimator="@null"
+            android:text="@string/create_gathering_finish_show_my_article"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/button_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginBottom="26dp"
+            android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:stateListAnimator="@null"
+            android:text="@string/create_gathering_finish_go_to_main"
+            android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

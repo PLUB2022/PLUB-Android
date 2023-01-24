@@ -1,10 +1,18 @@
 package com.plub.plubandroid.di
 
+import com.plub.data.repository.AccountRepositoryImpl
+import com.plub.data.repository.GatheringRepositoryImpl
+import com.plub.data.repository.HomePostReposImpl
+import com.plub.data.repository.KakaoLocationRepositoryImpl
 import com.plub.data.repository.HobbyRepositoryImpl
 import com.plub.data.repository.LoginRepositoryImpl
 import com.plub.data.repository.MediaRepositoryImpl
 import com.plub.data.repository.SignUpRepositoryImpl
+import com.plub.domain.repository.AccountRepository
+import com.plub.domain.repository.GatheringRepository
 import com.plub.domain.repository.HobbyRepository
+import com.plub.domain.repository.HomePostRepository
+import com.plub.domain.repository.KakaoLocationRepository
 import com.plub.domain.repository.LoginRepository
 import com.plub.domain.repository.MediaRepository
 import com.plub.domain.repository.SignUpRepository
@@ -24,6 +32,14 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
+    abstract fun providesHomePostRepository(homePostReposImpl: HomePostReposImpl): HomePostRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesKakaoLocationRepository(repositoryImpl: KakaoLocationRepositoryImpl): KakaoLocationRepository
+
+    @Singleton
+    @Binds
     abstract fun providesHobbyRepository(repositoryImpl: HobbyRepositoryImpl): HobbyRepository
 
     @Singleton
@@ -33,4 +49,12 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesMediaRepository(repositoryImpl: MediaRepositoryImpl): MediaRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesGatheringRepository(repositoryImpl: GatheringRepositoryImpl): GatheringRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesAccountRepository(repositoryImpl: AccountRepositoryImpl): AccountRepository
 }

@@ -25,6 +25,9 @@ object AndroidX {
     const val DATA_STORE_PROTO = "androidx.datastore:datastore:${Versions.DATA_STORE}"
     const val DATA_STORE_PREFERENCES = "androidx.datastore:datastore-preferences:${Versions.DATA_STORE}"
     const val RECYCLER_VIEW = "androidx.recyclerview:recyclerview:${Versions.RECYCLER_VIEW}"
+    const val PAGING3_WITHOUT_ANDROID_DEPENDENCY = "androidx.paging:paging-common:${Versions.PAGING3}"
+    const val PAGING3_RUNTIME = "androidx.paging:paging-runtime:${Versions.PAGING3}"
+    const val PAGING3_COMMON_KTX = "androidx.paging:paging-common-ktx:${Versions.PAGING3}"
 }
 
 object Google {
@@ -39,6 +42,7 @@ object Google {
     const val PROTOBUF = "com.google.protobuf:protobuf-javalite:${Versions.PROTOBUF}"
     const val PROTOC = "com.google.protobuf:protoc:${Versions.PROTOBUF}"
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
+    const val FLEX_BOX = "com.google.android.flexbox:flexbox:${Versions.FLEX_BOX}"
 }
 
 object Libraries {
@@ -57,6 +61,11 @@ object Libraries {
     const val KAKAO = "com.kakao.sdk:v2-user:${Versions.KAKAO}"
 
     const val TED_PERMISSION = "io.github.ParkSangGwon:tedpermission-normal:${Versions.TED_PERMISSION}"
+
+    /**
+     * API 26 미만에서 java.time 패키지를 사용할 수 있게 해주는 라이브러리
+     */
+    const val THREE_TEN_ABP = "com.jakewharton.threetenabp:threetenabp:${Versions.THREE_TEN_ABP}"
 }
 
 object UnitTest {

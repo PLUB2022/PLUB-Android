@@ -1,14 +1,20 @@
 package com.plub.plubandroid.di
 
-import com.plub.domain.model.vo.jwt_token.PlubJwtReIssueRequestVo
-import com.plub.domain.model.vo.jwt_token.SavePlubJwtRequestVo
+import com.plub.domain.UiState
+import com.plub.domain.model.vo.jwt.PlubJwtReIssueRequestVo
+import com.plub.domain.model.vo.jwt.PlubJwtResponseVo
+import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
 import com.plub.domain.usecase.FetchPlubAccessTokenUseCase
 import com.plub.domain.usecase.FetchPlubRefreshTokenUseCase
 import com.plub.domain.usecase.PostReIssueTokenUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.plubandroid.util.RETROFIT_TAG
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import okhttp3.Authenticator
@@ -59,6 +65,7 @@ class TokenAuthenticator @Inject constructor(
             Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
             val reIssueRequestVo = PlubJwtReIssueRequestVo(refresh)
             val plubJwtToken = postReIssueTokenUseCase(reIssueRequestVo).first()
+
             val savePlubJwtRequestVo = SavePlubJwtRequestVo(plubJwtToken.accessToken, plubJwtToken.refreshToken)
 
             savePlubAccessTokenAndRefreshTokenUseCase(savePlubJwtRequestVo).first()

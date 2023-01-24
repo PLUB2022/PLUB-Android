@@ -1,7 +1,13 @@
 package com.plub.plubandroid.di
 
+import com.plub.domain.repository.HomePostRepository
+import com.plub.domain.repository.KakaoLocationRepository
+import com.plub.domain.repository.LoginRepository
+import com.plub.domain.repository.PlubJwtRepository
 import com.plub.domain.repository.*
 import com.plub.domain.usecase.*
+import com.plub.domain.usecase.TestPostHomeUseCase
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -76,5 +82,29 @@ object UseCaseModule {
     @Provides
     fun providesGetStringFromDataStoreUseCase(repository: PrefDataStoreRepository): GetStringFromDataStoreUseCase {
         return GetStringFromDataStoreUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesTestPostHomeUseCase(repository: HomePostRepository): TestPostHomeUseCase {
+        return TestPostHomeUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFetchKakaoLocationByKeywordUseCase(repository: KakaoLocationRepository) : FetchKakaoLocationByKeywordUseCase {
+        return FetchKakaoLocationByKeywordUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostCreateGatheringUseCase(repository: GatheringRepository): PostCreateGatheringUseCase {
+        return PostCreateGatheringUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFetchMyInfoUseCase(repository: AccountRepository): FetchMyInfoUseCase {
+        return FetchMyInfoUseCase(repository)
     }
 }

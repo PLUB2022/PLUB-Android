@@ -18,7 +18,7 @@ class SubHobbyViewHolder(
     init {
         binding.root.setOnClickListener {
             vo?.let {
-                listener.onClickSubHobby(isClicked, SelectedHobbyVo(it.parentHobbyId, it.id))
+                listener.onClickSubHobby(isClicked, SelectedHobbyVo(it.parentHobbyId, it.id, it.name))
             }
         }
     }
@@ -26,7 +26,7 @@ class SubHobbyViewHolder(
     fun bind(item: SubHobbyVo) {
         vo = item
         binding.apply {
-            isClicked = listener.selectedList.contains(SelectedHobbyVo(item.parentHobbyId, item.id))
+            isClicked = listener.selectedList.contains(SelectedHobbyVo(item.parentHobbyId, item.id, item.name))
             val textColorRes = if(isClicked) R.color.white else R.color.color_8c8c8c
             val backgroundRes = if(isClicked) R.drawable.bg_rectangle_filled_5f5ff9_radius_8 else R.drawable.bg_rectangle_empty_8c8c8c_radius_8
 

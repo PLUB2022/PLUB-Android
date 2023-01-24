@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.createGathering.preview.CreateGatheringPreviewViewModel" />
+
+        <variable
+            name="parent_vm"
+            type="com.plub.presentation.ui.createGathering.CreateGatheringViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f5f3f6"
+        android:fillViewport="true"
+        tools:context=".ui.createGathering.preview.CreateGatheringPreviewFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/text_view_gathering_name_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{parent_vm.uiState.titleAndNamePageState.gatheringName}"
+                android:textColor="@color/color_363636"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="요란한 한줄" />
+
+            <TextView
+                android:id="@+id/text_view_introduce_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@{parent_vm.uiState.titleAndNamePageState.introductionTitle}"
+                android:textColor="@color/color_363636"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_gathering_name_title"
+                tools:text="책 읽고 얘기해요!" />
+
+            <ImageView
+                android:id="@+id/image_view_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_location_5f5ff9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_introduce_title" />
+
+            <TextView
+                android:id="@+id/text_view_location"
+                android:layout_width="106dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{parent_vm.uiState.dayAndOnOfflineAndLocationPageState.gatheringLocationData == null ? @string/word_online : parent_vm.uiState.dayAndOnOfflineAndLocationPageState.gatheringLocationData.addressName}"
+                android:textColor="@color/color_5f5ff9"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_location"
+                app:layout_constraintStart_toEndOf="@id/image_view_location"
+                app:layout_constraintTop_toTopOf="@id/image_view_location"
+                tools:text="서울시 서초구 어쩌구 저쩌구 요쩌구" />
+
+            <TextView
+                android:id="@+id/text_view_gathering_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@{@string/word_double_quotation_marks(parent_vm.uiState.goalAndIntroduceAndPicturePageState.gatheringGoal)}"
+                android:textColor="@color/color_5f5ff9"
+                android:textSize="32sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_location"
+                tools:text="스트레칭은 20분 이상" />
+
+            <ImageView
+                android:id="@+id/image_view_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_people"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_gathering_goal" />
+
+            <TextView
+                android:id="@+id/text_view_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:includeFontPadding="false"
+                android:text="@{@string/create_gathering_preview_people(parent_vm.uiState.peopleNumberPageState.peopleNumber)}"
+                android:textColor="@color/color_363636"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_people"
+                app:layout_constraintStart_toEndOf="@id/image_view_people"
+                app:layout_constraintTop_toTopOf="@id/image_view_people"
+                tools:text="모집 인원 5명" />
+
+            <ImageView
+                android:id="@+id/image_view_schedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_schedule"
+                app:layout_constraintBottom_toBottomOf="@id/text_view_people"
+                app:layout_constraintStart_toEndOf="@id/text_view_people"
+                app:layout_constraintTop_toTopOf="@id/text_view_people" />
+
+            <TextView
+                android:id="@+id/text_view_schedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                previewDays="@{parent_vm.uiState.dayAndOnOfflineAndLocationPageState.gatheringDays}"
+                previewHour="@{parent_vm.uiState.dayAndOnOfflineAndLocationPageState.gatheringHour}"
+                previewMin="@{parent_vm.uiState.dayAndOnOfflineAndLocationPageState.gatheringMin}"
+                android:includeFontPadding="false"
+                android:textColor="@color/color_363636"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_schedule"
+                app:layout_constraintStart_toEndOf="@id/image_view_schedule"
+                app:layout_constraintTop_toTopOf="@id/image_view_schedule"
+                tools:text="매주 금요일 | 오후 5시 30분" />
+
+            <ImageView
+                android:id="@+id/image_view_plubbing_main"
+                android:layout_width="0dp"
+                android:layout_height="246dp"
+                android:layout_marginTop="24dp"
+                app:defaultImage="@{@drawable/iv_default_profile}"
+                app:imageFile="@{parent_vm.uiState.goalAndIntroduceAndPicturePageState.gatheringImage}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_schedule"
+                app:radiusDp="@{10}"
+                tools:background="@color/black" />
+
+            <TextView
+                android:id="@+id/text_view_our_gathering_is"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@{@string/create_gathering_preview_our_gathering_is(parent_vm.uiState.titleAndNamePageState.gatheringName)}"
+                android:textColor="@color/color_363636"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_plubbing_main"
+                tools:text="[ 요란한 한줄 ] 모임은요...!" />
+
+            <TextView
+                android:id="@+id/text_view_gathering_introduce_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@{parent_vm.uiState.goalAndIntroduceAndPicturePageState.gatheringIntroduce}"
+                android:textColor="@color/color_363636"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_our_gathering_is"
+                tools:text="모임 소개글 모임 소개글모임 소개글모임 소개글모임 소개글모임 소개글모임 소개글모임 소개글모임 소개글모임 소개글모임 소개글모임 소개글ㅍ" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexbox_layout_category"
+                categoryList="@{parent_vm.uiState.selectPlubCategoryPageState.categoriesSelectedVo.hobbies}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:alignContent="stretch"
+                app:alignItems="stretch"
+                app:flexWrap="wrap"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_gathering_introduce_article"
+                tools:background="@color/black"
+                tools:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/text_view_with_us"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/word_with_us"
+                android:textColor="@color/color_363636"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/flexbox_layout_category" />
+
+            <com.plub.presentation.ui.custom.CircleImageView
+                android:id="@+id/circle_image_view_profile"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="7dp"
+                app:defaultImage="@{@drawable/iv_default_profile}"
+                app:imageUrl="@{vm.uiState.profileUrl}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_with_us"
+                tools:background="@color/black" />
+
+
+            <Button
+                android:id="@+id/button_next"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="26dp"
+                android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+                android:onClick="@{() -> parent_vm.onClickNextButtonInPreViewPage()}"
+                android:stateListAnimator="@null"
+                android:text="@string/word_next"
+                android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/circle_image_view_profile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

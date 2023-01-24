@@ -48,6 +48,8 @@ dependencies {
     implementation(AndroidX.NAVIGATION_UI_KTX)
     implementation(AndroidX.LEGACY_SUPPORT)
     implementation(AndroidX.RECYCLER_VIEW)
+    implementation(AndroidX.PAGING3_RUNTIME)
+    implementation(AndroidX.PAGING3_COMMON_KTX)
 
     implementation(Libraries.COIL)
     implementation(Libraries.TIMBER)
@@ -55,10 +57,12 @@ dependencies {
     implementation(Libraries.INDICATOR)
     implementation(Libraries.KAKAO)
     implementation(Libraries.TED_PERMISSION)
+    implementation(Libraries.THREE_TEN_ABP)
 
     implementation(Google.MATERIAL)
     implementation(Google.HILT_ANDROID)
     implementation(Google.GOOGLE_PLAY_SERVICE)
+    implementation(Google.FLEX_BOX)
 
     implementation(Glide.GLIDE)
     annotationProcessor(Glide.GLIDE_COMPILER)
