@@ -209,5 +209,6 @@
     <string name="word_slash_60">/60</string>
     <string name="word_search_result">검색결과</string>
     <string name="image_descriptor_delete_button">삭제 버튼</string>
+    <string name="category_choice_popular">인기순</string>
 
 </resources>
