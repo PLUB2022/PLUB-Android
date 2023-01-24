@@ -5,11 +5,14 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.plub.domain.model.enums.PlubSearchType
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSearchingBinding
 import com.plub.presentation.event.SearchingEvent
 import com.plub.presentation.ui.common.GridSpaceDecoration
+import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceFragmentDirections
 import com.plub.presentation.ui.home.search.adapter.RecentSearchAdapter
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +36,10 @@ class SearchingFragment : BaseFragment<FragmentSearchingBinding, SearchingPageSt
         RecentSearchAdapter(object : RecentSearchAdapter.Delegate {
             override fun onClickDelete(id: Int) {
                 viewModel.onDeleteRecentSearch(id)
+            }
+
+            override fun onClickRecentSearch(text: String) {
+                viewModel.onRecentSearch(text)
             }
         })
     }
@@ -64,9 +71,6 @@ class SearchingFragment : BaseFragment<FragmentSearchingBinding, SearchingPageSt
                 setOnEditorActionListener { _, keyCode, keyEvent ->
                     if(keyCode == EditorInfo.IME_ACTION_SEARCH) {
                         viewModel.onSearch(text.toString())
-                        setText("")
-                        clearFocus()
-                        hideKeyboard()
                         true
                     }else false
                 }
@@ -99,11 +103,21 @@ class SearchingFragment : BaseFragment<FragmentSearchingBinding, SearchingPageSt
         imm.hideSoftInputFromWindow(binding.editTextSearch.windowToken, 0)
     }
 
+    private fun clear() {
+        binding.editTextSearch.setText("")
+        binding.editTextSearch.clearFocus()
+    }
+
+    private fun goToSearchResult(search:String) {
+        val action = SearchingFragmentDirections.actionSearchingToSearchResult(search)
+        findNavController().navigate(action)
+    }
+
     private fun inspectEventFlow(event: SearchingEvent) {
         when (event) {
-            is SearchingEvent.GoToSearchResult -> {
-
-            }
+            is SearchingEvent.GoToSearchResult -> goToSearchResult(event.search)
+            is SearchingEvent.HideKeyboard -> hideKeyboard()
+            is SearchingEvent.Clear -> clear()
         }
     }
 }

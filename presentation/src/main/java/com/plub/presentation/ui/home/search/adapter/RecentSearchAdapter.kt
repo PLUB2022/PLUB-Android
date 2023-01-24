@@ -13,6 +13,7 @@ class RecentSearchAdapter(
 ) : ListAdapter<RecentSearchVo, RecyclerView.ViewHolder>(RecentSearchDiffCallback()) {
 
     interface Delegate {
+        fun onClickRecentSearch(text:String)
         fun onClickDelete(id: Int)
     }
 

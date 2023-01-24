@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.home.search
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.PlubSearchType
 import com.plub.domain.model.vo.home.search.InsertRecentSearchVo
 import com.plub.domain.model.vo.home.search.RecentSearchVo
 import com.plub.domain.usecase.DeleteAllRecentSearchUseCase
@@ -22,9 +23,9 @@ class SearchingViewModel @Inject constructor(
     val insertRecentSearchUseCase: InsertRecentSearchUseCase,
 ) : BaseViewModel<SearchingPageState>(SearchingPageState()) {
 
-    private var currentSize:Int? = null
+    private var recentSearchCurrentSize: Int? = null
 
-    fun onDeleteRecentSearch(id:Int) {
+    fun onDeleteRecentSearch(id: Int) {
         viewModelScope.launch {
             deleteRecentSearchUseCase(id).collect {
                 inspectUiState(it, {
@@ -54,22 +55,36 @@ class SearchingViewModel @Inject constructor(
         }
     }
 
-    fun onSearch(text:String) {
-        currentSize?.let {
-            viewModelScope.launch {
-                val searchVo = RecentSearchVo(search = text, saveTime = System.currentTimeMillis())
-                val request = InsertRecentSearchVo(it,searchVo)
-                insertRecentSearchUseCase(request).collect {
-                    inspectUiState(it, {
-                        emitEventFlow(SearchingEvent.GoToSearchResult(text))
-                    })
-                }
+    fun onSearch(text: String) {
+        recentSearchCurrentSize?.let {
+            insertRecentSearch(it, text)
+        }
+    }
+
+    fun onRecentSearch(text: String) {
+        goToSearchResult(text)
+    }
+
+    private fun insertRecentSearch(currentSize: Int, text: String) {
+        viewModelScope.launch {
+            val searchVo = RecentSearchVo(search = text, saveTime = System.currentTimeMillis())
+            val request = InsertRecentSearchVo(currentSize, searchVo)
+            insertRecentSearchUseCase(request).collect {
+                inspectUiState(it, {
+                    goToSearchResult(text)
+                })
             }
         }
     }
 
-    private fun updateSearchList(list:List<RecentSearchVo>) {
-        currentSize = list.size
+    private fun goToSearchResult(search: String) {
+        emitEventFlow(SearchingEvent.Clear)
+        emitEventFlow(SearchingEvent.HideKeyboard)
+        emitEventFlow(SearchingEvent.GoToSearchResult(search))
+    }
+
+    private fun updateSearchList(list: List<RecentSearchVo>) {
+        recentSearchCurrentSize = list.size
         updateUiState { uiState ->
             uiState.copy(
                 recentSearchList = list,
