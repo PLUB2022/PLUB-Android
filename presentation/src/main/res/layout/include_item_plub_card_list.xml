@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage,ContentDescription">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="328:176"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_view_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@color/color_5f5ff9" />
+
+                <ImageView
+                    android:id="@+id/image_view_location"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/ic_location_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_view_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_view_location"
+                    app:layout_constraintStart_toEndOf="@+id/image_view_location"
+                    app:layout_constraintTop_toTopOf="@+id/image_view_location"
+                    tools:text="서울 서초구" />
+
+                <ImageView
+                    android:id="@+id/image_view_recruit_member_count"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_people_white"
+                    app:layout_constraintBottom_toBottomOf="@id/image_view_location"
+                    app:layout_constraintStart_toEndOf="@+id/text_view_location" />
+
+                <TextView
+                    android:id="@+id/text_view_recruit_member_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_view_recruit_member_count"
+                    app:layout_constraintStart_toEndOf="@+id/image_view_recruit_member_count"
+                    app:layout_constraintTop_toTopOf="@+id/image_view_recruit_member_count"
+                    tools:text="모집 인원 5명" />
+
+                <ImageView
+                    android:id="@+id/image_view_meeting_date"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_date_white"
+                    app:layout_constraintBottom_toBottomOf="@id/image_view_location"
+                    app:layout_constraintStart_toEndOf="@+id/text_view_recruit_member_count" />
+
+                <TextView
+                    android:id="@+id/text_view_meeting_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_view_meeting_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_view_meeting_date"
+                    app:layout_constraintTop_toTopOf="@+id/image_view_meeting_date"
+                    tools:text="월,수,금 | 오후 5시 30분" />
+
+                <TextView
+                    android:id="@+id/text_view_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="12dp"
+                    android:ellipsize="end"
+                    android:maxLength="19"
+                    android:maxLines="2"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toTopOf="@+id/image_view_recruit_member_count"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="스트릿 댄스를 배우고 싶은 신사동 여러분을 모집합니다." />
+
+                <TextView
+                    android:id="@+id/text_view_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:ellipsize="end"
+                    android:maxLength="12"
+                    android:maxLines="2"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/text_view_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="스트릿 댄스 신사동스 파이터" />
+
+                <ImageView
+                    android:id="@+id/image_view_bookmark"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginEnd="9dp"
+                    android:src="@drawable/ic_bookmark_unchecked"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
