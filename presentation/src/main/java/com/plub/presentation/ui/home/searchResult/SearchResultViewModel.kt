@@ -5,10 +5,12 @@ import com.plub.domain.error.SearchError
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSearchType
 import com.plub.domain.model.enums.PlubSortType
+import com.plub.domain.model.vo.home.search.RecentSearchVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.model.vo.search.SearchPlubRecruitRequestVo
 import com.plub.domain.usecase.GetSearchPlubRecruitUseCase
+import com.plub.domain.usecase.InsertRecentSearchUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.SearchResultEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchResultViewModel @Inject constructor(
-    val searchPlubRecruitUseCase: GetSearchPlubRecruitUseCase
+    val searchPlubRecruitUseCase: GetSearchPlubRecruitUseCase,
+    val insertRecentSearchUseCase: InsertRecentSearchUseCase,
 ) : BaseViewModel<SearchResultPageState>(SearchResultPageState()) {
 
     companion object {
@@ -33,9 +36,13 @@ class SearchResultViewModel @Inject constructor(
 
     fun onSearchPlubRecruit(keyword: String) {
         viewModelScope.launch {
-            page = FIRST_PAGE
-            searchedKeyword = keyword
-            fetchSearchPlubRecruit()
+            insertRecentSearch(keyword) {
+                viewModelScope.launch {
+                    page = FIRST_PAGE
+                    searchedKeyword = keyword
+                    fetchSearchPlubRecruit()
+                }
+            }
         }
     }
 
@@ -106,6 +113,15 @@ class SearchResultViewModel @Inject constructor(
             }
 
             else -> Unit
+        }
+    }
+
+    private suspend fun insertRecentSearch(text: String, insertSuccess:() -> Unit) {
+        val request = RecentSearchVo(search = text, saveTime = System.currentTimeMillis())
+        insertRecentSearchUseCase(request).collect {
+            inspectUiState(it, {
+                insertSuccess.invoke()
+            })
         }
     }
 }

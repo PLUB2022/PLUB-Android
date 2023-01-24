@@ -17,7 +17,6 @@ class SearchingViewModel @Inject constructor(
     val fetchRecentSearchUseCase: FetchRecentSearchUseCase,
     val deleteRecentSearchUseCase: DeleteRecentSearchUseCase,
     val deleteAllRecentSearchUseCase: DeleteAllRecentSearchUseCase,
-    val insertRecentSearchUseCase: InsertRecentSearchUseCase,
 ) : BaseViewModel<SearchingPageState>(SearchingPageState()) {
 
     fun onDeleteRecentSearch(search: String) {
@@ -51,22 +50,11 @@ class SearchingViewModel @Inject constructor(
     }
 
     fun onSearch(text: String) {
-        insertRecentSearch(text)
+        goToSearchResult(text)
     }
 
     fun onRecentSearch(text: String) {
         goToSearchResult(text)
-    }
-
-    private fun insertRecentSearch(text: String) {
-        viewModelScope.launch {
-            val request = RecentSearchVo(search = text, saveTime = System.currentTimeMillis())
-            insertRecentSearchUseCase(request).collect {
-                inspectUiState(it, {
-                    goToSearchResult(text)
-                })
-            }
-        }
     }
 
     private fun goToSearchResult(search: String) {
