@@ -81,17 +81,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFr
         }
     }
 
-    fun goToCategoryChoice(categoryId : Int, categoryName : String){
-        val action = MainFragmentDirections.actionMainToCategoryChoice(categoryId.toString(), categoryName)
-        findNavController().navigate(action)
-    }
 
-    fun goToRecruitmentFragment(plubbingId : Int){
-        val action = MainFragmentDirections.actionMainFragmentToRecruitmentFragment(plubbingId.toString())
-        findNavController().navigate(action)
-    }
-
-    fun HasDataRecycler(data : RecommendationGatheringResponseVo){
+    private fun HasDataRecycler(data : RecommendationGatheringResponseVo){
         val mConcatAdapter = ConcatAdapter()
         recommendationListAdapter.submitList(arrayListOf(data))
         mConcatAdapter.addAdapter(mainCategoryAdapter)
@@ -102,7 +93,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFr
         }
     }
 
-    fun HasNotDataRecycler(){
+    private fun HasNotDataRecycler(){
         val mConcatAdapter = ConcatAdapter()
         mainRecommendMeetXAdapter.submitList(arrayListOf(0))
         mConcatAdapter.addAdapter(mainCategoryAdapter)
@@ -113,8 +104,18 @@ class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFr
         }
     }
 
-    fun goToRegisterInterest(){
+    private fun goToRegisterInterest(){
         val action = MainFragmentDirections.actionMainFragmentToRegisterInterestFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun goToCategoryChoice(categoryId : Int, categoryName : String){
+        val action = MainFragmentDirections.actionMainToCategoryChoice(categoryId.toString(), categoryName)
+        findNavController().navigate(action)
+    }
+
+    private fun goToRecruitmentFragment(plubbingId : Int){
+        val action = MainFragmentDirections.actionMainFragmentToRecruitmentFragment(plubbingId.toString())
         findNavController().navigate(action)
     }
 

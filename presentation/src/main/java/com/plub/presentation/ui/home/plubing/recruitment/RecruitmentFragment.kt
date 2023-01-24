@@ -68,25 +68,25 @@ class RecruitmentFragment :
         }
     }
 
-    fun goToApplyPlubbingFragment(plubbingId: String) {
+    private fun goToApplyPlubbingFragment(plubbingId: String) {
         val action = RecruitmentFragmentDirections.actionRecruitmentFragmentToApplyPlubbingFragment(
             plubbingId
         )
         findNavController().navigate(action)
     }
 
-    fun returnFragmentArgs(): String {
+    private fun returnFragmentArgs(): String {
         if (plubbingIdForMain.plubbingId.equals("0")) {
             return plubbingIdForCategoryChoice.plubbingId
         } else
             return plubbingIdForMain.plubbingId
     }
 
-    fun goToProfile(accountId: Int) {
+    private fun goToProfile(accountId: Int) {
 
     }
 
-    fun initDetailPage(data: RecruitDetailResponseVo) {
+    private fun initDetailPage(data: RecruitDetailResponseVo) {
         var bookmarkFlag = data.isBookmarked
         binding.apply {
             constraintLayoutTop.bringToFront()

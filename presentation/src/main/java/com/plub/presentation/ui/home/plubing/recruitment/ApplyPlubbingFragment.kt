@@ -58,7 +58,7 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
         }
     }
 
-    fun getAnswerList() : List<ApplicantsRecruitAnswerListVo>{
+    private fun getAnswerList() : List<ApplicantsRecruitAnswerListVo>{
         val list : MutableList<ApplicantsRecruitAnswerListVo> = mutableListOf()
         for(i in 0 until questionsAdapter.itemCount){
             list.add(ApplicantsRecruitAnswerListVo(questionsAdapter.currentList[i].id,
@@ -67,7 +67,7 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
         return list
     }
 
-    fun initRecycler(){
+    private fun initRecycler(){
         binding.apply {
             recyclerViewQuestions.apply {
                 layoutManager = LinearLayoutManager(context)

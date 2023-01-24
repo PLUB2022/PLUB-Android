@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.HobbyViewType
 import com.plub.domain.model.vo.common.HobbyVo
 import com.plub.domain.model.vo.common.SelectedHobbyVo
-import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.domain.usecase.GetAllHobbiesUseCase
 import com.plub.domain.usecase.InterestUseCase
 import com.plub.presentation.base.BaseViewModel
@@ -43,10 +42,6 @@ class RegisterInterestViewModel @Inject constructor(
 
     fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo) {
         if (isClicked) removeHobby(selectedHobbyVo) else addHobby(selectedHobbyVo)
-    }
-
-    fun onClickLatePick() {
-        emitEventFlow(HobbiesEvent.MoveToNext(SignUpHobbiesVo(emptyList())))
     }
 
     fun fetchHobbiesData() {
@@ -116,7 +111,7 @@ class RegisterInterestViewModel @Inject constructor(
         }
     }
 
-    fun completeChoce(){
+    fun completeChoice(){
         viewModelScope.launch {
             _emitChoice.emit(Unit)
         }
