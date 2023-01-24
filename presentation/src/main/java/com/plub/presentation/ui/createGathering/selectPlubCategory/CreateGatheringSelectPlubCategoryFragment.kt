@@ -15,16 +15,17 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class CreateGatheringSelectPlubCategoryFragment : BaseFragment<FragmentCreateGatheringSelectPlubCategoryBinding, CreateGatheringSelectPlubCategoryPageState, CreateGatheringSelectPlubCategoryViewModel>(
-    FragmentCreateGatheringSelectPlubCategoryBinding::inflate
-) {
+class CreateGatheringSelectPlubCategoryFragment :
+    BaseFragment<FragmentCreateGatheringSelectPlubCategoryBinding, CreateGatheringSelectPlubCategoryPageState, CreateGatheringSelectPlubCategoryViewModel>(
+        FragmentCreateGatheringSelectPlubCategoryBinding::inflate
+    ) {
 
     companion object {
         private const val ITEM_VERTICAL_SPACE = 16
     }
 
     override val viewModel: CreateGatheringSelectPlubCategoryViewModel by viewModels()
-    private val parentViewModel: CreateGatheringViewModel by viewModels({requireParentFragment()})
+    private val parentViewModel: CreateGatheringViewModel by viewModels({ requireParentFragment() })
 
     private val listAdapter: HobbiesAdapter by lazy {
         HobbiesAdapter(object : HobbiesAdapter.Delegate {
@@ -64,11 +65,8 @@ class CreateGatheringSelectPlubCategoryFragment : BaseFragment<FragmentCreateGat
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                if (viewModel.uiState.value != CreateGatheringSelectPlubCategoryPageState())
-                    return@launch
-
                 parentViewModel.childrenPageStateFlow.collect { pageState ->
-                        viewModel.initUiState(pageState)
+                    viewModel.initUiState(pageState)
                 }
             }
 
@@ -80,7 +78,7 @@ class CreateGatheringSelectPlubCategoryFragment : BaseFragment<FragmentCreateGat
 
             launch {
                 viewModel.eventFlow.collect {
-                    when(it) {
+                    when (it) {
                         is CreateGatheringSelectPlubCategoryEvent.NotifySubHobby -> {
                             listAdapter.notifySubItemUpdate(it.selectedHobbyVo)
                         }
