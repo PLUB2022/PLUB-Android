@@ -7,10 +7,6 @@ import com.plub.domain.usecase.GetAllHobbiesUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +17,9 @@ class CreateGatheringSelectPlubCategoryViewModel @Inject constructor(
     BaseViewModel<CreateGatheringSelectPlubCategoryPageState>(
         CreateGatheringSelectPlubCategoryPageState()
     ) {
-    private val maxCategoryCount = 5
+    companion object {
+        private const val CATEGORY_MAX_COUNT = 5
+    }
 
     fun initUiState(savedUiState: PageState) {
         if (uiState.value != CreateGatheringSelectPlubCategoryPageState())
@@ -78,7 +76,7 @@ class CreateGatheringSelectPlubCategoryViewModel @Inject constructor(
     }
 
     private fun addHobby(selectedHobbyVo: SelectedHobbyVo) {
-        if (uiState.value.categoriesSelectedVo.hobbies.size == maxCategoryCount) return
+        if (uiState.value.categoriesSelectedVo.hobbies.size == CATEGORY_MAX_COUNT) return
 
         updateSelectList(uiState.value.categoriesSelectedVo.hobbies.plus(selectedHobbyVo))
         notifySubItem(selectedHobbyVo)
