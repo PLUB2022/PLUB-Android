@@ -1,20 +1,16 @@
 package com.plub.presentation.ui.home.searchResult
 
-import android.view.SearchEvent
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.error.LoginError
 import com.plub.domain.error.SearchError
-import com.plub.domain.error.SignUpError
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSearchType
 import com.plub.domain.model.enums.PlubSortType
-import com.plub.domain.model.vo.home.search.SearchPlubRecruitRequestVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
+import com.plub.domain.model.vo.search.SearchPlubRecruitRequestVo
 import com.plub.domain.usecase.GetSearchPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.SearchResultEvent
-import com.plub.presentation.event.SearchingEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
