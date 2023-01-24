@@ -33,8 +33,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
             //TODO 할 일
 
             //TODO REMOVE 메인 툴바 클릭 시 임시로 모임 생성 페이지 이동 구현함
-            mainToolbar.setOnClickListener {
+            buttonCreateGathering.setOnClickListener {
                 findNavController().navigate(MainFragmentDirections.actionMainToCreateGathering())
+            }
+            buttonSearching.setOnClickListener {
+                findNavController().navigate(MainFragmentDirections.actionMainToSearching())
             }
         }
     }
