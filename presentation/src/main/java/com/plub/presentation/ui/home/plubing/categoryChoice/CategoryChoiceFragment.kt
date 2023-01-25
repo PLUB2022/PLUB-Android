@@ -6,11 +6,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.presentation.state.SampleHomeState
 import com.plub.domain.model.vo.home.GatheringItemVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
-import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.ui.home.adapter.MainRecommendAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGridAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -78,15 +78,14 @@ class CategoryChoiceFragment : BaseFragment<FragmentCategoryChoiceBinding, Sampl
 
             }
         }
-
     }
 
     fun HasDataRecycler(){
         val rv_category_list = binding.root.findViewById<RecyclerView>(R.id.recycler_view_category_choice_list)
         rv_category_list.setLayoutManager(LinearLayoutManager(context))
-        categorylistAdapter = MainRecommendAdapter()
-        categorylistAdapter.setViewmodel(viewModel)
-        categorylistAdapter.submitList(dum_list)
+//        categorylistAdapter = MainRecommendAdapter()
+//        categorylistAdapter.setViewmodel(viewModel)
+//        categorylistAdapter.submitList(dum_list)
         rv_category_list.adapter = categorylistAdapter
     }
 
@@ -101,9 +100,9 @@ class CategoryChoiceFragment : BaseFragment<FragmentCategoryChoiceBinding, Sampl
     fun changeListRecycler(){
         val rv_category_list = binding.root.findViewById<RecyclerView>(R.id.recycler_view_category_choice_list)
         rv_category_list.setLayoutManager(LinearLayoutManager(context))
-        categorylistAdapter = MainRecommendAdapter()
-        categorylistAdapter.setViewmodel(viewModel)
-        categorylistAdapter.submitList(dum_list)
+//        categorylistAdapter = MainRecommendAdapter()
+//        categorylistAdapter.setViewmodel(viewModel)
+//        categorylistAdapter.submitList(dum_list)
         rv_category_list.adapter = categorylistAdapter
     }
 
