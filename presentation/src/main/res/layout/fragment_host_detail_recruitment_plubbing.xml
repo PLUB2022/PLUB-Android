@@ -191,7 +191,6 @@
                 android:layout_marginTop="80dp"
                 android:text="모임 끝내기"
                 android:textSize="14sp"
-                android:onClick="@{() -> vm.goToCategoryChoice()}"
                 app:layout_constraintStart_toEndOf="@id/btn_see_applicant_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_gathering_join_people" />
