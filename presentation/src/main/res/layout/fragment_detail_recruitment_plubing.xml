@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage,ContentDescription">
 
     <data>
         <variable
@@ -14,67 +16,91 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_top"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="#F2F5F3F6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageButton
+                    android:id="@+id/image_btn_back"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_back"
+                    android:background="@color/transparent"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
+
+                <ImageButton
+                    android:id="@+id/image_btn_bookmark"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_bookmark"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/text_view_plubbing_name"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="18dp"
+                android:text="요란한 한줄"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_top" />
+
+
 
 
             <TextView
                 android:id="@+id/text_view_plubbing_title"
                 android:layout_width="wrap_content"
                 android:layout_height="29dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="36dp"
-                android:gravity="center_vertical"
+                android:layout_marginTop="25dp"
                 android:text="책 읽고 얘기해요!"
                 android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="@id/text_view_plubbing_name"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_top" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="75dp"
-                android:background="@color/color_c4c4c4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/text_view_plubbing_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="16dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="8dp"
-                    android:lineSpacingExtra="1sp"
-                    android:text="독서"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
+                app:layout_constraintStart_toStartOf="@id/text_view_plubbing_name"
+                android:layout_marginTop="59dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_location_5f5ff9"/>
 
             <TextView
-                android:id="@+id/text_view_plubbing_gathering_name"
-                android:layout_width="wrap_content"
-                android:layout_height="21dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="220dp"
-                android:layout_marginTop="73dp"
-                android:lineSpacingExtra="4sp"
-                android:text="요란한 한줄"
-                android:textSize="14sp"
-                android:translationY="-2.1sp"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginTop="58dp"
+                android:text="서울 서초구"
+                android:textSize="12sp"
+                android:textColor="#5F5FF9"
+                android:layout_marginStart="34dp"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                />
+
+
 
             <TextView
-                android:id="@+id/text_view_plubbing_gathering_start_day"
+                android:id="@+id/text_view_plubbing_start_day"
                 android:layout_width="45dp"
                 android:layout_height="16dp"
                 android:layout_alignParentLeft="true"
@@ -89,125 +115,127 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/text_view_plubbing_gathering_goal"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="123dp"
-                android:text="2주에 한 권씩"
+                android:id="@+id/text_view_plubbing_goal"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_view_plubbing_gathering_intro_start"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:text="“스트레칭은 20분 이상”"
                 android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="180dp"
-                android:text="[ 요란한 한줄 ] 모임은요...!"
-                android:textSize="18sp"
+                android:layout_height="40dp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_people"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toStartOf="@id/constraint_layout_date"
+                android:layout_marginTop="148dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_people_363636"
+                    />
+
+                <TextView
+                    android:id="@+id/text_view_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:text="모집 인원 5명"
+                    android:textSize="12sp"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_date"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/constraint_layout_people"
+                android:layout_marginTop="148dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_date_363636"
+                    />
+
+                <TextView
+                    android:id="@+id/text_view_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:text="매주 금요일 | 오후 5시 30분"
+                    android:textSize="12sp"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <ImageView
-                android:id="@+id/image_view_plubbing_gathering_intro_imgae"
-                android:layout_width="312dp"
-                android:layout_height="234dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="210dp"
+                android:id="@+id/image_view_plubbing_image"
+                android:layout_width="328dp"
+                android:layout_height="246dp"
+                android:layout_marginTop="188dp"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
+                app:layout_constraintStart_toStartOf="parent"
                 android:background="@color/color_c4c4c4"
-                android:clipToOutline="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"/>
+
 
             <TextView
-                android:id="@+id/text_view_plubbing_gathering_intro"
-                android:layout_width="312dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="460dp"
-                android:lineSpacingExtra="4sp"
-                android:text="~~"
-                android:textSize="14sp"
-                android:translationY="-2.1sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="69dp"
-                android:layout_height="23dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="32dp"
-                android:lineSpacingExtra="2sp"
-                android:text="With Us!"
+                android:id="@+id/text_view_plubbing_detail_intro"
+                app:layout_constraintTop_toBottomOf="@id/image_view_plubbing_image"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
                 android:textSize="18sp"
-                android:translationY="-0.9sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_plubbing_gathering_intro" />
+                app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
+                android:text="[ 요란한 한줄 ] 모임은요...!"
+                />
+
+            <TextView
+                android:id="@+id/text_view_plubbing_detail"
+                app:layout_constraintTop_toBottomOf="@id/text_view_plubbing_detail_intro"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
+                android:textSize="14sp"
+                android:layout_width="328dp"
+                android:layout_height="wrap_content"
+                tools:text = "유럽의 전통 춤 중 하나. 기원은 이탈리아. 나중에 프랑스가 이탈리아에서 들여와서 프랑스라고 알고 있는 사람들이 많으며, 유명세 때문에 러시아 춤이라고 알고 있는 사람도 있다.
+ 어원은 라틴어의 '춤추다(ballare)'. 여기서 이탈리아어 '춤(ballo, 발로)'에서 또 변형되어 오늘날의 발레가 되었다. 15세기 이탈리아에서 시작되었는데, 기존의 전통 춤을 발전시킨 춤이며, 현대의 우아한 발레와 달리 남자의 전유물이었다고 한다. 여성은 발레리나, 남성은 발레리노라고 한다.
+
+로마자 표기가 Ballet라서 발렛 내지는 발레트라고 발음해야 한다는 사람도 소수 있는데, 이 단어가 끝의 자음은 발음하지 않는 프랑스어에서 비롯된 것이라 발레라고 발음하는
+15세기에 이탈리아에서 시작된 발레는 원래 귀족사회에서 추던 춤이었는데, 16세기경 프랑스로 시집간 카트린 드 메디시스 왕비에 의해 프랑스에 전래되었다고 한다. 여기서 발레의 발전이 시작된다. 루이 14세는 여러 문화에 대해 관심이 많았는데, 그 중에서도 발레에 열광했다고 한다. 직접 춤을 배우고 공연의 주역까지 맡을 만큼 열정이 대단했다고 하며, 1661년 왕립 발레 아카데미도 설립하기도 했다.[3] 그리고 같은 해에 쟝 바티스트 륄리의 음악과 결합된 코미디 발레가 나왔다."
+                />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_plubbing_gathering_join_people"
-                android:layout_width="312dp"
-                android:layout_height="32dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="62dp"
-                android:background="#00000000"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_plubbing_gathering_intro" />
+                android:id="@+id/recycler_view_plubbing_hobby"
+                app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
+                app:layout_constraintTop_toBottomOf="@id/text_view_plubbing_detail"
+                android:layout_marginTop="24dp"
+                android:layout_width="327dp"
+                android:layout_height="wrap_content"/>
 
-            <ImageButton
-                android:id="@+id/image_btn_plubbing_bookmark_btn"
-                android:layout_width="18dp"
-                android:layout_height="24dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="38dp"
-                android:layout_marginTop="85dp"
-                android:background="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_gathering_join_people" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_plubbing_see_more_gathering_btn"
-                android:layout_width="115dp"
-                android:layout_height="46dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="81dp"
-                android:layout_marginTop="80dp"
-                android:text="모임 둘러보기"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_gathering_join_people" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_plubbing_apply_gathering_btn"
-                android:layout_width="115dp"
-                android:layout_height="46dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="207dp"
-                android:layout_marginTop="80dp"
-                android:text="같이 할래요!"
-                android:textSize="14sp"
-                android:onClick="@{() -> vm.goToCategoryChoice()}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_gathering_join_people" />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
