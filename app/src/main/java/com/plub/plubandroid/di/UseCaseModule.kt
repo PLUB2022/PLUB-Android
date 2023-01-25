@@ -131,4 +131,10 @@ object UseCaseModule {
     fun providesInsertRecentSearchUseCase(repository: SearchRepository): InsertRecentSearchUseCase {
         return InsertRecentSearchUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesPostBookmarkPlubRecruitUseCase(repository: BookmarkRepository): PostBookmarkPlubRecruitUseCase {
+        return PostBookmarkPlubRecruitUseCase(repository)
+    }
 }
