@@ -1,22 +1,20 @@
 package com.plub.presentation.ui.home.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.GatheringItemVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
 import com.plub.presentation.databinding.IncludeItemRecommendGatheringGridBinding
-import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendGridViewHodler
+import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendGridViewHolder
 
 
 class MainRecommendGridAdapter() : ListAdapter<RecommendationGatheringDataResponseVo, RecyclerView.ViewHolder>(
     MainGatheringGridDiffCallBack()
 ){
 
-    interface Delegate {
+    interface MainRecommendGridDelegate {
 //        val categoryList:List<CategoriesDataResponseVo>
 //        fun onClickExpand(hobbyId: Int)
 //        fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo)
@@ -25,13 +23,13 @@ class MainRecommendGridAdapter() : ListAdapter<RecommendationGatheringDataRespon
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MainRecommendGridViewHodler -> holder.bind(currentList[position])
+            is MainRecommendGridViewHolder -> holder.bind(currentList[position])
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = IncludeItemRecommendGatheringGridBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MainRecommendGridViewHodler(binding)
+        return MainRecommendGridViewHolder(binding)
     }
 
 }

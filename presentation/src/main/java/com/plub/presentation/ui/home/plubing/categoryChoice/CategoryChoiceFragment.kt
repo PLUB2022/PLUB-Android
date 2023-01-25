@@ -20,7 +20,7 @@ class CategoryChoiceFragment : BaseFragment<FragmentCategoryChoiceBinding, Sampl
 )  {
     lateinit var categorygridAdapter: MainRecommendGridAdapter
     private val categorylistAdapter : MainRecommendAdapter by lazy {
-        MainRecommendAdapter(object : MainRecommendGatheringAdapter.Delegate {
+        MainRecommendAdapter(object : MainRecommendGatheringAdapter.MainRecommendGatheringDelegate {
             //TODO 리스너 달기
         })
     }

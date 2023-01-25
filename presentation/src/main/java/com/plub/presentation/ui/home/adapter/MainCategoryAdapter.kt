@@ -12,16 +12,16 @@ import com.plub.presentation.ui.home.adapter.viewholder.MainCategoryParentViewHo
 import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 
 
-class MainCategoryAdapter(private val listener: Delegate) : ListAdapter<CategoryListDataResponseVo, RecyclerView.ViewHolder>(
+class MainCategoryAdapter(private val listener: MainCategoryDelegate) : ListAdapter<CategoryListDataResponseVo, RecyclerView.ViewHolder>(
     MainCategoryDiffCallBack()
 ){
-    private val subListenerList: MutableSet<HobbiesAdapter.SubListener> = mutableSetOf()
 
-    interface Delegate {
-        //val categoryList:List<CategoriesDataResponseVo>
+    interface MainCategoryDelegate {
+        //          val categoryList:List<CategoriesDataResponseVo>
 //        fun onClickExpand(hobbyId: Int)
 //        fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo)
 //        fun onClickLatePick()
+        fun onClick(categoryId : Int)
     }
 
     interface SubListener {
