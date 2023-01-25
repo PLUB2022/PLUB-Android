@@ -7,19 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.databinding.IncludeItemLayoutMainRecommendGatheringNoChoiceBinding
 import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendXViewHolder
-import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 
 
 class MainRecommendGatheringXAdapter(private val listener: MainRecommendGatheringXDelegate) : ListAdapter<Int, RecyclerView.ViewHolder>(
     MainRecommendGatheringXDiffCallBack()
 ){
-    private val subListenerList: MutableSet<HobbiesAdapter.SubListener> = mutableSetOf()
 
     interface MainRecommendGatheringXDelegate {
-//        val categoryList:List<CategoriesDataResponseVo>
-//        fun onClickExpand(hobbyId: Int)
-//        fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo)
-//        fun onClickLatePick()
+        fun onClick()
     }
 
     interface SubListener {

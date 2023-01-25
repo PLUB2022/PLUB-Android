@@ -39,7 +39,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
 
     private val mainRecommendMeetXAdapter : MainRecommendGatheringXAdapter by lazy {
         MainRecommendGatheringXAdapter(object : MainRecommendGatheringXAdapter.MainRecommendGatheringXDelegate {
-            //TODO 리스너 달기
+            override fun onClick() {
+                //카테고리 등록 화면으로 이동하기.
+            }
         })
     }
 

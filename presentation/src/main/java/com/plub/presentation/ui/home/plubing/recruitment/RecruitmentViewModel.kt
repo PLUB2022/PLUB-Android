@@ -2,6 +2,10 @@ package com.plub.presentation.ui.home.plubing.recruitment
 
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailRequestVo
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
+import com.plub.domain.successOrNull
+import com.plub.domain.usecase.RecruitDetailUseCase
 import com.plub.presentation.state.SampleHomeState
 import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
@@ -15,15 +19,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecruitmentViewModel @Inject constructor(
-    val testPostHomeUseCase: TestPostHomeUseCase
+    val recruitDetailUseCase: RecruitDetailUseCase
 ) : BaseViewModel<SampleHomeState>(SampleHomeState()) {
 
-    private val _goToApplyFragment = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val goToApplyFragment: SharedFlow<Unit> = _goToApplyFragment.asSharedFlow()
+    private val _recruitMentDetailData = MutableSharedFlow<RecruitDetailResponseVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val recruitMentDetailData: SharedFlow<RecruitDetailResponseVo> = _recruitMentDetailData.asSharedFlow()
 
-    fun goToCategoryChoice() {
+
+    fun fetchRecruitmentDetail(plubbingId : Int){
         viewModelScope.launch {
-            _goToApplyFragment.emit(Unit)
+            recruitDetailUseCase.invoke(RecruitDetailRequestVo(plubbingId)).collect{ state ->
+                state.successOrNull()?.let { _recruitMentDetailData.emit(it) }
+            }
         }
     }
 
