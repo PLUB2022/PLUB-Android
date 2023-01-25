@@ -1,15 +1,17 @@
 package com.plub.data.model.recommendationgatheringdata
 
+import com.plub.data.base.DataDto
+
 data class RecommendationGatheringData(
-    //val content : Content~~
+    val content : List<RecommendationGatheringDataContentList>,
     val empty : Boolean,
     val first : Boolean,
     val last : Boolean,
     val number : Int,
     val numberOfElements : Int,
-    //val pageable : PageAble~~
+    val pageable : RecommendationGatheringDataPageable,
     val size : Int,
-    //val sort : Sort~~
+    val sort : RecommendationGatheringDataSort,
     val totalElements : Int,
     val totalPages : Int,
-)
+) : DataDto

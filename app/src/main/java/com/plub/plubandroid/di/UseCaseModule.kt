@@ -113,4 +113,10 @@ object UseCaseModule {
     fun providesBrowseUseCase(repository: CategoryListRepository): BrowseUseCase {
         return BrowseUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesRecommendationGatheringUseCase(repository: RecommendationGatheringRepository): RecommendationGatheringUsecase {
+        return RecommendationGatheringUsecase(repository)
+    }
 }

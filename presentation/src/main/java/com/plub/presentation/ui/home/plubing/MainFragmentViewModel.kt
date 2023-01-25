@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
 import com.plub.domain.model.state.SampleHomeState
 import com.plub.domain.model.vo.home.HomePostRequestVo
+import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.successOrNull
 import com.plub.domain.usecase.BrowseUseCase
+import com.plub.domain.usecase.RecommendationGatheringUsecase
 import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
     val testPostHomeUseCase: TestPostHomeUseCase,
-    val browseUseCase: BrowseUseCase
+    val browseUseCase: BrowseUseCase,
+    val recommendationGatheringUsecase: RecommendationGatheringUsecase
 ) : BaseViewModel<SampleHomeState>(SampleHomeState()) {
 
     private val _testHomeData = MutableStateFlow("")
@@ -42,6 +45,15 @@ class MainFragmentViewModel @Inject constructor(
                 is UiState.Success -> Log.d("뷰모델 테스트", "${state.successOrNull()?.data?.categories?.get(1)?.name.toString()}")
                 is UiState.Error -> "에러"
             }
+        }
+
+        recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0, "123")).collect{ state->
+            when(state){
+                is UiState.Loading -> "로딩"
+                is UiState.Success -> Log.d("뷰모델 테스트", "${state.successOrNull()?.toString()}")
+                is UiState.Error -> "에러"
+            }
+
         }
     }
 
