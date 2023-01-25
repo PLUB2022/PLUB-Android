@@ -187,4 +187,6 @@
     <string name="search_result_search_type_title">제목</string>
     <string name="search_result_search_type_name">모임 이름</string>
     <string name="search_result_search_type_title_and_content">제목 + 내용</string>
+
+    <string name="plub_recruit_count">모집 인원 %d명</string>
 </resources>
