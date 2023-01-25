@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.SampleCategoryVo
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
 import com.plub.presentation.ui.home.plubing.main.MainFragmentViewModel
 
@@ -15,7 +14,7 @@ class MainCategoryAdapter(val categoryDataList : List<CategoriesDataResponseVo>)
     //   lateinit var mainCategoryItemAdapter: MainCategoryItemAdapter
     private lateinit var viewmodel: MainFragmentViewModel
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.layout_recycler_main_category, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.include_item_layout_main_category, parent, false)
         return ViewHolder(view)
     }
 

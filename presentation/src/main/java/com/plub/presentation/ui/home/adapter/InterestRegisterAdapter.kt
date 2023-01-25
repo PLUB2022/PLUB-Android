@@ -10,7 +10,7 @@ import com.plub.presentation.R
 class InterestRegisterAdapter(private var mlist : List<String>) : RecyclerView.Adapter<InterestRegisterAdapter.ViewHolder?>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.layout_recycler_interest_register_item, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.include_item_interest_register, parent, false)
         return ViewHolder(view)
     }
 
