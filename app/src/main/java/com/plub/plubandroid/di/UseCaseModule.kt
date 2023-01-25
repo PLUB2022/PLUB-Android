@@ -107,4 +107,10 @@ object UseCaseModule {
     fun providesFetchMyInfoUseCase(repository: AccountRepository): FetchMyInfoUseCase {
         return FetchMyInfoUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesBrowseUseCase(repository: CategoryListRepository): BrowseUseCase {
+        return BrowseUseCase(repository)
+    }
 }
