@@ -1,9 +1,9 @@
 package com.plub.domain.usecase
 
-import RecommendationGatheringResponseVo
 import com.plub.domain.UiState
 import com.plub.domain.base.UseCase
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
+import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.repository.RecommendationGatheringRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

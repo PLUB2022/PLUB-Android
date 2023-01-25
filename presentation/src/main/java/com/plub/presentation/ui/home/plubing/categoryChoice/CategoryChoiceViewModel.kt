@@ -1,13 +1,16 @@
 package com.plub.presentation.ui.home.plubing.categoryChoice
 
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.successOrNull
+import com.plub.domain.usecase.BookmarkUsecase
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.CategoryChoiceState
+import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
@@ -16,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryChoiceViewModel @Inject constructor(
-    val categoriesGatheringUseCase: GetCategoriesGatheringUseCase
+    val categoriesGatheringUseCase: GetCategoriesGatheringUseCase,
+    val bookmarkUsecase: BookmarkUsecase
 ) : BaseViewModel<CategoryChoiceState>(CategoryChoiceState()) {
 
 
@@ -31,6 +35,12 @@ class CategoryChoiceViewModel @Inject constructor(
                 state.successOrNull()?.let { _recommendationData.emit(it) }
             }
         }
+
+    fun clickBookmark(plubbingId : Int){
+        viewModelScope.launch{
+            bookmarkUsecase.invoke(plubbingId)
+        }
+    }
 
     fun gridBtnClick(){
         //TODO 그리드로 변경

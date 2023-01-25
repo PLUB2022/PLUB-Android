@@ -25,15 +25,23 @@ class CategoryChoiceFragment :
     ) {
     private val categorygridAdapter: MainRecommendGridAdapter by lazy {
         MainRecommendGridAdapter(object : MainRecommendGridAdapter.MainRecommendGridDelegate {
-            override fun onClick(plubbingId: Int) {
+            override fun onClickGoRecruitDetail(plubbingId: Int) {
                 goToDetailRecruitment(plubbingId)
+            }
+
+            override fun onClickBookmark(plubbingId: Int) {
+                viewModel.clickBookmark(plubbingId)
             }
         })
     }
     private val categorylistAdapter: MainRecommendAdapter by lazy {
         MainRecommendAdapter(object : MainRecommendGatheringAdapter.MainRecommendGatheringDelegate {
-            override fun onClick(plubbingId: Int) {
+            override fun onClickGoRecruitDetail(plubbingId: Int) {
                 goToDetailRecruitment(plubbingId)
+            }
+
+            override fun onClickBookmark(plubbingId: Int) {
+                viewModel.clickBookmark(plubbingId)
             }
         })
     }

@@ -15,7 +15,8 @@ class MainRecommendGridAdapter(private val listener: MainRecommendGridAdapter.Ma
 ){
 
     interface MainRecommendGridDelegate {
-        fun onClick(plubbingId : Int)
+        fun onClickGoRecruitDetail(plubbingId : Int)
+        fun onClickBookmark(plubbingId: Int)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

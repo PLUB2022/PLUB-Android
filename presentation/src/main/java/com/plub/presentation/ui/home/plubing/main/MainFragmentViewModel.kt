@@ -5,6 +5,7 @@ import com.plub.domain.model.vo.home.CategoryListResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.successOrNull
+import com.plub.domain.usecase.BookmarkUsecase
 import com.plub.domain.usecase.GetHobbiesUseCase
 import com.plub.domain.usecase.RecommendationGatheringUsecase
 import com.plub.presentation.base.BaseViewModel
@@ -18,6 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
     val getHobbiesUseCase: GetHobbiesUseCase,
+    val bookmarkUsecase: BookmarkUsecase,
     val recommendationGatheringUsecase: RecommendationGatheringUsecase
 ) : BaseViewModel<MainPageState>(MainPageState()) {
 
@@ -41,11 +43,17 @@ class MainFragmentViewModel @Inject constructor(
                 //inspectUiState(state, ::handleGetCategoriesSuccess)
             }
 
-            recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0)).collect { state ->
+            recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0))
+                .collect { state ->
                     state.successOrNull()?.let { _recommendationData.emit(it) }
                 }
         }
 
+    fun clickBookmark(plubbingId : Int){
+        viewModelScope.launch{
+            bookmarkUsecase.invoke(plubbingId)
+        }
+    }
 //    private fun handleGetCategoriesSuccess(data: CategoryListResponseVo) {
 //        updateUiState { ui ->
 //            ui.copy(
