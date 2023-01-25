@@ -6,16 +6,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
-import com.plub.domain.model.vo.home.categorylistresponsevo.CategoryListDataResponseVo
+import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMainBinding
 import com.plub.presentation.state.MainPageState
-import com.plub.presentation.ui.common.VerticalSpaceDecoration
 import com.plub.presentation.ui.home.adapter.MainCategoryAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGatheringXAdapter
-import com.plub.presentation.ui.sign.hobbies.HobbiesFragment
-import com.plub.presentation.util.dp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -23,29 +20,18 @@ import kotlinx.coroutines.launch
 class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragmentViewModel>(
     FragmentMainBinding::inflate)
 {
-    lateinit var mainCategoryAdapter: MainCategoryAdapter
     lateinit var mainRecommendMeetXAdapter: MainRecommendGatheringXAdapter
-    lateinit var mainRecommendMeetadapter: MainRecommendGatheringAdapter
-    private lateinit var categoriesData : List<CategoriesDataResponseVo>
-
     override val viewModel: MainFragmentViewModel by viewModels()
 
-    private val listAdapter: MainCategoryAdapter by lazy {
+    private val categorylistAdapter: MainCategoryAdapter by lazy {
         MainCategoryAdapter(object : MainCategoryAdapter.Delegate {
-            override val categoryList: List<CategoriesDataResponseVo>
-                get() = viewModel.uiState.value.categoryVo.data.categories
+            //TODO 리스너 달기
+        })
+    }
 
-//            override fun onClickExpand(hobbyId: Int) {
-//                viewModel.onClickExpand(hobbyId)
-//            }
-//
-//            override fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo) {
-//                viewModel.onClickSubHobby(isClicked, selectedHobbyVo)
-//            }
-//
-//            override fun onClickLatePick() {
-//                viewModel.onClickLatePick()
-//            }
+    private val recommendationListAdapter : MainRecommendGatheringAdapter by lazy {
+        MainRecommendGatheringAdapter(object : MainRecommendGatheringAdapter.Delegate {
+            //TODO 리스너 달기
         })
     }
 
@@ -55,7 +41,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
             vm = viewModel
             //TODO 할 일
         }
-        viewModel.isHaveInterest()
+        viewModel.initMainPage()
     }
 
     override fun initStates() {
@@ -63,7 +49,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect{
-                    listAdapter.submitList(arrayListOf(it.categoryVo.data))
+                    categorylistAdapter.submitList(arrayListOf(it.categoryVo.data))
                 }
             }
 
@@ -72,7 +58,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
                     Log.d("테스트 테그", it.plubbings.toString())
                     when(it.plubbings.content.size){
                         0 -> HasNotDataRecycler()
-                        else -> HasDataRecycler()
+                        else -> HasDataRecycler(it)
                     }
                 }
             }
@@ -91,11 +77,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
         findNavController().navigate(action)
     }
 
-    fun HasDataRecycler(){
-        mainRecommendMeetadapter = MainRecommendGatheringAdapter()
+    fun HasDataRecycler(data : RecommendationGatheringResponseVo){
         val mConcatAdapter = ConcatAdapter()
-        mConcatAdapter.addAdapter(listAdapter)
-        mConcatAdapter.addAdapter(mainRecommendMeetadapter)
+        recommendationListAdapter.submitList(arrayListOf(data.plubbings))
+        mConcatAdapter.addAdapter(categorylistAdapter)
+        mConcatAdapter.addAdapter(recommendationListAdapter)
         binding.rvMainPage.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mConcatAdapter
@@ -105,7 +91,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
     fun HasNotDataRecycler(){
         mainRecommendMeetXAdapter = MainRecommendGatheringXAdapter()
         val mConcatAdapter = ConcatAdapter()
-        mConcatAdapter.addAdapter(listAdapter)
+        mConcatAdapter.addAdapter(categorylistAdapter)
         mConcatAdapter.addAdapter(mainRecommendMeetXAdapter)
         binding.rvMainPage.apply {
             layoutManager = LinearLayoutManager(context)

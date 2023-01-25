@@ -18,7 +18,7 @@ class MainCategoryAdapter(private val listener: Delegate) : ListAdapter<Category
     private val subListenerList: MutableSet<HobbiesAdapter.SubListener> = mutableSetOf()
 
     interface Delegate {
-        val categoryList:List<CategoriesDataResponseVo>
+        //val categoryList:List<CategoriesDataResponseVo>
 //        fun onClickExpand(hobbyId: Int)
 //        fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo)
 //        fun onClickLatePick()
