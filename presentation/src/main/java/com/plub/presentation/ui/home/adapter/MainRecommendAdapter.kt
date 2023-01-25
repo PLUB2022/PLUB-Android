@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.GatheringItemVo
-import com.plub.presentation.databinding.LayoutRecyclerRecommendGatheringListItemBinding
+import com.plub.presentation.databinding.IncludeItemRecommendGatheringListItemBinding
 import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendViewHolder
 import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceViewModel
 
@@ -27,7 +27,7 @@ class MainRecommendAdapter() : ListAdapter<GatheringItemVo, RecyclerView.ViewHol
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = LayoutRecyclerRecommendGatheringListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = IncludeItemRecommendGatheringListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MainRecommendViewHolder(binding)
     }
 

@@ -3,148 +3,116 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="158dp"
+        android:layout_height="252dp">
 
         <ImageView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/image_view_recommend_grid"
-            android:layout_width="160dp"
-            android:layout_height="252dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:background="@color/color_c4c4c4"
+            android:background="@color/color_c4c4c4" />
+
+        <ImageButton
+            android:id="@+id/image_btn_bookmark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_unchecked_bookmark_white"
+            android:layout_width="32dp"
+            android:background="@color/transparent"
+            android:layout_height="32dp"
             />
 
         <TextView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/text_view_grid_item_title"
-            android:layout_width="80dp"
-            android:layout_height="19dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="139dp"
-            android:text="스트릿댄스"
+            android:id="@+id/text_view_plubbing_gathering_name"
+            android:layout_width="126dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="129dp"
+            android:gravity="center_vertical"
+            android:text="스트릿 댄스 신사동
+스 파이터"
             android:textSize="16sp"
-            android:gravity="center_vertical"
-            />
-
-        <TextView
-            android:id="@+id/text_view_grid_item_intro"
-            android:layout_width="109dp"
-            android:layout_height="16dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="166dp"
-            android:text="스트릿 댄스를 배우고.."
-            android:textSize="12sp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:lineSpacingExtra="1sp"
-            android:translationY="-0.6sp"
-            android:gravity="top"
-            />
-
-        <View
-            android:layout_width="135.79dp"
-            android:layout_height="1dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="190dp"
-            android:background="@color/white"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="7dp"
-            android:layout_height="7.78dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="200.11dp"
-            android:background="@color/black"
-            />
-
-        <TextView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/text_view_grid_item_day"
-            android:layout_width="9dp"
+            android:layout_width="13dp"
             android:layout_height="12dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="23dp"
             android:layout_alignParentTop="true"
+            android:src="@drawable/ic_location"
+            android:layout_marginTop="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_location"
+            app:layout_constraintStart_toStartOf="@id/text_view_plubbing_gathering_name"
+            app:layout_constraintTop_toTopOf="@id/text_view_location" />
+
+        <TextView
+            android:id="@+id/text_view_location"
+            android:layout_width="wrap_content"
+            android:layout_height="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="33dp"
             android:layout_marginTop="198dp"
-            android:text="토"
-            android:textSize="10sp"
             android:gravity="center_vertical"
-            />
+            android:text="온라인"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="7dp"
-            android:layout_height="7dp"
+            android:layout_width="13dp"
+            android:layout_height="14dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="216.5dp"
-            android:background="@color/black"
-            />
+            android:src="@drawable/ic_people_white"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_people"
+            app:layout_constraintStart_toStartOf="@id/text_view_plubbing_gathering_name"
+            app:layout_constraintTop_toTopOf="@id/text_view_people" />
 
         <TextView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/text_view_grid_item_time"
+            android:id="@+id/text_view_people"
             android:layout_width="wrap_content"
             android:layout_height="12dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="23dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="214dp"
-            android:text="오후 4시"
-            android:textSize="10sp"
+            android:layout_marginLeft="33dp"
+            android:layout_marginTop="4dp"
             android:gravity="center_vertical"
-            />
+            android:text="모집 인원 5명"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_location" />
 
         <ImageView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="7dp"
-            android:layout_height="7dp"
+            android:layout_width="13dp"
+            android:layout_height="14dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="232.25dp"
-            android:background="@color/black"
-            />
+            android:src="@drawable/ic_date"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_date"
+            app:layout_constraintStart_toStartOf="@id/text_view_plubbing_gathering_name"
+            app:layout_constraintTop_toTopOf="@id/text_view_date" />
 
         <TextView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/text_view_grid_item_people"
+            android:id="@+id/text_view_date"
             android:layout_width="wrap_content"
             android:layout_height="12dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="26dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="230dp"
-            android:text="참여인원 8명"
-            android:textSize="10sp"
+            android:layout_marginLeft="33dp"
+            android:layout_marginTop="4dp"
             android:gravity="center_vertical"
-            />
+            android:text="매주 금요일 | 오후 5시 30분"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_people" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 </layout>

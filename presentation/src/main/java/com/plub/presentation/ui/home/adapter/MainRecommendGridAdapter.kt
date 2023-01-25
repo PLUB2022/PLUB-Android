@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.GatheringItemVo
-import com.plub.presentation.databinding.LayoutRecyclerRecommendGatheringGridItemBinding
+import com.plub.presentation.databinding.IncludeItemRecommendGatheringGridBinding
 import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendGridViewHolder
 
 
@@ -25,7 +25,7 @@ class MainRecommendGridAdapter() : ListAdapter<GatheringItemVo, RecyclerView.Vie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = LayoutRecyclerRecommendGatheringGridItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = IncludeItemRecommendGatheringGridBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MainRecommendGridViewHolder(binding)
     }
 
