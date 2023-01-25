@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.home.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,9 +14,13 @@ import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendGridViewHol
 class MainRecommendGridAdapter() : ListAdapter<GatheringItemVo, RecyclerView.ViewHolder>(
     MainGatheringGridDiffCallBack()
 ){
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MainRecommendGridViewHolder -> holder.bind(currentList[position])
+        }
+        holder.itemView.setOnClickListener {
+            Log.d("어뎁터에서 클릭", currentList[position].title)
         }
     }
 

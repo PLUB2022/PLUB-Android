@@ -14,15 +14,30 @@
             android:id="@+id/action_main_to_category_choice"
             app:destination="@id/categoryChoiceFragment"/>
         <action
+            android:id="@+id/action_mainFragment_to_recruitmentFragment"
+            app:destination="@id/recruitmentFragment" />
+        <action
             android:id="@+id/action_main_to_createGathering"
             app:destination="@id/createGatheringFragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/categoryChoiceFragment"
         android:name="com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceFragment"
         android:label="fragment_category_choice"
-        tools:layout="@layout/fragment_category_choice"/>
+        tools:layout="@layout/fragment_category_choice">
+        <action
+            android:id="@+id/action_categoryChoiceFragment_to_recruitmentFragment"
+            app:destination="@id/recruitmentFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recruitmentFragment"
+        android:name="com.plub.presentation.ui.home.plubing.recruitment.RecruitmentFragment"
+        android:label="fragment_recruitment_detail"
+        tools:layout="@layout/fragment_detail_recruitment_plubbing"
+        />
     <fragment
         android:id="@+id/createGatheringFragment"
         android:name="com.plub.presentation.ui.createGathering.CreateGatheringFragment"
