@@ -25,10 +25,38 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/main_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
+                android:layout_height="match_parent"
+                android:background="#F5F3F6"
                 app:contentInsetStart="0dp"
                 app:layout_scrollFlags="scroll|enterAlways">
+
+                <ImageView
+                    android:id="@+id/image_view_plub_logo"
+                    android:layout_gravity="left"
+                    android:layout_marginStart="16dp"
+                    android:layout_width="81.93dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_plub_logo"/>
+
+
+                <ImageButton
+                    android:id="@+id/image_btn_bookmark"
+                    android:layout_gravity="right"
+                    android:layout_marginStart="16dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="15.78dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_bookmark"/>
+
+                <ImageButton
+                    android:id="@+id/image_btn_search"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="16dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_search"/>
 
             </androidx.appcompat.widget.Toolbar>
 
