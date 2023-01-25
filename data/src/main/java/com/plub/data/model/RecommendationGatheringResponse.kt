@@ -1,9 +1,8 @@
 package com.plub.data.model
 
 import com.plub.data.base.DataDto
+import com.plub.data.model.recommendationgatheringdata.RecommendationGatheringData
 
 data class RecommendationGatheringResponse(
-    val data : String,
-    val message : String,
-    val statusCode : Int
+    val plubbings : RecommendationGatheringData,
 ) : DataDto
