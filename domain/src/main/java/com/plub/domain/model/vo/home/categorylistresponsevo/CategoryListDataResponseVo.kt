@@ -1,7 +1,7 @@
-package com.plub.domain.model.vo.home.categorylistresponsevo
-
 import com.plub.domain.base.DomainModel
+import com.plub.domain.model.vo.home.categorylistresponsevo.CategoryListDataResponseVo
 
-data class CategoryListDataResponseVo(
-    val categories : List<CategoriesDataResponseVo>
+data class CategoryListResponseVo(
+    //val statusCode: Int,
+    val data: CategoryListDataResponseVo
 ) : DomainModel()
