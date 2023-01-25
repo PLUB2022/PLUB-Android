@@ -131,4 +131,10 @@ object UseCaseModule {
     fun providesApplicantsRecruitUseCase(repository: ApplicantsRecruitRepository): ApplicantsRecruitUseCase {
         return ApplicantsRecruitUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesReplyApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): ReplyApplicantsRecruitUseCase {
+        return ReplyApplicantsRecruitUseCase(repository)
+    }
 }

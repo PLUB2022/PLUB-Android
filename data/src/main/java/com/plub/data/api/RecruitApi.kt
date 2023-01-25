@@ -2,7 +2,7 @@ package com.plub.data.api
 
 import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitRequest
 import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitResponse
-import com.plub.data.dto.applicantsrecruit.approval.ApprovalApplicantsRecruitResponse
+import com.plub.data.dto.applicantsrecruit.reply.ReplyApplicantsRecruitResponse
 import com.plub.data.util.ApiResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -24,5 +24,12 @@ interface RecruitApi {
         @Path("plubbingId") plubbingID: Int,
         @Path("accountId") accountId: Int,
         @Header("accessToken") accessToken: String
-    ) : Response<ApiResponse<ApprovalApplicantsRecruitResponse>>
+    ) : Response<ApiResponse<ReplyApplicantsRecruitResponse>>
+
+    @POST(Endpoints.RECRUIT.REFUSE_APPLICANTS)
+    suspend fun refuseApplicants(
+        @Path("plubbingId") plubbingID: Int,
+        @Path("accountId") accountId: Int,
+        @Header("accessToken") accessToken: String
+    ) : Response<ApiResponse<ReplyApplicantsRecruitResponse>>
 }
