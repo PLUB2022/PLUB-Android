@@ -23,9 +23,9 @@ class MainRecommendGridViewHolder(
                 imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
             }
             textViewPlubbingGatheringName.text = item.title
-            //textViewLocation.text =
-            //textViewPeople.text = "모집 인원 ${item.maxAccountNum}"
-            //textViewDate.text = "매주 ~
+            textViewLocation.text = item.roadAddress
+            textViewPeople.text = "모집 인원 ${item.curAccountNum + item.remainAccountNum}명"
+            textViewDate.text = "${item.days.toString()} | ${item.time}"
         }
     }
 }

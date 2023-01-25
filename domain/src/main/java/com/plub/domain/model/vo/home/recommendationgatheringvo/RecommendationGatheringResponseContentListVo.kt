@@ -8,7 +8,14 @@ data class RecommendationGatheringResponseContentListVo(
     val title : String,
     val mainImage : String,
     val introduce : String,
+    val time : String,
     val days : List<String>,
+    val address : String,
+    val roadAddress : String,
+    val placeName : String,
+    val placePositionX : Double,
+    val placePositionY : Double,
+    val remainAccountNum: Int,
     val curAccountNum : Int,
     val isBookmarked : Boolean
 ) : DomainModel()
