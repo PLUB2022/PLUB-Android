@@ -8,13 +8,18 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.plub.domain.model.enums.DialogMenuItemType
+import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSearchType
+import com.plub.domain.model.enums.PlubSortType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSearchResultBinding
 import com.plub.presentation.databinding.IncludeTabSearchResultBinding
 import com.plub.presentation.event.SearchResultEvent
+import com.plub.presentation.ui.dialog.SelectMenuBottomSheetDialog
+import com.plub.presentation.ui.dialog.adapter.DialogMenuAdapter
 import com.plub.presentation.ui.home.adapter.PlubCardAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -84,6 +89,7 @@ class SearchResultFragment :
             launch {
                 viewModel.uiState.collect {
                     listAdapter.submitList(it.searchList)
+                    setSortTypeText(it.sortType)
                 }
             }
 
@@ -128,10 +134,19 @@ class SearchResultFragment :
         }
     }
 
+    private fun setSortTypeText(sortType: PlubSortType) {
+        val sortTypeRes = when (sortType) {
+            PlubSortType.POPULAR -> R.string.word_sort_type_popular
+            PlubSortType.NEW -> R.string.word_sort_type_new
+        }
+        binding.textViewSortType.text = getString(sortTypeRes)
+    }
+
     private fun inspectEventFlow(event: SearchResultEvent) {
         when (event) {
             is SearchResultEvent.ScrollToTop -> scrollToTop()
             is SearchResultEvent.HideKeyboard -> hideKeyboard()
+            is SearchResultEvent.ShowSelectSortTypeBottomSheetDialog -> showSelectSortTypeDialog(event.selectedItem)
         }
     }
 
@@ -142,5 +157,17 @@ class SearchResultFragment :
     private fun hideKeyboard() {
         val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.editTextSearch.windowToken, 0)
+    }
+
+    private fun showSelectSortTypeDialog(selectedMenuType: DialogMenuItemType) {
+        val title = getString(R.string.word_sort)
+        SelectMenuBottomSheetDialog.newInstance(
+            DialogMenuType.SORT_TYPE,
+            title,
+            DialogMenuAdapter.VIEW_TYPE_SPINNER,
+            selectedMenuType
+        ) {
+            viewModel.onClickSortMenuItemType(it)
+        }.show(parentFragmentManager, "")
     }
 }

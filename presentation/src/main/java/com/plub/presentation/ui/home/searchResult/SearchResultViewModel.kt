@@ -2,6 +2,7 @@ package com.plub.presentation.ui.home.searchResult
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.error.SearchError
+import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSearchType
 import com.plub.domain.model.enums.PlubSortType
@@ -30,7 +31,6 @@ class SearchResultViewModel @Inject constructor(
         private const val FIRST_PAGE = 0
     }
 
-    private var sortType: PlubSortType = PlubSortType.NEW
     private var searchType: PlubSearchType = PlubSearchType.TITLE
     private var searchedKeyword: String = ""
     private var page: Int = FIRST_PAGE
@@ -43,7 +43,7 @@ class SearchResultViewModel @Inject constructor(
                 viewModelScope.launch {
                     page = FIRST_PAGE
                     searchedKeyword = keyword
-                    fetchSearchPlubRecruit()
+                    fetchSearchPlubRecruit(uiState.value.sortType)
                 }
             }
         }
@@ -53,7 +53,7 @@ class SearchResultViewModel @Inject constructor(
         viewModelScope.launch {
             page = FIRST_PAGE
             searchType = PlubSearchType.valueOf(tabPosition)
-            fetchSearchPlubRecruit()
+            fetchSearchPlubRecruit(uiState.value.sortType)
         }
     }
 
@@ -65,7 +65,7 @@ class SearchResultViewModel @Inject constructor(
                     cardType = cardType
                 )
             }
-            fetchSearchPlubRecruit()
+            fetchSearchPlubRecruit(uiState.value.sortType)
         }
     }
 
@@ -75,7 +75,29 @@ class SearchResultViewModel @Inject constructor(
         }
     }
 
-    private suspend fun fetchSearchPlubRecruit() {
+    fun onClickSortType(sortType: PlubSortType) {
+        val menuItemType = when(sortType) {
+            PlubSortType.POPULAR -> DialogMenuItemType.SORT_TYPE_POPULAR
+            PlubSortType.NEW -> DialogMenuItemType.SORT_TYPE_NEW
+        }
+
+        emitEventFlow(SearchResultEvent.ShowSelectSortTypeBottomSheetDialog(menuItemType))
+    }
+
+    fun onClickSortMenuItemType(item: DialogMenuItemType) {
+        viewModelScope.launch {
+            page = FIRST_PAGE
+            val sortType = when(item) {
+                DialogMenuItemType.SORT_TYPE_NEW -> PlubSortType.NEW
+                DialogMenuItemType.SORT_TYPE_POPULAR -> PlubSortType.POPULAR
+                else -> PlubSortType.NEW
+            }
+            updateSortType(sortType)
+            fetchSearchPlubRecruit(sortType)
+        }
+    }
+
+    private suspend fun fetchSearchPlubRecruit(sortType: PlubSortType) {
         val request = SearchPlubRecruitRequestVo(searchType, searchedKeyword, sortType, page)
         searchPlubRecruitUseCase(request).collect {
             inspectUiState(it, ::searchSuccess) { _, individual ->
@@ -92,7 +114,6 @@ class SearchResultViewModel @Inject constructor(
         updateUiState { ui ->
             ui.copy(
                 searchList = mergedList,
-                totalCount = vo.totalElements,
                 isEmptyViewVisible = mergedList.isEmpty()
             )
         }
@@ -158,6 +179,14 @@ class SearchResultViewModel @Inject constructor(
         updateUiState { uiState ->
             uiState.copy(
                 searchList = list
+            )
+        }
+    }
+
+    private fun updateSortType(sortType: PlubSortType) {
+        updateUiState { uiState ->
+            uiState.copy(
+                sortType = sortType
             )
         }
     }
