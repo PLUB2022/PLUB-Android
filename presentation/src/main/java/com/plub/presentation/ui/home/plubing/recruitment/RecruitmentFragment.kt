@@ -3,15 +3,19 @@ package com.plub.presentation.ui.home.plubing.recruitment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.presentation.R
 import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import com.plub.presentation.state.PageState
+import com.plub.presentation.ui.common.GridSpaceDecoration
+import com.plub.presentation.ui.home.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceFragmentArgs
 import com.plub.presentation.ui.home.plubing.main.MainFragmentArgs
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -65,14 +69,20 @@ class RecruitmentFragment : BaseFragment<FragmentDetailRecruitmentPlubingBinding
             }
             textViewPlubbingName.text = data.plubbingName
             textViewPlubbingTitle.text = data.recruitTitle
-            //textViewLocation.text = data.location
+            textViewLocation.text = data.placeName
             textViewPlubbingGoal.text = "“${data.plubbingGoal}”"
-            //textViewPeople.text = "모집 인원 ${data.maxAccountNum}명"
-            textViewDate.text = "매주~~"
-            imageViewPlubbingImage
-            GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
+            textViewPeople.text = "모집 인원 ${data.curAccountNum+data.remainAccountNum}명"
+            textViewDate.text = "${data.plubbingDays}"
+            //GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
             textViewPlubbingDetailIntro.text = "[ ${data.plubbingName} ] 모임은요...!"
             textViewPlubbingDetail.text = data.recruitIntroduce
+            val detailRecruitCategoryAdapter = DetailRecruitCategoryAdapter()
+            detailRecruitCategoryAdapter.submitList(data.categories)
+            recyclerViewPlubbingHobby.apply {
+                layoutManager = GridLayoutManager(context, 4)
+                addItemDecoration(GridSpaceDecoration(4, 8.px, false))
+                adapter = detailRecruitCategoryAdapter
+            }
             //recycler_view_plubbing_hobby
             //recycler_view_plubbing_people_profile
         }

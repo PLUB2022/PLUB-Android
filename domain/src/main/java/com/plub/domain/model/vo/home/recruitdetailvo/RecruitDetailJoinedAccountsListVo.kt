@@ -4,5 +4,5 @@ import com.plub.domain.base.DomainModel
 
 data class RecruitDetailJoinedAccountsListVo(
     val accountId : Int,
-    val profileImage: String
+    //val profileImage: String
 ) : DomainModel()
