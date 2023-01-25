@@ -2,16 +2,18 @@ package com.plub.presentation.ui.home.plubing
 
 import android.util.Log
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.state.SampleHomeState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMainBinding
-import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.ui.home.adapter.MainCategoryAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGatheringXAdapter
+import com.plub.presentation.ui.sign.onboarding.OnboardingFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -54,17 +56,24 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
             }
 
         }
+        repeatOnStarted(viewLifecycleOwner) {
+            viewModel.goToCategoryChoiceFragment.collect {
+                goToCategoryChoice()
+            }
+        }
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.id.)
-//    }
+    fun goToCategoryChoice(){
+        val action = MainFragmentDirections.actionMainToCategoryChoice()
+        findNavController().navigate(action)
+    }
 
     fun HasDataRecycler(){
 
         val rv_main = binding.root.findViewById<RecyclerView>(R.id.rv_main_page)
         rv_main.setLayoutManager(LinearLayoutManager(context))
         mainCategoryAdapter = MainCategoryAdapter()
+        mainCategoryAdapter.setViewModel(viewModel)
         mainRecommendMeetadapter = MainRecommendGatheringAdapter()
         val mConcatAdapter = ConcatAdapter()
         mConcatAdapter.addAdapter(mainCategoryAdapter)

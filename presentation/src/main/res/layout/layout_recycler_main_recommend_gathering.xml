@@ -2,77 +2,56 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/imv_item_layout"
-            android:layout_width="328dp"
-            android:layout_height="151dp"
+
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/tv_recommend_meet_title"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="38dp"
+            android:text="추천 모임"
+            android:textSize="20dp"
+            android:letterSpacing="-0.01"
+            android:textColor="#000000"
+            android:gravity="center_vertical"
+            />
+
+        <ImageButton
+            app:layout_constraintTop_toTopOf="@id/tv_recommend_meet_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_recommend_meet_title"
+            app:layout_constraintStart_toEndOf="@id/tv_recommend_meet_title"
+            android:id="@+id/btn_setting"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:background="#C4C4C4"
+            android:layout_marginStart="3dp"
+            android:clipToOutline="true"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_recommend_meet_list"
+            app:layout_constraintTop_toBottomOf="@id/tv_recommend_meet_title"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/img_meet"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/tv_meet_title"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="17dp"
-                android:gravity="top"
-                android:letterSpacing="-0.01"
-                android:text="스트릿 댄스 신사동스 파이터"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_meet_oneline_introduce"
-                android:layout_width="wrap_content"
-                android:layout_height="16dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="92dp"
-                android:gravity="top"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
-                android:text="스트릿 댄스를 배우고 싶은 신사동 여러분을 모집합니다."
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:translationY="-0.6sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="132dp"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="116dp"
-                android:background="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>
