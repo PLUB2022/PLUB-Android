@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ReplyApplicantsRecruitRepository {
     suspend fun postApprovalApplicants(requestVo : ReplyApplicantsRecruitRequestVo) : Flow<UiState<ReplyApplicantsRecruitResponseVo>>
+    suspend fun postRefuseApplicants(requestVo : ReplyApplicantsRecruitRequestVo) : Flow<UiState<ReplyApplicantsRecruitResponseVo>>
 }

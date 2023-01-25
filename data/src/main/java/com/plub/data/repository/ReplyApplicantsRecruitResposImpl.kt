@@ -18,4 +18,8 @@ class ReplyApplicantsRecruitResposImpl @Inject constructor(
         return apiLaunch(recruitApi.approvalApplicants(requestVo.plubbingId,requestVo.accountId,requestVo.accessToken), ReplyApplicantsRecruitMapper)
     }
 
+    override suspend fun postRefuseApplicants(requestVo: ReplyApplicantsRecruitRequestVo): Flow<UiState<ReplyApplicantsRecruitResponseVo>> {
+        return apiLaunch(recruitApi.refuseApplicants(requestVo.plubbingId,requestVo.accountId,requestVo.accessToken), ReplyApplicantsRecruitMapper)
+    }
+
 }
