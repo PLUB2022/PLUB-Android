@@ -49,7 +49,7 @@ class MainFragmentViewModel @Inject constructor(
             }
         }
 
-        recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0, fetchPlubAccessTokenUseCase.invoke(Unit).first())).collect{ state->
+        recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0)).collect{ state->
             when(state){
                 is UiState.Loading -> "로딩"
                 is UiState.Success -> Log.d("뷰모델 테스트", "${state.successOrNull()?.toString()}")
@@ -65,5 +65,19 @@ class MainFragmentViewModel @Inject constructor(
         }
     }
 
+//    fun isHaveInterest()  = viewModelScope.launch {
+//        testPostHomeUseCase.invoke(HomePostRequestVo("testcode", false)).collect { state ->
+//            when(state){
+//                is UiState.Loading -> updateUiState { uiState ->
+//                    uiState.copy("로딩")
+//                }
+//                is UiState.Success -> updateUiState { uiState ->
+//                    uiState.copy("성공 + ${state.data.toString()}")
+//                }
+//                is UiState.Error -> updateUiState { uiState ->
+//                    uiState.copy("실패 + ${state.error.toString()}")
+//                }
+//            }
+//        }
 
 }

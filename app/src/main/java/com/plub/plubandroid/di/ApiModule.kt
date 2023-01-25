@@ -69,7 +69,7 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideBrwoseApi(@NormalRetrofit retrofit: Retrofit): BrowseApi {
+    fun provideBrwoseApi(@AuthRetrofit retrofit: Retrofit): BrowseApi {
         return retrofit.create(BrowseApi::class.java)
     }
 
@@ -81,7 +81,7 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideRecruiApi(@NormalRetrofit retrofit: Retrofit): RecruitApi {
+    fun provideRecruiApi(@AuthRetrofit retrofit: Retrofit): RecruitApi {
         return retrofit.create(RecruitApi::class.java)
     }
 }
