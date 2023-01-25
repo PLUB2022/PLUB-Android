@@ -32,13 +32,11 @@ object Endpoints {
         const val KEYWORD_URL = "/v2/local/search/keyword"
     }
 
-    object GATHERING {
-        const val CREATE_GATHERING = "/api/plubbings"
-    }
-
     object PLUBBING {
         private const val PLUBBING_URL = "/api/plubbings"
+        const val CREATE = PLUBBING_URL
         const val RECRUIT = "$PLUBBING_URL/recruit"
         const val BOOKMARK = "$PLUBBING_URL/{plubbingId}/recruit/bookmarks"
+        const val BOOKMARK_ME = "$PLUBBING_URL/recruit/bookmarks/me"
     }
 }
