@@ -11,7 +11,7 @@ import com.plub.presentation.R
 class MainRecommendGatheringXAdapter : RecyclerView.Adapter<MainRecommendGatheringXAdapter.ViewHolder?>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.include_item_layout_main_recommend_gathering_no_choice, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.include_item_layout_main_recommend_gathering_no_chocie, parent, false)
         return ViewHolder(view)
     }
 
@@ -20,7 +20,7 @@ class MainRecommendGatheringXAdapter : RecyclerView.Adapter<MainRecommendGatheri
 
 
         init {
-            addSection = itemView.findViewById(R.id.group_407)
+            addSection = itemView.findViewById(R.id.constraint_layout_register_interest)
 
             addSection.setOnClickListener {
                 Log.d("TAG", "관심사 추가 클릭")
