@@ -51,4 +51,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesRecommendationGatheringRepository(recommendationGatheringResposImpl: RecommendationGatheringResposImpl): RecommendationGatheringRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailResposImpl): RecruitDetailRepository
 }

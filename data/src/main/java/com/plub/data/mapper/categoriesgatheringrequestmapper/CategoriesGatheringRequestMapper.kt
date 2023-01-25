@@ -1,9 +1,7 @@
-package com.plub.data.mapper.CategoriesGatheringRequestMapper
+package com.plub.data.mapper.categoriesgatheringrequestmapper
 
-import com.plub.data.model.CategoriesGatheringRequest
-import com.plub.data.model.recommendationgatheringdata.RecommendationGatheringRequest
+import com.plub.data.model.categoriesgathering.CategoriesGatheringRequest
 import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
-import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 
 object CategoriesGatheringRequestMapper {
     fun mapDtoToModel(type: CategoriesGatheringRequestVo?): CategoriesGatheringRequest {

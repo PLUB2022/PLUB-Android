@@ -119,4 +119,10 @@ object UseCaseModule {
     fun providesRecommendationGatheringUseCase(repository: RecommendationGatheringRepository): RecommendationGatheringUsecase {
         return RecommendationGatheringUsecase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesRecruitDetailUseCase(repository: RecruitDetailRepository): RecruitDetailUseCase {
+        return RecruitDetailUseCase(repository)
+    }
 }

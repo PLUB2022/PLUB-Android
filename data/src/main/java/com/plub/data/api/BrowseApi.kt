@@ -1,6 +1,6 @@
 package com.plub.data.api
 
-import com.plub.data.model.RecommendationGatheringResponse
+import com.plub.data.model.recommendationgatheringdata.RecommendationGatheringResponse
 import com.plub.data.model.categorylistdata.CategoryListData
 import com.plub.data.util.ApiResponse
 import retrofit2.Response
@@ -22,6 +22,13 @@ interface BrowseApi {
         @Query("pageNum") pageNum : Int,
         @Header("accessToken") accessToken : String
     ) : Response<ApiResponse<RecommendationGatheringResponse>>
+
+    @GET("/api/plubbings/{plubbingId}/recruit")
+    suspend fun browseRecruitDetail(
+        @Path("plubbingId") plubbingId : Int,
+        @Header("accessToken") accessToken : String
+    ) : Response<ApiResponse<RecruitDetailResponse>>
+
 
     @GET("/api/categories")
     suspend fun browseCategoryList() : Response<ApiResponse<CategoryListData>>

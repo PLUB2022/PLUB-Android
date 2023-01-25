@@ -1,4 +1,4 @@
-package com.plub.data.model
+package com.plub.data.model.categoriesgathering
 
 import com.plub.data.base.DataDto
 
