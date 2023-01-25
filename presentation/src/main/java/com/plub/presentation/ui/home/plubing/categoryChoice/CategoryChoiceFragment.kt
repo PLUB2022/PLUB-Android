@@ -30,7 +30,7 @@ class CategoryChoiceFragment : BaseFragment<FragmentCategoryChoiceBinding, Sampl
 
         binding.apply {
             vm = viewModel
-            viewModel.isHaveInterest()
+            viewModel.fetchRecommendationGatheringData()
             //TODO 할 일
         }
     }

@@ -8,7 +8,7 @@
         android:layout_width="74dp"
         android:layout_height="90dp">
         <ImageView
-            android:id="@+id/icon_category"
+            android:id="@+id/image_view_category"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_alignParentLeft="true"
@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_title_category"
+            android:id="@+id/text_view_title_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -31,8 +31,8 @@
             android:text="테스트"
             android:textColor="#000000"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/icon_category"
-            app:layout_constraintStart_toStartOf="@id/icon_category"
-            app:layout_constraintTop_toBottomOf="@id/icon_category" />
+            app:layout_constraintEnd_toEndOf="@id/image_view_category"
+            app:layout_constraintStart_toStartOf="@id/image_view_category"
+            app:layout_constraintTop_toBottomOf="@id/image_view_category" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

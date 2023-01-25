@@ -11,7 +11,7 @@
         android:layout_height="122dp">
 
         <ImageButton
-            android:id="@+id/btn_back"
+            android:id="@+id/image_btn_back"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentLeft="true"
@@ -34,7 +34,6 @@
             android:gravity="top"
             android:letterSpacing="-0.01"
             android:text="취미모임 관심사 등록"
-            android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +49,6 @@
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="1sp"
             android:text="PLUB에게 당신의 관심사를 알려주세요. 선택하신 관심사를 기반으로 좋아하실만한 모임을 추천해 드려요!"
-            android:textColor="#000000"
             android:textSize="14sp"
             android:translationY="-0.75sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +58,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_interests_category"
+        android:id="@+id/recycler_view_interests_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="165dp"
@@ -71,7 +69,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_complete_choice"
+        android:id="@+id/button_complete_choice"
         android:layout_width="328dp"
         android:layout_height="48dp"
         android:layout_alignParentLeft="true"

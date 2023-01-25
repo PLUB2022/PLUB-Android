@@ -24,7 +24,7 @@
             />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_main_category"
+            android:id="@+id/recycler_view_main_category"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

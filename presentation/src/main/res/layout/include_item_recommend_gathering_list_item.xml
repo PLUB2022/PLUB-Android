@@ -7,25 +7,25 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/imv_item_layout"
+            android:id="@+id/constraint_layout_item_layout"
             android:layout_width="327dp"
             android:layout_height="176dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:background="#C4C4C4"
+            android:background="@color/color_c4c4c4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/img_meet"
+                android:id="@+id/image_view_meet"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
             <TextView
-                android:id="@+id/tv_meet_title"
+                android:id="@+id/text_view_meet_title"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:layout_alignParentLeft="true"
@@ -41,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_meet_oneline_introduce"
+                android:id="@+id/text_view_meet_oneline_introduce"
                 android:layout_width="wrap_content"
                 android:layout_height="16dp"
                 android:layout_alignParentLeft="true"
@@ -64,7 +64,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/ic_unchecked_bookmark_white"
+                android:src="@drawable/ic_unchecked_bookmark"
                 android:layout_width="32dp"
                 android:background="@color/transparent"
                 android:layout_height="32dp"
@@ -78,7 +78,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/text_view_location"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/ic_location_white"
+                android:src="@drawable/ic_location"
                 />
 
             <TextView
@@ -104,7 +104,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/text_view_location"
                 app:layout_constraintStart_toEndOf="@id/text_view_location"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/ic_people_white"
+                android:src="@drawable/ic_people"
                 />
 
             <TextView
