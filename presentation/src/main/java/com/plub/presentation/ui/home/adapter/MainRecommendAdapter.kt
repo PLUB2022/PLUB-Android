@@ -26,7 +26,7 @@ class MainRecommendAdapter(private val listener: MainRecommendGatheringAdapter.M
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = IncludeItemRecommendGatheringListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MainRecommendListViewHolder(binding)
+        return MainRecommendListViewHolder(binding, listener)
     }
 
 

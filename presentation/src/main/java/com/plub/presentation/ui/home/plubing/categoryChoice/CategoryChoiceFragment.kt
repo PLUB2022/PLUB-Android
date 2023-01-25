@@ -32,6 +32,9 @@ class CategoryChoiceFragment :
     private val categorylistAdapter: MainRecommendAdapter by lazy {
         MainRecommendAdapter(object : MainRecommendGatheringAdapter.MainRecommendGatheringDelegate {
             //TODO 리스너 달기
+            override fun onClick(plubbingId: Int) {
+                //TODO
+            }
         })
     }
 
@@ -72,13 +75,6 @@ class CategoryChoiceFragment :
                     }
                     changeListAndGridButton(it.listOrGrid)
                 }
-            }
-
-            launch {
-                viewModel.goToDetailRecruitmentFragment.collect {
-                    goToDetailRecruitment()
-                }
-
             }
         }
     }

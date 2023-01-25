@@ -17,18 +17,10 @@ import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 class MainRecommendGatheringAdapter(private val listener: MainRecommendGatheringDelegate) : ListAdapter<RecommendationGatheringDataResponseVo, RecyclerView.ViewHolder>(
     MainRecommendGatheringDiffCallBack()
 ){
-    private val subListenerList: MutableSet<HobbiesAdapter.SubListener> = mutableSetOf()
-
     interface MainRecommendGatheringDelegate {
-//        val categoryList:List<CategoriesDataResponseVo>
-//        fun onClickExpand(hobbyId: Int)
-//        fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo)
-//        fun onClickLatePick()
+        fun onClick(plubbingId : Int)
     }
 
-    interface SubListener {
-        fun onNotifySubItemChange(parentId: Int, subId: Int)
-    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

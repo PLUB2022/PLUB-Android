@@ -23,7 +23,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
 
     private val mainCategoryAdapter: MainCategoryAdapter by lazy {
         MainCategoryAdapter(object : MainCategoryAdapter.MainCategoryDelegate {
-            //TODO 리스너 달기
             override fun onClick(categoryId: Int) {
                 goToCategoryChoice(categoryId)
             }
@@ -32,7 +31,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
 
     private val recommendationListAdapter : MainRecommendGatheringAdapter by lazy {
         MainRecommendGatheringAdapter(object : MainRecommendGatheringAdapter.MainRecommendGatheringDelegate {
-            //TODO 리스너 달기
+            override fun onClick(plubbingId: Int) {
+                goToRecruitmentFragment(plubbingId)
+            }
         })
     }
 
@@ -74,6 +75,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
 
     fun goToCategoryChoice(categoryId : Int){
         val action = MainFragmentDirections.actionMainToCategoryChoice(categoryId.toString())
+        findNavController().navigate(action)
+    }
+
+    fun goToRecruitmentFragment(plubbingId : Int){
+        val action = MainFragmentDirections.actionMainFragmentToRecruitmentFragment(plubbingId.toString())
         findNavController().navigate(action)
     }
 
