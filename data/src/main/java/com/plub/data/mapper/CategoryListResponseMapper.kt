@@ -1,7 +1,7 @@
 package com.plub.data.mapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.model.categorylistdata.CategoryListData
+import com.plub.data.dto.categorylistdata.CategoryListData
 import com.plub.domain.model.vo.home.CategoryListResponseVo
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoryListDataResponseVo
 

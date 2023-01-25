@@ -1,11 +1,10 @@
 package com.plub.presentation.ui.home.plubing.recruitment
 
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.state.SampleHomeState
 import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.SampleHomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow

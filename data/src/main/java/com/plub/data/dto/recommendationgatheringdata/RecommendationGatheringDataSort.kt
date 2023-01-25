@@ -1,4 +1,4 @@
-package com.plub.data.model.recommendationgatheringdata
+package com.plub.data.dto.recommendationgatheringdata
 
 import com.plub.data.base.DataDto
 

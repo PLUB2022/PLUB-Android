@@ -35,4 +35,14 @@ object Endpoints {
     object GATHERING {
         const val CREATE_GATHERING = "/api/plubbings"
     }
+
+
+    object PLUBBING {
+        private const val PLUBBING_URL = "/api/plubbings"
+    }
+
+    object RECRUIT {
+        private const val RECRUIT_URL = "/api/plubbings/{plubbingId}/recruit"
+        const val APPLICANTS_RECRUIT = "$RECRUIT_URL/applicants"
+    }
 }

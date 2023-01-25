@@ -1,8 +1,8 @@
 package com.plub.data.mapper.recommendationgatheringmapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.model.categorylistdata.CategoriesData
-import com.plub.data.model.recommendationgatheringdata.RecommendationGatheringDataContentList
+import com.plub.data.dto.categorylistdata.CategoriesData
+import com.plub.data.dto.recommendationgatheringdata.RecommendationGatheringDataContentList
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseContentListVo
 

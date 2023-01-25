@@ -1,4 +1,4 @@
-package com.plub.data.model.recruitdetail
+package com.plub.data.dto.recruitdetail
 
 import com.plub.data.base.DataDto
 

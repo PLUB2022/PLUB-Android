@@ -1,4 +1,4 @@
-package com.plub.data.model.categorylistdata
+package com.plub.data.dto.categorylistdata
 
 import com.plub.data.base.DataDto
 

@@ -4,11 +4,11 @@ package com.plub.presentation.ui.home.plubing.categoryChoice
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
-import com.plub.domain.model.state.SampleHomeState
 import com.plub.domain.model.vo.home.HomePostRequestVo
 import com.plub.domain.successOrNull
 import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.SampleHomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*

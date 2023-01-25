@@ -17,8 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFragmentViewModel>(FragmentMainBinding::inflate
-)  {
+class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFragmentViewModel>(FragmentMainBinding::inflate)  {
     lateinit var mainCategoryAdapter: MainCategoryAdapter
     lateinit var mainRecommendMeetXAdapter: MainRecommendGatheringXAdapter
     lateinit var mainRecommendMeetadapter: MainRecommendGatheringAdapter

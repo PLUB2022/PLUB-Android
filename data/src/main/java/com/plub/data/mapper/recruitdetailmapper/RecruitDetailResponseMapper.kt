@@ -1,8 +1,8 @@
 package com.plub.data.mapper.recruitdetailmapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.model.recruitdetail.RecruitDetailJoinedAccountsList
-import com.plub.data.model.recruitdetail.RecruitDetailResponse
+import com.plub.data.dto.recruitdetail.RecruitDetailJoinedAccountsList
+import com.plub.data.dto.recruitdetail.RecruitDetailResponse
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 

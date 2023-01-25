@@ -1,6 +1,6 @@
 package com.plub.data.mapper.categoriesgatheringrequestmapper
 
-import com.plub.data.model.categoriesgathering.CategoriesGatheringRequest
+import com.plub.data.dto.categoriesgathering.CategoriesGatheringRequest
 import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
 
 object CategoriesGatheringRequestMapper {
