@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.home.plubing.recruitment.RecruitmentViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/text_view_plubbing_title"
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="36dp"
+                android:gravity="center_vertical"
+                android:text="책 읽고 얘기해요!"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="75dp"
+                android:background="@color/color_c4c4c4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/text_view_plubbing_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="8dp"
+                    android:lineSpacingExtra="1sp"
+                    android:text="독서"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/text_view_plubbing_gathering_name"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="220dp"
+                android:layout_marginTop="73dp"
+                android:lineSpacingExtra="4sp"
+                android:text="요란한 한줄"
+                android:textSize="14sp"
+                android:translationY="-2.1sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_plubbing_gathering_start_day"
+                android:layout_width="45dp"
+                android:layout_height="16dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="291dp"
+                android:layout_marginTop="77dp"
+
+                android:lineSpacingExtra="1sp"
+                android:text="22.07.05"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_plubbing_gathering_goal"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="123dp"
+                android:text="2주에 한 권씩"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_plubbing_gathering_intro_start"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="180dp"
+                android:text="[ 요란한 한줄 ] 모임은요...!"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_view_plubbing_gathering_intro_imgae"
+                android:layout_width="312dp"
+                android:layout_height="234dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="210dp"
+                android:background="@color/color_c4c4c4"
+                android:clipToOutline="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_plubbing_gathering_intro"
+                android:layout_width="312dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="460dp"
+                android:lineSpacingExtra="4sp"
+                android:text="~~"
+                android:textSize="14sp"
+                android:translationY="-2.1sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="69dp"
+                android:layout_height="23dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="32dp"
+                android:lineSpacingExtra="2sp"
+                android:text="With Us!"
+                android:textSize="18sp"
+                android:translationY="-0.9sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_plubbing_gathering_intro" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_plubbing_gathering_join_people"
+                android:layout_width="312dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="62dp"
+                android:background="#00000000"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_plubbing_gathering_intro" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_see_applicant_btn"
+                android:layout_width="150dp"
+                android:layout_height="46dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="80dp"
+                android:text="지원자 확인하기"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_end_recruitment_plubbing"
+                app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_gathering_join_people" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_end_recruitment_plubbing"
+                android:layout_width="150dp"
+                android:layout_height="46dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="80dp"
+                android:text="모임 끝내기"
+                android:textSize="14sp"
+                android:onClick="@{() -> vm.goToCategoryChoice()}"
+                app:layout_constraintStart_toEndOf="@id/btn_see_applicant_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_gathering_join_people" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

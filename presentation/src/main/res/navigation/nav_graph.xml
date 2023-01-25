@@ -48,7 +48,7 @@
         android:label="fragment_apply_plubbing"
         tools:layout="@layout/fragment_apply_plubbing">
     </fragment>
-    
+
     <fragment
         android:id="@+id/createGatheringFragment"
         android:name="com.plub.presentation.ui.createGathering.CreateGatheringFragment"
