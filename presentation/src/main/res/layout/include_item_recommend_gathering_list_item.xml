@@ -64,7 +64,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/ic_unchecked_bookmark"
+                android:src="@drawable/ic_unchecked_bookmark_white"
                 android:layout_width="32dp"
                 android:background="@color/transparent"
                 android:layout_height="32dp"
@@ -78,7 +78,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/text_view_location"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/ic_location"
+                android:src="@drawable/ic_location_white"
                 />
 
             <TextView
@@ -104,7 +104,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/text_view_location"
                 app:layout_constraintStart_toEndOf="@id/text_view_location"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/ic_people"
+                android:src="@drawable/ic_people_white"
                 />
 
             <TextView

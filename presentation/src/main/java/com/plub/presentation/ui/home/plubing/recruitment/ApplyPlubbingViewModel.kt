@@ -3,6 +3,7 @@ package com.plub.presentation.ui.home.plubing.recruitment
 
 import com.plub.domain.usecase.TestPostHomeUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.PageState
 import com.plub.presentation.state.SampleHomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -10,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ApplyPlubbingViewModel @Inject constructor(
     val testPostHomeUseCase: TestPostHomeUseCase
-) : BaseViewModel<SampleHomeState>(SampleHomeState()) {
+) : BaseViewModel<PageState.Default>(PageState.Default) {
 
 
 //    fun isHaveInterest()  = viewModelScope.launch {

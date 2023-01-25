@@ -3,12 +3,13 @@ package com.plub.presentation.ui.home.plubing.recruitment
 import androidx.fragment.app.viewModels
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentApplyPlubbingBinding
+import com.plub.presentation.state.PageState
 import com.plub.presentation.state.SampleHomeState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, SampleHomeState, ApplyPlubbingViewModel>(
+class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, PageState.Default, ApplyPlubbingViewModel>(
     FragmentApplyPlubbingBinding::inflate
 ) {
     override val viewModel: ApplyPlubbingViewModel by viewModels()

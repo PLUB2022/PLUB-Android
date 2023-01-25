@@ -1,12 +1,12 @@
 package com.plub.data.repository
 
-import RecommendationGatheringResponseVo
 import com.plub.data.api.BrowseApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.recommendationgatheringmapper.RecommendationGatheringRequestMapper
 import com.plub.data.mapper.recommendationgatheringmapper.RecommendationGatheringResponseMapper
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
+import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.repository.RecommendationGatheringRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
