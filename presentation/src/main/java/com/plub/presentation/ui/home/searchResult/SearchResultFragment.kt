@@ -35,7 +35,7 @@ class SearchResultFragment :
     private val listAdapter: PlubCardAdapter by lazy {
         PlubCardAdapter(object : PlubCardAdapter.Delegate {
             override fun onClickBookmark(id: Int) {
-
+                viewModel.onClickBookmark(id)
             }
 
             override fun onClickPlubCard(id: Int) {

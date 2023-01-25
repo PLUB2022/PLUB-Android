@@ -5,12 +5,14 @@ import com.plub.domain.error.SearchError
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSearchType
 import com.plub.domain.model.enums.PlubSortType
+import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.home.search.RecentSearchVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.model.vo.search.SearchPlubRecruitRequestVo
 import com.plub.domain.usecase.GetSearchPlubRecruitUseCase
 import com.plub.domain.usecase.InsertRecentSearchUseCase
+import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.SearchResultEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +23,7 @@ import javax.inject.Inject
 class SearchResultViewModel @Inject constructor(
     val searchPlubRecruitUseCase: GetSearchPlubRecruitUseCase,
     val insertRecentSearchUseCase: InsertRecentSearchUseCase,
+    val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
 ) : BaseViewModel<SearchResultPageState>(SearchResultPageState()) {
 
     companion object {
@@ -63,6 +66,12 @@ class SearchResultViewModel @Inject constructor(
                 )
             }
             fetchSearchPlubRecruit()
+        }
+    }
+
+    fun onClickBookmark(id: Int) {
+        viewModelScope.launch {
+            postBookmark(id)
         }
     }
 
@@ -119,12 +128,37 @@ class SearchResultViewModel @Inject constructor(
         }
     }
 
-    private suspend fun insertRecentSearch(text: String, insertSuccess:() -> Unit) {
+    private suspend fun insertRecentSearch(text: String, insertSuccess: () -> Unit) {
         val request = RecentSearchVo(search = text, saveTime = System.currentTimeMillis())
         insertRecentSearchUseCase(request).collect {
             inspectUiState(it, {
                 insertSuccess.invoke()
             })
+        }
+    }
+
+    private suspend fun postBookmark(id: Int) {
+        postBookmarkPlubRecruitUseCase(id).collect {
+            inspectUiState(it, ::postBookmarkSuccess)
+        }
+    }
+
+    private fun postBookmarkSuccess(vo: PlubBookmarkResponseVo) {
+        val list = uiState.value.searchList
+        val newList = list.map {
+            val bookmark = if (it.id == vo.id) vo.isBookmarked else it.isBookmarked
+            it.copy(
+                isBookmarked = bookmark
+            )
+        }
+        updateSearchList(newList)
+    }
+
+    private fun updateSearchList(list: List<PlubCardVo>) {
+        updateUiState { uiState ->
+            uiState.copy(
+                searchList = list
+            )
         }
     }
 }
