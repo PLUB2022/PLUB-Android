@@ -36,6 +36,9 @@ class RecruitmentFragment :
 
         })
     }
+    private val detailRecruitCategoryAdapter : DetailRecruitCategoryAdapter by lazy {
+        DetailRecruitCategoryAdapter()
+    }
     override val viewModel: RecruitmentViewModel by viewModels()
 
     override fun initView() {
@@ -79,7 +82,9 @@ class RecruitmentFragment :
     }
 
     fun initDetailPage(data: RecruitDetailResponseVo) {
+        var bookmarkFlag = data.isBookmarked
         binding.apply {
+            constraintLayoutTop.bringToFront()
             if (data.isBookmarked) {
                 imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
             }
@@ -92,17 +97,29 @@ class RecruitmentFragment :
             //GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
             textViewPlubbingDetailIntro.text = "[ ${data.plubbingName} ] 모임은요...!"
             textViewPlubbingDetail.text = data.recruitIntroduce
-            val detailRecruitCategoryAdapter = DetailRecruitCategoryAdapter()
+
             detailRecruitCategoryAdapter.submitList(data.categories)
             recyclerViewPlubbingHobby.apply {
                 layoutManager = GridLayoutManager(context, 4)
                 addItemDecoration(GridSpaceDecoration(4, 8.px, false))
                 adapter = detailRecruitCategoryAdapter
             }
+
             detailRecruitProfileAdapter.submitList(data.joinedAccounts)
             recyclerViewPlubbingPeopleProfile.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = detailRecruitProfileAdapter
+            }
+
+            imageBtnBookmark.setOnClickListener{
+                if(bookmarkFlag){
+                    imageBtnBookmark.setImageResource(R.drawable.ic_bookmark)
+                }
+                else{
+                    imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
+                }
+                bookmarkFlag = !bookmarkFlag
+                viewModel.clickBookmark(returnFragmentArgs().toInt())
             }
         }
     }
