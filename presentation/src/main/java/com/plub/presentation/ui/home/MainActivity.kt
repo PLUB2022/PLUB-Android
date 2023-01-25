@@ -4,24 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import androidx.activity.viewModels
-import androidx.core.view.indices
-import androidx.core.view.size
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.plub.domain.model.enums.BottomNavigationItemType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseActivity
 import com.plub.presentation.databinding.ActivityMainBinding
-import com.plub.presentation.event.LoginEvent
 import com.plub.presentation.event.MainEvent
 import com.plub.presentation.state.PageState
-import com.plub.presentation.ui.home.plubing.MainViewModel
-import com.plub.presentation.ui.sign.login.LoginFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

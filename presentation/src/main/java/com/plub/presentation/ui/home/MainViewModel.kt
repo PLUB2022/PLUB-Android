@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing
+package com.plub.presentation.ui.home
 
 import android.view.MenuItem
 import com.plub.domain.model.enums.BottomNavigationItemType

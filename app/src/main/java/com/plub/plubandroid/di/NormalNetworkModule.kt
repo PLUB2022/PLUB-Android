@@ -90,15 +90,4 @@ object NormalNetworkModule {
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
-
-    @Singleton
-    @Provides
-    fun providePostHomeApi(@NormalRetrofit retrofit: Retrofit): PostHomeApi {
-        return retrofit.create(PostHomeApi::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun provideBrowseApi(@NormalRetrofit retrofit: Retrofit): BrowseApi {
-        return retrofit.create(BrowseApi::class.java)
 }

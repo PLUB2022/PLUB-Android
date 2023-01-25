@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.SampleCategoryVo
-import com.plub.presentation.ui.home.plubing.MainFragmentViewModel
+import com.plub.presentation.ui.home.plubing.main.MainFragmentViewModel
 
 
 class MainCategoryAdapter : RecyclerView.Adapter<MainCategoryAdapter.ViewHolder?>() {

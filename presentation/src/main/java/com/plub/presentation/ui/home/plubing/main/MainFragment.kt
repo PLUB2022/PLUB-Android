@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing
+package com.plub.presentation.ui.home.plubing.main
 
 import android.util.Log
 import androidx.fragment.app.viewModels
@@ -34,8 +34,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
         }
     }
 
-    override fun initState() {
-        //TODO("Not yet implemented")
+    override fun initStates() {
+        super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.testHomeData.collect {

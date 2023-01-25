@@ -24,8 +24,8 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, SampleH
         }
     }
 
-    override fun initState() {
-        //TODO("Not yet implemented")
+    override fun initStates() {
+        super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 //TODO 할일

@@ -2,6 +2,7 @@ package com.plub.data.api
 
 import com.plub.data.model.recommendationgatheringdata.RecommendationGatheringResponse
 import com.plub.data.model.categorylistdata.CategoryListData
+import com.plub.data.model.recruitdetail.RecruitDetailResponse
 import com.plub.data.util.ApiResponse
 import retrofit2.Response
 import retrofit2.http.GET

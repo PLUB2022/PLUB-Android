@@ -24,8 +24,8 @@ class RecruitmentFragment : BaseFragment<FragmentDetailRecruitmentPlubingBinding
         }
     }
 
-    override fun initState() {
-        //TODO("Not yet implemented")
+    override fun initStates() {
+        super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.goToApplyFragment.collect{

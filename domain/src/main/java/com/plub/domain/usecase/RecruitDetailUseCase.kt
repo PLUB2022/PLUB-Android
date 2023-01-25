@@ -11,7 +11,7 @@ import javax.inject.Inject
 class RecruitDetailUseCase@Inject constructor(
     private val recruitDetailRepository: RecruitDetailRepository
 ) : UseCase<RecruitDetailRequestVo, Flow<UiState<RecruitDetailResponseVo>>>() {
-    override fun invoke(request: RecruitDetailRequestVo): Flow<UiState<RecruitDetailResponseVo>> {
+    override suspend fun invoke(request: RecruitDetailRequestVo): Flow<UiState<RecruitDetailResponseVo>> {
         return recruitDetailRepository.getRecruitDetail(request)
     }
 }

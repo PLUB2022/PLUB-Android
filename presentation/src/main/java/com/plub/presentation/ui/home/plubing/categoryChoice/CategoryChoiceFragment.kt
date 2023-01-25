@@ -12,7 +12,6 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
 import com.plub.presentation.ui.home.adapter.MainRecommendAdapter
-import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
 import com.plub.presentation.ui.home.adapter.MainRecommendGridAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -35,8 +34,8 @@ class CategoryChoiceFragment : BaseFragment<FragmentCategoryChoiceBinding, Sampl
         }
     }
 
-    override fun initState() {
-        //TODO("Not yet implemented")
+    override fun initStates() {
+        super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.testHomeData.collect {

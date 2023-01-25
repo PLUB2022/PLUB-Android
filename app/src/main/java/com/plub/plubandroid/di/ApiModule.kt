@@ -66,4 +66,16 @@ object ApiModule {
     fun provideAccountApi(@AuthRetrofit retrofit: Retrofit): AccountApi {
         return retrofit.create(AccountApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideBrwoseApi(@NormalRetrofit retrofit: Retrofit): BrowseApi {
+        return retrofit.create(BrowseApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePostApi(@NormalRetrofit retrofit: Retrofit): PostHomeApi {
+        return retrofit.create(PostHomeApi::class.java)
+    }
 }

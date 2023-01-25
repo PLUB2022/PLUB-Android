@@ -2,19 +2,14 @@ package com.plub.presentation.ui.home.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.SampleCategoryVo
-import com.plub.presentation.R
 import com.plub.presentation.databinding.ItemMainCategoryBinding
 import com.plub.presentation.ui.home.adapter.viewholder.MainCategoryViewHolder
-import com.plub.presentation.ui.home.plubing.MainFragmentViewModel
-import com.plub.presentation.ui.sign.onboarding.adapter.OnboardingItemViewHolder
+import com.plub.presentation.ui.home.plubing.main.MainFragmentViewModel
 
 
 class MainCategoryItemAdapter(private val viewModel: MainFragmentViewModel) : ListAdapter<SampleCategoryVo, RecyclerView.ViewHolder>(
