@@ -22,9 +22,6 @@ class MainRecommendAdapter(private val listener: MainRecommendGatheringAdapter.D
         when (holder) {
             is MainRecommendListViewHolder -> holder.bind(currentList[position])
         }
-        holder.itemView.setOnClickListener {
-            Log.d("어뎁터에서 클릭", currentList[position].toString())
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
