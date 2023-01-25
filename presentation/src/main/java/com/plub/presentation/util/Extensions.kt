@@ -1,11 +1,15 @@
 package com.plub.presentation.util
 
+import android.content.Intent
 import android.content.res.Resources
+import android.os.Build
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
 import com.plub.presentation.ui.createGathering.question.CreateGatheringQuestion
+import java.io.Serializable
 
 val Int.dp: Int
     get() = (this / Resources.getSystem().displayMetrics.density).toInt()
@@ -72,4 +76,14 @@ fun List<CreateGatheringQuestion>.deepCopy(): List<CreateGatheringQuestion> {
         temp.add(it.copy())
     }
     return temp
+}
+
+inline fun <reified T : Serializable> Bundle.serializable(key: String): T? = when {
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getSerializable(key, T::class.java)
+    else -> @Suppress("DEPRECATION") getSerializable(key) as? T
+}
+
+inline fun <reified T : Serializable> Intent.serializable(key: String): T? = when {
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getSerializableExtra(key, T::class.java)
+    else -> @Suppress("DEPRECATION") getSerializableExtra(key) as? T
 }
