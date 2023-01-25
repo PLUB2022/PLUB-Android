@@ -18,7 +18,7 @@ class MainRecommendGridViewHolder(
                 listener.onClick(item.plubbingId)
             }
 
-            GlideUtil.loadImage(root.context, item.mainImage, imageViewRecommendGrid)
+            //GlideUtil.loadImage(root.context, item.mainImage, imageViewRecommendGrid)
             if(item.isBookmarked){
                 imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
             }

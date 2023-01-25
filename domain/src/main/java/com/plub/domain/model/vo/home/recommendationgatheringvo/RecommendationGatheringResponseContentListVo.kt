@@ -6,7 +6,7 @@ data class RecommendationGatheringResponseContentListVo(
     val plubbingId : Int,
     val name : String,
     val title : String,
-    val mainImage : String,
+    //val mainImage : String,
     val introduce : String,
     val time : String,
     val days : List<String>,
