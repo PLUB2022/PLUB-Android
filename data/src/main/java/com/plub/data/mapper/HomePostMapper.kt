@@ -1,6 +1,6 @@
 package com.plub.data.mapper
 
-import com.plub.data.model.SampleHomePostRequest
+import com.plub.data.dto.plubJwt.SampleHomePostRequest
 import com.plub.domain.model.vo.home.HomePostRequestVo
 
 object HomePostMapper {

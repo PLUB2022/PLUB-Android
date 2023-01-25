@@ -55,4 +55,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailResposImpl): RecruitDetailRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesApplicantsRecruitRepository(repositoryImpl: ApplicantsRecruitResposImpl): ApplicantsRecruitRepository
 }

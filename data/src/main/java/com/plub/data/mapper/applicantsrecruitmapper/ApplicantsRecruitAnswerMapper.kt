@@ -1,7 +1,7 @@
 package com.plub.data.mapper.applicantsrecruitmapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.dto.plubJwt.applicantsrecruit.ApplicantsRecruitRequestAnswerList
+import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitRequestAnswerList
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
 
 object ApplicantsRecruitAnswerMapper : Mapper.RequestMapper<ApplicantsRecruitRequestAnswerList, ApplicantsRecruitAnswerListVo> {
@@ -10,7 +10,7 @@ object ApplicantsRecruitAnswerMapper : Mapper.RequestMapper<ApplicantsRecruitReq
             ApplicantsRecruitRequestAnswerList(
                 questionId, answer
             )
-        } ?:ApplicantsRecruitRequestAnswerList(0, "")
+        } ?: ApplicantsRecruitRequestAnswerList(0, "")
     }
 
 }

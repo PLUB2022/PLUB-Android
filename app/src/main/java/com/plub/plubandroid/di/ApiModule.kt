@@ -78,4 +78,10 @@ object ApiModule {
     fun providePostApi(@NormalRetrofit retrofit: Retrofit): PostHomeApi {
         return retrofit.create(PostHomeApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideRecruiApi(@NormalRetrofit retrofit: Retrofit): RecruitApi {
+        return retrofit.create(RecruitApi::class.java)
+    }
 }

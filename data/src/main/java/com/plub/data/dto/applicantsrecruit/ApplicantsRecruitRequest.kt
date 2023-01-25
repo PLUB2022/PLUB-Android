@@ -1,4 +1,4 @@
-package com.plub.data.dto.plubJwt.applicantsrecruit
+package com.plub.data.dto.applicantsrecruit
 
 import com.plub.data.base.DataDto
 

@@ -1,7 +1,7 @@
 package com.plub.data.api
 
-import com.plub.data.dto.plubJwt.applicantsrecruit.ApplicantsRecruitRequest
-import com.plub.data.dto.plubJwt.applicantsrecruit.ApplicantsRecruitResponse
+import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitRequest
+import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitResponse
 import com.plub.data.util.ApiResponse
 import retrofit2.Response
 import retrofit2.http.Body
