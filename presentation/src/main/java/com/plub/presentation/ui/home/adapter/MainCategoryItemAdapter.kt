@@ -5,35 +5,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.vo.home.SampleCategoryVo
 import com.plub.presentation.R
+import com.plub.presentation.databinding.ItemMainCategoryBinding
+import com.plub.presentation.ui.home.adapter.viewholder.MainCategoryViewHolder
+import com.plub.presentation.ui.sign.onboarding.adapter.OnboardingItemViewHolder
 
-class MainCategoryItemAdapter(imageRes : List<String>, title : List<String>) : RecyclerView.Adapter<MainCategoryItemAdapter.ViewHolder?>() {
 
-    var image_ress : List<String> = imageRes
-    var titles : List<String> = title
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_main_category, parent, false)
-        return ViewHolder(view)
-    }
-
-    inner class ViewHolder( itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val img_resos = itemView.findViewById<ImageView>(R.id.icon_category)
-        val title_text = itemView.findViewById<TextView>(R.id.tv_title_category)
-
-        fun bind(img_res : String, title : String){
-           title_text.text = title
+class MainCategoryItemAdapter() : ListAdapter<SampleCategoryVo, RecyclerView.ViewHolder>(
+    MainCategoryDiffCallBack()
+){
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is MainCategoryViewHolder -> holder.bind(currentList[position])
         }
-
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(image_ress[position], titles[position])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val binding = ItemMainCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MainCategoryViewHolder(binding)
     }
 
+}
 
-    override fun getItemCount(): Int {
-        //TODO("Not yet implemented")
-        return titles.size
-    }
+class MainCategoryDiffCallBack : DiffUtil.ItemCallback<SampleCategoryVo>() {
+    override fun areItemsTheSame(oldItem: SampleCategoryVo, newItem: SampleCategoryVo): Boolean = oldItem == newItem
+    override fun areContentsTheSame(oldItem: SampleCategoryVo, newItem: SampleCategoryVo): Boolean = oldItem == newItem
 }
