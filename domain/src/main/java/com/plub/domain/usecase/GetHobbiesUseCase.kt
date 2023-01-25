@@ -7,14 +7,10 @@ import com.plub.domain.repository.CategoryListRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class BrowseUseCase @Inject constructor(
+class GetHobbiesUseCase @Inject constructor(
     private val categoryListRepository: CategoryListRepository,
-) : UseCase<CategoryListResponseVo, Flow<UiState<CategoryListResponseVo>>>(){
-    suspend fun invoke(): Flow<UiState<CategoryListResponseVo>> {
-        return categoryListRepository.getCategoryList()
-    }
-
-    override suspend fun invoke(request: CategoryListResponseVo): Flow<UiState<CategoryListResponseVo>> {
+) : UseCase<Unit, Flow<UiState<CategoryListResponseVo>>>(){
+    override suspend fun invoke(request : Unit): Flow<UiState<CategoryListResponseVo>> {
         //TODO("Not yet implemented")
         return categoryListRepository.getCategoryList()
     }

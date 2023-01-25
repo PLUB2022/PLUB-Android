@@ -25,7 +25,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
         MainCategoryAdapter(object : MainCategoryAdapter.MainCategoryDelegate {
             //TODO 리스너 달기
             override fun onClick(categoryId: Int) {
-                Log.d("메인 태그", categoryId.toString())
+                goToCategoryChoice(categoryId)
             }
         })
     }
@@ -55,14 +55,13 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
         super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect{
-                    mainCategoryAdapter.submitList(arrayListOf(it.categoryVo.data))
+                viewModel.categoryData.collect{
+                    mainCategoryAdapter.submitList(arrayListOf(it.data))
                 }
             }
 
             launch {
                 viewModel.recommendationData.collect{
-                    Log.d("테스트 테그", it.plubbings.toString())
                     when(it.plubbings.content.size){
                         0 -> HasNotDataRecycler()
                         else -> HasDataRecycler(it)
@@ -70,17 +69,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
                 }
             }
 
-            launch {
-                viewModel.goToCategoryChoiceFragment.collect {
-                    goToCategoryChoice()
-                }
-            }
-
         }
     }
 
-    fun goToCategoryChoice(){
-        val action = MainFragmentDirections.actionMainToCategoryChoice()
+    fun goToCategoryChoice(categoryId : Int){
+        val action = MainFragmentDirections.actionMainToCategoryChoice(categoryId.toString())
         findNavController().navigate(action)
     }
 

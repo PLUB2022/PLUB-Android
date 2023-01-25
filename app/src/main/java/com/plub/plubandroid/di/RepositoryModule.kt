@@ -63,4 +63,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesReplyApplicantsRepository(repositoryImpl: ReplyApplicantsRecruitResposImpl): ReplyApplicantsRecruitRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesCategoriesGatheringRepository(categoriesGatheringResposImpl: CategoriesGatheringResposImpl): CategoriesGatheringRepository
 }

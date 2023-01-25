@@ -19,6 +19,11 @@
         <action
             android:id="@+id/action_main_to_createGathering"
             app:destination="@id/createGatheringFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            android:defaultValue="0"
+            />
 
     </fragment>
 
@@ -30,6 +35,11 @@
         <action
             android:id="@+id/action_categoryChoiceFragment_to_recruitmentFragment"
             app:destination="@id/recruitmentFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            android:defaultValue="0"
+            />
     </fragment>
 
     <fragment
