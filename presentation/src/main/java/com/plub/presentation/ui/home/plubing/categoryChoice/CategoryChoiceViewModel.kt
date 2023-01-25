@@ -1,13 +1,12 @@
 package com.plub.presentation.ui.home.plubing.categoryChoice
 
-
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.successOrNull
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.state.PageState
+import com.plub.presentation.state.CategoryChoiceState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
@@ -17,11 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryChoiceViewModel @Inject constructor(
     val categoriesGatheringUseCase: GetCategoriesGatheringUseCase
-) : BaseViewModel<PageState.Default>(PageState.Default) {
+) : BaseViewModel<CategoryChoiceState>(CategoryChoiceState()) {
 
-
-    private val _switchList = MutableStateFlow("")
-    val switchList: StateFlow<String> = _switchList.asStateFlow()
 
     private val _recommendationData =
         MutableSharedFlow<RecommendationGatheringResponseVo>(0, 1, BufferOverflow.DROP_OLDEST)
@@ -40,15 +36,23 @@ class CategoryChoiceViewModel @Inject constructor(
 
     fun gridBtnClick(){
         //TODO 그리드로 변경
-        _switchList.value = "그리드"
+        updateUiState { ui ->
+            ui.copy(
+                listOrGrid = true
+            )
+        }
     }
 
     fun listBtnClick(){
         //TODO 리스트로 변경
-        _switchList.value = "리스트"
+        updateUiState { ui ->
+            ui.copy(
+                listOrGrid = false
+            )
+        }
     }
 
-    fun goToCategoryChoice() {
+    fun goToRecruitmentFragment() {
         viewModelScope.launch {
             _goToDetailRecruitmentFragment.emit(Unit)
         }
