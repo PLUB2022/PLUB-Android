@@ -2,17 +2,16 @@ package com.plub.presentation.ui.home.plubing
 
 import android.util.Log
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMainBinding
+import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.ui.home.adapter.MainCategoryAdapter
-import com.plub.presentation.ui.home.adapter.MainRecommendMeetAdapter
-import com.plub.presentation.ui.home.adapter.MainRecommendMeetXAdapter
+import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.ui.home.adapter.MainRecommendGatheringXAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -20,8 +19,8 @@ import kotlinx.coroutines.launch
 class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFragmentViewModel>(FragmentMainBinding::inflate
 )  {
     lateinit var mainCategoryAdapter: MainCategoryAdapter
-    lateinit var mainRecommendMeetXAdapter: MainRecommendMeetXAdapter
-    lateinit var mainRecommendMeetadapter: MainRecommendMeetAdapter
+    lateinit var mainRecommendMeetXAdapter: MainRecommendGatheringXAdapter
+    lateinit var mainRecommendMeetadapter: MainRecommendGatheringAdapter
 
     override val viewModel: MainFragmentViewModel by viewModels()
 
@@ -31,15 +30,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
             vm = viewModel
             viewModel.isHaveInterest()
             //TODO 할 일
-
-            //TODO REMOVE 메인 툴바 클릭 시 임시로 모임 생성 페이지 이동 구현함
-            mainToolbar.setOnClickListener {
-                findNavController().navigate(MainFragmentDirections.actionMainToCreateGathering())
-            }
         }
     }
 
-    override fun initStates() {
+    override fun initState() {
         //TODO("Not yet implemented")
         repeatOnStarted(viewLifecycleOwner) {
             launch {
@@ -62,12 +56,16 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
         }
     }
 
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.id.)
+//    }
+
     fun HasDataRecycler(){
 
         val rv_main = binding.root.findViewById<RecyclerView>(R.id.rv_main_page)
         rv_main.setLayoutManager(LinearLayoutManager(context))
         mainCategoryAdapter = MainCategoryAdapter()
-        mainRecommendMeetadapter = MainRecommendMeetAdapter()
+        mainRecommendMeetadapter = MainRecommendGatheringAdapter()
         val mConcatAdapter = ConcatAdapter()
         mConcatAdapter.addAdapter(mainCategoryAdapter)
         mConcatAdapter.addAdapter(mainRecommendMeetadapter)
@@ -79,7 +77,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
         val rv_main = binding.root.findViewById<RecyclerView>(R.id.rv_main_page)
         rv_main.setLayoutManager(LinearLayoutManager(context))
         mainCategoryAdapter = MainCategoryAdapter()
-        mainRecommendMeetXAdapter = MainRecommendMeetXAdapter()
+        mainRecommendMeetXAdapter = MainRecommendGatheringXAdapter()
         val mConcatAdapter = ConcatAdapter()
         mConcatAdapter.addAdapter(mainCategoryAdapter)
         mConcatAdapter.addAdapter(mainRecommendMeetXAdapter)
