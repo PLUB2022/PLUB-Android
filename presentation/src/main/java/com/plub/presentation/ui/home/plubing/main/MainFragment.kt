@@ -52,7 +52,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFr
 
         binding.apply {
             vm = viewModel
-
+            toolbarMain.setOnClickListener {
+                findNavController().navigate(MainFragmentDirections.actionMainToCreateGathering())
+            }
         }
         viewModel.fetchMainPageData()
     }
