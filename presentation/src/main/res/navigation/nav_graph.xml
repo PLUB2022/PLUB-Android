@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_main_to_createGathering"
             app:destination="@id/createGatheringFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_registerInterestFragment"
+            app:destination="@id/registerInterestFragment"/>
         <argument
             android:name="categoryId"
             app:argType="string"
@@ -88,6 +91,14 @@
             app:argType="string"
             android:defaultValue="0"
             />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/registerInterestFragment"
+        android:name="com.plub.presentation.ui.home.plubing.registinterests.RegisterInterestFragment"
+        android:label="fragment_register_interest"
+        tools:layout="@layout/fragment_interests_register">
     </fragment>
 
 

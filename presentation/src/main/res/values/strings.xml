@@ -193,4 +193,8 @@
     <string name="main_recommend_no_interests_title">플럽이 추천하는 모임!</string>
     <string name="main_recommend_descrip_no_interests">관심사 등록한 내용을 기반으로 모임을 추천해드려요!</string>
     <string name="main_add_interests">관심사 등록 하기</string>
+
+    <string name="interests_register_title">취미모임 관심사 등록</string>
+    <string name="interests_register_descrip">PLUB에게 당신의 관심사를 알려주세요. 선택하신 관심사를 기반으로 좋아하실만한 모임을 추천해 드려요!</string>
+    <string name="interests_register_complete_choice_button">선택완료</string>
 </resources>

@@ -10,6 +10,7 @@ import com.plub.domain.usecase.GetHobbiesUseCase
 import com.plub.domain.usecase.RecommendationGatheringUsecase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.MainPageState
+import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
@@ -21,7 +22,7 @@ class MainFragmentViewModel @Inject constructor(
     val getHobbiesUseCase: GetHobbiesUseCase,
     val bookmarkUsecase: BookmarkUsecase,
     val recommendationGatheringUsecase: RecommendationGatheringUsecase
-) : BaseViewModel<MainPageState>(MainPageState()) {
+) : BaseViewModel<PageState.Default>(PageState.Default) {
 
     private val _categoryData = MutableSharedFlow<CategoryListResponseVo>(
         replay = 0,
