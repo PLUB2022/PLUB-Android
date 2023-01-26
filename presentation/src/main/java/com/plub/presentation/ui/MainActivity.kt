@@ -26,12 +26,6 @@ class MainActivity :
 
     override val viewModel: MainViewModel by viewModels()
     private lateinit var navController: NavController
-    private val bottomNavigationFragmentIds = listOf(
-        R.id.menu_navigation_main,
-        R.id.menu_navigation_gathering,
-        R.id.menu_navigation_noti,
-        R.id.menu_navigation_profile
-    )
 
     override fun initView() {
         binding.apply {
@@ -53,8 +47,7 @@ class MainActivity :
     }
 
     private fun initNavigation() {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fc_main_host) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fc_main_host) as NavHostFragment
         navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
 
@@ -67,12 +60,7 @@ class MainActivity :
         binding.bottomNavigationView.setOnItemReselectedListener { }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id in bottomNavigationFragmentIds) {
-                viewModel.onSelectedBottomNavigationMenu(destination.id)
-                binding.bottomNavigationView.visibility = View.VISIBLE
-            } else {
-                binding.bottomNavigationView.visibility = View.GONE
-            }
+            viewModel.onSelectedBottomNavigationMenu(destination.id)
         }
     }
 
@@ -80,6 +68,9 @@ class MainActivity :
         when (event) {
             is MainEvent.ShowBottomNavigationBadge -> {
                 showBadge(event.index)
+            }
+            is MainEvent.BottomNavigationVisibility -> {
+                bottomNavigationVisibility(event.isVisible)
             }
         }
     }
@@ -112,6 +103,11 @@ class MainActivity :
         itemView?.apply {
             findViewById<ImageView>(R.id.image_view_badge).visibility = View.GONE
         }
+    }
+
+
+    private fun bottomNavigationVisibility(isVisible:Boolean) {
+        binding.bottomNavigationView.visibility = if(isVisible) View.VISIBLE else View.GONE
     }
 
 }
