@@ -11,6 +11,10 @@ import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.HobbiesEvent
 import com.plub.presentation.state.HobbiesPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,6 +24,10 @@ class RegisterInterestViewModel @Inject constructor(
     val interestUseCase: InterestUseCase
 ) : BaseViewModel<HobbiesPageState>(HobbiesPageState()) {
     private val selectedList: MutableList<SelectedHobbyVo> = mutableListOf()
+
+    private val _emitChoice = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val emitChoice: SharedFlow<Unit> = _emitChoice.asSharedFlow()
+
 
     fun onClickNextButton() {
         emitEventFlow(HobbiesEvent.MoveToNext(uiState.value.hobbiesSelectedVo))
@@ -105,6 +113,12 @@ class RegisterInterestViewModel @Inject constructor(
 
         viewModelScope.launch {
             interestUseCase.invoke(list)
+        }
+    }
+
+    fun completeChoce(){
+        viewModelScope.launch {
+            _emitChoice.emit(Unit)
         }
     }
 

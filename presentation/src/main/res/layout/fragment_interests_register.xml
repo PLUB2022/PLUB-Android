@@ -66,6 +66,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="26dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:onClick="@{()->vm.completeChoce()}"
             android:enabled="@{vm.uiState.nextButtonEnable}"
             android:text="@string/interests_register_complete_choice_button"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"

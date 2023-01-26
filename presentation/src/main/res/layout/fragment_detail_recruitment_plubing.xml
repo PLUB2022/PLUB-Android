@@ -256,6 +256,7 @@
                     android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
                     android:text="@string/detail_recruitment_together"
                     android:textColor="@color/white"
+                    android:onClick="@{()->vm.goToApplyPlubbingFragment()}"
                     android:textSize="14dp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"

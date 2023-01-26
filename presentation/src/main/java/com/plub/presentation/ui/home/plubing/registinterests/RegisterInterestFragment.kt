@@ -52,15 +52,11 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
         binding.apply {
             vm = viewModel
 
+
             recyclerViewInterestsCategory.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = listAdapter
                 addItemDecoration(VerticalSpaceDecoration(ITEM_VERTICAL_SPACE.px))
-            }
-
-            buttonCompleteChoice.setOnClickListener {
-                setInterestList(viewModel.uiState.value.hobbiesSelectedVo.hobbies)
-                moveMainPage()
             }
         }
         viewModel.fetchHobbiesData()
@@ -80,6 +76,12 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
             launch {
                 viewModel.uiState.collect {
                     listAdapter.submitList(it.hobbiesVo)
+                }
+            }
+            launch {
+                viewModel.emitChoice.collect{
+                    setInterestList(viewModel.uiState.value.hobbiesSelectedVo.hobbies)
+                    moveMainPage()
                 }
             }
         }

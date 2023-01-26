@@ -1,7 +1,5 @@
 package com.plub.presentation.ui.home.plubing.categoryChoice
 
-
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
@@ -10,7 +8,6 @@ import com.plub.domain.usecase.BookmarkUsecase
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.CategoryChoiceState
-import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
@@ -23,7 +20,10 @@ class CategoryChoiceViewModel @Inject constructor(
     val bookmarkUsecase: BookmarkUsecase
 ) : BaseViewModel<CategoryChoiceState>(CategoryChoiceState()) {
 
-
+    private val _backMainPage =
+        MutableSharedFlow<Unit>(0, 1, BufferOverflow.DROP_OLDEST)
+    val backMainPage: SharedFlow<Unit> =
+        _backMainPage.asSharedFlow()
     private val _recommendationData =
         MutableSharedFlow<RecommendationGatheringResponseVo>(0, 1, BufferOverflow.DROP_OLDEST)
     val recommendationData: SharedFlow<RecommendationGatheringResponseVo> =
@@ -57,6 +57,12 @@ class CategoryChoiceViewModel @Inject constructor(
             ui.copy(
                 listOrGrid = false
             )
+        }
+    }
+
+    fun backMainPage(){
+        viewModelScope.launch {
+            _backMainPage.emit(Unit)
         }
     }
 

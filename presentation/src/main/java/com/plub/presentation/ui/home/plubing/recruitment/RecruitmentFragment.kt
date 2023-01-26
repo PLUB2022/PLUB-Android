@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.presentation.R
-import com.plub.presentation.state.SampleHomeState
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import com.plub.presentation.state.PageState
@@ -16,7 +15,6 @@ import com.plub.presentation.ui.home.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.home.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceFragmentArgs
 import com.plub.presentation.ui.home.plubing.main.MainFragmentArgs
-import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -47,7 +45,7 @@ class RecruitmentFragment :
             vm = viewModel
             //TODO 할 일
             buttonJoin.setOnClickListener {
-                goToApplyPlubbingFragment(returnFragmentArgs())
+                viewModel
             }
             viewModel.fetchRecruitmentDetail(returnFragmentArgs().toInt())
         }
@@ -58,6 +56,12 @@ class RecruitmentFragment :
             launch {
                 viewModel.recruitMentDetailData.collect {
                     initDetailPage(it)
+                }
+            }
+
+            launch {
+                viewModel.goToApplyPlubbingFrag.collect{
+                    goToApplyPlubbingFragment(returnFragmentArgs())
                 }
             }
         }
