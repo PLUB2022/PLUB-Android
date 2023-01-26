@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home
+package com.plub.presentation.ui
 
 import android.view.LayoutInflater
 import android.view.View

@@ -8,7 +8,7 @@ import com.plub.presentation.state.PageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseActivity
 import com.plub.presentation.databinding.ActivitySignBinding
-import com.plub.presentation.ui.home.MainActivity
+import com.plub.presentation.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
