@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailRequestVo
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.domain.successOrNull
-import com.plub.domain.usecase.BookmarkUsecase
-import com.plub.domain.usecase.RecruitDetailUseCase
+import com.plub.domain.usecase.PostBookmarkUseCase
+import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.DetailRecruitPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecruitmentViewModel @Inject constructor(
-    val recruitDetailUseCase: RecruitDetailUseCase,
-    val bookmarkUsecase: BookmarkUsecase
+    val recruitDetailUseCase: GetRecruitDetailUseCase,
+    val postBookmarkUseCase: PostBookmarkUseCase
 ) : BaseViewModel<DetailRecruitPageState>(DetailRecruitPageState()) {
 
     private val _recruitMentDetailData = MutableSharedFlow<RecruitDetailResponseVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
@@ -40,7 +40,7 @@ class RecruitmentViewModel @Inject constructor(
 
     fun clickBookmark(plubbingId : Int){
         viewModelScope.launch{
-            bookmarkUsecase.invoke(plubbingId)
+            postBookmarkUseCase.invoke(plubbingId)
         }
     }
 

@@ -8,7 +8,7 @@ import com.plub.domain.repository.RecommendationGatheringRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RecommendationGatheringUsecase @Inject constructor(
+class GetRecommendationGatheringUsecase @Inject constructor(
     private val recommendationGatheringRepository: RecommendationGatheringRepository
 ) : UseCase<RecommendationGatheringRequestVo, Flow<UiState<RecommendationGatheringResponseVo>>>() {
     override suspend fun invoke(request: RecommendationGatheringRequestVo): Flow<UiState<RecommendationGatheringResponseVo>> {

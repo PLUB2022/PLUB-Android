@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.successOrNull
-import com.plub.domain.usecase.BookmarkUsecase
+import com.plub.domain.usecase.PostBookmarkUseCase
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.CategoryChoiceState
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryChoiceViewModel @Inject constructor(
     val categoriesGatheringUseCase: GetCategoriesGatheringUseCase,
-    val bookmarkUsecase: BookmarkUsecase
+    val postBookmarkUseCase: PostBookmarkUseCase
 ) : BaseViewModel<CategoryChoiceState>(CategoryChoiceState()) {
 
     private val _backMainPage =
@@ -38,7 +38,7 @@ class CategoryChoiceViewModel @Inject constructor(
 
     fun clickBookmark(plubbingId : Int){
         viewModelScope.launch{
-            bookmarkUsecase.invoke(plubbingId)
+            postBookmarkUseCase.invoke(plubbingId)
         }
     }
 

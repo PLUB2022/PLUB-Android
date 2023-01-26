@@ -71,7 +71,7 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providesInterestRepository(repositoryImpl: InterestRepositoryImpl): InterestRepository
+    abstract fun providesInterestRepository(repositoryImpl: RegistInterestRepositoryImpl): RegistInterestRepository
 
     @Singleton
     @Binds

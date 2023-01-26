@@ -2,7 +2,6 @@ package com.plub.plubandroid.di
 
 import com.plub.domain.repository.*
 import com.plub.domain.usecase.*
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -105,14 +104,14 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesRecommendationGatheringUseCase(repository: RecommendationGatheringRepository): RecommendationGatheringUsecase {
-        return RecommendationGatheringUsecase(repository)
+    fun providesRecommendationGatheringUseCase(repository: RecommendationGatheringRepository): GetRecommendationGatheringUsecase {
+        return GetRecommendationGatheringUsecase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesRecruitDetailUseCase(repository: RecruitDetailRepository): RecruitDetailUseCase {
-        return RecruitDetailUseCase(repository)
+    fun providesRecruitDetailUseCase(repository: RecruitDetailRepository): GetRecruitDetailUseCase {
+        return GetRecruitDetailUseCase(repository)
     }
 
     @Singleton
@@ -123,8 +122,8 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesReplyApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): ReplyApplicantsRecruitUseCase {
-        return ReplyApplicantsRecruitUseCase(repository)
+    fun providesReplyApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): ApprovalApplicantsRecruitUseCase {
+        return ApprovalApplicantsRecruitUseCase(repository)
     }
 
     @Singleton
@@ -135,24 +134,36 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesBookmarkUseCase(repository: BookmarkRepository): BookmarkUsecase {
-        return BookmarkUsecase(repository)
+    fun providesBookmarkUseCase(repository: BookmarkRepository): PostBookmarkUseCase {
+        return PostBookmarkUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesInterestUseCase(repository: InterestRepository): InterestUseCase {
-        return InterestUseCase(repository)
+    fun providesInterestUseCase(repository: RegistInterestRepository): RegistInterestUseCase {
+        return RegistInterestUseCase(repository)
     }
     @Singleton
     @Provides
-    fun providesHostEndRecruitUseCase(repository: HostRecruitRepository): HostRecruitUseCase {
-        return HostRecruitUseCase(repository)
+    fun providesHostEndRecruitUseCase(repository: HostRecruitRepository): GetRecruitApplicantsUseCase {
+        return GetRecruitApplicantsUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesGetQuestionsUseCase(repository: RecruitApplyRepository): GetQuestionUseCase {
-        return GetQuestionUseCase(repository)
+    fun providesGetQuestionsUseCase(repository: RecruitApplyRepository): GetRecruitQuestionUseCase {
+        return GetRecruitQuestionUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutEndRecruitUseCase(repository: HostRecruitRepository): PutEndRecruitUseCase {
+        return PutEndRecruitUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesRefuseApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): RefuseApplicantsRecruitUseCase {
+        return RefuseApplicantsRecruitUseCase(repository)
     }
 }

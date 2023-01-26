@@ -4,8 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailRequestVo
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.domain.successOrNull
-import com.plub.domain.usecase.HostRecruitUseCase
-import com.plub.domain.usecase.RecruitDetailUseCase
+import com.plub.domain.usecase.GetRecruitApplicantsUseCase
+import com.plub.domain.usecase.PutEndRecruitUseCase
+import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HostRecruitmentViewModel @Inject constructor(
-    val recruitDetailUseCase: RecruitDetailUseCase,
-    val hostRecruitUseCase: HostRecruitUseCase
+    val getRecruitDetailUseCase: GetRecruitDetailUseCase,
+    val getRecruitApplicantsUseCase: GetRecruitApplicantsUseCase,
+    val putEndRecruitUseCase: PutEndRecruitUseCase
 ) : BaseViewModel<PageState.Default>(PageState.Default) {
 
     private val _recruitMentDetailData = MutableSharedFlow<RecruitDetailResponseVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
@@ -28,7 +30,7 @@ class HostRecruitmentViewModel @Inject constructor(
 
     fun fetchRecruitmentDetail(plubbingId : Int){
         viewModelScope.launch {
-            recruitDetailUseCase.invoke(RecruitDetailRequestVo(plubbingId)).collect{ state ->
+            getRecruitDetailUseCase.invoke(RecruitDetailRequestVo(plubbingId)).collect{ state ->
                 state.successOrNull()?.let { _recruitMentDetailData.emit(it) }
             }
         }
@@ -36,13 +38,13 @@ class HostRecruitmentViewModel @Inject constructor(
 
     fun endRecruit(plubbingId: Int){
         viewModelScope.launch {
-            hostRecruitUseCase.invoke(plubbingId)
+            putEndRecruitUseCase.invoke(plubbingId)
         }
     }
 
     fun seeApplicants(plubbingId: Int){
         viewModelScope.launch {
-            hostRecruitUseCase.launch(plubbingId)
+            getRecruitApplicantsUseCase.invoke(plubbingId)
         }
     }
 

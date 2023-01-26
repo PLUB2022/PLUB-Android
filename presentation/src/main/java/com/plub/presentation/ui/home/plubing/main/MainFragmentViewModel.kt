@@ -5,11 +5,10 @@ import com.plub.domain.model.vo.home.CategoryListResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.successOrNull
-import com.plub.domain.usecase.BookmarkUsecase
+import com.plub.domain.usecase.PostBookmarkUseCase
 import com.plub.domain.usecase.GetHobbiesUseCase
-import com.plub.domain.usecase.RecommendationGatheringUsecase
+import com.plub.domain.usecase.GetRecommendationGatheringUsecase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.state.MainPageState
 import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
@@ -20,8 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
     val getHobbiesUseCase: GetHobbiesUseCase,
-    val bookmarkUsecase: BookmarkUsecase,
-    val recommendationGatheringUsecase: RecommendationGatheringUsecase
+    val postBookmarkUseCase: PostBookmarkUseCase,
+    val getRecommendationGatheringUsecase: GetRecommendationGatheringUsecase
 ) : BaseViewModel<PageState.Default>(PageState.Default) {
 
     private val _categoryData = MutableSharedFlow<CategoryListResponseVo>(
@@ -44,7 +43,7 @@ class MainFragmentViewModel @Inject constructor(
                 //inspectUiState(state, ::handleGetCategoriesSuccess)
             }
 
-            recommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0))
+            getRecommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0))
                 .collect { state ->
                     state.successOrNull()?.let { _recommendationData.emit(it) }
                 }
@@ -52,7 +51,7 @@ class MainFragmentViewModel @Inject constructor(
 
     fun clickBookmark(plubbingId : Int){
         viewModelScope.launch{
-            bookmarkUsecase.invoke(plubbingId)
+            postBookmarkUseCase.invoke(plubbingId)
         }
     }
 

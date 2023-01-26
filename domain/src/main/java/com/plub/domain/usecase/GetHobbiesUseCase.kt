@@ -14,6 +14,4 @@ class GetHobbiesUseCase @Inject constructor(
         //TODO("Not yet implemented")
         return categoryListRepository.getCategoryList()
     }
-
-
 }

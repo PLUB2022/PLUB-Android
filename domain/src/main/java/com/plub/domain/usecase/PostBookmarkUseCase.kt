@@ -8,7 +8,7 @@ import com.plub.domain.repository.BookmarkRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class BookmarkUsecase @Inject constructor(
+class PostBookmarkUseCase @Inject constructor(
     private val bookmarkRepository: BookmarkRepository
 ) : UseCase<Int, Flow<UiState<BookmarkResponseVo>>>() {
     override suspend fun invoke(request: Int): Flow<UiState<BookmarkResponseVo>> {

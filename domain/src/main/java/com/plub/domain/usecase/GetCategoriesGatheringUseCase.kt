@@ -15,6 +15,4 @@ class GetCategoriesGatheringUseCase @Inject constructor(
         //TODO("Not yet implemented")
         return categoriesGatheringRepository.getCategoriesGatheringList(request)
     }
-
-
 }

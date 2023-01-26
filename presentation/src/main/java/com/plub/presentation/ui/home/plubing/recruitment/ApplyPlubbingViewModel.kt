@@ -7,7 +7,7 @@ import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitReques
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.successOrNull
 import com.plub.domain.usecase.ApplicantsRecruitUseCase
-import com.plub.domain.usecase.GetQuestionUseCase
+import com.plub.domain.usecase.GetRecruitQuestionUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.ApplyPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ApplyPlubbingViewModel @Inject constructor(
-    val getQuestionUseCase: GetQuestionUseCase,
+    val getRecruitQuestionUseCase: GetRecruitQuestionUseCase,
     val applicantsRecruitUseCase: ApplicantsRecruitUseCase
 ) : BaseViewModel<ApplyPageState>(ApplyPageState()) {
 
@@ -29,7 +29,7 @@ class ApplyPlubbingViewModel @Inject constructor(
 
     fun fetchQuestions(plubbingId : Int){
         viewModelScope.launch {
-            getQuestionUseCase.invoke(plubbingId).collect{state ->
+            getRecruitQuestionUseCase.invoke(plubbingId).collect{ state ->
                 state.successOrNull()?.let { _recruitQuestionData.emit(it) }
             }
         }

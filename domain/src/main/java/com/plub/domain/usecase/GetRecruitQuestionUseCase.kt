@@ -7,7 +7,7 @@ import com.plub.domain.repository.RecruitApplyRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetQuestionUseCase @Inject constructor(
+class GetRecruitQuestionUseCase @Inject constructor(
     val recruitApplyRepository: RecruitApplyRepository
 ): UseCase<Int, Flow<UiState<QuestionsResponseVo>>>() {
     override suspend fun invoke(request: Int): Flow<UiState<QuestionsResponseVo>> {
