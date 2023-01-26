@@ -3,10 +3,10 @@ package com.plub.presentation.ui.dialog.adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.presentation.R
-import com.plub.presentation.databinding.IncludeItemDialogMenuBinding
+import com.plub.presentation.databinding.IncludeItemDialogMenuButtonBinding
 
-class DialogMenuItemViewHolder(
-    private val binding: IncludeItemDialogMenuBinding,
+class DialogMenuButtonViewHolder(
+    private val binding: IncludeItemDialogMenuButtonBinding,
     private val listener:DialogMenuAdapter.Delegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -33,6 +33,7 @@ class DialogMenuItemViewHolder(
             DialogMenuItemType.CAMERA_IMAGE -> R.drawable.ic_camera
             DialogMenuItemType.ALBUM_IMAGE -> R.drawable.ic_album
             DialogMenuItemType.DEFAULT_IMAGE -> R.drawable.ic_album
+            else -> throw IllegalAccessException()
         }
     }
     private fun getMenuContentStringRes(menuType: DialogMenuItemType):Int {
@@ -40,6 +41,7 @@ class DialogMenuItemViewHolder(
             DialogMenuItemType.CAMERA_IMAGE -> R.string.dialog_menu_camera_image
             DialogMenuItemType.ALBUM_IMAGE -> R.string.dialog_menu_album_image
             DialogMenuItemType.DEFAULT_IMAGE -> R.string.dialog_menu_default_image
+            else -> throw IllegalAccessException()
         }
     }
 }

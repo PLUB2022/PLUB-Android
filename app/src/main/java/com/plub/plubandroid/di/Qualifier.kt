@@ -21,3 +21,7 @@ annotation class AuthRetrofit
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class KakaoLocationRetrofit
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class RoomDB

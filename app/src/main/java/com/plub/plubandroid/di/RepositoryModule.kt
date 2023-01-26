@@ -42,6 +42,14 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
+    abstract fun providesSearchRepository(repositoryImpl: SearchRepositoryImpl): SearchRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesBookmarkRepository(repositoryImpl: BookmarkRepositoryImpl): BookmarkRepository
+
+    @Singleton
+    @Binds
     abstract fun providesCategoryListRepository(categoryListResposImpl: CategoryListRepositoryImpl): CategoryListRepository
 
     @Singleton

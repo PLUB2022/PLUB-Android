@@ -123,9 +123,10 @@ class ProfileComposeFragment :
                     imageViewNicknameDelete.setImageResource(R.drawable.ic_delete_box_f75b2b)
                 }
                 null -> {
+                    val textColor = ContextCompat.getColor(requireContext(), R.color.color_363636)
                     val color = ContextCompat.getColor(requireContext(), R.color.color_c4c4c4)
                     constraintLayoutNickname.setBackgroundResource(R.drawable.bg_rectangle_empty_c4c4c4_radius_8)
-                    editTextNickname.setTextColor(color)
+                    editTextNickname.setTextColor(textColor)
                     textViewNicknameDescription.setTextColor(color)
                     imageViewNicknameDescription.setImageResource(R.drawable.ic_tooltip_c4c4c4)
                     imageViewNicknameDelete.setImageResource(R.drawable.ic_delete_box_c4c4c4)

@@ -39,7 +39,7 @@ class HobbyViewHolder(
                     }
                 }
             }
-            addItemDecoration(GridSpaceDecoration(TOTAL_SPAN_SIZE, ITEM_SPACE.px, false))
+            addItemDecoration(GridSpaceDecoration(TOTAL_SPAN_SIZE, ITEM_SPACE.px, ITEM_SPACE.px, false))
             adapter = listAdapter
         }
     }

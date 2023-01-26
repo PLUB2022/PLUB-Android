@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class GridSpaceDecoration(
     private val spanCount: Int,
-    private val spacing: Int,
+    private val horizontalSpacing: Int,
+    private val verticalSpacing: Int,
     private val includeEdge: Boolean
 ) :
     RecyclerView.ItemDecoration() {
@@ -19,17 +20,17 @@ class GridSpaceDecoration(
         val position = parent.getChildAdapterPosition(view)
         val column = position % spanCount
         if (includeEdge) {
-            outRect.left = spacing - column * spacing / spanCount
-            outRect.right = (column + 1) * spacing / spanCount
+            outRect.left = horizontalSpacing - column * horizontalSpacing / spanCount
+            outRect.right = (column + 1) * horizontalSpacing / spanCount
             if (position < spanCount) {
-                outRect.top = spacing
+                outRect.top = verticalSpacing
             }
-            outRect.bottom = spacing
+            outRect.bottom = verticalSpacing
         } else {
-            outRect.left = column * spacing / spanCount
-            outRect.right = spacing - (column + 1) * spacing / spanCount
+            outRect.left = column * horizontalSpacing / spanCount
+            outRect.right = horizontalSpacing - (column + 1) * horizontalSpacing / spanCount
             if (position >= spanCount) {
-                outRect.top = spacing
+                outRect.top = verticalSpacing
             }
         }
     }

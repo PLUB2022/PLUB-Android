@@ -11,6 +11,12 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
+            android:id="@+id/action_main_to_searching"
+            app:destination="@id/searchingFragment" />
+        <action
+            android:id="@+id/action_main_to_bookmark"
+            app:destination="@id/bookmarkFragment" />
+        <action
             android:id="@+id/action_main_to_category_choice"
             app:destination="@id/categoryChoiceFragment"/>
         <action
@@ -104,10 +110,38 @@
             app:destination="@id/mainFragment" />
     </fragment>
 
-
     <fragment
         android:id="@+id/createGatheringFragment"
         android:name="com.plub.presentation.ui.createGathering.CreateGatheringFragment"
         android:label="CreateGatheringFragment"
         tools:layout="@layout/fragment_create_gathering"/>
+
+    <fragment
+        android:id="@+id/searchingFragment"
+        android:name="com.plub.presentation.ui.home.search.SearchingFragment"
+        android:label="fragment_searching"
+        tools:layout="@layout/fragment_searching">
+
+        <action
+            android:id="@+id/action_searching_to_search_result"
+            app:destination="@id/searchResultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.plub.presentation.ui.home.searchResult.SearchResultFragment"
+        android:label="fragment_search_result"
+        tools:layout="@layout/fragment_search_result">
+
+        <argument
+            android:name="search"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.plub.presentation.ui.home.bookmark.BookmarkFragment"
+        android:label="fragment_bookmark"
+        tools:layout="@layout/fragment_bookmark">
+    </fragment>
 </navigation>

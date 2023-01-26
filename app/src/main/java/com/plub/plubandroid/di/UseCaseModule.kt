@@ -96,6 +96,43 @@ object UseCaseModule {
         return FetchMyInfoUseCase(repository)
     }
 
+
+    @Singleton
+    @Provides
+    fun providesFetchRecentSearchUseCase(repository: SearchRepository): FetchRecentSearchUseCase {
+        return FetchRecentSearchUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesDeleteAllRecentSearchUseCase(repository: SearchRepository): DeleteAllRecentSearchUseCase {
+        return DeleteAllRecentSearchUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesDeleteRecentSearchUseCase(repository: SearchRepository): DeleteRecentSearchUseCase {
+        return DeleteRecentSearchUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesInsertRecentSearchUseCase(repository: SearchRepository): InsertRecentSearchUseCase {
+        return InsertRecentSearchUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostBookmarkPlubRecruitUseCase(repository: BookmarkRepository): PostBookmarkPlubRecruitUseCase {
+        return PostBookmarkPlubRecruitUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetMyPlubBookmarksUseCase(repository: BookmarkRepository): GetMyPlubBookmarksUseCase {
+        return GetMyPlubBookmarksUseCase(repository)
+    }
+
     @Singleton
     @Provides
     fun providesBrowseUseCase(repository: CategoryListRepository): GetHobbiesUseCase  {

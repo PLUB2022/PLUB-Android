@@ -26,7 +26,6 @@ class HobbiesFragment : BaseFragment<FragmentHobbiesBinding, HobbiesPageState, H
 
     override val viewModel: HobbiesViewModel by viewModels()
     private val parentViewModel: SignUpViewModel by viewModels({requireParentFragment()})
-    private val selectedHobbiesList:MutableList<SelectedHobbyVo> = mutableListOf()
 
     private val listAdapter: HobbiesAdapter by lazy {
         HobbiesAdapter(object : HobbiesAdapter.Delegate {
@@ -80,7 +79,6 @@ class HobbiesFragment : BaseFragment<FragmentHobbiesBinding, HobbiesPageState, H
 
             launch {
                 viewModel.uiState.collect {
-                    updateSelectedHobbies(it.hobbiesSelectedVo.hobbies)
                     listAdapter.submitList(it.hobbiesVo)
                 }
             }
@@ -99,10 +97,5 @@ class HobbiesFragment : BaseFragment<FragmentHobbiesBinding, HobbiesPageState, H
                 parentViewModel.onMoveToNextPage(SignUpPageType.HOBBY, event.vo)
             }
         }
-    }
-
-    private fun updateSelectedHobbies(hobbies:List<SelectedHobbyVo>) {
-        selectedHobbiesList.clear()
-        selectedHobbiesList.addAll(hobbies)
     }
 }

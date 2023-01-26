@@ -39,6 +39,9 @@ dependencies {
     implementation(AndroidX.DATA_STORE_PREFERENCES)
     implementation(AndroidX.PAGING3_RUNTIME)
     implementation(AndroidX.PAGING3_COMMON_KTX)
+    implementation(AndroidX.ROOM)
+    implementation(AndroidX.ROOM_KTX)
+    kapt(AndroidX.ROOM_COMPILER)
 
     implementation(Libraries.RETROFIT)
     implementation(Libraries.RETROFIT_CONVERTER_GSON)

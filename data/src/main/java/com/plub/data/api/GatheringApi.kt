@@ -8,6 +8,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface GatheringApi {
-    @POST(Endpoints.GATHERING.CREATE_GATHERING)
+    @POST(Endpoints.PLUBBING.CREATE)
     suspend fun createGathering(@Body request: CreateGatheringRequest): Response<ApiResponse<CreateGatheringResponse>>
 }

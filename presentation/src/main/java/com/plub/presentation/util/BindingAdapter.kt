@@ -1,10 +1,10 @@
 package com.plub.presentation.util
 
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.view.View
 import android.webkit.WebView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Spinner
@@ -27,18 +27,18 @@ fun loadUrl(view: WebView, url: String) {
     if(view.url != url) view.loadUrl(url)
 }
 
-@BindingAdapter("entries","default")
-fun Spinner.setEntries(entries: List<Int>, default:Int) {
-    val arrayAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, entries).apply {
-        setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-    }
-    val defaultPosition = arrayAdapter.getPosition(default)
-    adapter = arrayAdapter
-    setSelection(defaultPosition)
-}
-
 @BindingAdapter("imageFile","defaultImage")
 fun ImageView.setImageFile(imageFile:File?, defaultImage:Drawable) {
     if(imageFile == null) setImageDrawable(defaultImage)
     else { GlideUtil.loadImage(context,imageFile,this) }
+}
+
+@BindingAdapter("hintIcon")
+fun EditText.setHintIcon(icon:Int) {
+    setOnFocusChangeListener { view, gotFocus ->
+        when {
+            gotFocus -> setCompoundDrawables(null,null,null,null)
+            text.isEmpty() -> setCompoundDrawablesWithIntrinsicBounds(icon,0,0,0)
+        }
+    }
 }
