@@ -187,6 +187,7 @@
     <string name="detail_recruitment_see_others">모임 둘러보기</string>
     <string name="detail_recruitment_together">같이 할래요!</string>
     <string name="detail_recruit_about_my_gathering">[ %s ] 모임은요...!</string>
+    <string name="detail_recruitment_people">모집 인원 %s명</string>
 
     <string name="main_title">좋아하는 분야에서 모임을 시작하세요!</string>
 
