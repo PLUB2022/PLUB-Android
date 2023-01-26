@@ -7,6 +7,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.enums.GatheringShapeType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
@@ -90,10 +91,9 @@ class CategoryChoiceFragment :
 
             launch {
                 viewModel.uiState.collect {
-                    if (it.listOrGrid) {
-                        changeGridRecycler()
-                    } else {
-                        setListRecycler()
+                    when(it.listOrGrid){
+                        GatheringShapeType.LIST->setListRecycler()
+                        GatheringShapeType.GRID->changeGridRecycler()
                     }
                     changeListAndGridButton(it.listOrGrid)
                 }
@@ -121,14 +121,16 @@ class CategoryChoiceFragment :
         }
     }
 
-    private fun changeListAndGridButton(flag : Boolean){
-        if(flag){
-            binding.imageBtnList.setImageResource(R.drawable.ic_list_item_inactive)
-            binding.imageBtnGrid.setImageResource(R.drawable.ic_grid_item_active)
-        }
-        else{
-            binding.imageBtnList.setImageResource(R.drawable.ic_list_item_active)
-            binding.imageBtnGrid.setImageResource(R.drawable.ic_grid_item_inactive)
+    private fun changeListAndGridButton(type : GatheringShapeType){
+        when(type){
+            GatheringShapeType.LIST->{
+                binding.imageBtnList.setImageResource(R.drawable.ic_list_item_active)
+                binding.imageBtnGrid.setImageResource(R.drawable.ic_grid_item_inactive)
+            }
+            GatheringShapeType.GRID->{
+                binding.imageBtnList.setImageResource(R.drawable.ic_list_item_inactive)
+                binding.imageBtnGrid.setImageResource(R.drawable.ic_grid_item_active)
+            }
         }
     }
 

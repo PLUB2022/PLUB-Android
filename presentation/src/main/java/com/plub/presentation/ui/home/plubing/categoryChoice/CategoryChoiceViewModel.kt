@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.home.plubing.categoryChoice
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.GatheringShapeType
 import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.successOrNull
@@ -43,10 +44,9 @@ class CategoryChoiceViewModel @Inject constructor(
     }
 
     fun gridBtnClick(){
-        //TODO 그리드로 변경
         updateUiState { ui ->
             ui.copy(
-                listOrGrid = true
+                listOrGrid = GatheringShapeType.GRID
             )
         }
     }
@@ -55,7 +55,7 @@ class CategoryChoiceViewModel @Inject constructor(
         //TODO 리스트로 변경
         updateUiState { ui ->
             ui.copy(
-                listOrGrid = false
+                listOrGrid = GatheringShapeType.LIST
             )
         }
     }
