@@ -1,6 +1,6 @@
 package com.plub.data.api
 
-import com.plub.data.dto.categorylistdata.CategoryListData
+import com.plub.data.dto.categorylistdata.CategoryListDataResponse
 import com.plub.data.dto.recommendationgatheringdata.RecommendationGatheringResponse
 import com.plub.data.dto.recruitdetail.RecruitDetailResponse
 import com.plub.data.util.ApiResponse
@@ -27,5 +27,5 @@ interface BrowseApi {
     ) : Response<ApiResponse<RecruitDetailResponse>>
 
     @GET(Endpoints.CATEGORY.GET_BIG_CATEGORIES)
-    suspend fun fetchCategoryList() : Response<ApiResponse<CategoryListData>>
+    suspend fun fetchCategoryList() : Response<ApiResponse<CategoryListDataResponse>>
 }
