@@ -21,6 +21,8 @@ object Endpoints {
         private const val ACCOUNT_URL = "/api/accounts"
         const val NICKNAME_CHECK = "$ACCOUNT_URL/check/nickname/{nickname}"
         const val FETCH_MY_INFO = "$ACCOUNT_URL/me"
+        const val REGIST_INTEREST = "$ACCOUNT_URL/interest"
+        const val BROWSE_INTEREST = "$ACCOUNT_URL/me/interest"
     }
 
     object CATEGORY {

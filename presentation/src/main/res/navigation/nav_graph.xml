@@ -99,6 +99,9 @@
         android:name="com.plub.presentation.ui.home.plubing.registinterests.RegisterInterestFragment"
         android:label="fragment_register_interest"
         tools:layout="@layout/fragment_interests_register">
+        <action
+            android:id="@+id/action_registerInterestFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 
 
