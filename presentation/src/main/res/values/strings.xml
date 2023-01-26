@@ -208,4 +208,6 @@
     <string name="include_item_question_hint">소개하는 내용을 입력해주세요</string>
     <string name="include_item_question_max_text">/300</string>
     <string name="include_item_question_now_text">0</string>
+
+    <string name="category_choice_popular">인기순</string>
 </resources>
