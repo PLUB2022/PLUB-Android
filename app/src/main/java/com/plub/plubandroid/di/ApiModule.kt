@@ -75,12 +75,6 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun providePostApi(@NormalRetrofit retrofit: Retrofit): PostHomeApi {
-        return retrofit.create(PostHomeApi::class.java)
-    }
-
-    @Singleton
-    @Provides
     fun provideRecruiApi(@AuthRetrofit retrofit: Retrofit): RecruitApi {
         return retrofit.create(RecruitApi::class.java)
     }

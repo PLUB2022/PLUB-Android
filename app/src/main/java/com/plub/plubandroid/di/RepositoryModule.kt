@@ -18,10 +18,6 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providesHomePostRepository(homePostReposImpl: HomePostReposImpl): HomePostRepository
-
-    @Singleton
-    @Binds
     abstract fun providesKakaoLocationRepository(repositoryImpl: KakaoLocationRepositoryImpl): KakaoLocationRepository
 
     @Singleton

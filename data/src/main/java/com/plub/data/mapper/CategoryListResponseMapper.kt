@@ -15,6 +15,6 @@ object CategoryListResponseMapper : Mapper.ResponseMapper<CategoryListData, Cate
                         CategoriesDataResponseMapper.mapDtoToModel(it)
                     })
             )
-        }!!
+        }?: CategoryListResponseVo(CategoryListDataResponseVo(emptyList()))
     }
 }

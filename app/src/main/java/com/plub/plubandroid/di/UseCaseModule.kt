@@ -86,12 +86,6 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesTestPostHomeUseCase(repository: HomePostRepository): TestPostHomeUseCase {
-        return TestPostHomeUseCase(repository)
-    }
-
-    @Singleton
-    @Provides
     fun providesFetchKakaoLocationByKeywordUseCase(repository: KakaoLocationRepository) : FetchKakaoLocationByKeywordUseCase {
         return FetchKakaoLocationByKeywordUseCase(repository)
     }
