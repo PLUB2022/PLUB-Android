@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.plub.domain.model.enums.PlubCardType" />
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.home.bookmark.BookmarkViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f5f3f6">
+
+        <ImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:text="@string/word_bookmark"
+            android:textColor="@color/color_363636"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_back"
+            app:layout_constraintStart_toEndOf="@+id/image_view_back"
+            app:layout_constraintTop_toTopOf="@+id/image_view_back" />
+
+        <ImageView
+            android:id="@+id/image_view_grid_type"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:onClick="@{() -> vm.onClickCardType(PlubCardType.GRID)}"
+            android:src="@{vm.uiState.cardType == PlubCardType.GRID ? @drawable/ic_grid_item_active : @drawable/ic_grid_item_inactive}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_back" />
+
+        <ImageView
+            android:id="@+id/image_view_list_type"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="3dp"
+            android:onClick="@{() -> vm.onClickCardType(PlubCardType.LIST)}"
+            android:src="@{vm.uiState.cardType == PlubCardType.LIST ? @drawable/ic_list_item_active : @drawable/ic_list_item_inactive}"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_grid_type"
+            app:layout_constraintTop_toTopOf="@id/image_view_grid_type" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_bookmark"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="4dp"
+            android:visibility="@{vm.uiState.emptyViewVisible ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_grid_type" />
+
+        <View
+            android:id="@+id/view_dim"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:background="@drawable/dim_plub_card_bottom"
+            android:visibility="@{vm.uiState.emptyViewVisible ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/recycler_view_bookmark"
+            app:layout_constraintStart_toStartOf="@+id/recycler_view_bookmark" />
+
+        <include
+            android:id="@+id/include_bookmark_empty"
+            layout="@layout/include_bookmark_empty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:visibility="@{vm.uiState.emptyViewVisible ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_list_type"
+            tools:visibility="gone" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

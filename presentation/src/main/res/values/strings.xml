@@ -55,6 +55,7 @@
     <string name="word_sort_type_new">최신순</string>
     <string name="word_sort_type_popular">인기순</string>
     <string name="word_sort">정렬</string>
+    <string name="word_bookmark">북마크</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>
@@ -192,4 +193,6 @@
     <string name="search_result_search_type_title_and_content">제목 + 내용</string>
 
     <string name="plub_recruit_count">모집 인원 %d명</string>
+
+    <string name="bookmark_empty_title">아직 저장된 북마크가 없어요.\n취향에 맞을만한 모임을 찾아볼까요?</string>
 </resources>
