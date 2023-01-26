@@ -1,4 +1,3 @@
-
 package com.plub.presentation.ui.home.adapter.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
@@ -11,16 +10,25 @@ class DetailRecruitProfileViewHolder(
     private val listener: DetailRecruitProfileAdapter.DetailProfileDegelate
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    companion object {
+        private const val MAX_PROFILE = 8
+    }
 
-    fun bind(item: RecruitDetailJoinedAccountsListVo, size: Int, nowNum: Int) {
+    private var accountId : Int = 0
+
+    init {
+        binding.imageViewProfile.setOnClickListener {
+            listener.onProfileClick(accountId)
+        }
+    }
+
+    fun bind(item: RecruitDetailJoinedAccountsListVo, nowNum: Int) {
         binding.apply {
             //imageViewProfile = item
-            if (nowNum == 8) {
+            if (nowNum == MAX_PROFILE) {
                 textViewMoreProfileNumber.text = "+${nowNum}"
             }
-            imageViewProfile.setOnClickListener {
-                listener.onProfileClick(item.accountId)
-            }
+            accountId = item.accountId
         }
     }
 }

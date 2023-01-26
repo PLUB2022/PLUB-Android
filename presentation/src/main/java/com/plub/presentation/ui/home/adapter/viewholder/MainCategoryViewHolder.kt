@@ -10,6 +10,13 @@ class MainCategoryViewHolder (
     private val binding : IncludeItemMainCategoryBinding,
     private val listener : MainCategoryAdapter.MainCategoryDelegate
 ) : RecyclerView.ViewHolder(binding.root){
+    private var categoryId : Int = 0
+
+    init {
+        binding.constraintLayoutCategoryTouch.setOnClickListener {
+            listener.onClick(categoryId)
+        }
+    }
 
 
     fun bind(item: CategoriesDataResponseVo) {
@@ -17,10 +24,7 @@ class MainCategoryViewHolder (
             GlideUtil.loadImage(root.context, item.icon, imageViewCategory)
             textViewTitleCategory.text = item.name
 
-
-            constraintLayoutCategoryTouch.setOnClickListener {
-                listener.onClick(item.id)
-            }
+            categoryId = item.id
         }
     }
 }

@@ -11,11 +11,14 @@ class MainRecommendGridViewHolder(
     private val listener : MainRecommendGridAdapter.MainRecommendGridDelegate
 ): RecyclerView.ViewHolder(binding.root){
 
-    fun bind(item: RecommendationGatheringResponseContentListVo) {
-        var bookmarkFlag = item.isBookmarked
+    private var bookmarkFlag = false
+    private var plubbingId = 0
+
+
+    init {
         binding.apply {
             imageViewRecommendGrid.setOnClickListener {
-                listener.onClickGoRecruitDetail(item.plubbingId)
+                listener.onClickGoRecruitDetail(plubbingId)
             }
 
             imageBtnBookmark.setOnClickListener {
@@ -26,10 +29,15 @@ class MainRecommendGridViewHolder(
                     imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
                 }
                 bookmarkFlag = !bookmarkFlag
-                listener.onClickBookmark(item.plubbingId)
+                listener.onClickBookmark(plubbingId)
             }
+        }
+    }
 
-
+    fun bind(item: RecommendationGatheringResponseContentListVo) {
+        bookmarkFlag = item.isBookmarked
+        binding.apply {
+            plubbingId =item.plubbingId
             //GlideUtil.loadImage(root.context, item.mainImage, imageViewRecommendGrid)
             if(bookmarkFlag){
                 imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
