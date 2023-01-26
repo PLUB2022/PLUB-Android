@@ -4,6 +4,8 @@ import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitRequest
 import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitResponse
 import com.plub.data.dto.applicantsrecruit.reply.ReplyApplicantsRecruitResponse
 import com.plub.data.dto.bookmarks.BookmarkResponse
+import com.plub.data.dto.recruitdetail.host.EndRecruitResponse
+import com.plub.data.dto.recruitdetail.host.HostApplicantsResponse
 import com.plub.data.util.ApiResponse
 import retrofit2.Response
 import retrofit2.http.*
@@ -32,4 +34,15 @@ interface RecruitApi {
     suspend fun bookmarkRecruit(
         @Path("plubbingId") plubbingID: Int,
     ) : Response<ApiResponse<BookmarkResponse>>
+
+
+    @PUT(Endpoints.RECRUIT.RECRUIT_END)
+    suspend fun endRecruit(
+        @Path("plubbingId") plubbingID: Int
+    ) : Response<ApiResponse<EndRecruitResponse>>
+
+    @GET(Endpoints.RECRUIT.APPLICANTS_RECRUIT)
+    suspend fun seeApplicants(
+        @Path("plubbingId") plubbingID: Int
+    ) : Response<ApiResponse<HostApplicantsResponse>>
 }

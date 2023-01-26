@@ -186,6 +186,7 @@
     <string name="category_choice_see_all">전체</string>
     <string name="detail_recruitment_see_others">모임 둘러보기</string>
     <string name="detail_recruitment_together">같이 할래요!</string>
+    <string name="detail_recruit_about_my_gathering">[ %s ] 모임은요...!</string>
 
     <string name="main_title">좋아하는 분야에서 모임을 시작하세요!</string>
 
@@ -197,4 +198,8 @@
     <string name="interests_register_title">취미모임 관심사 등록</string>
     <string name="interests_register_descrip">PLUB에게 당신의 관심사를 알려주세요. 선택하신 관심사를 기반으로 좋아하실만한 모임을 추천해 드려요!</string>
     <string name="interests_register_complete_choice_button">선택완료</string>
+
+    <string name="host_detail_recruit_edit">편집</string>
+    <string name="host_detail_recruit_see_applicants">지원자 확인하기</string>
+    <string name="host_detail_recruit_end">모집 끝내기</string>
 </resources>
