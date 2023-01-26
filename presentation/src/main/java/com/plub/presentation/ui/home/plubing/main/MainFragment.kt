@@ -1,6 +1,5 @@
 package com.plub.presentation.ui.home.plubing.main
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
@@ -9,9 +8,9 @@ import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGat
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMainBinding
 import com.plub.presentation.state.MainPageState
-import com.plub.presentation.ui.home.adapter.MainCategoryAdapter
-import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
-import com.plub.presentation.ui.home.adapter.MainRecommendGatheringXAdapter
+import com.plub.presentation.ui.home.plubing.main.adapter.MainCategoryAdapter
+import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringXAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

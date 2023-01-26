@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.adapter
+package com.plub.presentation.ui.home.plubing.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.databinding.IncludeItemLayoutMainRecommendGatheringNoChoiceBinding
-import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendXViewHolder
+import com.plub.presentation.ui.home.plubing.main.viewholder.MainRecommendXViewHolder
 
 
 class MainRecommendGatheringXAdapter(private val listener: MainRecommendGatheringXDelegate) : ListAdapter<Int, RecyclerView.ViewHolder>(

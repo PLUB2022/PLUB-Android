@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.adapter
+package com.plub.presentation.ui.home.plubing.categoryChoice.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseContentListVo
 import com.plub.presentation.databinding.IncludeItemRecommendGatheringGridBinding
-import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendGridViewHolder
+import com.plub.presentation.ui.home.plubing.categoryChoice.viewholder.MainRecommendGridViewHolder
 
 
-class MainRecommendGridAdapter(private val listener: MainRecommendGridAdapter.MainRecommendGridDelegate) : ListAdapter<RecommendationGatheringResponseContentListVo, RecyclerView.ViewHolder>(
+class MainRecommendGridAdapter(private val listener: MainRecommendGridDelegate) : ListAdapter<RecommendationGatheringResponseContentListVo, RecyclerView.ViewHolder>(
     MainGatheringGridDiffCallBack()
 ){
 

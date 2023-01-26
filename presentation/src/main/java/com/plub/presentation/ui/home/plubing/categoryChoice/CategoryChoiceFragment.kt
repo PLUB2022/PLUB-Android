@@ -11,9 +11,9 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
 import com.plub.presentation.state.CategoryChoiceState
-import com.plub.presentation.ui.home.adapter.MainRecommendAdapter
-import com.plub.presentation.ui.home.adapter.MainRecommendGatheringAdapter
-import com.plub.presentation.ui.home.adapter.MainRecommendGridAdapter
+import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendAdapter
+import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.ui.home.plubing.categoryChoice.adapter.MainRecommendGridAdapter
 import com.plub.presentation.ui.home.plubing.main.MainFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

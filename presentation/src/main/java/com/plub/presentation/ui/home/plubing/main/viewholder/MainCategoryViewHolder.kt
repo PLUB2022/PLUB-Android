@@ -1,9 +1,9 @@
-package com.plub.presentation.ui.home.adapter.viewholder
+package com.plub.presentation.ui.home.plubing.main.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
 import com.plub.presentation.databinding.IncludeItemMainCategoryBinding
-import com.plub.presentation.ui.home.adapter.MainCategoryAdapter
+import com.plub.presentation.ui.home.plubing.main.adapter.MainCategoryAdapter
 import com.plub.presentation.util.GlideUtil
 
 class MainCategoryViewHolder (

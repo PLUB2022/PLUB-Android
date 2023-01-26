@@ -1,18 +1,13 @@
-package com.plub.presentation.ui.home.adapter
+package com.plub.presentation.ui.home.plubing.main.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.GatheringItemVo
-import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseContentListVo
 import com.plub.presentation.databinding.IncludeItemRecommendGatheringListItemBinding
-import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendListViewHolder
-import com.plub.presentation.ui.home.adapter.viewholder.MainRecommendViewHolder
-import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceViewModel
+import com.plub.presentation.ui.home.plubing.main.viewholder.MainRecommendListViewHolder
 
 
 class MainRecommendAdapter(private val listener: MainRecommendGatheringAdapter.MainRecommendGatheringDelegate) : ListAdapter<RecommendationGatheringResponseContentListVo, RecyclerView.ViewHolder>(

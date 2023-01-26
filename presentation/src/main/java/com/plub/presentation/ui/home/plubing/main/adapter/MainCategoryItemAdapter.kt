@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.adapter
+package com.plub.presentation.ui.home.plubing.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
 import com.plub.presentation.databinding.IncludeItemMainCategoryBinding
-import com.plub.presentation.ui.home.adapter.viewholder.MainCategoryViewHolder
+import com.plub.presentation.ui.home.plubing.main.viewholder.MainCategoryViewHolder
 
 
 class MainCategoryItemAdapter(private val listener: MainCategoryAdapter.MainCategoryDelegate) : ListAdapter<CategoriesDataResponseVo, RecyclerView.ViewHolder>(
