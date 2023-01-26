@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/image_btn_back"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -36,7 +36,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/image_btn_bookmark"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -63,10 +63,8 @@
                     android:id="@+id/text_view_plubbing_name"
                     android:layout_width="wrap_content"
                     android:layout_height="21dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="18dp"
-                    android:text="요란한 한줄"
+                    tools:text="요란한 한줄"
                     android:layout_marginTop="52dp"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="29dp"
                     android:layout_marginTop="77dp"
-                    android:text="책 읽고 얘기해요!"
+                    tools:text="책 읽고 얘기해요!"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="@id/text_view_plubbing_name"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -97,7 +95,7 @@
                     android:layout_height="18dp"
                     android:layout_marginStart="34dp"
                     android:layout_marginTop="110dp"
-                    android:text="서울 서초구"
+                    tools:text="서울 서초구"
                     android:textColor="@color/color_5f5ff9"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +108,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="152dp"
                     android:gravity="center"
-                    android:text="“스트레칭은 20분 이상”"
+                    tools:text="“스트레칭은 20분 이상”"
                     android:textSize="32sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +134,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
                         android:layout_marginStart="20dp"
-                        android:text="모집 인원 5명"
+                        tools:text="모집 인원 5명"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -164,7 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
                         android:layout_marginStart="20dp"
-                        android:text="매주 금요일 | 오후 5시 30분"
+                        tools:text="매주 금요일 | 오후 5시 30분"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -188,7 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="21dp"
                     android:layout_marginTop="16dp"
-                    android:text="[ 요란한 한줄 ] 모임은요...!"
+                    tools:text="[ 요란한 한줄 ] 모임은요...!"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
                     app:layout_constraintTop_toBottomOf="@id/image_view_plubbing_image" />
@@ -220,7 +218,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="23dp"
                     android:layout_marginTop="24dp"
-                    android:text="With Us!"
+                    tools:text="With Us!"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
                     app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_hobby" />
@@ -242,8 +240,8 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/bg_rectangle_filled_e4e4e4_radius_10"
-                    android:text="모임 둘러보기"
-                    android:textColor="#8C8C8C"
+                    android:text="@string/detail_recruitment_see_others"
+                    android:textColor="@color/color_8c8c8c"
                     android:textSize="14dp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@id/button_join"
@@ -256,7 +254,7 @@
                     android:layout_height="46dp"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
-                    android:text="같이 할래요!"
+                    android:text="@string/detail_recruitment_together"
                     android:textColor="@color/white"
                     android:textSize="14dp"
                     android:textStyle="bold"

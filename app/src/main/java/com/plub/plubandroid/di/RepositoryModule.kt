@@ -46,27 +46,27 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providesCategoryListRepository(categoryListResposImpl: CategoryListResposImpl): CategoryListRepository
+    abstract fun providesCategoryListRepository(categoryListResposImpl: CategoryListReposImpl): CategoryListRepository
 
     @Singleton
     @Binds
-    abstract fun providesRecommendationGatheringRepository(recommendationGatheringResposImpl: RecommendationGatheringResposImpl): RecommendationGatheringRepository
+    abstract fun providesRecommendationGatheringRepository(recommendationGatheringResposImpl: RecommendationGatheringReposImpl): RecommendationGatheringRepository
 
     @Singleton
     @Binds
-    abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailResposImpl): RecruitDetailRepository
+    abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailReposImpl): RecruitDetailRepository
 
     @Singleton
     @Binds
-    abstract fun providesApplicantsRecruitRepository(repositoryImpl: ApplicantsRecruitResposImpl): ApplicantsRecruitRepository
+    abstract fun providesApplicantsRecruitRepository(repositoryImpl: ApplicantsRecruitReposImpl): ApplicantsRecruitRepository
 
     @Singleton
     @Binds
-    abstract fun providesReplyApplicantsRepository(repositoryImpl: ReplyApplicantsRecruitResposImpl): ReplyApplicantsRecruitRepository
+    abstract fun providesReplyApplicantsRepository(repositoryImpl: ReplyApplicantsRecruitReposImpl): ReplyApplicantsRecruitRepository
 
     @Singleton
     @Binds
-    abstract fun providesCategoriesGatheringRepository(categoriesGatheringResposImpl: CategoriesGatheringResposImpl): CategoriesGatheringRepository
+    abstract fun providesCategoriesGatheringRepository(categoriesGatheringResposImpl: CategoriesGatheringReposImpl): CategoriesGatheringRepository
 
 
     @Singleton

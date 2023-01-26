@@ -9,7 +9,7 @@ import com.plub.domain.repository.CategoryListRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CategoryListResposImpl @Inject constructor(private val browseApi: BrowseApi) : CategoryListRepository, BaseRepository() {
+class CategoryListReposImpl @Inject constructor(private val browseApi: BrowseApi) : CategoryListRepository, BaseRepository() {
     override suspend fun getCategoryList(): Flow<UiState<CategoryListResponseVo>> {
 
         return apiLaunch(browseApi.browseCategoryList(), CategoryListResponseMapper)

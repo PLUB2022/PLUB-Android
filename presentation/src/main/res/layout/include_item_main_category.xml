@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage,ContentDescription">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,8 +13,6 @@
             android:id="@+id/image_view_category"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:clipToOutline="true"
             android:background="@color/transparent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,13 +23,9 @@
             android:id="@+id/text_view_title_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:gravity="center_horizontal|center_vertical"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="1sp"
-            android:text="테스트"
-            android:textColor="#000000"
+            tools:text="테스트"
+            android:textColor="@color/black"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/image_view_category"
             app:layout_constraintStart_toStartOf="@id/image_view_category"
