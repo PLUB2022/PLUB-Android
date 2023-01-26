@@ -32,7 +32,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="12dp"
                 android:background="@color/transparent"
-                android:onClick="@{()->vm.goToApplyPlubbingFragment()}"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -258,6 +257,7 @@
                     android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
                     android:text="@string/detail_recruitment_together"
                     android:textSize="14dp"
+                    android:onClick="@{()->vm.goToApplyPlubbingFragment()}"
                     android:enabled="@{vm.uiState.canApply}"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"

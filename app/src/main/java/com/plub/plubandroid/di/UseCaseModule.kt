@@ -1,12 +1,7 @@
 package com.plub.plubandroid.di
 
-import com.plub.domain.repository.HomePostRepository
-import com.plub.domain.repository.KakaoLocationRepository
-import com.plub.domain.repository.LoginRepository
-import com.plub.domain.repository.PlubJwtRepository
 import com.plub.domain.repository.*
 import com.plub.domain.usecase.*
-import com.plub.domain.usecase.TestPostHomeUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
