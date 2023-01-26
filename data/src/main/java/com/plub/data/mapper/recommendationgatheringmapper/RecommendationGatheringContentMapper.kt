@@ -17,12 +17,10 @@ object RecommendationGatheringContentMapper: Mapper.ResponseMapper<Recommendatio
                 address = this.address,
                 roadAddress = this.roadAddress,
                 placeName = this.placeName,
-                placePositionX = this.placePositionX,
-                placePositionY = this.placePositionY,
                 remainAccountNum = this.remainAccountNum,
                 curAccountNum = this.curAccountNum,
                 isBookmarked = this.isBookmarked
             )
-        }?: RecommendationGatheringResponseContentListVo(0,"","","", "", emptyList(),"","", "", 0.0, 0.0, 0, 0, false)
+        }?: RecommendationGatheringResponseContentListVo(0,"","","", "", emptyList(),"","", "", 0, 0, false)
     }
 }

@@ -14,7 +14,6 @@ class ReplyApplicantsRecruitRepositoryImpl @Inject constructor(
     private val recruitApi: RecruitApi
 ) : ReplyApplicantsRecruitRepository, BaseRepository(){
     override suspend fun postApprovalApplicants(requestVo: ReplyApplicantsRecruitRequestVo): Flow<UiState<ReplyApplicantsRecruitResponseVo>> {
-        TODO("Not yet implemented")
         return apiLaunch(recruitApi.approvalApplicants(requestVo.plubbingId,requestVo.accountId), ReplyApplicantsRecruitMapper)
     }
 

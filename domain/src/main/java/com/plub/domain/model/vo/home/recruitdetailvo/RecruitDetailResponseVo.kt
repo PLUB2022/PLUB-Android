@@ -13,8 +13,6 @@ data class RecruitDetailResponseVo(
     val address : String,
     val roadAdress : String,
     val placeName : String,
-    val placePositionX : Double,
-    val placePositionY : Double,
     val remainAccountNum : Int,
     val plubbingTime : String,
     val isBookmarked : Boolean,

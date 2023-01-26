@@ -18,19 +18,17 @@ object RecruitDetailResponseMapper: Mapper.ResponseMapper<RecruitDetailResponse,
                 address = this.address,
                 roadAdress = this.roadAddress,
                 placeName = this.placeName,
-                placePositionX = this.placePositionX,
-                placePositionY = this.placePositionY,
                 remainAccountNum = this.remainAccountNum,
+                curAccountNum = this.curAccountNum,
                 plubbingTime = this.time,
                 isBookmarked = this.isBookmarked,
                 isApplied = this.isApplied,
-                curAccountNum = this.curAccountNum,
                 joinedAccounts = this.joinedAccounts.map {
                     RecruitDetailJoinedAccountsMapper.mapDtoToModel(it)
                 }
             )
         }?: RecruitDetailResponseVo("", "", emptyList(), "", "", emptyList(), ""
-            , "", "", 0.0, 0.0, 0, "", false, false, 0, emptyList()
+            , "", "", 0, "", false, false, 0, emptyList()
         )
     }
 }

@@ -13,8 +13,6 @@ data class RecommendationGatheringResponseContentListVo(
     val address : String,
     val roadAddress : String,
     val placeName : String,
-    val placePositionX : Double,
-    val placePositionY : Double,
     val remainAccountNum: Int,
     val curAccountNum : Int,
     val isBookmarked : Boolean
