@@ -12,13 +12,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor() : BaseViewModel<PageState.Default>(PageState.Default) {
-    fun onSelectedBottomNavigationMenu(item:MenuItem) {
-        val idx = getMenuIndex(item)
+    fun onSelectedBottomNavigationMenu(fragmentId: Int) {
+        val idx = getMenuIndex(fragmentId)
         emitEventFlow(MainEvent.ShowBottomNavigationBadge(idx))
     }
 
-    private fun getMenuIndex(menuItem: MenuItem):Int {
-        return when(menuItem.itemId) {
+    private fun getMenuIndex(fragmentId: Int):Int {
+        return when(fragmentId) {
             R.id.menu_navigation_main -> {
                 BottomNavigationItemType.MAIN.idx
             }
@@ -34,12 +34,4 @@ class MainViewModel @Inject constructor() : BaseViewModel<PageState.Default>(Pag
             else -> throw IllegalAccessException()
         }
     }
-
-//    testPostHomeUseCase.invoke(HomePostRequestVo("testcode", false)).collect { state ->
-//        when(state){
-//            is UiState.Loading -> Log.d("테스트용", "로딩")
-//            is UiState.Success -> Log.d("테스트용", "${state.successOrNull()!!.authCode}")
-//            is UiState.Error -> Log.d("테스트용", "실패")
-//        }
-//    }
 }
