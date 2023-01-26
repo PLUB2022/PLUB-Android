@@ -1,6 +1,5 @@
 package com.plub.presentation.ui.home.plubing.categoryChoice
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -8,6 +7,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.GatheringShapeType
+import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseContentListVo
+import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
@@ -16,6 +17,7 @@ import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendAdapter
 import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
 import com.plub.presentation.ui.home.plubing.categoryChoice.adapter.MainRecommendGridAdapter
 import com.plub.presentation.ui.home.plubing.main.MainFragmentArgs
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -24,6 +26,9 @@ class CategoryChoiceFragment :
     BaseFragment<FragmentCategoryChoiceBinding, CategoryChoiceState, CategoryChoiceViewModel>(
         FragmentCategoryChoiceBinding::inflate
     ) {
+    companion object{
+        const val ITEM_SIZE = 10
+    }
     private val categorygridAdapter: MainRecommendGridAdapter by lazy {
         MainRecommendGridAdapter(object : MainRecommendGridAdapter.MainRecommendGridDelegate {
             override fun onClickGoRecruitDetail(plubbingId: Int) {
@@ -47,6 +52,8 @@ class CategoryChoiceFragment :
         })
     }
 
+    private var pages : Int = 1
+    private var recommendList : MutableList<RecommendationGatheringResponseContentListVo> = mutableListOf()
     private val mainArgs: MainFragmentArgs by navArgs()
     override val viewModel: CategoryChoiceViewModel by viewModels()
 
@@ -61,7 +68,7 @@ class CategoryChoiceFragment :
 
                     // 스크롤이 끝에 도달했는지 확인
                     if (!recyclerViewCategoryChoiceList.canScrollVertically(1)) {
-                        Log.d("최하단", "최하단")
+                        viewModel.fetchRecommendationGatheringData(mainArgs.categoryId.toInt(), ++pages)
                     }
                 }
             }))
@@ -69,7 +76,7 @@ class CategoryChoiceFragment :
             textViewCategoryName.text = mainArgs.categoryName
 
         }
-        viewModel.fetchRecommendationGatheringData(mainArgs.categoryId.toInt())
+        viewModel.fetchRecommendationGatheringData(mainArgs.categoryId.toInt(), pages)
     }
 
     override fun initStates() {
@@ -78,11 +85,13 @@ class CategoryChoiceFragment :
             launch {
                 viewModel.recommendationData.collect {
                     when (it.content.size) {
-                        0 -> Log.d("TAG", "nothing")//HasNotDataRecycler()
+                        0 -> PlubLogger.logD("CategoryChoiceFragmentTAG", "아무것도 없음")//HasNotDataRecycler()
                         else -> {
-                            categorygridAdapter.submitList(it.content)
-                            categorylistAdapter.submitList(it.content)
+                            addRecommendList(it)
+                            categorygridAdapter.submitList(recommendList)
+                            categorylistAdapter.submitList(recommendList)
                             setListRecycler()
+                            binding.recyclerViewCategoryChoiceList.adapter?.notifyItemInserted(it.content.size)
                         }
                     }
                 }
@@ -142,5 +151,12 @@ class CategoryChoiceFragment :
 
     private fun backMainPage(){
         //fragmentManager?.popBackStackImmediate()
+    }
+
+
+    private fun addRecommendList(data : RecommendationGatheringResponseVo){
+        for(i in data.content){
+            recommendList.add(i)
+        }
     }
 }

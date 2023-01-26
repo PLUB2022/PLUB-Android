@@ -30,9 +30,9 @@ class CategoryChoiceViewModel @Inject constructor(
     val recommendationData: SharedFlow<RecommendationGatheringResponseVo> =
         _recommendationData.asSharedFlow()
 
-    fun fetchRecommendationGatheringData(categoryId : Int)  =
+    fun fetchRecommendationGatheringData(categoryId : Int, pageNumber : Int)  =
         viewModelScope.launch {
-            categoriesGatheringUseCase.invoke(CategoriesGatheringRequestVo(categoryId, 0)).collect{ state->
+            categoriesGatheringUseCase.invoke(CategoriesGatheringRequestVo(categoryId, pageNumber)).collect{ state->
                 state.successOrNull()?.let { _recommendationData.emit(it) }
             }
         }
