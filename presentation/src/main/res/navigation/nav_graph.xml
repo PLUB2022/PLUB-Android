@@ -17,6 +17,10 @@
         <action
             android:id="@+id/action_main_to_searching"
             app:destination="@id/searchingFragment" />
+
+        <action
+            android:id="@+id/action_main_to_bookmark"
+            app:destination="@id/bookmarkFragment" />
     </fragment>
 
     <fragment
@@ -45,5 +49,12 @@
         <argument
             android:name="search"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.plub.presentation.ui.home.bookmark.BookmarkFragment"
+        android:label="fragment_bookmark"
+        tools:layout="@layout/fragment_bookmark">
     </fragment>
 </navigation>

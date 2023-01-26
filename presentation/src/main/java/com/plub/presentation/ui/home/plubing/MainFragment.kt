@@ -39,6 +39,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
             buttonSearching.setOnClickListener {
                 findNavController().navigate(MainFragmentDirections.actionMainToSearching())
             }
+            buttonBookmark.setOnClickListener {
+                findNavController().navigate(MainFragmentDirections.actionMainToBookmark())
+            }
         }
     }
 
