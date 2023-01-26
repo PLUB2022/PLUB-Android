@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/text_view_question"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:gravity="center_vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="1. 함께하기 위한 질문" />
-
-    <EditText
-        android:id="@+id/edit_text_answer"
-        android:layout_width="328dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:hint="@string/include_item_question_hint"
-        android:paddingVertical="11dp"
-        android:paddingHorizontal="8dp"
-        android:textSize="14sp"
-        android:textColorHint="@color/color_8c8c8c"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_question"/>
-
-    <TextView
-        android:id="@+id/text_view_able_text"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_answer"
-        app:layout_constraintEnd_toEndOf="@id/edit_text_answer"
-        android:layout_width="wrap_content"
-        android:textSize="10sp"
-        android:text="@string/include_item_question_max_text"
-        android:textColor="@color/color_8c8c8c"
-        android:layout_height="12dp"/>
-
-    <TextView
-        android:id="@+id/text_view_now_text"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_answer"
-        app:layout_constraintEnd_toStartOf="@id/text_view_able_text"
-        android:layout_width="wrap_content"
-        android:textSize="10sp"
-        android:text="@string/include_item_question_now_text"
-        android:textColor="@color/color_c4c4c4"
-        android:layout_height="12dp"/>
+        android:layout_height="wrap_content">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/text_view_question"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1. 함께하기 위한 질문" />
+
+        <EditText
+            android:id="@+id/edit_text_answer"
+            android:layout_width="328dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="@string/include_item_question_hint"
+            android:maxLength="300"
+            android:paddingVertical="11dp"
+            android:paddingHorizontal="8dp"
+            android:textSize="14sp"
+            android:textColorHint="@color/color_8c8c8c"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_question"/>
+
+        <TextView
+            android:id="@+id/text_view_able_text"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_answer"
+            app:layout_constraintEnd_toEndOf="@id/edit_text_answer"
+            android:layout_width="wrap_content"
+            android:textSize="10sp"
+            android:text="@string/include_item_question_max_text"
+            android:textColor="@color/color_8c8c8c"
+            android:layout_height="12dp"/>
+
+        <TextView
+            android:id="@+id/text_view_now_text"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_answer"
+            app:layout_constraintEnd_toStartOf="@id/text_view_able_text"
+            android:layout_width="wrap_content"
+            android:textSize="10sp"
+            android:text="@string/include_item_question_now_text"
+            android:textColor="@color/color_c4c4c4"
+            android:layout_height="12dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
