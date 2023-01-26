@@ -9,7 +9,7 @@ object RecruitDetailRequestMapper {
     fun mapDtoToModel(type: RecruitDetailRequestVo?): RecruitDetailRequest {
         return type?.run {
             RecruitDetailRequest(
-                plubbingId)
+                plubbingId = this.plubbingId)
         }  ?: RecruitDetailRequest(0)
     }
 }

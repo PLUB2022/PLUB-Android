@@ -8,7 +8,8 @@ object BookmarkMapper : Mapper.ResponseMapper<BookmarkResponse, BookmarkResponse
     override fun mapDtoToModel(type: BookmarkResponse?): BookmarkResponseVo {
         return type?.run {
             BookmarkResponseVo(
-                plubbingId, isBookmarked
+                plubbingId = this.plubbingId,
+                isBookmarked = this.isBookmarked
             )
         }?: BookmarkResponseVo(0, false)
     }

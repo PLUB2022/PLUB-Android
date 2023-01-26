@@ -8,7 +8,7 @@ object QuestionsRecruitMapper : Mapper.ResponseMapper<QuestionsResponse, Questio
     override fun mapDtoToModel(type: QuestionsResponse?): QuestionsResponseVo {
         return type?.run {
             QuestionsResponseVo(
-                questions.map {
+                questions = this.questions.map {
                     QuestionMapper.mapDtoToModel(it)
                 }
             )

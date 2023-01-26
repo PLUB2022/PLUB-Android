@@ -8,7 +8,8 @@ object InterestRegisterResponseMapper : Mapper.ResponseMapper<RegisterInterestRe
     override fun mapDtoToModel(type: RegisterInterestResponse?): RegisterInterestResponseVo {
         return type?.run {
             RegisterInterestResponseVo(
-                accountId, subCategories
+                accountId = this.accountId,
+                subCategories = this.subCategories
             )
         }?: RegisterInterestResponseVo("", emptyList())
     }

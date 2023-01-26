@@ -8,7 +8,20 @@ object RecommendationGatheringContentMapper: Mapper.ResponseMapper<Recommendatio
     override fun mapDtoToModel(type: RecommendationGatheringDataContentList?): RecommendationGatheringResponseContentListVo {
         return type?.run {
             RecommendationGatheringResponseContentListVo(
-                plubbingId, name, title, introduce, time, days, address, roadAddress, placeName, placePositionX, placePositionY, remainAccountNum, curAccountNum, isBookmarked
+                plubbingId = this.plubbingId,
+                name = this.name,
+                title = this.title,
+                introduce = this.introduce,
+                time = this.time,
+                days = this.days,
+                address = this.address,
+                roadAddress = this.roadAddress,
+                placeName = this.placeName,
+                placePositionX = this.placePositionX,
+                placePositionY = this.placePositionY,
+                remainAccountNum = this.remainAccountNum,
+                curAccountNum = this.curAccountNum,
+                isBookmarked = this.isBookmarked
             )
         }?: RecommendationGatheringResponseContentListVo(0,"","","", "", emptyList(),"","", "", 0.0, 0.0, 0, 0, false)
     }

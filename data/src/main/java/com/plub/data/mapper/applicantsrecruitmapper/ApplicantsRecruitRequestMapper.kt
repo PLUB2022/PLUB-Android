@@ -8,7 +8,7 @@ object ApplicantsRecruitRequestMapper : Mapper.RequestMapper<ApplicantsRecruitRe
     override fun mapModelToDto(type: ApplicantsRecruitRequestVo): ApplicantsRecruitRequest {
         return type.run {
             ApplicantsRecruitRequest(
-                answers.map {
+                answers = this.answers.map {
                     ApplicantsRecruitAnswerMapper.mapModelToDto(it)
                 }
             )

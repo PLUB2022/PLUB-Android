@@ -8,12 +8,12 @@ object RecommendationGatheringResponseMapper : Mapper.ResponseMapper<Recommendat
     override fun mapDtoToModel(type: RecommendationGatheringResponse?): RecommendationGatheringResponseVo {
         return type?.run {
             RecommendationGatheringResponseVo(
-                content.map {
+                content = this.content.map {
                     RecommendationGatheringContentMapper.mapDtoToModel(it)
                 },
-                last,
-                totalPages,
-                totalElements
+                last = this.last,
+                number = this.totalPages,
+                numberOfElements = this.totalElements
             )
         }  ?: RecommendationGatheringResponseVo(emptyList(),false,0,0)
     }

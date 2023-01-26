@@ -8,9 +8,10 @@ object HostAccountsMapper : Mapper.ResponseMapper<Accounts, AccountsVo> {
     override fun mapDtoToModel(type: Accounts?): AccountsVo {
         return type?.run {
             AccountsVo(
-                accountName,
-                profileImage, createdAt,
-                answers.map {
+                accountName = this.accountName,
+                profileImage = this.profileImage,
+                createdAt = this.createdAt,
+                answers = this.answers.map {
                     HostAnswersMapper.mapDtoToModel(it)
                 }
             )

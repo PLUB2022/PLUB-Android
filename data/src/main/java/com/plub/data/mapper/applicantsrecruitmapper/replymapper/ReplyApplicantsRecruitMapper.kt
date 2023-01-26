@@ -8,7 +8,8 @@ object ReplyApplicantsRecruitMapper : Mapper.ResponseMapper<ReplyApplicantsRecru
     override fun mapDtoToModel(type: ReplyApplicantsRecruitResponse?): ReplyApplicantsRecruitResponseVo {
         return type?.run {
             ReplyApplicantsRecruitResponseVo(
-                maxAccountNum, curAccountNum
+                maxAccountNum = this.maxAccountNum,
+                curAccountNum = this.curAccountNum
             )
         } ?: ReplyApplicantsRecruitResponseVo(0,0)
     }

@@ -7,7 +7,8 @@ object RecommendationGatheringRequestMapper {
     fun mapDtoToModel(type: RecommendationGatheringRequestVo?): RecommendationGatheringRequest {
         return type?.run {
             RecommendationGatheringRequest(
-                pageNum)
+                pageNum = this.pageNum
+            )
         }  ?: RecommendationGatheringRequest(0)
     }
 }

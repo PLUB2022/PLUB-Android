@@ -8,7 +8,7 @@ object HostRecruitEndMapper : Mapper.ResponseMapper<EndRecruitResponse, Applican
     override fun mapDtoToModel(type: EndRecruitResponse?): ApplicantsRecruitResponseVo {
         return type?.run {
             ApplicantsRecruitResponseVo(
-                plubbingId
+                plubbingId = this.plubbingId
             )
         }?: ApplicantsRecruitResponseVo(0)
     }

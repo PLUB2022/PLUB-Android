@@ -8,7 +8,7 @@ object HostSeeApplicantsMapper : Mapper.ResponseMapper<HostApplicantsResponse, H
     override fun mapDtoToModel(type: HostApplicantsResponse?): HostApplicantsResponseVo {
         return type?.run {
             HostApplicantsResponseVo(
-                appliedAccounts.map {
+                appliedAccounts = this.appliedAccounts.map {
                     HostAccountsMapper.mapDtoToModel(it)
                 }
             )
