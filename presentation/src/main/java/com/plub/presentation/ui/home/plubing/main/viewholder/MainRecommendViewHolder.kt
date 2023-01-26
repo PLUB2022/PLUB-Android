@@ -2,7 +2,7 @@ package com.plub.presentation.ui.home.plubing.main.viewholder
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
+import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.presentation.databinding.IncludeItemLayoutMainRecommendGatheringBinding
 import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendAdapter
 import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
@@ -21,7 +21,7 @@ class MainRecommendViewHolder(
         }
 
     }
-    fun bind(item: RecommendationGatheringDataResponseVo) {
+    fun bind(item: RecommendationGatheringResponseVo) {
         binding.apply {
             listAdapter.submitList(item.content)
         }

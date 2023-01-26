@@ -2,15 +2,19 @@ package com.plub.data.mapper.recommendationgatheringmapper
 
 import com.plub.data.base.Mapper
 import com.plub.data.dto.recommendationgatheringdata.RecommendationGatheringResponse
-import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringDataResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 
 object RecommendationGatheringResponseMapper : Mapper.ResponseMapper<RecommendationGatheringResponse, RecommendationGatheringResponseVo>{
     override fun mapDtoToModel(type: RecommendationGatheringResponse?): RecommendationGatheringResponseVo {
         return type?.run {
             RecommendationGatheringResponseVo(
-                RecommendationGatheringPlubbingsMapper.mapDtoToModel(plubbings)
+                content.map {
+                    RecommendationGatheringContentMapper.mapDtoToModel(it)
+                },
+                last,
+                totalPages,
+                totalElements
             )
-        }  ?: RecommendationGatheringResponseVo(RecommendationGatheringDataResponseVo(emptyList(), false,false,false,0,0,0,0,0))
+        }  ?: RecommendationGatheringResponseVo(emptyList(),false,0,0)
     }
 }

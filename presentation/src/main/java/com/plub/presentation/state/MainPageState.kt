@@ -8,17 +8,5 @@ import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGat
 data class MainPageState(
     val categoryVo :CategoryListResponseVo = CategoryListResponseVo(CategoryListDataResponseVo(
         emptyList()
-    )),
-    val recommendationGatheringVo : RecommendationGatheringResponseVo = RecommendationGatheringResponseVo(RecommendationGatheringDataResponseVo
-        (
-        emptyList(),
-        false,
-        false,
-        false,
-        0,
-        0,
-        0,
-        0,
-        0
     ))
 ):PageState
