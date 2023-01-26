@@ -46,14 +46,13 @@ class CategoryChoiceFragment :
         })
     }
 
-    private val categoryId: MainFragmentArgs by navArgs()
+    private val mainArgs: MainFragmentArgs by navArgs()
     override val viewModel: CategoryChoiceViewModel by viewModels()
 
     override fun initView() {
 
         binding.apply {
             vm = viewModel
-            viewModel.fetchRecommendationGatheringData(categoryId.categoryId.toInt())
             //TODO 할 일
             recyclerViewCategoryChoiceList.addOnScrollListener((object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -65,7 +64,15 @@ class CategoryChoiceFragment :
                     }
                 }
             }))
+
+            imageBtnBack.setOnClickListener {
+                backMainPage()
+            }
+
+            textViewCategoryName.text = mainArgs.categoryName
+
         }
+        viewModel.fetchRecommendationGatheringData(mainArgs.categoryId.toInt())
     }
 
     override fun initStates() {
@@ -127,5 +134,9 @@ class CategoryChoiceFragment :
         val action =
             CategoryChoiceFragmentDirections.actionCategoryChoiceFragmentToRecruitmentFragment(plubbingId.toString())
         findNavController().navigate(action)
+    }
+
+    fun backMainPage(){
+        //fragmentManager?.popBackStackImmediate()
     }
 }
