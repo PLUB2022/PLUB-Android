@@ -5,8 +5,8 @@ import com.plub.data.base.DataDto
 
 data class PlubJwtResponse(
     @SerializedName("accessToken")
-    val accessToken : String,
+    val accessToken : String = "",
 
     @SerializedName("refreshToken")
-    val refreshToken : String
+    val refreshToken : String = ""
 ):DataDto

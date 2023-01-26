@@ -1,20 +1,24 @@
 package com.plub.plubandroid.di
 
 import com.plub.data.repository.AccountRepositoryImpl
+import com.plub.data.repository.BookmarkRepositoryImpl
 import com.plub.data.repository.GatheringRepositoryImpl
 import com.plub.data.repository.HomePostReposImpl
 import com.plub.data.repository.KakaoLocationRepositoryImpl
 import com.plub.data.repository.HobbyRepositoryImpl
 import com.plub.data.repository.LoginRepositoryImpl
 import com.plub.data.repository.MediaRepositoryImpl
+import com.plub.data.repository.SearchRepositoryImpl
 import com.plub.data.repository.SignUpRepositoryImpl
 import com.plub.domain.repository.AccountRepository
+import com.plub.domain.repository.BookmarkRepository
 import com.plub.domain.repository.GatheringRepository
 import com.plub.domain.repository.HobbyRepository
 import com.plub.domain.repository.HomePostRepository
 import com.plub.domain.repository.KakaoLocationRepository
 import com.plub.domain.repository.LoginRepository
 import com.plub.domain.repository.MediaRepository
+import com.plub.domain.repository.SearchRepository
 import com.plub.domain.repository.SignUpRepository
 import dagger.Binds
 import dagger.Module
@@ -57,4 +61,12 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesAccountRepository(repositoryImpl: AccountRepositoryImpl): AccountRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesSearchRepository(repositoryImpl: SearchRepositoryImpl): SearchRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesBookmarkRepository(repositoryImpl: BookmarkRepositoryImpl): BookmarkRepository
 }

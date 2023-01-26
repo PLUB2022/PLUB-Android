@@ -4,6 +4,7 @@
 
 
     <data>
+
         <variable
             name="vm"
             type="com.plub.presentation.ui.home.plubing.MainFragmentViewModel" />
@@ -12,6 +13,30 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="북마크"
+            app:layout_constraintBottom_toTopOf="@+id/button_searching"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/button_create_gathering"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="모임생성"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <Button
+            app:layout_constraintBottom_toTopOf="@+id/button_create_gathering"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/button_searching"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="검색" />
 
 
         <com.google.android.material.appbar.AppBarLayout

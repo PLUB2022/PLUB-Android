@@ -28,6 +28,9 @@ object AndroidX {
     const val PAGING3_WITHOUT_ANDROID_DEPENDENCY = "androidx.paging:paging-common:${Versions.PAGING3}"
     const val PAGING3_RUNTIME = "androidx.paging:paging-runtime:${Versions.PAGING3}"
     const val PAGING3_COMMON_KTX = "androidx.paging:paging-common-ktx:${Versions.PAGING3}"
+    const val ROOM = "androidx.room:room-runtime:${Versions.ROOM}"
+    const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM}"
+    const val ROOM_KTX = "androidx.room:room-ktx:${Versions.ROOM}"
 }
 
 object Google {

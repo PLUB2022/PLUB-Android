@@ -50,6 +50,10 @@ dependencies {
     implementation(AndroidX.CONSTRAINT_LAYOUT)
     implementation(AndroidX.DATA_STORE_PROTO)
     implementation(AndroidX.DATA_STORE_PREFERENCES)
+    implementation(AndroidX.ROOM)
+    implementation(AndroidX.ROOM_KTX)
+    kapt(AndroidX.ROOM_COMPILER)
+
     implementation(Google.MATERIAL)
     implementation(Google.TINK)
     implementation(platform(Google.FIREBASE_BOM))
