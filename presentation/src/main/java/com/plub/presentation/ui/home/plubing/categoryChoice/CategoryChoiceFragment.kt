@@ -12,6 +12,8 @@ import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGat
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
+import com.plub.presentation.event.CategoryChoiceEvent
+import com.plub.presentation.event.LoginEvent
 import com.plub.presentation.state.CategoryChoiceState
 import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendAdapter
 import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
@@ -109,8 +111,8 @@ class CategoryChoiceFragment :
             }
 
             launch {
-                viewModel.backMainPage.collect{
-                    backMainPage()
+                viewModel.eventFlow.collect{
+                    inspectEventFlow(it as CategoryChoiceEvent)
                 }
             }
         }
@@ -157,6 +159,12 @@ class CategoryChoiceFragment :
     private fun addRecommendList(data : RecommendationGatheringResponseVo){
         for(i in data.content){
             recommendList.add(i)
+        }
+    }
+
+    private fun inspectEventFlow(event : CategoryChoiceEvent){
+        when(event){
+            CategoryChoiceEvent.GoToMain -> {}
         }
     }
 }
