@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.tabs.TabLayout
@@ -147,6 +148,7 @@ class SearchResultFragment :
             is SearchResultEvent.ScrollToTop -> scrollToTop()
             is SearchResultEvent.HideKeyboard -> hideKeyboard()
             is SearchResultEvent.ShowSelectSortTypeBottomSheetDialog -> showSelectSortTypeDialog(event.selectedItem)
+            is SearchResultEvent.NavigationPopEvent -> findNavController().popBackStack()
         }
     }
 

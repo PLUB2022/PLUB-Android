@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.home.searchResult
 
+import android.text.Editable
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.error.SearchError
 import com.plub.domain.model.enums.DialogMenuItemType
@@ -95,6 +96,11 @@ class SearchResultViewModel @Inject constructor(
             updateSortType(sortType)
             fetchSearchPlubRecruit(sortType)
         }
+    }
+
+    fun onSearchTextChanged(text: Editable) {
+        val searchText = text.toString()
+        if(searchText.isEmpty()) emitEventFlow(SearchResultEvent.NavigationPopEvent)
     }
 
     private suspend fun fetchSearchPlubRecruit(sortType: PlubSortType) {
