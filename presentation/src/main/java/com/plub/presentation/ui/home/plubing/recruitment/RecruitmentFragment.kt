@@ -9,7 +9,7 @@ import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
-import com.plub.presentation.state.PageState
+import com.plub.presentation.state.DetailRecruitPageState
 import com.plub.presentation.ui.common.GridSpaceDecoration
 import com.plub.presentation.ui.home.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.home.adapter.DetailRecruitProfileAdapter
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RecruitmentFragment :
-    BaseFragment<FragmentDetailRecruitmentPlubingBinding, PageState.Default, RecruitmentViewModel>(
+    BaseFragment<FragmentDetailRecruitmentPlubingBinding, DetailRecruitPageState, RecruitmentViewModel>(
         FragmentDetailRecruitmentPlubingBinding::inflate
     ) {
     private val plubbingIdForMain: MainFragmentArgs by navArgs()
@@ -89,6 +89,10 @@ class RecruitmentFragment :
         var bookmarkFlag = data.isBookmarked
         binding.apply {
             constraintLayoutTop.bringToFront()
+            viewModel.updateState(data.isApplied)
+            if(data.isApplied){
+                buttonJoin.text = getString(R.string.detail_recruitment_already_apply)
+            }
             if (data.isBookmarked) {
                 imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
             }
@@ -96,6 +100,7 @@ class RecruitmentFragment :
             textViewPlubbingTitle.text = data.recruitTitle
             textViewLocation.text = data.placeName
             textViewPlubbingGoal.text = "“${data.plubbingGoal}”"
+
             textViewPeople.text = getString(R.string.detail_recruitment_people,(data.curAccountNum + data.remainAccountNum).toString())
             textViewDate.text = "${data.plubbingDays}"
             //GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
