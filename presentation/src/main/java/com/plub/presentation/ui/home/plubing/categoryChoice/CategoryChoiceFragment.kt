@@ -107,21 +107,21 @@ class CategoryChoiceFragment :
         }
     }
 
-    fun setListRecycler() {
+    private fun setListRecycler() {
         binding.recyclerViewCategoryChoiceList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = categorylistAdapter
         }
     }
 
-    fun changeGridRecycler() {
+    private fun changeGridRecycler() {
         binding.recyclerViewCategoryChoiceList.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = categorygridAdapter
         }
     }
 
-    fun changeListAndGridButton(flag : Boolean){
+    private fun changeListAndGridButton(flag : Boolean){
         if(flag){
             binding.imageBtnList.setImageResource(R.drawable.ic_list_item_inactive)
             binding.imageBtnGrid.setImageResource(R.drawable.ic_grid_item_active)
@@ -132,13 +132,13 @@ class CategoryChoiceFragment :
         }
     }
 
-    fun goToDetailRecruitment(plubbingId : Int) {
+    private fun goToDetailRecruitment(plubbingId : Int) {
         val action =
             CategoryChoiceFragmentDirections.actionCategoryChoiceFragmentToRecruitmentFragment(plubbingId.toString())
         findNavController().navigate(action)
     }
 
-    fun backMainPage(){
+    private fun backMainPage(){
         //fragmentManager?.popBackStackImmediate()
     }
 }

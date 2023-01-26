@@ -55,12 +55,5 @@ class MainFragmentViewModel @Inject constructor(
             bookmarkUsecase.invoke(plubbingId)
         }
     }
-//    private fun handleGetCategoriesSuccess(data: CategoryListResponseVo) {
-//        updateUiState { ui ->
-//            ui.copy(
-//                categoryVo = data
-//            )
-//        }
-//    }
 
 }

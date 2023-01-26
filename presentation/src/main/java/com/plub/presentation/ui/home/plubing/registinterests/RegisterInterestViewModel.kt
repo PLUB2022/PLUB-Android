@@ -116,7 +116,7 @@ class RegisterInterestViewModel @Inject constructor(
         }
     }
 
-    fun completeChoce(){
+    fun completeChoice(){
         viewModelScope.launch {
             _emitChoice.emit(Unit)
         }
