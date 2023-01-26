@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.recruitment.adpater
+package com.plub.presentation.ui.home.plubing.recruitment.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 import com.plub.presentation.databinding.IncludeItemQuestionBinding
-import com.plub.presentation.ui.home.plubing.recruitment.viewholder.QuestionsViewHolder
 
-class QuestionsAdapter(private val listener: QuestionsDegelate) :
+class QuestionsAdapter(private val listener : QuestionsDegelate) :
     ListAdapter<QuestionsDataVo, RecyclerView.ViewHolder>(
         QuestionsDiffCallBack()
     ) {
-    interface QuestionsDegelate {
-        fun onProfileClick(accountId: Int)
+
+    interface QuestionsDegelate{
+        fun isNotEmpty(flag : Boolean)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -30,7 +30,6 @@ class QuestionsAdapter(private val listener: QuestionsDegelate) :
             IncludeItemQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return QuestionsViewHolder(binding, listener)
     }
-
 }
 
 class QuestionsDiffCallBack : DiffUtil.ItemCallback<QuestionsDataVo>() {
