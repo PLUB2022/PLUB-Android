@@ -11,7 +11,7 @@ import com.plub.domain.repository.CategoriesGatheringRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CategoriesGatheringReposImpl @Inject constructor(private val browseApi: BrowseApi) : CategoriesGatheringRepository, BaseRepository() {
+class CategoriesGatheringRepositoryImpl @Inject constructor(private val browseApi: BrowseApi) : CategoriesGatheringRepository, BaseRepository() {
     override suspend fun getCategoriesGatheringList(request: CategoriesGatheringRequestVo): Flow<UiState<RecommendationGatheringResponseVo>> {
         val requestDto = CategoriesGatheringRequestMapper.mapDtoToModel(request)
         return apiLaunch(browseApi.fetchCategoriesGathering(

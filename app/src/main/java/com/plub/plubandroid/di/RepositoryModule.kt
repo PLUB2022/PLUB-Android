@@ -42,42 +42,42 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providesCategoryListRepository(categoryListResposImpl: CategoryListReposImpl): CategoryListRepository
+    abstract fun providesCategoryListRepository(categoryListResposImpl: CategoryListRepositoryImpl): CategoryListRepository
 
     @Singleton
     @Binds
-    abstract fun providesRecommendationGatheringRepository(recommendationGatheringResposImpl: RecommendationGatheringReposImpl): RecommendationGatheringRepository
+    abstract fun providesRecommendationGatheringRepository(recommendationGatheringResposImpl: RecommendationGatheringRepositoryImpl): RecommendationGatheringRepository
 
     @Singleton
     @Binds
-    abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailReposImpl): RecruitDetailRepository
+    abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailRepositoryImpl): RecruitDetailRepository
 
     @Singleton
     @Binds
-    abstract fun providesApplicantsRecruitRepository(repositoryImpl: ApplicantsRecruitReposImpl): ApplicantsRecruitRepository
+    abstract fun providesApplicantsRecruitRepository(repositoryImpl: ApplicantsRecruitRepositoryImpl): ApplicantsRecruitRepository
 
     @Singleton
     @Binds
-    abstract fun providesReplyApplicantsRepository(repositoryImpl: ReplyApplicantsRecruitReposImpl): ReplyApplicantsRecruitRepository
+    abstract fun providesReplyApplicantsRepository(repositoryImpl: ReplyApplicantsRecruitRepositoryImpl): ReplyApplicantsRecruitRepository
 
     @Singleton
     @Binds
-    abstract fun providesCategoriesGatheringRepository(categoriesGatheringResposImpl: CategoriesGatheringReposImpl): CategoriesGatheringRepository
+    abstract fun providesCategoriesGatheringRepository(categoriesGatheringResposImpl: CategoriesGatheringRepositoryImpl): CategoriesGatheringRepository
 
 
     @Singleton
     @Binds
-    abstract fun providesBookmarkRepository(repositoryImpl: BookmarkReposImpl): BookmarkRepository
+    abstract fun providesBookmarkRepository(repositoryImpl: BookmarkRepositoryImpl): BookmarkRepository
 
     @Singleton
     @Binds
-    abstract fun providesInterestRepository(repositoryImpl: InterestReposImpl): InterestRepository
+    abstract fun providesInterestRepository(repositoryImpl: InterestRepositoryImpl): InterestRepository
 
     @Singleton
     @Binds
-    abstract fun providesHostRecruitRepository(repositoryImpl: HostRecruitReposImpl): HostRecruitRepository
+    abstract fun providesHostRecruitRepository(repositoryImpl: HostRecruitRepositoryImpl): HostRecruitRepository
 
     @Singleton
     @Binds
-    abstract fun providesRecruitApplyRepository(repositoryImpl: RecruitApplyReposImpl): RecruitApplyRepository
+    abstract fun providesRecruitApplyRepository(repositoryImpl: RecruitApplyRepositoryImpl): RecruitApplyRepository
 }

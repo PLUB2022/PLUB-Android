@@ -11,7 +11,7 @@ import com.plub.domain.repository.RecruitDetailRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RecruitDetailReposImpl @Inject constructor(private val browseApi: BrowseApi) : RecruitDetailRepository, BaseRepository() {
+class RecruitDetailRepositoryImpl @Inject constructor(private val browseApi: BrowseApi) : RecruitDetailRepository, BaseRepository() {
     override suspend fun getRecruitDetail(request: RecruitDetailRequestVo): Flow<UiState<RecruitDetailResponseVo>> {
         val requestDto = RecruitDetailRequestMapper.mapDtoToModel(request)
         return apiLaunch(

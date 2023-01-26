@@ -9,7 +9,7 @@ import com.plub.domain.repository.BookmarkRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class BookmarkReposImpl @Inject constructor(private val recruitApi: RecruitApi) : BookmarkRepository, BaseRepository() {
+class BookmarkRepositoryImpl @Inject constructor(private val recruitApi: RecruitApi) : BookmarkRepository, BaseRepository() {
     override suspend fun bookmarkRecruit(request: Int): Flow<UiState<BookmarkResponseVo>> {
         return apiLaunch(recruitApi.bookmarkRecruit(request), BookmarkMapper)
     }

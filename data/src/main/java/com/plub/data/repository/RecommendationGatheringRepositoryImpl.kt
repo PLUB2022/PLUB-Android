@@ -11,7 +11,7 @@ import com.plub.domain.repository.RecommendationGatheringRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RecommendationGatheringReposImpl @Inject constructor(private val browseApi: BrowseApi) : RecommendationGatheringRepository, BaseRepository() {
+class RecommendationGatheringRepositoryImpl @Inject constructor(private val browseApi: BrowseApi) : RecommendationGatheringRepository, BaseRepository() {
     override suspend fun getRecommendationGatheringList(request: RecommendationGatheringRequestVo): Flow<UiState<RecommendationGatheringResponseVo>> {
         val requestDto = RecommendationGatheringRequestMapper.mapDtoToModel(request)
         return apiLaunch(browseApi.fetchRecommendationGathering(requestDto.pageNum), RecommendationGatheringResponseMapper)

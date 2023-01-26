@@ -10,7 +10,7 @@ import com.plub.domain.repository.ReplyApplicantsRecruitRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ReplyApplicantsRecruitReposImpl @Inject constructor(
+class ReplyApplicantsRecruitRepositoryImpl @Inject constructor(
     private val recruitApi: RecruitApi
 ) : ReplyApplicantsRecruitRepository, BaseRepository(){
     override suspend fun postApprovalApplicants(requestVo: ReplyApplicantsRecruitRequestVo): Flow<UiState<ReplyApplicantsRecruitResponseVo>> {

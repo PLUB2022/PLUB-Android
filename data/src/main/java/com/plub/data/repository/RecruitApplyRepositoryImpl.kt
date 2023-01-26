@@ -9,7 +9,7 @@ import com.plub.domain.repository.RecruitApplyRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RecruitApplyReposImpl @Inject constructor(private val recruitApi: RecruitApi): RecruitApplyRepository, BaseRepository() {
+class RecruitApplyRepositoryImpl @Inject constructor(private val recruitApi: RecruitApi): RecruitApplyRepository, BaseRepository() {
     override suspend fun getQuestions(request: Int): Flow<UiState<QuestionsResponseVo>> {
         return apiLaunch(recruitApi.getQustions(request), QuestionsRecruitMapper)
     }
