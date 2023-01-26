@@ -15,7 +15,7 @@ class RecruitDetailReposImpl @Inject constructor(private val browseApi: BrowseAp
     override suspend fun getRecruitDetail(request: RecruitDetailRequestVo): Flow<UiState<RecruitDetailResponseVo>> {
         val requestDto = RecruitDetailRequestMapper.mapDtoToModel(request)
         return apiLaunch(
-            browseApi.browseRecruitDetail(
+            browseApi.fetchRecruitDetail(
                 requestDto.plubbingId
             ), RecruitDetailResponseMapper)
     }

@@ -14,7 +14,7 @@ import javax.inject.Inject
 class CategoriesGatheringReposImpl @Inject constructor(private val browseApi: BrowseApi) : CategoriesGatheringRepository, BaseRepository() {
     override suspend fun getCategoriesGatheringList(request: CategoriesGatheringRequestVo): Flow<UiState<RecommendationGatheringResponseVo>> {
         val requestDto = CategoriesGatheringRequestMapper.mapDtoToModel(request)
-        return apiLaunch(browseApi.browseCategoriesGathering(
+        return apiLaunch(browseApi.fetchCategoriesGathering(
             requestDto.categoryId,
             requestDto.pageNumber,), RecommendationGatheringResponseMapper)
     }

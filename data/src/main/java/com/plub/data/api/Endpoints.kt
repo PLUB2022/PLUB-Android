@@ -28,6 +28,7 @@ object Endpoints {
     object CATEGORY {
         private const val CATEGORY_URL = "/api/categories"
         const val GET_ALL_CATEGORIES = "$CATEGORY_URL/all"
+        const val GET_BIG_CATEGORIES = "$CATEGORY_URL"
     }
 
     object KAKAO_LOCATION {
@@ -41,6 +42,9 @@ object Endpoints {
 
     object PLUBBING {
         private const val PLUBBING_URL = "/api/plubbings"
+        const val FETCH_RECOMMENDATION_GATHERING =  "$PLUBBING_URL/recommendation"
+        const val FETCH_CATEGORIES_GATHERING = "$PLUBBING_URL/categories/{categoryId}"
+        const val FETCH_DETAIL_RECRUIT = "$PLUBBING_URL/{plubbingId}/recruit"
     }
 
     object RECRUIT {

@@ -10,22 +10,22 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface BrowseApi {
-    @GET("/api/plubbings/recommendation")
-    suspend fun browseRecommendationGathering(
+    @GET(Endpoints.PLUBBING.FETCH_RECOMMENDATION_GATHERING)
+    suspend fun fetchRecommendationGathering(
         @Query("pageNum") pageNum : Int
     ) : Response<ApiResponse<RecommendationGatheringResponse>>
 
-    @GET("/api/plubbings/categories/{categoryId}")
-    suspend fun browseCategoriesGathering(
+    @GET(Endpoints.PLUBBING.FETCH_CATEGORIES_GATHERING)
+    suspend fun fetchCategoriesGathering(
         @Path("categoryId") categoryId : Int,
         @Query("pageNum") pageNum : Int
     ) : Response<ApiResponse<RecommendationGatheringResponse>>
 
-    @GET("/api/plubbings/{plubbingId}/recruit")
-    suspend fun browseRecruitDetail(
+    @GET(Endpoints.PLUBBING.FETCH_DETAIL_RECRUIT)
+    suspend fun fetchRecruitDetail(
         @Path("plubbingId") plubbingId : Int,
     ) : Response<ApiResponse<RecruitDetailResponse>>
 
-    @GET("/api/categories")
-    suspend fun browseCategoryList() : Response<ApiResponse<CategoryListData>>
+    @GET(Endpoints.CATEGORY.GET_BIG_CATEGORIES)
+    suspend fun fetchCategoryList() : Response<ApiResponse<CategoryListData>>
 }

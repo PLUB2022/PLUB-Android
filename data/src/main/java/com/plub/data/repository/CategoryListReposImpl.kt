@@ -12,6 +12,6 @@ import javax.inject.Inject
 class CategoryListReposImpl @Inject constructor(private val browseApi: BrowseApi) : CategoryListRepository, BaseRepository() {
     override suspend fun getCategoryList(): Flow<UiState<CategoryListResponseVo>> {
 
-        return apiLaunch(browseApi.browseCategoryList(), CategoryListResponseMapper)
+        return apiLaunch(browseApi.fetchCategoryList(), CategoryListResponseMapper)
     }
 }
