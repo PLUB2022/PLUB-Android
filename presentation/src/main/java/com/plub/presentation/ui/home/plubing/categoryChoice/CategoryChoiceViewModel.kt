@@ -5,8 +5,8 @@ import com.plub.domain.model.enums.GatheringShapeType
 import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.successOrNull
-import com.plub.domain.usecase.PostBookmarkUseCase
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
+import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.CategoryChoiceEvent
 import com.plub.presentation.state.CategoryChoiceState
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryChoiceViewModel @Inject constructor(
     val categoriesGatheringUseCase: GetCategoriesGatheringUseCase,
-    val postBookmarkUseCase: PostBookmarkUseCase
+    val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase
 ) : BaseViewModel<CategoryChoiceState>(CategoryChoiceState()) {
 
     private val _recommendationData =
@@ -36,7 +36,7 @@ class CategoryChoiceViewModel @Inject constructor(
 
     fun clickBookmark(plubbingId : Int){
         viewModelScope.launch{
-            postBookmarkUseCase.invoke(plubbingId)
+            postBookmarkPlubRecruitUseCase.invoke(plubbingId)
         }
     }
 

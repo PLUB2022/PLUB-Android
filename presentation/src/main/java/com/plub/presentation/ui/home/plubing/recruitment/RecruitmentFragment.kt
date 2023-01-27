@@ -110,7 +110,7 @@ class RecruitmentFragment :
             detailRecruitCategoryAdapter.submitList(data.categories)
             recyclerViewPlubbingHobby.apply {
                 layoutManager = GridLayoutManager(context, 4)
-                addItemDecoration(GridSpaceDecoration(4, 8.px, false))
+                addItemDecoration(GridSpaceDecoration(4, 8.px, 8.px, false))
                 adapter = detailRecruitCategoryAdapter
             }
 

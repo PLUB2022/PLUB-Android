@@ -5,9 +5,9 @@ import com.plub.domain.model.vo.home.CategoryListResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.successOrNull
-import com.plub.domain.usecase.PostBookmarkUseCase
 import com.plub.domain.usecase.GetHobbiesUseCase
 import com.plub.domain.usecase.GetRecommendationGatheringUsecase
+import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
     val getHobbiesUseCase: GetHobbiesUseCase,
-    val postBookmarkUseCase: PostBookmarkUseCase,
+    val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
     val getRecommendationGatheringUsecase: GetRecommendationGatheringUsecase
 ) : BaseViewModel<PageState.Default>(PageState.Default) {
 
@@ -51,7 +51,7 @@ class MainFragmentViewModel @Inject constructor(
 
     fun clickBookmark(plubbingId : Int){
         viewModelScope.launch{
-            postBookmarkUseCase.invoke(plubbingId)
+            postBookmarkPlubRecruitUseCase.invoke(plubbingId)
         }
     }
 

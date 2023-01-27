@@ -72,11 +72,6 @@ abstract class RepositoryModule {
     @Binds
     abstract fun providesCategoriesGatheringRepository(categoriesGatheringResposImpl: CategoriesGatheringRepositoryImpl): CategoriesGatheringRepository
 
-
-    @Singleton
-    @Binds
-    abstract fun providesBookmarkRepository(repositoryImpl: BookmarkRepositoryImpl): BookmarkRepository
-
     @Singleton
     @Binds
     abstract fun providesInterestRepository(repositoryImpl: RegistInterestRepositoryImpl): RegistInterestRepository

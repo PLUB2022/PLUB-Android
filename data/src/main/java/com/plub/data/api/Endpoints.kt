@@ -41,11 +41,6 @@ object Endpoints {
         const val RECRUIT = "$PLUBBING_URL/recruit"
         const val BOOKMARK = "$PLUBBING_URL/{plubbingId}/recruit/bookmarks"
         const val BOOKMARK_ME = "$PLUBBING_URL/recruit/bookmarks/me"
-    }
-
-
-    object PLUBBING {
-        private const val PLUBBING_URL = "/api/plubbings"
         const val FETCH_RECOMMENDATION_GATHERING =  "$PLUBBING_URL/recommendation"
         const val FETCH_CATEGORIES_GATHERING = "$PLUBBING_URL/categories/{categoryId}"
         const val FETCH_DETAIL_RECRUIT = "$PLUBBING_URL/{plubbingId}/recruit"

@@ -171,12 +171,6 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesBookmarkUseCase(repository: BookmarkRepository): PostBookmarkUseCase {
-        return PostBookmarkUseCase(repository)
-    }
-
-    @Singleton
-    @Provides
     fun providesInterestUseCase(repository: RegistInterestRepository): RegistInterestUseCase {
         return RegistInterestUseCase(repository)
     }
