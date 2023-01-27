@@ -4,6 +4,7 @@ package com.plub.presentation.ui.home.plubing.recruitment
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
+import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.successOrNull
 import com.plub.domain.usecase.ApplicantsRecruitUseCase
@@ -24,9 +25,6 @@ class ApplyPlubbingViewModel @Inject constructor(
     val applicantsRecruitUseCase: ApplicantsRecruitUseCase
 ) : BaseViewModel<ApplyPageState>(ApplyPageState()) {
 
-    private val _recruitQuestionData = MutableSharedFlow<QuestionsResponseVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val recruitQuestionData: SharedFlow<QuestionsResponseVo> = _recruitQuestionData.asSharedFlow()
-
     fun fetchQuestions(plubbingId : Int){
         viewModelScope.launch {
             getRecruitQuestionUseCase.invoke(plubbingId).collect{ state ->
@@ -41,7 +39,6 @@ class ApplyPlubbingViewModel @Inject constructor(
                 questionsData = data
             )
         }
-        //_recruitQuestionData.emit(data)
     }
 
     fun applyRecruit(plubbingId: Int, list : List<ApplicantsRecruitAnswerListVo>){
@@ -56,7 +53,5 @@ class ApplyPlubbingViewModel @Inject constructor(
                 isApplyButtonEnable = flag
             )
         }
-        uiState.value.isApplyButtonEnable
-
     }
 }

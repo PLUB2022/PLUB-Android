@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.home.plubing.main
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.MainPageCategoryPlubType
 import com.plub.domain.model.vo.home.CategoryListResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
@@ -10,6 +11,7 @@ import com.plub.domain.usecase.GetHobbiesUseCase
 import com.plub.domain.usecase.GetRecommendationGatheringUsecase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.state.MainPageState
 import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
@@ -22,7 +24,7 @@ class MainFragmentViewModel @Inject constructor(
     val getHobbiesUseCase: GetHobbiesUseCase,
     val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
     val getRecommendationGatheringUsecase: GetRecommendationGatheringUsecase
-) : BaseViewModel<PageState.Default>(PageState.Default) {
+) : BaseViewModel<MainPageState>(MainPageState()) {
 
     private val _categoryData = MutableSharedFlow<CategoryListResponseVo>(
         replay = 0,
@@ -41,14 +43,33 @@ class MainFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             getHobbiesUseCase(Unit).collect { state ->
                 state.successOrNull()?.let { _categoryData.emit(it) }
-                //inspectUiState(state, ::handleGetCategoriesSuccess)
+                inspectUiState(state, ::handleGetCategoriesSuccess)
             }
 
             getRecommendationGatheringUsecase(RecommendationGatheringRequestVo(0))
                 .collect { state ->
                     state.successOrNull()?.let { _recommendationData.emit(it) }
+                    inspectUiState(state, ::handleGetRecommendGatheringSuccess)
                 }
         }
+
+    private fun handleGetCategoriesSuccess(data : CategoryListResponseVo){
+        updateUiState { ui->
+            ui.copy(
+                categoryVo = data.data,
+                categoryOrPlub = MainPageCategoryPlubType.CATEGORY
+            )
+        }
+    }
+
+    private fun handleGetRecommendGatheringSuccess(data : PlubCardListVo){
+        updateUiState { ui->
+            ui.copy(
+                plubCardList = data,
+                categoryOrPlub = MainPageCategoryPlubType.PLUB
+            )
+        }
+    }
 
     fun clickBookmark(plubbingId : Int){
         viewModelScope.launch{

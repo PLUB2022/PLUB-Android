@@ -4,11 +4,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.enums.MainPageCategoryPlubType
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMainBinding
+import com.plub.presentation.state.MainPageState
 import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.home.plubing.main.adapter.MainCategoryAdapter
 import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
@@ -17,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFragmentViewModel>(
+class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragmentViewModel>(
     FragmentMainBinding::inflate)
 {
     override val viewModel: MainFragmentViewModel by viewModels()
@@ -66,8 +68,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFr
         super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.categoryData.collect{
-                    mainCategoryAdapter.submitList(arrayListOf(it.data))
+                viewModel.uiState.collect{
+                    submitList(it)
                 }
             }
 
@@ -80,6 +82,18 @@ class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFr
                 }
             }
 
+        }
+    }
+
+    private fun submitList(data : MainPageState){
+        when(data.categoryOrPlub){
+            MainPageCategoryPlubType.CATEGORY -> mainCategoryAdapter.submitList(arrayListOf( data.categoryVo))
+            MainPageCategoryPlubType.PLUB -> {
+                when(data.plubCardList.content.size){
+                    0 -> HasNotDataRecycler()
+                    else -> HasDataRecycler(data.plubCardList)
+                }
+            }
         }
     }
 

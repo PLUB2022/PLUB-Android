@@ -3,20 +3,20 @@ package com.plub.domain.model.vo.home.recruitdetailvo
 import com.plub.domain.base.DomainModel
 
 data class RecruitDetailResponseVo(
-    val recruitTitle : String,
-    val recruitIntroduce : String,
-    val categories : List<String>,
-    val plubbingName : String,
-    val plubbingGoal : String,
-    //val plubbingMainImage : String,
-    val plubbingDays : List<String>,
-    val address : String,
-    val roadAdress : String,
-    val placeName : String,
-    val remainAccountNum : Int,
-    val plubbingTime : String,
-    val isBookmarked : Boolean,
-    val isApplied : Boolean,
-    val curAccountNum : Int,
-    val joinedAccounts : List<RecruitDetailJoinedAccountsListVo>
+    val recruitTitle : String = "",
+    val recruitIntroduce : String = "",
+    val categories : List<String> = emptyList(),
+    val plubbingName : String = "",
+    val plubbingGoal : String = "",
+    //val plubbingMainImage : String = "",
+    val plubbingDays : List<String> = emptyList(),
+    val address : String = "",
+    val roadAdress : String = "",
+    val placeName : String = "",
+    val remainAccountNum : Int = -1,
+    val plubbingTime : String = "",
+    val isBookmarked : Boolean = false,
+    val isApplied : Boolean = false,
+    val curAccountNum : Int = -1,
+    val joinedAccounts : List<RecruitDetailJoinedAccountsListVo> = emptyList()
 ) : DomainModel()

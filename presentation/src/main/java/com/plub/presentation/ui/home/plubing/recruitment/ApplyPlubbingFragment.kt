@@ -11,6 +11,7 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentApplyPlubbingBinding
 import com.plub.presentation.state.ApplyPageState
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.QuestionsAdapter
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -42,7 +43,6 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
             }
         }
         viewModel.fetchQuestions(recruitArgs.plubbingId.toInt())
-        questionsAdapter.submitList(viewModel.uiState.value.questionsData.questions)
     }
 
     override fun initStates() {
@@ -50,9 +50,10 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
         super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-
+                viewModel.uiState.collect{
+                    questionsAdapter.submitList(it.questionsData.questions)
+                }
             }
-
         }
     }
     private fun getAnswerList() : List<ApplicantsRecruitAnswerListVo>{

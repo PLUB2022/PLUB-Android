@@ -54,8 +54,8 @@ class RecruitmentFragment :
     override fun initStates() {
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.recruitMentDetailData.collect {
-                    initDetailPage(it)
+                viewModel.uiState.collect {
+                    initDetailPage(it.recruitDetailData)
                 }
             }
 
