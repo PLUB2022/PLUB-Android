@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
+import com.plub.domain.model.vo.plub.PlubCardListVo
+import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.databinding.IncludeItemLayoutMainRecommendGatheringBinding
 import com.plub.presentation.ui.home.plubing.main.viewholder.MainRecommendViewHolder
 
 
-class MainRecommendGatheringAdapter(private val listener: MainRecommendGatheringDelegate) : ListAdapter<RecommendationGatheringResponseVo, RecyclerView.ViewHolder>(
+class MainRecommendGatheringAdapter(private val listener: MainRecommendGatheringDelegate) : ListAdapter<PlubCardListVo, RecyclerView.ViewHolder>(
     MainRecommendGatheringDiffCallBack()
 ){
     interface MainRecommendGatheringDelegate {
@@ -32,7 +34,7 @@ class MainRecommendGatheringAdapter(private val listener: MainRecommendGathering
 
 }
 
-class MainRecommendGatheringDiffCallBack : DiffUtil.ItemCallback<RecommendationGatheringResponseVo>() {
-    override fun areItemsTheSame(oldItem: RecommendationGatheringResponseVo, newItem: RecommendationGatheringResponseVo): Boolean = oldItem == newItem
-    override fun areContentsTheSame(oldItem: RecommendationGatheringResponseVo, newItem: RecommendationGatheringResponseVo): Boolean = oldItem == newItem
+class MainRecommendGatheringDiffCallBack : DiffUtil.ItemCallback<PlubCardListVo>() {
+    override fun areItemsTheSame(oldItem: PlubCardListVo, newItem: PlubCardListVo): Boolean = oldItem == newItem
+    override fun areContentsTheSame(oldItem: PlubCardListVo, newItem: PlubCardListVo): Boolean = oldItem == newItem
 }

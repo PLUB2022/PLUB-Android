@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.CategoryListResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
+import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.successOrNull
 import com.plub.domain.usecase.GetHobbiesUseCase
 import com.plub.domain.usecase.GetRecommendationGatheringUsecase
@@ -31,8 +32,8 @@ class MainFragmentViewModel @Inject constructor(
     val categoryData: SharedFlow<CategoryListResponseVo> = _categoryData.asSharedFlow()
 
     private val _recommendationData =
-        MutableSharedFlow<RecommendationGatheringResponseVo>(0, 1, BufferOverflow.DROP_OLDEST)
-    val recommendationData: SharedFlow<RecommendationGatheringResponseVo> =
+        MutableSharedFlow<PlubCardListVo>(0, 1, BufferOverflow.DROP_OLDEST)
+    val recommendationData: SharedFlow<PlubCardListVo> =
         _recommendationData.asSharedFlow()
 
 

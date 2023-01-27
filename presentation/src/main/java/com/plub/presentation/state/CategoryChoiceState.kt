@@ -1,7 +1,12 @@
 package com.plub.presentation.state
 
-import com.plub.domain.model.enums.GatheringShapeType
+import com.plub.domain.model.enums.PlubCardType
+import com.plub.domain.model.enums.PlubSortType
+import com.plub.domain.model.vo.plub.PlubCardVo
 
 data class CategoryChoiceState(
-    val listOrGrid : GatheringShapeType = GatheringShapeType.LIST
+    val cardList: List<PlubCardVo> = emptyList(),
+    val cardType: PlubCardType = PlubCardType.LIST,
+    val isEmptyViewVisible: Boolean = true,
+    val sortType: PlubSortType = PlubSortType.POPULAR
 ) : PageState

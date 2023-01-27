@@ -1,6 +1,7 @@
 package com.plub.data.api
 
 import com.plub.data.dto.categorylistdata.CategoryListDataResponse
+import com.plub.data.dto.plub.PlubCardListResponse
 import com.plub.data.dto.recommendationgatheringdata.RecommendationGatheringResponse
 import com.plub.data.dto.recruitdetail.RecruitDetailResponse
 import com.plub.data.util.ApiResponse
@@ -13,13 +14,13 @@ interface BrowseApi {
     @GET(Endpoints.PLUBBING.FETCH_RECOMMENDATION_GATHERING)
     suspend fun fetchRecommendationGathering(
         @Query("pageNum") pageNum : Int
-    ) : Response<ApiResponse<RecommendationGatheringResponse>>
+    ) : Response<ApiResponse<PlubCardListResponse>>
 
     @GET(Endpoints.PLUBBING.FETCH_CATEGORIES_GATHERING)
     suspend fun fetchCategoriesGathering(
         @Path("categoryId") categoryId : Int,
         @Query("pageNum") pageNum : Int
-    ) : Response<ApiResponse<RecommendationGatheringResponse>>
+    ) : Response<ApiResponse<PlubCardListResponse>>
 
     @GET(Endpoints.PLUBBING.FETCH_DETAIL_RECRUIT)
     suspend fun fetchRecruitDetail(

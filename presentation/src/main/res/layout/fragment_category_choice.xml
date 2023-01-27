@@ -5,7 +5,7 @@
     tools:ignore="SpUsage,ContentDescription">
 
     <data>
-
+        <import type="com.plub.domain.model.enums.PlubCardType" />
         <variable
             name="vm"
             type="com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceViewModel" />
@@ -85,7 +85,7 @@
                 android:layout_marginStart="209dp"
                 android:layout_marginTop="52dp"
                 android:background="@color/transparent"
-                android:onClick="@{() -> vm.listBtnClick()}"
+                android:onClick="@{()->vm.onClickCardType(PlubCardType.LIST)}"
                 android:src="@drawable/ic_list_item_active"
                 app:layout_constraintEnd_toStartOf="@id/image_btn_grid"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -97,7 +97,7 @@
                 android:layout_marginTop="52dp"
                 android:layout_marginEnd="4dp"
                 android:background="@color/transparent"
-                android:onClick="@{()->vm.gridBtnClick()}"
+                android:onClick="@{()->vm.onClickCardType(PlubCardType.GRID)}"
                 android:src="@drawable/ic_grid_item_inactive"
                 app:layout_constraintEnd_toStartOf="@id/constraint_layout_sort"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -2,6 +2,7 @@ package com.plub.presentation.ui.home.plubing.main.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseContentListVo
+import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemRecommendGatheringListItemBinding
 import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
@@ -31,18 +32,18 @@ class MainRecommendListViewHolder(
         }
     }
 
-    fun bind(item: RecommendationGatheringResponseContentListVo) {
+    fun bind(item: PlubCardVo) {
         bookmarkFlag = item.isBookmarked
-        plubbingId = item.plubbingId
+        plubbingId = item.id
         binding.apply {
             //GlideUtil.loadImage(root.context, item.mainImage, imageViewMeet)
             if(bookmarkFlag){
                 imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
             }
             textViewMeetTitle.text = item.title
-            textViewMeetOnelineIntroduce.text = item.introduce
-            textViewLocation.text = item.roadAddress
-            textViewPeople.text = "모집 인원 ${item.curAccountNum + item.remainAccountNum}명"
+            textViewMeetOnelineIntroduce.text = ""
+            textViewLocation.text = item.place
+            textViewPeople.text = item.remainMemberNumber.toString()
             textViewDate.text = "${item.days.toString()} | ${item.time}"
         }
     }

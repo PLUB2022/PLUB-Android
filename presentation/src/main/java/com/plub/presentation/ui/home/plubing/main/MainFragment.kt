@@ -5,6 +5,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
+import com.plub.domain.model.vo.plub.PlubCardListVo
+import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMainBinding
 import com.plub.presentation.state.PageState
@@ -82,7 +84,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, PageState.Default, MainFr
     }
 
 
-    private fun HasDataRecycler(data : RecommendationGatheringResponseVo){
+    private fun HasDataRecycler(data : PlubCardListVo){
         val mConcatAdapter = ConcatAdapter()
         recommendationListAdapter.submitList(arrayListOf(data))
         mConcatAdapter.addAdapter(mainCategoryAdapter)
