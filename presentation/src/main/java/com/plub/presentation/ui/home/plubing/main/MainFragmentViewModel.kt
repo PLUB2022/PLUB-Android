@@ -33,22 +33,14 @@ class MainFragmentViewModel @Inject constructor(
     )
     val categoryData: SharedFlow<CategoryListResponseVo> = _categoryData.asSharedFlow()
 
-    private val _recommendationData =
-        MutableSharedFlow<PlubCardListVo>(0, 1, BufferOverflow.DROP_OLDEST)
-    val recommendationData: SharedFlow<PlubCardListVo> =
-        _recommendationData.asSharedFlow()
-
-
     fun fetchMainPageData() =
         viewModelScope.launch {
             getHobbiesUseCase(Unit).collect { state ->
-                state.successOrNull()?.let { _categoryData.emit(it) }
                 inspectUiState(state, ::handleGetCategoriesSuccess)
             }
 
             getRecommendationGatheringUsecase(RecommendationGatheringRequestVo(0))
                 .collect { state ->
-                    state.successOrNull()?.let { _recommendationData.emit(it) }
                     inspectUiState(state, ::handleGetRecommendGatheringSuccess)
                 }
         }

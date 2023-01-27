@@ -24,9 +24,6 @@ class RecruitmentViewModel @Inject constructor(
     val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
 ) : BaseViewModel<DetailRecruitPageState>(DetailRecruitPageState()) {
 
-    private val _recruitMentDetailData = MutableSharedFlow<RecruitDetailResponseVo>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val recruitMentDetailData: SharedFlow<RecruitDetailResponseVo> = _recruitMentDetailData.asSharedFlow()
-
     private val _goToApplyPlubbingFrag = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val goToApplyPlubbingFrag: SharedFlow<Unit> = _goToApplyPlubbingFrag.asSharedFlow()
 

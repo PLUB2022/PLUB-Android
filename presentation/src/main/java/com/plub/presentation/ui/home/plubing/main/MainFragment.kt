@@ -72,16 +72,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
                     submitList(it)
                 }
             }
-
-            launch {
-                viewModel.recommendationData.collect{
-                    when(it.content.size){
-                        0 -> HasNotDataRecycler()
-                        else -> HasDataRecycler(it)
-                    }
-                }
-            }
-
         }
     }
 

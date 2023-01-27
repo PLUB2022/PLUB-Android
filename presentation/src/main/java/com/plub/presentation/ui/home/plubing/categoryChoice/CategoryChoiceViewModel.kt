@@ -29,11 +29,7 @@ class CategoryChoiceViewModel @Inject constructor(
 
     private var categoryId : Int = 0
     private var pageNumber : Int = FIRST_PAGE
-
-    private val _recommendationData =
-        MutableSharedFlow<RecommendationGatheringResponseVo>(0, 1, BufferOverflow.DROP_OLDEST)
-    val recommendationData: SharedFlow<RecommendationGatheringResponseVo> =
-        _recommendationData.asSharedFlow()
+    
 
     fun fetchRecommendationGatheringData(id : Int, pages : Int)  =
         viewModelScope.launch {
