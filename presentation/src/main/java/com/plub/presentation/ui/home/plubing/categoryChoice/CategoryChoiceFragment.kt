@@ -21,9 +21,6 @@ class CategoryChoiceFragment :
     BaseFragment<FragmentCategoryChoiceBinding, CategoryChoiceState, CategoryChoiceViewModel>(
         FragmentCategoryChoiceBinding::inflate
     ) {
-    companion object{
-        const val ITEM_SIZE = 10
-    }
     private val gatheringListAdapter: PlubCardAdapter by lazy {
         PlubCardAdapter(object : PlubCardAdapter.Delegate {
             override fun onClickBookmark(plubbingId: Int) {

@@ -86,7 +86,7 @@
                 android:layout_marginTop="52dp"
                 android:background="@color/transparent"
                 android:onClick="@{()->vm.onClickCardType(PlubCardType.LIST)}"
-                android:src="@drawable/ic_list_item_active"
+                android:src="@{vm.uiState.cardType == PlubCardType.LIST ? @drawable/ic_list_item_active : @drawable/ic_list_item_inactive}"
                 app:layout_constraintEnd_toStartOf="@id/image_btn_grid"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -98,7 +98,7 @@
                 android:layout_marginEnd="4dp"
                 android:background="@color/transparent"
                 android:onClick="@{()->vm.onClickCardType(PlubCardType.GRID)}"
-                android:src="@drawable/ic_grid_item_inactive"
+                android:src="@{vm.uiState.cardType == PlubCardType.GRID ? @drawable/ic_grid_item_active : @drawable/ic_grid_item_inactive}"
                 app:layout_constraintEnd_toStartOf="@id/constraint_layout_sort"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,30 +1,34 @@
 package com.plub.presentation.ui.home.plubing.main.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseContentListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.R
-import com.plub.presentation.databinding.IncludeItemRecommendGatheringListItemBinding
+import com.plub.presentation.databinding.IncludeItemPlubCardListBinding
 import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.util.TimeFormatter
 
 class MainRecommendListViewHolder(
-    private val binding: IncludeItemRecommendGatheringListItemBinding,
+    private val binding: IncludeItemPlubCardListBinding,
     private val listener : MainRecommendGatheringAdapter.MainRecommendGatheringDelegate
 ): RecyclerView.ViewHolder(binding.root){
     private var bookmarkFlag = false
     private var plubbingId = 0
 
+    companion object {
+        private const val SEPARATOR_OF_DAY = ","
+    }
+
     init {
         binding.apply {
-            constraintLayoutItemLayout.setOnClickListener {
+            imageViewBackground.setOnClickListener {
                 listener.onClickGoRecruitDetail(plubbingId)
             }
 
-            imageBtnBookmark.setOnClickListener {
+            imageViewBookmark.setOnClickListener {
                 if (bookmarkFlag) {
-                    imageBtnBookmark.setImageResource(R.drawable.ic_unchecked_bookmark_white)
+                    imageViewBookmark.setImageResource(R.drawable.ic_unchecked_bookmark_white)
                 } else {
-                    imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
+                    imageViewBookmark.setImageResource(R.drawable.ic_bookmark_checked)
                 }
                 bookmarkFlag = !bookmarkFlag
                 listener.onClickBookmark(plubbingId)
@@ -33,18 +37,20 @@ class MainRecommendListViewHolder(
     }
 
     fun bind(item: PlubCardVo) {
+        val days = item.days.joinToString(SEPARATOR_OF_DAY)
+        val time = TimeFormatter.getAmPmHourMin(item.time)
         bookmarkFlag = item.isBookmarked
         plubbingId = item.id
         binding.apply {
             //GlideUtil.loadImage(root.context, item.mainImage, imageViewMeet)
             if(bookmarkFlag){
-                imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
+                imageViewBookmark.setImageResource(R.drawable.ic_bookmark_checked)
             }
-            textViewMeetTitle.text = item.title
-            textViewMeetOnelineIntroduce.text = ""
+            textViewName.text = item.name
+            textViewTitle.text = item.title
             textViewLocation.text = item.place
-            textViewPeople.text = item.remainMemberNumber.toString()
-            textViewDate.text = "${item.days.toString()} | ${item.time}"
+            textViewRecruitMemberCount.text = root.context.getString(R.string.detail_recruitment_people,(item.remainMemberNumber).toString())
+            textViewMeetingDate.text = root.context.getString(R.string.word_middle_line, days, time)
         }
     }
 }
