@@ -39,14 +39,14 @@ class CategoryChoiceViewModel @Inject constructor(
         viewModelScope.launch {
             categoryId = id
             pageNumber = pages
-            categoriesGatheringUseCase.invoke(CategoriesGatheringRequestVo(categoryId, pageNumber)).collect{ state->
+            categoriesGatheringUseCase(CategoriesGatheringRequestVo(categoryId, pageNumber)).collect{ state->
                 inspectUiState(state, ::successResult)
             }
         }
 
-    private fun fetchRecommendationGatheringData()  =
+    private fun fetchRecommendationGatheringData() =
         viewModelScope.launch {
-            categoriesGatheringUseCase.invoke(CategoriesGatheringRequestVo(categoryId, pageNumber)).collect{ state->
+            categoriesGatheringUseCase(CategoriesGatheringRequestVo(categoryId, pageNumber)).collect{ state->
                 inspectUiState(state, ::successResult)
             }
         }

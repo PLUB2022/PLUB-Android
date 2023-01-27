@@ -39,12 +39,12 @@ class MainFragmentViewModel @Inject constructor(
 
     fun fetchMainPageData() =
         viewModelScope.launch {
-            getHobbiesUseCase.invoke(Unit).collect { state ->
+            getHobbiesUseCase(Unit).collect { state ->
                 state.successOrNull()?.let { _categoryData.emit(it) }
                 //inspectUiState(state, ::handleGetCategoriesSuccess)
             }
 
-            getRecommendationGatheringUsecase.invoke(RecommendationGatheringRequestVo(0))
+            getRecommendationGatheringUsecase(RecommendationGatheringRequestVo(0))
                 .collect { state ->
                     state.successOrNull()?.let { _recommendationData.emit(it) }
                 }
@@ -52,7 +52,7 @@ class MainFragmentViewModel @Inject constructor(
 
     fun clickBookmark(plubbingId : Int){
         viewModelScope.launch{
-            postBookmarkPlubRecruitUseCase.invoke(plubbingId)
+            postBookmarkPlubRecruitUseCase(plubbingId)
         }
     }
 

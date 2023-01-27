@@ -1,6 +1,5 @@
 package com.plub.presentation.ui.home.plubing.recruitment
 
-import android.util.Log
 import android.widget.EditText
 import androidx.core.view.get
 import androidx.fragment.app.viewModels
@@ -11,9 +10,7 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentApplyPlubbingBinding
 import com.plub.presentation.state.ApplyPageState
-import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.QuestionsAdapter
-import com.plub.presentation.ui.home.plubing.recruitment.adapter.QuestionsViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -45,6 +42,7 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
             }
         }
         viewModel.fetchQuestions(recruitArgs.plubbingId.toInt())
+        questionsAdapter.submitList(viewModel.uiState.value.questionsData.questions)
     }
 
     override fun initStates() {
@@ -52,9 +50,7 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
         super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.recruitQuestionData.collect{
-                    questionsAdapter.submitList(it.questions)
-                }
+
             }
 
         }

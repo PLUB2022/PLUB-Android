@@ -30,14 +30,23 @@ class ApplyPlubbingViewModel @Inject constructor(
     fun fetchQuestions(plubbingId : Int){
         viewModelScope.launch {
             getRecruitQuestionUseCase.invoke(plubbingId).collect{ state ->
-                state.successOrNull()?.let { _recruitQuestionData.emit(it) }
+                inspectUiState(state, ::successFetchQuestions)
             }
         }
     }
 
+    private fun successFetchQuestions(data : QuestionsResponseVo){
+        updateUiState {ui->
+            ui.copy(
+                questionsData = data
+            )
+        }
+        //_recruitQuestionData.emit(data)
+    }
+
     fun applyRecruit(plubbingId: Int, list : List<ApplicantsRecruitAnswerListVo>){
         viewModelScope.launch {
-            applicantsRecruitUseCase.invoke(ApplicantsRecruitRequestVo(plubbingId, list))
+            applicantsRecruitUseCase(ApplicantsRecruitRequestVo(plubbingId, list))
         }
     }
 
@@ -47,6 +56,7 @@ class ApplyPlubbingViewModel @Inject constructor(
                 isApplyButtonEnable = flag
             )
         }
+        uiState.value.isApplyButtonEnable
 
     }
 }

@@ -32,7 +32,7 @@ class RecruitmentViewModel @Inject constructor(
 
     fun fetchRecruitmentDetail(plubbingId : Int){
         viewModelScope.launch {
-            recruitDetailUseCase.invoke(RecruitDetailRequestVo(plubbingId)).collect{ state ->
+            recruitDetailUseCase(RecruitDetailRequestVo(plubbingId)).collect{ state ->
                 state.successOrNull()?.let { _recruitMentDetailData.emit(it) }
             }
         }
@@ -40,7 +40,7 @@ class RecruitmentViewModel @Inject constructor(
 
     fun clickBookmark(plubbingId : Int){
         viewModelScope.launch{
-            postBookmarkPlubRecruitUseCase.invoke(plubbingId)
+            postBookmarkPlubRecruitUseCase(plubbingId)
         }
     }
 
