@@ -29,6 +29,6 @@ class MainCategoryItemAdapter(private val listener: MainCategoryAdapter.MainCate
 
 
 class MainCategoryItemDiffCallBack : DiffUtil.ItemCallback<CategoriesDataResponseVo>() {
-    override fun areItemsTheSame(oldItem: CategoriesDataResponseVo, newItem: CategoriesDataResponseVo): Boolean = oldItem == newItem
+    override fun areItemsTheSame(oldItem: CategoriesDataResponseVo, newItem: CategoriesDataResponseVo): Boolean = oldItem.id == newItem.id
     override fun areContentsTheSame(oldItem: CategoriesDataResponseVo, newItem: CategoriesDataResponseVo): Boolean = oldItem == newItem
 }

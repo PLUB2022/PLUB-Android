@@ -16,6 +16,7 @@ class CategoriesGatheringRepositoryImpl @Inject constructor(private val browseAp
         val requestDto = CategoriesGatheringRequestMapper.mapDtoToModel(request)
         return apiLaunch(browseApi.fetchCategoriesGathering(
             requestDto.categoryId,
-            requestDto.pageNumber,), PlubCardListResponseMapper)
+            request.sort,
+            requestDto.pageNumber), PlubCardListResponseMapper)
     }
 }

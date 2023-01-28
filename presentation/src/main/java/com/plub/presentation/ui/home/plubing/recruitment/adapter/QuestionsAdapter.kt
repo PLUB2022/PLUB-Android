@@ -34,7 +34,7 @@ class QuestionsAdapter(private val listener : QuestionsDegelate) :
 
 class QuestionsDiffCallBack : DiffUtil.ItemCallback<QuestionsDataVo>() {
     override fun areItemsTheSame(oldItem: QuestionsDataVo, newItem: QuestionsDataVo): Boolean =
-        oldItem == newItem
+        oldItem.id == newItem.id
 
     override fun areContentsTheSame(oldItem: QuestionsDataVo, newItem: QuestionsDataVo): Boolean =
         oldItem == newItem

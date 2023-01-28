@@ -8,23 +8,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.databinding.IncludeItemPlubbingSubHobbyBinding
 import com.plub.presentation.ui.home.adapter.viewholder.DetailRecruitCategoryViewHolder
 
-class DetailRecruitCategoryAdapter() : ListAdapter<String, RecyclerView.ViewHolder>(
+class DetailRecruitCategoryAdapter() : ListAdapter<String, DetailRecruitCategoryViewHolder>(
     DetailRecruitCategoryDiffCallBack()
 ){
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is DetailRecruitCategoryViewHolder -> holder.bind(currentList[position])
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailRecruitCategoryViewHolder {
         val binding = IncludeItemPlubbingSubHobbyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return DetailRecruitCategoryViewHolder(binding)
     }
 
+    override fun onBindViewHolder(holder: DetailRecruitCategoryViewHolder, position: Int) {
+        holder.bind(currentList[position])
+    }
 }
-
-
 
 class DetailRecruitCategoryDiffCallBack : DiffUtil.ItemCallback<String>() {
     override fun areItemsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem

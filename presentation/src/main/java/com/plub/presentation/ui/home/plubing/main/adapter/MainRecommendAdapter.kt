@@ -28,6 +28,6 @@ class MainRecommendAdapter(private val listener: MainRecommendGatheringAdapter.M
 }
 
 class MainGatheringDiffCallBack : DiffUtil.ItemCallback<PlubCardVo>() {
-    override fun areItemsTheSame(oldItem: PlubCardVo, newItem: PlubCardVo): Boolean = oldItem == newItem
+    override fun areItemsTheSame(oldItem: PlubCardVo, newItem: PlubCardVo): Boolean = oldItem.id == newItem.id
     override fun areContentsTheSame(oldItem: PlubCardVo, newItem: PlubCardVo): Boolean = oldItem == newItem
 }

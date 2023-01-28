@@ -19,6 +19,7 @@ interface BrowseApi {
     @GET(Endpoints.PLUBBING.FETCH_CATEGORIES_GATHERING)
     suspend fun fetchCategoriesGathering(
         @Path("categoryId") categoryId : Int,
+        @Query("sort") sort : String,
         @Query("pageNum") pageNum : Int
     ) : Response<ApiResponse<PlubCardListResponse>>
 

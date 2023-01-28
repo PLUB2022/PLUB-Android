@@ -34,6 +34,6 @@ class DetailRecruitProfileAdapter(private val listener : DetailProfileDegelate) 
 }
 
 class DetailRecruitProfileDiffCallBack : DiffUtil.ItemCallback<RecruitDetailJoinedAccountsListVo>() {
-    override fun areItemsTheSame(oldItem: RecruitDetailJoinedAccountsListVo, newItem: RecruitDetailJoinedAccountsListVo): Boolean = oldItem == newItem
+    override fun areItemsTheSame(oldItem: RecruitDetailJoinedAccountsListVo, newItem: RecruitDetailJoinedAccountsListVo): Boolean = oldItem.accountId == newItem.accountId
     override fun areContentsTheSame(oldItem: RecruitDetailJoinedAccountsListVo, newItem: RecruitDetailJoinedAccountsListVo): Boolean = oldItem == newItem
 }

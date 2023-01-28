@@ -9,6 +9,7 @@ import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
+import com.plub.presentation.event.RecruitEvent
 import com.plub.presentation.state.DetailRecruitPageState
 import com.plub.presentation.ui.common.GridSpaceDecoration
 import com.plub.presentation.ui.home.adapter.DetailRecruitCategoryAdapter
@@ -60,8 +61,8 @@ class RecruitmentFragment :
             }
 
             launch {
-                viewModel.goToApplyPlubbingFrag.collect{
-                    goToApplyPlubbingFragment(returnFragmentArgs())
+                viewModel.eventFlow.collect{
+                    inspectEventFlow(it as RecruitEvent)
                 }
             }
         }
@@ -79,6 +80,13 @@ class RecruitmentFragment :
             return plubbingIdForCategoryChoice.plubbingId
         } else
             return plubbingIdForMain.plubbingId
+    }
+
+    private fun inspectEventFlow(event : RecruitEvent){
+        when(event){
+            RecruitEvent.GoToApplyPlubbingFragment-> goToApplyPlubbingFragment(returnFragmentArgs())
+            RecruitEvent.GoToProfileFragment ->{}
+        }
     }
 
     private fun goToProfile(accountId: Int) {

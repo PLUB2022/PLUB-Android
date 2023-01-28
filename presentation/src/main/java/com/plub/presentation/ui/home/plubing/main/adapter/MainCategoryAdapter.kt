@@ -32,6 +32,6 @@ class MainCategoryAdapter(private val listener: MainCategoryDelegate) : ListAdap
 }
 
 class MainCategoryDiffCallBack : DiffUtil.ItemCallback<CategoryListDataResponseVo>() {
-    override fun areItemsTheSame(oldItem:CategoryListDataResponseVo, newItem: CategoryListDataResponseVo): Boolean = oldItem == newItem
+    override fun areItemsTheSame(oldItem:CategoryListDataResponseVo, newItem: CategoryListDataResponseVo): Boolean = oldItem.categories == newItem.categories
     override fun areContentsTheSame(oldItem: CategoryListDataResponseVo, newItem: CategoryListDataResponseVo): Boolean = oldItem == newItem
 }
