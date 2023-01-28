@@ -32,6 +32,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="12dp"
                 android:background="@color/transparent"
+                android:onClick="@{()->vm.goToBack()}"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,8 +43,8 @@
                 android:layout_height="32dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="15dp"
-                android:onClick="@{()->vm.clickBookmark()"
                 android:background="@color/transparent"
+                android:onClick="@{()->vm.clickBookmark()"
                 android:src="@{vm.uiState.bookmarked == true ? @drawable/ic_bookmark_checked : @drawable/ic_bookmark}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -51,10 +52,9 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.core.widget.NestedScrollView
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -65,12 +65,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="21dp"
                     android:layout_marginLeft="18dp"
-                    android:text="@{vm.uiState.plubbingName}"
-                    tools:text="요란한 한줄"
                     android:layout_marginTop="52dp"
+                    android:text="@{vm.uiState.plubbingName}"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="요란한 한줄" />
 
 
                 <TextView
@@ -79,10 +79,10 @@
                     android:layout_height="29dp"
                     android:layout_marginTop="77dp"
                     android:text="@{vm.uiState.recruitTitle}"
-                    tools:text="책 읽고 얘기해요!"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="@id/text_view_plubbing_name"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="책 읽고 얘기해요!" />
 
                 <ImageView
                     android:layout_width="16dp"
@@ -90,8 +90,8 @@
                     android:layout_marginTop="111dp"
                     android:src="@drawable/ic_location_5f5ff9"
                     app:layout_constraintStart_toStartOf="@id/text_view_plubbing_name"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/text_view_location"
                     android:layout_width="wrap_content"
@@ -99,11 +99,11 @@
                     android:layout_marginStart="34dp"
                     android:layout_marginTop="110dp"
                     android:text="@{vm.uiState.placeName}"
-                    tools:text="서울 서초구"
                     android:textColor="@color/color_5f5ff9"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="서울 서초구" />
 
 
                 <TextView
@@ -112,21 +112,21 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="152dp"
                     android:gravity="center"
-                    tools:text="“스트레칭은 20분 이상”"
                     android:text="@{vm.uiState.plubbingGoal}"
                     android:textSize="32sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="“스트레칭은 20분 이상”" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_layout_people"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="200dp"
-                    app:layout_constraintEnd_toStartOf="@id/constraint_layout_date"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toTopOf="@id/image_view_plubbing_image"
+                    app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image">
+
                     <ImageView
                         android:layout_width="16dp"
                         android:layout_height="16dp"
@@ -140,10 +140,10 @@
                         android:layout_height="16dp"
                         android:layout_marginStart="20dp"
                         android:text="@{@string/detail_recruitment_people(vm.uiState.accountNum)}"
-                        tools:text="모집 인원 5명"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="모집 인원 5명" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -152,9 +152,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="200dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
                     app:layout_constraintStart_toEndOf="@id/constraint_layout_people"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintBottom_toTopOf="@id/image_view_plubbing_image">
 
                     <ImageView
                         android:layout_width="16dp"
@@ -169,10 +170,10 @@
                         android:layout_height="16dp"
                         android:layout_marginStart="20dp"
                         android:text="@{@string/word_middle_line(vm.uiState.plubbingDays, vm.uiState.plubbingTime)}"
-                        tools:text="매주 금요일 | 오후 5시 30분"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="매주 금요일 | 오후 5시 30분" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -194,18 +195,18 @@
                     android:layout_height="21dp"
                     android:layout_marginTop="16dp"
                     android:text="@{@string/detail_recruit_about_my_gathering(vm.uiState.recruitIntroduce)}"
-                    tools:text = "@string/detail_recruit_about_my_gathering"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
-                    app:layout_constraintTop_toBottomOf="@id/image_view_plubbing_image" />
+                    app:layout_constraintTop_toBottomOf="@id/image_view_plubbing_image"
+                    tools:text="@string/detail_recruit_about_my_gathering" />
 
                 <TextView
                     android:id="@+id/text_view_plubbing_detail"
                     android:layout_width="328dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:textSize="14sp"
                     android:text="@{vm.uiState.recruitIntroduce}"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
                     app:layout_constraintTop_toBottomOf="@id/text_view_plubbing_detail_intro"
                     tools:text="유럽의 전통 춤 중 하나. 기원은 이탈리아. 나중에 프랑스가 이탈리아에서 들여와서 프랑스라고 알고 있는 사람들이 많으며, 유명세 때문에 러시아 춤이라고 알고 있는 사람도 있다.
@@ -263,21 +264,21 @@
                     android:layout_height="46dp"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
-                    android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
-                    android:text="@{vm.uiState.applied == true ? @string/detail_recruitment_already_apply : @string/detail_recruitment_together}"
-                    android:textSize="14dp"
-                    android:onClick="@{()->vm.goToApplyPlubbingFragment()}"
                     android:enabled="@{!vm.uiState.applied}"
+                    android:onClick="@{()->vm.goToApplyPlubbingFragment()}"
+                    android:text="@{vm.uiState.applied == true ? @string/detail_recruitment_already_apply : @string/detail_recruitment_together}"
+                    android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
+                    android:textSize="14dp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/button_other"
                     app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_people_profile" />
 
                 <View
-                    app:layout_constraintTop_toBottomOf="@id/button_join"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"/>
+                    android:layout_height="35dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/button_join" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

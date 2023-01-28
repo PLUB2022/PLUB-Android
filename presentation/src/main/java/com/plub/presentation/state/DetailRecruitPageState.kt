@@ -12,7 +12,7 @@ data class DetailRecruitPageState(
     //val plubbingMainImage : String = "",
     val plubbingDays : String = "",
     val placeName : String = "",
-    val accountNum : Int = -1,
+    val accountNum : String = "",
     val plubbingTime : String = "",
     val isBookmarked : Boolean = false,
     val isApplied : Boolean = false,

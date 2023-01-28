@@ -83,6 +83,9 @@ class RecruitmentFragment :
         when(event){
             RecruitEvent.GoToApplyPlubbingFragment-> goToApplyPlubbingFragment(getFragmentArgs())
             RecruitEvent.GoToProfileFragment ->{}
+            RecruitEvent.GoToBack -> {
+                findNavController().popBackStack()
+            }
         }
     }
 
