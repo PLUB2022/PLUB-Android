@@ -1,8 +1,20 @@
 package com.plub.presentation.state
 
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
 
 data class DetailRecruitPageState(
-    val canApply : Boolean = true,
-    val recruitDetailData : RecruitDetailResponseVo =RecruitDetailResponseVo()
+    val plubId : Int = 0,
+    val recruitTitle : String = "",
+    val recruitIntroduce : String = "",
+    val categories : List<String> = emptyList(),
+    val plubbingName : String = "",
+    val plubbingGoal : String = "",
+    //val plubbingMainImage : String = "",
+    val plubbingDays : String = "",
+    val placeName : String = "",
+    val accountNum : Int = -1,
+    val plubbingTime : String = "",
+    val isBookmarked : Boolean = false,
+    val isApplied : Boolean = false,
+    val joinedAccounts : List<RecruitDetailJoinedAccountsListVo> = emptyList()
 ) : PageState

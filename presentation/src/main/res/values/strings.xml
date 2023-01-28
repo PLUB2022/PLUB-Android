@@ -200,6 +200,7 @@
     <string name="apply_plubbing_title">함께 하기 위한 질문</string>
     <string name="apply_plubbing_descrip">우리와 함께 하는 것에 대한 질문입니다. 상세하게 적어줄 수록 당신의 취미 레벨을 선정하기 쉬워집니다.</string>
     <string name="apply_plubbing_apply_button">지원하기</string>
+    <string name="apply_plubbing_question">%d. %s</string>
 
     <string name="category_choice_see_all">전체</string>
     <string name="detail_recruitment_see_others">모임 둘러보기</string>
@@ -208,6 +209,7 @@
     <string name="detail_recruitment_people">모집 인원 %s명</string>
     <string name="detail_recruitment_already_apply">지원 완료</string>
     <string name="detail_recruitment_profile_county">+%d</string>
+    <string name="detail_recruitment_with_us">With_Us!</string>
 
     <string name="main_title">좋아하는 분야에서 모임을 시작하세요!</string>
 

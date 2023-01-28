@@ -2,7 +2,6 @@ package com.plub.data.api
 
 import com.plub.data.dto.categorylistdata.CategoryListDataResponse
 import com.plub.data.dto.plub.PlubCardListResponse
-import com.plub.data.dto.recommendationgatheringdata.RecommendationGatheringResponse
 import com.plub.data.dto.recruitdetail.RecruitDetailResponse
 import com.plub.data.util.ApiResponse
 import retrofit2.Response

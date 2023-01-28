@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.adapter
+package com.plub.presentation.ui.home.plubing.recruitment.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

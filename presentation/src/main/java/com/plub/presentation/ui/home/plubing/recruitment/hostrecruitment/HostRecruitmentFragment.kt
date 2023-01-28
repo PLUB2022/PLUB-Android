@@ -9,7 +9,7 @@ import com.plub.presentation.databinding.FragmentHostDetailRecruitmentPlubbingBi
 import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.common.GridSpaceDecoration
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitCategoryAdapter
-import com.plub.presentation.ui.home.adapter.DetailRecruitProfileAdapter
+import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

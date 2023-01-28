@@ -36,15 +36,15 @@ class HostRecruitmentViewModel @Inject constructor(
         }
     }
 
-    fun endRecruit(plubbingId: Int){
+    fun endRecruit(){
         viewModelScope.launch {
-            putEndRecruitUseCase.invoke(plubbingId)
+            //putEndRecruitUseCase.invoke(plubbingId)
         }
     }
 
-    fun seeApplicants(plubbingId: Int){
+    fun seeApplicants(){
         viewModelScope.launch {
-            getRecruitApplicantsUseCase.invoke(plubbingId)
+           // getRecruitApplicantsUseCase.invoke(plubbingId)
         }
     }
 

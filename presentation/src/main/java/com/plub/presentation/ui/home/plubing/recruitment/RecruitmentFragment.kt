@@ -5,15 +5,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
-import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import com.plub.presentation.event.RecruitEvent
 import com.plub.presentation.state.DetailRecruitPageState
 import com.plub.presentation.ui.common.GridSpaceDecoration
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitCategoryAdapter
-import com.plub.presentation.ui.home.adapter.DetailRecruitProfileAdapter
+import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceFragmentArgs
 import com.plub.presentation.ui.home.plubing.main.MainFragmentArgs
 import com.plub.presentation.util.px
@@ -44,7 +42,8 @@ class RecruitmentFragment :
 
         binding.apply {
             vm = viewModel
-            viewModel.fetchRecruitmentDetail(returnFragmentArgs().toInt())
+            viewModel.updatePlubState(getFragmentArgs())
+            viewModel.fetchRecruitmentDetail(getFragmentArgs())
         }
     }
 
@@ -52,7 +51,7 @@ class RecruitmentFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-                    initDetailPage(it.recruitDetailData)
+                    initDetailPage(it)
                 }
             }
 
@@ -64,23 +63,25 @@ class RecruitmentFragment :
         }
     }
 
-    private fun goToApplyPlubbingFragment(plubbingId: String) {
+    private fun goToApplyPlubbingFragment(plubbingId: Int) {
         val action = RecruitmentFragmentDirections.actionRecruitmentFragmentToApplyPlubbingFragment(
-            plubbingId
+            plubbingId.toString()
         )
         findNavController().navigate(action)
     }
 
-    private fun returnFragmentArgs(): String {
+    private fun getFragmentArgs(): Int {
+        var id = ""
         if (plubbingIdForMain.plubbingId.equals("0")) {
-            return plubbingIdForCategoryChoice.plubbingId
+            id = plubbingIdForCategoryChoice.plubbingId
         } else
-            return plubbingIdForMain.plubbingId
+            id = plubbingIdForMain.plubbingId
+        return id.toInt()
     }
 
     private fun inspectEventFlow(event : RecruitEvent){
         when(event){
-            RecruitEvent.GoToApplyPlubbingFragment-> goToApplyPlubbingFragment(returnFragmentArgs())
+            RecruitEvent.GoToApplyPlubbingFragment-> goToApplyPlubbingFragment(getFragmentArgs())
             RecruitEvent.GoToProfileFragment ->{}
         }
     }
@@ -89,27 +90,10 @@ class RecruitmentFragment :
 
     }
 
-    private fun initDetailPage(data: RecruitDetailResponseVo) {
-        var bookmarkFlag = data.isBookmarked
+    private fun initDetailPage(data: DetailRecruitPageState) {
         binding.apply {
             constraintLayoutTop.bringToFront()
-            viewModel.updateState(data.isApplied)
-            if(data.isApplied){
-                buttonJoin.text = getString(R.string.detail_recruitment_already_apply)
-            }
-            if (data.isBookmarked) {
-                imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
-            }
-            textViewPlubbingName.text = data.plubbingName
-            textViewPlubbingTitle.text = data.recruitTitle
-            textViewLocation.text = data.placeName
-            textViewPlubbingGoal.text = "“${data.plubbingGoal}”"
-
-            textViewPeople.text = getString(R.string.detail_recruitment_people,(data.curAccountNum + data.remainAccountNum).toString())
-            textViewDate.text = "${data.plubbingDays}"
             //GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
-            textViewPlubbingDetailIntro.text = getString(R.string.detail_recruit_about_my_gathering,data.recruitIntroduce)
-            textViewPlubbingDetail.text = data.recruitIntroduce
 
             detailRecruitCategoryAdapter.submitList(data.categories)
             recyclerViewPlubbingHobby.apply {
@@ -122,17 +106,6 @@ class RecruitmentFragment :
             recyclerViewPlubbingPeopleProfile.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = detailRecruitProfileAdapter
-            }
-
-            imageBtnBookmark.setOnClickListener{
-                if(bookmarkFlag){
-                    imageBtnBookmark.setImageResource(R.drawable.ic_bookmark)
-                }
-                else{
-                    imageBtnBookmark.setImageResource(R.drawable.ic_bookmark_checked)
-                }
-                bookmarkFlag = !bookmarkFlag
-                viewModel.clickBookmark(returnFragmentArgs().toInt())
             }
         }
     }

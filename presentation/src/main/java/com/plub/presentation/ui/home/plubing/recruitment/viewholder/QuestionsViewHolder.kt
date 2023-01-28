@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
+import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemQuestionBinding
 
 class QuestionsViewHolder(
@@ -30,7 +31,7 @@ class QuestionsViewHolder(
 
     fun bind(item: QuestionsDataVo, number : Int) {
         binding.apply {
-            textViewQuestion.text = number.toString() + SPACE + item.question
+            textViewQuestion.text = root.context.getString(R.string.apply_plubbing_question, number, item.question)
         }
     }
 

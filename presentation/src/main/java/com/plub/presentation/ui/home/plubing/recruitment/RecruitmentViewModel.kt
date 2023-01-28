@@ -3,6 +3,7 @@ package com.plub.presentation.ui.home.plubing.recruitment
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
+import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailRequestVo
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.domain.successOrNull
@@ -36,14 +37,37 @@ class RecruitmentViewModel @Inject constructor(
     private fun handleSuccessGetRecruitDetail(data : RecruitDetailResponseVo){
         updateUiState { ui->
             ui.copy(
-                recruitDetailData = data
+                recruitTitle = data.recruitTitle,
+                recruitIntroduce = data.recruitIntroduce,
+                categories = data.categories,
+                plubbingName = data.plubbingName,
+                plubbingGoal = data.plubbingGoal,
+                //plubbingMainImage = data.plubbingMainImage
+                //plubbingDays = data.plubbingDays,
+                placeName = data.placeName,
+                accountNum = data.remainAccountNum + data.curAccountNum,
+                //plubbingTime = data.plubbingTime
+                isBookmarked = data.isBookmarked,
+                isApplied = data.isApplied,
+                joinedAccounts = data.joinedAccounts
+
             )
         }
     }
 
-    fun clickBookmark(plubbingId : Int){
+    fun clickBookmark(){
         viewModelScope.launch{
-            postBookmarkPlubRecruitUseCase(plubbingId)
+            postBookmarkPlubRecruitUseCase(uiState.value.plubId).collect{
+                inspectUiState(it, ::bookMarkChange)
+            }
+        }
+    }
+
+    private fun bookMarkChange(data : PlubBookmarkResponseVo){
+        updateUiState { ui->
+            ui.copy(
+                isBookmarked = data.isBookmarked
+            )
         }
     }
 
@@ -51,10 +75,11 @@ class RecruitmentViewModel @Inject constructor(
         emitEventFlow(RecruitEvent.GoToApplyPlubbingFragment)
     }
 
-    fun updateState(flag : Boolean){
-        updateUiState { ui->
+
+    fun updatePlubState(id : Int){
+        updateUiState {ui->
             ui.copy(
-                canApply = !flag
+                plubId = id
             )
         }
     }
