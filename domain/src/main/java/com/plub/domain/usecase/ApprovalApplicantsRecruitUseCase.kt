@@ -14,9 +14,4 @@ class ApprovalApplicantsRecruitUseCase @Inject constructor(
     override suspend fun invoke(request: ReplyApplicantsRecruitRequestVo): Flow<UiState<ReplyApplicantsRecruitResponseVo>> {
         return approvalApplicantsRecruitRepository.postApprovalApplicants(request)
     }
-
-    suspend fun refuseInvoke(request: ReplyApplicantsRecruitRequestVo): Flow<UiState<ReplyApplicantsRecruitResponseVo>> {
-        return approvalApplicantsRecruitRepository.postRefuseApplicants(request)
-    }
-
 }

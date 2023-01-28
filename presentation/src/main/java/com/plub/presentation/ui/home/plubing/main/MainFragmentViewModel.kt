@@ -1,13 +1,16 @@
 package com.plub.presentation.ui.home.plubing.main
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.MainHasDataType
 import com.plub.domain.model.enums.MainPageCategoryPlubType
 import com.plub.domain.model.vo.home.CategoryListResponseVo
+import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.successOrNull
 import com.plub.domain.usecase.GetHobbiesUseCase
+import com.plub.domain.usecase.GetMyInterestUseCase
 import com.plub.domain.usecase.GetRecommendationGatheringUsecase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
@@ -24,6 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainFragmentViewModel @Inject constructor(
     val getHobbiesUseCase: GetHobbiesUseCase,
+    val getMyInterestUseCase: GetMyInterestUseCase,
     val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
     val getRecommendationGatheringUsecase: GetRecommendationGatheringUsecase
 ) : BaseViewModel<MainPageState>(MainPageState()) {
@@ -32,6 +36,10 @@ class MainFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             getHobbiesUseCase(Unit).collect { state ->
                 inspectUiState(state, ::handleGetCategoriesSuccess)
+            }
+
+            getMyInterestUseCase(Unit).collect{ state ->
+                inspectUiState(state, ::handleGetMyInterestSuccess)
             }
 
             getRecommendationGatheringUsecase(RecommendationGatheringRequestVo(0))
@@ -49,13 +57,39 @@ class MainFragmentViewModel @Inject constructor(
         }
     }
 
+    private fun handleGetMyInterestSuccess(data : RegisterInterestResponseVo){
+        updateUiState { ui->
+            ui.copy(
+                hasInterest = data.subCategories.isNotEmpty()
+            )
+        }
+    }
+
     private fun handleGetRecommendGatheringSuccess(data : PlubCardListVo){
         updateUiState { ui->
             ui.copy(
-                plubCardList = data,
+                plubCardList = getList(data),
                 categoryOrPlub = MainPageCategoryPlubType.PLUB
             )
         }
+    }
+
+    private fun getList(it: PlubCardListVo): List<RecommendationGatheringResponseVo> {
+        val list: MutableList<RecommendationGatheringResponseVo> = mutableListOf()
+        list.add(0, RecommendationGatheringResponseVo(
+            viewType = MainHasDataType.FIRST
+        ))
+        if (!uiState.value.hasInterest) {
+            list.add(
+                1, RecommendationGatheringResponseVo(
+                    viewType = MainHasDataType.NO_DATA,
+                )
+            )
+        }
+        list.add(RecommendationGatheringResponseVo(
+            content = it.content
+        ))
+        return list
     }
 
     fun clickBookmark(plubbingId : Int){
@@ -65,12 +99,10 @@ class MainFragmentViewModel @Inject constructor(
     }
 
     fun goToSearch(){
-        PlubLogger.logD("검색 클릭")
         emitEventFlow(PlubbingMainEvent.GoToSearch)
     }
 
     fun goToBookmark(){
-        PlubLogger.logD("북마크 클릭")
         emitEventFlow(PlubbingMainEvent.GoToBookMark)
     }
 

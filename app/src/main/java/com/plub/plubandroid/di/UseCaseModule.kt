@@ -171,7 +171,7 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesInterestUseCase(repository: RegistInterestRepository): RegistInterestUseCase {
+    fun providesInterestUseCase(repository: RegisterInterestRepository): RegistInterestUseCase {
         return RegistInterestUseCase(repository)
     }
     @Singleton
@@ -196,5 +196,11 @@ object UseCaseModule {
     @Provides
     fun providesRefuseApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): RefuseApplicantsRecruitUseCase {
         return RefuseApplicantsRecruitUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetMyInterestUseCase(repository: RegisterInterestRepository): GetMyInterestUseCase {
+        return GetMyInterestUseCase(repository)
     }
 }

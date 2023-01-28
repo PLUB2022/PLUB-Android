@@ -14,5 +14,5 @@ interface InterestApi {
     suspend fun registerHobby(@Body categoryId : InterestRequest) : Response<ApiResponse<RegisterInterestResponse>>
 
     @GET(Endpoints.ACCOUNT.BROWSE_INTEREST)
-    suspend fun browseRegistedInterest()
+    suspend fun browseRegisteredInterest() : Response<ApiResponse<RegisterInterestResponse>>
 }

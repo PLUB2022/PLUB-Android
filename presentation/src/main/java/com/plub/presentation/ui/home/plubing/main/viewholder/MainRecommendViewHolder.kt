@@ -22,7 +22,7 @@ class MainRecommendViewHolder(
         }
 
     }
-    fun bind(item: PlubCardListVo) {
+    fun bind(item: RecommendationGatheringResponseVo) {
         binding.apply {
             listAdapter.submitList(item.content)
         }
