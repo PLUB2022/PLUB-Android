@@ -9,6 +9,7 @@ import com.plub.domain.usecase.GetAllHobbiesUseCase
 import com.plub.domain.usecase.RegistInterestUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.HobbiesEvent
+import com.plub.presentation.event.RegisterInterestEvent
 import com.plub.presentation.state.HobbiesPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
@@ -114,6 +115,10 @@ class RegisterInterestViewModel @Inject constructor(
         viewModelScope.launch {
             registInterestUseCase.invoke(list)
         }
+    }
+
+    fun backPage(){
+        emitEventFlow(RegisterInterestEvent.BackPage)
     }
 
     fun completeChoice(){

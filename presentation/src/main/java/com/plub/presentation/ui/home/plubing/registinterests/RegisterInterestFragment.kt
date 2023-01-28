@@ -7,7 +7,9 @@ import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentInterestsRegisterBinding
+import com.plub.presentation.event.Event
 import com.plub.presentation.event.HobbiesEvent
+import com.plub.presentation.event.RegisterInterestEvent
 import com.plub.presentation.state.HobbiesPageState
 import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.common.VerticalSpaceDecoration
@@ -69,7 +71,7 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
 
             launch {
                 viewModel.eventFlow.collect {
-                    inspectEventFlow(it as HobbiesEvent)
+                    inspectEventFlow(it)
                 }
             }
 
@@ -87,7 +89,7 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
         }
     }
 
-    private fun inspectEventFlow(event: HobbiesEvent) {
+    private fun inspectEventFlow(event: Event) {
         when(event) {
             is HobbiesEvent.NotifyAllHobby -> {
                 listAdapter.notifyAllItemUpdate()
@@ -95,7 +97,9 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
             is HobbiesEvent.NotifySubHobby -> {
                 listAdapter.notifySubItemUpdate(event.vo)
             }
-            else -> {}
+            is RegisterInterestEvent.BackPage->{
+                findNavController().popBackStack()
+            }
         }
     }
 

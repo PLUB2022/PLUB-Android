@@ -4,7 +4,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseContentListVo
 import com.plub.presentation.base.BaseFragment
@@ -101,7 +100,7 @@ class CategoryChoiceFragment :
 
     private fun inspectEventFlow(event : CategoryChoiceEvent){
         when(event){
-            CategoryChoiceEvent.GoToMain -> {}
+            CategoryChoiceEvent.GoToBack -> { findNavController().popBackStack() }
         }
     }
 }

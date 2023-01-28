@@ -10,6 +10,7 @@ import com.plub.domain.successOrNull
 import com.plub.domain.usecase.ApplicantsRecruitUseCase
 import com.plub.domain.usecase.GetRecruitQuestionUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.event.ApplyEvent
 import com.plub.presentation.state.ApplyPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
@@ -53,5 +54,9 @@ class ApplyPlubbingViewModel @Inject constructor(
                 isApplyButtonEnable = flag
             )
         }
+    }
+
+    fun backPage(){
+        emitEventFlow(ApplyEvent.BackPage)
     }
 }

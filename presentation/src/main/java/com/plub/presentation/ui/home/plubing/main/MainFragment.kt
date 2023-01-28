@@ -10,11 +10,14 @@ import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMainBinding
+import com.plub.presentation.event.Event
+import com.plub.presentation.event.PlubbingMainEvent
 import com.plub.presentation.state.MainPageState
 import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.home.plubing.main.adapter.MainCategoryAdapter
 import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
 import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringXAdapter
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -72,6 +75,22 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
                     submitList(it)
                 }
             }
+            launch {
+                viewModel.eventFlow.collect{
+                    inspectEvent(it as PlubbingMainEvent)
+                }
+            }
+        }
+    }
+
+    private fun inspectEvent(event : PlubbingMainEvent){
+        when(event){
+            is PlubbingMainEvent.GoToSearch -> {
+                PlubLogger.logD("검색 클릭")
+                goToSearchFragment()}
+            is PlubbingMainEvent.GoToBookMark -> {
+                PlubLogger.logD("북마크 클릭")
+                goToBookmarkFragment()}
         }
     }
 
@@ -122,6 +141,16 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
 
     private fun goToRecruitmentFragment(plubbingId : Int){
         val action = MainFragmentDirections.actionMainFragmentToRecruitmentFragment(plubbingId.toString())
+        findNavController().navigate(action)
+    }
+
+    private fun goToSearchFragment(){
+        val action = MainFragmentDirections.actionMainToSearching()
+        findNavController().navigate(action)
+    }
+
+    private fun goToBookmarkFragment(){
+        val action = MainFragmentDirections.actionMainToBookmark()
         findNavController().navigate(action)
     }
 

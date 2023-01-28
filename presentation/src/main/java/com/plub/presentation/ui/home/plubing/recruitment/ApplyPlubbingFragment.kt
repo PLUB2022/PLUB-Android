@@ -3,16 +3,20 @@ package com.plub.presentation.ui.home.plubing.recruitment
 import android.widget.EditText
 import androidx.core.view.get
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentApplyPlubbingBinding
+import com.plub.presentation.event.ApplyEvent
+import com.plub.presentation.event.Event
 import com.plub.presentation.state.ApplyPageState
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.QuestionsAdapter
 import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -54,6 +58,11 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
                     questionsAdapter.submitList(it.questionsData.questions)
                 }
             }
+            launch {
+                viewModel.eventFlow.collect{
+                    inspectEventFlow(it as ApplyEvent)
+                }
+            }
         }
     }
     private fun getAnswerList() : List<ApplicantsRecruitAnswerListVo>{
@@ -71,6 +80,12 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
                 layoutManager = LinearLayoutManager(context)
                 adapter = questionsAdapter
             }
+        }
+    }
+
+    private fun inspectEventFlow(event : ApplyEvent){
+        when(event){
+            is ApplyEvent.BackPage-> {findNavController().popBackStack()}
         }
     }
 

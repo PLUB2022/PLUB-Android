@@ -3,7 +3,6 @@ package com.plub.presentation.ui.home.plubing.categoryChoice
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
-import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
@@ -12,8 +11,6 @@ import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.CategoryChoiceEvent
 import com.plub.presentation.state.CategoryChoiceState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -90,8 +87,8 @@ class CategoryChoiceViewModel @Inject constructor(
         }
     }
 
-    fun backMainPage(){
-        emitEventFlow(CategoryChoiceEvent.GoToMain)
+    fun backPage(){
+        emitEventFlow(CategoryChoiceEvent.GoToBack)
     }
 
 }

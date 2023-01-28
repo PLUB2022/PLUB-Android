@@ -30,6 +30,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="8dp"
+                android:onClick="@{()->vm.backPage()}"
                 android:layout_marginTop="12dp"
                 android:background="@color/transparent"
                 android:src="@drawable/ic_back"
@@ -90,6 +91,7 @@
                     android:layout_marginTop="650dp"
                     android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
                     android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
+
                     android:enabled="@{vm.uiState.applyButtonEnable}"
                     android:text="@string/apply_plubbing_apply_button"
                     app:layout_constraintEnd_toEndOf="parent"

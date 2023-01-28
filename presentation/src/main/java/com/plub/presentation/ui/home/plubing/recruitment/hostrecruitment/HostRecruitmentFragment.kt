@@ -52,9 +52,10 @@ class HostRecruitmentFragment :
                 viewModel.uiState.collect {
                     initDetailPage(it)
                 }
-
+            }
+            launch {
                 viewModel.eventFlow.collect{
-                    inspectEvent(it)
+                    inspectEvent(it as HostDetailPageEvent)
                 }
             }
         }
@@ -82,15 +83,15 @@ class HostRecruitmentFragment :
         }
     }
 
-    private fun inspectEvent(it : Event){
-        when(it){
-            HostDetailPageEvent.GoToBack->{
+    private fun inspectEvent(event : HostDetailPageEvent){
+        when(event){
+            is HostDetailPageEvent.GoToBack->{
                 findNavController().popBackStack()
             }
-            HostDetailPageEvent.GoToEditFragment->{
+            is HostDetailPageEvent.GoToEditFragment->{
 
             }
-            HostDetailPageEvent.GoToSeeApplicants->{
+            is HostDetailPageEvent.GoToSeeApplicants->{
 
             }
         }

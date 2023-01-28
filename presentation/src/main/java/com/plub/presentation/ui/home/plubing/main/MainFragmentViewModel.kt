@@ -11,8 +11,10 @@ import com.plub.domain.usecase.GetHobbiesUseCase
 import com.plub.domain.usecase.GetRecommendationGatheringUsecase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.event.PlubbingMainEvent
 import com.plub.presentation.state.MainPageState
 import com.plub.presentation.state.PageState
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
@@ -25,13 +27,6 @@ class MainFragmentViewModel @Inject constructor(
     val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
     val getRecommendationGatheringUsecase: GetRecommendationGatheringUsecase
 ) : BaseViewModel<MainPageState>(MainPageState()) {
-
-    private val _categoryData = MutableSharedFlow<CategoryListResponseVo>(
-        replay = 0,
-        extraBufferCapacity = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
-    val categoryData: SharedFlow<CategoryListResponseVo> = _categoryData.asSharedFlow()
 
     fun fetchMainPageData() =
         viewModelScope.launch {
@@ -67,6 +62,16 @@ class MainFragmentViewModel @Inject constructor(
         viewModelScope.launch{
             postBookmarkPlubRecruitUseCase(plubbingId)
         }
+    }
+
+    fun goToSearch(){
+        PlubLogger.logD("검색 클릭")
+        emitEventFlow(PlubbingMainEvent.GoToSearch)
+    }
+
+    fun goToBookmark(){
+        PlubLogger.logD("북마크 클릭")
+        emitEventFlow(PlubbingMainEvent.GoToBookMark)
     }
 
 }

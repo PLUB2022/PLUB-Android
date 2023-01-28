@@ -47,6 +47,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+                    android:onClick="@{()->vm.goToBookmark()}"
                     android:layout_marginEnd="15.78dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_bookmark"/>
@@ -56,6 +57,7 @@
                     android:layout_gravity="end"
                     android:layout_marginStart="16dp"
                     android:layout_width="32dp"
+                    android:onClick="@{()->vm.goToSearch()}"
                     android:layout_height="32dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_search"/>
