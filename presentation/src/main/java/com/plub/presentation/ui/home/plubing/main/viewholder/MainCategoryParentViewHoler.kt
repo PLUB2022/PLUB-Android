@@ -12,12 +12,14 @@ class MainCategoryParentViewHoler (
     private val listener: MainCategoryAdapter.MainCategoryDelegate
 ) : RecyclerView.ViewHolder(binding.root){
 
+    companion object{
+        const val ITEM_SPAN_COUNT = 4
+    }
     private val listAdapter = MainCategoryItemAdapter(listener)
 
     init {
-
         binding.recyclerViewMainCategory.apply {
-            layoutManager = GridLayoutManager(context, 4)
+            layoutManager = GridLayoutManager(context, ITEM_SPAN_COUNT)
             adapter = listAdapter
         }
     }
@@ -26,7 +28,6 @@ class MainCategoryParentViewHoler (
     fun bind(item: CategoryListDataResponseVo) {
         binding.apply {
             listAdapter.submitList(item.categories)
-
         }
     }
 }

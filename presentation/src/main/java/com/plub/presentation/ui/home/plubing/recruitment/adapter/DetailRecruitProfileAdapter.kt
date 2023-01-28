@@ -7,11 +7,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
 import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
-import com.plub.presentation.ui.home.adapter.viewholder.DetailRecruitProfileViewHolder
+import com.plub.presentation.ui.home.plubing.recruitment.viewholder.DetailRecruitProfileViewHolder
 
 class DetailRecruitProfileAdapter(private val listener : DetailProfileDegelate) : ListAdapter<RecruitDetailJoinedAccountsListVo, RecyclerView.ViewHolder>(
     DetailRecruitProfileDiffCallBack()
 ){
+
+    companion object{
+        const val MAX_PROFILE = 8
+    }
     interface DetailProfileDegelate{
         fun onProfileClick(accountId : Int)
     }
@@ -19,8 +23,8 @@ class DetailRecruitProfileAdapter(private val listener : DetailProfileDegelate) 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is DetailRecruitProfileViewHolder -> {
-                if (position < 8){
-                    holder.bind(currentList[position], position + 1)
+                if (position < MAX_PROFILE){
+                    holder.bind(currentList[position], position + 1, currentList.size)
                 }
             }
         }

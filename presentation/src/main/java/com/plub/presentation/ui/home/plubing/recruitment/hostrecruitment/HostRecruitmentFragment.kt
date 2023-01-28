@@ -8,7 +8,7 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHostDetailRecruitmentPlubbingBinding
 import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.common.GridSpaceDecoration
-import com.plub.presentation.ui.home.adapter.DetailRecruitCategoryAdapter
+import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.home.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint

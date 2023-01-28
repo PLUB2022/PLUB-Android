@@ -12,7 +12,7 @@ import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import com.plub.presentation.event.RecruitEvent
 import com.plub.presentation.state.DetailRecruitPageState
 import com.plub.presentation.ui.common.GridSpaceDecoration
-import com.plub.presentation.ui.home.adapter.DetailRecruitCategoryAdapter
+import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.home.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceFragmentArgs
 import com.plub.presentation.ui.home.plubing.main.MainFragmentArgs
@@ -44,10 +44,6 @@ class RecruitmentFragment :
 
         binding.apply {
             vm = viewModel
-            //TODO 할 일
-            buttonJoin.setOnClickListener {
-                viewModel
-            }
             viewModel.fetchRecruitmentDetail(returnFragmentArgs().toInt())
         }
     }

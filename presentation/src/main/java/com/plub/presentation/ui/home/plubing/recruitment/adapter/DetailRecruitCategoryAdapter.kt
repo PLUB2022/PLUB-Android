@@ -1,12 +1,11 @@
-package com.plub.presentation.ui.home.adapter
+package com.plub.presentation.ui.home.plubing.recruitment.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.databinding.IncludeItemPlubbingSubHobbyBinding
-import com.plub.presentation.ui.home.adapter.viewholder.DetailRecruitCategoryViewHolder
+import com.plub.presentation.ui.home.plubing.recruitment.viewholder.DetailRecruitCategoryViewHolder
 
 class DetailRecruitCategoryAdapter() : ListAdapter<String, DetailRecruitCategoryViewHolder>(
     DetailRecruitCategoryDiffCallBack()

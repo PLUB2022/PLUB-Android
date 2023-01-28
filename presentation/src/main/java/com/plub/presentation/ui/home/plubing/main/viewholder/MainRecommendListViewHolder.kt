@@ -11,7 +11,7 @@ class MainRecommendListViewHolder(
     private val binding: IncludeItemPlubCardListBinding,
     private val listener : MainRecommendGatheringAdapter.MainRecommendGatheringDelegate
 ): RecyclerView.ViewHolder(binding.root){
-    private var bookmarkFlag = false
+    private var isBookmarked = false
     private var plubbingId = 0
 
     companion object {
@@ -25,12 +25,12 @@ class MainRecommendListViewHolder(
             }
 
             imageViewBookmark.setOnClickListener {
-                if (bookmarkFlag) {
-                    imageViewBookmark.setImageResource(R.drawable.ic_unchecked_bookmark_white)
-                } else {
+                if (isBookmarked) {
                     imageViewBookmark.setImageResource(R.drawable.ic_bookmark_checked)
+                } else {
+                    imageViewBookmark.setImageResource(R.drawable.ic_unchecked_bookmark_white)
                 }
-                bookmarkFlag = !bookmarkFlag
+                isBookmarked = !isBookmarked
                 listener.onClickBookmark(plubbingId)
             }
         }
@@ -39,11 +39,11 @@ class MainRecommendListViewHolder(
     fun bind(item: PlubCardVo) {
         val days = item.days.joinToString(SEPARATOR_OF_DAY)
         val time = TimeFormatter.getAmPmHourMin(item.time)
-        bookmarkFlag = item.isBookmarked
+        isBookmarked = item.isBookmarked
         plubbingId = item.id
         binding.apply {
             //GlideUtil.loadImage(root.context, item.mainImage, imageViewMeet)
-            if(bookmarkFlag){
+            if(isBookmarked){
                 imageViewBookmark.setImageResource(R.drawable.ic_bookmark_checked)
             }
             textViewName.text = item.name

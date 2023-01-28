@@ -1,7 +1,8 @@
-package com.plub.presentation.ui.home.adapter.viewholder
+package com.plub.presentation.ui.home.plubing.recruitment.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
+import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
 import com.plub.presentation.ui.home.adapter.DetailRecruitProfileAdapter
 
@@ -22,11 +23,11 @@ class DetailRecruitProfileViewHolder(
         }
     }
 
-    fun bind(item: RecruitDetailJoinedAccountsListVo, nowNum: Int) {
+    fun bind(item: RecruitDetailJoinedAccountsListVo, nowNum: Int, peopleCount : Int) {
         binding.apply {
             //imageViewProfile = item
             if (nowNum == MAX_PROFILE) {
-                textViewMoreProfileNumber.text = "+${nowNum}"
+                textViewMoreProfileNumber.text = root.context.getString(R.string.detail_recruitment_profile_county, peopleCount)
             }
             accountId = item.accountId
         }
