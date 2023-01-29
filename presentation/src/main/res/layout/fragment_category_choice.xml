@@ -5,7 +5,11 @@
     tools:ignore="SpUsage,ContentDescription">
 
     <data>
+
+        <import type="android.view.View" />
+
         <import type="com.plub.domain.model.enums.PlubCardType" />
+
         <variable
             name="vm"
             type="com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceViewModel" />
@@ -28,8 +32,8 @@
                 android:layout_height="32dp"
                 android:layout_marginLeft="7dp"
                 android:layout_marginTop="12dp"
-                android:onClick="@{()->vm.backPage()}"
                 android:background="@color/transparent"
+                android:onClick="@{()->vm.backPage()}"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,11 +43,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:layout_marginStart="8dp"
-                tools:text="예술"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@id/image_btn_back"
                 app:layout_constraintStart_toEndOf="@id/image_btn_back"
-                app:layout_constraintTop_toTopOf="@id/image_btn_back" />
+                app:layout_constraintTop_toTopOf="@id/image_btn_back"
+                tools:text="예술" />
 
             <ImageView
                 android:id="@+id/image_btn_search"
@@ -142,17 +146,27 @@
             android:id="@+id/recycler_view_category_choice_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="@{vm.uiState.emptyViewVisible ? View.GONE : View.VISIBLE}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"></androidx.recyclerview.widget.RecyclerView>
 
-        </androidx.recyclerview.widget.RecyclerView>
+        <include
+            android:id="@+id/include_data_empty"
+            layout="@layout/include_category_choice_empty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="@{vm.uiState.emptyViewVisible ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraint_layout_top"
+            tools:visibility="gone" />
 
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/dim_home_bottom"
+            android:visibility="@{vm.uiState.emptyViewVisible ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="360:40"
             app:layout_constraintEnd_toEndOf="parent"

@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseContentListVo
 import com.plub.presentation.base.BaseFragment
@@ -42,16 +43,6 @@ class CategoryChoiceFragment :
         binding.apply {
             vm = viewModel
             //TODO 할 일
-//            recyclerViewCategoryChoiceList.addOnScrollListener((object : RecyclerView.OnScrollListener() {
-//                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                    super.onScrolled(recyclerView, dx, dy)
-//
-//                    // 스크롤이 끝에 도달했는지 확인
-//                    if (!recyclerViewCategoryChoiceList.canScrollVertically(1)) {
-//                        viewModel.fetchRecommendationGatheringData(mainArgs.categoryId.toInt(), ++pages)
-//                    }
-//                }
-//            }))
             recyclerViewCategoryChoiceList.apply {
                 layoutManager = GridLayoutManager(context, PlubCardType.TOTAL_SPAN_SIZE).apply {
                     spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -63,6 +54,17 @@ class CategoryChoiceFragment :
                     }
                 }
                 adapter = gatheringListAdapter
+
+//                addOnScrollListener((object : RecyclerView.OnScrollListener() {
+//                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                        super.onScrolled(recyclerView, dx, dy)
+//
+//                        if (!recyclerViewCategoryChoiceList.canScrollVertically(1)) {
+//                            viewModel.fetchRecommendationGatheringData(mainArgs.categoryId.toInt(), ++pages)
+//                            scrollToPosition((pages-1) * 10)
+//                        }
+//                    }
+//                }))
             }
 
             textViewCategoryName.text = mainArgs.categoryName
@@ -92,10 +94,6 @@ class CategoryChoiceFragment :
         val action =
             CategoryChoiceFragmentDirections.actionCategoryChoiceFragmentToRecruitmentFragment(plubbingId.toString())
         findNavController().navigate(action)
-    }
-
-    private fun backMainPage(){
-        //fragmentManager?.popBackStackImmediate()
     }
 
     private fun inspectEventFlow(event : CategoryChoiceEvent){
