@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/menu_navigation_main">
 
     <fragment
-        android:id="@+id/mainFragment"
+        android:id="@+id/menu_navigation_main"
         android:name="com.plub.presentation.ui.home.plubing.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        android:label="menu_navigation_main"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_main_to_createGathering"
             app:destination="@id/createGatheringFragment" />
@@ -57,4 +57,19 @@
         android:label="fragment_bookmark"
         tools:layout="@layout/fragment_bookmark">
     </fragment>
+    <fragment
+        android:id="@+id/menu_navigation_gathering"
+        android:name="com.plub.presentation.ui.gathering.GatheringFragment"
+        android:label="fragment_gathering"
+        tools:layout="@layout/fragment_gathering" />
+    <fragment
+        android:id="@+id/menu_navigation_noti"
+        android:name="com.plub.presentation.ui.noti.NotiFragment"
+        android:label="menu_navigation_noti"
+        tools:layout="@layout/fragment_noti" />
+    <fragment
+        android:id="@+id/menu_navigation_profile"
+        android:name="com.plub.presentation.ui.profile.ProfileFragment"
+        android:label="menu_navigation_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

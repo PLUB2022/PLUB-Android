@@ -25,7 +25,7 @@
         </provider>
 
         <activity
-            android:name=".ui.home.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true" />
 
         <activity

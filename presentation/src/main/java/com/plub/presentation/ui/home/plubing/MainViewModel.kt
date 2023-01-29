@@ -1,10 +1,8 @@
 package com.plub.presentation.ui.home.plubing
 
-import android.view.MenuItem
 import com.plub.domain.model.enums.BottomNavigationItemType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.event.LoginEvent
 import com.plub.presentation.event.MainEvent
 import com.plub.presentation.state.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,34 +10,45 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor() : BaseViewModel<PageState.Default>(PageState.Default) {
-    fun onSelectedBottomNavigationMenu(item:MenuItem) {
-        val idx = getMenuIndex(item)
+
+    private val bottomNavigationFragmentIds = listOf(
+        R.id.menu_navigation_main,
+        R.id.menu_navigation_gathering,
+        R.id.menu_navigation_noti,
+        R.id.menu_navigation_profile
+    )
+
+    fun onSelectedBottomNavigationMenu(fragmentId: Int) {
+        val idx = getMenuIndex(fragmentId)
         emitEventFlow(MainEvent.ShowBottomNavigationBadge(idx))
+
+        val isBottomNav = isBottomNavigationFragment(fragmentId)
+        emitEventFlow(MainEvent.BottomNavigationVisibility(isBottomNav))
     }
 
-    private fun getMenuIndex(menuItem: MenuItem):Int {
-        return when(menuItem.itemId) {
+    private fun getMenuIndex(fragmentId: Int): Int {
+        return when (fragmentId) {
             R.id.menu_navigation_main -> {
                 BottomNavigationItemType.MAIN.idx
             }
+
             R.id.menu_navigation_gathering -> {
                 BottomNavigationItemType.GATHERING.idx
             }
+
             R.id.menu_navigation_noti -> {
                 BottomNavigationItemType.NOTI.idx
             }
+
             R.id.menu_navigation_profile -> {
                 BottomNavigationItemType.PROFILE.idx
             }
+
             else -> throw IllegalAccessException()
         }
     }
 
-//    testPostHomeUseCase.invoke(HomePostRequestVo("testcode", false)).collect { state ->
-//        when(state){
-//            is UiState.Loading -> Log.d("테스트용", "로딩")
-//            is UiState.Success -> Log.d("테스트용", "${state.successOrNull()!!.authCode}")
-//            is UiState.Error -> Log.d("테스트용", "실패")
-//        }
-//    }
+    private fun isBottomNavigationFragment(fragmentId: Int): Boolean {
+        return fragmentId in bottomNavigationFragmentIds
+    }
 }
