@@ -54,10 +54,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
 
         binding.apply {
             vm = viewModel
-            toolbarMain.setOnClickListener {
-                findNavController().navigate(MainFragmentDirections.actionMainToCreateGathering())
-            }
-
         }
         viewModel.fetchMainPageData()
     }
@@ -113,7 +109,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
     }
 
     private fun goToRegisterInterest() {
-        val action = MainFragmentDirections.actionMainFragmentToRegisterInterestFragment()
+        val action = MainFragmentDirections.actionMainToRegisterInterest()
         findNavController().navigate(action)
     }
 
@@ -125,7 +121,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
 
     private fun goToRecruitmentFragment(plubbingId: Int) {
         val action =
-            MainFragmentDirections.actionMainFragmentToRecruitmentFragment(plubbingId.toString())
+            MainFragmentDirections.actionMainToRecruitment(plubbingId.toString())
         findNavController().navigate(action)
     }
 

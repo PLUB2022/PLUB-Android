@@ -64,7 +64,7 @@ class RecruitmentFragment :
     }
 
     private fun goToApplyPlubbingFragment(plubbingId: Int) {
-        val action = RecruitmentFragmentDirections.actionRecruitmentFragmentToApplyPlubbingFragment(
+        val action = RecruitmentFragmentDirections.actionRecruitmentToApplyPlubbing(
             plubbingId.toString()
         )
         findNavController().navigate(action)

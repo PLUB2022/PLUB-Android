@@ -109,8 +109,7 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
     }
 
     private fun moveMainPage(){
-        val action = RegisterInterestFragmentDirections.actionRegisterInterestFragmentToMainFragment()
-        findNavController().navigate(action)
+        findNavController().popBackStack()
     }
 
 }

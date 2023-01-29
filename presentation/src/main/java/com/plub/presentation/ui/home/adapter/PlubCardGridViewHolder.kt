@@ -12,12 +12,17 @@ class PlubCardGridViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private var vo: PlubCardVo? = null
+    private var isBookmarked : Boolean = false
 
     init {
         binding.imageViewBookmark.setOnClickListener {
             vo?.let {
                 listener.onClickBookmark(it.id)
             }
+            isBookmarked = !isBookmarked
+            val bookmarkRes =
+                if (isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
+            binding.imageViewBookmark.setImageResource(bookmarkRes)
         }
 
         binding.root.setOnClickListener {
@@ -29,6 +34,7 @@ class PlubCardGridViewHolder(
 
     fun bind(item: PlubCardVo) {
         vo = item
+        isBookmarked = item.isBookmarked
         binding.apply {
             val time = TimeFormatter.getAmPmHourMin(item.time)
             val memberCount = root.context.getString(R.string.plub_recruit_count, item.remainMemberNumber)
@@ -37,7 +43,7 @@ class PlubCardGridViewHolder(
             textViewRecruitMemberCount.text = memberCount
             textViewName.text = item.title
             val bookmarkRes =
-                if (item.isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
+                if (isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
             imageViewBookmark.setImageResource(bookmarkRes)
 //            GlideUtil.loadImage(root.context, item.photo, imageViewBackground)
         }
