@@ -9,7 +9,7 @@ data class DetailRecruitPageState(
     val categories : List<String> = emptyList(),
     val plubbingName : String = "",
     val plubbingGoal : String = "",
-    //val plubbingMainImage : String = "",
+    val plubbingMainImage : String = "",
     val plubbingDays : String = "",
     val placeName : String = "",
     val accountNum : String = "",

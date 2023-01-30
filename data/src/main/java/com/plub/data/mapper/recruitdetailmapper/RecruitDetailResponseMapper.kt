@@ -13,7 +13,7 @@ object RecruitDetailResponseMapper: Mapper.ResponseMapper<RecruitDetailResponse,
                 categories = this.categories,
                 plubbingName = this.name,
                 plubbingGoal = this.goal,
-                //plubbingMainImage = this.mainImage
+                plubbingMainImage = this.mainImage,
                 plubbingDays = this.days,
                 address = this.address,
                 roadAdress = this.roadAddress,
@@ -27,7 +27,7 @@ object RecruitDetailResponseMapper: Mapper.ResponseMapper<RecruitDetailResponse,
                     RecruitDetailJoinedAccountsMapper.mapDtoToModel(it)
                 }
             )
-        }?: RecruitDetailResponseVo("", "", emptyList(), "", "", emptyList(), ""
+        }?: RecruitDetailResponseVo("", "", emptyList(), "", "","", emptyList(), ""
             , "", "", 0, "", false, false, 0, emptyList()
         )
     }

@@ -11,7 +11,6 @@ class GetHobbiesUseCase @Inject constructor(
     private val categoryListRepository: CategoryListRepository,
 ) : UseCase<Unit, Flow<UiState<CategoryListResponseVo>>>(){
     override suspend fun invoke(request : Unit): Flow<UiState<CategoryListResponseVo>> {
-        //TODO("Not yet implemented")
         return categoryListRepository.getCategoryList()
     }
 }

@@ -41,7 +41,6 @@ class HostRecruitmentFragment :
 
         binding.apply {
             vm = viewModel
-            //TODO 할 일
             //viewModel.fetchRecruitmentDetail(plubbingId = )
         }
     }

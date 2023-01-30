@@ -8,7 +8,6 @@ import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSortType
-import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseContentListVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
@@ -47,7 +46,6 @@ class CategoryChoiceFragment :
 
         binding.apply {
             vm = viewModel
-            //TODO 할 일
             recyclerViewCategoryChoiceList.apply {
                 layoutManager = GridLayoutManager(context, PlubCardType.TOTAL_SPAN_SIZE).apply {
                     spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

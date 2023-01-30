@@ -40,7 +40,7 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
             }
 
             override fun onClickLatePick() {
-                //여기서는 아무것도 안함
+
             }
         })
     }

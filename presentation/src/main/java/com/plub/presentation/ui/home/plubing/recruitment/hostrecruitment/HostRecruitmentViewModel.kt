@@ -49,7 +49,7 @@ class HostRecruitmentViewModel @Inject constructor(
                 categories = data.categories,
                 plubbingName = data.plubbingName,
                 plubbingGoal = data.plubbingGoal,
-                //plubbingMainImage = data.plubbingMainImage
+                plubbingMainImage = data.plubbingMainImage,
                 plubbingDays = days,
                 placeName = data.placeName,
                 accountNum = (data.remainAccountNum + data.curAccountNum).toString(),
@@ -63,9 +63,9 @@ class HostRecruitmentViewModel @Inject constructor(
     }
 
     fun seeApplicants(){
-//        viewModelScope.launch {
-//            getRecruitApplicantsUseCase(plubbingId)
-//        }
+        viewModelScope.launch {
+            getRecruitApplicantsUseCase(uiState.value.plubId)
+        }
         emitEventFlow(HostDetailPageEvent.GoToSeeApplicants)
     }
 

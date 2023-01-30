@@ -50,7 +50,6 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
     }
 
     override fun initStates() {
-        //TODO("Not yet implemented")
         super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {

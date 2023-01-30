@@ -11,7 +11,6 @@ class GetMyInterestUseCase @Inject constructor(
     private val registerInterestRepository: RegisterInterestRepository,
 ) : UseCase<Unit, Flow<UiState<RegisterInterestResponseVo>>>(){
     override suspend fun invoke(request : Unit): Flow<UiState<RegisterInterestResponseVo>> {
-        //TODO("Not yet implemented")
         return registerInterestRepository.browseInterest()
     }
 }

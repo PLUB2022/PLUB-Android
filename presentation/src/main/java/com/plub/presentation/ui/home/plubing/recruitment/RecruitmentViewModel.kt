@@ -43,7 +43,7 @@ class RecruitmentViewModel @Inject constructor(
                 categories = data.categories,
                 plubbingName = data.plubbingName,
                 plubbingGoal = data.plubbingGoal,
-                //plubbingMainImage = data.plubbingMainImage
+                plubbingMainImage = data.plubbingMainImage,
                 plubbingDays = days,
                 placeName = data.placeName,
                 accountNum = (data.remainAccountNum + data.curAccountNum).toString(),
