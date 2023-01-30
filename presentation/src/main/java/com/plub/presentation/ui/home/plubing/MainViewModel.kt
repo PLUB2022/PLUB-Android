@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.home.plubing
 
+import android.view.MenuItem
 import com.plub.domain.model.enums.BottomNavigationItemType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
@@ -11,22 +12,19 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor() : BaseViewModel<PageState.Default>(PageState.Default) {
 
-    private val bottomNavigationFragmentIds = listOf(
-        R.id.menu_navigation_main,
-        R.id.menu_navigation_gathering,
-        R.id.menu_navigation_noti,
-        R.id.menu_navigation_profile
-    )
+    fun onSelectedBottomNavigationMenu(item: MenuItem) {
+        val idx = getBottomMenuIndex(item.itemId)
+        idx?.let {
+            emitEventFlow(MainEvent.ShowBottomNavigationBadge(it))
+        }
+    }
 
-    fun onSelectedBottomNavigationMenu(fragmentId: Int) {
-        val idx = getMenuIndex(fragmentId)
-        emitEventFlow(MainEvent.ShowBottomNavigationBadge(idx))
-
+    fun onDestinationChanged(fragmentId: Int) {
         val isBottomNav = isBottomNavigationFragment(fragmentId)
         emitEventFlow(MainEvent.BottomNavigationVisibility(isBottomNav))
     }
 
-    private fun getMenuIndex(fragmentId: Int): Int {
+    private fun getBottomMenuIndex(fragmentId: Int): Int? {
         return when (fragmentId) {
             R.id.menu_navigation_main -> {
                 BottomNavigationItemType.MAIN.idx
@@ -44,11 +42,11 @@ class MainViewModel @Inject constructor() : BaseViewModel<PageState.Default>(Pag
                 BottomNavigationItemType.PROFILE.idx
             }
 
-            else -> throw IllegalAccessException()
+            else -> null
         }
     }
 
     private fun isBottomNavigationFragment(fragmentId: Int): Boolean {
-        return fragmentId in bottomNavigationFragmentIds
+        return getBottomMenuIndex(fragmentId) != null
     }
 }
