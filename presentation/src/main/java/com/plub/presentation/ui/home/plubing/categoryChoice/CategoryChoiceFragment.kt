@@ -17,7 +17,7 @@ import com.plub.presentation.state.CategoryChoiceState
 import com.plub.presentation.ui.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.dialog.adapter.DialogMenuAdapter
 import com.plub.presentation.ui.home.adapter.PlubCardAdapter
-import com.plub.presentation.ui.home.plubing.main.MainFragmentArgs
+import com.plub.presentation.ui.home.plubing.plubhome.HomeFragmentArgs
 import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -40,8 +40,7 @@ class CategoryChoiceFragment :
     }
 
     private var pages : Int = 1
-    private var recommendList : MutableList<RecommendationGatheringResponseContentListVo> = mutableListOf()
-    private val mainArgs: MainFragmentArgs by navArgs()
+    private val mainArgs: HomeFragmentArgs by navArgs()
     override val viewModel: CategoryChoiceViewModel by viewModels()
 
     override fun initView() {

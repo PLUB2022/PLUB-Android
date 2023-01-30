@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.main
+package com.plub.presentation.ui.home.plubing.plubhome
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.MainHasDataType
@@ -8,7 +8,6 @@ import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponse
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
-import com.plub.domain.successOrNull
 import com.plub.domain.usecase.GetHobbiesUseCase
 import com.plub.domain.usecase.GetMyInterestUseCase
 import com.plub.domain.usecase.GetRecommendationGatheringUsecase
@@ -16,16 +15,12 @@ import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.PlubbingMainEvent
 import com.plub.presentation.state.MainPageState
-import com.plub.presentation.state.PageState
-import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainFragmentViewModel @Inject constructor(
+class HomeFragmentViewModel @Inject constructor(
     val getHobbiesUseCase: GetHobbiesUseCase,
     val getMyInterestUseCase: GetMyInterestUseCase,
     val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,

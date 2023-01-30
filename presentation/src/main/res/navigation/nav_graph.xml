@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.plub.presentation.ui.home.plubing.main.MainFragment"
+        android:name="com.plub.presentation.ui.home.plubing.plubhome.HomeFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_main_to_searching"
             app:destination="@id/searchingFragment" />

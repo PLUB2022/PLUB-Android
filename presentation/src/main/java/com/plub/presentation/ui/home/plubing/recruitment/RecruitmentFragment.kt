@@ -13,7 +13,7 @@ import com.plub.presentation.ui.common.GridSpaceDecoration
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceFragmentArgs
-import com.plub.presentation.ui.home.plubing.main.MainFragmentArgs
+import com.plub.presentation.ui.home.plubing.plubhome.HomeFragmentArgs
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ class RecruitmentFragment :
     BaseFragment<FragmentDetailRecruitmentPlubingBinding, DetailRecruitPageState, RecruitmentViewModel>(
         FragmentDetailRecruitmentPlubingBinding::inflate
     ) {
-    private val plubbingIdForMain: MainFragmentArgs by navArgs()
+    private val plubbingIdForMain: HomeFragmentArgs by navArgs()
     private val plubbingIdForCategoryChoice: CategoryChoiceFragmentArgs by navArgs()
     private val detailRecruitProfileAdapter: DetailRecruitProfileAdapter by lazy {
         DetailRecruitProfileAdapter(object : DetailRecruitProfileAdapter.DetailProfileDegelate {

@@ -1,13 +1,13 @@
-package com.plub.presentation.ui.home.plubing.main.viewholder
+package com.plub.presentation.ui.home.plubing.plubhome.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemPlubCardListBinding
-import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.ui.home.plubing.plubhome.adapter.MainRecommendGatheringAdapter
 import com.plub.presentation.util.TimeFormatter
 
-class MainRecommendListViewHolder(
+class HomeRecommendListViewHolder(
     private val binding: IncludeItemPlubCardListBinding,
     private val listener : MainRecommendGatheringAdapter.MainRecommendGatheringDelegate
 ): RecyclerView.ViewHolder(binding.root){

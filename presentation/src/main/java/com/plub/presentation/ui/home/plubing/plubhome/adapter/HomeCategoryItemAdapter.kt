@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.main.adapter
+package com.plub.presentation.ui.home.plubing.plubhome.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
-import com.plub.presentation.databinding.IncludeItemMainCategoryBinding
-import com.plub.presentation.ui.home.plubing.main.viewholder.MainCategoryViewHolder
+import com.plub.presentation.databinding.IncludeItemHomeCategoryBinding
+import com.plub.presentation.ui.home.plubing.plubhome.viewholder.HomeCategoryViewHolder
 
 
 class MainCategoryItemAdapter(private val listener: MainCategoryAdapter.MainCategoryDelegate) : ListAdapter<CategoriesDataResponseVo, RecyclerView.ViewHolder>(
@@ -15,13 +15,13 @@ class MainCategoryItemAdapter(private val listener: MainCategoryAdapter.MainCate
 ){
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MainCategoryViewHolder -> holder.bind(currentList[position])
+            is HomeCategoryViewHolder -> holder.bind(currentList[position])
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = IncludeItemMainCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MainCategoryViewHolder(binding, listener)
+        val binding = IncludeItemHomeCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return HomeCategoryViewHolder(binding, listener)
     }
 
 }

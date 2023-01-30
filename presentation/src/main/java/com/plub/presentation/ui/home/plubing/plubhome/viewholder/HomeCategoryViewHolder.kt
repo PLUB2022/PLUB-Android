@@ -1,13 +1,13 @@
-package com.plub.presentation.ui.home.plubing.main.viewholder
+package com.plub.presentation.ui.home.plubing.plubhome.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
-import com.plub.presentation.databinding.IncludeItemMainCategoryBinding
-import com.plub.presentation.ui.home.plubing.main.adapter.MainCategoryAdapter
+import com.plub.presentation.databinding.IncludeItemHomeCategoryBinding
+import com.plub.presentation.ui.home.plubing.plubhome.adapter.MainCategoryAdapter
 import com.plub.presentation.util.GlideUtil
 
-class MainCategoryViewHolder (
-    private val binding : IncludeItemMainCategoryBinding,
+class HomeCategoryViewHolder (
+    private val binding : IncludeItemHomeCategoryBinding,
     private val listener : MainCategoryAdapter.MainCategoryDelegate
 ) : RecyclerView.ViewHolder(binding.root){
     private var categoryId : Int = 0

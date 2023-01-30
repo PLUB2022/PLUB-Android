@@ -1,15 +1,14 @@
-package com.plub.presentation.ui.home.plubing.main.viewholder
+package com.plub.presentation.ui.home.plubing.plubhome.viewholder
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
-import com.plub.domain.model.vo.plub.PlubCardListVo
-import com.plub.presentation.databinding.IncludeItemLayoutMainRecommendGatheringBinding
-import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendAdapter
-import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.databinding.IncludeItemLayoutHomeRecommendGatheringBinding
+import com.plub.presentation.ui.home.plubing.plubhome.adapter.MainRecommendAdapter
+import com.plub.presentation.ui.home.plubing.plubhome.adapter.MainRecommendGatheringAdapter
 
-class MainRecommendViewHolder(
-    private val binding: IncludeItemLayoutMainRecommendGatheringBinding,
+class HomeRecommendViewHolder(
+    private val binding: IncludeItemLayoutHomeRecommendGatheringBinding,
     private val listener: MainRecommendGatheringAdapter.MainRecommendGatheringDelegate
 ): RecyclerView.ViewHolder(binding.root){
 
