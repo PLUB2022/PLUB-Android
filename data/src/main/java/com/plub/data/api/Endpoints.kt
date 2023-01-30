@@ -47,7 +47,8 @@ object Endpoints {
     }
 
     object RECRUIT {
-        private const val RECRUIT_URL = "/api/plubbings/{plubbingId}/recruit"
+        private const val PLUBBING_URL = "/api/plubbings"
+        private const val RECRUIT_URL = "$PLUBBING_URL/{plubbingId}/recruit"
         const val APPLICANTS_RECRUIT = "$RECRUIT_URL/applicants"
         const val APPROVAL_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/approval"
         const val REFUSE_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/refuse"

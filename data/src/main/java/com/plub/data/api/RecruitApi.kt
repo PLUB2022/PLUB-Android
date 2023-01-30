@@ -4,6 +4,7 @@ import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitRequest
 import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitResponse
 import com.plub.data.dto.applicantsrecruit.reply.ReplyApplicantsRecruitResponse
 import com.plub.data.dto.applyrecruit.QuestionsResponse
+import com.plub.data.dto.bookmark.PlubBookmarkResponse
 import com.plub.data.dto.recruitdetail.host.EndRecruitResponse
 import com.plub.data.dto.recruitdetail.host.HostApplicantsResponse
 import com.plub.data.util.ApiResponse
@@ -29,12 +30,6 @@ interface RecruitApi {
         @Path("plubbingId") plubbingID: Int,
         @Path("accountId") accountId: Int
     ) : Response<ApiResponse<ReplyApplicantsRecruitResponse>>
-
-    @POST(Endpoints.RECRUIT.BOOKMARK_RECRUIT)
-    suspend fun bookmarkRecruit(
-        @Path("plubbingId") plubbingID: Int,
-    ) : Response<ApiResponse<BookmarkResponse>>
-
 
     @PUT(Endpoints.RECRUIT.RECRUIT_END)
     suspend fun endRecruit(
