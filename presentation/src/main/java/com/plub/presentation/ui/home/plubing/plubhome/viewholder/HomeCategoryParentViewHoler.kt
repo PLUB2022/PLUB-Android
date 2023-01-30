@@ -1,14 +1,14 @@
-package com.plub.presentation.ui.home.plubing.main.viewholder
+package com.plub.presentation.ui.home.plubing.plubhome.viewholder
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoryListDataResponseVo
-import com.plub.presentation.databinding.IncludeItemLayoutMainCategoryBinding
-import com.plub.presentation.ui.home.plubing.main.adapter.MainCategoryAdapter
-import com.plub.presentation.ui.home.plubing.main.adapter.MainCategoryItemAdapter
+import com.plub.presentation.databinding.IncludeItemLayoutHomeCategoryBinding
+import com.plub.presentation.ui.home.plubing.plubhome.adapter.MainCategoryAdapter
+import com.plub.presentation.ui.home.plubing.plubhome.adapter.MainCategoryItemAdapter
 
-class MainCategoryParentViewHoler (
-    private val binding : IncludeItemLayoutMainCategoryBinding,
+class HomeCategoryParentViewHoler (
+    private val binding : IncludeItemLayoutHomeCategoryBinding,
     private val listener: MainCategoryAdapter.MainCategoryDelegate
 ) : RecyclerView.ViewHolder(binding.root){
 

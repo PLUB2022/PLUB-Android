@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.main.adapter
+package com.plub.presentation.ui.home.plubing.plubhome.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.databinding.IncludeItemPlubCardListBinding
-import com.plub.presentation.ui.home.plubing.main.viewholder.MainRecommendListViewHolder
+import com.plub.presentation.ui.home.plubing.plubhome.viewholder.HomeRecommendListViewHolder
 
 
 class MainRecommendAdapter(private val listener: MainRecommendGatheringAdapter.MainRecommendGatheringDelegate) : ListAdapter<PlubCardVo, RecyclerView.ViewHolder>(
@@ -15,13 +15,13 @@ class MainRecommendAdapter(private val listener: MainRecommendGatheringAdapter.M
 ){
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MainRecommendListViewHolder -> holder.bind(currentList[position])
+            is HomeRecommendListViewHolder -> holder.bind(currentList[position])
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = IncludeItemPlubCardListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MainRecommendListViewHolder(binding, listener)
+        return HomeRecommendListViewHolder(binding, listener)
     }
 
 

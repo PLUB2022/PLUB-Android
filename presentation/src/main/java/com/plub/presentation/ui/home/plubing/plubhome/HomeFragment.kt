@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.main
+package com.plub.presentation.ui.home.plubing.plubhome
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -7,19 +7,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.MainPageCategoryPlubType
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.presentation.base.BaseFragment
-import com.plub.presentation.databinding.FragmentMainBinding
+import com.plub.presentation.databinding.FragmentHomeBinding
 import com.plub.presentation.event.PlubbingMainEvent
 import com.plub.presentation.state.MainPageState
-import com.plub.presentation.ui.home.plubing.main.adapter.MainCategoryAdapter
-import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.ui.home.plubing.plubhome.adapter.MainCategoryAdapter
+import com.plub.presentation.ui.home.plubing.plubhome.adapter.MainRecommendGatheringAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragmentViewModel>(
-    FragmentMainBinding::inflate
+class HomeFragment : BaseFragment<FragmentHomeBinding, MainPageState, HomeFragmentViewModel>(
+    FragmentHomeBinding::inflate
 ) {
-    override val viewModel: MainFragmentViewModel by viewModels()
+    override val viewModel: HomeFragmentViewModel by viewModels()
 
     private val mainCategoryAdapter: MainCategoryAdapter by lazy {
         MainCategoryAdapter(object : MainCategoryAdapter.MainCategoryDelegate {
@@ -109,29 +109,29 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainPageState, MainFragme
     }
 
     private fun goToRegisterInterest() {
-        val action = MainFragmentDirections.actionMainToRegisterInterest()
+        val action = HomeFragmentDirections.actionMainToRegisterInterest()
         findNavController().navigate(action)
     }
 
     private fun goToCategoryChoice(categoryId: Int, categoryName: String) {
         val action =
-            MainFragmentDirections.actionMainToCategoryChoice(categoryId.toString(), categoryName)
+            HomeFragmentDirections.actionMainToCategoryChoice(categoryId.toString(), categoryName)
         findNavController().navigate(action)
     }
 
     private fun goToRecruitmentFragment(plubbingId: Int) {
         val action =
-            MainFragmentDirections.actionMainToRecruitment(plubbingId.toString())
+            HomeFragmentDirections.actionMainToRecruitment(plubbingId.toString())
         findNavController().navigate(action)
     }
 
     private fun goToSearchFragment() {
-        val action = MainFragmentDirections.actionMainToSearching()
+        val action = HomeFragmentDirections.actionMainToSearching()
         findNavController().navigate(action)
     }
 
     private fun goToBookmarkFragment() {
-        val action = MainFragmentDirections.actionMainToBookmark()
+        val action = HomeFragmentDirections.actionMainToBookmark()
         findNavController().navigate(action)
     }
 

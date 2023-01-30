@@ -3,7 +3,6 @@ package com.plub.presentation.ui.home.plubing.registinterests
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentInterestsRegisterBinding
@@ -11,12 +10,8 @@ import com.plub.presentation.event.Event
 import com.plub.presentation.event.HobbiesEvent
 import com.plub.presentation.event.RegisterInterestEvent
 import com.plub.presentation.state.HobbiesPageState
-import com.plub.presentation.state.PageState
 import com.plub.presentation.ui.common.VerticalSpaceDecoration
-import com.plub.presentation.ui.home.plubing.main.MainFragmentDirections
-import com.plub.presentation.ui.sign.hobbies.HobbiesViewModel
 import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
-import com.plub.presentation.ui.sign.signup.SignUpViewModel
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

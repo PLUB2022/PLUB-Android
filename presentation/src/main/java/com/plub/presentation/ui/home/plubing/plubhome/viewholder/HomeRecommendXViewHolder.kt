@@ -1,11 +1,11 @@
-package com.plub.presentation.ui.home.plubing.main.viewholder
+package com.plub.presentation.ui.home.plubing.plubhome.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.presentation.databinding.IncludeItemLayoutMainRecommendGatheringNoChoiceBinding
-import com.plub.presentation.ui.home.plubing.main.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.databinding.IncludeItemLayoutHomeRecommendGatheringNoChoiceBinding
+import com.plub.presentation.ui.home.plubing.plubhome.adapter.MainRecommendGatheringAdapter
 
-class MainRecommendXViewHolder(
-    private val binding: IncludeItemLayoutMainRecommendGatheringNoChoiceBinding,
+class HomeRecommendXViewHolder(
+    private val binding: IncludeItemLayoutHomeRecommendGatheringNoChoiceBinding,
     private val listener: MainRecommendGatheringAdapter.MainRecommendGatheringDelegate
 ): RecyclerView.ViewHolder(binding.root){
 
