@@ -23,6 +23,10 @@ class RecruitmentFragment :
     BaseFragment<FragmentDetailRecruitmentPlubingBinding, DetailRecruitPageState, RecruitmentViewModel>(
         FragmentDetailRecruitmentPlubingBinding::inflate
     ) {
+
+    companion object{
+        const val ARGS_EMPTY = "0"
+    }
     private val plubbingIdForMain: HomeFragmentArgs by navArgs()
     private val plubbingIdForCategoryChoice: CategoryChoiceFragmentArgs by navArgs()
     private val detailRecruitProfileAdapter: DetailRecruitProfileAdapter by lazy {
@@ -72,7 +76,7 @@ class RecruitmentFragment :
 
     private fun getFragmentArgs(): Int {
         var id = ""
-        if (plubbingIdForMain.plubbingId.equals("0")) {
+        if (plubbingIdForMain.plubbingId.equals(ARGS_EMPTY)) {
             id = plubbingIdForCategoryChoice.plubbingId
         } else
             id = plubbingIdForMain.plubbingId

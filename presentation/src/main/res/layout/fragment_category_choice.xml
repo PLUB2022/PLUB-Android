@@ -152,7 +152,7 @@
             android:visibility="@{vm.uiState.emptyViewVisible ? View.GONE : View.VISIBLE}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"></androidx.recyclerview.widget.RecyclerView>
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"/>
 
         <include
             android:id="@+id/include_data_empty"

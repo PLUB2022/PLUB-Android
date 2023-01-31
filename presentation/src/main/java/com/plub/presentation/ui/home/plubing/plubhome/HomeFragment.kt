@@ -91,13 +91,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, MainPageState, HomeFragme
                 mainCategoryAdapter.submitList(arrayListOf(data.categoryVo))
             }
             MainPageCategoryPlubType.PLUB -> {
-                HasDataRecycler(data.plubCardList)
+                setDataRecycler(data.plubCardList)
             }
         }
     }
 
 
-    private fun HasDataRecycler(data: List<RecommendationGatheringResponseVo>) {
+    private fun setDataRecycler(data: List<RecommendationGatheringResponseVo>) {
         val mConcatAdapter = ConcatAdapter()
         recommendationListAdapter.submitList(data)
         mConcatAdapter.addAdapter(mainCategoryAdapter)

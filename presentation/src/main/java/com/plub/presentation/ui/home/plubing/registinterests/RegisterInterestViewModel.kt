@@ -107,7 +107,7 @@ class RegisterInterestViewModel @Inject constructor(
     }
 
     fun registerInterest(selectedList: List<SelectedHobbyVo>){
-        var list : MutableList<Int> = emptyList<Int>().toMutableList()
+        val list : MutableList<Int> = emptyList<Int>().toMutableList()
         for (data in selectedList){
             list.add(data.subId)
         }

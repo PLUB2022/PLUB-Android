@@ -13,7 +13,6 @@
             android:id="@+id/image_view_category"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:clipToOutline="true"
             android:background="@color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
