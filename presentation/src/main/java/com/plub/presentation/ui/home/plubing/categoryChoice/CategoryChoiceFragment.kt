@@ -114,7 +114,6 @@ class CategoryChoiceFragment :
                 goToSearchFragment()
             }
             is CategoryChoiceEvent.GoToCreate -> {
-                PlubLogger.logD("생성페이지로")
                 goToCreateGatheringFragment()
             }
         }
