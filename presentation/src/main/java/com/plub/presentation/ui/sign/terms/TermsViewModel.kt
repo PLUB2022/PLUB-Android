@@ -6,7 +6,6 @@ import com.plub.domain.model.vo.signUp.terms.TermsPageVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.TermsEvent
-import com.plub.presentation.state.TermsPageState
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

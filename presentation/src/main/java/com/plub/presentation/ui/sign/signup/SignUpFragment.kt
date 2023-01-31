@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSignUpBinding
 import com.plub.presentation.event.SignUpEvent
-import com.plub.presentation.state.SignUpPageState
 import com.plub.presentation.ui.sign.signup.adapter.FragmentSignUpPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

@@ -11,7 +11,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.home.bookmark.BookmarkViewModel" />
+            type="com.plub.presentation.ui.main.home.bookmark.BookmarkViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

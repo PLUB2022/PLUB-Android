@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.common.HobbyVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemHobbyBinding
-import com.plub.presentation.ui.common.GridSpaceDecoration
+import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.px
 

@@ -8,7 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
-import com.plub.presentation.ui.createGathering.question.CreateGatheringQuestion
+import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
 import java.io.Serializable
 
 val Int.dp: Int

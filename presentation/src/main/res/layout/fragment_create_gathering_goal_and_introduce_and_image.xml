@@ -7,11 +7,11 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndImageViewModel" />
+            type="com.plub.presentation.ui.main.gathering.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndImageViewModel" />
 
         <variable
             name="parent_vm"
-            type="com.plub.presentation.ui.createGathering.CreateGatheringViewModel" />
+            type="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
         android:background="@color/color_f5f3f6"
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
-        tools:context=".ui.createGathering.goalAndIntroduceAndImage.GoalAndIntroduceAndPictureFragment">
+        tools:context=".ui.main.gathering.createGathering.goalAndIntroduceAndImage.GoalAndIntroduceAndPictureFragment">
 
 
         <ScrollView
@@ -152,7 +152,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/edit_text_gathering_introduce" />
 
-                <com.plub.presentation.ui.custom.AddSingleImageView
+                <com.plub.presentation.ui.common.custom.AddSingleImageView
                     android:id="@+id/add_single_image_view_gathering_picture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

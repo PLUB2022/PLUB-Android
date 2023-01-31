@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocationViewModel" />
+            type="com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.plub.presentation.ui.custom.IconEditText
+        <com.plub.presentation.ui.common.custom.IconEditText
             android:id="@+id/icon_edit_text_search_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

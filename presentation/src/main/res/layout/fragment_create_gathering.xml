@@ -7,14 +7,14 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.createGathering.CreateGatheringViewModel" />
+            type="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_f5f3f6"
-        tools:context=".ui.createGathering.CreateGatheringFragment">
+        tools:context=".ui.main.gathering.createGathering.CreateGatheringFragment">
 
         <ImageView
             android:id="@+id/image_view_back"
@@ -31,7 +31,7 @@
         <!-- layout_width에 고정 값을 준 이유  -->
         <!-- dotsIndicator에는 총 8개의 dots가있는데 그 중 마지막 2개의 dots는 보이면 안되기 때문  -->
         <!-- 따라서 고정 값을 줘서 마지막 2개의 dots는 짤리게함  -->
-        <com.plub.presentation.ui.custom.OvalDotsIndicator
+        <com.plub.presentation.ui.common.custom.OvalDotsIndicator
             android:id="@+id/oval_dots_indicator"
             createGatheringCurrentPage="@{vm.uiState.currentPage}"
             android:layout_width="140dp"

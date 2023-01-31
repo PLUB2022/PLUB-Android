@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/menu_navigation_main">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.plub.presentation.ui.home.plubing.plubhome.HomeFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_home" >
+        android:id="@+id/menu_navigation_main"
+        android:name="com.plub.presentation.ui.main.home.plubing.MainFragment"
+        android:label="menu_navigation_main"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_main_to_createGathering"
+            app:destination="@id/createGatheringFragment" />
+
         <action
             android:id="@+id/action_main_to_searching"
             app:destination="@id/searchingFragment" />
@@ -112,13 +116,13 @@
 
     <fragment
         android:id="@+id/createGatheringFragment"
-        android:name="com.plub.presentation.ui.createGathering.CreateGatheringFragment"
+        android:name="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringFragment"
         android:label="CreateGatheringFragment"
         tools:layout="@layout/fragment_create_gathering"/>
 
     <fragment
         android:id="@+id/searchingFragment"
-        android:name="com.plub.presentation.ui.home.search.SearchingFragment"
+        android:name="com.plub.presentation.ui.main.home.search.SearchingFragment"
         android:label="fragment_searching"
         tools:layout="@layout/fragment_searching">
 
@@ -129,7 +133,7 @@
 
     <fragment
         android:id="@+id/searchResultFragment"
-        android:name="com.plub.presentation.ui.home.searchResult.SearchResultFragment"
+        android:name="com.plub.presentation.ui.main.home.searchResult.SearchResultFragment"
         android:label="fragment_search_result"
         tools:layout="@layout/fragment_search_result">
 
@@ -140,8 +144,23 @@
 
     <fragment
         android:id="@+id/bookmarkFragment"
-        android:name="com.plub.presentation.ui.home.bookmark.BookmarkFragment"
+        android:name="com.plub.presentation.ui.main.home.bookmark.BookmarkFragment"
         android:label="fragment_bookmark"
         tools:layout="@layout/fragment_bookmark">
     </fragment>
+    <fragment
+        android:id="@+id/menu_navigation_gathering"
+        android:name="com.plub.presentation.ui.main.gathering.GatheringFragment"
+        android:label="fragment_gathering"
+        tools:layout="@layout/fragment_gathering" />
+    <fragment
+        android:id="@+id/menu_navigation_noti"
+        android:name="com.plub.presentation.ui.main.noti.NotiFragment"
+        android:label="menu_navigation_noti"
+        tools:layout="@layout/fragment_noti" />
+    <fragment
+        android:id="@+id/menu_navigation_profile"
+        android:name="com.plub.presentation.ui.main.profile.ProfileFragment"
+        android:label="menu_navigation_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

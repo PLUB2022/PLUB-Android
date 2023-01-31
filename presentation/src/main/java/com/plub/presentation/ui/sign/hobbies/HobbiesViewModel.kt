@@ -9,7 +9,6 @@ import com.plub.domain.usecase.GetAllHobbiesUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.HobbiesEvent
-import com.plub.presentation.state.HobbiesPageState
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
