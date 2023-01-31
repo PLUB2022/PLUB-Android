@@ -21,12 +21,13 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPageState, ApplyPlubbingViewModel>(
-    FragmentApplyPlubbingBinding::inflate
-)  {
+class ApplyPlubbingFragment :
+    BaseFragment<FragmentApplyPlubbingBinding, ApplyPageState, ApplyPlubbingViewModel>(
+        FragmentApplyPlubbingBinding::inflate
+    ) {
 
     private val questionsAdapter: QuestionsAdapter by lazy {
-        QuestionsAdapter(object : QuestionsAdapter.QuestionsDegelate{
+        QuestionsAdapter(object : QuestionsAdapter.QuestionsDegelate {
             override fun isNotEmpty(flag: Boolean) {
                 viewModel.updateButtonState(flag)
             }
@@ -34,7 +35,7 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
         })
     }
 
-    val recruitArgs : RecruitmentFragmentArgs by navArgs()
+    val recruitArgs: RecruitmentFragmentArgs by navArgs()
     override val viewModel: ApplyPlubbingViewModel by viewModels()
 
     override fun initView() {
@@ -54,27 +55,33 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
         super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect{
+                viewModel.uiState.collect {
                     questionsAdapter.submitList(it.questionsData.questions)
                 }
             }
             launch {
-                viewModel.eventFlow.collect{
+                viewModel.eventFlow.collect {
                     inspectEventFlow(it as ApplyEvent)
                 }
             }
         }
     }
-    private fun getAnswerList() : List<ApplicantsRecruitAnswerListVo>{
-        val list : MutableList<ApplicantsRecruitAnswerListVo> = mutableListOf()
-        for(i in 0 until questionsAdapter.itemCount){
-            list.add(ApplicantsRecruitAnswerListVo(questionsAdapter.currentList[i].id,
-                binding.recyclerViewQuestions.get(i).findViewById<EditText>(R.id.edit_text_answer).text.toString()))
+
+    private fun getAnswerList(): List<ApplicantsRecruitAnswerListVo> {
+        val list: MutableList<ApplicantsRecruitAnswerListVo> = mutableListOf()
+        for (i in 0 until questionsAdapter.itemCount) {
+            list.add(
+                ApplicantsRecruitAnswerListVo(
+                    questionsAdapter.currentList[i].id,
+                    binding.recyclerViewQuestions.get(i)
+                        .findViewById<EditText>(R.id.edit_text_answer).text.toString()
+                )
+            )
         }
         return list
     }
 
-    private fun initRecycler(){
+    private fun initRecycler() {
         binding.apply {
             recyclerViewQuestions.apply {
                 layoutManager = LinearLayoutManager(context)
@@ -83,17 +90,20 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
         }
     }
 
-    private fun inspectEventFlow(event : ApplyEvent){
-        when(event){
-            is ApplyEvent.BackPage-> {findNavController().popBackStack()}
+    private fun inspectEventFlow(event: ApplyEvent) {
+        when (event) {
+            is ApplyEvent.BackPage -> {
+                findNavController().popBackStack()
+            }
             is ApplyEvent.ShowSuccessDialog -> {
                 showDialog()
             }
         }
     }
 
-    private fun showDialog(){
-        ApplySuccessDialog(requireContext()).show()
+    private fun showDialog() {
+        ApplySuccessDialog(requireContext()) {
+            viewModel.backPage()
+        }.show()
     }
-
 }

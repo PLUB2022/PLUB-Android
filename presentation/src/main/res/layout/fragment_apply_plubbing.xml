@@ -73,33 +73,31 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_questions"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="173dp"
-                    android:layout_marginBottom="53dp"
                     android:paddingBottom="16dp"
-                    app:layout_constraintBottom_toTopOf="@id/button_apply"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                 </androidx.recyclerview.widget.RecyclerView>
-
-                <Button
-                    android:id="@+id/button_apply"
-                    android:layout_width="328dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="650dp"
-                    android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
-                    android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
-
-                    android:enabled="@{vm.uiState.applyButtonEnable}"
-                    android:text="@string/apply_plubbing_apply_button"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/button_apply"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
+            android:enabled="@{vm.uiState.applyButtonEnable}"
+            android:text="@string/apply_plubbing_apply_button"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

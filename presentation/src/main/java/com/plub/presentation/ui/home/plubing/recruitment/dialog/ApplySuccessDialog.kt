@@ -9,7 +9,8 @@ import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeDialogSuccessApplyBinding
 
 class ApplySuccessDialog(
-    context: Context
+    context: Context,
+    private val closeCallback: ()-> Unit
 ) : Dialog(context) {
     private lateinit var binding: IncludeDialogSuccessApplyBinding
 
@@ -26,6 +27,7 @@ class ApplySuccessDialog(
 
         imageBtnClose.setOnClickListener {
             dismiss()
+            closeCallback()
         }
 
         lottieThumbnail.setAnimation(R.raw.onboarding_dummy_first)
