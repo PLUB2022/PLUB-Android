@@ -3,7 +3,6 @@ package com.plub.presentation.ui.home.plubing.recruitment
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailRequestVo
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
@@ -27,7 +26,7 @@ class RecruitmentViewModel @Inject constructor(
 
     fun fetchRecruitmentDetail(plubbingId : Int){
         viewModelScope.launch {
-            getRecruitDetailUseCase(RecruitDetailRequestVo(plubbingId)).collect{ state ->
+            getRecruitDetailUseCase(plubbingId).collect{ state ->
                 inspectUiState(state, ::handleSuccessGetRecruitDetail)
             }
         }
