@@ -2,6 +2,7 @@ package com.plub.presentation.ui.home.plubing.recruitment
 
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.QuestionDataType
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitResponseVo
@@ -37,11 +38,21 @@ class ApplyPlubbingViewModel @Inject constructor(
     }
 
     private fun successFetchQuestions(data : QuestionsResponseVo){
+        val questionsData = getDataList(data)
         updateUiState {ui->
             ui.copy(
-                questionsData = data
+                questions = questionsData
             )
         }
+    }
+
+    private fun getDataList(data : QuestionsResponseVo) : List<QuestionsDataVo>{
+        val dataList : MutableList<QuestionsDataVo> = mutableListOf()
+        dataList.add(0, QuestionsDataVo(viewType = QuestionDataType.FIRST))
+        for(i in data.questions){
+            dataList.add(i)
+        }
+        return dataList
     }
 
     fun applyRecruit(plubbingId: Int, list : List<ApplicantsRecruitAnswerListVo>){

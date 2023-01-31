@@ -1,8 +1,8 @@
 package com.plub.presentation.state
 
-import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
+import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 
 data class ApplyPageState (
     val isApplyButtonEnable:Boolean = false,
-    val questionsData : QuestionsResponseVo = QuestionsResponseVo(emptyList())
+    val questions : List<QuestionsDataVo> = emptyList()
 ) : PageState

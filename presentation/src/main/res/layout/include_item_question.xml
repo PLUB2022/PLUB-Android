@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp">
 
 
         <TextView
@@ -19,9 +20,9 @@
 
         <EditText
             android:id="@+id/edit_text_answer"
-            android:layout_width="328dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@drawable/bg_rectangle_filled_white_radius_8"
             android:hint="@string/include_item_question_hint"
             android:maxLength="300"
             android:paddingVertical="11dp"

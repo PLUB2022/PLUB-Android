@@ -45,7 +45,6 @@ class ApplyPlubbingFragment :
             initRecycler()
             buttonApply.setOnClickListener {
                 viewModel.applyRecruit(recruitArgs.plubbingId.toInt(), getAnswerList())
-                //어디로 가야하지?
             }
         }
         viewModel.fetchQuestions(recruitArgs.plubbingId.toInt())
@@ -56,7 +55,7 @@ class ApplyPlubbingFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-                    questionsAdapter.submitList(it.questionsData.questions)
+                    questionsAdapter.submitList(it.questions)
                 }
             }
             launch {
@@ -69,7 +68,7 @@ class ApplyPlubbingFragment :
 
     private fun getAnswerList(): List<ApplicantsRecruitAnswerListVo> {
         val list: MutableList<ApplicantsRecruitAnswerListVo> = mutableListOf()
-        for (i in 0 until questionsAdapter.itemCount) {
+        for (i in 1 until questionsAdapter.itemCount) {
             list.add(
                 ApplicantsRecruitAnswerListVo(
                     questionsAdapter.currentList[i].id,
