@@ -21,7 +21,7 @@
             android:id="@+id/constraint_layout_top"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:background="#F2F5F3F6"
+            android:background="@color/color_f2_f5f3f6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -66,7 +66,7 @@
                     android:id="@+id/text_view_plubbing_name"
                     android:layout_width="wrap_content"
                     android:layout_height="21dp"
-                    android:layout_marginLeft="18dp"
+                    android:layout_marginStart="18dp"
                     android:text="@{vm.uiState.plubbingName}"
                     tools:text="요란한 한줄"
                     android:layout_marginTop="52dp"

@@ -25,7 +25,7 @@
                 android:id="@+id/image_btn_back"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="12dp"
                 android:onClick="@{()->vm.backPage()}"
                 android:background="@color/transparent"

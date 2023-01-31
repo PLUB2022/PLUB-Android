@@ -34,7 +34,7 @@
 
                 <ImageView
                     android:id="@+id/image_view_plub_logo"
-                    android:layout_gravity="left"
+                    android:layout_gravity="start"
                     android:layout_marginStart="16dp"
                     android:layout_width="81.93dp"
                     android:layout_height="24dp"
@@ -43,7 +43,7 @@
 
                 <ImageView
                     android:id="@+id/image_btn_bookmark"
-                    android:layout_gravity="right"
+                    android:layout_gravity="end"
                     android:layout_marginStart="16dp"
                     android:layout_width="32dp"
                     android:layout_height="32dp"

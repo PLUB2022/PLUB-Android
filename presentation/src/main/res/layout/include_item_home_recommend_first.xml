@@ -16,7 +16,7 @@
             android:letterSpacing="-0.01"
             android:text="@string/main_recommend_no_interests_title"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
