@@ -13,35 +13,35 @@ import retrofit2.http.*
 
 interface RecruitApi {
 
-    @POST(Endpoints.RECRUIT.APPLICANTS_RECRUIT)
+    @POST(Endpoints.PLUBBING.APPLICANTS_RECRUIT)
     suspend fun applicantsRecruit(
         @Path("plubbingId") plubbingID : Int,
         @Body request : ApplicantsRecruitRequest
     ) : Response<ApiResponse<ApplicantsRecruitResponse>>
 
-    @POST(Endpoints.RECRUIT.APPROVAL_APPLICANTS)
+    @POST(Endpoints.PLUBBING.APPROVAL_APPLICANTS)
     suspend fun approvalApplicants(
         @Path("plubbingId") plubbingID: Int,
         @Path("accountId") accountId: Int
     ) : Response<ApiResponse<ReplyApplicantsRecruitResponse>>
 
-    @POST(Endpoints.RECRUIT.REFUSE_APPLICANTS)
+    @POST(Endpoints.PLUBBING.REFUSE_APPLICANTS)
     suspend fun refuseApplicants(
         @Path("plubbingId") plubbingID: Int,
         @Path("accountId") accountId: Int
     ) : Response<ApiResponse<ReplyApplicantsRecruitResponse>>
 
-    @PUT(Endpoints.RECRUIT.RECRUIT_END)
+    @PUT(Endpoints.PLUBBING.RECRUIT_END)
     suspend fun endRecruit(
         @Path("plubbingId") plubbingID: Int
     ) : Response<ApiResponse<EndRecruitResponse>>
 
-    @GET(Endpoints.RECRUIT.APPLICANTS_RECRUIT)
+    @GET(Endpoints.PLUBBING.APPLICANTS_RECRUIT)
     suspend fun seeApplicants(
         @Path("plubbingId") plubbingID: Int
     ) : Response<ApiResponse<HostApplicantsResponse>>
 
-    @GET(Endpoints.RECRUIT.RECRUIT_QUESTIONS)
+    @GET(Endpoints.PLUBBING.RECRUIT_QUESTIONS)
     suspend fun getQustions(
         @Path("plubbingId") plubbingID: Int
     ) : Response<ApiResponse<QuestionsResponse>>

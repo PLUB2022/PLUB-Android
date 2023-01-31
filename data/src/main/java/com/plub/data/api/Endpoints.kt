@@ -37,23 +37,19 @@ object Endpoints {
 
     object PLUBBING {
         private const val PLUBBING_URL = "/api/plubbings"
+        private const val RECRUIT_URL = "$PLUBBING_URL/{plubbingId}/recruit"
         const val CREATE = PLUBBING_URL
         const val RECRUIT = "$PLUBBING_URL/recruit"
-        const val BOOKMARK = "$PLUBBING_URL/{plubbingId}/recruit/bookmarks"
+        const val BOOKMARK = "$RECRUIT_URL/bookmarks"
         const val BOOKMARK_ME = "$PLUBBING_URL/recruit/bookmarks/me"
         const val FETCH_RECOMMENDATION_GATHERING =  "$PLUBBING_URL/recommendation"
         const val FETCH_CATEGORIES_GATHERING = "$PLUBBING_URL/categories/{categoryId}"
-        const val FETCH_DETAIL_RECRUIT = "$PLUBBING_URL/{plubbingId}/recruit"
-    }
-
-    object RECRUIT {
-        private const val PLUBBING_URL = "/api/plubbings"
-        private const val RECRUIT_URL = "$PLUBBING_URL/{plubbingId}/recruit"
+        const val FETCH_DETAIL_RECRUIT = "$RECRUIT_URL"
         const val APPLICANTS_RECRUIT = "$RECRUIT_URL/applicants"
         const val APPROVAL_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/approval"
         const val REFUSE_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/refuse"
-        const val BOOKMARK_RECRUIT = "$RECRUIT_URL/bookmarks"
         const val RECRUIT_END = "$RECRUIT_URL/end"
         const val RECRUIT_QUESTIONS = "$RECRUIT_URL/questions"
     }
+
 }
