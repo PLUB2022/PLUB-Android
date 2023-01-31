@@ -11,6 +11,6 @@ object InterestRegisterResponseMapper : Mapper.ResponseMapper<RegisterInterestRe
                 accountId = this.accountId,
                 subCategories = this.subCategories
             )
-        }?: RegisterInterestResponseVo("", emptyList())
+        }?: RegisterInterestResponseVo()
     }
 }

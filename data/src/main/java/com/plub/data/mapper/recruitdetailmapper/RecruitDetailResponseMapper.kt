@@ -27,8 +27,6 @@ object RecruitDetailResponseMapper: Mapper.ResponseMapper<RecruitDetailResponse,
                     RecruitDetailJoinedAccountsMapper.mapDtoToModel(it)
                 }
             )
-        }?: RecruitDetailResponseVo("", "", emptyList(), "", "","", emptyList(), ""
-            , "", "", 0, "", false, false, 0, emptyList()
-        )
+        }?: RecruitDetailResponseVo()
     }
 }

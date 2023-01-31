@@ -10,6 +10,6 @@ object HostAnswersMapper : Mapper.ResponseMapper<Answers, AnswersVo> {
             AnswersVo(
                 questions = this.question,
                 answer = this.answer)
-        }?: AnswersVo("", "")
+        }?: AnswersVo()
     }
 }

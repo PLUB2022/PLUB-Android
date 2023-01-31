@@ -12,6 +12,6 @@ object HostSeeApplicantsMapper : Mapper.ResponseMapper<HostApplicantsResponse, H
                     HostAccountsMapper.mapDtoToModel(it)
                 }
             )
-        } ?: HostApplicantsResponseVo(emptyList())
+        } ?: HostApplicantsResponseVo()
     }
 }

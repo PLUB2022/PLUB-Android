@@ -15,6 +15,6 @@ object HostAccountsMapper : Mapper.ResponseMapper<Accounts, AccountsVo> {
                     HostAnswersMapper.mapDtoToModel(it)
                 }
             )
-        }?: AccountsVo("", "", "", emptyList())
+        }?: AccountsVo()
     }
 }

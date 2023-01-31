@@ -12,6 +12,6 @@ object ApplicantsRecruitRequestMapper : Mapper.RequestMapper<ApplicantsRecruitRe
                     ApplicantsRecruitAnswerMapper.mapModelToDto(it)
                 }
             )
-        } ?:ApplicantsRecruitRequest(emptyList())
+        } ?:ApplicantsRecruitRequest()
     }
 }

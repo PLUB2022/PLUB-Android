@@ -12,6 +12,6 @@ object CategoriesDataResponseMapper: Mapper.ResponseMapper<CategoriesData, Categ
                 name = name,
                 icon = icon
             )
-        }?: CategoriesDataResponseVo(0,"","")
+        }?: CategoriesDataResponseVo()
     }
 }

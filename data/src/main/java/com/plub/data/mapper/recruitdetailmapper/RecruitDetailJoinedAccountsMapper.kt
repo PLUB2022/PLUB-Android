@@ -10,6 +10,6 @@ object RecruitDetailJoinedAccountsMapper: Mapper.ResponseMapper<RecruitDetailJoi
             RecruitDetailJoinedAccountsListVo(
                 accountId = this.accountId, profileImage = this.profileImage
             )
-        }?: RecruitDetailJoinedAccountsListVo(0, "")
+        }?: RecruitDetailJoinedAccountsListVo()
     }
 }

@@ -11,6 +11,6 @@ object ReplyApplicantsRecruitMapper : Mapper.ResponseMapper<ReplyApplicantsRecru
                 maxAccountNum = this.maxAccountNum,
                 curAccountNum = this.curAccountNum
             )
-        } ?: ReplyApplicantsRecruitResponseVo(0,0)
+        } ?: ReplyApplicantsRecruitResponseVo()
     }
 }

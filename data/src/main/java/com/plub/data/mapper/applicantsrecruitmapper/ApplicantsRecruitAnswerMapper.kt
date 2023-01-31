@@ -11,7 +11,7 @@ object ApplicantsRecruitAnswerMapper : Mapper.RequestMapper<ApplicantsRecruitReq
                 questionId = this.questionId,
                 answer = this.answer
             )
-        } ?: ApplicantsRecruitRequestAnswerList(0, "")
+        } ?: ApplicantsRecruitRequestAnswerList()
     }
 
 }

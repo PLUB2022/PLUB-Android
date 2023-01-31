@@ -12,6 +12,6 @@ object QuestionsRecruitMapper : Mapper.ResponseMapper<QuestionsResponse, Questio
                     QuestionMapper.mapDtoToModel(it)
                 }
             )
-        }?: QuestionsResponseVo(emptyList())
+        }?: QuestionsResponseVo()
     }
 }

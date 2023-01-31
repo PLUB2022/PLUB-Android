@@ -11,6 +11,6 @@ object QuestionMapper : Mapper.ResponseMapper<Questions, QuestionsDataVo> {
                 id = this.id,
                 question = this.question
             )
-        }?: QuestionsDataVo(0, "")
+        }?: QuestionsDataVo()
     }
 }

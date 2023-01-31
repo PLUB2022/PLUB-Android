@@ -5,7 +5,6 @@ import com.plub.domain.model.enums.MainHasDataType
 import com.plub.domain.model.enums.MainPageCategoryPlubType
 import com.plub.domain.model.vo.home.CategoryListResponseVo
 import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponseVo
-import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringRequestVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.usecase.GetHobbiesUseCase
@@ -37,7 +36,7 @@ class HomeFragmentViewModel @Inject constructor(
                 inspectUiState(state, ::handleGetMyInterestSuccess)
             }
 
-            getRecommendationGatheringUsecase(RecommendationGatheringRequestVo(0))
+            getRecommendationGatheringUsecase(0)
                 .collect { state ->
                     inspectUiState(state, ::handleGetRecommendGatheringSuccess)
                 }
