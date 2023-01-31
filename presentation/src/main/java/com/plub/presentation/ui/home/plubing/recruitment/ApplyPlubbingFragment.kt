@@ -14,6 +14,7 @@ import com.plub.presentation.event.ApplyEvent
 import com.plub.presentation.event.Event
 import com.plub.presentation.state.ApplyPageState
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.QuestionsAdapter
+import com.plub.presentation.ui.home.plubing.recruitment.dialog.ApplySuccessDialog
 import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -85,7 +86,14 @@ class ApplyPlubbingFragment : BaseFragment<FragmentApplyPlubbingBinding, ApplyPa
     private fun inspectEventFlow(event : ApplyEvent){
         when(event){
             is ApplyEvent.BackPage-> {findNavController().popBackStack()}
+            is ApplyEvent.ShowSuccessDialog -> {
+                showDialog()
+            }
         }
+    }
+
+    private fun showDialog(){
+        ApplySuccessDialog(requireContext()).show()
     }
 
 }

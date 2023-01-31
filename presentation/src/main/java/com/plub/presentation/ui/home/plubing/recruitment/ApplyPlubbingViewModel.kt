@@ -4,6 +4,7 @@ package com.plub.presentation.ui.home.plubing.recruitment
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitResponseVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.successOrNull
@@ -17,6 +18,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,7 +30,7 @@ class ApplyPlubbingViewModel @Inject constructor(
 
     fun fetchQuestions(plubbingId : Int){
         viewModelScope.launch {
-            getRecruitQuestionUseCase.invoke(plubbingId).collect{ state ->
+            getRecruitQuestionUseCase(plubbingId).collect{ state ->
                 inspectUiState(state, ::successFetchQuestions)
             }
         }
@@ -44,8 +46,14 @@ class ApplyPlubbingViewModel @Inject constructor(
 
     fun applyRecruit(plubbingId: Int, list : List<ApplicantsRecruitAnswerListVo>){
         viewModelScope.launch {
-            applicantsRecruitUseCase(ApplicantsRecruitRequestVo(plubbingId, list))
+            applicantsRecruitUseCase(ApplicantsRecruitRequestVo(plubbingId, list)).collect{state->
+                inspectUiState(state, ::successApply)
+            }
         }
+    }
+
+    fun successApply(data : ApplicantsRecruitResponseVo){
+        emitEventFlow(ApplyEvent.ShowSuccessDialog)
     }
 
     fun updateButtonState(flag : Boolean){
