@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="296dp"
+    android:layout_height="448dp"
+    android:background="@drawable/bg_rectangle_filled_white_radius_10"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/image_btn_close"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_close_c4c4c4"
+        android:layout_width="32dp"
+        android:layout_height="32dp"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_thumbnail"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:layout_marginHorizontal="28dp"
+        android:layout_marginTop="42.5dp"
+        android:layout_marginBottom="165.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_complete"
+        app:layout_constraintTop_toBottomOf="@id/lottie_thumbnail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:textColor="@color/color_5f5ff9"
+        android:textSize="20sp"
+        android:text="@string/apply_dialog_complete_apply"
+        android:layout_height="24dp"/>
+    
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/text_view_complete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:textSize="14sp"
+        android:text="@string/apply_dialog_explain"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/color_363636"
+        android:layout_height="42dp"/>
+    
+    <TextView
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/color_8c8c8c"
+        android:textAlignment="center"
+        android:text="@string/apply_dialog_extra_explain"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
