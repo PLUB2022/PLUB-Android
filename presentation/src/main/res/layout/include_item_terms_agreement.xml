@@ -77,7 +77,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraint_layout_top"
             tools:visibility="visible">
 
-            <com.plub.presentation.ui.custom.ScrollableWebView
+            <com.plub.presentation.ui.common.custom.ScrollableWebView
                 android:id="@+id/web_view_terms"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

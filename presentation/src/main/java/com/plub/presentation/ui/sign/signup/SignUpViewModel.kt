@@ -18,7 +18,6 @@ import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.SignUpEvent
-import com.plub.presentation.state.SignUpPageState
 import com.plub.presentation.util.DataStoreUtil
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel

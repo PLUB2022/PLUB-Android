@@ -7,11 +7,11 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationViewModel" />
+            type="com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationViewModel" />
 
         <variable
             name="parent_vm"
-            type="com.plub.presentation.ui.createGathering.CreateGatheringViewModel" />
+            type="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel" />
 
         <import type="com.plub.domain.model.enums.DaysType" />
     </data>
@@ -22,7 +22,7 @@
         android:background="@color/color_f5f3f6"
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
-        tools:context=".ui.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationFragment">
+        tools:context=".ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationFragment">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_view_title_description" />
 
-                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
                     android:id="@+id/check_box_mon"
                     style="@style/create_gathering_day_fixed_text_width_check_box"
                     day="@{DaysType.MON}"
@@ -86,7 +86,7 @@
                     tools:layout_height="40dp"
                     tools:layout_width="80dp" />
 
-                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
                     android:id="@+id/check_box_tue"
                     style="@style/create_gathering_day_fixed_text_width_check_box"
                     day="@{DaysType.TUE}"
@@ -100,7 +100,7 @@
                     tools:layout_height="40dp"
                     tools:layout_width="80dp" />
 
-                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
                     android:id="@+id/check_box_wed"
                     style="@style/create_gathering_day_fixed_text_width_check_box"
                     day="@{DaysType.WED}"
@@ -114,7 +114,7 @@
                     tools:layout_height="40dp"
                     tools:layout_width="80dp" />
 
-                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
                     android:id="@+id/check_box_thr"
                     style="@style/create_gathering_day_fixed_text_width_check_box"
                     day="@{DaysType.THR}"
@@ -127,7 +127,7 @@
                     tools:layout_height="40dp"
                     tools:layout_width="80dp" />
 
-                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
                     android:id="@+id/check_box_fri"
                     style="@style/create_gathering_day_fixed_text_width_check_box"
                     day="@{DaysType.FRI}"
@@ -142,7 +142,7 @@
                     tools:layout_height="40dp"
                     tools:layout_width="80dp" />
 
-                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
                     android:id="@+id/check_box_sat"
                     style="@style/create_gathering_day_fixed_text_width_check_box"
                     day="@{DaysType.SAT}"
@@ -156,7 +156,7 @@
                     tools:layout_height="40dp"
                     tools:layout_width="80dp" />
 
-                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
                     android:id="@+id/check_box_sun"
                     style="@style/create_gathering_day_fixed_text_width_check_box"
                     day="@{DaysType.SUN}"
@@ -170,7 +170,7 @@
                     tools:layout_height="40dp"
                     tools:layout_width="80dp" />
 
-                <com.plub.presentation.ui.custom.FixedTextWidthCheckBox
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
                     android:id="@+id/check_box_all"
                     style="@style/create_gathering_day_fixed_text_width_check_box"
                     day="@{DaysType.ALL}"
@@ -196,7 +196,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/check_box_all" />
 
-                <com.plub.presentation.ui.custom.IconTextViewMedium
+                <com.plub.presentation.ui.common.custom.IconTextViewMedium
                     android:id="@+id/icon_text_view_medium_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -285,7 +285,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.plub.presentation.ui.custom.IconTextViewSmall
+                    <com.plub.presentation.ui.common.custom.IconTextViewSmall
                         android:id="@+id/edit_text_gathering_location_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

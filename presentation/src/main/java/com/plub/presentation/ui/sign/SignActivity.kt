@@ -4,11 +4,11 @@ import android.content.Intent
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.plub.presentation.state.PageState
+import com.plub.presentation.ui.PageState
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseActivity
 import com.plub.presentation.databinding.ActivitySignBinding
-import com.plub.presentation.ui.MainActivity
+import com.plub.presentation.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

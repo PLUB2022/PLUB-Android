@@ -10,7 +10,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.plub.presentation.state.PageState
+import com.plub.presentation.ui.PageState
+import com.plub.presentation.util.CommonProcessor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

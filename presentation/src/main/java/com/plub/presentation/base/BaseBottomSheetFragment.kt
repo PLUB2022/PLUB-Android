@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.plub.presentation.state.PageState
+import com.plub.presentation.ui.PageState
+import com.plub.presentation.util.CommonProcessor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

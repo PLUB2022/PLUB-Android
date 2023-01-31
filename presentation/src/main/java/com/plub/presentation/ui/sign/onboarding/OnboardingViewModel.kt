@@ -4,7 +4,6 @@ import com.plub.domain.model.vo.onboarding.OnboardingItemVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.OnboardingEvent
-import com.plub.presentation.state.OnboardingPageState
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

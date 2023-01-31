@@ -1,0 +1,8 @@
+package com.plub.presentation.ui.main.gathering.createGathering
+
+import com.plub.presentation.event.Event
+
+sealed class CreateGatheringEvent : Event {
+    object NavigationPopEvent: com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringEvent()
+    object GoToPrevPage: com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringEvent()
+}

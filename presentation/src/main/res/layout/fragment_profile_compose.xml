@@ -67,7 +67,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_view_personal_info_description" />
 
-                <com.plub.presentation.ui.custom.CircleImageView
+                <com.plub.presentation.ui.common.custom.CircleImageView
                     android:id="@+id/image_view_profile"
                     android:layout_width="120dp"
                     android:layout_height="120dp"

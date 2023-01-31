@@ -11,7 +11,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.home.search.SearchingViewModel" />
+            type="com.plub.presentation.ui.main.home.search.SearchingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -7,18 +7,18 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.createGathering.finish.CreateGatheringFinishViewModel" />
+            type="com.plub.presentation.ui.main.gathering.createGathering.finish.CreateGatheringFinishViewModel" />
 
         <variable
             name="parent_vm"
-            type="com.plub.presentation.ui.createGathering.CreateGatheringViewModel" />
+            type="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="16dp"
-        tools:context=".ui.createGathering.finish.CreateGatheringFinishFragment">
+        tools:context=".ui.main.gathering.createGathering.finish.CreateGatheringFinishFragment">
 
         <ImageView
             android:id="@+id/image_view_finish"
