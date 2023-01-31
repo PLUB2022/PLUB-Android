@@ -16,17 +16,12 @@ class PlubCardListViewHolder(
     }
 
     private var vo: PlubCardVo? = null
-    private var isBookmarked : Boolean = false
 
     init {
         binding.imageViewBookmark.setOnClickListener {
             vo?.let {
                 listener.onClickBookmark(it.id)
             }
-            isBookmarked = !isBookmarked
-            val bookmarkRes =
-                if (isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
-            binding.imageViewBookmark.setImageResource(bookmarkRes)
         }
 
         binding.root.setOnClickListener {
@@ -38,7 +33,6 @@ class PlubCardListViewHolder(
 
     fun bind(item: PlubCardVo) {
         vo = item
-        isBookmarked = item.isBookmarked
         binding.apply {
             val days = item.days.joinToString(SEPARATOR_OF_DAY)
             val time = TimeFormatter.getAmPmHourMin(item.time)
@@ -50,7 +44,7 @@ class PlubCardListViewHolder(
             textViewTitle.text = item.title
             textViewName.text = item.name
             val bookmarkRes =
-                if (isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
+                if (item.isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
             imageViewBookmark.setImageResource(bookmarkRes)
 //            GlideUtil.loadImage(root.context, item.photo, imageViewBackground)
         }
