@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.recruitment
+package com.plub.presentation.ui.main.recruitment
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -9,11 +9,11 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import com.plub.presentation.event.RecruitEvent
 import com.plub.presentation.state.DetailRecruitPageState
-import com.plub.presentation.ui.common.GridSpaceDecoration
+import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitProfileAdapter
-import com.plub.presentation.ui.home.plubing.categoryChoice.CategoryChoiceFragmentArgs
-import com.plub.presentation.ui.home.plubing.plubhome.HomeFragmentArgs
+import com.plub.presentation.ui.main.categoryChoice.CategoryChoiceFragmentArgs
+import com.plub.presentation.ui.main.plubhome.HomeFragmentArgs
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.registinterests
+package com.plub.presentation.ui.main.registinterests
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -9,8 +9,8 @@ import com.plub.presentation.databinding.FragmentInterestsRegisterBinding
 import com.plub.presentation.event.Event
 import com.plub.presentation.event.HobbiesEvent
 import com.plub.presentation.event.RegisterInterestEvent
-import com.plub.presentation.state.HobbiesPageState
-import com.plub.presentation.ui.common.VerticalSpaceDecoration
+import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
+import com.plub.presentation.ui.sign.hobbies.HobbiesPageState
 import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint

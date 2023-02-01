@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.recruitment
+package com.plub.presentation.ui.main.recruitment
 
 import android.widget.EditText
 import androidx.core.view.get
@@ -11,13 +11,10 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentApplyPlubbingBinding
 import com.plub.presentation.event.ApplyEvent
-import com.plub.presentation.event.Event
 import com.plub.presentation.state.ApplyPageState
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.QuestionsAdapter
 import com.plub.presentation.ui.home.plubing.recruitment.dialog.ApplySuccessDialog
-import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

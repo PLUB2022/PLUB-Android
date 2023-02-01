@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.categoryChoice
+package com.plub.presentation.ui.main.categoryChoice
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,11 +13,10 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
 import com.plub.presentation.event.CategoryChoiceEvent
 import com.plub.presentation.state.CategoryChoiceState
-import com.plub.presentation.ui.dialog.SelectMenuBottomSheetDialog
-import com.plub.presentation.ui.dialog.adapter.DialogMenuAdapter
-import com.plub.presentation.ui.home.adapter.PlubCardAdapter
-import com.plub.presentation.ui.home.plubing.plubhome.HomeFragmentArgs
-import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
+import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
+import com.plub.presentation.ui.main.home.adapter.PlubCardAdapter
+import com.plub.presentation.ui.main.plubhome.HomeFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

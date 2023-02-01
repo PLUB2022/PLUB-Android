@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.recruitment
+package com.plub.presentation.ui.main.recruitment
 
 
 import androidx.lifecycle.viewModelScope

@@ -1,22 +1,18 @@
-package com.plub.presentation.ui.home.plubing.recruitment.hostrecruitment
+package com.plub.presentation.ui.main.recruitment.hostrecruitment
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHostDetailRecruitmentPlubbingBinding
-import com.plub.presentation.event.Event
 import com.plub.presentation.event.HostDetailPageEvent
 import com.plub.presentation.state.DetailRecruitPageState
-import com.plub.presentation.state.PageState
-import com.plub.presentation.ui.common.GridSpaceDecoration
+import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.home.plubing.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.categoryChoice
+package com.plub.presentation.ui.main.categoryChoice
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogMenuItemType
@@ -11,9 +11,7 @@ import com.plub.domain.usecase.GetCategoriesGatheringUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.CategoryChoiceEvent
-import com.plub.presentation.event.SearchResultEvent
 import com.plub.presentation.state.CategoryChoiceState
-import com.plub.presentation.ui.home.searchResult.SearchResultViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

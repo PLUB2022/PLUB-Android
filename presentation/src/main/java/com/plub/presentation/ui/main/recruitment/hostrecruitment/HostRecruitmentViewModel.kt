@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.recruitment.hostrecruitment
+package com.plub.presentation.ui.main.recruitment.hostrecruitment
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo

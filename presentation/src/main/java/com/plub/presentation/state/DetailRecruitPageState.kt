@@ -1,6 +1,7 @@
 package com.plub.presentation.state
 
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
+import com.plub.presentation.ui.PageState
 
 data class DetailRecruitPageState(
     val plubId : Int = 0,

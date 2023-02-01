@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.plubhome
+package com.plub.presentation.ui.main.plubhome
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController

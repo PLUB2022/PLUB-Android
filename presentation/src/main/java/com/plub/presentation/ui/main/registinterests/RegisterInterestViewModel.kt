@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.registinterests
+package com.plub.presentation.ui.main.registinterests
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.HobbyViewType
@@ -10,7 +10,7 @@ import com.plub.domain.usecase.RegistInterestUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.event.HobbiesEvent
 import com.plub.presentation.event.RegisterInterestEvent
-import com.plub.presentation.state.HobbiesPageState
+import com.plub.presentation.ui.sign.hobbies.HobbiesPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
