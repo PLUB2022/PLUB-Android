@@ -11,7 +11,7 @@ import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.presentation.databinding.IncludeInterestRegisterTitleBinding
 import com.plub.presentation.databinding.IncludeItemHobbyBinding
 import com.plub.presentation.databinding.IncludeItemHobbyLatePickBinding
-import com.plub.presentation.ui.home.plubing.registinterests.InterestRegisterFirstViewHolder
+import com.plub.presentation.ui.main.home.registinterests.InterestRegisterFirstViewHolder
 
 class HobbiesAdapter(
     private val listener: Delegate

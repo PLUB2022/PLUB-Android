@@ -21,7 +21,7 @@ import com.plub.presentation.databinding.IncludeTabSearchResultBinding
 import com.plub.presentation.event.SearchResultEvent
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
-import com.plub.presentation.ui.main.home.adapter.PlubCardAdapter
+import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

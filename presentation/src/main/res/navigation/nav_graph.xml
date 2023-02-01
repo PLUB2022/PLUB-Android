@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/menu_navigation_main"
-        android:name="com.plub.presentation.ui.main.plubhome.HomeFragment"
+        android:name="com.plub.presentation.ui.main.home.plubhome.HomeFragment"
         android:label="menu_navigation_main"
         tools:layout="@layout/fragment_home">
         <action
@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/categoryChoiceFragment"
-        android:name="com.plub.presentation.ui.main.categoryChoice.CategoryChoiceFragment"
+        android:name="com.plub.presentation.ui.main.home.categoryChoice.CategoryChoiceFragment"
         android:label="fragment_category_choice"
         tools:layout="@layout/fragment_category_choice">
         <action
@@ -79,7 +79,7 @@
 
     <fragment
         android:id="@+id/recruitmentFragment"
-        android:name="com.plub.presentation.ui.main.recruitment.RecruitmentFragment"
+        android:name="com.plub.presentation.ui.main.home.recruitment.RecruitmentFragment"
         android:label="fragment_recruitment_detail"
         tools:layout="@layout/fragment_detail_recruitment_plubing"
         >
@@ -95,7 +95,7 @@
 
     <fragment
         android:id="@+id/applyPlubbingFragment"
-        android:name="com.plub.presentation.ui.main.recruitment.ApplyPlubbingFragment"
+        android:name="com.plub.presentation.ui.main.home.recruitment.apply.ApplyPlubbingFragment"
         android:label="fragment_apply_plubbing"
         tools:layout="@layout/fragment_apply_plubbing"
         >
@@ -109,7 +109,7 @@
 
     <fragment
         android:id="@+id/registerInterestFragment"
-        android:name="com.plub.presentation.ui.main.registinterests.RegisterInterestFragment"
+        android:name="com.plub.presentation.ui.main.home.registinterests.RegisterInterestFragment"
         android:label="fragment_register_interest"
         tools:layout="@layout/fragment_interests_register">
     </fragment>
@@ -160,7 +160,7 @@
         tools:layout="@layout/fragment_noti" />
     <fragment
         android:id="@+id/menu_navigation_profile"
-        android:name="com.plub.presentation.ui.main.profile.ProfileFragment"
+        android:name="com.plub.presentation.ui.main.home.profile.ProfileFragment"
         android:label="menu_navigation_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.recruitment.ApplyPlubbingViewModel" />
+            type="com.plub.presentation.ui.main.home.recruitment.apply.ApplyPlubbingViewModel" />
     </data>
 
 
