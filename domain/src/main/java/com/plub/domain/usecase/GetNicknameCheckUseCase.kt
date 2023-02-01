@@ -1,6 +1,6 @@
 package com.plub.domain.usecase
 
-import com.plub.domain.RegexUtil
+import com.plub.domain.util.RegexUtil
 import com.plub.domain.UiState
 import com.plub.domain.base.UseCase
 import com.plub.domain.error.NicknameError
@@ -9,7 +9,6 @@ import com.plub.domain.repository.SignUpRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 class GetNicknameCheckUseCase @Inject constructor(
     private val signUpRepository: SignUpRepository

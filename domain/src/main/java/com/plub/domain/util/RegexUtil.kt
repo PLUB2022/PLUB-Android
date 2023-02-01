@@ -1,4 +1,4 @@
-package com.plub.domain
+package com.plub.domain.util
 
 import java.util.regex.Pattern
 

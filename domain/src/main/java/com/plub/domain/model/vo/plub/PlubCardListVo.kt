@@ -1,6 +1,6 @@
 package com.plub.domain.model.vo.plub
 
-import com.plub.domain.base.DomainModel
+import com.plub.domain.model.DomainModel
 
 data class PlubCardListVo(
     val totalPages: Int = -1,

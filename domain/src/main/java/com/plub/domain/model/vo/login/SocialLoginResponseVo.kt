@@ -1,7 +1,6 @@
 package com.plub.domain.model.vo.login
 
-import com.plub.domain.base.DomainModel
-import com.plub.domain.model.enums.SocialLoginType
+import com.plub.domain.model.DomainModel
 
 data class SocialLoginResponseVo(
     val signToken:String = "",

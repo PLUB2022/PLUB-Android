@@ -1,6 +1,6 @@
 package com.plub.domain.model.vo.plub
 
-import com.plub.domain.base.DomainModel
+import com.plub.domain.model.DomainModel
 import com.plub.domain.model.enums.PlubCardType
 
 data class PlubCardVo(

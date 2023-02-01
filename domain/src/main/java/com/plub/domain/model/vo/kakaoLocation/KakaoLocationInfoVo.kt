@@ -1,6 +1,6 @@
 package com.plub.domain.model.vo.kakaoLocation
 
-import com.plub.domain.base.DomainModel
+import com.plub.domain.model.DomainModel
 
 data class KakaoLocationInfoVo(
     val documents: List<KakaoLocationInfoDocumentVo>
