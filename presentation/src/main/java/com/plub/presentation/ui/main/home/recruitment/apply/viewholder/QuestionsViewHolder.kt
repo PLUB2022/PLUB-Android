@@ -12,17 +12,11 @@ class QuestionsViewHolder(
     private val listener : QuestionsAdapter.QuestionsDegelate
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    companion object {
-        const val SPACE = ". "
-    }
-
     init {
         binding.apply {
             editTextAnswer.addTextChangedListener {
                 textViewNowText.text = editTextAnswer.text.length.toString()
-                listener.isNotEmpty(
-                    editTextAnswer.text.isNotEmpty()
-                )
+                listener.isNotEmpty()
             }
         }
     }

@@ -18,7 +18,7 @@ class QuestionsAdapter(private val listener : QuestionsDegelate) :
     ) {
 
     interface QuestionsDegelate{
-        fun isNotEmpty(flag : Boolean)
+        fun isNotEmpty()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
