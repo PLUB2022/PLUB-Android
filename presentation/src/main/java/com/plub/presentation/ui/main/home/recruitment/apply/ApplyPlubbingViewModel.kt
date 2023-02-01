@@ -86,8 +86,8 @@ class ApplyPlubbingViewModel @Inject constructor(
             }
         }
 
-        if (isDiffBtnState(empty)) {
-            updateButtonState(empty)
+        if (isDiffBtnState(!empty)) {
+            updateButtonState(!empty)
         }
     }
 
