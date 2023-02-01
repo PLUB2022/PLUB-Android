@@ -1,6 +1,6 @@
 package com.plub.domain.model.vo.createGathering
 
-import com.plub.domain.base.DomainModel
+import com.plub.domain.model.DomainModel
 
 data class CreateGatheringRequestVo(
     val subCategoryIds: List<Int>,
@@ -19,4 +19,4 @@ data class CreateGatheringRequestVo(
     val placePositionY: Float?,
     val maxAccountNum: Int,
     val questions: List<String>
-): DomainModel()
+): DomainModel

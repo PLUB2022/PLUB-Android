@@ -1,7 +1,6 @@
 package com.plub.domain.model.vo.signUp
 
-import com.plub.domain.base.DomainModel
-import com.plub.domain.model.enums.SocialLoginType
+import com.plub.domain.model.DomainModel
 import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.domain.model.vo.signUp.moreInfo.MoreInfoVo
 import com.plub.domain.model.vo.signUp.personalInfo.PersonalInfoVo
@@ -16,4 +15,4 @@ data class SignUpRequestVo(
     val profileComposeVo: ProfileComposeVo,
     val moreInfoVo: MoreInfoVo,
     val hobbyInfoVo: SignUpHobbiesVo
-): DomainModel()
+): DomainModel

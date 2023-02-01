@@ -1,6 +1,6 @@
 package com.plub.domain.model.vo.account
 
-import com.plub.domain.base.DomainModel
+import com.plub.domain.model.DomainModel
 
 data class MyInfoResponseVo(
     val email: String = "",
@@ -10,4 +10,4 @@ data class MyInfoResponseVo(
     val gender: String = "",
     val introduce: String = "",
     val profileImage: String = ""
-): DomainModel()
+): DomainModel

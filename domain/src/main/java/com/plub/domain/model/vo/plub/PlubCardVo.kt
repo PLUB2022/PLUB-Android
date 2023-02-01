@@ -1,6 +1,6 @@
 package com.plub.domain.model.vo.plub
 
-import com.plub.domain.base.DomainModel
+import com.plub.domain.model.DomainModel
 import com.plub.domain.model.enums.PlubCardType
 
 data class PlubCardVo(
@@ -14,4 +14,4 @@ data class PlubCardVo(
     val place:String = "",
     val remainMemberNumber: Int = -1,
     val isBookmarked : Boolean = false
-): DomainModel()
+): DomainModel
