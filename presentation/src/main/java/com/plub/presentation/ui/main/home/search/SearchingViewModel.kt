@@ -5,9 +5,7 @@ import com.plub.domain.model.vo.home.search.RecentSearchVo
 import com.plub.domain.usecase.DeleteAllRecentSearchUseCase
 import com.plub.domain.usecase.DeleteRecentSearchUseCase
 import com.plub.domain.usecase.FetchRecentSearchUseCase
-import com.plub.domain.usecase.InsertRecentSearchUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.event.SearchingEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -5,7 +5,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentOnboardingBinding
-import com.plub.presentation.event.OnboardingEvent
 import com.plub.presentation.ui.sign.onboarding.adapter.OnboardingViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

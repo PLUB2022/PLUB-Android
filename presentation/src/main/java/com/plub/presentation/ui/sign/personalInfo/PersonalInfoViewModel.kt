@@ -3,7 +3,6 @@ package com.plub.presentation.ui.sign.personalInfo
 import com.plub.domain.model.enums.Gender
 import com.plub.domain.model.vo.signUp.personalInfo.PersonalInfoVo
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.event.PersonalInfoEvent
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat

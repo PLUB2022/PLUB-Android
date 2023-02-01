@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.main.gathering.createGathering.goalAndIntroduceAndImage
 
 import android.net.Uri
-import com.plub.presentation.event.Event
+import com.plub.presentation.ui.Event
 
 sealed class CreateGatheringGoalAndIntroduceAndImageEvent : Event {
     object ShowSelectImageBottomSheetDialog: CreateGatheringGoalAndIntroduceAndImageEvent()

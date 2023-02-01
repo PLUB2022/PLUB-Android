@@ -6,7 +6,6 @@ import androidx.paging.cachedIn
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.domain.usecase.FetchKakaoLocationByKeywordUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.event.KakaoLocationEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest

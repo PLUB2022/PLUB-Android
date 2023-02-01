@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentBookmarkBinding
-import com.plub.presentation.event.BookmarksEvent
 import com.plub.presentation.ui.main.home.adapter.PlubCardAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

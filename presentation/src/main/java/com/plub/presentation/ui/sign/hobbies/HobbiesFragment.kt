@@ -6,7 +6,6 @@ import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHobbiesBinding
-import com.plub.presentation.event.HobbiesEvent
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 import com.plub.presentation.ui.sign.signup.SignUpViewModel

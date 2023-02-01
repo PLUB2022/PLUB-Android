@@ -1,14 +1,11 @@
 package com.plub.presentation.ui.main.gathering.createGathering
 
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringBinding
-import com.plub.presentation.event.SignUpEvent
 import com.plub.presentation.ui.main.gathering.createGathering.adapter.FragmentCreateGatheringPagerAdapter
-import com.plub.presentation.ui.sign.signup.SignUpFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

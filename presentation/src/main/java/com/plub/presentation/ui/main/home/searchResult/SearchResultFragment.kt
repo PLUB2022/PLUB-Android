@@ -18,7 +18,6 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSearchResultBinding
 import com.plub.presentation.databinding.IncludeTabSearchResultBinding
-import com.plub.presentation.event.SearchResultEvent
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
 import com.plub.presentation.ui.main.home.adapter.PlubCardAdapter

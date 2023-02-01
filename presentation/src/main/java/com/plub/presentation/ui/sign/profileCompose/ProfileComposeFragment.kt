@@ -11,7 +11,6 @@ import com.plub.domain.model.enums.SignUpPageType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentProfileComposeBinding
-import com.plub.presentation.event.ProfileComposeEvent
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
 import com.plub.presentation.util.IntentUtil

@@ -1,6 +1,6 @@
-package com.plub.presentation.event
+package com.plub.presentation.ui.main.home.search
 
-import com.plub.domain.model.enums.PlubSearchType
+import com.plub.presentation.ui.Event
 
 sealed class SearchingEvent : Event {
     object HideKeyboard : SearchingEvent()
