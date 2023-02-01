@@ -16,4 +16,4 @@ data class SignUpRequestVo(
     val profileComposeVo: ProfileComposeVo,
     val moreInfoVo: MoreInfoVo,
     val hobbyInfoVo: SignUpHobbiesVo
-): DomainModel()
+): DomainModel

@@ -9,4 +9,4 @@ data class SearchPlubRecruitRequestVo(
     val keyword: String,
     val sortType: PlubSortType,
     val page: Int,
-) : DomainModel()
+) : DomainModel

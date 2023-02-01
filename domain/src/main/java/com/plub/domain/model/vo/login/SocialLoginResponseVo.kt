@@ -7,4 +7,4 @@ data class SocialLoginResponseVo(
     val signToken:String = "",
     val accessToken:String = "",
     val refreshToken:String = ""
-): DomainModel()
+): DomainModel

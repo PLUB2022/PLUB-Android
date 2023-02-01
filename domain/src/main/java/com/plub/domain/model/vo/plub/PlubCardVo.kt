@@ -14,4 +14,4 @@ data class PlubCardVo(
     val place:String = "",
     val remainMemberNumber: Int = -1,
     val isBookmarked : Boolean = false
-): DomainModel()
+): DomainModel

@@ -12,4 +12,4 @@ import kotlinx.coroutines.CoroutineScope
 data class NicknameCheckRequestVo(
     val nickname:String,
     val scope: CoroutineScope
-): DomainModel()
+): DomainModel

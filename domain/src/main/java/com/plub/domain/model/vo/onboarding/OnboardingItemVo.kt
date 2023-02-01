@@ -6,4 +6,4 @@ data class OnboardingItemVo(
     val lottieRes: Int,
     val title: String,
     val content: String
-): DomainModel()
+): DomainModel

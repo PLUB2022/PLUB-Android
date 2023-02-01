@@ -4,4 +4,4 @@ import com.plub.domain.base.DomainModel
 
 data class CreateGatheringResponseVo(
     val plubbingId: Int = -1
-): DomainModel()
+): DomainModel

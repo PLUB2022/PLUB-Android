@@ -10,4 +10,4 @@ data class MyInfoResponseVo(
     val gender: String = "",
     val introduce: String = "",
     val profileImage: String = ""
-): DomainModel()
+): DomainModel

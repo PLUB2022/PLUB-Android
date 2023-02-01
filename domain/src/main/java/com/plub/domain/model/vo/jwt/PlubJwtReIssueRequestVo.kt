@@ -4,4 +4,4 @@ import com.plub.domain.base.DomainModel
 
 data class PlubJwtReIssueRequestVo(
     val refreshToken : String
-):DomainModel()
+):DomainModel

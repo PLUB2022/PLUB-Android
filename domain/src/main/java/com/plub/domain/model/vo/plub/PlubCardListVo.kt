@@ -7,4 +7,4 @@ data class PlubCardListVo(
     val totalElements: Int = -1,
     val content: List<PlubCardVo> = emptyList(),
     val last: Boolean = false,
-): DomainModel()
+): DomainModel

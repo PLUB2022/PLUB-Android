@@ -4,7 +4,7 @@ import com.plub.domain.base.DomainModel
 
 data class KakaoLocationInfoVo(
     val documents: List<KakaoLocationInfoDocumentVo>
-): DomainModel()
+): DomainModel
 
 data class KakaoLocationInfoDocumentVo(
     val placeName: String,

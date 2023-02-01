@@ -7,4 +7,4 @@ data class SocialLoginRequestVo(
     val socialLoginType: SocialLoginType,
     val authCode:String = "",
     val accessToken:String = ""
-): DomainModel()
+): DomainModel

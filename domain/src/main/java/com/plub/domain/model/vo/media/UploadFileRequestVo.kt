@@ -7,4 +7,4 @@ import java.io.File
 data class UploadFileRequestVo(
     val type: UploadFileType,
     val file: File,
-): DomainModel()
+): DomainModel

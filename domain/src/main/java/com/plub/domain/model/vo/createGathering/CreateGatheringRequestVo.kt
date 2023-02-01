@@ -19,4 +19,4 @@ data class CreateGatheringRequestVo(
     val placePositionY: Float?,
     val maxAccountNum: Int,
     val questions: List<String>
-): DomainModel()
+): DomainModel
