@@ -1,6 +1,6 @@
 package com.plub.domain.model.vo.home.recruitdetailvo
 
-import com.plub.domain.base.DomainModel
+import com.plub.domain.model.DomainModel
 
 data class RecruitDetailResponseVo(
     val recruitTitle : String = "",
@@ -19,4 +19,4 @@ data class RecruitDetailResponseVo(
     val isApplied : Boolean = false,
     val curAccountNum : Int = -1,
     val joinedAccounts : List<RecruitDetailJoinedAccountsListVo> = emptyList()
-) : DomainModel()
+) : DomainModel
