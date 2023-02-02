@@ -1,9 +1,9 @@
 package com.plub.data.api
 
+import com.plub.data.base.ApiResponse
 import com.plub.data.dto.categorylistdata.CategoryListDataResponse
 import com.plub.data.dto.plub.PlubCardListResponse
 import com.plub.data.dto.recruitdetail.RecruitDetailResponse
-import com.plub.data.util.ApiResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

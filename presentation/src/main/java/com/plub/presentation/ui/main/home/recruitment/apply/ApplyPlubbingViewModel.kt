@@ -79,7 +79,7 @@ class ApplyPlubbingViewModel @Inject constructor(
     }
 
     fun isEmpty(questionsAdapter: QuestionsAdapter, recyclerview: RecyclerView) {
-        var empty: Boolean = false
+        var empty = false
         for (i in 1 until questionsAdapter.itemCount) {
             if (recyclerview.get(i).findViewById<EditText>(R.id.edit_text_answer).text.isEmpty()) {
                 empty = true

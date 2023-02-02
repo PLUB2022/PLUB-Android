@@ -2,7 +2,7 @@ package com.plub.data.api
 
 import com.plub.data.dto.registerinterest.InterestRequest
 import com.plub.data.dto.registerinterest.RegisterInterestResponse
-import com.plub.data.util.ApiResponse
+import com.plub.data.base.ApiResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

@@ -1,6 +1,7 @@
 package com.plub.presentation.event
 
 import com.plub.domain.model.enums.DialogMenuItemType
+import com.plub.presentation.ui.Event
 
 sealed class CategoryChoiceEvent : Event {
     object GoToBack : CategoryChoiceEvent()

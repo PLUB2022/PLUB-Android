@@ -1,5 +1,7 @@
 package com.plub.presentation.event
 
-sealed class RegisterInterestEvent : Event{
+import com.plub.presentation.ui.Event
+
+sealed class RegisterInterestEvent : Event {
     object BackPage : RegisterInterestEvent()
 }

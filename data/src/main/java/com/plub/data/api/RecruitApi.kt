@@ -4,10 +4,9 @@ import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitRequest
 import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitResponse
 import com.plub.data.dto.applicantsrecruit.reply.ReplyApplicantsRecruitResponse
 import com.plub.data.dto.applyrecruit.QuestionsResponse
-import com.plub.data.dto.bookmark.PlubBookmarkResponse
 import com.plub.data.dto.recruitdetail.host.EndRecruitResponse
 import com.plub.data.dto.recruitdetail.host.HostApplicantsResponse
-import com.plub.data.util.ApiResponse
+import com.plub.data.base.ApiResponse
 import retrofit2.Response
 import retrofit2.http.*
 

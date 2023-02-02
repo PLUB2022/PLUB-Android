@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentInterestsRegisterBinding
-import com.plub.presentation.event.Event
-import com.plub.presentation.event.HobbiesEvent
 import com.plub.presentation.event.RegisterInterestEvent
+import com.plub.presentation.ui.Event
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
+import com.plub.presentation.ui.sign.hobbies.HobbiesEvent
 import com.plub.presentation.ui.sign.hobbies.HobbiesPageState
 import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 import com.plub.presentation.util.px

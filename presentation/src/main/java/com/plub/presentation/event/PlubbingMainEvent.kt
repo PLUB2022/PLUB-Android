@@ -1,6 +1,8 @@
 package com.plub.presentation.event
 
-sealed class PlubbingMainEvent : Event{
+import com.plub.presentation.ui.Event
+
+sealed class PlubbingMainEvent : Event {
     object GoToSearch : PlubbingMainEvent()
     object GoToBookMark : PlubbingMainEvent()
 }
