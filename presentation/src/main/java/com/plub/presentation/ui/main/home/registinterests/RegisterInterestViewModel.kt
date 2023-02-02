@@ -8,7 +8,6 @@ import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.domain.usecase.GetAllHobbiesUseCase
 import com.plub.domain.usecase.RegistInterestUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.event.RegisterInterestEvent
 import com.plub.presentation.ui.sign.hobbies.HobbiesEvent
 import com.plub.presentation.ui.sign.hobbies.HobbiesPageState
 import dagger.hilt.android.lifecycle.HiltViewModel

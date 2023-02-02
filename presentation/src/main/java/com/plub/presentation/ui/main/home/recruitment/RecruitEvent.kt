@@ -1,9 +1,9 @@
-package com.plub.presentation.event
+package com.plub.presentation.ui.main.home.recruitment
 
 import com.plub.presentation.ui.Event
 
 sealed class RecruitEvent: Event {
     object GoToApplyPlubbingFragment : RecruitEvent()
     object GoToProfileFragment : RecruitEvent()
-    object GoToBack :RecruitEvent()
+    object GoToBack : RecruitEvent()
 }

@@ -1,4 +1,4 @@
-package com.plub.presentation.event
+package com.plub.presentation.ui.main.home.categoryChoice
 
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.presentation.ui.Event

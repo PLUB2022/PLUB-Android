@@ -151,11 +151,11 @@
                     android:id="@+id/constraint_layout_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="200dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="200dp"
                     android:layout_marginBottom="8dp"
-                    app:layout_constraintStart_toEndOf="@id/constraint_layout_people"
-                    app:layout_constraintBottom_toTopOf="@id/image_view_plubbing_image">
+                    app:layout_constraintBottom_toTopOf="@id/image_view_plubbing_image"
+                    app:layout_constraintStart_toEndOf="@id/constraint_layout_people">
 
                     <ImageView
                         android:layout_width="16dp"
@@ -180,9 +180,11 @@
 
                 <ImageView
                     android:id="@+id/image_view_plubbing_image"
-                    android:layout_width="328dp"
+                    android:layout_width="0dp"
                     android:layout_height="246dp"
+                    android:layout_marginStart="17.5dp"
                     android:layout_marginTop="240dp"
+                    android:layout_marginEnd="14.5dp"
                     android:background="@color/color_c4c4c4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -202,11 +204,12 @@
 
                 <TextView
                     android:id="@+id/text_view_plubbing_detail"
-                    android:layout_width="328dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@{vm.uiState.recruitIntroduce}"
                     android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@id/image_view_plubbing_image"
                     app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
                     app:layout_constraintTop_toBottomOf="@id/text_view_plubbing_detail_intro"
                     tools:text="유럽의 전통 춤 중 하나. 기원은 이탈리아. 나중에 프랑스가 이탈리아에서 들여와서 프랑스라고 알고 있는 사람들이 많으며, 유명세 때문에 러시아 춤이라고 알고 있는 사람도 있다.
@@ -217,9 +220,10 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_plubbing_hobby"
-                    android:layout_width="327dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    app:layout_constraintEnd_toEndOf="@id/image_view_plubbing_image"
                     app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
                     app:layout_constraintTop_toBottomOf="@id/text_view_plubbing_detail" />
 
@@ -236,18 +240,24 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_plubbing_people_profile"
-                    android:layout_width="328dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
                     android:layout_marginTop="54dp"
+                    android:layout_marginEnd="14dp"
+                    android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
                     app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_hobby" />
 
                 <Button
                     android:id="@+id/button_other"
-                    android:layout_width="158dp"
+                    android:layout_width="0dp"
                     android:layout_height="46dp"
+                    android:layout_marginStart="17dp"
                     android:layout_marginTop="24dp"
+                    android:layout_marginEnd="12dp"
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/bg_rectangle_filled_e4e4e4_radius_10"
                     android:text="@string/detail_recruitment_see_others"
@@ -260,9 +270,10 @@
 
                 <Button
                     android:id="@+id/button_join"
-                    android:layout_width="158dp"
+                    android:layout_width="0dp"
                     android:layout_height="46dp"
                     android:layout_marginTop="24dp"
+                    android:layout_marginEnd="15dp"
                     android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
                     android:enabled="@{!vm.uiState.applied}"
                     android:onClick="@{()->vm.goToApplyPlubbingFragment()}"

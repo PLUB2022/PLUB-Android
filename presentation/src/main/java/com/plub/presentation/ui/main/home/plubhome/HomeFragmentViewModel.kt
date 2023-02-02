@@ -12,7 +12,6 @@ import com.plub.domain.usecase.GetMyInterestUseCase
 import com.plub.domain.usecase.GetRecommendationGatheringUsecase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.event.PlubbingMainEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.plub.presentation.event
+package com.plub.presentation.ui.main.home.recruitment.apply
 
 import com.plub.presentation.ui.Event
 

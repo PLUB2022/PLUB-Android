@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHostDetailRecruitmentPlubbingBinding
-import com.plub.presentation.event.HostDetailPageEvent
 import com.plub.presentation.ui.main.home.recruitment.DetailRecruitPageState
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCategoryAdapter

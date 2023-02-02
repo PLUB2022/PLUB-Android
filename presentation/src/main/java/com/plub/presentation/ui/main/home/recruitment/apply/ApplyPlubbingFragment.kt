@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentApplyPlubbingBinding
-import com.plub.presentation.event.ApplyEvent
 import com.plub.presentation.ui.main.home.recruitment.apply.adapter.QuestionsAdapter
 import com.plub.presentation.ui.main.home.recruitment.dialog.ApplySuccessDialog
 import com.plub.presentation.ui.main.home.recruitment.RecruitmentFragmentArgs

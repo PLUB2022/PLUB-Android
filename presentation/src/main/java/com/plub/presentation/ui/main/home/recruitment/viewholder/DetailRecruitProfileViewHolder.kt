@@ -29,7 +29,6 @@ class DetailRecruitProfileViewHolder(
             if (nowNum == MAX_PROFILE) {
                 textViewMoreProfileNumber.text = root.context.getString(R.string.detail_recruitment_profile_county, peopleCount)
             }
-            textViewMoreProfileNumber.text = root.context.getString(R.string.detail_recruitment_profile_county, peopleCount)
             accountId = item.accountId
         }
     }

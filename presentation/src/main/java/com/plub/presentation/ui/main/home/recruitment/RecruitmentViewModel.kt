@@ -7,7 +7,6 @@ import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.event.RecruitEvent
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

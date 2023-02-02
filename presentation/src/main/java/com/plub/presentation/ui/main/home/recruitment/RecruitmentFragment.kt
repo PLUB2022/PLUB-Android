@@ -5,9 +5,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
-import com.plub.presentation.event.RecruitEvent
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
@@ -110,7 +110,8 @@ class RecruitmentFragment :
 
             detailRecruitProfileAdapter.submitList(data.joinedAccounts)
             recyclerViewPlubbingPeopleProfile.apply {
-                layoutManager = LinearLayoutManager(context)
+                addItemDecoration(GridSpaceDecoration(8, 4.px, 0,false))
+                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                 adapter = detailRecruitProfileAdapter
             }
         }

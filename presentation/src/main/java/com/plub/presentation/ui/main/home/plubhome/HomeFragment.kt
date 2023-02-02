@@ -8,7 +8,6 @@ import com.plub.domain.model.enums.MainPageCategoryPlubType
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
-import com.plub.presentation.event.PlubbingMainEvent
 import com.plub.presentation.ui.main.home.plubhome.adapter.MainCategoryAdapter
 import com.plub.presentation.ui.main.home.plubhome.adapter.MainRecommendGatheringAdapter
 import dagger.hilt.android.AndroidEntryPoint

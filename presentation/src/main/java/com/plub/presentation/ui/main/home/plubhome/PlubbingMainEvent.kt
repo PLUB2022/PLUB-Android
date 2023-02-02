@@ -1,4 +1,4 @@
-package com.plub.presentation.event
+package com.plub.presentation.ui.main.home.plubhome
 
 import com.plub.presentation.ui.Event
 

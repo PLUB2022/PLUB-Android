@@ -6,7 +6,6 @@ import com.plub.domain.usecase.GetRecruitApplicantsUseCase
 import com.plub.domain.usecase.PutEndRecruitUseCase
 import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.event.HostDetailPageEvent
 import com.plub.presentation.ui.main.home.recruitment.DetailRecruitPageState
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel

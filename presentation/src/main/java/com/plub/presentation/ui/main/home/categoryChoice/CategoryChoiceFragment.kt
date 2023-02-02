@@ -11,7 +11,6 @@ import com.plub.domain.model.enums.PlubSortType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
-import com.plub.presentation.event.CategoryChoiceEvent
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
