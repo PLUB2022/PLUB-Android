@@ -6,6 +6,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
@@ -101,10 +102,10 @@ class RecruitmentFragment :
             constraintLayoutTop.bringToFront()
             //GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
 
-            detailRecruitCategoryAdapter.submitList(data.categories)
+            val list = arrayListOf("클라이밍", "필라테스", "계절스포츠", "스포츠관람", "계절스포츠")
+            detailRecruitCategoryAdapter.submitList(list)
             recyclerViewPlubbingHobby.apply {
-                layoutManager = GridLayoutManager(context, 4)
-                addItemDecoration(GridSpaceDecoration(4, 4.px, 4.px, false))
+                layoutManager = FlexboxLayoutManager(context)
                 adapter = detailRecruitCategoryAdapter
             }
 

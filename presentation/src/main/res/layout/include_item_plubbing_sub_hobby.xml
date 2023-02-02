@@ -5,8 +5,10 @@
     tools:ignore="SpUsage,ContentDescription">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/bg_rectangle_filled_e1e1fa_radius_4"
         >
 

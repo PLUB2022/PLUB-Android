@@ -222,7 +222,7 @@
                     android:id="@+id/recycler_view_plubbing_hobby"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="@id/image_view_plubbing_image"
                     app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
                     app:layout_constraintTop_toBottomOf="@id/text_view_plubbing_detail" />
