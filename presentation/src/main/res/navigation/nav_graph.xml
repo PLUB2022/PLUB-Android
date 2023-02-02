@@ -21,6 +21,10 @@
         <action
             android:id="@+id/action_main_to_bookmark"
             app:destination="@id/bookmarkFragment" />
+
+        <action
+            android:id="@+id/action_main_to_plubing_main"
+            app:destination="@id/plubingMainFragment" />
     </fragment>
 
     <fragment
@@ -57,6 +61,14 @@
         android:label="fragment_bookmark"
         tools:layout="@layout/fragment_bookmark">
     </fragment>
+
+    <fragment
+        android:id="@+id/plubingMainFragment"
+        android:name="com.plub.presentation.ui.main.plubing.PlubingMainFragment"
+        android:label="fragment_plubing_main"
+        tools:layout="@layout/fragment_plubing_main">
+    </fragment>
+
     <fragment
         android:id="@+id/menu_navigation_gathering"
         android:name="com.plub.presentation.ui.main.gathering.GatheringFragment"

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.plubing.PlubingMainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_collapseMode="parallax">
+
+        <ImageView
+            android:id="@+id/image_view_plub_main"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/color_c4c4c4"
+            app:layout_constraintDimensionRatio="360:260"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_view_back_expanded"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="13dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_back_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_view_menu_expanded"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="7dp"
+            android:src="@drawable/ic_menu_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_view_archive_expanded"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="2dp"
+            android:src="@drawable/ic_archive_white"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_menu_expanded"
+            app:layout_constraintTop_toTopOf="@id/image_view_menu_expanded" />
+
+        <ImageView
+            android:id="@+id/image_view_notice_expanded"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="2dp"
+            android:src="@drawable/ic_notice_white"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_archive_expanded"
+            app:layout_constraintTop_toTopOf="@id/image_view_menu_expanded" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_members"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="26dp"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_view_location"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_location_white"
+            app:layout_constraintBottom_toTopOf="@+id/recycler_view_members"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_view_location"
+            app:layout_constraintTop_toTopOf="@+id/image_view_location"
+            tools:text="서울 서초구 서초구 어쩌고 어쩌로 500 강남 투썸 플레이스" />
+
+        <ImageView
+            android:id="@+id/image_view_date"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_date_white"
+            app:layout_constraintBottom_toTopOf="@+id/image_view_location"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_view_date"
+            app:layout_constraintTop_toTopOf="@+id/image_view_date"
+            tools:text="월,화,수,목,금,토 | 오후 5시 30분" />
+
+        <TextView
+            android:id="@+id/text_view_name_expanded"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/image_view_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="요란한 한줄" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

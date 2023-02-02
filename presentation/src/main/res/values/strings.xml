@@ -195,4 +195,7 @@
     <string name="plub_recruit_count">모집 인원 %d명</string>
 
     <string name="bookmark_empty_title">아직 저장된 북마크가 없어요.\n취향에 맞을만한 모임을 찾아볼까요?</string>
+
+    <string name="plubing_main_tab_board">게시판</string>
+    <string name="plubing_main_tab_todo_list">그룹원 To-Do 리스트</string>
 </resources>
