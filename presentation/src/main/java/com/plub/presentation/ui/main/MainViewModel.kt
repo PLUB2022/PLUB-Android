@@ -4,7 +4,6 @@ import android.view.MenuItem
 import com.plub.domain.model.enums.BottomNavigationItemType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.event.MainEvent
 import com.plub.presentation.ui.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

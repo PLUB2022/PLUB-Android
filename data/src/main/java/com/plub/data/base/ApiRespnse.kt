@@ -1,7 +1,6 @@
-package com.plub.data.util
+package com.plub.data.base
 
 import com.google.gson.annotations.SerializedName
-import com.plub.data.base.DataDto
 
 data class ApiResponse<D:DataDto>(
     @SerializedName("data")

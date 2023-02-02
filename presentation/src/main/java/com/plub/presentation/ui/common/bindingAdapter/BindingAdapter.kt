@@ -1,15 +1,14 @@
-package com.plub.presentation.util
+package com.plub.presentation.ui.common.bindingAdapter
 
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.webkit.WebView
-import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.Spinner
 import androidx.databinding.BindingAdapter
 import com.plub.domain.UiState
+import com.plub.presentation.util.GlideUtil
 import java.io.File
 
 @BindingAdapter("showLoadingProgressBar")
@@ -30,7 +29,9 @@ fun loadUrl(view: WebView, url: String) {
 @BindingAdapter("imageFile","defaultImage")
 fun ImageView.setImageFile(imageFile:File?, defaultImage:Drawable) {
     if(imageFile == null) setImageDrawable(defaultImage)
-    else { GlideUtil.loadImage(context,imageFile,this) }
+    else {
+        GlideUtil.loadImage(context, imageFile, this)
+    }
 }
 
 @BindingAdapter("hintIcon")

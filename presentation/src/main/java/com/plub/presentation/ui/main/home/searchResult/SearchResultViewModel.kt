@@ -16,7 +16,6 @@ import com.plub.domain.usecase.GetSearchPlubRecruitUseCase
 import com.plub.domain.usecase.InsertRecentSearchUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.event.SearchResultEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

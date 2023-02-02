@@ -8,7 +8,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSearchingBinding
-import com.plub.presentation.event.SearchingEvent
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.main.home.search.adapter.RecentSearchAdapter
 import com.plub.presentation.util.px

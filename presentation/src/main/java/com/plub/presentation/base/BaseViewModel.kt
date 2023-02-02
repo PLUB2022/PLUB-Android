@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.UiState
 import com.plub.domain.error.CommonError
 import com.plub.domain.error.IndividualError
-import com.plub.presentation.event.Event
+import com.plub.presentation.ui.Event
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.util.UiInspector
 import kotlinx.coroutines.channels.BufferOverflow

@@ -1,6 +1,7 @@
-package com.plub.presentation.event
+package com.plub.presentation.ui.sign.personalInfo
 
 import com.plub.domain.model.vo.signUp.personalInfo.PersonalInfoVo
+import com.plub.presentation.ui.Event
 import java.util.*
 
 sealed class PersonalInfoEvent : Event {

@@ -4,7 +4,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.plub.data.util.ApiResponse
 import com.plub.data.util.DataStoreUtil
 import com.plub.domain.UiState
 import com.plub.domain.error.CommonError
@@ -42,7 +41,7 @@ abstract class BaseRepository {
         emit(UiState.Error(null, CommonError.ServiceUnavailable))
     }
 
-    inline fun <reified T:DataDto> fromGson(json: Reader?):ApiResponse<T> {
+    inline fun <reified T:DataDto> fromGson(json: Reader?): ApiResponse<T> {
         return Gson().fromJson(json, object: TypeToken<ApiResponse<T>>() {}.type)
     }
 

@@ -17,7 +17,6 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentLoginBinding
 import com.plub.presentation.event.LoginEvent
-import com.plub.presentation.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -119,10 +118,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
 
     private fun inspectEventFlow(event: LoginEvent) {
         when(event) {
-            is LoginEvent.GoToMain -> {
-                val intent = Intent(context, MainActivity::class.java)
-                startActivity(intent)
-            }
+            is LoginEvent.GoToMain -> {}
             is LoginEvent.GoToSignUp -> {
                 val action = LoginFragmentDirections.actionLoginToSignUp()
                 findNavController().navigate(action)

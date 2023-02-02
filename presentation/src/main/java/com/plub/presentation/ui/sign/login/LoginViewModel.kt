@@ -23,7 +23,6 @@ import com.plub.domain.usecase.PostSocialLoginUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.event.LoginEvent
 import com.plub.presentation.util.DataStoreUtil
 import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.ResourceProvider

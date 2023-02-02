@@ -6,7 +6,6 @@ import com.plub.domain.model.enums.SignUpPageType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPersonalInfoBinding
-import com.plub.presentation.event.PersonalInfoEvent
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
