@@ -16,6 +16,7 @@ import com.kakao.sdk.user.UserApiClient
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentLoginBinding
+import com.plub.presentation.util.IntentUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -44,6 +45,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
             textViewSignUp.setOnClickListener {
                 val action = LoginFragmentDirections.actionLoginToSignUp()
                 findNavController().navigate(action)
+            }
+
+            textViewLoginAdmin.setOnClickListener {
+                viewModel.onAdminLogin()
             }
         }
     }
@@ -117,7 +122,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
 
     private fun inspectEventFlow(event: LoginEvent) {
         when(event) {
-            is LoginEvent.GoToMain -> {}
+            is LoginEvent.GoToMain -> {
+                val intent = IntentUtil.getMainActivityIntent(requireContext())
+                startActivity(intent)
+            }
             is LoginEvent.GoToSignUp -> {
                 val action = LoginFragmentDirections.actionLoginToSignUp()
                 findNavController().navigate(action)
