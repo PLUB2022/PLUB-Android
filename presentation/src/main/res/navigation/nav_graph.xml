@@ -38,21 +38,6 @@
         android:name="com.plub.presentation.ui.main.home.search.SearchingFragment"
         android:label="fragment_searching"
         tools:layout="@layout/fragment_searching">
-
-        <action
-            android:id="@+id/action_searching_to_search_result"
-            app:destination="@id/searchResultFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/searchResultFragment"
-        android:name="com.plub.presentation.ui.main.home.searchResult.SearchResultFragment"
-        android:label="fragment_search_result"
-        tools:layout="@layout/fragment_search_result">
-
-        <argument
-            android:name="search"
-            app:argType="string" />
     </fragment>
 
     <fragment
