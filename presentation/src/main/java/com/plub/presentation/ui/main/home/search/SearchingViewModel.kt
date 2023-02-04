@@ -140,9 +140,9 @@ class SearchingViewModel @Inject constructor(
         val searchText = uiState.value.searchText
         if (searchText.isEmpty()) {
             updateRecentSearchVisibility(true)
-            updateTextDeleteButtonVisibility(true)
+            updateIsSearchTextEmpty(true)
         } else {
-            updateTextDeleteButtonVisibility(false)
+            updateIsSearchTextEmpty(false)
         }
     }
 
@@ -269,7 +269,7 @@ class SearchingViewModel @Inject constructor(
         }
     }
 
-    private fun updateTextDeleteButtonVisibility(visibility: Boolean) {
+    private fun updateIsSearchTextEmpty(visibility: Boolean) {
         updateUiState { ui ->
             ui.copy(
                 isSearchTextEmpty = visibility,
