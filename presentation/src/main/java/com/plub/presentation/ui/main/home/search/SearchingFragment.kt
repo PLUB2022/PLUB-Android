@@ -171,10 +171,10 @@ class SearchingFragment : BaseFragment<FragmentSearchingBinding, SearchingPageSt
 
     private fun inspectEventFlow(event: SearchingEvent) {
         when (event) {
-            is SearchingEvent.HideKeyboard -> {
-                hideKeyboard()
+            is SearchingEvent.ClearFocus -> {
                 binding.editTextSearch.clearFocus()
             }
+            is SearchingEvent.HideKeyboard -> hideKeyboard()
             is SearchingEvent.ScrollToTop -> scrollToTop()
             is SearchingEvent.ShowSelectSortTypeBottomSheetDialog -> showSelectSortTypeDialog(event.selectedItem)
         }

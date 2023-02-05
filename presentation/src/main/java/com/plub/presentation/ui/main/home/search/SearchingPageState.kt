@@ -7,13 +7,11 @@ import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.ui.PageState
 
 data class SearchingPageState(
-    val isRecentSearchVisibility:Boolean = true,
-    val recentSearchList:List<RecentSearchVo> = emptyList(),
-    val isRecentSearchEmptyViewVisibility:Boolean = true,
+    val isRecentSearchVisibility: Boolean = true,
+    val recentSearchList: List<RecentSearchVo> = emptyList(),
     val searchList: List<PlubCardVo> = emptyList(),
-    val isSearchEmptyViewVisibility: Boolean = true,
-    val isSearchTextEmpty: Boolean = true,
     val cardType: PlubCardType = PlubCardType.LIST,
     val sortType: PlubSortType = PlubSortType.POPULAR,
-    var searchText:String = ""
-): PageState
+    val searchTextIsEmpty: Boolean = true,
+    var searchText: String = ""
+) : PageState

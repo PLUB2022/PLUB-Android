@@ -149,8 +149,7 @@ class SearchingViewModel @Inject constructor(
     fun onClickDeleteSearch() {
         updateUiState { uiState ->
             uiState.copy(
-                searchText = "",
-                isRecentSearchVisibility = true
+                searchText = ""
             )
         }
         emitEventFlow(SearchingEvent.HideKeyboard)
@@ -160,7 +159,6 @@ class SearchingViewModel @Inject constructor(
         updateUiState { uiState ->
             uiState.copy(
                 recentSearchList = list,
-                isRecentSearchEmptyViewVisibility = list.isEmpty()
             )
         }
     }
@@ -169,6 +167,7 @@ class SearchingViewModel @Inject constructor(
         val request = SearchPlubRecruitRequestVo(searchType, searchedKeyword, sortType, page)
         searchPlubRecruitUseCase(request).collect {
             inspectUiState(it, ::searchSuccess) { _, individual ->
+                clear()
                 updateRecentSearchVisibility(false)
                 handleSearchError(individual as SearchError)
             }
@@ -176,15 +175,15 @@ class SearchingViewModel @Inject constructor(
     }
 
     private fun searchSuccess(vo: PlubCardListVo) {
+        clear()
         newSearchProcess()
-        emitEventFlow(SearchingEvent.HideKeyboard)
+
         val mappedList = mapToCardType(vo.content)
         val mergedList = getMergeList(mappedList)
         updateUiState { ui ->
             ui.copy(
                 searchList = mergedList,
                 isRecentSearchVisibility = false,
-                isSearchEmptyViewVisibility = mergedList.isEmpty()
             )
         }
         page++
@@ -272,7 +271,7 @@ class SearchingViewModel @Inject constructor(
     private fun updateIsSearchTextEmpty(visibility: Boolean) {
         updateUiState { ui ->
             ui.copy(
-                isSearchTextEmpty = visibility,
+                searchTextIsEmpty = visibility,
             )
         }
     }
@@ -283,5 +282,10 @@ class SearchingViewModel @Inject constructor(
                 searchText = text
             )
         }
+    }
+
+    private fun clear() {
+        emitEventFlow(SearchingEvent.ClearFocus)
+        emitEventFlow(SearchingEvent.HideKeyboard)
     }
 }
