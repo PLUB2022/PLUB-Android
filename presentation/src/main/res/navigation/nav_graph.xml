@@ -52,6 +52,10 @@
         android:name="com.plub.presentation.ui.main.plubing.PlubingMainFragment"
         android:label="fragment_plubing_main"
         tools:layout="@layout/fragment_plubing_main">
+
+        <argument
+            android:name="plubingId"
+            app:argType="integer" />
     </fragment>
 
     <fragment

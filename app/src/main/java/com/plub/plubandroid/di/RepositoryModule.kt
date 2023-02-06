@@ -8,6 +8,7 @@ import com.plub.data.repository.KakaoLocationRepositoryImpl
 import com.plub.data.repository.HobbyRepositoryImpl
 import com.plub.data.repository.LoginRepositoryImpl
 import com.plub.data.repository.MediaRepositoryImpl
+import com.plub.data.repository.PlubingMainRepositoryImpl
 import com.plub.data.repository.SearchRepositoryImpl
 import com.plub.data.repository.SignUpRepositoryImpl
 import com.plub.domain.repository.AccountRepository
@@ -18,6 +19,7 @@ import com.plub.domain.repository.HomePostRepository
 import com.plub.domain.repository.KakaoLocationRepository
 import com.plub.domain.repository.LoginRepository
 import com.plub.domain.repository.MediaRepository
+import com.plub.domain.repository.PlubingMainRepository
 import com.plub.domain.repository.SearchRepository
 import com.plub.domain.repository.SignUpRepository
 import dagger.Binds
@@ -69,4 +71,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesBookmarkRepository(repositoryImpl: BookmarkRepositoryImpl): BookmarkRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesPlubingMainRepository(repositoryImpl: PlubingMainRepositoryImpl): PlubingMainRepository
 }

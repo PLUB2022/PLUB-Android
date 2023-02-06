@@ -143,6 +143,13 @@ object UseCaseModule {
     fun providesGetMyPlubBookmarksUseCase(repository: BookmarkRepository): GetMyPlubBookmarksUseCase {
         return GetMyPlubBookmarksUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesFetchPlubingMainUseCase(repository: PlubingMainRepository): FetchPlubingMainUseCase {
+        return FetchPlubingMainUseCase(repository)
+    }
+
     @Singleton
     @Provides
     fun providesPostAdminLoginUseCase(repository: LoginRepository): PostAdminLoginUseCase {

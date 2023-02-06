@@ -35,9 +35,11 @@ object Endpoints {
 
     object PLUBBING {
         private const val PLUBBING_URL = "/api/plubbings"
+        private const val PLUBBING_ID_URL = "$PLUBBING_URL/{plubbingId}"
         const val CREATE = PLUBBING_URL
         const val RECRUIT = "$PLUBBING_URL/recruit"
-        const val BOOKMARK = "$PLUBBING_URL/{plubbingId}/recruit/bookmarks"
+        const val BOOKMARK = "$PLUBBING_ID_URL/recruit/bookmarks"
         const val BOOKMARK_ME = "$PLUBBING_URL/recruit/bookmarks/me"
+        const val PLUBING_MAIN = "$PLUBBING_ID_URL/main"
     }
 }
