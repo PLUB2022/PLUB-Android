@@ -4,9 +4,6 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 
 interface EventFlow<out T> : Flow<T> {
@@ -34,10 +31,7 @@ private class EventFlowImpl<T>(
 
     private val flow: MutableSharedFlow<EventFlowSlot<T>> = MutableSharedFlow(replay = replay)
 
-    // first : prevSlot second : currentSlot
     private val slotStore: HashMap<String, EventFlowSlot<T>> = hashMapOf()
-
-
 
     @InternalCoroutinesApi
     override suspend fun collect(collector: FlowCollector<T>) = flow
@@ -62,12 +56,10 @@ private class EventFlowImpl<T>(
              * 따라서 A Fragment에서는 D-A CacheEventflow가, B Fragment에서는 D-B CacheEventflow가 ... 소비되므로 안전하다.
              * 또한 D-A, D-B, D-C CacheEventflow는 각각 한번 씩만 호출되므로, 같은 Fragment에서 동일한 CacheEventflow emit되더라도 한번만 소비된다.
              */
-            PlubLogger.logD("EventFlow","현 collector 주소 ${collector.hashCode()}, 수집된 값 : ${slot}")
 
             val slotKey = collector.javaClass.name + slot
-            PlubLogger.logD("EventFlow","slotKey $slotKey")
+
             if(slotStore.containsKey(slotKey).not()) {
-                PlubLogger.logD("EventFlow","slotStore 새로 생성 ${slotStore}")
                 slotStore[slotKey] = EventFlowSlot(slot.value)
             }
 
