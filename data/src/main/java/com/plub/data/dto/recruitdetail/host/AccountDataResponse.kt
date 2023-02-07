@@ -2,9 +2,8 @@ package com.plub.data.dto.recruitdetail.host
 
 import com.google.gson.annotations.SerializedName
 import com.plub.data.base.DataDto
-import com.plub.data.dto.recruitdetail.host.Answers
 
-data class Accounts(
+data class AccountDataResponse(
     @SerializedName("accountName")
     val accountName: String,
     @SerializedName("profileImage")
@@ -12,5 +11,5 @@ data class Accounts(
     @SerializedName("createdAt")
     val createdAt : String,
     @SerializedName("answers")
-    val answers : List<Answers>
+    val answers : List<AnswersDataResponse>
 ) : DataDto

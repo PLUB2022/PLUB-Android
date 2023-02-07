@@ -1,7 +1,7 @@
 package com.plub.data.api
 
 import com.plub.data.base.ApiResponse
-import com.plub.data.dto.categorylistdata.CategoryListDataResponse
+import com.plub.data.dto.categorylistdata.CategoryListResponse
 import com.plub.data.dto.plub.PlubCardListResponse
 import com.plub.data.dto.recruitdetail.RecruitDetailResponse
 import retrofit2.Response
@@ -28,5 +28,5 @@ interface BrowseApi {
     ) : Response<ApiResponse<RecruitDetailResponse>>
 
     @GET(Endpoints.CATEGORY.GET_BIG_CATEGORIES)
-    suspend fun fetchCategoryList() : Response<ApiResponse<CategoryListDataResponse>>
+    suspend fun fetchCategoryList() : Response<ApiResponse<CategoryListResponse>>
 }

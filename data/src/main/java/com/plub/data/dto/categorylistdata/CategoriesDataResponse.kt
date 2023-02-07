@@ -2,9 +2,8 @@ package com.plub.data.dto.categorylistdata
 
 import com.google.gson.annotations.SerializedName
 import com.plub.data.base.DataDto
-import com.plub.domain.model.DomainModel
 
-data class CategoriesData(
+data class CategoriesDataResponse(
     @SerializedName("id")
     val id : Int,
     @SerializedName("name")

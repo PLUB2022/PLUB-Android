@@ -1,11 +1,11 @@
 package com.plub.data.mapper.applyrecruitmapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.dto.applyrecruit.QuestionsResponse
+import com.plub.data.dto.applyrecruit.QuestionsListResponse
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 
-object QuestionsRecruitMapper : Mapper.ResponseMapper<QuestionsResponse, QuestionsResponseVo> {
-    override fun mapDtoToModel(type: QuestionsResponse?): QuestionsResponseVo {
+object QuestionsRecruitMapper : Mapper.ResponseMapper<QuestionsListResponse, QuestionsResponseVo> {
+    override fun mapDtoToModel(type: QuestionsListResponse?): QuestionsResponseVo {
         return type?.run {
             QuestionsResponseVo(
                 questions = this.questions.map {

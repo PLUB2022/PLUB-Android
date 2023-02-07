@@ -5,5 +5,5 @@ import com.plub.data.base.DataDto
 
 data class ApplicantsRecruitRequest(
     @SerializedName("answers")
-    val answers : List<ApplicantsRecruitRequestAnswerList> = emptyList()
+    val answers : List<ApplicantsRecruitRequestAnswerListRequest> = emptyList()
 ) : DataDto

@@ -39,5 +39,5 @@ data class RecruitDetailResponse(
     @SerializedName("remainAccountNum")
     val remainAccountNum : Int = -1,
     @SerializedName("joinedAccounts")
-    val joinedAccounts : List<RecruitDetailJoinedAccountsList> = emptyList()
+    val joinedAccounts : List<RecruitDetailJoinedAccountsDataResponse> = emptyList()
 ):DataDto
