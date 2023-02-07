@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.net.Uri
 import android.text.Editable
 import androidx.activity.result.ActivityResult
+import com.canhub.cropper.CropImageView
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.PageState
@@ -58,15 +59,31 @@ class CreateGatheringGoalAndIntroduceAndImageViewModel @Inject constructor(
     fun proceedGatheringImageFromGalleryResult(result: ActivityResult) {
         if (result.resultCode == RESULT_OK) {
             result.data?.data?.let { uri ->
-                updateProfileFile(File(imageUtil.getRealPathFromURI(uri)))
+                emitCropImageAndOptimizeEvent(uri)
             }
         }
     }
 
     fun proceedGatheringImageFromCameraResult(result: ActivityResult) {
         if (result.resultCode == RESULT_OK) {
-            cameraTempImageUri?.path?.let {
-                val file = File(it)
+            cameraTempImageUri?.let { uri ->
+                emitCropImageAndOptimizeEvent(uri)
+            }
+        }
+    }
+
+    private fun emitCropImageAndOptimizeEvent(uri: Uri) {
+        emitEventFlow(
+            CreateGatheringGoalAndIntroduceAndImageEvent.CropImageAndOptimize(
+                imageUtil.getCropImageOptions(uri)
+            )
+        )
+    }
+
+    fun proceedCropImageResult(result: CropImageView.CropResult) {
+        if (result.isSuccessful) {
+            result.uriContent?.let { uri ->
+                val file = imageUtil.uriToOptimizeImageFile(uri)
                 updateProfileFile(file)
             }
         }
