@@ -8,7 +8,7 @@ import com.plub.domain.repository.ReplyApplicantsRecruitRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RefuseApplicantsRecruitUseCase @Inject constructor(
+class PostRefuseApplicantsRecruitUseCase @Inject constructor(
     private val approvalApplicantsRecruitRepository: ReplyApplicantsRecruitRepository
 ) : UseCase<ReplyApplicantsRecruitRequestVo, Flow<UiState<ReplyApplicantsRecruitResponseVo>>>(){
     override suspend fun invoke(request: ReplyApplicantsRecruitRequestVo): Flow<UiState<ReplyApplicantsRecruitResponseVo>> {

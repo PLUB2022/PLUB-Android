@@ -11,7 +11,7 @@ import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitReques
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitResponseVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
-import com.plub.domain.usecase.ApplicantsRecruitUseCase
+import com.plub.domain.usecase.PostApplyRecruitUseCase
 import com.plub.domain.usecase.GetRecruitQuestionUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
@@ -23,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ApplyPlubbingViewModel @Inject constructor(
     val getRecruitQuestionUseCase: GetRecruitQuestionUseCase,
-    val applicantsRecruitUseCase: ApplicantsRecruitUseCase
+    val postApplyRecruitUseCase: PostApplyRecruitUseCase
 ) : BaseViewModel<ApplyPageState>(ApplyPageState()) {
 
     fun fetchQuestions(plubbingId: Int) {
@@ -54,7 +54,7 @@ class ApplyPlubbingViewModel @Inject constructor(
 
     fun applyRecruit(plubbingId: Int, list: List<ApplicantsRecruitAnswerListVo>) {
         viewModelScope.launch {
-            applicantsRecruitUseCase(
+            postApplyRecruitUseCase(
                 ApplicantsRecruitRequestVo(
                     plubbingId,
                     list

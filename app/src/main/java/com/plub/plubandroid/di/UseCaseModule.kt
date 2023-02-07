@@ -135,48 +135,48 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesBrowseUseCase(repository: CategoryListRepository): GetHobbiesUseCase  {
+    fun providesGetHobbiesUseCase(repository: CategoryListRepository): GetHobbiesUseCase  {
         return GetHobbiesUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesRecommendationGatheringUseCase(repository: RecommendationGatheringRepository): GetRecommendationGatheringUsecase {
+    fun providesGetRecommendationGatheringUseCase(repository: RecommendationGatheringRepository): GetRecommendationGatheringUsecase {
         return GetRecommendationGatheringUsecase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesRecruitDetailUseCase(repository: RecruitDetailRepository): GetRecruitDetailUseCase {
+    fun providesGetRecruitDetailUseCase(repository: RecruitDetailRepository): GetRecruitDetailUseCase {
         return GetRecruitDetailUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesApplicantsRecruitUseCase(repository: ApplicantsRecruitRepository): ApplicantsRecruitUseCase {
-        return ApplicantsRecruitUseCase(repository)
+    fun providesPostApplyRecruitUseCase(repository: ApplicantsRecruitRepository): PostApplyRecruitUseCase {
+        return PostApplyRecruitUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesReplyApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): ApprovalApplicantsRecruitUseCase {
-        return ApprovalApplicantsRecruitUseCase(repository)
+    fun providesPostApprovalApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): PostApprovalApplicantsRecruitUseCase {
+        return PostApprovalApplicantsRecruitUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesCategoriesRecommendGatheringUseCase(repository: CategoriesGatheringRepository): GetCategoriesGatheringUseCase {
+    fun providesGetCategoriesGatheringUseCase(repository: CategoriesGatheringRepository): GetCategoriesGatheringUseCase {
         return GetCategoriesGatheringUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesInterestUseCase(repository: RegisterInterestRepository): RegistInterestUseCase {
-        return RegistInterestUseCase(repository)
+    fun providesRegisterInterestUseCase(repository: RegisterInterestRepository): RegisterInterestUseCase {
+        return RegisterInterestUseCase(repository)
     }
     @Singleton
     @Provides
-    fun providesHostEndRecruitUseCase(repository: HostRecruitRepository): GetRecruitApplicantsUseCase {
+    fun providesGetRecruitApplicantsUseCase(repository: HostRecruitRepository): GetRecruitApplicantsUseCase {
         return GetRecruitApplicantsUseCase(repository)
     }
 
@@ -194,8 +194,8 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesRefuseApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): RefuseApplicantsRecruitUseCase {
-        return RefuseApplicantsRecruitUseCase(repository)
+    fun providesPostRefuseApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): PostRefuseApplicantsRecruitUseCase {
+        return PostRefuseApplicantsRecruitUseCase(repository)
     }
 
     @Singleton

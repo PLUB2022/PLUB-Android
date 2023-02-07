@@ -6,7 +6,7 @@ import com.plub.domain.repository.RegisterInterestRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RegistInterestUseCase @Inject constructor(
+class RegisterInterestUseCase @Inject constructor(
     private val interestRepository: RegisterInterestRepository
 ) {
     suspend fun invoke(request: List<Int>): Flow<UiState<RegisterInterestResponseVo>> {
