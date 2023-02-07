@@ -47,6 +47,8 @@ object Versions {
 
     const val THREE_TEN_ABP = "1.4.4"
 
+    const val IMAGE_CROPPER = "4.5.0"
+
     /* [ UnitTest ] */
     const val JUNIT = "4.13.2"
 
