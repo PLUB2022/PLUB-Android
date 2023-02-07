@@ -8,6 +8,10 @@ import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import androidx.core.content.ContextCompat
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
+import com.plub.presentation.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.BufferedInputStream
 import java.io.ByteArrayOutputStream
@@ -44,6 +48,19 @@ class ImageUtil @Inject constructor(
         val result = cursor!!.getString(columnIndex) // columnIndex에 Path가 존재함
         cursor.close()
         return result
+    }
+
+    /**
+     * ImageCrop 라이브러리의 ContractOptions를 가져오는 함수
+     */
+    fun getCropImageOptions(defaultUri: Uri): CropImageContractOptions {
+        return CropImageContractOptions(
+            uri = defaultUri,
+            cropImageOptions = CropImageOptions(
+                activityBackgroundColor = ContextCompat.getColor(context, R.color.color_f5f3f6),
+                allowFlipping = false
+            )
+        )
     }
 
     /**
