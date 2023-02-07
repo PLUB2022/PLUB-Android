@@ -2,6 +2,7 @@ package com.plub.presentation.ui.sign.profileCompose
 
 import android.net.Uri
 import androidx.lifecycle.viewModelScope
+import com.canhub.cropper.CropImageView
 import com.plub.domain.error.NicknameError
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.vo.signUp.profile.NicknameCheckRequestVo
@@ -9,6 +10,7 @@ import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
 import com.plub.domain.usecase.GetNicknameCheckUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.ui.main.gathering.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndImageEvent
 import com.plub.presentation.util.ImageUtil
 import com.plub.presentation.util.PermissionManager
 import com.plub.presentation.util.ResourceProvider
@@ -82,15 +84,29 @@ class ProfileComposeViewModel @Inject constructor(
     }
 
     fun onSelectImageFromAlbum(uri:Uri) {
-        val realPath = imageUtil.getRealPathFromURI(uri)
-        val file = File(realPath)
-        updateProfileFile(file)
+        emitCropImageAndOptimizeEvent(uri)
     }
 
     fun onTakeImageFromCamera() {
-        cameraTempImageUri?.path?.let {
-            val file = File(it)
-            updateProfileFile(file)
+        cameraTempImageUri?.let { uri ->
+            emitCropImageAndOptimizeEvent(uri)
+        }
+    }
+
+    private fun emitCropImageAndOptimizeEvent(uri: Uri) {
+        emitEventFlow(
+            ProfileComposeEvent.CropImageAndOptimize(
+                imageUtil.getCropImageOptions(uri)
+            )
+        )
+    }
+
+    fun proceedCropImageResult(result: CropImageView.CropResult) {
+        if (result.isSuccessful) {
+            result.uriContent?.let { uri ->
+                val file = imageUtil.uriToOptimizeImageFile(uri)
+                updateProfileFile(file)
+            }
         }
     }
 

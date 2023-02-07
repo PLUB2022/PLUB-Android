@@ -6,6 +6,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.SignUpPageType
 import com.plub.presentation.R
@@ -83,6 +85,14 @@ class ProfileComposeFragment :
         }
     }
 
+    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
+        viewModel.proceedCropImageResult(result)
+    }
+
+    private fun startCropImage(option: CropImageContractOptions) {
+        cropImage.launch(option)
+    }
+
     private fun inspectEventFlow(event: ProfileComposeEvent) {
         when(event) {
             is ProfileComposeEvent.GoToAlbum -> {
@@ -97,6 +107,7 @@ class ProfileComposeFragment :
                 parentViewModel.onMoveToNextPage(SignUpPageType.PROFILE, event.vo)
             }
             is ProfileComposeEvent.ShowSelectImageBottomSheetDialog -> showBottomSheetDialogSelectImage()
+            is ProfileComposeEvent.CropImageAndOptimize -> startCropImage(event.cropImageContractOptions)
         }
     }
 
