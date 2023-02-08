@@ -1,10 +1,10 @@
 package com.plub.domain.model.vo.home.applyVo
 
 import com.plub.domain.model.DomainModel
-import com.plub.domain.model.enums.QuestionDataType
+import com.plub.domain.model.enums.ApplyRecruitQuestionViewType
 
 data class QuestionsDataVo(
     val id : Int = 0,
     val question : String = "",
-    val viewType : QuestionDataType = QuestionDataType.DATA,
+    val viewType : ApplyRecruitQuestionViewType = ApplyRecruitQuestionViewType.QUESTION,
 ) : DomainModel

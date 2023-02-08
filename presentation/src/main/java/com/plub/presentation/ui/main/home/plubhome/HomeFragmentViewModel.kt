@@ -1,8 +1,8 @@
 package com.plub.presentation.ui.main.home.plubhome
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.enums.MainHasDataType
-import com.plub.domain.model.enums.MainPageCategoryPlubType
+import com.plub.domain.model.enums.PlubHomeRecommendViewType
+import com.plub.domain.model.enums.HomeCategoryPlubType
 import com.plub.domain.model.vo.home.CategoryListResponseVo
 import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
@@ -44,7 +44,7 @@ class HomeFragmentViewModel @Inject constructor(
         updateUiState { ui->
             ui.copy(
                 categoryVo = data.data,
-                categoryOrPlub = MainPageCategoryPlubType.CATEGORY
+                categoryOrPlub = HomeCategoryPlubType.CATEGORY
             )
         }
     }
@@ -61,7 +61,7 @@ class HomeFragmentViewModel @Inject constructor(
         updateUiState { ui->
             ui.copy(
                 plubCardList = getList(data),
-                categoryOrPlub = MainPageCategoryPlubType.PLUB
+                categoryOrPlub = HomeCategoryPlubType.RECOMMEND_GATHERING
             )
         }
     }
@@ -69,12 +69,12 @@ class HomeFragmentViewModel @Inject constructor(
     private fun getList(it: PlubCardListVo): List<RecommendationGatheringResponseVo> {
         val list: MutableList<RecommendationGatheringResponseVo> = mutableListOf()
         list.add(0, RecommendationGatheringResponseVo(
-            viewType = MainHasDataType.FIRST
+            viewType = PlubHomeRecommendViewType.FIRST_VIEW
         ))
         if (!uiState.value.hasInterest) {
             list.add(
                 1, RecommendationGatheringResponseVo(
-                    viewType = MainHasDataType.NO_DATA,
+                    viewType = PlubHomeRecommendViewType.REGISTER_HOBBIES_VIEW,
                 )
             )
         }

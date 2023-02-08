@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.enums.QuestionDataType
+import com.plub.domain.model.enums.ApplyRecruitQuestionViewType
 import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 import com.plub.presentation.databinding.IncludeItemFirstViewApplyRecruitBinding
 import com.plub.presentation.databinding.IncludeItemQuestionBinding
@@ -31,12 +31,12 @@ class QuestionsAdapter(private val listener : QuestionsDegelate) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        when(QuestionDataType.valueOf(viewType)){
-            QuestionDataType.FIRST -> {
+        when(ApplyRecruitQuestionViewType.valueOf(viewType)){
+            ApplyRecruitQuestionViewType.FIRST -> {
                 val binding = IncludeItemFirstViewApplyRecruitBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return QuestionsFirstViewHolder(binding)
             }
-            QuestionDataType.DATA -> {
+            ApplyRecruitQuestionViewType.QUESTION -> {
                 val binding =
                     IncludeItemQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return QuestionsViewHolder(binding, listener)

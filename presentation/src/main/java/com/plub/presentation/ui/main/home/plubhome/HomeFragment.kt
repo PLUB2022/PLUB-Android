@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.plub.domain.model.enums.MainPageCategoryPlubType
+import com.plub.domain.model.enums.HomeCategoryPlubType
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
@@ -85,10 +85,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
 
     private fun submitList(data: HomePageState) {
         when (data.categoryOrPlub) {
-            MainPageCategoryPlubType.CATEGORY -> {
+            HomeCategoryPlubType.CATEGORY -> {
                 mainCategoryAdapter.submitList(arrayListOf(data.categoryVo))
             }
-            MainPageCategoryPlubType.PLUB -> {
+            HomeCategoryPlubType.RECOMMEND_GATHERING -> {
                 setDataRecycler(data.plubCardList)
             }
         }

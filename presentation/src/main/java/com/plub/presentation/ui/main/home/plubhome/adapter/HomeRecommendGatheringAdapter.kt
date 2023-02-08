@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.enums.MainHasDataType
+import com.plub.domain.model.enums.PlubHomeRecommendViewType
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.presentation.databinding.IncludeItemLayoutHomeRecommendGatheringBinding
 import com.plub.presentation.databinding.IncludeItemLayoutHomeRecommendGatheringNoChoiceBinding
@@ -35,16 +35,16 @@ class MainRecommendGatheringAdapter(private val listener: MainRecommendGathering
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when(MainHasDataType.valueOf(viewType)){
-            MainHasDataType.NO_DATA -> {
+        when(PlubHomeRecommendViewType.valueOf(viewType)){
+            PlubHomeRecommendViewType.REGISTER_HOBBIES_VIEW -> {
                 val binding = IncludeItemLayoutHomeRecommendGatheringNoChoiceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return HomeRecommendXViewHolder(binding, listener)
             }
-            MainHasDataType.DATA -> {
+            PlubHomeRecommendViewType.RECOMMEND_VIEW -> {
                 val binding = IncludeItemLayoutHomeRecommendGatheringBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return HomeRecommendViewHolder(binding, listener)
             }
-            MainHasDataType.FIRST -> {
+            PlubHomeRecommendViewType.FIRST_VIEW -> {
                 val binding = IncludeItemHomeRecommendFirstBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return HomeRecommendFirstViewHolder(binding, listener)
             }

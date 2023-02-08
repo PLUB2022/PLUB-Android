@@ -5,7 +5,7 @@ import android.widget.EditText
 import androidx.core.view.get
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.enums.QuestionDataType
+import com.plub.domain.model.enums.ApplyRecruitQuestionViewType
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitResponseVo
@@ -45,7 +45,7 @@ class ApplyPlubbingViewModel @Inject constructor(
 
     private fun getDataList(data: QuestionsResponseVo): List<QuestionsDataVo> {
         val dataList: MutableList<QuestionsDataVo> = mutableListOf()
-        dataList.add(0, QuestionsDataVo(viewType = QuestionDataType.FIRST))
+        dataList.add(0, QuestionsDataVo(viewType = ApplyRecruitQuestionViewType.FIRST))
         for (i in data.questions) {
             dataList.add(i)
         }
