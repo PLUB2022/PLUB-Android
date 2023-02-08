@@ -58,8 +58,7 @@ class RegisterInterestViewModel @Inject constructor(
     }
 
     private fun handleGetAllHobbiesSuccess(list: List<HobbyVo>) {
-        val addedList = getAddedHobbyFirstList(list)
-        updateHobbies(addedList)
+        updateHobbies(list)
     }
 
     private fun updateSelectList() {
@@ -99,11 +98,6 @@ class RegisterInterestViewModel @Inject constructor(
         return selectedList.isNotEmpty()
     }
 
-    private fun getAddedHobbyFirstList(list:List<HobbyVo>):List<HobbyVo> {
-        return list.toMutableList().apply {
-            add(0, HobbyVo(viewType = HobbyViewType.FIRST_TOPIC))
-        }
-    }
 
     fun registerInterest(selectedList: List<SelectedHobbyVo>){
         val list : MutableList<Int> = emptyList<Int>().toMutableList()

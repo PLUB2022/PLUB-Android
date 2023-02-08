@@ -8,10 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.HobbyViewType
 import com.plub.domain.model.vo.common.HobbyVo
 import com.plub.domain.model.vo.common.SelectedHobbyVo
-import com.plub.presentation.databinding.IncludeInterestRegisterTitleBinding
 import com.plub.presentation.databinding.IncludeItemHobbyBinding
 import com.plub.presentation.databinding.IncludeItemHobbyLatePickBinding
-import com.plub.presentation.ui.main.home.registinterests.InterestRegisterFirstViewHolder
 
 class HobbiesAdapter(
     private val listener: Delegate
@@ -48,11 +46,6 @@ class HobbiesAdapter(
             HobbyViewType.LATE_PICK -> {
                 val binding = IncludeItemHobbyLatePickBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 HobbyLatePickViewHolder(binding, listener)
-            }
-
-            HobbyViewType.FIRST_TOPIC -> {
-                val binding = IncludeInterestRegisterTitleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                InterestRegisterFirstViewHolder(binding)
             }
         }
     }
