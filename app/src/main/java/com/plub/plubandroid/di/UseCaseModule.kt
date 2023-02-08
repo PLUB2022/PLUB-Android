@@ -135,8 +135,8 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesGetHobbiesUseCase(repository: CategoryListRepository): GetHobbiesUseCase  {
-        return GetHobbiesUseCase(repository)
+    fun providesGetCategoriesUseCase(repository: CategoryListRepository): GetCategoriesUseCase  {
+        return GetCategoriesUseCase(repository)
     }
 
     @Singleton
@@ -171,8 +171,8 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesRegisterInterestUseCase(repository: RegisterInterestRepository): RegisterInterestUseCase {
-        return RegisterInterestUseCase(repository)
+    fun providesPostRegisterHobbiesUseCase(repository: RegisterInterestRepository): PostRegisterHobbiesUseCase {
+        return PostRegisterHobbiesUseCase(repository)
     }
     @Singleton
     @Provides

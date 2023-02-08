@@ -7,10 +7,7 @@ import com.plub.domain.model.vo.home.CategoryListResponseVo
 import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
-import com.plub.domain.usecase.GetHobbiesUseCase
-import com.plub.domain.usecase.GetMyInterestUseCase
-import com.plub.domain.usecase.GetRecommendationGatheringUsecase
-import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
+import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeFragmentViewModel @Inject constructor(
-    val getHobbiesUseCase: GetHobbiesUseCase,
+    val getCategoriesUseCase: GetCategoriesUseCase,
     val getMyInterestUseCase: GetMyInterestUseCase,
     val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
     val getRecommendationGatheringUsecase: GetRecommendationGatheringUsecase
@@ -26,7 +23,7 @@ class HomeFragmentViewModel @Inject constructor(
 
     fun fetchMainPageData() =
         viewModelScope.launch {
-            getHobbiesUseCase(Unit).collect { state ->
+            getCategoriesUseCase(Unit).collect { state ->
                 inspectUiState(state, ::handleGetCategoriesSuccess)
             }
 

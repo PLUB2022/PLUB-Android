@@ -1,12 +1,11 @@
 package com.plub.presentation.ui.main.home.registinterests
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.enums.HobbyViewType
 import com.plub.domain.model.vo.common.HobbyVo
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.domain.usecase.GetAllHobbiesUseCase
-import com.plub.domain.usecase.RegisterInterestUseCase
+import com.plub.domain.usecase.PostRegisterHobbiesUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.sign.hobbies.HobbiesEvent
 import com.plub.presentation.ui.sign.hobbies.HobbiesPageState
@@ -21,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterInterestViewModel @Inject constructor(
     val getAllHobbiesUseCase: GetAllHobbiesUseCase,
-    val registerInterestUseCase: RegisterInterestUseCase
+    val postRegisterHobbiesUseCase: PostRegisterHobbiesUseCase
 ) : BaseViewModel<HobbiesPageState>(HobbiesPageState()) {
     private val selectedList: MutableList<SelectedHobbyVo> = mutableListOf()
 
@@ -106,7 +105,7 @@ class RegisterInterestViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            registerInterestUseCase.invoke(list)
+            postRegisterHobbiesUseCase.invoke(list)
         }
     }
 
