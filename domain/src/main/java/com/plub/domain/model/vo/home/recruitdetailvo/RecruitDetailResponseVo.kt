@@ -8,7 +8,7 @@ data class RecruitDetailResponseVo(
     val categories : List<String> = emptyList(),
     val plubbingName : String = "",
     val plubbingGoal : String = "",
-    val plubbingMainImage : String? = "",
+    val plubbingMainImage : String = "",
     val plubbingDays : List<String> = emptyList(),
     val address : String = "",
     val roadAdress : String = "",

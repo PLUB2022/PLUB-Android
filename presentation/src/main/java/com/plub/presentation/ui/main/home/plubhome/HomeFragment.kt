@@ -17,6 +17,9 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragmentViewModel>(
     FragmentHomeBinding::inflate
 ) {
+    companion object{
+        const val NOTHING_PLUBBING = 0
+    }
     override val viewModel: HomeFragmentViewModel by viewModels()
 
     private val mainCategoryAdapter: MainCategoryAdapter by lazy {
@@ -113,13 +116,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
 
     private fun goToCategoryChoice(categoryId: Int, categoryName: String) {
         val action =
-            HomeFragmentDirections.actionMainToCategoryChoice(categoryId.toString(), categoryName)
+            HomeFragmentDirections.actionMainToCategoryChoice(categoryId, NOTHING_PLUBBING, categoryName)
         findNavController().navigate(action)
     }
 
     private fun goToRecruitmentFragment(plubbingId: Int) {
         val action =
-            HomeFragmentDirections.actionMainToRecruitment(plubbingId.toString())
+            HomeFragmentDirections.actionMainToRecruitment(plubbingId)
         findNavController().navigate(action)
     }
 
@@ -132,5 +135,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
         val action = HomeFragmentDirections.actionMainToBookmark()
         findNavController().navigate(action)
     }
-
 }

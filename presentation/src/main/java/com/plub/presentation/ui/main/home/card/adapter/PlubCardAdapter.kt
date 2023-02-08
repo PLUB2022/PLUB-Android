@@ -9,8 +9,10 @@ import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.databinding.IncludeItemPlubCardGridBinding
 import com.plub.presentation.databinding.IncludeItemPlubCardListBinding
+import com.plub.presentation.databinding.IncludeItemProgressBarBinding
 import com.plub.presentation.ui.main.home.card.viewholder.PlubCardGridViewHolder
 import com.plub.presentation.ui.main.home.card.viewholder.PlubCardListViewHolder
+import com.plub.presentation.ui.main.home.categoryChoice.LoadingViewHolder
 
 class PlubCardAdapter(
     private val listener: Delegate,
@@ -37,6 +39,10 @@ class PlubCardAdapter(
             PlubCardType.GRID -> {
                 val binding = IncludeItemPlubCardGridBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 PlubCardGridViewHolder(binding, listener)
+            }
+            PlubCardType.LOADING -> {
+                val binding = IncludeItemProgressBarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                LoadingViewHolder(binding)
             }
         }
     }

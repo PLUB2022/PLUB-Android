@@ -4,17 +4,18 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSortType
+import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
-import com.plub.presentation.ui.main.home.plubhome.HomeFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -35,44 +36,20 @@ class CategoryChoiceFragment :
         })
     }
 
-    private var pages : Int = 1
-    private val mainArgs: HomeFragmentArgs by navArgs()
+    private val categoryChoiceFragmentArgs: CategoryChoiceFragmentArgs by navArgs()
     override val viewModel: CategoryChoiceViewModel by viewModels()
 
     override fun initView() {
 
         binding.apply {
             vm = viewModel
-            recyclerViewCategoryChoiceList.apply {
-                layoutManager = GridLayoutManager(context, PlubCardType.TOTAL_SPAN_SIZE).apply {
-                    spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                        override fun getSpanSize(position: Int): Int {
-                            val viewType = gatheringListAdapter.getItemViewType(position)
-                            val cardType = PlubCardType.valueOf(viewType)
-                            return cardType.spanSize
-                        }
-                    }
-                }
-                adapter = gatheringListAdapter
-
-//                addOnScrollListener((object : RecyclerView.OnScrollListener() {
-//                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                        super.onScrolled(recyclerView, dx, dy)
-//
-//                        if (!recyclerViewCategoryChoiceList.canScrollVertically(1)) {
-//                            viewModel.fetchRecommendationGatheringData(mainArgs.categoryId.toInt(), ++pages)
-//                            scrollToPosition((pages-1) * 10)
-//                        }
-//                    }
-//                }))
-            }
-
-            textViewCategoryName.text = mainArgs.categoryName
+            initCategoryRecommendRecyclerView()
+            textViewCategoryName.text = categoryChoiceFragmentArgs.categoryName
             includeDataEmpty.buttonGoCreateGathering.setOnClickListener {
                 goToCreateGatheringFragment()
             }
         }
-        viewModel.fetchRecommendationGatheringData(mainArgs.categoryId.toInt(), pages)
+        viewModel.fetchRecommendationGatheringData(categoryChoiceFragmentArgs.categoryId)
     }
 
     override fun initStates() {
@@ -80,7 +57,7 @@ class CategoryChoiceFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect{
-                    gatheringListAdapter.submitList(it.cardList)
+                    subListGatheringList(it.cardList, it.isLoading)
                     setSortTypeText(it.sortType)
                 }
             }
@@ -93,9 +70,50 @@ class CategoryChoiceFragment :
         }
     }
 
+    private fun initCategoryRecommendRecyclerView(){
+        binding.recyclerViewCategoryChoiceList.apply {
+            layoutManager = GridLayoutManager(context, PlubCardType.TOTAL_SPAN_SIZE).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        val viewType = gatheringListAdapter.getItemViewType(position)
+                        val cardType = PlubCardType.valueOf(viewType)
+                        return cardType.spanSize
+                    }
+                }
+            }
+            adapter = gatheringListAdapter
+
+            addOnScrollListener((object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val lastVisiblePosition = (layoutManager as GridLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
+                    val isDownScroll = dy > 0
+                    viewModel.onScrollChanged(isBottom,isDownScroll)
+                }
+            }))
+        }
+    }
+
+    private fun subListGatheringList(list : List<PlubCardVo>, hasMoreItem : Boolean){
+        val mergeList = getMergeList(list, hasMoreItem)
+        gatheringListAdapter.submitList(mergeList)
+    }
+
+    private fun getMergeList(list : List<PlubCardVo>, hasMoreItem : Boolean) : List<PlubCardVo>{
+        val loading = mutableListOf<PlubCardVo>()
+        loading.add(PlubCardVo(viewType = PlubCardType.LOADING))
+        if(hasMoreItem){
+            return list + loading
+        }
+        else{
+            return list
+        }
+    }
+
     private fun goToDetailRecruitment(plubbingId : Int) {
         val action =
-            CategoryChoiceFragmentDirections.actionCategoryChoiceToRecruitment(plubbingId.toString())
+            CategoryChoiceFragmentDirections.actionCategoryChoiceToRecruitment(plubbingId)
         findNavController().navigate(action)
     }
 

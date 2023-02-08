@@ -26,15 +26,16 @@ class CategoryChoiceViewModel @Inject constructor(
 
     private var categoryId : Int = 0
     private var pageNumber : Int = FIRST_PAGE
+    private var hasMoreCards : Boolean = true
     
 
-    fun fetchRecommendationGatheringData(id : Int, pages : Int)  =
+    fun fetchRecommendationGatheringData(id : Int)  =
         viewModelScope.launch {
             categoryId = id
-            pageNumber = pages
             categoriesGatheringUseCase(CategoriesGatheringRequestVo(categoryId, uiState.value.sortType.key,pageNumber)).collect{ state->
                 inspectUiState(state, ::successResult)
             }
+            pageNumber++
         }
 
     private fun fetchRecommendationGatheringData() =
@@ -42,15 +43,18 @@ class CategoryChoiceViewModel @Inject constructor(
             categoriesGatheringUseCase(CategoriesGatheringRequestVo(categoryId, uiState.value.sortType.key,pageNumber)).collect{ state->
                 inspectUiState(state, ::successResult)
             }
+            pageNumber++
         }
 
     private fun successResult(vo: PlubCardListVo){
+        hasMoreCards = (pageNumber != vo.totalPages)
         val mappedList = mapToCardType(vo.content)
         val mergedList = getMergeList(mappedList)
         updateUiState { ui ->
             ui.copy(
                 cardList = mergedList,
-                isEmptyViewVisible = mergedList.isEmpty()
+                isEmptyViewVisible = mergedList.isEmpty(),
+                isLoading = hasMoreCards
             )
         }
     }
@@ -119,6 +123,21 @@ class CategoryChoiceViewModel @Inject constructor(
 
     fun clickSearch(){
         emitEventFlow(CategoryChoiceEvent.GoToSearch)
+    }
+
+    fun onScrollChanged(isBottom : Boolean, isDownScroll : Boolean){
+        if(isBottom && isDownScroll && hasMoreCards) {
+            updateLoadingState(true)
+            fetchRecommendationGatheringData()
+        }
+    }
+
+    private fun updateLoadingState(isLoading : Boolean){
+        updateUiState { uiState ->
+            uiState.copy(
+                isLoading = isLoading
+            )
+        }
     }
 
     private fun updateSortType(sortType: PlubSortType) {

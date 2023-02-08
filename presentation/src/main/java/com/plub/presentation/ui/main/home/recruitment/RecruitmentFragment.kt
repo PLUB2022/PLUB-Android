@@ -14,6 +14,7 @@ import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCateg
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.ui.main.home.categoryChoice.CategoryChoiceFragmentArgs
 import com.plub.presentation.ui.main.home.plubhome.HomeFragmentArgs
+import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -24,11 +25,8 @@ class RecruitmentFragment :
         FragmentDetailRecruitmentPlubingBinding::inflate
     ) {
 
-    companion object{
-        const val ARGS_EMPTY = "0"
-    }
-    private val plubbingIdForMain: HomeFragmentArgs by navArgs()
-    private val plubbingIdForCategoryChoice: CategoryChoiceFragmentArgs by navArgs()
+
+    private val recruitmentFragmentArgs : RecruitmentFragmentArgs by navArgs()
     private val detailRecruitProfileAdapter: DetailRecruitProfileAdapter by lazy {
         DetailRecruitProfileAdapter(object : DetailRecruitProfileAdapter.DetailProfileDegelate {
             override fun onProfileClick(accountId: Int) {
@@ -46,8 +44,8 @@ class RecruitmentFragment :
 
         binding.apply {
             vm = viewModel
-            viewModel.updatePlubState(getFragmentArgs())
-            viewModel.fetchRecruitmentDetail(getFragmentArgs())
+            viewModel.updatePlubState(recruitmentFragmentArgs.plubbingId)
+            viewModel.fetchRecruitmentDetail(recruitmentFragmentArgs.plubbingId)
         }
     }
 
@@ -69,23 +67,15 @@ class RecruitmentFragment :
 
     private fun goToApplyPlubbingFragment(plubbingId: Int) {
         val action = RecruitmentFragmentDirections.actionRecruitmentToApplyPlubbing(
-            plubbingId.toString()
+            plubbingId
         )
         findNavController().navigate(action)
     }
 
-    private fun getFragmentArgs(): Int {
-        var id = ""
-        if (plubbingIdForMain.plubbingId.equals(ARGS_EMPTY)) {
-            id = plubbingIdForCategoryChoice.plubbingId
-        } else
-            id = plubbingIdForMain.plubbingId
-        return id.toInt()
-    }
 
     private fun inspectEventFlow(event : RecruitEvent){
         when(event){
-            RecruitEvent.GoToApplyPlubbingFragment-> goToApplyPlubbingFragment(getFragmentArgs())
+            RecruitEvent.GoToApplyPlubbingFragment-> goToApplyPlubbingFragment(recruitmentFragmentArgs.plubbingId)
             RecruitEvent.GoToProfileFragment ->{}
             RecruitEvent.GoToBack -> {
                 findNavController().popBackStack()
@@ -100,10 +90,9 @@ class RecruitmentFragment :
     private fun initDetailPage(data: DetailRecruitPageState) {
         binding.apply {
             constraintLayoutTop.bringToFront()
-            //GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
+            GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
 
-            val list = arrayListOf("클라이밍", "필라테스", "계절스포츠", "스포츠관람", "계절스포츠")
-            detailRecruitCategoryAdapter.submitList(list)
+            detailRecruitCategoryAdapter.submitList(data.categories)
             recyclerViewPlubbingHobby.apply {
                 layoutManager = FlexboxLayoutManager(context)
                 adapter = detailRecruitCategoryAdapter
