@@ -3,13 +3,13 @@ package com.plub.domain.usecase
 import com.plub.domain.UiState
 import com.plub.domain.base.UseCase
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitResponseVo
-import com.plub.domain.repository.HostRecruitRepository
+import com.plub.domain.repository.RecruitRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class PutEndRecruitUseCase @Inject constructor(private val hostRecruitRepository: HostRecruitRepository
+class PutEndRecruitUseCase @Inject constructor(private val recruitRepository: RecruitRepository
 ) : UseCase<Int, Flow<UiState<ApplicantsRecruitResponseVo>>>() {
     override suspend fun invoke(request: Int): Flow<UiState<ApplicantsRecruitResponseVo>> {
-        return hostRecruitRepository.endRecruit(request)
+        return recruitRepository.endRecruit(request)
     }
 }

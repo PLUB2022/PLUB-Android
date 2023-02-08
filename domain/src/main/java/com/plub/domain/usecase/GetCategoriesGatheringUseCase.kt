@@ -4,14 +4,14 @@ import com.plub.domain.UiState
 import com.plub.domain.base.UseCase
 import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
-import com.plub.domain.repository.CategoriesGatheringRepository
+import com.plub.domain.repository.RecommendationGatheringRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetCategoriesGatheringUseCase @Inject constructor(
-    private val categoriesGatheringRepository: CategoriesGatheringRepository,
+    private val recommendationGatheringRepository: RecommendationGatheringRepository,
 ) : UseCase<CategoriesGatheringRequestVo, Flow<UiState<PlubCardListVo>>>(){
     override suspend fun invoke(request : CategoriesGatheringRequestVo): Flow<UiState<PlubCardListVo>> {
-        return categoriesGatheringRepository.getCategoriesGatheringList(request)
+        return recommendationGatheringRepository.getCategoriesGatheringList(request)
     }
 }

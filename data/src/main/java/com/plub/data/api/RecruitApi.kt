@@ -7,10 +7,15 @@ import com.plub.data.dto.applyrecruit.QuestionsListResponse
 import com.plub.data.dto.recruitdetail.host.EndRecruitResponse
 import com.plub.data.dto.recruitdetail.host.HostApplicantsListResponse
 import com.plub.data.base.ApiResponse
+import com.plub.data.dto.recruitdetail.RecruitDetailResponse
 import retrofit2.Response
 import retrofit2.http.*
 
 interface RecruitApi {
+    @GET(Endpoints.PLUBBING.FETCH_DETAIL_RECRUIT)
+    suspend fun fetchRecruitDetail(
+        @Path("plubbingId") plubbingId : Int,
+    ) : Response<ApiResponse<RecruitDetailResponse>>
 
     @POST(Endpoints.PLUBBING.APPLICANTS_RECRUIT)
     suspend fun applicantsRecruit(

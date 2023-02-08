@@ -58,11 +58,7 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailRepositoryImpl): RecruitDetailRepository
-
-    @Singleton
-    @Binds
-    abstract fun providesApplicantsRecruitRepository(repositoryImpl: ApplicantsRecruitRepositoryImpl): ApplicantsRecruitRepository
+    abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailRepositoryImpl): RecruitRepository
 
     @Singleton
     @Binds
@@ -70,17 +66,9 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providesCategoriesGatheringRepository(categoriesGatheringResposImpl: CategoriesGatheringRepositoryImpl): CategoriesGatheringRepository
-
-    @Singleton
-    @Binds
     abstract fun providesInterestRepository(repositoryImpl: RegistInterestRepositoryImpl): RegisterInterestRepository
 
     @Singleton
     @Binds
-    abstract fun providesHostRecruitRepository(repositoryImpl: HostRecruitRepositoryImpl): HostRecruitRepository
-
-    @Singleton
-    @Binds
-    abstract fun providesRecruitApplyRepository(repositoryImpl: RecruitApplyRepositoryImpl): RecruitApplyRepository
+    abstract fun providesApplicantsRepository(repositoryImpl: ApplicantsRepositoryImpl): ApplicantsRepository
 }

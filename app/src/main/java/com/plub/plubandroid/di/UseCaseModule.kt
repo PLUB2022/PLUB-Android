@@ -147,13 +147,13 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesGetRecruitDetailUseCase(repository: RecruitDetailRepository): GetRecruitDetailUseCase {
+    fun providesGetRecruitDetailUseCase(repository: RecruitRepository): GetRecruitDetailUseCase {
         return GetRecruitDetailUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesPostApplyRecruitUseCase(repository: ApplicantsRecruitRepository): PostApplyRecruitUseCase {
+    fun providesPostApplyRecruitUseCase(repository: RecruitRepository): PostApplyRecruitUseCase {
         return PostApplyRecruitUseCase(repository)
     }
 
@@ -165,7 +165,7 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesGetCategoriesGatheringUseCase(repository: CategoriesGatheringRepository): GetCategoriesGatheringUseCase {
+    fun providesGetCategoriesGatheringUseCase(repository: RecommendationGatheringRepository): GetCategoriesGatheringUseCase {
         return GetCategoriesGatheringUseCase(repository)
     }
 
@@ -176,19 +176,19 @@ object UseCaseModule {
     }
     @Singleton
     @Provides
-    fun providesGetRecruitApplicantsUseCase(repository: HostRecruitRepository): GetRecruitApplicantsUseCase {
+    fun providesGetRecruitApplicantsUseCase(repository: ApplicantsRepository): GetRecruitApplicantsUseCase {
         return GetRecruitApplicantsUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesGetQuestionsUseCase(repository: RecruitApplyRepository): GetRecruitQuestionUseCase {
+    fun providesGetQuestionsUseCase(repository: RecruitRepository): GetRecruitQuestionUseCase {
         return GetRecruitQuestionUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesPutEndRecruitUseCase(repository: HostRecruitRepository): PutEndRecruitUseCase {
+    fun providesPutEndRecruitUseCase(repository: RecruitRepository): PutEndRecruitUseCase {
         return PutEndRecruitUseCase(repository)
     }
 
