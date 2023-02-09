@@ -21,8 +21,8 @@
             android:id="@+id/action_main_to_bookmark"
             app:destination="@id/bookmarkFragment" />
         <action
-            android:id="@+id/action_main_to_category_choice"
-            app:destination="@id/categoryChoiceFragment"/>
+            android:id="@+id/action_main_to_category_gathering"
+            app:destination="@id/categoryGatheringFragment"/>
         <action
             android:id="@+id/action_main_to_recruitment"
             app:destination="@id/recruitmentFragment" />
@@ -44,18 +44,18 @@
     </fragment>
 
     <fragment
-        android:id="@+id/categoryChoiceFragment"
-        android:name="com.plub.presentation.ui.main.home.categoryChoice.CategoryChoiceFragment"
-        android:label="fragment_category_choice"
-        tools:layout="@layout/fragment_category_choice">
+        android:id="@+id/categoryGatheringFragment"
+        android:name="com.plub.presentation.ui.main.home.categoryChoice.CategoryGatheringFragment"
+        android:label="fragment_category_gathering"
+        tools:layout="@layout/fragment_category_gathering">
         <action
-            android:id="@+id/action_categoryChoice_to_recruitment"
+            android:id="@+id/action_categoryGathering_to_recruitment"
             app:destination="@id/recruitmentFragment" />
         <action
-            android:id="@+id/action_category_choice_to_searching"
+            android:id="@+id/action_category_gathering_to_searching"
             app:destination="@id/searchingFragment" />
         <action
-            android:id="@+id/action_category_choice_to_create_gathering"
+            android:id="@+id/action_category_gathering_to_create_gathering"
             app:destination="@id/createGatheringFragment" />
         <argument
             android:name="categoryId"

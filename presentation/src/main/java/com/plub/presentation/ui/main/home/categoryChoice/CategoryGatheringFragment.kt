@@ -12,7 +12,7 @@ import com.plub.domain.model.enums.PlubSortType
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
-import com.plub.presentation.databinding.FragmentCategoryChoiceBinding
+import com.plub.presentation.databinding.FragmentCategoryGatheringBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
@@ -20,9 +20,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CategoryChoiceFragment :
-    BaseFragment<FragmentCategoryChoiceBinding, CategoryChoiceState, CategoryChoiceViewModel>(
-        FragmentCategoryChoiceBinding::inflate
+class CategoryGatheringFragment :
+    BaseFragment<FragmentCategoryGatheringBinding, CategoryGatheringState, CategoryGatheringViewModel>(
+        FragmentCategoryGatheringBinding::inflate
     ) {
     private val gatheringListAdapter: PlubCardAdapter by lazy {
         PlubCardAdapter(object : PlubCardAdapter.Delegate {
@@ -36,8 +36,8 @@ class CategoryChoiceFragment :
         })
     }
 
-    private val categoryChoiceFragmentArgs: CategoryChoiceFragmentArgs by navArgs()
-    override val viewModel: CategoryChoiceViewModel by viewModels()
+    private val categoryChoiceFragmentArgs: CategoryGatheringFragmentArgs by navArgs()
+    override val viewModel: CategoryGatheringViewModel by viewModels()
 
     override fun initView() {
 
@@ -64,7 +64,7 @@ class CategoryChoiceFragment :
 
             launch {
                 viewModel.eventFlow.collect{
-                    inspectEventFlow(it as CategoryChoiceEvent)
+                    inspectEventFlow(it as CategoryGatheringEvent)
                 }
             }
         }
@@ -109,25 +109,25 @@ class CategoryChoiceFragment :
 
     private fun goToDetailRecruitment(plubbingId : Int) {
         val action =
-            CategoryChoiceFragmentDirections.actionCategoryChoiceToRecruitment(plubbingId)
+            CategoryGatheringFragmentDirections.actionCategoryGatheringToRecruitment(plubbingId)
         findNavController().navigate(action)
     }
 
-    private fun inspectEventFlow(event : CategoryChoiceEvent){
+    private fun inspectEventFlow(event : CategoryGatheringEvent){
         when(event){
-            is CategoryChoiceEvent.GoToBack -> {
+            is CategoryGatheringEvent.GoToBack -> {
                 findNavController().popBackStack()
             }
-            is CategoryChoiceEvent.ShowSelectSortTypeBottomSheetDialog -> {
+            is CategoryGatheringEvent.ShowSelectSortTypeBottomSheetDialog -> {
                 showSelectSortTypeDialog(event.selectedItem)
             }
-            is CategoryChoiceEvent.GoToSearch -> {
+            is CategoryGatheringEvent.GoToSearch -> {
                 goToSearchFragment()
             }
-            is CategoryChoiceEvent.GoToCreate -> {
+            is CategoryGatheringEvent.GoToCreate -> {
                 goToCreateGatheringFragment()
             }
-            is CategoryChoiceEvent.ScrollTop ->{
+            is CategoryGatheringEvent.ScrollTop ->{
                 recyclerScrollToTop()
             }
         }
@@ -158,12 +158,12 @@ class CategoryChoiceFragment :
     }
 
     private fun goToSearchFragment() {
-        val action = CategoryChoiceFragmentDirections.actionCategoryChoiceToSearching()
+        val action = CategoryGatheringFragmentDirections.actionCategoryGatheringToSearching()
         findNavController().navigate(action)
     }
 
     private fun goToCreateGatheringFragment() {
-        val action = CategoryChoiceFragmentDirections.actionCategoryChoiceToCreateGathering()
+        val action = CategoryGatheringFragmentDirections.actionCategoryGatheringToCreateGathering()
         findNavController().navigate(action)
     }
 }

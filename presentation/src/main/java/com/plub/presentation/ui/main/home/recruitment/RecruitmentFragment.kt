@@ -12,8 +12,6 @@ import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
-import com.plub.presentation.ui.main.home.categoryChoice.CategoryChoiceFragmentArgs
-import com.plub.presentation.ui.main.home.plubhome.HomeFragmentArgs
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint

@@ -12,7 +12,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.home.categoryChoice.CategoryChoiceViewModel" />
+            type="com.plub.presentation.ui.main.home.categoryChoice.CategoryGatheringViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

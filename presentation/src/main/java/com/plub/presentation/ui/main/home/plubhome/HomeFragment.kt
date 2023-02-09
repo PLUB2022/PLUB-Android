@@ -116,7 +116,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
 
     private fun goToCategoryChoice(categoryId: Int, categoryName: String) {
         val action =
-            HomeFragmentDirections.actionMainToCategoryChoice(categoryId, NOTHING_PLUBBING, categoryName)
+            HomeFragmentDirections.actionMainToCategoryGathering(categoryId, NOTHING_PLUBBING, categoryName)
         findNavController().navigate(action)
     }
 

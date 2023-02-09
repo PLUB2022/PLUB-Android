@@ -12,7 +12,7 @@ import com.plub.presentation.databinding.IncludeItemPlubCardListBinding
 import com.plub.presentation.databinding.IncludeItemProgressBarBinding
 import com.plub.presentation.ui.main.home.card.viewholder.PlubCardGridViewHolder
 import com.plub.presentation.ui.main.home.card.viewholder.PlubCardListViewHolder
-import com.plub.presentation.ui.main.home.categoryChoice.LoadingViewHolder
+import com.plub.presentation.ui.main.home.progress.LoadingViewHolder
 
 class PlubCardAdapter(
     private val listener: Delegate,

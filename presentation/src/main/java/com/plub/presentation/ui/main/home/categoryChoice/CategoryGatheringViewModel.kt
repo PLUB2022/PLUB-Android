@@ -15,10 +15,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryChoiceViewModel @Inject constructor(
+class CategoryGatheringViewModel @Inject constructor(
     val categoriesGatheringUseCase: GetCategoriesGatheringUseCase,
     val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase
-) : BaseViewModel<CategoryChoiceState>(CategoryChoiceState()) {
+) : BaseViewModel<CategoryGatheringState>(CategoryGatheringState()) {
 
     companion object {
         private const val FIRST_PAGE = 1
@@ -72,7 +72,7 @@ class CategoryChoiceViewModel @Inject constructor(
 
     fun scrollTop(){
         if(pageNumber == FIRST_PAGE){
-            emitEventFlow(CategoryChoiceEvent.ScrollTop)
+            emitEventFlow(CategoryGatheringEvent.ScrollTop)
         }
     }
 
@@ -113,11 +113,11 @@ class CategoryChoiceViewModel @Inject constructor(
     }
 
     fun backPage() {
-        emitEventFlow(CategoryChoiceEvent.GoToBack)
+        emitEventFlow(CategoryGatheringEvent.GoToBack)
     }
 
     fun goToCreate() {
-        emitEventFlow(CategoryChoiceEvent.GoToCreate)
+        emitEventFlow(CategoryGatheringEvent.GoToCreate)
     }
 
     fun onClickSortMenuItemType(item: DialogMenuItemType) {
@@ -139,11 +139,11 @@ class CategoryChoiceViewModel @Inject constructor(
             PlubSortType.NEW -> DialogMenuItemType.SORT_TYPE_NEW
         }
 
-        emitEventFlow(CategoryChoiceEvent.ShowSelectSortTypeBottomSheetDialog(menuItemType))
+        emitEventFlow(CategoryGatheringEvent.ShowSelectSortTypeBottomSheetDialog(menuItemType))
     }
 
     fun clickSearch() {
-        emitEventFlow(CategoryChoiceEvent.GoToSearch)
+        emitEventFlow(CategoryGatheringEvent.GoToSearch)
     }
 
     fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {

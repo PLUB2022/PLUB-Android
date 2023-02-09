@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.categoryChoice
+package com.plub.presentation.ui.main.home.progress
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.databinding.IncludeItemProgressBarBinding
