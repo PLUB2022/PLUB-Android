@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage,ContentDescription">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_rectangle_filled_white_radius_10_border_f2f3f4"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp">
+
+        <com.plub.presentation.ui.common.custom.RadiusImageView
+            android:id="@+id/image_view_text_and_image_type"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:radius="9dp"
+            tools:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/image_view_pin_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_clipboard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:layout_marginStart="4dp"
+            android:lines="1"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/image_view_pin_icon"
+            app:layout_constraintTop_toTopOf="@id/image_view_pin_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_pin_icon"
+            app:layout_goneMarginStart="0dp"
+            tools:text="개나리" />
+
+        <TextView
+            android:id="@+id/text_view_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_view_nickname"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_like"
+            app:layout_constraintStart_toEndOf="@+id/text_view_nickname"
+            app:layout_constraintTop_toTopOf="@+id/text_view_nickname"
+            tools:text="| 2022. 08. 10." />
+
+        <TextView
+            android:id="@+id/text_view_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="9dp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_comment"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_text_and_image_type"
+            app:layout_constraintTop_toTopOf="@+id/image_view_comment"
+            app:layout_goneMarginEnd="0dp"
+            tools:text="3" />
+
+        <ImageView
+            android:id="@+id/image_view_comment"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_board_comment"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_comment"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_like"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_comment"
+            app:layout_constraintTop_toTopOf="@+id/image_view_like"
+            tools:text="3" />
+
+        <ImageView
+            android:id="@+id/image_view_like"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_board_like"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_like"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/color_363636"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_text_and_image_type"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_pin_icon"
+            app:layout_goneMarginEnd="0dp"
+            tools:text="안녕하세요 반갑습니다. 게시판 제목입니다." />
+
+        <TextView
+            android:id="@+id/text_view_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:lines="2"
+            android:textColor="@color/color_363636"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_view_text_and_image_type"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_title"
+            app:layout_goneMarginStart="0dp"
+            tools:text="ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄷㄱ혹뉴" />
+
+        <com.plub.presentation.ui.common.custom.RadiusImageView
+            android:id="@+id/image_view_image_type"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintDimensionRatio="296:222"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_title"
+            app:radius="8dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
