@@ -41,5 +41,10 @@ object Endpoints {
         const val BOOKMARK = "$PLUBBING_ID_URL/recruit/bookmarks"
         const val BOOKMARK_ME = "$PLUBBING_URL/recruit/bookmarks/me"
         const val PLUBING_MAIN = "$PLUBBING_ID_URL/main"
+
+        object BOARD {
+            const val FEEDS = "$PLUBBING_ID_URL/feeds"
+            const val PINS = "$PLUBBING_ID_URL/pins"
+        }
     }
 }

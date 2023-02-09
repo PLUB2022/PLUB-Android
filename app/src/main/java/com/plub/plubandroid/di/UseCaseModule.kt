@@ -155,4 +155,16 @@ object UseCaseModule {
     fun providesPostAdminLoginUseCase(repository: LoginRepository): PostAdminLoginUseCase {
         return PostAdminLoginUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesFetchPlubingBoardUseCase(repository: PlubingBoardRepository): FetchPlubingBoardUseCase {
+        return FetchPlubingBoardUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFetchPlubingPinsUseCase(repository: PlubingBoardRepository): FetchPlubingPinsUseCase {
+        return FetchPlubingPinsUseCase(repository)
+    }
 }
