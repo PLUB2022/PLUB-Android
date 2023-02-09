@@ -14,6 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_board"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:clipToPadding="false"
+            android:paddingTop="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

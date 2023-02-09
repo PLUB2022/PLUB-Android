@@ -14,13 +14,14 @@ import com.plub.presentation.ui.sign.terms.TermsFragment
 
 class FragmentPlubingMainPagerAdapter(
     fragment: Fragment,
+    private val plubingId:Int
 ) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = PlubingMainPageType.values().size
 
     override fun createFragment(position: Int): Fragment {
         return when (PlubingMainPageType.valueOf(position)) {
-            PlubingMainPageType.BOARD -> PlubingBoardFragment()
+            PlubingMainPageType.BOARD -> PlubingBoardFragment.newInstance(plubingId)
             PlubingMainPageType.TODO_LIST -> PlubingTodoFragment()
         }
     }

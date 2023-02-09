@@ -1,29 +1,103 @@
 package com.plub.presentation.ui.main.plubing.board
 
+import android.os.Bundle
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingBoardBinding
-import com.plub.presentation.ui.PageState
+import com.plub.presentation.ui.main.home.search.SearchingEvent
+import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PlubingBoardFragment : BaseFragment<FragmentPlubingBoardBinding, PageState.Default, PlubingBoardViewModel>(
+class PlubingBoardFragment : BaseFragment<FragmentPlubingBoardBinding, PlubingBoardPageState, PlubingBoardViewModel>(
     FragmentPlubingBoardBinding::inflate
 ) {
+
+    companion object {
+        private const val KEY_PLUBING_ID = "KEY_PLUBING_ID"
+
+        fun newInstance(plubindId:Int) = PlubingBoardFragment().apply {
+            arguments = Bundle().apply {
+                putInt(KEY_PLUBING_ID, plubindId)
+            }
+        }
+    }
+
+    private val plubingId: Int by lazy {
+        arguments?.getInt(KEY_PLUBING_ID) ?: -1
+    }
+
+    private val boardListAdapter: PlubingBoardAdapter by lazy {
+        PlubingBoardAdapter(object : PlubingBoardAdapter.Delegate {
+            override fun onClickClipBoard() {
+                viewModel.onClickClipBoard()
+            }
+
+            override fun onClickNormalBoard(id: Int, isHost: Boolean, isAuthor: Boolean) {
+                viewModel.onClickNormalBoard(id, isHost, isAuthor)
+            }
+
+            override fun onLongClickNormalBoard(id: Int, isHost: Boolean, isAuthor: Boolean) {
+                viewModel.onLongClickNormalBoard(id, isHost, isAuthor)
+            }
+
+            override val clipBoardList: List<PlubingBoardVo>
+                get() = viewModel.uiState.value.clipBoardList
+        })
+    }
 
     override val viewModel: PlubingBoardViewModel by viewModels()
 
     override fun initView() {
         binding.apply {
             vm = viewModel
+
+            recyclerViewBoard.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = boardListAdapter
+
+                addOnScrollListener(object: RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        val lastVisiblePosition = (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                        val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
+                        val isDownScroll = dy > 0
+                        viewModel.onScrollChanged(isBottom,isDownScroll, plubingId)
+                    }
+                })
+            }
         }
+        viewModel.onFetchBoardList(plubingId)
+        viewModel.onFetchClipBoardList(plubingId)
     }
 
     override fun initStates() {
         super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
+            launch {
+                viewModel.uiState.collect {
+                    boardListAdapter.submitList(it.boardList)
+                }
+            }
 
+            launch {
+                viewModel.eventFlow.collect {
+                    inspectEventFlow(it as PlubingBoardEvent)
+                }
+            }
+        }
+    }
+
+    private fun inspectEventFlow(event: PlubingBoardEvent) {
+        when (event) {
+            is PlubingBoardEvent.NotifyClipBoardChanged -> {
+                boardListAdapter.notifyClipBoard()
+            }
         }
     }
 }
