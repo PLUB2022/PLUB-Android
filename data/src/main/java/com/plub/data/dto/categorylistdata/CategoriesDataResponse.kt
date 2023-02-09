@@ -5,9 +5,9 @@ import com.plub.data.base.DataDto
 
 data class CategoriesDataResponse(
     @SerializedName("id")
-    val id : Int,
+    val id : Int = 0,
     @SerializedName("name")
-    val name : String,
+    val name : String = "",
     @SerializedName("icon")
-    val icon : String
+    val icon : String = ""
 ): DataDto

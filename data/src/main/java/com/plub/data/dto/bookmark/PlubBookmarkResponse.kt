@@ -5,7 +5,7 @@ import com.plub.data.base.DataDto
 
 data class PlubBookmarkResponse(
     @SerializedName("plubbingId")
-    val plubbingId: Int,
+    val plubbingId: Int = 0,
     @SerializedName("isBookmarked")
-    val isBookmarked: Boolean,
+    val isBookmarked: Boolean = false,
 ): DataDto

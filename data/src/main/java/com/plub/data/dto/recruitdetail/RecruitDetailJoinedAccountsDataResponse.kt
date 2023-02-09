@@ -5,7 +5,7 @@ import com.plub.data.base.DataDto
 
 data class RecruitDetailJoinedAccountsDataResponse(
     @SerializedName("accountId")
-    val accountId : Int,
+    val accountId : Int = -1,
     @SerializedName("profileImage")
-    val profileImage: String
+    val profileImage: String = ""
 ):DataDto

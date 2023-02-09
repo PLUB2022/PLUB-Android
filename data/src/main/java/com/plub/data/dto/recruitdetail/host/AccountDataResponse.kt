@@ -5,11 +5,11 @@ import com.plub.data.base.DataDto
 
 data class AccountDataResponse(
     @SerializedName("accountName")
-    val accountName: String,
+    val accountName: String = "",
     @SerializedName("profileImage")
-    val profileImage : String,
+    val profileImage : String = "",
     @SerializedName("createdAt")
-    val createdAt : String,
+    val createdAt : String = "",
     @SerializedName("answers")
-    val answers : List<AnswersDataResponse>
+    val answers : List<AnswersDataResponse> = emptyList()
 ) : DataDto

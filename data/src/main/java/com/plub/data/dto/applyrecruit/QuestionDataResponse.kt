@@ -5,7 +5,7 @@ import com.plub.data.base.DataDto
 
 data class QuestionDataResponse(
     @SerializedName("id")
-    val id : Int,
+    val id : Int = -1,
     @SerializedName("question")
-    val question: String
+    val question: String = ""
 ) : DataDto

@@ -5,5 +5,5 @@ import com.plub.data.base.DataDto
 
 data class InterestRequest(
     @SerializedName("categoryId")
-    val categoryId : List<Int>
+    val categoryId : List<Int> = emptyList()
 ) :DataDto
