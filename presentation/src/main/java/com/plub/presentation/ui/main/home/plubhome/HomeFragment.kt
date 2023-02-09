@@ -15,7 +15,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
     FragmentHomeBinding::inflate
 ) {
     companion object {
-        const val NOTHING_PLUBBING = 0
+        private const val NOTHING_PLUBBING = 0
     }
 
     override val viewModel: HomeFragmentViewModel by viewModels()
@@ -27,7 +27,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
             }
 
             override fun onClickGoRecruitDetail(plubbingId: Int) {
-                goToRecruitmentFragment(plubbingId)
+                viewModel.goToRecruitment(plubbingId)
             }
 
             override fun onClickBookmark(plubbingId: Int) {
@@ -35,7 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
             }
 
             override fun onClickRegister() {
-                goToRegisterInterest()
+                viewModel.goToRegisterInterest()
             }
 
             override fun onClickSetting() {
@@ -49,7 +49,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
 
         binding.apply {
             vm = viewModel
-            setRecyclerAdapter()
+            recyclerViewMainPage.apply {
+                layoutManager = LinearLayoutManager(context)
+                addOnScrollListener((object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        val lastVisiblePosition =
+                            (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                        val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
+                        val isDownScroll = dy > 0
+                        viewModel.onScrollChanged(isBottom, isDownScroll)
+                    }
+                }))
+                adapter = homeAdapter
+            }
         }
         viewModel.fetchHomePageData()
     }
@@ -70,6 +83,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
         }
     }
 
+    private fun submitList(data: HomePageState) {
+        if(data.isVisible){
+            homeAdapter.submitList(data.homePlubList)
+        }
+    }
+
     private fun inspectEvent(event: PlubbingHomeEvent) {
         when (event) {
             is PlubbingHomeEvent.GoToSearch -> {
@@ -79,66 +98,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
                 goToBookmarkFragment()
             }
             is PlubbingHomeEvent.GoToCategoryGathering -> {
-                goToCategoryChoice(event.categoryId, event.categoryName)
+                goToCategoryGathering(event.categoryId, event.categoryName)
+            }
+            is PlubbingHomeEvent.GoToRecruitment -> {
+                goToRecruitmentFragment(event.plubbingId)
+            }
+            is PlubbingHomeEvent.GoToRegisterInterest -> {
+                goToRegisterInterest()
             }
         }
-    }
-
-    private fun submitList(data: HomePageState) {
-        if(data.isVisible){
-            homeAdapter.submitList(data.homePlubList)
-        }
-    }
-
-    private fun setRecyclerAdapter() {
-        binding.recyclerViewMainPage.apply {
-            layoutManager = LinearLayoutManager(context)
-            addOnScrollListener((object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    val lastVisiblePosition =
-                        (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                    val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
-                    val isDownScroll = dy > 0
-                    viewModel.onScrollChanged(isBottom, isDownScroll)
-                }
-            }))
-            adapter = homeAdapter
-        }
-    }
-
-//    private fun subListRecommendGatheringList(
-//        list: List<RecommendationGatheringResponseVo>,
-//        isLoading: Boolean
-//    ) {
-//        val loadingList = mutableListOf<RecommendationGatheringResponseVo>()
-//        loadingList.add(RecommendationGatheringResponseVo(viewType = PlubHomeRecommendViewType.LOADING))
-//        if (isLoading) {
-//            recommendationListAdapter.submitList(list + loadingList)
-//        } else {
-//            recommendationListAdapter.submitList(list)
-//        }
-//    }
-
-    private fun goToRegisterInterest() {
-        val action = HomeFragmentDirections.actionMainToRegisterInterest()
-        findNavController().navigate(action)
-    }
-
-    private fun goToCategoryChoice(categoryId: Int, categoryName: String) {
-        val action =
-            HomeFragmentDirections.actionMainToCategoryGathering(
-                categoryId,
-                NOTHING_PLUBBING,
-                categoryName
-            )
-        findNavController().navigate(action)
-    }
-
-    private fun goToRecruitmentFragment(plubbingId: Int) {
-        val action =
-            HomeFragmentDirections.actionMainToRecruitment(plubbingId)
-        findNavController().navigate(action)
     }
 
     private fun goToSearchFragment() {
@@ -148,6 +116,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
 
     private fun goToBookmarkFragment() {
         val action = HomeFragmentDirections.actionMainToBookmark()
+        findNavController().navigate(action)
+    }
+
+    private fun goToCategoryGathering(categoryId: Int, categoryName: String) {
+        val action =
+            HomeFragmentDirections.actionMainToCategoryGathering(
+                categoryId,
+                NOTHING_PLUBBING,
+                categoryName
+            )
+        findNavController().navigate(action)
+    }
+
+
+    private fun goToRegisterInterest() {
+        val action = HomeFragmentDirections.actionMainToRegisterInterest()
+        findNavController().navigate(action)
+    }
+
+
+    private fun goToRecruitmentFragment(plubbingId: Int) {
+        val action =
+            HomeFragmentDirections.actionMainToRecruitment(plubbingId)
         findNavController().navigate(action)
     }
 }

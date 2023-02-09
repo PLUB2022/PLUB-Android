@@ -7,9 +7,9 @@ import com.plub.domain.model.vo.home.HomePlubListVo
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoryListDataResponseVo
 import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
+import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -48,16 +48,6 @@ class HomeFragmentViewModel @Inject constructor(
                 }
         }
 
-    private fun fetchRecommendationGatheringData() {
-        isNetworkCall = true
-        viewModelScope.launch {
-            getRecommendationGatheringUsecase(pageNumber)
-                .collect { state ->
-                    inspectUiState(state, ::handleGetRecommendGatheringSuccess)
-                }
-        }
-    }
-
     private fun handleGetCategoriesSuccess(data: CategoryListDataResponseVo) {
         val categoryList = getMergeCategoryList(data)
         updateUiState { uiState ->
@@ -88,7 +78,7 @@ class HomeFragmentViewModel @Inject constructor(
         hasMoreCards = (pageNumber != data.totalPages)
         updateUiState { ui ->
             ui.copy(
-                homePlubList = addList(data),
+                homePlubList = addRecommendGatheringList(data),
                 isVisible = true
             )
         }
@@ -96,32 +86,35 @@ class HomeFragmentViewModel @Inject constructor(
         pageNumber++
     }
 
-    private fun addList(it: PlubCardListVo): List<HomePlubListVo> {
+    private fun addRecommendGatheringList(it: PlubCardListVo): List<HomePlubListVo> {
         val originList = uiState.value.homePlubList
         val mergedList = mutableListOf<HomePlubListVo>()
         if (pageNumber == FIRST_PAGE) {
-            mergedList.add(
-                HomePlubListVo(
-                    viewType = HomeViewType.RECOMMEND_TITLE_VIEW,
-                )
-            )
+            mergedList.add(getRecommendTitleVo())
             if (!hasInterest) {
-                mergedList.add(
-                    HomePlubListVo(
-                        viewType = HomeViewType.REGISTER_HOBBIES_VIEW
-                    )
-                )
+                mergedList.add(getRegisterHobbiesVo())
             }
         }
-        for (i in 0 until it.content.size) {
-            mergedList.add(
-                HomePlubListVo(
-                    viewType = HomeViewType.RECOMMEND_GATHERING_VIEW,
-                    recommendGathering = it.content[i]
-                )
-            )
+        for (contentPosition in 0 until it.content.size) {
+            mergedList.add(getGatheringsVo(it.content[contentPosition]))
         }
+
         return originList + mergedList
+    }
+
+    private fun getRecommendTitleVo() : HomePlubListVo{
+        return HomePlubListVo(viewType = HomeViewType.RECOMMEND_TITLE_VIEW)
+    }
+
+    private fun getRegisterHobbiesVo() : HomePlubListVo{
+        return HomePlubListVo(viewType = HomeViewType.REGISTER_HOBBIES_VIEW)
+    }
+
+    private fun getGatheringsVo(data : PlubCardVo) : HomePlubListVo{
+        return HomePlubListVo(
+            viewType = HomeViewType.RECOMMEND_GATHERING_VIEW,
+            recommendGathering = data
+        )
     }
 
     fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
@@ -129,6 +122,17 @@ class HomeFragmentViewModel @Inject constructor(
             fetchRecommendationGatheringData()
         }
     }
+
+    private fun fetchRecommendationGatheringData() {
+        isNetworkCall = true
+        viewModelScope.launch {
+            getRecommendationGatheringUsecase(pageNumber)
+                .collect { state ->
+                    inspectUiState(state, ::handleGetRecommendGatheringSuccess)
+                }
+        }
+    }
+
 
     fun clickBookmark(plubbingId: Int) {
         viewModelScope.launch {
@@ -169,6 +173,14 @@ class HomeFragmentViewModel @Inject constructor(
 
     fun goToCategoryChoice(categoryId: Int, categoryName: String) {
         emitEventFlow(PlubbingHomeEvent.GoToCategoryGathering(categoryId, categoryName))
+    }
+
+    fun goToRecruitment(plubbingId: Int){
+        emitEventFlow(PlubbingHomeEvent.GoToRecruitment(plubbingId))
+    }
+
+    fun goToRegisterInterest(){
+        emitEventFlow(PlubbingHomeEvent.GoToRegisterInterest)
     }
 
 }

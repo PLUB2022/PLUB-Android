@@ -13,14 +13,14 @@ class HomeCategoryViewHolder (
     private var voList : List<CategoriesDataResponseVo> = emptyList()
 
     companion object{
-        private val FIRST = 0
-        private val SECOND = 1
-        private val THIRD = 2
-        private val FOURTH = 3
-        private val FIFTH = 4
-        private val SIXTH = 5
-        private val SEVENTH = 6
-        private val EIGHTH = 7
+        private const val FIRST = 0
+        private const val SECOND = 1
+        private const val THIRD = 2
+        private const val FOURTH = 3
+        private const val FIFTH = 4
+        private const val SIXTH = 5
+        private const val SEVENTH = 6
+        private const val EIGHTH = 7
     }
     init {
         binding.apply {
