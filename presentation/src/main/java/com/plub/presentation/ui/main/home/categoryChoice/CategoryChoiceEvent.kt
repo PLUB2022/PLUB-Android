@@ -7,5 +7,6 @@ sealed class CategoryChoiceEvent : Event {
     object GoToBack : CategoryChoiceEvent()
     object GoToSearch : CategoryChoiceEvent()
     object GoToCreate : CategoryChoiceEvent()
+    object ScrollTop : CategoryChoiceEvent()
     data class ShowSelectSortTypeBottomSheetDialog(val selectedItem: DialogMenuItemType) : CategoryChoiceEvent()
 }

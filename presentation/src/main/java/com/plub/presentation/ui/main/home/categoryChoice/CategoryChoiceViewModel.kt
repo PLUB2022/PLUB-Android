@@ -24,29 +24,39 @@ class CategoryChoiceViewModel @Inject constructor(
         private const val FIRST_PAGE = 1
     }
 
-    private var categoryId : Int = 0
-    private var pageNumber : Int = FIRST_PAGE
-    private var hasMoreCards : Boolean = true
-    
+    private var categoryId: Int = 0
+    private var pageNumber: Int = FIRST_PAGE
+    private var hasMoreCards: Boolean = true
 
-    fun fetchRecommendationGatheringData(id : Int)  =
+
+    fun fetchRecommendationGatheringData(id: Int) =
         viewModelScope.launch {
             categoryId = id
-            categoriesGatheringUseCase(CategoriesGatheringRequestVo(categoryId, uiState.value.sortType.key,pageNumber)).collect{ state->
+            categoriesGatheringUseCase(
+                CategoriesGatheringRequestVo(
+                    categoryId,
+                    uiState.value.sortType.key,
+                    pageNumber
+                )
+            ).collect { state ->
                 inspectUiState(state, ::successResult)
             }
-            pageNumber++
         }
 
     private fun fetchRecommendationGatheringData() =
         viewModelScope.launch {
-            categoriesGatheringUseCase(CategoriesGatheringRequestVo(categoryId, uiState.value.sortType.key,pageNumber)).collect{ state->
+            categoriesGatheringUseCase(
+                CategoriesGatheringRequestVo(
+                    categoryId,
+                    uiState.value.sortType.key,
+                    pageNumber
+                )
+            ).collect { state ->
                 inspectUiState(state, ::successResult)
             }
-            pageNumber++
         }
 
-    private fun successResult(vo: PlubCardListVo){
+    private fun successResult(vo: PlubCardListVo) {
         hasMoreCards = (pageNumber != vo.totalPages)
         val mappedList = mapToCardType(vo.content)
         val mergedList = getMergeList(mappedList)
@@ -57,9 +67,16 @@ class CategoryChoiceViewModel @Inject constructor(
                 isLoading = hasMoreCards
             )
         }
+        pageNumber++
     }
 
-    private fun mapToCardType(list : List<PlubCardVo>) : List<PlubCardVo>{
+    fun scrollTop(){
+        if(pageNumber == FIRST_PAGE){
+            emitEventFlow(CategoryChoiceEvent.ScrollTop)
+        }
+    }
+
+    private fun mapToCardType(list: List<PlubCardVo>): List<PlubCardVo> {
         return list.map {
             it.copy(
                 viewType = uiState.value.cardType
@@ -70,16 +87,20 @@ class CategoryChoiceViewModel @Inject constructor(
     private fun getMergeList(list: List<PlubCardVo>): List<PlubCardVo> {
         val originList = uiState.value.cardList
         val mappedList = mapToCardType(list)
-        return if (originList.isEmpty() || pageNumber == FIRST_PAGE) mappedList else originList + mappedList
+        return if (originList.isEmpty() || pageNumber == FIRST_PAGE) {
+            mappedList
+        } else {
+            originList + mappedList
+        }
     }
 
-    fun clickBookmark(plubbingId : Int){
-        viewModelScope.launch{
+    fun clickBookmark(plubbingId: Int) {
+        viewModelScope.launch {
             postBookmarkPlubRecruitUseCase.invoke(plubbingId)
         }
     }
 
-    fun onClickCardType(cardType: PlubCardType){
+    fun onClickCardType(cardType: PlubCardType) {
         pageNumber = FIRST_PAGE
         viewModelScope.launch {
             updateUiState { uiState ->
@@ -91,18 +112,18 @@ class CategoryChoiceViewModel @Inject constructor(
         }
     }
 
-    fun backPage(){
+    fun backPage() {
         emitEventFlow(CategoryChoiceEvent.GoToBack)
     }
 
-    fun goToCreate(){
+    fun goToCreate() {
         emitEventFlow(CategoryChoiceEvent.GoToCreate)
     }
 
     fun onClickSortMenuItemType(item: DialogMenuItemType) {
         viewModelScope.launch {
             pageNumber = FIRST_PAGE
-            val sortType = when(item) {
+            val sortType = when (item) {
                 DialogMenuItemType.SORT_TYPE_NEW -> PlubSortType.NEW
                 DialogMenuItemType.SORT_TYPE_POPULAR -> PlubSortType.POPULAR
                 else -> PlubSortType.POPULAR
@@ -113,7 +134,7 @@ class CategoryChoiceViewModel @Inject constructor(
     }
 
     fun onClickSortType(sortType: PlubSortType) {
-        val menuItemType = when(sortType) {
+        val menuItemType = when (sortType) {
             PlubSortType.POPULAR -> DialogMenuItemType.SORT_TYPE_POPULAR
             PlubSortType.NEW -> DialogMenuItemType.SORT_TYPE_NEW
         }
@@ -121,22 +142,13 @@ class CategoryChoiceViewModel @Inject constructor(
         emitEventFlow(CategoryChoiceEvent.ShowSelectSortTypeBottomSheetDialog(menuItemType))
     }
 
-    fun clickSearch(){
+    fun clickSearch() {
         emitEventFlow(CategoryChoiceEvent.GoToSearch)
     }
 
-    fun onScrollChanged(isBottom : Boolean, isDownScroll : Boolean){
-        if(isBottom && isDownScroll && hasMoreCards) {
-            updateLoadingState(true)
+    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
+        if (isBottom && isDownScroll && hasMoreCards) {
             fetchRecommendationGatheringData()
-        }
-    }
-
-    private fun updateLoadingState(isLoading : Boolean){
-        updateUiState { uiState ->
-            uiState.copy(
-                isLoading = isLoading
-            )
         }
     }
 

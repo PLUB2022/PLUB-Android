@@ -10,5 +10,5 @@ data class CategoryChoiceState(
     val cardType: PlubCardType = PlubCardType.LIST,
     val isEmptyViewVisible: Boolean = false,
     val sortType: PlubSortType = PlubSortType.POPULAR,
-    val isLoading : Boolean = false
+    val isLoading : Boolean = true
 ) : PageState

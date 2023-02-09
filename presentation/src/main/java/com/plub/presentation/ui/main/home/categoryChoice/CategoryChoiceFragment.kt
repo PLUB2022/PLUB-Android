@@ -95,20 +95,16 @@ class CategoryChoiceFragment :
         }
     }
 
-    private fun subListGatheringList(list : List<PlubCardVo>, hasMoreItem : Boolean){
-        val mergeList = getMergeList(list, hasMoreItem)
-        gatheringListAdapter.submitList(mergeList)
-    }
-
-    private fun getMergeList(list : List<PlubCardVo>, hasMoreItem : Boolean) : List<PlubCardVo>{
-        val loading = mutableListOf<PlubCardVo>()
-        loading.add(PlubCardVo(viewType = PlubCardType.LOADING))
-        if(hasMoreItem){
-            return list + loading
+    private fun subListGatheringList(list : List<PlubCardVo>, isLoading : Boolean){
+        val loadingList = mutableListOf<PlubCardVo>()
+        loadingList.add(PlubCardVo(viewType = PlubCardType.LOADING))
+        if(isLoading){
+            gatheringListAdapter.submitList(list + loadingList)
         }
         else{
-            return list
+            gatheringListAdapter.submitList(list)
         }
+        viewModel.scrollTop()
     }
 
     private fun goToDetailRecruitment(plubbingId : Int) {
@@ -131,7 +127,14 @@ class CategoryChoiceFragment :
             is CategoryChoiceEvent.GoToCreate -> {
                 goToCreateGatheringFragment()
             }
+            is CategoryChoiceEvent.ScrollTop ->{
+                recyclerScrollToTop()
+            }
         }
+    }
+
+    private fun recyclerScrollToTop(){
+        binding.recyclerViewCategoryChoiceList.scrollToPosition(0)
     }
 
     private fun showSelectSortTypeDialog(selectedMenuType: DialogMenuItemType) {
