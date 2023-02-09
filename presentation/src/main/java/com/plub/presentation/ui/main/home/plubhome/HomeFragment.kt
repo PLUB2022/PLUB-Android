@@ -77,7 +77,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
             }
             launch {
                 viewModel.eventFlow.collect {
-                    inspectEvent(it as PlubbingHomeEvent)
+                    inspectEvent(it as HomeEvent)
                 }
             }
         }
@@ -89,21 +89,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
         }
     }
 
-    private fun inspectEvent(event: PlubbingHomeEvent) {
+    private fun inspectEvent(event: HomeEvent) {
         when (event) {
-            is PlubbingHomeEvent.GoToSearch -> {
+            is HomeEvent.GoToSearch -> {
                 goToSearchFragment()
             }
-            is PlubbingHomeEvent.GoToBookMark -> {
+            is HomeEvent.GoToBookMark -> {
                 goToBookmarkFragment()
             }
-            is PlubbingHomeEvent.GoToCategoryGathering -> {
+            is HomeEvent.GoToCategoryGathering -> {
                 goToCategoryGathering(event.categoryId, event.categoryName)
             }
-            is PlubbingHomeEvent.GoToRecruitment -> {
+            is HomeEvent.GoToRecruitment -> {
                 goToRecruitmentFragment(event.plubbingId)
             }
-            is PlubbingHomeEvent.GoToRegisterInterest -> {
+            is HomeEvent.GoToRegisterInterest -> {
                 goToRegisterInterest()
             }
         }

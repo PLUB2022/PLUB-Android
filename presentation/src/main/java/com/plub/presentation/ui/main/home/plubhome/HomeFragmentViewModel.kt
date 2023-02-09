@@ -164,23 +164,23 @@ class HomeFragmentViewModel @Inject constructor(
     }
 
     fun goToSearch() {
-        emitEventFlow(PlubbingHomeEvent.GoToSearch)
+        emitEventFlow(HomeEvent.GoToSearch)
     }
 
     fun goToBookmark() {
-        emitEventFlow(PlubbingHomeEvent.GoToBookMark)
+        emitEventFlow(HomeEvent.GoToBookMark)
     }
 
     fun goToCategoryChoice(categoryId: Int, categoryName: String) {
-        emitEventFlow(PlubbingHomeEvent.GoToCategoryGathering(categoryId, categoryName))
+        emitEventFlow(HomeEvent.GoToCategoryGathering(categoryId, categoryName))
     }
 
     fun goToRecruitment(plubbingId: Int){
-        emitEventFlow(PlubbingHomeEvent.GoToRecruitment(plubbingId))
+        emitEventFlow(HomeEvent.GoToRecruitment(plubbingId))
     }
 
     fun goToRegisterInterest(){
-        emitEventFlow(PlubbingHomeEvent.GoToRegisterInterest)
+        emitEventFlow(HomeEvent.GoToRegisterInterest)
     }
 
 }
