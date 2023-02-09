@@ -18,7 +18,7 @@ class HomeCategoryParentAdapter(private val listener: HomeCategoryDelegate) : Li
 ){
 
     interface HomeCategoryDelegate {
-        fun onClick(categoryId: Int, categoryName : String)
+        fun onCategoryClick(categoryId: Int, categoryName : String)
     }
 
 
@@ -48,6 +48,6 @@ class HomeCategoryParentAdapter(private val listener: HomeCategoryDelegate) : Li
 }
 
 class HomeCategoryDiffCallBack : DiffUtil.ItemCallback<CategoryListDataResponseVo>() {
-    override fun areItemsTheSame(oldItem:CategoryListDataResponseVo, newItem: CategoryListDataResponseVo): Boolean = oldItem.categories == newItem.categories
+    override fun areItemsTheSame(oldItem:CategoryListDataResponseVo, newItem: CategoryListDataResponseVo): Boolean = oldItem == newItem
     override fun areContentsTheSame(oldItem: CategoryListDataResponseVo, newItem: CategoryListDataResponseVo): Boolean = oldItem == newItem
 }

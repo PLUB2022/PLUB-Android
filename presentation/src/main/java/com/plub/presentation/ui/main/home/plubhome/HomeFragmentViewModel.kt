@@ -4,13 +4,14 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.PlubHomeRecommendViewType
 import com.plub.domain.model.enums.HomeCategoryPlubType
 import com.plub.domain.model.enums.HomeCategoryViewType
-import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
 import com.plub.domain.model.vo.home.categorylistresponsevo.CategoryListDataResponseVo
 import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.ui.main.home.categoryChoice.CategoryGatheringViewModel
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +24,15 @@ class HomeFragmentViewModel @Inject constructor(
     val getRecommendationGatheringUsecase: GetRecommendationGatheringUsecase
 ) : BaseViewModel<HomePageState>(HomePageState()) {
 
-    fun fetchMainPageData() =
+    companion object {
+        private const val FIRST_PAGE = 1
+    }
+
+    private var pageNumber: Int = FIRST_PAGE
+    private var hasMoreCards: Boolean = true
+    private var isNetworkCall : Boolean = false
+
+    fun fetchHomePageData() =
         viewModelScope.launch {
             getCategoriesUseCase(Unit).collect { state ->
                 inspectUiState(state, ::handleGetCategoriesSuccess)
@@ -33,13 +42,24 @@ class HomeFragmentViewModel @Inject constructor(
                 inspectUiState(state, ::handleGetMyInterestSuccess)
             }
 
-            getRecommendationGatheringUsecase(0)
+            getRecommendationGatheringUsecase(pageNumber)
                 .collect { state ->
                     inspectUiState(state, ::handleGetRecommendGatheringSuccess)
                 }
         }
 
+    private fun fetchRecommendationGatheringData(){
+        isNetworkCall = true
+        viewModelScope.launch {
+            getRecommendationGatheringUsecase(pageNumber)
+                .collect { state ->
+                    inspectUiState(state, ::handleGetRecommendGatheringSuccess)
+                }
+        }
+    }
+
     private fun handleGetCategoriesSuccess(data : CategoryListDataResponseVo){
+        isNetworkCall = false
         val mergeList = getMergeList(data)
         updateUiState { ui->
             ui.copy(
@@ -64,12 +84,15 @@ class HomeFragmentViewModel @Inject constructor(
     }
 
     private fun handleGetRecommendGatheringSuccess(data : PlubCardListVo){
+        hasMoreCards = (pageNumber != data.totalPages)
         updateUiState { ui->
             ui.copy(
                 plubCardList = getList(data),
-                categoryOrPlub = HomeCategoryPlubType.RECOMMEND_GATHERING
+                categoryOrPlub = HomeCategoryPlubType.RECOMMEND_GATHERING,
+                isLoading = hasMoreCards
             )
         }
+        pageNumber++
     }
 
     private fun getList(it: PlubCardListVo): List<RecommendationGatheringResponseVo> {
@@ -88,6 +111,12 @@ class HomeFragmentViewModel @Inject constructor(
             content = it.content
         ))
         return list
+    }
+
+    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
+        if (!isNetworkCall && isBottom && isDownScroll && hasMoreCards) {
+            fetchRecommendationGatheringData()
+        }
     }
 
     fun clickBookmark(plubbingId : Int){

@@ -8,14 +8,14 @@ import com.plub.presentation.util.GlideUtil
 
 class HomeCategoryViewHolder (
     private val binding : IncludeItemHomeCategoryBinding,
-    private val listener : HomeCategoryParentAdapter.HomeCategoryDelegate
+    private val listener : HomeCategoryParentAdapter.HomeCategoryDelegate,
 ) : RecyclerView.ViewHolder(binding.root){
     private var categoryId : Int = 0
 
     init {
         binding.apply {
             constraintLayoutCategoryTouch.setOnClickListener {
-                listener.onClick(categoryId, textViewTitleCategory.text.toString())
+                listener.onCategoryClick(categoryId, textViewTitleCategory.text.toString())
             }
         }
     }

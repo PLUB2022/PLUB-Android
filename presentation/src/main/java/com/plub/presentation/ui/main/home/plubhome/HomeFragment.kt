@@ -4,8 +4,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.HomeCategoryPlubType
+import com.plub.domain.model.enums.PlubCardType
+import com.plub.domain.model.enums.PlubHomeRecommendViewType
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
+import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeCategoryParentAdapter
@@ -24,7 +28,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
 
     private val homeCategoryAdapter: HomeCategoryParentAdapter by lazy {
         HomeCategoryParentAdapter(object : HomeCategoryParentAdapter.HomeCategoryDelegate {
-            override fun onClick(categoryId: Int, categoryName: String) {
+            override fun onCategoryClick(categoryId: Int, categoryName: String) {
                 goToCategoryChoice(categoryId, categoryName)
             }
         })
@@ -56,7 +60,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
         binding.apply {
             vm = viewModel
         }
-        viewModel.fetchMainPageData()
+        viewModel.fetchHomePageData()
     }
 
     override fun initStates() {
@@ -92,20 +96,42 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
                 homeCategoryAdapter.submitList(data.categories)
             }
             HomeCategoryPlubType.RECOMMEND_GATHERING -> {
-                setDataRecycler(data.plubCardList)
+                setDataRecycler(data.plubCardList, data.isLoading)
             }
         }
     }
 
 
-    private fun setDataRecycler(data: List<RecommendationGatheringResponseVo>) {
+
+
+    private fun setDataRecycler(data: List<RecommendationGatheringResponseVo>, isLoading: Boolean) {
         val mConcatAdapter = ConcatAdapter()
-        recommendationListAdapter.submitList(data)
+        subListRecommendGatheringList(data, isLoading)
         mConcatAdapter.addAdapter(homeCategoryAdapter)
         mConcatAdapter.addAdapter(recommendationListAdapter)
         binding.recyclerViewMainPage.apply {
             layoutManager = LinearLayoutManager(context)
+            addOnScrollListener((object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val lastVisiblePosition = (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
+                    val isDownScroll = dy > 0
+                    viewModel.onScrollChanged(isBottom,isDownScroll)
+                }
+            }))
             adapter = mConcatAdapter
+        }
+    }
+
+    private fun subListRecommendGatheringList(list : List<RecommendationGatheringResponseVo>, isLoading : Boolean){
+        val loadingList = mutableListOf<RecommendationGatheringResponseVo>()
+        loadingList.add(RecommendationGatheringResponseVo(viewType = PlubHomeRecommendViewType.LOADING))
+        if(isLoading){
+            recommendationListAdapter.submitList(list + loadingList)
+        }
+        else{
+            recommendationListAdapter.submitList(list)
         }
     }
 

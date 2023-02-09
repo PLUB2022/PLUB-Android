@@ -10,9 +10,12 @@ import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGat
 import com.plub.presentation.databinding.IncludeItemLayoutHomeRecommendGatheringBinding
 import com.plub.presentation.databinding.IncludeItemLayoutHomeRecommendGatheringNoChoiceBinding
 import com.plub.presentation.databinding.IncludeItemHomeRecommendFirstBinding
+import com.plub.presentation.databinding.IncludeItemProgressBarBinding
+import com.plub.presentation.ui.main.home.plubhome.HomeFragmentViewModel
 import com.plub.presentation.ui.main.home.plubhome.viewholder.HomeRecommendFirstViewHolder
 import com.plub.presentation.ui.main.home.plubhome.viewholder.HomeRecommendViewHolder
 import com.plub.presentation.ui.main.home.plubhome.viewholder.HomeRecommendXViewHolder
+import com.plub.presentation.ui.main.home.progress.LoadingViewHolder
 
 
 class HomeRecommendGatheringAdapter(private val listener: HomeRecommendGatheringDelegate) : ListAdapter<RecommendationGatheringResponseVo, RecyclerView.ViewHolder>(
@@ -35,18 +38,22 @@ class HomeRecommendGatheringAdapter(private val listener: HomeRecommendGathering
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when(PlubHomeRecommendViewType.valueOf(viewType)){
+        return when(PlubHomeRecommendViewType.valueOf(viewType)){
             PlubHomeRecommendViewType.REGISTER_HOBBIES_VIEW -> {
                 val binding = IncludeItemLayoutHomeRecommendGatheringNoChoiceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return HomeRecommendXViewHolder(binding, listener)
+                HomeRecommendXViewHolder(binding, listener)
             }
             PlubHomeRecommendViewType.RECOMMEND_VIEW -> {
                 val binding = IncludeItemLayoutHomeRecommendGatheringBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return HomeRecommendViewHolder(binding, listener)
+                HomeRecommendViewHolder(binding, listener)
             }
             PlubHomeRecommendViewType.FIRST_VIEW -> {
                 val binding = IncludeItemHomeRecommendFirstBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return HomeRecommendFirstViewHolder(binding, listener)
+                HomeRecommendFirstViewHolder(binding, listener)
+            }
+            PlubHomeRecommendViewType.LOADING -> {
+                val binding = IncludeItemProgressBarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                LoadingViewHolder(binding)
             }
         }
     }

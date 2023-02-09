@@ -5,6 +5,7 @@ import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemPlubCardListBinding
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeRecommendGatheringAdapter
+import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.TimeFormatter
 
 class HomeRecommendListViewHolder(
@@ -42,7 +43,7 @@ class HomeRecommendListViewHolder(
         isBookmarked = item.isBookmarked
         plubbingId = item.id
         binding.apply {
-            //GlideUtil.loadImage(root.context, item.mainImage, imageViewMeet)
+            GlideUtil.loadImage(root.context, item.photo, imageViewBackground)
             if(isBookmarked){
                 imageViewBookmark.setImageResource(R.drawable.ic_bookmark_checked)
             }

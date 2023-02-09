@@ -10,5 +10,6 @@ data class HomePageState(
     val hasInterest : Boolean = false,
     val categories : List<CategoryListDataResponseVo> = emptyList(),
     val plubCardList : List<RecommendationGatheringResponseVo> = emptyList(),
-    val categoryOrPlub : HomeCategoryPlubType = HomeCategoryPlubType.CATEGORY
+    val categoryOrPlub : HomeCategoryPlubType = HomeCategoryPlubType.CATEGORY,
+    val isLoading : Boolean = true
 ): PageState
