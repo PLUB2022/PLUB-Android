@@ -4,7 +4,6 @@ import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccounts
 import com.plub.presentation.ui.PageState
 
 data class DetailRecruitPageState(
-    val plubId : Int = 0,
     val recruitTitle : String = "",
     val recruitIntroduce : String = "",
     val categories : List<String> = emptyList(),

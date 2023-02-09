@@ -9,7 +9,7 @@ import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccounts
 import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
 import com.plub.presentation.ui.home.plubing.recruitment.viewholder.DetailRecruitProfileViewHolder
 
-class DetailRecruitProfileAdapter(private val listener: DetailProfileDegelate) :
+class DetailRecruitProfileAdapter(private val listener: DetailProfileDelegate) :
     ListAdapter<RecruitDetailJoinedAccountsListVo, RecyclerView.ViewHolder>(
         DetailRecruitProfileDiffCallBack()
     ) {
@@ -18,15 +18,14 @@ class DetailRecruitProfileAdapter(private val listener: DetailProfileDegelate) :
         const val MAX_PROFILE = 8
     }
 
-    interface DetailProfileDegelate {
+    interface DetailProfileDelegate {
         fun onProfileClick(accountId: Int)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val nowNum = position + 1
         when (holder) {
             is DetailRecruitProfileViewHolder -> {
-                holder.bind(currentList[position], nowNum, currentList.size - position + 1)
+                holder.bind(currentList[position], position, currentList.size)
             }
         }
     }

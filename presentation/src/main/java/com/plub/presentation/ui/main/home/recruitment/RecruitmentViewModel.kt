@@ -22,6 +22,8 @@ class RecruitmentViewModel @Inject constructor(
         const val SEPARATOR_OF_DAY = ", "
     }
 
+    private var plubbingId : Int = 0
+
     fun fetchRecruitmentDetail(plubbingId : Int){
         viewModelScope.launch {
             getRecruitDetailUseCase(plubbingId).collect{ state ->
@@ -55,13 +57,13 @@ class RecruitmentViewModel @Inject constructor(
 
     fun clickBookmark(){
         viewModelScope.launch{
-            postBookmarkPlubRecruitUseCase(uiState.value.plubId).collect{
-                inspectUiState(it, ::bookMarkChange)
+            postBookmarkPlubRecruitUseCase(plubbingId).collect{
+                inspectUiState(it, ::successBookMarkChange)
             }
         }
     }
 
-    private fun bookMarkChange(data : PlubBookmarkResponseVo){
+    private fun successBookMarkChange(data : PlubBookmarkResponseVo){
         updateUiState { ui->
             ui.copy(
                 isBookmarked = data.isBookmarked
@@ -74,16 +76,16 @@ class RecruitmentViewModel @Inject constructor(
     }
 
 
-    fun updatePlubState(id : Int){
-        updateUiState {ui->
-            ui.copy(
-                plubId = id
-            )
-        }
+    fun setPlubId(id : Int){
+        plubbingId = id
     }
 
     fun goToBack(){
         emitEventFlow(RecruitEvent.GoToBack)
+    }
+
+    fun goToProfile(accountId : Int){
+        emitEventFlow(RecruitEvent.GoToProfileFragment(accountId))
     }
 
 }

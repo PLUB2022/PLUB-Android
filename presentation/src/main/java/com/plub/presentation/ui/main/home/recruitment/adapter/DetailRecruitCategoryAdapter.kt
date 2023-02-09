@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.plub.presentation.databinding.IncludeItemPlubbingSubHobbyBinding
 import com.plub.presentation.ui.home.plubing.recruitment.viewholder.DetailRecruitCategoryViewHolder
 
-class DetailRecruitCategoryAdapter() : ListAdapter<String, DetailRecruitCategoryViewHolder>(
+class DetailRecruitCategoryAdapter : ListAdapter<String, DetailRecruitCategoryViewHolder>(
     DetailRecruitCategoryDiffCallBack()
 ){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailRecruitCategoryViewHolder {

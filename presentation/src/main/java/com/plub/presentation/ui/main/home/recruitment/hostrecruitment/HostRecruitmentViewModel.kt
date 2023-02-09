@@ -55,14 +55,14 @@ class HostRecruitmentViewModel @Inject constructor(
 
     fun seeApplicants(){
         viewModelScope.launch {
-            getRecruitApplicantsUseCase(uiState.value.plubId)
+            //getRecruitApplicantsUseCase(uiState.value.plubId)
         }
         emitEventFlow(HostDetailPageEvent.GoToSeeApplicants)
     }
 
     fun endRecruit(){
         viewModelScope.launch {
-            putEndRecruitUseCase(uiState.value.plubId)
+            //putEndRecruitUseCase(uiState.value.plubId)
         }
         emitEventFlow(HostDetailPageEvent.GoToBack)
     }

@@ -20,7 +20,7 @@ class HostRecruitmentFragment :
         FragmentHostDetailRecruitmentPlubbingBinding::inflate
     ) {
     private val detailRecruitProfileAdapter: DetailRecruitProfileAdapter by lazy {
-        DetailRecruitProfileAdapter(object : DetailRecruitProfileAdapter.DetailProfileDegelate {
+        DetailRecruitProfileAdapter(object : DetailRecruitProfileAdapter.DetailProfileDelegate {
             override fun onProfileClick(accountId: Int) {
                 goToProfile(accountId)
             }

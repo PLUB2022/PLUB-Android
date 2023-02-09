@@ -5,10 +5,11 @@ import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccounts
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
+import com.plub.presentation.util.GlideUtil
 
 class DetailRecruitProfileViewHolder(
     private val binding: IncludeItemCircleProfileBinding,
-    private val listener: DetailRecruitProfileAdapter.DetailProfileDegelate
+    private val listener: DetailRecruitProfileAdapter.DetailProfileDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
     companion object {
@@ -23,11 +24,15 @@ class DetailRecruitProfileViewHolder(
         }
     }
 
-    fun bind(item: RecruitDetailJoinedAccountsListVo, nowNum: Int, peopleCount : Int) {
+    fun bind(item: RecruitDetailJoinedAccountsListVo, position: Int, allPeopleCount: Int) {
+        val nowNum = position + 1
+        val morePeopleCount = allPeopleCount - position
         binding.apply {
-            //imageViewProfile = item
             if (nowNum == MAX_PROFILE) {
-                textViewMoreProfileNumber.text = root.context.getString(R.string.detail_recruitment_profile_county, peopleCount)
+                textViewMoreProfileNumber.text = root.context.getString(R.string.detail_recruitment_profile_county, morePeopleCount)
+            }
+            else{
+                GlideUtil.loadImage(root.context, item.profileImage, imageViewProfile)
             }
             accountId = item.accountId
         }
