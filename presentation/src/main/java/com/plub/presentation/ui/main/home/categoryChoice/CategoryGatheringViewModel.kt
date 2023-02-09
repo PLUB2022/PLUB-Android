@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSortType
+import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
@@ -102,7 +103,28 @@ class CategoryGatheringViewModel @Inject constructor(
 
     fun clickBookmark(plubbingId: Int) {
         viewModelScope.launch {
-            postBookmarkPlubRecruitUseCase.invoke(plubbingId)
+            postBookmarkPlubRecruitUseCase(plubbingId).collect {
+                inspectUiState(it, ::postBookmarkSuccess)
+            }
+        }
+    }
+
+    private fun postBookmarkSuccess(vo: PlubBookmarkResponseVo) {
+        val list = uiState.value.cardList
+        val newList = list.map {
+            val bookmark = if (it.id == vo.id) vo.isBookmarked else it.isBookmarked
+            it.copy(
+                isBookmarked = bookmark
+            )
+        }
+        updateSearchList(newList)
+    }
+
+    private fun updateSearchList(list: List<PlubCardVo>) {
+        updateUiState { uiState ->
+            uiState.copy(
+                cardList = list
+            )
         }
     }
 
