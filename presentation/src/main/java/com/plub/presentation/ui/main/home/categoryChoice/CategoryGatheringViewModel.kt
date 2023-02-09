@@ -10,6 +10,7 @@ import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,11 +28,13 @@ class CategoryGatheringViewModel @Inject constructor(
     private var categoryId: Int = 0
     private var pageNumber: Int = FIRST_PAGE
     private var hasMoreCards: Boolean = true
+    private var isNetworkCall : Boolean = false
 
 
     fun fetchRecommendationGatheringData(id: Int) =
         viewModelScope.launch {
             categoryId = id
+            isNetworkCall = true
             categoriesGatheringUseCase(
                 CategoriesGatheringRequestVo(
                     categoryId,
@@ -45,6 +48,7 @@ class CategoryGatheringViewModel @Inject constructor(
 
     private fun fetchRecommendationGatheringData() =
         viewModelScope.launch {
+            isNetworkCall = true
             categoriesGatheringUseCase(
                 CategoriesGatheringRequestVo(
                     categoryId,
@@ -57,6 +61,7 @@ class CategoryGatheringViewModel @Inject constructor(
         }
 
     private fun successResult(vo: PlubCardListVo) {
+        isNetworkCall = false
         hasMoreCards = (pageNumber != vo.totalPages)
         val mappedList = mapToCardType(vo.content)
         val mergedList = getMergeList(mappedList)
@@ -68,12 +73,6 @@ class CategoryGatheringViewModel @Inject constructor(
             )
         }
         pageNumber++
-    }
-
-    fun scrollTop(){
-        if(pageNumber == FIRST_PAGE){
-            emitEventFlow(CategoryGatheringEvent.ScrollTop)
-        }
     }
 
     private fun mapToCardType(list: List<PlubCardVo>): List<PlubCardVo> {
@@ -93,6 +92,13 @@ class CategoryGatheringViewModel @Inject constructor(
             originList + mappedList
         }
     }
+
+    fun scrollTop(){
+        if(pageNumber == FIRST_PAGE){
+            emitEventFlow(CategoryGatheringEvent.ScrollTop)
+        }
+    }
+
 
     fun clickBookmark(plubbingId: Int) {
         viewModelScope.launch {
@@ -133,6 +139,14 @@ class CategoryGatheringViewModel @Inject constructor(
         }
     }
 
+    private fun updateSortType(sortType: PlubSortType) {
+        updateUiState { uiState ->
+            uiState.copy(
+                sortType = sortType
+            )
+        }
+    }
+
     fun onClickSortType(sortType: PlubSortType) {
         val menuItemType = when (sortType) {
             PlubSortType.POPULAR -> DialogMenuItemType.SORT_TYPE_POPULAR
@@ -142,22 +156,17 @@ class CategoryGatheringViewModel @Inject constructor(
         emitEventFlow(CategoryGatheringEvent.ShowSelectSortTypeBottomSheetDialog(menuItemType))
     }
 
+    fun goToDetailRecruitment(id : Int){
+        emitEventFlow(CategoryGatheringEvent.GoToRecruit(id))
+    }
+
     fun clickSearch() {
         emitEventFlow(CategoryGatheringEvent.GoToSearch)
     }
 
     fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && hasMoreCards) {
+        if (!isNetworkCall && isBottom && isDownScroll && hasMoreCards) {
             fetchRecommendationGatheringData()
         }
     }
-
-    private fun updateSortType(sortType: PlubSortType) {
-        updateUiState { uiState ->
-            uiState.copy(
-                sortType = sortType
-            )
-        }
-    }
-
 }

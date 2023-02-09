@@ -7,6 +7,7 @@ sealed class CategoryGatheringEvent : Event {
     object GoToBack : CategoryGatheringEvent()
     object GoToSearch : CategoryGatheringEvent()
     object GoToCreate : CategoryGatheringEvent()
+    data class GoToRecruit(val id : Int) : CategoryGatheringEvent()
     object ScrollTop : CategoryGatheringEvent()
     data class ShowSelectSortTypeBottomSheetDialog(val selectedItem: DialogMenuItemType) : CategoryGatheringEvent()
 }

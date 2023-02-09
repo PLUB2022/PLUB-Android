@@ -16,6 +16,7 @@ import com.plub.presentation.databinding.FragmentCategoryGatheringBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -31,7 +32,7 @@ class CategoryGatheringFragment :
             }
 
             override fun onClickPlubCard(id: Int) {
-                goToDetailRecruitment(id)
+                viewModel.goToDetailRecruitment(id)
             }
         })
     }
@@ -46,28 +47,10 @@ class CategoryGatheringFragment :
             initCategoryRecommendRecyclerView()
             textViewCategoryName.text = categoryChoiceFragmentArgs.categoryName
             includeDataEmpty.buttonGoCreateGathering.setOnClickListener {
-                goToCreateGatheringFragment()
+                viewModel.goToCreate()
             }
         }
         viewModel.fetchRecommendationGatheringData(categoryChoiceFragmentArgs.categoryId)
-    }
-
-    override fun initStates() {
-        super.initStates()
-        repeatOnStarted(viewLifecycleOwner) {
-            launch {
-                viewModel.uiState.collect{
-                    subListGatheringList(it.cardList, it.isLoading)
-                    setSortTypeText(it.sortType)
-                }
-            }
-
-            launch {
-                viewModel.eventFlow.collect{
-                    inspectEventFlow(it as CategoryGatheringEvent)
-                }
-            }
-        }
     }
 
     private fun initCategoryRecommendRecyclerView(){
@@ -95,6 +78,25 @@ class CategoryGatheringFragment :
         }
     }
 
+    override fun initStates() {
+        super.initStates()
+        repeatOnStarted(viewLifecycleOwner) {
+            launch {
+                viewModel.uiState.collect{
+                    subListGatheringList(it.cardList, it.isLoading)
+                    setSortTypeText(it.sortType)
+                }
+            }
+
+            launch {
+                viewModel.eventFlow.collect{
+                    inspectEventFlow(it as CategoryGatheringEvent)
+                }
+            }
+        }
+    }
+
+
     private fun subListGatheringList(list : List<PlubCardVo>, isLoading : Boolean){
         val loadingList = mutableListOf<PlubCardVo>()
         loadingList.add(PlubCardVo(viewType = PlubCardType.LOADING))
@@ -107,10 +109,12 @@ class CategoryGatheringFragment :
         viewModel.scrollTop()
     }
 
-    private fun goToDetailRecruitment(plubbingId : Int) {
-        val action =
-            CategoryGatheringFragmentDirections.actionCategoryGatheringToRecruitment(plubbingId)
-        findNavController().navigate(action)
+    private fun setSortTypeText(sortType: PlubSortType) {
+        val sortTypeRes = when (sortType) {
+            PlubSortType.POPULAR -> R.string.word_sort_type_popular
+            PlubSortType.NEW -> R.string.word_sort_type_new
+        }
+        binding.textViewSortType.text = getString(sortTypeRes)
     }
 
     private fun inspectEventFlow(event : CategoryGatheringEvent){
@@ -127,14 +131,13 @@ class CategoryGatheringFragment :
             is CategoryGatheringEvent.GoToCreate -> {
                 goToCreateGatheringFragment()
             }
+            is CategoryGatheringEvent.GoToRecruit ->{
+                goToDetailRecruitment(event.id)
+            }
             is CategoryGatheringEvent.ScrollTop ->{
                 recyclerScrollToTop()
             }
         }
-    }
-
-    private fun recyclerScrollToTop(){
-        binding.recyclerViewCategoryChoiceList.scrollToPosition(0)
     }
 
     private fun showSelectSortTypeDialog(selectedMenuType: DialogMenuItemType) {
@@ -149,14 +152,6 @@ class CategoryGatheringFragment :
         }.show(parentFragmentManager, "")
     }
 
-    private fun setSortTypeText(sortType: PlubSortType) {
-        val sortTypeRes = when (sortType) {
-            PlubSortType.POPULAR -> R.string.word_sort_type_popular
-            PlubSortType.NEW -> R.string.word_sort_type_new
-        }
-        binding.textViewSortType.text = getString(sortTypeRes)
-    }
-
     private fun goToSearchFragment() {
         val action = CategoryGatheringFragmentDirections.actionCategoryGatheringToSearching()
         findNavController().navigate(action)
@@ -165,5 +160,16 @@ class CategoryGatheringFragment :
     private fun goToCreateGatheringFragment() {
         val action = CategoryGatheringFragmentDirections.actionCategoryGatheringToCreateGathering()
         findNavController().navigate(action)
+    }
+
+    private fun goToDetailRecruitment(plubbingId : Int) {
+        val action =
+            CategoryGatheringFragmentDirections.actionCategoryGatheringToRecruitment(plubbingId)
+        findNavController().navigate(action)
+    }
+
+
+    private fun recyclerScrollToTop(){
+        binding.recyclerViewCategoryChoiceList.scrollToPosition(0)
     }
 }
