@@ -2,18 +2,11 @@ package com.plub.presentation.ui.main.home.plubhome
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.enums.HomeCategoryPlubType
-import com.plub.domain.model.enums.PlubCardType
-import com.plub.domain.model.enums.PlubHomeRecommendViewType
-import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
-import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
-import com.plub.presentation.ui.main.home.plubhome.adapter.HomeCategoryParentAdapter
-import com.plub.presentation.ui.main.home.plubhome.adapter.HomeRecommendGatheringAdapter
+import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -21,22 +14,18 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragmentViewModel>(
     FragmentHomeBinding::inflate
 ) {
-    companion object{
+    companion object {
         const val NOTHING_PLUBBING = 0
     }
+
     override val viewModel: HomeFragmentViewModel by viewModels()
 
-    private val homeCategoryAdapter: HomeCategoryParentAdapter by lazy {
-        HomeCategoryParentAdapter(object : HomeCategoryParentAdapter.HomeCategoryDelegate {
+    private val homeAdapter : HomeAdapter by lazy {
+        HomeAdapter(object : HomeAdapter.HomeDelegate {
             override fun onCategoryClick(categoryId: Int, categoryName: String) {
-                goToCategoryChoice(categoryId, categoryName)
+                viewModel.goToCategoryChoice(categoryId, categoryName)
             }
-        })
-    }
 
-    private val recommendationListAdapter: HomeRecommendGatheringAdapter by lazy {
-        HomeRecommendGatheringAdapter(object :
-            HomeRecommendGatheringAdapter.HomeRecommendGatheringDelegate {
             override fun onClickGoRecruitDetail(plubbingId: Int) {
                 goToRecruitmentFragment(plubbingId)
             }
@@ -53,12 +42,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
                 //Setting 이동
             }
         })
+
     }
 
     override fun initView() {
 
         binding.apply {
             vm = viewModel
+            setRecyclerAdapter()
         }
         viewModel.fetchHomePageData()
     }
@@ -73,67 +64,61 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
             }
             launch {
                 viewModel.eventFlow.collect {
-                    inspectEvent(it as PlubbingMainEvent)
+                    inspectEvent(it as PlubbingHomeEvent)
                 }
             }
         }
     }
 
-    private fun inspectEvent(event: PlubbingMainEvent) {
+    private fun inspectEvent(event: PlubbingHomeEvent) {
         when (event) {
-            is PlubbingMainEvent.GoToSearch -> {
+            is PlubbingHomeEvent.GoToSearch -> {
                 goToSearchFragment()
             }
-            is PlubbingMainEvent.GoToBookMark -> {
+            is PlubbingHomeEvent.GoToBookMark -> {
                 goToBookmarkFragment()
+            }
+            is PlubbingHomeEvent.GoToCategoryGathering -> {
+                goToCategoryChoice(event.categoryId, event.categoryName)
             }
         }
     }
 
     private fun submitList(data: HomePageState) {
-        when (data.categoryOrPlub) {
-            HomeCategoryPlubType.CATEGORY -> {
-                homeCategoryAdapter.submitList(data.categories)
-            }
-            HomeCategoryPlubType.RECOMMEND_GATHERING -> {
-                setDataRecycler(data.plubCardList, data.isLoading)
-            }
+        if(data.isVisible){
+            homeAdapter.submitList(data.homePlubList)
         }
     }
 
-
-
-
-    private fun setDataRecycler(data: List<RecommendationGatheringResponseVo>, isLoading: Boolean) {
-        val mConcatAdapter = ConcatAdapter()
-        subListRecommendGatheringList(data, isLoading)
-        mConcatAdapter.addAdapter(homeCategoryAdapter)
-        mConcatAdapter.addAdapter(recommendationListAdapter)
+    private fun setRecyclerAdapter() {
         binding.recyclerViewMainPage.apply {
             layoutManager = LinearLayoutManager(context)
             addOnScrollListener((object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    val lastVisiblePosition = (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val lastVisiblePosition =
+                        (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                     val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
                     val isDownScroll = dy > 0
-                    viewModel.onScrollChanged(isBottom,isDownScroll)
+                    viewModel.onScrollChanged(isBottom, isDownScroll)
                 }
             }))
-            adapter = mConcatAdapter
+            adapter = homeAdapter
         }
     }
 
-    private fun subListRecommendGatheringList(list : List<RecommendationGatheringResponseVo>, isLoading : Boolean){
-        val loadingList = mutableListOf<RecommendationGatheringResponseVo>()
-        loadingList.add(RecommendationGatheringResponseVo(viewType = PlubHomeRecommendViewType.LOADING))
-        if(isLoading){
-            recommendationListAdapter.submitList(list + loadingList)
-        }
-        else{
-            recommendationListAdapter.submitList(list)
-        }
-    }
+//    private fun subListRecommendGatheringList(
+//        list: List<RecommendationGatheringResponseVo>,
+//        isLoading: Boolean
+//    ) {
+//        val loadingList = mutableListOf<RecommendationGatheringResponseVo>()
+//        loadingList.add(RecommendationGatheringResponseVo(viewType = PlubHomeRecommendViewType.LOADING))
+//        if (isLoading) {
+//            recommendationListAdapter.submitList(list + loadingList)
+//        } else {
+//            recommendationListAdapter.submitList(list)
+//        }
+//    }
 
     private fun goToRegisterInterest() {
         val action = HomeFragmentDirections.actionMainToRegisterInterest()
@@ -142,7 +127,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
 
     private fun goToCategoryChoice(categoryId: Int, categoryName: String) {
         val action =
-            HomeFragmentDirections.actionMainToCategoryGathering(categoryId, NOTHING_PLUBBING, categoryName)
+            HomeFragmentDirections.actionMainToCategoryGathering(
+                categoryId,
+                NOTHING_PLUBBING,
+                categoryName
+            )
         findNavController().navigate(action)
     }
 

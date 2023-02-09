@@ -6,28 +6,252 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout_categoryTouch"
-        android:layout_width="74dp"
-        android:layout_height="80dp">
-        <ImageView
-            android:id="@+id/image_view_category"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:background="@color/transparent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/text_view_title_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal|center_vertical"
-            tools:text="테스트"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/image_view_category"
-            app:layout_constraintStart_toStartOf="@id/image_view_category"
-            app:layout_constraintTop_toBottomOf="@id/image_view_category" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_first_categoryTouch"
+            android:layout_width="74dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_second_categoryTouch"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_first_category"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_title_first_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/image_view_first_category"
+                app:layout_constraintStart_toStartOf="@id/image_view_first_category"
+                app:layout_constraintTop_toBottomOf="@id/image_view_first_category"
+                tools:text="테스트" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_second_categoryTouch"
+            android:layout_width="74dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_first_categoryTouch"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_third_categoryTouch"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_second_category"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_title_second_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/image_view_second_category"
+                app:layout_constraintStart_toStartOf="@id/image_view_second_category"
+                app:layout_constraintTop_toBottomOf="@id/image_view_second_category"
+                tools:text="테스트" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_third_categoryTouch"
+            android:layout_width="74dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_second_categoryTouch"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_fourth_categoryTouch"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_third_category"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_title_third_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/image_view_third_category"
+                app:layout_constraintStart_toStartOf="@id/image_view_third_category"
+                app:layout_constraintTop_toBottomOf="@id/image_view_third_category"
+                tools:text="테스트" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_fourth_categoryTouch"
+            android:layout_width="74dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_third_categoryTouch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_fourth_category"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_title_fourth_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/image_view_fourth_category"
+                app:layout_constraintStart_toStartOf="@id/image_view_fourth_category"
+                app:layout_constraintTop_toBottomOf="@id/image_view_fourth_category"
+                tools:text="테스트" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_fifth_categoryTouch"
+            android:layout_width="74dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_sixth_categoryTouch"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_first_categoryTouch">
+
+            <ImageView
+                android:id="@+id/image_view_fifth_category"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_title_fifth_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/image_view_fifth_category"
+                app:layout_constraintStart_toStartOf="@id/image_view_fifth_category"
+                app:layout_constraintTop_toBottomOf="@id/image_view_fifth_category"
+                tools:text="테스트" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_sixth_categoryTouch"
+            android:layout_width="74dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_fifth_categoryTouch"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_seventh_categoryTouch"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_second_categoryTouch">
+
+            <ImageView
+                android:id="@+id/image_view_sixth_category"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_title_sixth_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sixth_category"
+                app:layout_constraintStart_toStartOf="@id/image_view_sixth_category"
+                app:layout_constraintTop_toBottomOf="@id/image_view_sixth_category"
+                tools:text="테스트" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_seventh_categoryTouch"
+            android:layout_width="74dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_sixth_categoryTouch"
+            app:layout_constraintEnd_toStartOf="@id/constraint_layout_eighth_categoryTouch"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_third_categoryTouch"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/image_view_seventh_category"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_title_seventh_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/image_view_seventh_category"
+                app:layout_constraintStart_toStartOf="@id/image_view_seventh_category"
+                app:layout_constraintTop_toBottomOf="@id/image_view_seventh_category"
+                tools:text="테스트" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_eighth_categoryTouch"
+            android:layout_width="74dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@id/constraint_layout_seventh_categoryTouch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_fourth_categoryTouch"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/image_view_eighth_category"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_title_eighth_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/image_view_eighth_category"
+                app:layout_constraintStart_toStartOf="@id/image_view_eighth_category"
+                app:layout_constraintTop_toBottomOf="@id/image_view_eighth_category"
+                tools:text="테스트" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
