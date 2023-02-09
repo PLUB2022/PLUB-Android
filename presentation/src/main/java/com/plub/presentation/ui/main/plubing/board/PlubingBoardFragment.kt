@@ -4,23 +4,25 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingBoardBinding
-import com.plub.presentation.ui.main.home.search.SearchingEvent
+import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PlubingBoardFragment : BaseFragment<FragmentPlubingBoardBinding, PlubingBoardPageState, PlubingBoardViewModel>(
-    FragmentPlubingBoardBinding::inflate
-) {
+class PlubingBoardFragment :
+    BaseFragment<FragmentPlubingBoardBinding, PlubingBoardPageState, PlubingBoardViewModel>(
+        FragmentPlubingBoardBinding::inflate
+    ) {
 
     companion object {
         private const val KEY_PLUBING_ID = "KEY_PLUBING_ID"
 
-        fun newInstance(plubindId:Int) = PlubingBoardFragment().apply {
+        fun newInstance(plubindId: Int) = PlubingBoardFragment().apply {
             arguments = Bundle().apply {
                 putInt(KEY_PLUBING_ID, plubindId)
             }
@@ -37,8 +39,8 @@ class PlubingBoardFragment : BaseFragment<FragmentPlubingBoardBinding, PlubingBo
                 viewModel.onClickClipBoard()
             }
 
-            override fun onClickNormalBoard(id: Int, isHost: Boolean, isAuthor: Boolean) {
-                viewModel.onClickNormalBoard(id, isHost, isAuthor)
+            override fun onClickNormalBoard(id: Int) {
+                viewModel.onClickNormalBoard(id)
             }
 
             override fun onLongClickNormalBoard(id: Int, isHost: Boolean, isAuthor: Boolean) {
@@ -60,13 +62,14 @@ class PlubingBoardFragment : BaseFragment<FragmentPlubingBoardBinding, PlubingBo
                 layoutManager = LinearLayoutManager(context)
                 adapter = boardListAdapter
 
-                addOnScrollListener(object: RecyclerView.OnScrollListener() {
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                         super.onScrolled(recyclerView, dx, dy)
-                        val lastVisiblePosition = (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                        val lastVisiblePosition =
+                            (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                         val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
                         val isDownScroll = dy > 0
-                        viewModel.onScrollChanged(isBottom,isDownScroll, plubingId)
+                        viewModel.onScrollChanged(isBottom, isDownScroll, plubingId)
                     }
                 })
             }
@@ -98,6 +101,16 @@ class PlubingBoardFragment : BaseFragment<FragmentPlubingBoardBinding, PlubingBo
             is PlubingBoardEvent.NotifyClipBoardChanged -> {
                 boardListAdapter.notifyClipBoard()
             }
+
+            is PlubingBoardEvent.ShowMenuBottomSheetDialog -> {
+                showMenuBottomSheetDialog(event.id, event.menuType)
+            }
         }
+    }
+
+    private fun showMenuBottomSheetDialog(id:Int, menuType: DialogMenuType) {
+        SelectMenuBottomSheetDialog.newInstance(menuType) {
+            viewModel.onClickMenuItemType(id, it)
+        }.show(parentFragmentManager, "")
     }
 }

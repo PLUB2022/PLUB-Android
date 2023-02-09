@@ -17,7 +17,7 @@ class PlubingBoardNormalViewHolder(
     init {
         binding.root.setOnClickListener {
             vo?.let {
-                listener.onClickNormalBoard(it.feedId, it.isHost, it.isAuthor)
+                listener.onClickNormalBoard(it.feedId)
             }
         }
 

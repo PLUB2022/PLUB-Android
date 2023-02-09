@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.main.plubing.board
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.DialogMenuItemType
+import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubingBoardType
 import com.plub.domain.model.vo.board.FetchPlubingBoardRequestVo
 import com.plub.domain.model.vo.board.PlubingBoardListVo
@@ -28,20 +30,36 @@ class PlubingBoardViewModel @Inject constructor(
         private const val FIRST_PAGE = 1
     }
 
-    private var isNetworkCall:Boolean = false
-    private var isLastPage:Boolean = false
-    private var page:Int = FIRST_PAGE
+    private var isNetworkCall: Boolean = false
+    private var isLastPage: Boolean = false
+    private var page: Int = FIRST_PAGE
+
+    fun onClickMenuItemType(id: Int, item: DialogMenuItemType) {
+        when (item) {
+            DialogMenuItemType.BOARD_FIX_CLIP -> boardFixClip(id)
+            DialogMenuItemType.BOARD_REPORT -> boardReport(id)
+            DialogMenuItemType.BOARD_EDIT -> boardEdit(id)
+            DialogMenuItemType.BOARD_DELETE -> boardDelete(id)
+            else -> Unit
+        }
+    }
 
     fun onClickClipBoard() {
 
     }
 
-    fun onClickNormalBoard(id:Int, isHost: Boolean, isAuthor: Boolean) {
+    fun onClickNormalBoard(id: Int) {
 
     }
 
-    fun onLongClickNormalBoard(id:Int, isHost: Boolean, isAuthor: Boolean) {
-
+    fun onLongClickNormalBoard(id: Int, isHost: Boolean, isAuthor: Boolean) {
+        val menuType = when {
+            isHost && isAuthor -> DialogMenuType.BOARD_LIST_HOST_AND_AUTHOR_TYPE
+            isHost -> DialogMenuType.BOARD_LIST_HOST_TYPE
+            isAuthor -> DialogMenuType.BOARD_AUTHOR_TYPE
+            else -> DialogMenuType.BOARD_COMMON_TYPE
+        }
+        emitEventFlow(PlubingBoardEvent.ShowMenuBottomSheetDialog(id, menuType))
     }
 
     fun onFetchClipBoardList(plubingId: Int) {
@@ -58,15 +76,15 @@ class PlubingBoardViewModel @Inject constructor(
         }
     }
 
-    fun onScrollChanged(isBottom:Boolean, isDownScroll:Boolean, plubingId: Int) {
-        if(isBottom && isDownScroll && !isLastPage && !isNetworkCall) viewModelScope.launch {
+    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean, plubingId: Int) {
+        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) viewModelScope.launch {
             isNetworkCall = true
             fetchPlubingBoardList(plubingId)
         }
     }
 
     private suspend fun fetchPlubingBoardList(plubingId: Int) {
-        val requestVo = FetchPlubingBoardRequestVo(page,plubingId)
+        val requestVo = FetchPlubingBoardRequestVo(page, plubingId)
         fetchPlubingBoardUseCase(requestVo).collect {
             inspectUiState(it, ::onSuccessFetchPlubingBoardList)
         }
@@ -108,7 +126,10 @@ class PlubingBoardViewModel @Inject constructor(
         emitEventFlow(PlubingBoardEvent.NotifyClipBoardChanged)
     }
 
-    private fun getClipBoardList(boardList: List<PlubingBoardVo>, isClipBoardVisible: Boolean): List<PlubingBoardVo> {
+    private fun getClipBoardList(
+        boardList: List<PlubingBoardVo>,
+        isClipBoardVisible: Boolean
+    ): List<PlubingBoardVo> {
         val hasClipBoard = boardList.firstOrNull()?.viewType == PlubingBoardType.CLIP_BOARD
         val clipBoardVo = PlubingBoardVo(viewType = PlubingBoardType.CLIP_BOARD)
         return boardList.toMutableList().apply {
@@ -118,4 +139,9 @@ class PlubingBoardViewModel @Inject constructor(
             }
         }
     }
+
+    private fun boardFixClip(id: Int) {}
+    private fun boardReport(id: Int) {}
+    private fun boardDelete(id: Int) {}
+    private fun boardEdit(id: Int) {}
 }
