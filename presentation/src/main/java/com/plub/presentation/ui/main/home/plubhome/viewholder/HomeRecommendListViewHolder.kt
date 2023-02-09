@@ -4,12 +4,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemPlubCardListBinding
-import com.plub.presentation.ui.main.home.plubhome.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.ui.main.home.plubhome.adapter.HomeRecommendGatheringAdapter
 import com.plub.presentation.util.TimeFormatter
 
 class HomeRecommendListViewHolder(
     private val binding: IncludeItemPlubCardListBinding,
-    private val listener : MainRecommendGatheringAdapter.MainRecommendGatheringDelegate
+    private val listener : HomeRecommendGatheringAdapter.HomeRecommendGatheringDelegate
 ): RecyclerView.ViewHolder(binding.root){
     private var isBookmarked = false
     private var plubbingId = 0

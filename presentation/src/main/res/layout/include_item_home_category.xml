@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout_categoryTouch"
         android:layout_width="74dp"
-        android:layout_height="90dp">
+        android:layout_height="80dp">
         <ImageView
             android:id="@+id/image_view_category"
             android:layout_width="64dp"

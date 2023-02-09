@@ -3,7 +3,9 @@ package com.plub.presentation.ui.main.home.plubhome
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.PlubHomeRecommendViewType
 import com.plub.domain.model.enums.HomeCategoryPlubType
-import com.plub.domain.model.vo.home.CategoryListResponseVo
+import com.plub.domain.model.enums.HomeCategoryViewType
+import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
+import com.plub.domain.model.vo.home.categorylistresponsevo.CategoryListDataResponseVo
 import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponseVo
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
@@ -37,13 +39,20 @@ class HomeFragmentViewModel @Inject constructor(
                 }
         }
 
-    private fun handleGetCategoriesSuccess(data : CategoryListResponseVo){
+    private fun handleGetCategoriesSuccess(data : CategoryListDataResponseVo){
+        val mergeList = getMergeList(data)
         updateUiState { ui->
             ui.copy(
-                categoryVo = data.data,
+                categories = mergeList,
                 categoryOrPlub = HomeCategoryPlubType.CATEGORY
             )
         }
+    }
+
+    private fun getMergeList(data : CategoryListDataResponseVo) : List<CategoryListDataResponseVo>{
+        val firstViewList = mutableListOf<CategoryListDataResponseVo>()
+        firstViewList.add(CategoryListDataResponseVo(viewType = HomeCategoryViewType.FIRST_VIEW))
+        return firstViewList + data
     }
 
     private fun handleGetMyInterestSuccess(data : RegisterInterestResponseVo){

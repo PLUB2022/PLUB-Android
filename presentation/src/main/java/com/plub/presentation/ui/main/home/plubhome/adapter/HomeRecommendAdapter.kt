@@ -10,7 +10,7 @@ import com.plub.presentation.databinding.IncludeItemPlubCardListBinding
 import com.plub.presentation.ui.main.home.plubhome.viewholder.HomeRecommendListViewHolder
 
 
-class MainRecommendAdapter(private val listener: MainRecommendGatheringAdapter.MainRecommendGatheringDelegate) : ListAdapter<PlubCardVo, RecyclerView.ViewHolder>(
+class HomeRecommendAdapter(private val listener: HomeRecommendGatheringAdapter.HomeRecommendGatheringDelegate) : ListAdapter<PlubCardVo, RecyclerView.ViewHolder>(
     MainGatheringDiffCallBack()
 ){
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

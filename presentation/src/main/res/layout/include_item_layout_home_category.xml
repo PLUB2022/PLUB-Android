@@ -8,24 +8,12 @@
         android:layout_height="wrap_content"
         android:background="@color/color_f5f3f6">
 
-        <TextView
-            android:layout_width="176dp"
-            android:layout_height="58dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="37dp"
-            android:gravity="center_vertical"
-            android:text="@string/main_title"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_main_category"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="119dp"
-            android:layout_marginEnd="17dp"
+            android:layout_marginHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

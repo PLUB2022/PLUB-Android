@@ -211,7 +211,7 @@
     <string name="detail_recruitment_profile_county">+%d</string>
     <string name="detail_recruitment_with_us">With_Us!</string>
 
-    <string name="main_title">좋아하는 분야에서 모임을 시작하세요!</string>
+    <string name="main_title">좋아하는 분야에서\n모임을 시작하세요!</string>
 
     <string name="main_recommend_gathering">추천 모임</string>
     <string name="main_recommend_no_interests_title">플럽이 추천하는 모임!</string>

@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.home.plubhome.adapter.MainRecommendGatheringAdapter" />
+            type="com.plub.presentation.ui.main.home.plubhome.adapter.HomeRecommendGatheringAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,10 +16,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_recommend_meet_list"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:clipToPadding="false"
+            android:layout_marginHorizontal="12dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

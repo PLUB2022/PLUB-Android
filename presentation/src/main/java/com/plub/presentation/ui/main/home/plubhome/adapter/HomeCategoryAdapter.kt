@@ -5,33 +5,30 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.categorylistresponsevo.CategoryListDataResponseVo
-import com.plub.presentation.databinding.IncludeItemLayoutHomeCategoryBinding
-import com.plub.presentation.ui.main.home.plubhome.viewholder.HomeCategoryParentViewHoler
+import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
+import com.plub.presentation.databinding.IncludeItemHomeCategoryBinding
+import com.plub.presentation.ui.main.home.plubhome.viewholder.HomeCategoryViewHolder
 
 
-class MainCategoryAdapter(private val listener: MainCategoryDelegate) : ListAdapter<CategoryListDataResponseVo, RecyclerView.ViewHolder>(
-    MainCategoryDiffCallBack()
+class HomeCategoryAdapter(private val listener: HomeCategoryParentAdapter.HomeCategoryDelegate) : ListAdapter<CategoriesDataResponseVo, RecyclerView.ViewHolder>(
+    MainCategoryItemDiffCallBack()
 ){
-
-    interface MainCategoryDelegate {
-        fun onClick(categoryId: Int, categoryName : String)
-    }
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HomeCategoryParentViewHoler -> holder.bind(currentList[position])
+            is HomeCategoryViewHolder -> holder.bind(currentList[position])
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = IncludeItemLayoutHomeCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return HomeCategoryParentViewHoler(binding, listener)
+        val binding = IncludeItemHomeCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return HomeCategoryViewHolder(binding, listener)
     }
 
 }
 
-class MainCategoryDiffCallBack : DiffUtil.ItemCallback<CategoryListDataResponseVo>() {
-    override fun areItemsTheSame(oldItem:CategoryListDataResponseVo, newItem: CategoryListDataResponseVo): Boolean = oldItem.categories == newItem.categories
-    override fun areContentsTheSame(oldItem: CategoryListDataResponseVo, newItem: CategoryListDataResponseVo): Boolean = oldItem == newItem
+
+
+class MainCategoryItemDiffCallBack : DiffUtil.ItemCallback<CategoriesDataResponseVo>() {
+    override fun areItemsTheSame(oldItem: CategoriesDataResponseVo, newItem: CategoriesDataResponseVo): Boolean = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: CategoriesDataResponseVo, newItem: CategoriesDataResponseVo): Boolean = oldItem == newItem
 }

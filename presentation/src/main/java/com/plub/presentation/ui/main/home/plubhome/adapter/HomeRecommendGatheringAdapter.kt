@@ -15,10 +15,10 @@ import com.plub.presentation.ui.main.home.plubhome.viewholder.HomeRecommendViewH
 import com.plub.presentation.ui.main.home.plubhome.viewholder.HomeRecommendXViewHolder
 
 
-class MainRecommendGatheringAdapter(private val listener: MainRecommendGatheringDelegate) : ListAdapter<RecommendationGatheringResponseVo, RecyclerView.ViewHolder>(
+class HomeRecommendGatheringAdapter(private val listener: HomeRecommendGatheringDelegate) : ListAdapter<RecommendationGatheringResponseVo, RecyclerView.ViewHolder>(
     MainRecommendGatheringDiffCallBack()
 ){
-    interface MainRecommendGatheringDelegate {
+    interface HomeRecommendGatheringDelegate {
         fun onClickGoRecruitDetail(plubbingId : Int)
         fun onClickBookmark(plubbingId: Int)
         fun onClickRegister()

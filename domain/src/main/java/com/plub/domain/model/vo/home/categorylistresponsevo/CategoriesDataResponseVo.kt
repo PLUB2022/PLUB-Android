@@ -5,5 +5,5 @@ import com.plub.domain.model.DomainModel
 data class CategoriesDataResponseVo(
     val id : Int = 0,
     val name : String = "",
-    val icon : String = ""
+    val icon : String = "",
 ) : DomainModel

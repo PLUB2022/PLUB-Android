@@ -8,8 +8,8 @@ import com.plub.domain.model.enums.HomeCategoryPlubType
 import com.plub.domain.model.vo.home.recommendationgatheringvo.RecommendationGatheringResponseVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
-import com.plub.presentation.ui.main.home.plubhome.adapter.MainCategoryAdapter
-import com.plub.presentation.ui.main.home.plubhome.adapter.MainRecommendGatheringAdapter
+import com.plub.presentation.ui.main.home.plubhome.adapter.HomeCategoryParentAdapter
+import com.plub.presentation.ui.main.home.plubhome.adapter.HomeRecommendGatheringAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -22,17 +22,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
     }
     override val viewModel: HomeFragmentViewModel by viewModels()
 
-    private val mainCategoryAdapter: MainCategoryAdapter by lazy {
-        MainCategoryAdapter(object : MainCategoryAdapter.MainCategoryDelegate {
+    private val homeCategoryAdapter: HomeCategoryParentAdapter by lazy {
+        HomeCategoryParentAdapter(object : HomeCategoryParentAdapter.HomeCategoryDelegate {
             override fun onClick(categoryId: Int, categoryName: String) {
                 goToCategoryChoice(categoryId, categoryName)
             }
         })
     }
 
-    private val recommendationListAdapter: MainRecommendGatheringAdapter by lazy {
-        MainRecommendGatheringAdapter(object :
-            MainRecommendGatheringAdapter.MainRecommendGatheringDelegate {
+    private val recommendationListAdapter: HomeRecommendGatheringAdapter by lazy {
+        HomeRecommendGatheringAdapter(object :
+            HomeRecommendGatheringAdapter.HomeRecommendGatheringDelegate {
             override fun onClickGoRecruitDetail(plubbingId: Int) {
                 goToRecruitmentFragment(plubbingId)
             }
@@ -89,7 +89,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
     private fun submitList(data: HomePageState) {
         when (data.categoryOrPlub) {
             HomeCategoryPlubType.CATEGORY -> {
-                mainCategoryAdapter.submitList(arrayListOf(data.categoryVo))
+                homeCategoryAdapter.submitList(data.categories)
             }
             HomeCategoryPlubType.RECOMMEND_GATHERING -> {
                 setDataRecycler(data.plubCardList)
@@ -101,7 +101,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
     private fun setDataRecycler(data: List<RecommendationGatheringResponseVo>) {
         val mConcatAdapter = ConcatAdapter()
         recommendationListAdapter.submitList(data)
-        mConcatAdapter.addAdapter(mainCategoryAdapter)
+        mConcatAdapter.addAdapter(homeCategoryAdapter)
         mConcatAdapter.addAdapter(recommendationListAdapter)
         binding.recyclerViewMainPage.apply {
             layoutManager = LinearLayoutManager(context)
