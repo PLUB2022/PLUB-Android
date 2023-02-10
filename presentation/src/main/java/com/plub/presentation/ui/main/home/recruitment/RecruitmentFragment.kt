@@ -49,7 +49,6 @@ class RecruitmentFragment :
 
         binding.apply {
             vm = viewModel
-            viewModel.setPlubId(recruitmentFragmentArgs.plubbingId)
             viewModel.fetchRecruitmentDetail(recruitmentFragmentArgs.plubbingId)
         }
     }
@@ -120,5 +119,4 @@ class RecruitmentFragment :
         val bottomSheet = ProfileBottomSheetFragment(joinedAccountList)
         bottomSheet.show(childFragmentManager, bottomSheet.tag)
     }
-
 }

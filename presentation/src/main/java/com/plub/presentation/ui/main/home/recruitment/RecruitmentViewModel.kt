@@ -24,7 +24,8 @@ class RecruitmentViewModel @Inject constructor(
 
     private var plubbingId : Int = 0
 
-    fun fetchRecruitmentDetail(plubbingId : Int){
+    fun fetchRecruitmentDetail(Id : Int){
+        plubbingId = Id
         viewModelScope.launch {
             getRecruitDetailUseCase(plubbingId).collect{ state ->
                 inspectUiState(state, ::handleSuccessGetRecruitDetail)
@@ -73,11 +74,6 @@ class RecruitmentViewModel @Inject constructor(
 
     fun goToApplyPlubbingFragment(){
         emitEventFlow(RecruitEvent.GoToApplyPlubbingFragment)
-    }
-
-
-    fun setPlubId(id : Int){
-        plubbingId = id
     }
 
     fun goToBack(){

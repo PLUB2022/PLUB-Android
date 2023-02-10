@@ -4,12 +4,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHostDetailRecruitmentPlubbingBinding
 import com.plub.presentation.ui.main.home.recruitment.DetailRecruitPageState
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
+import com.plub.presentation.ui.main.home.recruitment.bottomsheet.ProfileBottomSheetFragment
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -26,7 +28,7 @@ class HostRecruitmentFragment :
             }
 
             override fun onSeeMoreProfileClick() {
-                //
+                viewModel.openBottomSheet()
             }
 
         })
@@ -92,6 +94,14 @@ class HostRecruitmentFragment :
             is HostDetailPageEvent.GoToSeeApplicants->{
 
             }
+            is HostDetailPageEvent.OpenBottomSheet -> {
+                openProfileBottomSheet(event.joinedAccountsList)
+            }
         }
+    }
+
+    private fun openProfileBottomSheet(joinedAccountList : List<RecruitDetailJoinedAccountsListVo>){
+        val bottomSheet = ProfileBottomSheetFragment(joinedAccountList)
+        bottomSheet.show(childFragmentManager, bottomSheet.tag)
     }
 }
