@@ -1,11 +1,14 @@
 package com.plub.data.api
 
 import com.plub.data.base.ApiResponse
+import com.plub.data.base.DataDto
 import com.plub.data.dto.board.PlubingBoardListResponse
 import com.plub.data.dto.board.PlubingPinListResponse
 import com.plub.data.dto.plub.PlubingMainResponse
 import retrofit2.Response
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -16,4 +19,10 @@ interface PlubingBoardApi {
 
     @GET(Endpoints.PLUBBING.BOARD.PINS)
     suspend fun getPinList(@Path("plubbingId") plubbingId:Int): Response<ApiResponse<PlubingPinListResponse>>
+
+    @PUT(Endpoints.PLUBBING.BOARD.CHANGE_PIN)
+    suspend fun changePin(@Path("feedId") feedId:Int): Response<ApiResponse<DataDto.DTO>>
+
+    @DELETE(Endpoints.PLUBBING.BOARD.DELETE_FEED)
+    suspend fun deletePlubing(@Path("feedId") feedId:Int): Response<ApiResponse<DataDto.DTO>>
 }

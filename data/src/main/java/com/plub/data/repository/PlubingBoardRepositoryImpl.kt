@@ -4,6 +4,7 @@ import com.plub.data.api.PlubingBoardApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.PlubingBoardListResponseMapper
 import com.plub.data.mapper.PlubingPinListResponseMapper
+import com.plub.data.mapper.UnitResponseMapper
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.board.FetchPlubingBoardRequestVo
 import com.plub.domain.model.vo.board.PlubingBoardListVo
@@ -20,5 +21,13 @@ class PlubingBoardRepositoryImpl @Inject constructor(private val boardApi: Plubi
 
     override suspend fun getPlubingPinList(id: Int): Flow<UiState<List<PlubingBoardVo>>> {
         return apiLaunch(boardApi.getPinList(id), PlubingPinListResponseMapper)
+    }
+
+    override suspend fun changePlubingPin(id: Int): Flow<UiState<Unit>> {
+        return apiLaunch(boardApi.changePin(id), UnitResponseMapper)
+    }
+
+    override suspend fun deletePlubing(id: Int): Flow<UiState<Unit>> {
+        return apiLaunch(boardApi.deletePlubing(id), UnitResponseMapper)
     }
 }

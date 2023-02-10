@@ -167,4 +167,16 @@ object UseCaseModule {
     fun providesFetchPlubingPinsUseCase(repository: PlubingBoardRepository): FetchPlubingPinsUseCase {
         return FetchPlubingPinsUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesPutPlubingBoardPinChangeUseCase(repository: PlubingBoardRepository): PutPlubingBoardPinChangeUseCase {
+        return PutPlubingBoardPinChangeUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesDeletePlubingBoardUseCase(repository: PlubingBoardRepository): DeletePlubingBoardUseCase {
+        return DeletePlubingBoardUseCase(repository)
+    }
 }

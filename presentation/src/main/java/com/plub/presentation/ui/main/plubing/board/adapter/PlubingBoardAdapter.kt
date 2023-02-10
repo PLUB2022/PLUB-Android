@@ -22,8 +22,8 @@ class PlubingBoardAdapter(
 
     interface Delegate {
         fun onClickClipBoard()
-        fun onLongClickNormalBoard(id:Int, isHost:Boolean, isAuthor:Boolean)
-        fun onClickNormalBoard(id:Int)
+        fun onLongClickNormalBoard(feedId:Int, isHost:Boolean, isAuthor:Boolean)
+        fun onClickNormalBoard(feedId:Int)
         val clipBoardList:List<PlubingBoardVo>
     }
 

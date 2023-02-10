@@ -39,12 +39,12 @@ class PlubingBoardFragment :
                 viewModel.onClickClipBoard()
             }
 
-            override fun onClickNormalBoard(id: Int) {
-                viewModel.onClickNormalBoard(id)
+            override fun onClickNormalBoard(feedId: Int) {
+                viewModel.onClickNormalBoard(feedId)
             }
 
-            override fun onLongClickNormalBoard(id: Int, isHost: Boolean, isAuthor: Boolean) {
-                viewModel.onLongClickNormalBoard(id, isHost, isAuthor)
+            override fun onLongClickNormalBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
+                viewModel.onLongClickNormalBoard(feedId, isHost, isAuthor)
             }
 
             override val clipBoardList: List<PlubingBoardVo>
@@ -69,13 +69,14 @@ class PlubingBoardFragment :
                             (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                         val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
                         val isDownScroll = dy > 0
-                        viewModel.onScrollChanged(isBottom, isDownScroll, plubingId)
+                        viewModel.onScrollChanged(isBottom, isDownScroll)
                     }
                 })
             }
         }
-        viewModel.onFetchBoardList(plubingId)
-        viewModel.onFetchClipBoardList(plubingId)
+        viewModel.setPlubbingId(plubingId)
+        viewModel.onFetchBoardList()
+        viewModel.onFetchClipBoardList()
     }
 
     override fun initStates() {
@@ -105,6 +106,9 @@ class PlubingBoardFragment :
             is PlubingBoardEvent.ShowMenuBottomSheetDialog -> {
                 showMenuBottomSheetDialog(event.id, event.menuType)
             }
+
+            is PlubingBoardEvent.GoToEditBoard -> Unit
+            is PlubingBoardEvent.GoToReportBoard -> Unit
         }
     }
 

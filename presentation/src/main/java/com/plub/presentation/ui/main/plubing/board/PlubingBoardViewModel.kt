@@ -7,19 +7,20 @@ import com.plub.domain.model.enums.PlubingBoardType
 import com.plub.domain.model.vo.board.FetchPlubingBoardRequestVo
 import com.plub.domain.model.vo.board.PlubingBoardListVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
-import com.plub.domain.model.vo.plub.PlubCardListVo
-import com.plub.domain.model.vo.plub.PlubCardVo
+import com.plub.domain.usecase.DeletePlubingBoardUseCase
 import com.plub.domain.usecase.FetchPlubingBoardUseCase
 import com.plub.domain.usecase.FetchPlubingPinsUseCase
+import com.plub.domain.usecase.PutPlubingBoardPinChangeUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.main.home.search.SearchingEvent
-import com.plub.presentation.ui.main.home.search.SearchingViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 class PlubingBoardViewModel @Inject constructor(
+    val putPlubingBoardPinChangeUseCase: PutPlubingBoardPinChangeUseCase,
+    val deletePlubingBoardUseCase: DeletePlubingBoardUseCase,
     val fetchPlubingBoardUseCase: FetchPlubingBoardUseCase,
     val fetchPlubingPinsUseCase: FetchPlubingPinsUseCase,
 ) : BaseViewModel<PlubingBoardPageState>(PlubingBoardPageState()) {
@@ -30,16 +31,26 @@ class PlubingBoardViewModel @Inject constructor(
         private const val FIRST_PAGE = 1
     }
 
+    private var plubingId by Delegates.notNull<Int>()
     private var isNetworkCall: Boolean = false
     private var isLastPage: Boolean = false
     private var page: Int = FIRST_PAGE
 
-    fun onClickMenuItemType(id: Int, item: DialogMenuItemType) {
+    fun setPlubbingId(plubingId: Int) {
+        this.plubingId = plubingId
+    }
+
+    fun onClickMenuItemType(feedId: Int, item: DialogMenuItemType) {
         when (item) {
-            DialogMenuItemType.BOARD_FIX_CLIP -> boardFixClip(id)
-            DialogMenuItemType.BOARD_REPORT -> boardReport(id)
-            DialogMenuItemType.BOARD_EDIT -> boardEdit(id)
-            DialogMenuItemType.BOARD_DELETE -> boardDelete(id)
+            DialogMenuItemType.BOARD_FIX_CLIP -> boardFixClip(feedId)
+            DialogMenuItemType.BOARD_DELETE -> boardDelete(feedId)
+            DialogMenuItemType.BOARD_REPORT -> emitEventFlow(
+                PlubingBoardEvent.GoToReportBoard(
+                    feedId
+                )
+            )
+
+            DialogMenuItemType.BOARD_EDIT -> emitEventFlow(PlubingBoardEvent.GoToEditBoard(feedId))
             else -> Unit
         }
     }
@@ -48,42 +59,42 @@ class PlubingBoardViewModel @Inject constructor(
 
     }
 
-    fun onClickNormalBoard(id: Int) {
+    fun onClickNormalBoard(feedId: Int) {
 
     }
 
-    fun onLongClickNormalBoard(id: Int, isHost: Boolean, isAuthor: Boolean) {
+    fun onLongClickNormalBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
         val menuType = when {
             isHost && isAuthor -> DialogMenuType.BOARD_LIST_HOST_AND_AUTHOR_TYPE
             isHost -> DialogMenuType.BOARD_LIST_HOST_TYPE
             isAuthor -> DialogMenuType.BOARD_AUTHOR_TYPE
             else -> DialogMenuType.BOARD_COMMON_TYPE
         }
-        emitEventFlow(PlubingBoardEvent.ShowMenuBottomSheetDialog(id, menuType))
+        emitEventFlow(PlubingBoardEvent.ShowMenuBottomSheetDialog(feedId, menuType))
     }
 
-    fun onFetchClipBoardList(plubingId: Int) {
+    fun onFetchClipBoardList() {
         viewModelScope.launch {
-            fetchClipBoardList(plubingId)
+            fetchClipBoardList()
         }
     }
 
-    fun onFetchBoardList(plubingId: Int) {
+    fun onFetchBoardList() {
         viewModelScope.launch {
             isNetworkCall = true
             page = FIRST_PAGE
-            fetchPlubingBoardList(plubingId)
+            fetchPlubingBoardList()
         }
     }
 
-    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean, plubingId: Int) {
+    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
         if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) viewModelScope.launch {
             isNetworkCall = true
-            fetchPlubingBoardList(plubingId)
+            fetchPlubingBoardList()
         }
     }
 
-    private suspend fun fetchPlubingBoardList(plubingId: Int) {
+    private suspend fun fetchPlubingBoardList() {
         val requestVo = FetchPlubingBoardRequestVo(page, plubingId)
         fetchPlubingBoardUseCase(requestVo).collect {
             inspectUiState(it, ::onSuccessFetchPlubingBoardList)
@@ -93,11 +104,7 @@ class PlubingBoardViewModel @Inject constructor(
     private fun onSuccessFetchPlubingBoardList(vo: PlubingBoardListVo) {
         vo.run {
             val mergedList = getMergeList(content)
-            updateUiState { ui ->
-                ui.copy(
-                    boardList = mergedList
-                )
-            }
+            updateBoardList(mergedList)
             isLastPage = last
             page++
             isNetworkCall = false
@@ -109,18 +116,18 @@ class PlubingBoardViewModel @Inject constructor(
         return originList + list
     }
 
-    private suspend fun fetchClipBoardList(plubingId: Int) {
+    private suspend fun fetchClipBoardList() {
         fetchPlubingPinsUseCase(plubingId).collect {
             inspectUiState(it, ::onSuccessFetchClipBoardList)
         }
     }
 
     private fun onSuccessFetchClipBoardList(list: List<PlubingBoardVo>) {
-        val isClipBoardVisible = list.isNotEmpty()
+        val isClipBoardEmpty = list.isNotEmpty()
         updateUiState { uiState ->
             uiState.copy(
                 clipBoardList = list.take(CLIP_BOARD_SIZE),
-                boardList = getClipBoardList(uiState.boardList, isClipBoardVisible)
+                boardList = getClipBoardList(uiState.boardList, isClipBoardEmpty)
             )
         }
         emitEventFlow(PlubingBoardEvent.NotifyClipBoardChanged)
@@ -128,20 +135,50 @@ class PlubingBoardViewModel @Inject constructor(
 
     private fun getClipBoardList(
         boardList: List<PlubingBoardVo>,
-        isClipBoardVisible: Boolean
+        isClipBoardEmpty: Boolean
     ): List<PlubingBoardVo> {
         val hasClipBoard = boardList.firstOrNull()?.viewType == PlubingBoardType.CLIP_BOARD
         val clipBoardVo = PlubingBoardVo(viewType = PlubingBoardType.CLIP_BOARD)
         return boardList.toMutableList().apply {
             when {
-                !hasClipBoard && isClipBoardVisible -> add(CLIP_BOARD_POSITION, clipBoardVo)
-                hasClipBoard && !isClipBoardVisible -> removeAt(CLIP_BOARD_POSITION)
+                !hasClipBoard && isClipBoardEmpty -> add(CLIP_BOARD_POSITION, clipBoardVo)
+                hasClipBoard && !isClipBoardEmpty -> removeAt(CLIP_BOARD_POSITION)
             }
         }
     }
 
-    private fun boardFixClip(id: Int) {}
-    private fun boardReport(id: Int) {}
-    private fun boardDelete(id: Int) {}
-    private fun boardEdit(id: Int) {}
+    private fun boardFixClip(feedId: Int) {
+        viewModelScope.launch {
+            putPlubingBoardPinChangeUseCase(feedId).collect {
+                inspectUiState(it, {
+                    updateDeletedFeedList(feedId)
+                    onFetchClipBoardList()
+                })
+            }
+        }
+    }
+
+    private fun boardDelete(feedId: Int) {
+        viewModelScope.launch {
+            deletePlubingBoardUseCase(feedId).collect {
+                inspectUiState(it, {
+                    updateDeletedFeedList(feedId)
+                    onFetchClipBoardList()
+                })
+            }
+        }
+    }
+
+    private fun updateDeletedFeedList(feedId: Int) {
+        val deletedList = uiState.value.boardList.filterNot { it.feedId == feedId }
+        updateBoardList(deletedList)
+    }
+
+    private fun updateBoardList(list:List<PlubingBoardVo>) {
+        updateUiState { uiState ->
+            uiState.copy(
+                boardList = list
+            )
+        }
+    }
 }
