@@ -92,7 +92,7 @@ class CreateGatheringGoalAndIntroduceAndImageViewModel @Inject constructor(
     fun onClickImageMenuItemType(type: DialogMenuItemType) {
         when (type) {
             DialogMenuItemType.CAMERA_IMAGE ->
-                cameraTempImageUri = resourceProvider.getUriFromTempFile().also {
+                cameraTempImageUri = imageUtil.getUriFromTempFileInExternalDir().also {
                     emitEventFlow(CreateGatheringGoalAndIntroduceAndImageEvent.GetImageFromCamera(it))
                 }
 

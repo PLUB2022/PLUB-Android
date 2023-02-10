@@ -7,8 +7,10 @@ import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.plub.presentation.R
@@ -170,5 +172,13 @@ class ImageUtil @Inject constructor(
         val matrix = Matrix()
         matrix.postRotate(degree.toFloat())
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+    }
+
+    fun getUriFromTempFileInExternalDir():Uri {
+        val fileDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val fileName = System.currentTimeMillis().toString()
+        val file = File.createTempFile(fileName,PREFIX,fileDir)
+        val authority = context.packageName + ".provider"
+        return FileProvider.getUriForFile(context, authority, file)
     }
 }
