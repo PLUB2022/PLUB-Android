@@ -14,6 +14,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:maxEms="6"
+            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="@id/constraint_profile_image"
             app:layout_constraintStart_toStartOf="@id/constraint_profile_image"
             app:layout_constraintTop_toBottomOf="@id/constraint_profile_image"
@@ -31,6 +33,7 @@
                 android:id="@+id/image_view_profile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="centerCrop"
                 android:background="@drawable/bg_circle_filled_e4e4e4" />
 
 

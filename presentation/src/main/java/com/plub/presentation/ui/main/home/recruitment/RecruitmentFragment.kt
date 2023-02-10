@@ -73,6 +73,7 @@ class RecruitmentFragment :
         binding.apply {
             constraintLayoutTop.bringToFront()
             GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
+            imageViewPlubbingImage.clipToOutline = true
 
             detailRecruitCategoryAdapter.submitList(data.categories)
             recyclerViewPlubbingHobby.apply {

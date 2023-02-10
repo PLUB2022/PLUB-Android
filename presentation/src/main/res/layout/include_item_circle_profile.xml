@@ -9,6 +9,7 @@
             android:id="@+id/image_view_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             android:background="@drawable/bg_circle_filled_e4e4e4"/>
 
         <TextView

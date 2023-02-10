@@ -5,14 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
 import com.plub.presentation.databinding.BottomSheetRecruitSeeMoreProfileBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
-import com.plub.presentation.ui.main.home.recruitment.RecruitmentFragment
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.px
 
 class ProfileBottomSheetFragment(private val profileList : List<RecruitDetailJoinedAccountsListVo>) : BottomSheetDialogFragment() {
@@ -27,7 +23,7 @@ class ProfileBottomSheetFragment(private val profileList : List<RecruitDetailJoi
     private val bottomSheetProfileAdapter: BottomSheetProfileAdapter by lazy {
         BottomSheetProfileAdapter(object : BottomSheetProfileAdapter.ProfileDelegate {
             override fun onProfileClick(accountId: Int) {
-
+                goToProfile(accountId)
             }
         })
     }
@@ -49,5 +45,9 @@ class ProfileBottomSheetFragment(private val profileList : List<RecruitDetailJoi
             layoutManager = GridLayoutManager(context, ITEM_SPAN_COUNT)
             adapter = bottomSheetProfileAdapter
         }
+    }
+
+    private fun goToProfile(accountId : Int){
+        dismiss()
     }
 }

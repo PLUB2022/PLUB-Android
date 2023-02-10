@@ -22,7 +22,8 @@ class BottomSheetProfileViewHolder(
     fun bind(item: RecruitDetailJoinedAccountsListVo) {
         binding.apply {
             GlideUtil.loadImage(root.context, item.profileImage, imageViewProfile)
-            textViewProfileName.text = "나는조경석"
+            imageViewProfile.clipToOutline = true
+            textViewProfileName.text = item.nickname
             accountId = item.accountId
         }
     }

@@ -185,7 +185,8 @@
                     android:layout_marginStart="17.5dp"
                     android:layout_marginTop="240dp"
                     android:layout_marginEnd="14.5dp"
-                    android:background="@color/color_c4c4c4"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/bg_rectangle_filled_e4e4e4_radius_10"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -276,7 +277,7 @@
                     android:layout_marginEnd="15dp"
                     android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
                     android:enabled="@{!vm.uiState.applied}"
-                    android:onClick="@{()->vm.goToApplyPlubbingFragment()}"
+                    android:onClick="@{()->vm.goToApplyPlubbing()}"
                     android:text="@{vm.uiState.applied == true ? @string/detail_recruitment_already_apply : @string/detail_recruitment_together}"
                     android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
                     android:textSize="14dp"

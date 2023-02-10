@@ -72,7 +72,7 @@ class RecruitmentViewModel @Inject constructor(
         }
     }
 
-    fun goToApplyPlubbingFragment(){
+    fun goToApplyPlubbing(){
         emitEventFlow(RecruitEvent.GoToApplyPlubbingFragment)
     }
 

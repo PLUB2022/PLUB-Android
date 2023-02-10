@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.plub.presentation.databinding.IncludeItemPlubbingSubHobbyBinding
-import com.plub.presentation.ui.home.plubing.recruitment.viewholder.DetailRecruitCategoryViewHolder
+import com.plub.presentation.ui.main.home.recruitment.viewholder.DetailRecruitCategoryViewHolder
 
 class DetailRecruitCategoryAdapter : ListAdapter<String, DetailRecruitCategoryViewHolder>(
     DetailRecruitCategoryDiffCallBack()

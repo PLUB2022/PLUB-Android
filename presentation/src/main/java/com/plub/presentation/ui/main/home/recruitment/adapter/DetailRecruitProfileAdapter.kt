@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
 import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
-import com.plub.presentation.ui.home.plubing.recruitment.viewholder.DetailRecruitProfileViewHolder
+import com.plub.presentation.ui.main.home.recruitment.viewholder.DetailRecruitProfileViewHolder
 
 class DetailRecruitProfileAdapter(private val listener: DetailProfileDelegate) :
     ListAdapter<RecruitDetailJoinedAccountsListVo, RecyclerView.ViewHolder>(

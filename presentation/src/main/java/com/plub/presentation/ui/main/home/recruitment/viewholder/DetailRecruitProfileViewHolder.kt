@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.home.plubing.recruitment.viewholder
+package com.plub.presentation.ui.main.home.recruitment.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
@@ -39,6 +39,7 @@ class DetailRecruitProfileViewHolder(
             }
             else{
                 GlideUtil.loadImage(root.context, item.profileImage, imageViewProfile)
+                imageViewProfile.clipToOutline = true
             }
             accountId = item.accountId
         }
