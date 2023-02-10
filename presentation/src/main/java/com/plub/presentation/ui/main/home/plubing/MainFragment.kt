@@ -41,6 +41,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
             buttonBookmark.setOnClickListener {
                 findNavController().navigate(MainFragmentDirections.actionMainToBookmark())
             }
+            buttonPlubingMain.setOnClickListener {
+                val plubingId = 1
+                findNavController().navigate(MainFragmentDirections.actionMainToPlubingMain(plubingId))
+            }
         }
     }
 
