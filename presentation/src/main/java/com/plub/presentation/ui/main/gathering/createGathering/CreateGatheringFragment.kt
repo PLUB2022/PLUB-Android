@@ -10,10 +10,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CreateGatheringFragment : BaseFragment<FragmentCreateGatheringBinding, com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringPageState, com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel>(
+class CreateGatheringFragment : BaseFragment<FragmentCreateGatheringBinding, CreateGatheringPageState, CreateGatheringViewModel>(
     FragmentCreateGatheringBinding::inflate
 ) {
-    override val viewModel: com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel by viewModels()
+    override val viewModel: CreateGatheringViewModel by viewModels()
     private val pagerAdapter: FragmentCreateGatheringPagerAdapter by lazy {
         FragmentCreateGatheringPagerAdapter(this)
     }
@@ -44,15 +44,15 @@ class CreateGatheringFragment : BaseFragment<FragmentCreateGatheringBinding, com
 
             launch {
                 viewModel.eventFlow.collect {
-                    inspectEventFlow(it as com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringEvent)
+                    inspectEventFlow(it as CreateGatheringEvent)
                 }
             }
         }
     }
 
-    private fun inspectEventFlow(event: com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringEvent) {
+    private fun inspectEventFlow(event: CreateGatheringEvent) {
         when(event) {
-            is com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringEvent.NavigationPopEvent -> {
+            is CreateGatheringEvent.NavigationPopEvent -> {
                 findNavController().popBackStack()
             }
             else -> { }

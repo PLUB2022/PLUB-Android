@@ -7,7 +7,10 @@ import com.plub.domain.error.CommonError
 import com.plub.domain.error.IndividualError
 import com.plub.presentation.ui.Event
 import com.plub.presentation.ui.PageState
+import com.plub.presentation.util.EventFlow
+import com.plub.presentation.util.MutableEventFlow
 import com.plub.presentation.util.UiInspector
+import com.plub.presentation.util.asEventFlow
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -21,8 +24,8 @@ abstract class BaseViewModel<STATE: PageState>(
     private val _uiState = MutableStateFlow(initialState)
     val uiState: StateFlow<STATE> = _uiState.asStateFlow()
 
-    private val _eventFlow = MutableSharedFlow<Event>(0, 1, BufferOverflow.DROP_OLDEST)
-    val eventFlow: SharedFlow<Event> = _eventFlow.asSharedFlow()
+    private val _eventFlow = MutableEventFlow<Event>()
+    val eventFlow: EventFlow<Event> = _eventFlow.asEventFlow()
 
     private val _showProgress = MutableSharedFlow<Boolean>(0, 1, BufferOverflow.DROP_OLDEST)
     val showProgress: SharedFlow<Boolean> = _showProgress.asSharedFlow()

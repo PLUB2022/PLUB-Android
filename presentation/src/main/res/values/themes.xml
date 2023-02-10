@@ -20,6 +20,20 @@
         <item name="android:timePickerDialogTheme">@style/PlubTimePickerStyle</item>
     </style>
 
+    <style name="Theme.PlubAndroid.ImageCrop" parent="Base.Theme.AppCompat">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/color_5f5ff9</item>
+        <item name="colorPrimaryVariant">@color/color_5f5ff9</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/color_5f5ff9</item>
+        <!-- Customize your theme here. -->
+    </style>
+
     <style name="spinnerTheme">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/color_363636</item>
