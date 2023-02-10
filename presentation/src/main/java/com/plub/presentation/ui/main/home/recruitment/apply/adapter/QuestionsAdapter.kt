@@ -18,13 +18,13 @@ class QuestionsAdapter(private val listener : QuestionsDegelate) :
     ) {
 
     interface QuestionsDegelate{
-        fun isNotEmpty()
+        fun textChanged(questionId : Int, changedText : String)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is QuestionsViewHolder -> {
-                holder.bind(currentList[position], position + 1)
+                holder.bind(currentList[position], position)
             }
         }
     }

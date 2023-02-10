@@ -1,10 +1,7 @@
 package com.plub.presentation.ui.main.home.recruitment.apply
 
 
-import android.widget.EditText
-import androidx.core.view.get
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.ApplyRecruitQuestionViewType
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
@@ -13,9 +10,7 @@ import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.usecase.PostApplyRecruitUseCase
 import com.plub.domain.usecase.GetRecruitQuestionUseCase
-import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.main.home.recruitment.apply.adapter.QuestionsAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,7 +21,11 @@ class ApplyPlubbingViewModel @Inject constructor(
     val postApplyRecruitUseCase: PostApplyRecruitUseCase
 ) : BaseViewModel<ApplyPageState>(ApplyPageState()) {
 
-    fun fetchQuestions(plubbingId: Int) {
+    private var answerList : List<ApplicantsRecruitAnswerListVo> = emptyList()
+    private var plubbingId : Int = 0
+
+    fun fetchQuestions(id: Int) {
+        plubbingId = id
         viewModelScope.launch {
             getRecruitQuestionUseCase(plubbingId).collect { state ->
                 inspectUiState(state, ::successFetchQuestions)
@@ -35,7 +34,8 @@ class ApplyPlubbingViewModel @Inject constructor(
     }
 
     private fun successFetchQuestions(data: QuestionsResponseVo) {
-        val questionsData = getDataList(data)
+        setAnswerList(data.questions)
+        val questionsData = getMergeList(data)
         updateUiState { ui ->
             ui.copy(
                 questions = questionsData
@@ -43,23 +43,26 @@ class ApplyPlubbingViewModel @Inject constructor(
         }
     }
 
-    private fun getDataList(data: QuestionsResponseVo): List<QuestionsDataVo> {
-        val dataList: MutableList<QuestionsDataVo> = mutableListOf()
-        dataList.add(0, QuestionsDataVo(viewType = ApplyRecruitQuestionViewType.FIRST))
-        for (i in data.questions) {
-            dataList.add(i)
+    private fun setAnswerList(dataList : List<QuestionsDataVo>){
+        val mergeList = mutableListOf<ApplicantsRecruitAnswerListVo>()
+        for(content in dataList){
+            mergeList.add(ApplicantsRecruitAnswerListVo(content.id, ""))
         }
-        return dataList
+        answerList = mergeList
     }
 
-    fun applyRecruit(plubbingId: Int, list: List<ApplicantsRecruitAnswerListVo>) {
+    private fun getMergeList(data: QuestionsResponseVo): List<QuestionsDataVo> {
+        val mergedList: MutableList<QuestionsDataVo> = mutableListOf()
+        mergedList.add(0, QuestionsDataVo(viewType = ApplyRecruitQuestionViewType.FIRST))
+        for (i in data.questions) {
+            mergedList.add(i)
+        }
+        return mergedList
+    }
+
+    fun applyRecruit() {
         viewModelScope.launch {
-            postApplyRecruitUseCase(
-                ApplicantsRecruitRequestVo(
-                    plubbingId,
-                    list
-                )
-            ).collect { state ->
+            postApplyRecruitUseCase(ApplicantsRecruitRequestVo(plubbingId, answerList)).collect { state ->
                 inspectUiState(state, ::successApply)
             }
         }
@@ -77,16 +80,16 @@ class ApplyPlubbingViewModel @Inject constructor(
         }
     }
 
-    fun isEmpty(questionsAdapter: QuestionsAdapter, recyclerview: RecyclerView) {
-        var empty = false
-        for (i in 1 until questionsAdapter.itemCount) {
-            if (recyclerview.get(i).findViewById<EditText>(R.id.edit_text_answer).text.isEmpty()) {
-                empty = true
+    fun isEmpty() {
+        var emptyState = false
+        for (content in answerList) {
+            if (content.answer.isEmpty()) {
+                emptyState = true
             }
         }
 
-        if (isDiffBtnState(!empty)) {
-            updateButtonState(!empty)
+        if (isDiffBtnState(!emptyState)) {
+            updateButtonState(!emptyState)
         }
     }
 
@@ -94,24 +97,19 @@ class ApplyPlubbingViewModel @Inject constructor(
         return nowState != uiState.value.isApplyButtonEnable
     }
 
-    fun backPage() {
-        emitEventFlow(ApplyEvent.BackPage)
-    }
-
-    fun getAnswerList(
-        questionsAdapter: QuestionsAdapter,
-        recyclerview: RecyclerView
-    ): List<ApplicantsRecruitAnswerListVo> {
-        val list: MutableList<ApplicantsRecruitAnswerListVo> = mutableListOf()
-        for (i in 1 until questionsAdapter.itemCount) {
-            list.add(
-                ApplicantsRecruitAnswerListVo(
-                    questionsAdapter.currentList[i].id,
-                    recyclerview.get(i)
-                        .findViewById<EditText>(R.id.edit_text_answer).text.toString()
-                )
+    fun textChanged(questionId : Int, text : String){
+        val list = answerList
+        val newList = list.map {
+            val changedText = if (it.questionId == questionId) text else it.answer
+            it.copy(
+                answer = changedText
             )
         }
-        return list
+        answerList = newList
+        isEmpty()
+    }
+
+    fun backPage() {
+        emitEventFlow(ApplyEvent.BackPage)
     }
 }

@@ -11,17 +11,19 @@ class QuestionsViewHolder(
     private val binding: IncludeItemQuestionBinding,
     private val listener : QuestionsAdapter.QuestionsDegelate
 ) : RecyclerView.ViewHolder(binding.root) {
+    private var itemVo : QuestionsDataVo = QuestionsDataVo()
 
     init {
         binding.apply {
             editTextAnswer.addTextChangedListener {
                 textViewNowText.text = editTextAnswer.text.length.toString()
-                listener.isNotEmpty()
+                listener.textChanged(itemVo.id, editTextAnswer.text.toString())
             }
         }
     }
 
     fun bind(item: QuestionsDataVo, number : Int) {
+        itemVo = item
         binding.apply {
             textViewQuestion.text = root.context.getString(R.string.apply_plubbing_question, number, item.question)
         }

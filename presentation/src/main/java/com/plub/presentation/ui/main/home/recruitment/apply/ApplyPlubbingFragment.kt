@@ -21,8 +21,8 @@ class ApplyPlubbingFragment :
 
     private val questionsAdapter: QuestionsAdapter by lazy {
         QuestionsAdapter(object : QuestionsAdapter.QuestionsDegelate {
-            override fun isNotEmpty() {
-                viewModel.isEmpty(questionsAdapter, binding.recyclerViewQuestions)
+            override fun textChanged(questionId: Int, changedText: String) {
+                viewModel.textChanged(questionId, changedText)
             }
         })
     }
@@ -35,11 +35,8 @@ class ApplyPlubbingFragment :
         binding.apply {
             vm = viewModel
             initRecycler()
-            buttonApply.setOnClickListener {
-                viewModel.applyRecruit(recruitArgs.plubbingId.toInt(), getAnswerList())
-            }
         }
-        viewModel.fetchQuestions(recruitArgs.plubbingId.toInt())
+        viewModel.fetchQuestions(recruitArgs.plubbingId)
     }
 
     override fun initStates() {
@@ -56,10 +53,6 @@ class ApplyPlubbingFragment :
                 }
             }
         }
-    }
-
-    private fun getAnswerList(): List<ApplicantsRecruitAnswerListVo> {
-        return viewModel.getAnswerList(questionsAdapter, binding.recyclerViewQuestions)
     }
 
     private fun initRecycler() {
