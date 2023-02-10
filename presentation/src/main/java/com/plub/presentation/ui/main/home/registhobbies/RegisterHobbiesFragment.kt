@@ -1,11 +1,11 @@
-package com.plub.presentation.ui.main.home.registinterests
+package com.plub.presentation.ui.main.home.registhobbies
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.presentation.base.BaseFragment
-import com.plub.presentation.databinding.FragmentInterestsRegisterBinding
+import com.plub.presentation.databinding.FragmentRegisterHobbiesBinding
 import com.plub.presentation.ui.Event
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.sign.hobbies.HobbiesEvent
@@ -16,14 +16,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, HobbiesPageState, RegisterInterestViewModel>(
-    FragmentInterestsRegisterBinding::inflate
+class RegisterHobbiesFragment : BaseFragment<FragmentRegisterHobbiesBinding, HobbiesPageState, RegisterHobbiesViewModel>(
+    FragmentRegisterHobbiesBinding::inflate
 )  {
     companion object {
         private const val ITEM_VERTICAL_SPACE = 8
     }
 
-    override val viewModel: RegisterInterestViewModel by viewModels()
+    override val viewModel: RegisterHobbiesViewModel by viewModels()
 
     private val listAdapter: HobbiesAdapter by lazy {
         HobbiesAdapter(object : HobbiesAdapter.Delegate {
@@ -47,8 +47,6 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
     override fun initView() {
         binding.apply {
             vm = viewModel
-
-
             recyclerViewInterestsCategory.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = listAdapter
@@ -74,12 +72,6 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
                     listAdapter.submitList(it.hobbiesVo)
                 }
             }
-            launch {
-                viewModel.emitChoice.collect{
-                    setInterestList(viewModel.uiState.value.hobbiesSelectedVo.hobbies)
-                    moveMainPage()
-                }
-            }
         }
     }
 
@@ -91,19 +83,9 @@ class RegisterInterestFragment : BaseFragment<FragmentInterestsRegisterBinding, 
             is HobbiesEvent.NotifySubHobby -> {
                 listAdapter.notifySubItemUpdate(event.vo)
             }
-            is RegisterInterestEvent.BackPage->{
+            is RegisterHobbiesEvent.BackPage->{
                 findNavController().popBackStack()
             }
         }
     }
-
-
-    private fun setInterestList(list : List<SelectedHobbyVo>){
-        viewModel.registerInterest(list)
-    }
-
-    private fun moveMainPage(){
-        findNavController().popBackStack()
-    }
-
 }

@@ -103,9 +103,9 @@
 
     <fragment
         android:id="@+id/registerInterestFragment"
-        android:name="com.plub.presentation.ui.main.home.registinterests.RegisterInterestFragment"
+        android:name="com.plub.presentation.ui.main.home.registhobbies.RegisterHobbiesFragment"
         android:label="fragment_register_interest"
-        tools:layout="@layout/fragment_interests_register">
+        tools:layout="@layout/fragment_register_hobbies">
     </fragment>
 
     <fragment

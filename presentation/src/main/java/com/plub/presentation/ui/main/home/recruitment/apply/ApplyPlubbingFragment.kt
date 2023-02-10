@@ -6,7 +6,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentApplyPlubbingBinding
-import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
+import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.main.home.recruitment.apply.adapter.QuestionsAdapter
 import com.plub.presentation.ui.main.home.recruitment.dialog.RecruitApplySuccessDialogFragment
 import com.plub.presentation.util.px
@@ -20,7 +20,7 @@ class ApplyPlubbingFragment :
     ) {
 
     companion object{
-        const val ITEM_SPAN_COUNT = 1
+        const val ITEM_VERTICAL_SPACE = 8
         const val SUCCESS_APPLY_RECRUIT_TAG = "RecruitApplySuccessDialog"
     }
 
@@ -55,7 +55,7 @@ class ApplyPlubbingFragment :
     private fun initRecycler() {
         binding.apply {
             recyclerViewQuestions.apply {
-                addItemDecoration(GridSpaceDecoration(ITEM_SPAN_COUNT, 0, 8.px,false))
+                addItemDecoration(VerticalSpaceDecoration(ITEM_VERTICAL_SPACE.px))
                 layoutManager = LinearLayoutManager(context)
                 adapter = questionsAdapter
             }
