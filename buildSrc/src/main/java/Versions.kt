@@ -47,6 +47,8 @@ object Versions {
 
     const val THREE_TEN_ABP = "1.4.4"
 
+    const val IMAGE_CROPPER = "4.5.0"
+
     /* [ AndroidTest ] */
     const val ANDROID_JUNIT = "4.13.2"
     const val ANDROID_JUNIT_EXT = "1.1.5"
