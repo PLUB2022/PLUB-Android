@@ -14,6 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="19dp"
             android:gravity="center_vertical"
+            android:textColor="@color/color_363636"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="1. 함께하기 위한 질문" />

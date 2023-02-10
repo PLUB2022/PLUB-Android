@@ -21,6 +21,9 @@ class ApplyPlubbingViewModel @Inject constructor(
     val postApplyRecruitUseCase: PostApplyRecruitUseCase
 ) : BaseViewModel<ApplyPageState>(ApplyPageState()) {
 
+    companion object{
+        const val EMPTY_TEXT = ""
+    }
     private var answerList : List<ApplicantsRecruitAnswerListVo> = emptyList()
     private var plubbingId : Int = 0
 
@@ -46,7 +49,7 @@ class ApplyPlubbingViewModel @Inject constructor(
     private fun setAnswerList(dataList : List<QuestionsDataVo>){
         val mergeList = mutableListOf<ApplicantsRecruitAnswerListVo>()
         for(content in dataList){
-            mergeList.add(ApplicantsRecruitAnswerListVo(content.id, ""))
+            mergeList.add(ApplicantsRecruitAnswerListVo(content.id, EMPTY_TEXT))
         }
         answerList = mergeList
     }
@@ -54,9 +57,7 @@ class ApplyPlubbingViewModel @Inject constructor(
     private fun getMergeList(data: QuestionsResponseVo): List<QuestionsDataVo> {
         val mergedList: MutableList<QuestionsDataVo> = mutableListOf()
         mergedList.add(0, QuestionsDataVo(viewType = ApplyRecruitQuestionViewType.FIRST))
-        for (i in data.questions) {
-            mergedList.add(i)
-        }
+        mergedList.addAll(data.questions)
         return mergedList
     }
 
@@ -72,31 +73,6 @@ class ApplyPlubbingViewModel @Inject constructor(
         emitEventFlow(ApplyEvent.ShowSuccessDialog)
     }
 
-    private fun updateButtonState(flag: Boolean) {
-        updateUiState { ui ->
-            ui.copy(
-                isApplyButtonEnable = flag
-            )
-        }
-    }
-
-    fun isEmpty() {
-        var emptyState = false
-        for (content in answerList) {
-            if (content.answer.isEmpty()) {
-                emptyState = true
-            }
-        }
-
-        if (isDiffBtnState(!emptyState)) {
-            updateButtonState(!emptyState)
-        }
-    }
-
-    private fun isDiffBtnState(nowState: Boolean): Boolean {
-        return nowState != uiState.value.isApplyButtonEnable
-    }
-
     fun textChanged(questionId : Int, text : String){
         val list = answerList
         val newList = list.map {
@@ -106,7 +82,32 @@ class ApplyPlubbingViewModel @Inject constructor(
             )
         }
         answerList = newList
-        isEmpty()
+        isAnswerListNotEmpty()
+    }
+
+    private fun isAnswerListNotEmpty() {
+        var emptyState = true
+        for (content in answerList) {
+            if (content.answer.isEmpty()) {
+                emptyState = false
+            }
+        }
+
+        if (isDiffBtnState(emptyState)) {
+            updateButtonState(emptyState)
+        }
+    }
+
+    private fun isDiffBtnState(nowState: Boolean): Boolean {
+        return nowState != uiState.value.isApplyButtonEnable
+    }
+
+    private fun updateButtonState(isAnswerListNotEmpty: Boolean) {
+        updateUiState { ui ->
+            ui.copy(
+                isApplyButtonEnable = isAnswerListNotEmpty
+            )
+        }
     }
 
     fun backPage() {

@@ -4,12 +4,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentApplyPlubbingBinding
+import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.main.home.recruitment.apply.adapter.QuestionsAdapter
-import com.plub.presentation.ui.main.home.recruitment.dialog.ApplySuccessDialog
-import com.plub.presentation.ui.main.home.recruitment.RecruitmentFragmentArgs
+import com.plub.presentation.ui.main.home.recruitment.dialog.RecruitApplySuccessDialogFragment
+import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -19,6 +19,11 @@ class ApplyPlubbingFragment :
         FragmentApplyPlubbingBinding::inflate
     ) {
 
+    companion object{
+        const val ITEM_SPAN_COUNT = 1
+        const val SUCCESS_APPLY_RECRUIT_TAG = "RecruitApplySuccessDialog"
+    }
+
     private val questionsAdapter: QuestionsAdapter by lazy {
         QuestionsAdapter(object : QuestionsAdapter.QuestionsDegelate {
             override fun textChanged(questionId: Int, changedText: String) {
@@ -27,7 +32,15 @@ class ApplyPlubbingFragment :
         })
     }
 
-    val recruitArgs: RecruitmentFragmentArgs by navArgs()
+    private val recruitApplySuccessDialog : RecruitApplySuccessDialogFragment by lazy {
+        RecruitApplySuccessDialogFragment(object : RecruitApplySuccessDialogFragment.Delegate{
+            override fun closeButtonClick() {
+                viewModel.backPage()
+            }
+        })
+    }
+
+    val applyPlubbingFragmentArgs: ApplyPlubbingFragmentArgs by navArgs()
     override val viewModel: ApplyPlubbingViewModel by viewModels()
 
     override fun initView() {
@@ -36,7 +49,17 @@ class ApplyPlubbingFragment :
             vm = viewModel
             initRecycler()
         }
-        viewModel.fetchQuestions(recruitArgs.plubbingId)
+        viewModel.fetchQuestions(applyPlubbingFragmentArgs.plubbingId)
+    }
+
+    private fun initRecycler() {
+        binding.apply {
+            recyclerViewQuestions.apply {
+                addItemDecoration(GridSpaceDecoration(ITEM_SPAN_COUNT, 0, 8.px,false))
+                layoutManager = LinearLayoutManager(context)
+                adapter = questionsAdapter
+            }
+        }
     }
 
     override fun initStates() {
@@ -55,15 +78,6 @@ class ApplyPlubbingFragment :
         }
     }
 
-    private fun initRecycler() {
-        binding.apply {
-            recyclerViewQuestions.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = questionsAdapter
-            }
-        }
-    }
-
     private fun inspectEventFlow(event: ApplyEvent) {
         when (event) {
             is ApplyEvent.BackPage -> {
@@ -76,8 +90,6 @@ class ApplyPlubbingFragment :
     }
 
     private fun showDialog() {
-        ApplySuccessDialog(requireContext()) {
-            viewModel.backPage()
-        }.show()
+        recruitApplySuccessDialog.show(childFragmentManager,SUCCESS_APPLY_RECRUIT_TAG)
     }
 }
