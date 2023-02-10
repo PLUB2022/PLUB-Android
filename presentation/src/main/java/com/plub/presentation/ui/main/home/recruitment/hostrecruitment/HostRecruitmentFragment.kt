@@ -25,6 +25,10 @@ class HostRecruitmentFragment :
                 goToProfile(accountId)
             }
 
+            override fun onSeeMoreProfileClick() {
+                //
+            }
+
         })
     }
     private val detailRecruitCategoryAdapter : DetailRecruitCategoryAdapter by lazy {

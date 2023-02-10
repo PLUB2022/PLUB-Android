@@ -88,4 +88,8 @@ class RecruitmentViewModel @Inject constructor(
         emitEventFlow(RecruitEvent.GoToProfileFragment(accountId))
     }
 
+    fun openBottomSheet(){
+        emitEventFlow(RecruitEvent.OpenBottomSheet(uiState.value.joinedAccounts))
+    }
+
 }

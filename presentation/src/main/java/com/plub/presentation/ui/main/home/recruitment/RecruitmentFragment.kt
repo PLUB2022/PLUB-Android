@@ -6,11 +6,13 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
+import com.plub.presentation.ui.main.home.recruitment.bottomsheet.ProfileBottomSheetFragment
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +32,10 @@ class RecruitmentFragment :
         DetailRecruitProfileAdapter(object : DetailRecruitProfileAdapter.DetailProfileDelegate {
             override fun onProfileClick(accountId: Int) {
                 viewModel.goToProfile(accountId)
+            }
+
+            override fun onSeeMoreProfileClick() {
+                viewModel.openBottomSheet()
             }
 
         })
@@ -95,6 +101,9 @@ class RecruitmentFragment :
             is RecruitEvent.GoToBack -> {
                 findNavController().popBackStack()
             }
+            is RecruitEvent.OpenBottomSheet -> {
+                openProfileBottomSheet(event.joinedAccountsList)
+            }
         }
     }
 
@@ -105,6 +114,11 @@ class RecruitmentFragment :
 
     private fun goToProfile(accountId: Int) {
 
+    }
+
+    private fun openProfileBottomSheet(joinedAccountList : List<RecruitDetailJoinedAccountsListVo>){
+        val bottomSheet = ProfileBottomSheetFragment(joinedAccountList)
+        bottomSheet.show(childFragmentManager, bottomSheet.tag)
     }
 
 }

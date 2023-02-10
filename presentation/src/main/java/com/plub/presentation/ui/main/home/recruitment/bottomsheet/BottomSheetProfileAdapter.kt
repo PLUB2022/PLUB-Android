@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.recruitment.adapter
+package com.plub.presentation.ui.main.home.recruitment.bottomsheet
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,46 +6,32 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
-import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
-import com.plub.presentation.ui.home.plubing.recruitment.viewholder.DetailRecruitProfileViewHolder
+import com.plub.presentation.databinding.IncludeItemCircleProfileDetailBinding
 
-class DetailRecruitProfileAdapter(private val listener: DetailProfileDelegate) :
+class BottomSheetProfileAdapter(private val listener: ProfileDelegate) :
     ListAdapter<RecruitDetailJoinedAccountsListVo, RecyclerView.ViewHolder>(
         DetailRecruitProfileDiffCallBack()
     ) {
 
-    companion object {
-        const val MAX_PROFILE = 8
-    }
-
-    interface DetailProfileDelegate {
+    interface ProfileDelegate {
         fun onProfileClick(accountId: Int)
-        fun onSeeMoreProfileClick()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is DetailRecruitProfileViewHolder -> {
-                holder.bind(currentList[position], position, currentList.size)
+            is BottomSheetProfileViewHolder -> {
+                holder.bind(currentList[position])
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = IncludeItemCircleProfileBinding.inflate(
+        val binding = IncludeItemCircleProfileDetailBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return DetailRecruitProfileViewHolder(binding, listener)
-    }
-
-    override fun getItemCount(): Int {
-        if (currentList.size >= MAX_PROFILE) {
-            return MAX_PROFILE
-        } else {
-            return currentList.size
-        }
+        return BottomSheetProfileViewHolder(binding, listener)
     }
 
 }
