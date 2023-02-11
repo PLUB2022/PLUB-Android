@@ -32,12 +32,4 @@ class ResourceProvider @Inject constructor(
     fun getCursor(uri: Uri, proj: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?): Cursor? {
         return context.contentResolver.query(uri, proj, selection, selectionArgs, sortOrder)
     }
-
-    fun getUriFromTempFile():Uri {
-        val fileDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val fileName = System.currentTimeMillis().toString()
-        val file = File.createTempFile(fileName,ImageUtil.PREFIX,fileDir)
-        val authority = context.packageName + ".provider"
-        return FileProvider.getUriForFile(context, authority, file)
-    }
 }

@@ -69,6 +69,8 @@ object Libraries {
      * API 26 미만에서 java.time 패키지를 사용할 수 있게 해주는 라이브러리
      */
     const val THREE_TEN_ABP = "com.jakewharton.threetenabp:threetenabp:${Versions.THREE_TEN_ABP}"
+
+    const val IMAGE_CROPPER = "com.vanniktech:android-image-cropper:${Versions.IMAGE_CROPPER}"
 }
 
 object UnitTest {

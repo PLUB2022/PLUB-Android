@@ -1,14 +1,14 @@
 package com.plub.presentation.ui.main.gathering.createGathering.goalAndIntroduceAndImage
 
-import android.app.Activity
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringGoalAndIntroduceAndImageBinding
-import com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringEvent
 import com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.util.IntentUtil
@@ -73,6 +73,10 @@ class CreateGatheringGoalAndIntroduceAndImageFragment :
                         is CreateGatheringGoalAndIntroduceAndImageEvent.GetImageFromGallery -> {
                             getImageFromGallery()
                         }
+
+                        is CreateGatheringGoalAndIntroduceAndImageEvent.CropImageAndOptimize -> {
+                            startCropImage(it.cropImageContractOptions)
+                        }
                     }
                 }
             }
@@ -105,4 +109,13 @@ class CreateGatheringGoalAndIntroduceAndImageFragment :
             viewModel.onClickImageMenuItemType(it)
         }.show(parentFragmentManager, "")
     }
+
+    private fun startCropImage(option: CropImageContractOptions) {
+        cropImage.launch(option)
+    }
+
+    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
+        viewModel.proceedCropImageResult(result)
+    }
+
 }
