@@ -58,6 +58,7 @@ dependencies {
     implementation(Libraries.KAKAO)
     implementation(Libraries.TED_PERMISSION)
     implementation(Libraries.THREE_TEN_ABP)
+    implementation(Libraries.IMAGE_CROPPER)
 
     implementation(Google.MATERIAL)
     implementation(Google.HILT_ANDROID)
