@@ -106,6 +106,7 @@
                 android:layout_marginTop="49dp"
                 android:textColor="@color/color_c4c4c4"
                 android:textSize="10sp"
+                android:text="@string/archive_sequence_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="12번 기록 | 2022.03.25" />

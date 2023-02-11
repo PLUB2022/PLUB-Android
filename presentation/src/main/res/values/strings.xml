@@ -197,4 +197,5 @@
     <string name="bookmark_empty_title">아직 저장된 북마크가 없어요.\n취향에 맞을만한 모임을 찾아볼까요?</string>
     <string name="archive_gathering">모임 아카이브</string>
     <string name="archive_upload">업로드</string>
+    <string name="archive_sequence_date">%d번째 기록 | %s</string>
 </resources>
