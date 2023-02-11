@@ -79,7 +79,8 @@ class HomeFragmentViewModel @Inject constructor(
         updateUiState { ui ->
             ui.copy(
                 homePlubList = addRecommendGatheringList(data),
-                isVisible = true
+                isVisible = true,
+                isLoading = hasMoreCards
             )
         }
         isNetworkCall = false

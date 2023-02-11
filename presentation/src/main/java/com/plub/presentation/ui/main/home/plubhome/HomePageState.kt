@@ -5,5 +5,6 @@ import com.plub.presentation.ui.PageState
 
 data class HomePageState(
     val homePlubList : List<HomePlubListVo> = emptyList(),
-    val isVisible : Boolean = false
+    val isVisible : Boolean = false,
+    val isLoading : Boolean = false
 ): PageState

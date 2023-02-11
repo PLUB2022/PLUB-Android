@@ -260,6 +260,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="12dp"
                     android:layout_marginBottom="30dp"
+                    android:onClick="@{()->vm.goToBack()}"
                     android:background="@drawable/bg_rectangle_filled_e4e4e4_radius_10"
                     android:text="@string/detail_recruitment_see_others"
                     android:textColor="@color/color_8c8c8c"

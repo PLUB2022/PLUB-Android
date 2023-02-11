@@ -4,6 +4,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.enums.HomeViewType
+import com.plub.domain.model.enums.PlubCardType
+import com.plub.domain.model.vo.home.HomePlubListVo
+import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
@@ -72,7 +76,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-                    submitList(it)
+                    if(it.isVisible) submitList(it)
                 }
             }
             launch {
@@ -84,8 +88,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
     }
 
     private fun submitList(data: HomePageState) {
-        if(data.isVisible){
-            homeAdapter.submitList(data.homePlubList)
+        homeAdapter.submitList(getMergedList(data.homePlubList, data.isLoading))
+    }
+
+    private fun getMergedList(list : List<HomePlubListVo>, isLoading : Boolean) : List<HomePlubListVo>{
+        val loadingList = mutableListOf<HomePlubListVo>()
+        loadingList.add(HomePlubListVo(viewType = HomeViewType.LOADING))
+        return if(isLoading){
+            list + loadingList
+        }
+        else{
+            list
         }
     }
 

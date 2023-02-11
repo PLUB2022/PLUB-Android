@@ -50,13 +50,12 @@ class CategoryGatheringViewModel @Inject constructor(
     private fun fetchRecommendationGatheringData() =
         viewModelScope.launch {
             isNetworkCall = true
-            categoriesGatheringUseCase(
-                CategoriesGatheringRequestVo(
-                    categoryId,
-                    uiState.value.sortType.key,
-                    pageNumber
-                )
-            ).collect { state ->
+            val request = CategoriesGatheringRequestVo(
+                categoryId,
+                uiState.value.sortType.key,
+                pageNumber
+            )
+            categoriesGatheringUseCase(request).collect { state ->
                 inspectUiState(state, ::successResult)
             }
         }
