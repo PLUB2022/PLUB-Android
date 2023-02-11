@@ -28,7 +28,7 @@
             app:destination="@id/recruitmentFragment" />
         <action
             android:id="@+id/action_main_to_registerInterest"
-            app:destination="@id/registerInterestFragment"/>
+            app:destination="@id/registerHobbiesFragment"/>
         <argument
             android:name="categoryId"
             app:argType="integer"
@@ -88,6 +88,18 @@
     </fragment>
 
     <fragment
+        android:id="@+id/hostRecruitmentFragment"
+        android:name="com.plub.presentation.ui.main.home.recruitment.hostrecruitment.HostRecruitmentFragment"
+        android:label="fragment_recruitment_detail_host"
+        tools:layout="@layout/fragment_host_detail_recruitment_plubbing"
+        >
+        <argument
+            android:name="plubbingId"
+            app:argType="integer"
+            />
+    </fragment>
+
+    <fragment
         android:id="@+id/applyPlubbingFragment"
         android:name="com.plub.presentation.ui.main.home.recruitment.apply.ApplyPlubbingFragment"
         android:label="fragment_apply_plubbing"
@@ -102,7 +114,7 @@
 
 
     <fragment
-        android:id="@+id/registerInterestFragment"
+        android:id="@+id/registerHobbiesFragment"
         android:name="com.plub.presentation.ui.main.home.registhobbies.RegisterHobbiesFragment"
         android:label="fragment_register_interest"
         tools:layout="@layout/fragment_register_hobbies">

@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.recruitment.hostrecruitment
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitResponseVo
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.domain.usecase.GetRecruitApplicantsUseCase
 import com.plub.domain.usecase.PutEndRecruitUseCase
@@ -23,7 +24,11 @@ class HostRecruitmentViewModel @Inject constructor(
     companion object{
         const val SEPARATOR_OF_DAY = ", "
     }
-    fun fetchRecruitmentDetail(plubbingId : Int){
+
+    private var plubbingId : Int = 0
+
+    fun fetchRecruitmentDetail(Id : Int){
+        plubbingId = Id
         viewModelScope.launch {
             getRecruitDetailUseCase(plubbingId).collect{ state ->
                 inspectUiState(state, ::handleSuccessGetRecruitDetail)
@@ -54,17 +59,23 @@ class HostRecruitmentViewModel @Inject constructor(
         }
     }
 
+    fun goToProfile(accountId : Int){
+        emitEventFlow(HostDetailPageEvent.GoToProfile(accountId))
+    }
+
     fun seeApplicants(){
-        viewModelScope.launch {
-            //getRecruitApplicantsUseCase(uiState.value.plubId)
-        }
         emitEventFlow(HostDetailPageEvent.GoToSeeApplicants)
     }
 
     fun endRecruit(){
         viewModelScope.launch {
-            //putEndRecruitUseCase(uiState.value.plubId)
+            putEndRecruitUseCase(plubbingId).collect{ state ->
+                inspectUiState(state, ::handleSuccessEndRecruit)
+            }
         }
+    }
+
+    private fun handleSuccessEndRecruit(vo : ApplicantsRecruitResponseVo){
         emitEventFlow(HostDetailPageEvent.GoToBack)
     }
 

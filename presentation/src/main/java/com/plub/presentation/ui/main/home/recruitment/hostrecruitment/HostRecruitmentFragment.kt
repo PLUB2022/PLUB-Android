@@ -2,6 +2,7 @@ package com.plub.presentation.ui.main.home.recruitment.hostrecruitment
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
@@ -24,7 +25,7 @@ class HostRecruitmentFragment :
     private val detailRecruitProfileAdapter: DetailRecruitProfileAdapter by lazy {
         DetailRecruitProfileAdapter(object : DetailRecruitProfileAdapter.DetailProfileDelegate {
             override fun onProfileClick(accountId: Int) {
-                goToProfile(accountId)
+                viewModel.goToProfile(accountId)
             }
 
             override fun onSeeMoreProfileClick() {
@@ -33,16 +34,19 @@ class HostRecruitmentFragment :
 
         })
     }
+
     private val detailRecruitCategoryAdapter : DetailRecruitCategoryAdapter by lazy {
         DetailRecruitCategoryAdapter()
     }
+
+    private val hostRecruitmentFragmentArgs : HostRecruitmentFragmentArgs by navArgs()
     override val viewModel: HostRecruitmentViewModel by viewModels()
 
     override fun initView() {
 
         binding.apply {
             vm = viewModel
-            //viewModel.fetchRecruitmentDetail(plubbingId = )
+            viewModel.fetchRecruitmentDetail(hostRecruitmentFragmentArgs.plubbingId)
         }
     }
 
@@ -59,10 +63,6 @@ class HostRecruitmentFragment :
                 }
             }
         }
-    }
-
-    private fun goToProfile(accountId: Int) {
-
     }
 
     private fun initDetailPage(data: DetailRecruitPageState) {
@@ -96,6 +96,9 @@ class HostRecruitmentFragment :
             }
             is HostDetailPageEvent.OpenBottomSheet -> {
                 openProfileBottomSheet(event.joinedAccountsList)
+            }
+            is HostDetailPageEvent.GoToProfile ->{
+
             }
         }
     }
