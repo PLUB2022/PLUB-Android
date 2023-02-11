@@ -44,7 +44,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="15dp"
                 android:background="@color/transparent"
-                android:onClick="@{()->vm.clickBookmark()"
+                android:onClick="@{()->vm.clickBookmark()}"
                 android:src="@{vm.uiState.bookmarked == true ? @drawable/ic_bookmark_checked : @drawable/ic_bookmark}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -245,7 +245,6 @@
                     android:layout_height="34dp"
                     android:layout_marginTop="54dp"
                     android:layout_marginEnd="14dp"
-                    android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
                     android:overScrollMode="never"
                     app:layout_constraintEnd_toEndOf="parent"

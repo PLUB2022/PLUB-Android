@@ -26,6 +26,7 @@ class RecruitmentFragment :
 
     companion object{
         private const val ITEM_SPAN_COUNT = 8
+        private const val HORIZONTAL_SPACE = 4
     }
     private val recruitmentFragmentArgs : RecruitmentFragmentArgs by navArgs()
     private val detailRecruitProfileAdapter: DetailRecruitProfileAdapter by lazy {
@@ -49,7 +50,22 @@ class RecruitmentFragment :
 
         binding.apply {
             vm = viewModel
+            initRecycler()
             viewModel.fetchRecruitmentDetail(recruitmentFragmentArgs.plubbingId)
+        }
+    }
+
+    private fun initRecycler(){
+        binding.apply {
+            recyclerViewPlubbingHobby.apply {
+                layoutManager = FlexboxLayoutManager(context)
+                adapter = detailRecruitCategoryAdapter
+            }
+            recyclerViewPlubbingPeopleProfile.apply {
+                addItemDecoration(GridSpaceDecoration(ITEM_SPAN_COUNT, HORIZONTAL_SPACE.px, 0,false))
+                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                adapter = detailRecruitProfileAdapter
+            }
         }
     }
 
@@ -74,19 +90,8 @@ class RecruitmentFragment :
             constraintLayoutTop.bringToFront()
             GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
             imageViewPlubbingImage.clipToOutline = true
-
             detailRecruitCategoryAdapter.submitList(data.categories)
-            recyclerViewPlubbingHobby.apply {
-                layoutManager = FlexboxLayoutManager(context)
-                adapter = detailRecruitCategoryAdapter
-            }
-
             detailRecruitProfileAdapter.submitList(data.joinedAccounts)
-            recyclerViewPlubbingPeopleProfile.apply {
-                addItemDecoration(GridSpaceDecoration(ITEM_SPAN_COUNT, 4.px, 0,false))
-                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                adapter = detailRecruitProfileAdapter
-            }
         }
     }
 
