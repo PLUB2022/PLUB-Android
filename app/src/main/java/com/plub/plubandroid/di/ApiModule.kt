@@ -89,7 +89,7 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideInterestApi(@AuthRetrofit retrofit: Retrofit): InterestApi {
-        return retrofit.create(InterestApi::class.java)
+    fun provideInterestHobbiesApi(@AuthRetrofit retrofit: Retrofit): InterestHobbiesApi {
+        return retrofit.create(InterestHobbiesApi::class.java)
     }
 }
