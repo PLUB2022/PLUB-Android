@@ -34,6 +34,13 @@ object Endpoints {
 
     object PLUBBING {
         private const val PLUBBING_URL = "/api/plubbings"
+        private const val ARCHIVE_URL = "$PLUBBING_URL/{plubbingId}/archives"
+        private const val ARCHIVE_DETAIL_URL = "$ARCHIVE_URL/{archiveId}"
+        const val CREATE_ARCHIVE = ARCHIVE_URL
+        const val FETCH_ALL_ARCHIVES = ARCHIVE_URL
+        const val FETCH_DETAIL_ARCHIVE = ARCHIVE_DETAIL_URL
+        const val EDIT_ARCHIVE = ARCHIVE_DETAIL_URL
+        const val DELETE_ARCHIVE = ARCHIVE_DETAIL_URL
         const val CREATE = PLUBBING_URL
         const val RECRUIT = "$PLUBBING_URL/recruit"
         const val BOOKMARK = "$PLUBBING_URL/{plubbingId}/recruit/bookmarks"

@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.archive.ArchiveViewModel" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,7 +19,6 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
             android:paddingBottom="64dp"
-            android:paddingTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,15 +34,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <View
-            android:id="@+id/view_dim"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/dim_archive_top"
-            app:layout_constraintDimensionRatio="360:158"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/image_btn_back"

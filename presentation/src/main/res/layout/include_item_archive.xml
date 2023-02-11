@@ -1,133 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <View
-        android:id="@+id/view_big_circle"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:background="@drawable/bg_circle_filled_white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view_small_circle"
-        android:layout_width="4dp"
-        android:layout_height="4dp"
-        android:background="@drawable/bg_circle_filled_c4c4c4"
-        app:layout_constraintBottom_toBottomOf="@id/view_big_circle"
-        app:layout_constraintEnd_toEndOf="@id/view_big_circle"
-        app:layout_constraintStart_toStartOf="@id/view_big_circle"
-        app:layout_constraintTop_toTopOf="@id/view_big_circle" />
-
-    <View
-        android:id="@+id/view_stick"
-        android:layout_width="2dp"
-        android:layout_height="97dp"
-        android:background="@color/color_f2f3f4"
-        app:layout_constraintEnd_toEndOf="@id/view_big_circle"
-        app:layout_constraintStart_toStartOf="@id/view_big_circle"
-        app:layout_constraintTop_toBottomOf="@id/view_small_circle" />
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="310dp"
-        android:layout_height="96dp"
-        android:layout_marginStart="12dp"
-        android:background="@drawable/bg_rectangle_filled_white_radius_10"
-        app:layout_constraintStart_toEndOf="@id/view_stick"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/image_view_archive_third"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="32dp"
-            android:alpha="0.1"
-            android:background="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
+
+        <View
+            android:id="@+id/view_big_circle"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/bg_circle_filled_white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/image_view_archive_second"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_marginStart="20dp"
-            android:alpha="0.5"
-            android:background="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:id="@+id/view_small_circle"
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:background="@drawable/bg_circle_filled_c4c4c4"
+            app:layout_constraintBottom_toBottomOf="@id/view_big_circle"
+            app:layout_constraintEnd_toEndOf="@id/view_big_circle"
+            app:layout_constraintStart_toStartOf="@id/view_big_circle"
+            app:layout_constraintTop_toTopOf="@id/view_big_circle" />
 
-        <ImageView
-            android:id="@+id/image_view_archive_first"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="8dp"
-            android:background="@color/color_8c8c8c"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:id="@+id/view_stick"
+            android:layout_width="2dp"
+            android:layout_height="97dp"
+            android:background="@color/color_f2f3f4"
+            app:layout_constraintEnd_toEndOf="@id/view_big_circle"
+            app:layout_constraintStart_toStartOf="@id/view_big_circle"
+            app:layout_constraintTop_toBottomOf="@id/view_small_circle" />
 
-        <ImageView
-            android:id="@+id/image_view_image"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginBottom="6dp"
-            android:src="@drawable/ic_twotone_photo_library"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_archive_first"
-            app:layout_constraintStart_toStartOf="@id/image_view_archive_first" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="310dp"
+            android:layout_height="96dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_10"
+            app:layout_constraintStart_toEndOf="@id/view_stick"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/text_view_image_count"
-            android:layout_width="wrap_content"
-            android:layout_height="14dp"
-            android:layout_marginStart="2dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_image"
-            app:layout_constraintStart_toEndOf="@id/image_view_image"
-            app:layout_constraintTop_toTopOf="@id/image_view_image"
-            tools:text="3" />
+            <ImageView
+                android:id="@+id/image_view_archive_third"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="32dp"
+                android:alpha="0.1"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_view_time_line"
-            android:layout_width="wrap_content"
-            android:layout_height="12dp"
-            android:layout_marginStart="112dp"
-            android:layout_marginTop="49dp"
-            android:textColor="@color/color_c4c4c4"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="12번 기록 | 2022.03.25" />
+            <ImageView
+                android:id="@+id/image_view_archive_second"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="20dp"
+                android:alpha="0.5"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_view_archive_title"
-            android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            android:layout_marginStart="112dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="드디어 찍었다, 그마!" />
+            <ImageView
+                android:id="@+id/image_view_archive_first"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="8dp"
+                android:background="@color/color_8c8c8c"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/image_btn_dot"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_dot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/image_view_image"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="6dp"
+                android:src="@drawable/ic_twotone_photo_library"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_archive_first"
+                app:layout_constraintStart_toStartOf="@id/image_view_archive_first" />
 
+            <TextView
+                android:id="@+id/text_view_image_count"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:layout_marginStart="2dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_image"
+                app:layout_constraintStart_toEndOf="@id/image_view_image"
+                app:layout_constraintTop_toTopOf="@id/image_view_image"
+                tools:text="3" />
+
+            <TextView
+                android:id="@+id/text_view_time_line"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:layout_marginStart="112dp"
+                android:layout_marginTop="49dp"
+                android:textColor="@color/color_c4c4c4"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="12번 기록 | 2022.03.25" />
+
+            <TextView
+                android:id="@+id/text_view_archive_title"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_marginStart="112dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="드디어 찍었다, 그마!" />
+
+            <ImageView
+                android:id="@+id/image_btn_dot"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_dot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
