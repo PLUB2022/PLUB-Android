@@ -21,6 +21,10 @@
         <action
             android:id="@+id/action_main_to_bookmark"
             app:destination="@id/bookmarkFragment" />
+
+        <action
+            android:id="@+id/action_main_to_archive"
+            app:destination="@id/archiveFragment" />
     </fragment>
 
     <fragment
@@ -72,4 +76,18 @@
         android:name="com.plub.presentation.ui.main.profile.ProfileFragment"
         android:label="menu_navigation_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/archiveFragment"
+        android:name="com.plub.presentation.ui.main.archive.ArchiveFragment"
+        android:label="fragment_archive"
+        tools:layout="@layout/fragment_archive">
+
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="plubbingId"
+            app:argType="integer"/>
+    </fragment>
 </navigation>

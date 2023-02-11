@@ -38,6 +38,14 @@
             android:layout_height="wrap_content"
             android:text="검색" />
 
+        <Button
+            app:layout_constraintBottom_toTopOf="@+id/button_bookmark"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/button_archive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="아카이브" />
+
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar_main"

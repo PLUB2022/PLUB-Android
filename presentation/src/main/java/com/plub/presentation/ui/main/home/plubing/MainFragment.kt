@@ -41,6 +41,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
             buttonBookmark.setOnClickListener {
                 findNavController().navigate(MainFragmentDirections.actionMainToBookmark())
             }
+            buttonArchive.setOnClickListener {
+                findNavController().navigate(MainFragmentDirections.actionMainToArchive("요란한 한줄", 1))
+            }
         }
     }
 
