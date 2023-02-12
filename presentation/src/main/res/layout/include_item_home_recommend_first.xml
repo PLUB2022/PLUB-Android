@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/image_btn_setting"
+            android:id="@+id/image_view_setting"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:background="@color/transparent"

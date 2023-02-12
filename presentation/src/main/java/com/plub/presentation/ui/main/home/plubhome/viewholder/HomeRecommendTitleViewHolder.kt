@@ -10,7 +10,7 @@ class HomeRecommendTitleViewHolder(
 ): RecyclerView.ViewHolder(binding.root){
 
     init {
-        binding.imageBtnSetting.setOnClickListener {
+        binding.imageViewSetting.setOnClickListener {
             listener.onClickSetting()
         }
     }

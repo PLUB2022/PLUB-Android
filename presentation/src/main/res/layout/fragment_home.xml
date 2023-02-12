@@ -42,7 +42,7 @@
 
 
                 <ImageView
-                    android:id="@+id/image_btn_bookmark"
+                    android:id="@+id/image_view_bookmark"
                     android:layout_gravity="end"
                     android:layout_marginStart="16dp"
                     android:layout_width="32dp"
@@ -53,7 +53,7 @@
                     android:src="@drawable/ic_bookmark"/>
 
                 <ImageView
-                    android:id="@+id/image_btn_search"
+                    android:id="@+id/image_view_search"
                     android:layout_gravity="end"
                     android:layout_marginStart="16dp"
                     android:layout_width="32dp"

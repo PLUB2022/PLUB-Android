@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/image_btn_back"
+                android:id="@+id/image_view_back"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="7dp"
@@ -45,13 +45,13 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="8dp"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="@id/image_btn_back"
-                app:layout_constraintStart_toEndOf="@id/image_btn_back"
-                app:layout_constraintTop_toTopOf="@id/image_btn_back"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_back"
+                app:layout_constraintStart_toEndOf="@id/image_view_back"
+                app:layout_constraintTop_toTopOf="@id/image_view_back"
                 tools:text="예술" />
 
             <ImageView
-                android:id="@+id/image_btn_search"
+                android:id="@+id/image_view_search"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="12dp"
@@ -69,12 +69,12 @@
                 android:layout_marginStart="16dp"
                 android:text="@string/category_choice_see_all"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/image_btn_filter"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_filter"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/image_btn_filter" />
+                app:layout_constraintTop_toTopOf="@id/image_view_filter" />
 
             <ImageView
-                android:id="@+id/image_btn_filter"
+                android:id="@+id/image_view_filter"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="52dp"
@@ -84,7 +84,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/image_btn_list"
+                android:id="@+id/image_view_list"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="209dp"
@@ -92,11 +92,11 @@
                 android:background="@color/transparent"
                 android:onClick="@{()->vm.onClickCardType(PlubCardType.LIST)}"
                 android:src="@{vm.uiState.cardType == PlubCardType.LIST ? @drawable/ic_list_item_active : @drawable/ic_list_item_inactive}"
-                app:layout_constraintEnd_toStartOf="@id/image_btn_grid"
+                app:layout_constraintEnd_toStartOf="@id/image_view_grid"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/image_btn_grid"
+                android:id="@+id/image_view_grid"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="52dp"
@@ -113,9 +113,9 @@
                 android:layout_height="24dp"
                 android:onClick="@{() -> vm.onClickSortType(vm.uiState.sortType)}"
                 android:background="@drawable/bg_rectangle_empty_5f5ff9_radius_12"
-                app:layout_constraintBottom_toBottomOf="@id/image_btn_grid"
-                app:layout_constraintEnd_toEndOf="@id/image_btn_search"
-                app:layout_constraintTop_toTopOf="@id/image_btn_grid">
+                app:layout_constraintBottom_toBottomOf="@id/image_view_grid"
+                app:layout_constraintEnd_toEndOf="@id/image_view_search"
+                app:layout_constraintTop_toTopOf="@id/image_view_grid">
 
                 <TextView
                     android:id="@+id/text_view_sort_type"

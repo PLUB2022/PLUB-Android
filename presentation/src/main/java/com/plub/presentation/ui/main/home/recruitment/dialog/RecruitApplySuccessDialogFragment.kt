@@ -34,7 +34,7 @@ class RecruitApplySuccessDialogFragment(private val listener : Delegate) : Dialo
 
     private fun initView(){
         binding.apply {
-            imageBtnClose.setOnClickListener {
+            imageViewClose.setOnClickListener {
                 listener.closeButtonClick()
                 dismiss()
             }
