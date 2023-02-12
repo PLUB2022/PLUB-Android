@@ -198,4 +198,5 @@
     <string name="archive_gathering">모임 아카이브</string>
     <string name="archive_upload">업로드</string>
     <string name="archive_sequence_date">%d번째 기록 | %s</string>
+    <string name="archive_dialog_sequence">%d번째 기록</string>
 </resources>

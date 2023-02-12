@@ -10,7 +10,8 @@ object ArchiveDetailResponseMapper : Mapper.ResponseMapper<ArchiveDetailResponse
             ArchiveDetailResponseVo(
                 images = images,
                 sequence = sequence,
-                createdAt = createdAt
+                createdAt = createdAt,
+                title = title
             )
         }?: ArchiveDetailResponseVo()
     }

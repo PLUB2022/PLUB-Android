@@ -16,7 +16,9 @@ class ArchiveViewHolder(
     private var vo: ArchiveContentResponseVo = ArchiveContentResponseVo()
 
     init {
-
+        binding.constraintLayoutCard.setOnClickListener {
+            listener.onCardClick(vo.archiveId)
+        }
     }
 
     fun bind(item: ArchiveContentResponseVo) {
