@@ -25,13 +25,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/image_btn_back"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="12dp"
                 android:background="@color/transparent"
+                android:scaleType="center"
                 android:onClick="@{()->vm.backToMain()}"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"

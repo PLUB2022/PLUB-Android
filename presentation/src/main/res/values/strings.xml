@@ -232,7 +232,7 @@
 
     <string name="category_choice_popular">인기순</string>
 
-    <string name="category_choice_empty_string">아직 등록된 모집글이 없어요 직접 모집글을 올려 볼까요?</string>
+    <string name="category_choice_empty_string">아직 등록된 모집글이 없어요\n 직접 모집글을 올려 볼까요?</string>
     <string name="category_choice_empty_button">모임 만들러 가기</string>
 
     <string name="apply_dialog_complete_apply">지원 완료!</string>
