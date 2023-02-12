@@ -9,7 +9,7 @@ data class ArchiveResponse(
     @SerializedName("totalElements")
     val totalElements : Int = -1,
     @SerializedName("last")
-    val last : Int = -1,
+    val last : Boolean = false,
     @SerializedName("content")
     val content : List<ArchiveContentResponse> = emptyList()
 

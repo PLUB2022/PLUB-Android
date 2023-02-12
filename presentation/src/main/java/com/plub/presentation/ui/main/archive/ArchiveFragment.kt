@@ -2,6 +2,7 @@ package com.plub.presentation.ui.main.archive
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
@@ -28,6 +29,10 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
     override fun initView() {
         binding.apply {
             vm = viewModel
+            recyclerViewArchive.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = archiveAdapter
+            }
         }
         viewModel.fetchArchivePage(archiveFragmentArgs.title, archiveFragmentArgs.plubbingId)
     }
