@@ -11,6 +11,7 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:background="@color/color_faf9fe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,13 +19,13 @@
             android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_f5f3f6"
+            android:background="@color/color_faf9fe"
             app:elevation="0dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:contentScrim="@color/color_f5f3f6"
+                app:contentScrim="@color/color_faf9fe"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
                 <include

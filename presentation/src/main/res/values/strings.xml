@@ -209,5 +209,5 @@
     <string name="plubing_main_tab_board">게시판</string>
     <string name="plubing_main_tab_todo_list">그룹원 To-Do 리스트</string>
 
-    <string name="plubing_plubing_board_clipboard">클립보드</string>
+    <string name="plubing_board_clipboard">클립보드</string>
 </resources>

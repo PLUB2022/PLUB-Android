@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/plubing_plubing_board_clipboard"
+            android:text="@string/plubing_board_clipboard"
             android:textColor="@color/color_363636"
             android:textSize="16sp"
             android:textStyle="bold"
