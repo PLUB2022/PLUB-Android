@@ -63,4 +63,12 @@ class ArchiveViewModel @Inject constructor(
     private fun handleSuccessFetchDetailArchive(vo : ArchiveDetailResponseVo){
         emitEventFlow(ArchiveEvent.SeeDetailArchiveDialog(vo))
     }
+
+    fun onClickBack(){
+        emitEventFlow(ArchiveEvent.GoToBack)
+    }
+
+    fun onClickUploadBottomSheet(){
+        emitEventFlow(ArchiveEvent.SeeUploadBottomSheet)
+    }
 }

@@ -199,4 +199,6 @@
     <string name="archive_upload">업로드</string>
     <string name="archive_sequence_date">%d번째 기록 | %s</string>
     <string name="archive_dialog_sequence">%d번째 기록</string>
+    <string name="archive_bottom_sheet_camera">카메라로 촬영</string>
+    <string name="archive_bottom_sheet_album">앨범에서 사진 업로드</string>
 </resources>

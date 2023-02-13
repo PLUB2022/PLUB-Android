@@ -15,6 +15,10 @@ import com.plub.presentation.util.px
 class ArchiveDetailDialog(
     private val detailVo: ArchiveDetailResponseVo
 ) : DialogFragment() {
+    companion object{
+        const val MARGIN_HORIZONTAL = 16
+        const val MARGIN_NEXT = 8
+    }
     private val binding: IncludeDialogDetailArchiveBinding by lazy {
         IncludeDialogDetailArchiveBinding.inflate(layoutInflater)
     }
@@ -50,18 +54,13 @@ class ArchiveDetailDialog(
     private fun initRecycler(){
         binding.viewPagerArchiveImage.apply {
             addItemDecoration(object : RecyclerView.ItemDecoration() {
-                override fun getItemOffsets(
-                    outRect: Rect,
-                    view: View,
-                    parent: RecyclerView,
-                    state: RecyclerView.State
-                ) {
-                    outRect.right = 16.px
-                    outRect.left = 16.px
+                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                    outRect.right = MARGIN_HORIZONTAL.px
+                    outRect.left = MARGIN_HORIZONTAL.px
                 }
             })
             setPageTransformer { page, position ->
-                page.translationX = -(24.px) * (position)
+                page.translationX = -(MARGIN_NEXT.px + MARGIN_HORIZONTAL) * (position)
             }
             offscreenPageLimit = 1
             adapter = archiveViewPagerAdapter
