@@ -5,6 +5,6 @@ import com.plub.presentation.ui.Event
 
 sealed class ArchiveEvent : Event{
     object GoToBack : ArchiveEvent()
-    object SeeUploadBottomSheet : ArchiveEvent()
+    object ClickUploadBottomSheet : ArchiveEvent()
     data class SeeDetailArchiveDialog(val responseVo: ArchiveDetailResponseVo) : ArchiveEvent()
 }

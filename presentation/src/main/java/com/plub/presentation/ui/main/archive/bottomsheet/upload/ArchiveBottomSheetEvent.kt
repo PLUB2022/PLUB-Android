@@ -1,8 +1,11 @@
 package com.plub.presentation.ui.main.archive.bottomsheet.upload
 
+import android.net.Uri
+import com.canhub.cropper.CropImageContractOptions
 import com.plub.presentation.ui.Event
 
 sealed class ArchiveBottomSheetEvent : Event{
-    object GoToCamera : ArchiveBottomSheetEvent()
+    data class GoToCamera(val uri: Uri) : ArchiveBottomSheetEvent()
     object GoToAlbum : ArchiveBottomSheetEvent()
+    data class CropImageAndOptimize(val cropImageContractOptions: CropImageContractOptions): ArchiveBottomSheetEvent()
 }

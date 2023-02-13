@@ -11,6 +11,7 @@ import com.plub.presentation.databinding.FragmentArchiveBinding
 import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter
 import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetFragment
 import com.plub.presentation.ui.main.archive.dialog.ArchiveDetailDialog
+import com.plub.presentation.util.PermissionManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -76,13 +77,19 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             is ArchiveEvent.GoToBack -> {
                 findNavController().popBackStack()
             }
-            is ArchiveEvent.SeeUploadBottomSheet -> {
-                seeBottomSheet()
+            is ArchiveEvent.ClickUploadBottomSheet -> {
+                clickBottomSheet()
             }
         }
     }
 
-    private fun seeBottomSheet(){
+    private fun clickBottomSheet(){
+        PermissionManager.createGetImagePermission {
+            showBottomSheetDialogSelectImage()
+        }
+    }
+
+    private fun showBottomSheetDialogSelectImage(){
         ArchiveBottomSheetFragment().show(childFragmentManager, ARCHIVE_UPLOAD_BOTTOM_SHEET_TAG)
     }
 }

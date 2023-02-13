@@ -8,9 +8,7 @@ import com.plub.domain.model.vo.archive.DetailArchiveRequestVo
 import com.plub.domain.usecase.GetAllArchiveUseCase
 import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -69,6 +67,6 @@ class ArchiveViewModel @Inject constructor(
     }
 
     fun onClickUploadBottomSheet(){
-        emitEventFlow(ArchiveEvent.SeeUploadBottomSheet)
+        emitEventFlow(ArchiveEvent.ClickUploadBottomSheet)
     }
 }
