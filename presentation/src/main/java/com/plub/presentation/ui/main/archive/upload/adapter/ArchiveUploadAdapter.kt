@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.ArchiveItemViewType
 import com.plub.domain.model.vo.archive.ArchiveUploadVo
+import com.plub.presentation.databinding.IncludeItemArchiveAddImageBinding
 import com.plub.presentation.databinding.IncludeItemArchiveImageBinding
 import com.plub.presentation.databinding.IncludeItemArchivePhotoTitleBinding
 import com.plub.presentation.databinding.IncludeItemArchiveUpdateTitleBinding
@@ -16,14 +17,17 @@ class ArchiveUploadAdapter(private val listener: ArchiveUploadDelegate) : ListAd
 ) {
 
     interface ArchiveUploadDelegate {
-
+        fun onClickDelete(position : Int)
+        fun addImage()
+        fun onChangedText(text : String)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ArchiveUploadEditViewHolder -> holder.bind()
             is ArchiveUploadImageTextViewHolder -> holder.bind()
-            is ArchiveUploadImageViewHolder -> holder.bind(currentList[position])
+            is ArchiveUploadImageViewHolder -> holder.bind(currentList[position], position)
+            is ArchiveUploadAddImageViewHolder -> holder.bind()
         }
     }
 
@@ -40,6 +44,10 @@ class ArchiveUploadAdapter(private val listener: ArchiveUploadDelegate) : ListAd
             ArchiveItemViewType.IMAGE_VIEW -> {
                 val binding = IncludeItemArchiveImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return ArchiveUploadImageViewHolder(binding, listener)
+            }
+            ArchiveItemViewType.IMAGE_ADD_VIEW -> {
+                val binding = IncludeItemArchiveAddImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return ArchiveUploadAddImageViewHolder(binding, listener)
             }
         }
     }

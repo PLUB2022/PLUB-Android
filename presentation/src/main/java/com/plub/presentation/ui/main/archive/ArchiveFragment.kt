@@ -24,7 +24,11 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
     companion object{
         const val ARCHIVE_DETAIL_DIALOG_TAG = "Archive Detail Tag"
         const val ARCHIVE_UPLOAD_BOTTOM_SHEET_TAG = "Archive Upload Bottom Sheet Tag"
+        const val UPLOAD_TYPE = 0
+        const val EDIT_TYPE = 1
     }
+
+    private var updateType : Int = UPLOAD_TYPE
     private val archiveAdapter: ArchiveAdapter by lazy {
         ArchiveAdapter(object : ArchiveAdapter.ArchiveDelegate {
             override fun onCardClick(archiveId: Int) {
@@ -102,7 +106,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
     }
 
     private fun goToArchiveUpload(imageUri : String){
-        val action = ArchiveFragmentDirections.actionArchiveToUpldate(imageUri)
+        val action = ArchiveFragmentDirections.actionArchiveToUpdate(updateType, imageUri)
         findNavController().navigate(action)
     }
 }

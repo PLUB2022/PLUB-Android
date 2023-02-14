@@ -3,6 +3,9 @@ package com.plub.presentation.ui.main.archive.upload
 import android.app.Activity
 import android.net.Uri
 import androidx.activity.result.ActivityResult
+import com.plub.domain.model.enums.ArchiveItemViewType
+import com.plub.domain.model.vo.archive.ArchiveUploadVo
+import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetEvent
@@ -12,34 +15,29 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ArchiveUploadViewModel @Inject constructor(
-    private val imageUtil: ImageUtil
-) : BaseViewModel<PageState.Default>(PageState.Default) {
+    private val getDetailArchiveUseCase: GetDetailArchiveUseCase
+) : BaseViewModel<ArchiveUploadPageState>(ArchiveUploadPageState()) {
 
-    private var cameraTempImageUri: Uri? = null
+    fun initPageWithFirstImage(imageUri : String){
+        val firstImageList = arrayListOf<ArchiveUploadVo>(ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_VIEW, image = imageUri))
+        val mergeList = getEmptyMergedList()
+        updateListState(mergeList + firstImageList)
+    }
 
-    fun onClickCamera(){
-        cameraTempImageUri = imageUtil.getUriFromTempFileInExternalDir().also {
-            emitEventFlow(ArchiveBottomSheetEvent.GoToCamera(it))
+    private fun getEmptyMergedList() : List<ArchiveUploadVo>{
+        val list = mutableListOf<ArchiveUploadVo>()
+        list.add(ArchiveUploadVo(viewType = ArchiveItemViewType.EDIT_VIEW))
+        list.add(ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_TEXT_VIEW))
+        return list
+    }
+
+    private fun updateListState(stateList : List<ArchiveUploadVo>){
+        val imageCount = stateList.size - 1
+        updateUiState { uiState ->
+            uiState.copy(
+                archiveUploadVoList = stateList,
+                imageCount = imageCount
+            )
         }
-    }
-
-    fun onClickAlbum(){
-        emitEventFlow(ArchiveBottomSheetEvent.GoToAlbum)
-    }
-
-    fun proceedGatheringImageFromCameraResult(result: ActivityResult) {
-        if (result.resultCode == Activity.RESULT_OK) {
-            cameraTempImageUri?.let { uri ->
-                emitCropImageAndOptimizeEvent(uri)
-            }
-        }
-    }
-
-    private fun emitCropImageAndOptimizeEvent(uri: Uri) {
-        emitEventFlow(
-            ArchiveBottomSheetEvent.CropImageAndOptimize(
-            imageUtil.getCropImageOptions(uri)
-        )
-        )
     }
 }
