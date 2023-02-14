@@ -14,6 +14,7 @@ class ArchiveAdapter(private val listener: ArchiveDelegate) : ListAdapter<Archiv
 
     interface ArchiveDelegate {
         fun onCardClick(archiveId : Int)
+        fun onDotsClick(type : String)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

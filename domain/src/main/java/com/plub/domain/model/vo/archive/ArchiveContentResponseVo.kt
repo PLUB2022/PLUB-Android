@@ -8,5 +8,6 @@ data class ArchiveContentResponseVo(
     val images : List<String> = emptyList(),
     val imageCount : Int = -1,
     val sequence : Int = -1,
-    val createdAt : String = ""
+    val createdAt : String = "",
+    val accessType : String = ""
 ) : DomainModel

@@ -13,7 +13,8 @@ object ArchiveContentResponseMapper : Mapper.ResponseMapper<ArchiveContentRespon
                 images = images,
                 imageCount = imageCount,
                 sequence = sequence,
-                createdAt = createdAt
+                createdAt = createdAt,
+                accessType = accessType
             )
         }?:ArchiveContentResponseVo()
     }

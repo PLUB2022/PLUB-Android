@@ -18,6 +18,10 @@ class ArchiveViewHolder(
         binding.constraintLayoutCard.setOnClickListener {
             listener.onCardClick(vo.archiveId)
         }
+
+        binding.imageBtnDot.setOnClickListener {
+            listener.onDotsClick(vo.accessType)
+        }
     }
 
     fun bind(item: ArchiveContentResponseVo) {

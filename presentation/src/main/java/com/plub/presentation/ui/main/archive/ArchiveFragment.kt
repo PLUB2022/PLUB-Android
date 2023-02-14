@@ -9,6 +9,9 @@ import com.plub.domain.model.vo.archive.ArchiveDetailResponseVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
 import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter
+import com.plub.presentation.ui.main.archive.bottomsheet.author.ArchiveAuthorBottomSheetFragment
+import com.plub.presentation.ui.main.archive.bottomsheet.host.ArchiveHostBottomSheetFragment
+import com.plub.presentation.ui.main.archive.bottomsheet.normal.ArchiveNormalBottomSheetFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetFragment
 import com.plub.presentation.ui.main.archive.dialog.ArchiveDetailDialog
 import com.plub.presentation.util.PermissionManager
@@ -40,6 +43,10 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 )
                 val response = ArchiveDetailResponseVo(list, archiveId, "2023-02-12", "테스트 아카이브")
                 ArchiveDetailDialog(response).show(childFragmentManager, ARCHIVE_DETAIL_DIALOG_TAG)
+            }
+
+            override fun onDotsClick(type: String) {
+                viewModel.seeBottomSheet(type)
             }
 
         })
@@ -95,6 +102,15 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             is ArchiveEvent.GoToArchiveUpload -> {
                 goToArchiveUpload(event.fileUri)
             }
+            is ArchiveEvent.SeeAuthorBottomSheet -> {
+                showBottomSheetAuthor()
+            }
+            is ArchiveEvent.SeeHostBottomSheet -> {
+                showBottomSheetHost()
+            }
+            is ArchiveEvent.SeeNormalBottomSheet -> {
+                showBottomSheetNormal()
+            }
         }
     }
 
@@ -110,6 +126,18 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 viewModel.uploadImageFile(file)
             }
         }).show(childFragmentManager, ARCHIVE_UPLOAD_BOTTOM_SHEET_TAG)
+    }
+
+    private fun showBottomSheetAuthor(){
+        ArchiveAuthorBottomSheetFragment().show(childFragmentManager, "")
+    }
+
+    private fun showBottomSheetHost(){
+        ArchiveHostBottomSheetFragment().show(childFragmentManager, "")
+    }
+
+    private fun showBottomSheetNormal(){
+        ArchiveNormalBottomSheetFragment().show(childFragmentManager, "")
     }
 
     private fun goToArchiveUpload(imageUri: String) {

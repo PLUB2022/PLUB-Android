@@ -15,5 +15,7 @@ data class ArchiveContentResponse(
     @SerializedName("sequence")
     val sequence : Int = -1,
     @SerializedName("createdAt")
-    val createdAt : String = ""
+    val createdAt : String = "",
+    @SerializedName("accessType")
+    val accessType : String = ""
 ) : DataDto

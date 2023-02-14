@@ -13,7 +13,6 @@ import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -26,6 +25,9 @@ class ArchiveViewModel @Inject constructor(
 )  :BaseViewModel<ArchivePageState>(ArchivePageState()) {
 
     companion object{
+        const val AUTHOR = "author"
+        const val HOST = "host"
+        const val NORMAL = "normal"
         const val FIRST_PAGE = 1
     }
     private var title : String = ""
@@ -78,7 +80,7 @@ class ArchiveViewModel @Inject constructor(
     }
 
     fun uploadImageFile(file : File?){
-        val request = file?.let { UploadFileRequestVo(UploadFileType.PLUBBING_MAIN, it) }
+        val request = file?.let { UploadFileRequestVo(UploadFileType.ARCHIVE, it) }
         viewModelScope.launch {
             if (request != null) {
                 postUploadFileUseCase(request).collect{ state ->
@@ -90,5 +92,17 @@ class ArchiveViewModel @Inject constructor(
 
     private fun handleSuccessUploadImage(vo : UploadFileResponseVo){
         emitEventFlow(ArchiveEvent.GoToArchiveUpload(vo.fileUrl))
+    }
+
+    fun seeBottomSheet(type : String){
+        if(type.equals(AUTHOR)){
+            emitEventFlow(ArchiveEvent.SeeAuthorBottomSheet)
+        }
+        else if(type.equals(AUTHOR)){
+            emitEventFlow(ArchiveEvent.SeeHostBottomSheet)
+        }
+        else if(type.equals(NORMAL)){
+            emitEventFlow(ArchiveEvent.SeeNormalBottomSheet)
+        }
     }
 }
