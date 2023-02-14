@@ -7,7 +7,6 @@ import com.plub.domain.repository.PlubJwtRepository
 import com.plub.domain.repository.*
 import com.plub.domain.usecase.*
 import com.plub.domain.usecase.TestPostHomeUseCase
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,14 +25,14 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesFetchPlubAccessTokenUseCase(repository: PlubJwtRepository): FetchPlubAccessTokenUseCase {
-        return FetchPlubAccessTokenUseCase(repository)
+    fun providesFetchPlubAccessTokenUseCase(repository: PlubJwtRepository): GetPlubAccessTokenUseCase {
+        return GetPlubAccessTokenUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesFetchPlubRefreshTokenUseCase(repository: PlubJwtRepository): FetchPlubRefreshTokenUseCase {
-        return FetchPlubRefreshTokenUseCase(repository)
+    fun providesFetchPlubRefreshTokenUseCase(repository: PlubJwtRepository): GetPlubRefreshTokenUseCase {
+        return GetPlubRefreshTokenUseCase(repository)
     }
 
     @Singleton

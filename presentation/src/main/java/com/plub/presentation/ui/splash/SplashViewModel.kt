@@ -1,6 +1,5 @@
 package com.plub.presentation.ui.splash
 
-import com.plub.domain.usecase.FetchPlubRefreshTokenUseCase
 import com.plub.domain.usecase.PostReIssueTokenUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.PageState

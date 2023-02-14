@@ -4,19 +4,13 @@ import com.plub.domain.UiState
 import com.plub.domain.model.vo.jwt.PlubJwtReIssueRequestVo
 import com.plub.domain.model.vo.jwt.PlubJwtResponseVo
 import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
-import com.plub.domain.usecase.FetchPlubAccessTokenUseCase
-import com.plub.domain.usecase.FetchPlubRefreshTokenUseCase
+import com.plub.domain.usecase.GetPlubAccessTokenUseCase
+import com.plub.domain.usecase.GetPlubRefreshTokenUseCase
 import com.plub.domain.usecase.PostReIssueTokenUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.plubandroid.util.RETROFIT_TAG
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.single
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import okhttp3.Authenticator
@@ -28,16 +22,16 @@ import javax.inject.Singleton
 
 @Singleton
 class TokenAuthenticator @Inject constructor(
-    private val fetchPlubAccessTokenUseCase: FetchPlubAccessTokenUseCase,
-    private val fetchPlubRefreshTokenUseCase: FetchPlubRefreshTokenUseCase,
+    private val getPlubAccessTokenUseCase: GetPlubAccessTokenUseCase,
+    private val getPlubRefreshTokenUseCase: GetPlubRefreshTokenUseCase,
     private val savePlubAccessTokenAndRefreshTokenUseCase: SavePlubAccessTokenAndRefreshTokenUseCase,
     private val postReIssueTokenUseCase: PostReIssueTokenUseCase
 ) : Authenticator {
     private val mutex = Mutex()
 
     override fun authenticate(route: Route?, response: okhttp3.Response): Request? = runBlocking {
-        val access = async { fetchPlubAccessTokenUseCase(Unit).first() }
-        val refresh = async { fetchPlubRefreshTokenUseCase(Unit).first() }
+        val access = async { getPlubAccessTokenUseCase(Unit).first() }
+        val refresh = async { getPlubRefreshTokenUseCase(Unit).first() }
         val accessToken = access.await()
         val refreshToken = refresh.await()
 
@@ -50,7 +44,7 @@ class TokenAuthenticator @Inject constructor(
                     .removeHeader("Authorization")
                     .header(
                         "Authorization",
-                        "Bearer " + fetchPlubAccessTokenUseCase(Unit).first()
+                        "Bearer " + getPlubAccessTokenUseCase(Unit).first()
                     )
                     .build()
             } else null
@@ -61,7 +55,7 @@ class TokenAuthenticator @Inject constructor(
         access: String,
         refresh: String
     ): Boolean {
-        val newAccess = fetchPlubAccessTokenUseCase(Unit).first()
+        val newAccess = getPlubAccessTokenUseCase(Unit).first()
 
         return if (access != newAccess) true else {
             Timber.tag(RETROFIT_TAG).d("TokenAuthenticator - authenticate() called / 토큰 만료. 토큰 Refresh 요청: $refresh")
