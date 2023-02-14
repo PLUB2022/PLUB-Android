@@ -24,7 +24,7 @@ class ArchiveUploadAdapter(private val listener: ArchiveUploadDelegate) : ListAd
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is ArchiveUploadEditViewHolder -> holder.bind()
+            is ArchiveUploadEditViewHolder -> holder.bind(currentList[position])
             is ArchiveUploadImageTextViewHolder -> holder.bind()
             is ArchiveUploadImageViewHolder -> holder.bind(currentList[position], position)
             is ArchiveUploadAddImageViewHolder -> holder.bind()

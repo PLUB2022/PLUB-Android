@@ -102,6 +102,12 @@
             android:name="type"
             app:argType="integer"/>
         <argument
+            android:name="plubbingId"
+            app:argType="integer"/>
+        <argument
+            android:name="archiveId"
+            app:argType="integer"/>
+        <argument
             android:name="image"
             app:argType="string"/>
     </fragment>

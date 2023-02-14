@@ -19,29 +19,33 @@ import java.io.File
 @AndroidEntryPoint
 class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, ArchiveViewModel>(
     FragmentArchiveBinding::inflate
-){
+) {
 
-    companion object{
+    companion object {
         const val ARCHIVE_DETAIL_DIALOG_TAG = "Archive Detail Tag"
         const val ARCHIVE_UPLOAD_BOTTOM_SHEET_TAG = "Archive Upload Bottom Sheet Tag"
         const val UPLOAD_TYPE = 0
         const val EDIT_TYPE = 1
     }
 
-    private var updateType : Int = UPLOAD_TYPE
+    private var updateType: Int = UPLOAD_TYPE
     private val archiveAdapter: ArchiveAdapter by lazy {
         ArchiveAdapter(object : ArchiveAdapter.ArchiveDelegate {
             override fun onCardClick(archiveId: Int) {
                 //viewModel.seeDetailDialog(archiveId)
-                val list = arrayListOf<String>("https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png" , "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png", "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/2625879414%40KAKAO_873db2c5-613a-41ea-84bd-dec8d194d629_.jpeg")
-                val response = ArchiveDetailResponseVo(list, archiveId,"2023-02-12", "테스트 아카이브")
+                val list = arrayListOf<String>(
+                    "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
+                    "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
+                    "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/2625879414%40KAKAO_873db2c5-613a-41ea-84bd-dec8d194d629_.jpeg"
+                )
+                val response = ArchiveDetailResponseVo(list, archiveId, "2023-02-12", "테스트 아카이브")
                 ArchiveDetailDialog(response).show(childFragmentManager, ARCHIVE_DETAIL_DIALOG_TAG)
             }
 
         })
     }
 
-    private val archiveFragmentArgs : ArchiveFragmentArgs by navArgs()
+    private val archiveFragmentArgs: ArchiveFragmentArgs by navArgs()
     override val viewModel: ArchiveViewModel by viewModels()
     override fun initView() {
         binding.apply {
@@ -55,29 +59,32 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
     }
 
     override fun initStates() {
-        repeatOnStarted(viewLifecycleOwner){
+        repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect{
+                viewModel.uiState.collect {
                     subListArchive(it.archiveList)
                 }
             }
 
             launch {
-                viewModel.eventFlow.collect{
+                viewModel.eventFlow.collect {
                     inspectEventFlow(it as ArchiveEvent)
                 }
             }
         }
     }
 
-    private fun subListArchive(list : List<ArchiveContentResponseVo>){
+    private fun subListArchive(list: List<ArchiveContentResponseVo>) {
         archiveAdapter.submitList(list)
     }
 
-    private fun inspectEventFlow(event : ArchiveEvent){
-        when(event){
+    private fun inspectEventFlow(event: ArchiveEvent) {
+        when (event) {
             is ArchiveEvent.SeeDetailArchiveDialog -> {
-                ArchiveDetailDialog(event.responseVo).show(childFragmentManager, ARCHIVE_DETAIL_DIALOG_TAG)
+                ArchiveDetailDialog(event.responseVo).show(
+                    childFragmentManager,
+                    ARCHIVE_DETAIL_DIALOG_TAG
+                )
             }
             is ArchiveEvent.GoToBack -> {
                 findNavController().popBackStack()
@@ -91,22 +98,27 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
         }
     }
 
-    private fun clickBottomSheet(){
+    private fun clickBottomSheet() {
         PermissionManager.createGetImagePermission {
             showBottomSheetDialogSelectImage()
         }
     }
 
-    private fun showBottomSheetDialogSelectImage(){
-        ArchiveBottomSheetFragment(object : ArchiveBottomSheetFragment.ArchiveBottomSheetDelegate{
+    private fun showBottomSheetDialogSelectImage() {
+        ArchiveBottomSheetFragment(object : ArchiveBottomSheetFragment.ArchiveBottomSheetDelegate {
             override fun onSuccessGetImage(file: File?) {
                 viewModel.uploadImageFile(file)
             }
         }).show(childFragmentManager, ARCHIVE_UPLOAD_BOTTOM_SHEET_TAG)
     }
 
-    private fun goToArchiveUpload(imageUri : String){
-        val action = ArchiveFragmentDirections.actionArchiveToUpdate(updateType, imageUri)
+    private fun goToArchiveUpload(imageUri: String) {
+        val action = ArchiveFragmentDirections.actionArchiveToUpdate(
+            updateType,
+            archiveFragmentArgs.plubbingId,
+            0,
+            imageUri
+        )
         findNavController().navigate(action)
     }
 }

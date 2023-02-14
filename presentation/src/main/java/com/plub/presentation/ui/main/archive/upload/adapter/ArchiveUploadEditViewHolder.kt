@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.archive.upload.adapter
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
+import com.plub.domain.model.vo.archive.ArchiveUploadVo
 import com.plub.presentation.databinding.IncludeItemArchiveUpdateTitleBinding
 
 class ArchiveUploadEditViewHolder(
@@ -18,6 +19,9 @@ class ArchiveUploadEditViewHolder(
         }
     }
 
-    fun bind() {
+    fun bind(item: ArchiveUploadVo) {
+        if(!item.editText.equals("")){
+            binding.editTextTitle.setText(item.editText)
+        }
     }
 }

@@ -89,7 +89,7 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
             }
 
             EDIT_TYPE -> {
-
+                viewModel.initPage(archiveUploadFragmentArgs.plubbingId, archiveUploadFragmentArgs.archiveId)
             }
         }
     }
