@@ -1,19 +1,26 @@
 package com.plub.presentation.ui.main.archive
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.archive.ArchiveCardResponseVo
 import com.plub.domain.model.vo.archive.ArchiveDetailResponseVo
 import com.plub.domain.model.vo.archive.BrowseAllArchiveRequestVo
 import com.plub.domain.model.vo.archive.DetailArchiveRequestVo
+import com.plub.domain.model.vo.media.UploadFileRequestVo
+import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.usecase.GetAllArchiveUseCase
 import com.plub.domain.usecase.GetDetailArchiveUseCase
+import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class ArchiveViewModel @Inject constructor(
+    val postUploadFileUseCase: PostUploadFileUseCase,
     val getAllArchiveUseCase: GetAllArchiveUseCase,
     val getDetailArchiveUseCase: GetDetailArchiveUseCase
 )  :BaseViewModel<ArchivePageState>(ArchivePageState()) {
@@ -68,5 +75,20 @@ class ArchiveViewModel @Inject constructor(
 
     fun onClickUploadBottomSheet(){
         emitEventFlow(ArchiveEvent.ClickUploadBottomSheet)
+    }
+
+    fun uploadImageFile(file : File?){
+        val request = file?.let { UploadFileRequestVo(UploadFileType.PLUBBING_MAIN, it) }
+        viewModelScope.launch {
+            if (request != null) {
+                postUploadFileUseCase(request).collect{ state ->
+                    inspectUiState(state, ::handleSuccessUploadImage)
+                }
+            }
+        }
+    }
+
+    private fun handleSuccessUploadImage(vo : UploadFileResponseVo){
+        emitEventFlow(ArchiveEvent.GoToArchiveUpload(vo.fileUrl))
     }
 }

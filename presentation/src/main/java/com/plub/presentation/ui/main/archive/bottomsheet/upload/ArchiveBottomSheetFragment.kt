@@ -12,11 +12,16 @@ import com.plub.presentation.util.IntentUtil
 import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.io.File
 
 @AndroidEntryPoint
-class ArchiveBottomSheetFragment : BaseBottomSheetFragment<BottomSheetArchiveUploadBinding, PageState.Default, ArchiveBottomSheetViewModel>(
+class ArchiveBottomSheetFragment(private val listener : ArchiveBottomSheetDelegate) : BaseBottomSheetFragment<BottomSheetArchiveUploadBinding, PageState.Default, ArchiveBottomSheetViewModel>(
     BottomSheetArchiveUploadBinding::inflate
 ) {
+
+    interface ArchiveBottomSheetDelegate{
+        fun onSuccessGetImage(file : File?)
+    }
 
     override val viewModel: ArchiveBottomSheetViewModel by viewModels()
     override fun initView() {
@@ -46,6 +51,10 @@ class ArchiveBottomSheetFragment : BaseBottomSheetFragment<BottomSheetArchiveUpl
             is ArchiveBottomSheetEvent.CropImageAndOptimize -> {
                 startCropImage(event.cropImageContractOptions)
             }
+            is ArchiveBottomSheetEvent.EmitImageFile -> {
+                listener.onSuccessGetImage(event.file)
+                dismiss()
+            }
         }
     }
 
@@ -59,14 +68,6 @@ class ArchiveBottomSheetFragment : BaseBottomSheetFragment<BottomSheetArchiveUpl
             viewModel.proceedGatheringImageFromCameraResult(it)
         }
 
-    private fun startCropImage(option: CropImageContractOptions) {
-        cropImage.launch(option)
-    }
-
-    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
-        //viewModel.proceedCropImageResult(result)
-    }
-
     private fun getImageFromGallery() {
         val intent = IntentUtil.getSingleImageIntent()
         gatheringImageFromGalleryResult.launch(intent)
@@ -75,6 +76,14 @@ class ArchiveBottomSheetFragment : BaseBottomSheetFragment<BottomSheetArchiveUpl
     private val gatheringImageFromGalleryResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        //viewModel.proceedGatheringImageFromGalleryResult(it)
+        viewModel.proceedGatheringImageFromGalleryResult(result)
+    }
+
+    private fun startCropImage(option: CropImageContractOptions) {
+        cropImage.launch(option)
+    }
+
+    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
+        viewModel.proceedCropImageResult(result)
     }
 }

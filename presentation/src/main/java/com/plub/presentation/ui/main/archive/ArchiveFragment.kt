@@ -14,6 +14,7 @@ import com.plub.presentation.ui.main.archive.dialog.ArchiveDetailDialog
 import com.plub.presentation.util.PermissionManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.io.File
 
 @AndroidEntryPoint
 class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, ArchiveViewModel>(
@@ -80,6 +81,9 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             is ArchiveEvent.ClickUploadBottomSheet -> {
                 clickBottomSheet()
             }
+            is ArchiveEvent.GoToArchiveUpload -> {
+                goToArchiveUpload(event.fileUri)
+            }
         }
     }
 
@@ -90,6 +94,15 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
     }
 
     private fun showBottomSheetDialogSelectImage(){
-        ArchiveBottomSheetFragment().show(childFragmentManager, ARCHIVE_UPLOAD_BOTTOM_SHEET_TAG)
+        ArchiveBottomSheetFragment(object : ArchiveBottomSheetFragment.ArchiveBottomSheetDelegate{
+            override fun onSuccessGetImage(file: File?) {
+                viewModel.uploadImageFile(file)
+            }
+        }).show(childFragmentManager, ARCHIVE_UPLOAD_BOTTOM_SHEET_TAG)
+    }
+
+    private fun goToArchiveUpload(imageUri : String){
+        val action = ArchiveFragmentDirections.actionArchiveToUpldate(imageUri)
+        findNavController().navigate(action)
     }
 }

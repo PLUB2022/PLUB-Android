@@ -82,12 +82,24 @@
         android:name="com.plub.presentation.ui.main.archive.ArchiveFragment"
         android:label="fragment_archive"
         tools:layout="@layout/fragment_archive">
-
         <argument
             android:name="title"
             app:argType="string" />
         <argument
             android:name="plubbingId"
             app:argType="integer"/>
+        <action
+            android:id="@+id/action_archive_to_upldate"
+            app:destination="@id/archiveUpdateFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/archiveUpdateFragment"
+        android:name="com.plub.presentation.ui.main.archive.upload.ArchiveUploadFragment"
+        android:label="fragment_archive_update"
+        tools:layout="@layout/fragment_archive_update">
+        <argument
+            android:name="image"
+            app:argType="string"/>
     </fragment>
 </navigation>
