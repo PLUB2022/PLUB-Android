@@ -1,11 +1,10 @@
-package com.plub.presentation.ui.main.archive.viewholder
+package com.plub.presentation.ui.main.archive.adapter
 
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemArchiveBinding
-import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter
 import com.plub.presentation.util.GlideUtil
 
 class ArchiveViewHolder(

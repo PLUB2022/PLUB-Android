@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
 import com.plub.presentation.databinding.IncludeItemArchiveBinding
-import com.plub.presentation.ui.main.archive.viewholder.ArchiveViewHolder
-import com.plub.presentation.ui.main.home.search.adapter.RecentSearchViewHolder
 
 class ArchiveAdapter(private val listener: ArchiveDelegate) : ListAdapter<ArchiveContentResponseVo, RecyclerView.ViewHolder>(
     ArchiveDiffCallback()
