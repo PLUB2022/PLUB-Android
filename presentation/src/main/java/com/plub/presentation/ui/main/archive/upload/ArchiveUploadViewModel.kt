@@ -3,20 +3,31 @@ package com.plub.presentation.ui.main.archive.upload
 import android.app.Activity
 import android.net.Uri
 import androidx.activity.result.ActivityResult
+import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.ArchiveItemViewType
+import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.archive.ArchiveUploadVo
+import com.plub.domain.model.vo.media.UploadFileRequestVo
+import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.usecase.GetDetailArchiveUseCase
+import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.PageState
+import com.plub.presentation.ui.main.archive.ArchiveEvent
 import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetEvent
 import com.plub.presentation.util.ImageUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class ArchiveUploadViewModel @Inject constructor(
+    private val postUploadFileUseCase: PostUploadFileUseCase,
     private val getDetailArchiveUseCase: GetDetailArchiveUseCase
 ) : BaseViewModel<ArchiveUploadPageState>(ArchiveUploadPageState()) {
+
+    private var editText : String = ""
 
     fun initPageWithFirstImage(imageUri : String){
         val firstImageList = arrayListOf<ArchiveUploadVo>(ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_VIEW, image = imageUri))
@@ -39,5 +50,57 @@ class ArchiveUploadViewModel @Inject constructor(
                 imageCount = imageCount
             )
         }
+    }
+
+    fun deleteList(position : Int){
+        val originList = uiState.value.archiveUploadVoList
+        val mergeList = mutableListOf<ArchiveUploadVo>()
+        mergeList.addAll(originList)
+        mergeList.removeAt(position)
+        updateListState(mergeList)
+    }
+
+    fun updateEditText(text : String){
+        editText = text
+        updateButtonState()
+    }
+
+    private fun updateButtonState(){
+        val isDataNotEmpty = (uiState.value.imageCount > 0) && editText.isNotEmpty()
+        if (isDataNotEmpty != uiState.value.enableButton){
+            updateUiState { uiState ->
+                uiState.copy(
+                    enableButton = isDataNotEmpty
+                )
+            }
+        }
+    }
+
+    fun uploadImageFile(file : File?){
+        val request = file?.let { UploadFileRequestVo(UploadFileType.PLUBBING_MAIN, it) }
+        viewModelScope.launch {
+            if (request != null) {
+                postUploadFileUseCase(request).collect{ state ->
+                    inspectUiState(state, ::handleSuccessUploadImage)
+                }
+            }
+        }
+    }
+
+    private fun handleSuccessUploadImage(vo : UploadFileResponseVo){
+        addList(ArchiveUploadVo(
+            viewType = ArchiveItemViewType.IMAGE_VIEW,
+            image = vo.fileUrl
+        ))
+    }
+
+    private fun addList(vo : ArchiveUploadVo){
+        val originList = uiState.value.archiveUploadVoList
+        val mergeList = arrayListOf(vo)
+        updateListState(originList + mergeList)
+    }
+
+    fun showBottomSheet(){
+        emitEventFlow(ArchiveUploadEvent.ShowBottomSheet)
     }
 }

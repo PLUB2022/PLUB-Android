@@ -88,10 +88,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
+            android:enabled="@{vm.uiState.enableButton}"
             android:text="@string/archive_complete"
-            android:textColor="@color/white"
+            android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             android:textSize="14sp"
-            android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
+            android:background="@drawable/selector_bg_f2f3f4_to5f5ff9"
             android:layout_width="0dp"
             android:layout_height="46dp"/>
 

@@ -24,8 +24,10 @@
             android:background="@drawable/bg_rectangle_filled_white_radius_8"
             android:hint="@string/archive_update_please_enter_title"
             android:textColorHint="@color/color_8c8c8c"
+            android:textColor="@color/color_363636"
             android:layout_marginTop="8dp"
             android:paddingHorizontal="8dp"
+            android:maxLength="12"
             android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/text_view_title"/>
 

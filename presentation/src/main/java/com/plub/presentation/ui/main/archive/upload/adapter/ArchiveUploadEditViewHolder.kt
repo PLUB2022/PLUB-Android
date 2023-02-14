@@ -11,8 +11,10 @@ class ArchiveUploadEditViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
-        binding.editTextTitle.addTextChangedListener {
-            //TODO 텍스트 감지
+        binding.apply {
+            editTextTitle.addTextChangedListener {
+                listener.onChangedText(editTextTitle.text.toString())
+            }
         }
     }
 
