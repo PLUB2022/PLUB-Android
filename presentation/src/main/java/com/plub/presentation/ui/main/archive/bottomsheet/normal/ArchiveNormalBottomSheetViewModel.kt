@@ -9,4 +9,13 @@ import javax.inject.Inject
 class ArchiveNormalBottomSheetViewModel @Inject constructor(
 ) : BaseViewModel<PageState.Default>(PageState.Default) {
 
+    private var archiveId : Int = 0
+
+    fun setArchiveId(id : Int){
+        archiveId = id
+    }
+
+    fun goToReport(){
+        emitEventFlow(ArchiveNormalBottomSheetEvent.GoToReport(archiveId))
+    }
 }

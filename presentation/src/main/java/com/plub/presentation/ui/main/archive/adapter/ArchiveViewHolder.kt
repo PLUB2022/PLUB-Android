@@ -20,7 +20,7 @@ class ArchiveViewHolder(
         }
 
         binding.imageBtnDot.setOnClickListener {
-            listener.onDotsClick(vo.accessType)
+            listener.onDotsClick(vo.accessType, vo.archiveId)
         }
     }
 

@@ -8,25 +8,36 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ArchiveNormalBottomSheetFragment() : BaseBottomSheetFragment<BottomSheetArchiveNormalBinding, PageState.Default, ArchiveNormalBottomSheetViewModel>(
+class ArchiveNormalBottomSheetFragment(private val listener : ArchiveNormalBottomSheetDelegate) : BaseBottomSheetFragment<BottomSheetArchiveNormalBinding, PageState.Default, ArchiveNormalBottomSheetViewModel>(
     BottomSheetArchiveNormalBinding::inflate
 ) {
 
-    interface ArchiveBottomSheetDelegate{
-
+    interface ArchiveNormalBottomSheetDelegate{
+        fun onClickReport()
     }
 
     override val viewModel: ArchiveNormalBottomSheetViewModel by viewModels()
     override fun initView() {
         binding.apply {
-
+            vm = viewModel
         }
     }
 
     override fun initStates() {
         repeatOnStarted(viewLifecycleOwner){
             launch {
+                viewModel.eventFlow.collect{
+                    inspectEventFlow(it as ArchiveNormalBottomSheetEvent)
+                }
+            }
+        }
+    }
 
+    private fun inspectEventFlow(event : ArchiveNormalBottomSheetEvent){
+        when(event){
+            is ArchiveNormalBottomSheetEvent.GoToReport -> {
+                listener.onClickReport()
+                dismiss()
             }
         }
     }

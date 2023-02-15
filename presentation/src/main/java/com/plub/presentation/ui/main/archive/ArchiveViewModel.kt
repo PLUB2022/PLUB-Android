@@ -94,15 +94,19 @@ class ArchiveViewModel @Inject constructor(
         emitEventFlow(ArchiveEvent.GoToArchiveUpload(vo.fileUrl))
     }
 
-    fun seeBottomSheet(type : String){
+    fun seeBottomSheet(type : String, id : Int){
         if(type.equals(AUTHOR)){
-            emitEventFlow(ArchiveEvent.SeeAuthorBottomSheet)
+            emitEventFlow(ArchiveEvent.SeeAuthorBottomSheet(id))
         }
         else if(type.equals(AUTHOR)){
-            emitEventFlow(ArchiveEvent.SeeHostBottomSheet)
+            emitEventFlow(ArchiveEvent.SeeHostBottomSheet(id))
         }
         else if(type.equals(NORMAL)){
-            emitEventFlow(ArchiveEvent.SeeNormalBottomSheet)
+            emitEventFlow(ArchiveEvent.SeeNormalBottomSheet(id))
         }
+    }
+
+    fun goToReport(id : Int){
+        emitEventFlow(ArchiveEvent.GoToReport(id))
     }
 }

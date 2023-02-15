@@ -29,7 +29,7 @@
             android:id="@+id/view_stick"
             android:layout_width="2dp"
             android:layout_height="0dp"
-            android:background="@color/color_f2f3f4"
+            android:background="@color/color_e4e4e4"
             app:layout_constraintBottom_toBottomOf="@id/view_margin_bottom"
             app:layout_constraintEnd_toEndOf="@id/view_big_circle"
             app:layout_constraintStart_toStartOf="@id/view_big_circle"

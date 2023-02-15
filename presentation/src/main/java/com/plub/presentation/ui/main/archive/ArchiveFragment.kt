@@ -45,10 +45,9 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 ArchiveDetailDialog(response).show(childFragmentManager, ARCHIVE_DETAIL_DIALOG_TAG)
             }
 
-            override fun onDotsClick(type: String) {
-                viewModel.seeBottomSheet(type)
+            override fun onDotsClick(type: String, archiveId : Int) {
+                viewModel.seeBottomSheet(type, archiveId)
             }
-
         })
     }
 
@@ -103,13 +102,16 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 goToArchiveUpload(event.fileUri)
             }
             is ArchiveEvent.SeeAuthorBottomSheet -> {
-                showBottomSheetAuthor()
+                showBottomSheetAuthor(event.archiveId)
             }
             is ArchiveEvent.SeeHostBottomSheet -> {
-                showBottomSheetHost()
+                showBottomSheetHost(event.archiveId)
             }
             is ArchiveEvent.SeeNormalBottomSheet -> {
-                showBottomSheetNormal()
+                showBottomSheetNormal(event.archiveId)
+            }
+            is ArchiveEvent.GoToReport -> {
+                goToReport(event.archiveId)
             }
         }
     }
@@ -128,16 +130,20 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
         }).show(childFragmentManager, ARCHIVE_UPLOAD_BOTTOM_SHEET_TAG)
     }
 
-    private fun showBottomSheetAuthor(){
+    private fun showBottomSheetAuthor(archiveId : Int){
         ArchiveAuthorBottomSheetFragment().show(childFragmentManager, "")
     }
 
-    private fun showBottomSheetHost(){
+    private fun showBottomSheetHost(archiveId : Int){
         ArchiveHostBottomSheetFragment().show(childFragmentManager, "")
     }
 
-    private fun showBottomSheetNormal(){
-        ArchiveNormalBottomSheetFragment().show(childFragmentManager, "")
+    private fun showBottomSheetNormal(archiveId : Int){
+        ArchiveNormalBottomSheetFragment(object : ArchiveNormalBottomSheetFragment.ArchiveNormalBottomSheetDelegate{
+            override fun onClickReport(){
+                viewModel.goToReport(archiveId)
+            }
+        }).show(childFragmentManager, "")
     }
 
     private fun goToArchiveUpload(imageUri: String) {
@@ -148,5 +154,9 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             imageUri
         )
         findNavController().navigate(action)
+    }
+
+    private fun goToReport(archiveId: Int){
+
     }
 }

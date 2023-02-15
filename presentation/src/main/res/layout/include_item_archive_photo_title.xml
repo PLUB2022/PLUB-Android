@@ -4,11 +4,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp">
         
         <TextView
             android:id="@+id/text_view_photo"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="28dp"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintTop_toTopOf="parent"

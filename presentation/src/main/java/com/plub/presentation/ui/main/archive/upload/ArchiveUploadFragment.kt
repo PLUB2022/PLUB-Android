@@ -8,16 +8,17 @@ import com.plub.domain.model.enums.ArchiveItemViewType
 import com.plub.domain.model.vo.archive.ArchiveUploadVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentArchiveUpdateBinding
-import com.plub.presentation.ui.PageState
+import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.main.archive.ArchiveFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetFragment
 import com.plub.presentation.ui.main.archive.upload.adapter.ArchiveUploadAdapter
-import com.plub.presentation.ui.sign.signup.SignUpEvent
-import kotlinx.coroutines.flow.collect
+import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.util.px
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File
 
-
+@AndroidEntryPoint
 class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, ArchiveUploadPageState, ArchiveUploadViewModel>(
     FragmentArchiveUpdateBinding::inflate
 ) {
@@ -25,10 +26,6 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
     companion object{
         const val ITEM_SPAN_COUNT_LINEAR = 1
         const val ITEM_SPAN_COUNT_GRID = 2
-
-        const val EDIT_VIEW = 0
-        const val IMAGE_TITLE_VIEW = 1
-        const val IMAGE_VIEW = 2
 
         const val UPLOAD_TYPE = 0
         const val EDIT_TYPE = 1
@@ -69,15 +66,17 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
             layoutManager = GridLayoutManager(context, ITEM_SPAN_COUNT_GRID).apply {
                 spanSizeLookup = object : SpanSizeLookup(){
                     override fun getSpanSize(position: Int): Int {
-                        return when (archiveUploadAdapter.getItemViewType(position)) {
-                            EDIT_VIEW -> ITEM_SPAN_COUNT_LINEAR
-                            IMAGE_TITLE_VIEW -> ITEM_SPAN_COUNT_LINEAR
-                            IMAGE_VIEW -> ITEM_SPAN_COUNT_GRID
-                            else -> ITEM_SPAN_COUNT_LINEAR
+                        PlubLogger.logD("${ArchiveItemViewType.valueOf(archiveUploadAdapter.getItemViewType(position))}")
+                        return when (ArchiveItemViewType.valueOf(archiveUploadAdapter.getItemViewType(position))) {
+                            ArchiveItemViewType.EDIT_VIEW -> ITEM_SPAN_COUNT_GRID
+                            ArchiveItemViewType.IMAGE_TEXT_VIEW -> ITEM_SPAN_COUNT_GRID
+                            ArchiveItemViewType.IMAGE_VIEW -> ITEM_SPAN_COUNT_LINEAR
+                            ArchiveItemViewType.IMAGE_ADD_VIEW -> ITEM_SPAN_COUNT_LINEAR
                         }
                     }
                 }
             }
+            addItemDecoration(GridSpaceDecoration(ITEM_SPAN_COUNT_GRID, 6.px, 4.px, false))
             adapter = archiveUploadAdapter
         }
     }
