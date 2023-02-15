@@ -99,7 +99,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 clickBottomSheet()
             }
             is ArchiveEvent.GoToArchiveUpload -> {
-                goToArchiveUpdate(event.fileUri, event.title)
+                goToArchiveUpload(event.fileUri, event.title)
             }
             is ArchiveEvent.SeeAuthorBottomSheet -> {
                 showBottomSheetAuthor(event.archiveId)
@@ -112,6 +112,9 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             }
             is ArchiveEvent.GoToReport -> {
                 goToReport(event.archiveId)
+            }
+            is ArchiveEvent.GoToEdit -> {
+                goToArchiveEdit(event.title)
             }
         }
     }
@@ -131,7 +134,17 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
     }
 
     private fun showBottomSheetAuthor(archiveId : Int){
-        ArchiveAuthorBottomSheetFragment().show(childFragmentManager, "")
+        ArchiveAuthorBottomSheetFragment(archiveFragmentArgs.plubbingId, archiveId, object : ArchiveAuthorBottomSheetFragment.ArchiveAuthorDelegate{
+            override fun onDelete() {
+                viewModel.deleteArchive(archiveId)
+            }
+
+            override fun onClickEdit() {
+                updateType = EDIT_TYPE
+                viewModel.goToEdit()
+            }
+
+        }).show(childFragmentManager, "")
     }
 
     private fun showBottomSheetHost(archiveId : Int){
@@ -147,12 +160,23 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
         ArchiveNormalBottomSheetFragment(archiveFragmentArgs.plubbingId, archiveId).show(childFragmentManager, "")
     }
 
-    private fun goToArchiveUpdate(imageUri: String, title : String) {
+    private fun goToArchiveUpload(imageUri: String, title : String) {
         val action = ArchiveFragmentDirections.actionArchiveToUpdate(
             updateType,
             archiveFragmentArgs.plubbingId,
             0,
             imageUri,
+            title
+        )
+        findNavController().navigate(action)
+    }
+
+    private fun goToArchiveEdit(title : String) {
+        val action = ArchiveFragmentDirections.actionArchiveToUpdate(
+            updateType,
+            archiveFragmentArgs.plubbingId,
+            0,
+            "",
             title
         )
         findNavController().navigate(action)
