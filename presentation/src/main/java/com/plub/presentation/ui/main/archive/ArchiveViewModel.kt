@@ -91,14 +91,14 @@ class ArchiveViewModel @Inject constructor(
     }
 
     private fun handleSuccessUploadImage(vo : UploadFileResponseVo){
-        emitEventFlow(ArchiveEvent.GoToArchiveUpload(vo.fileUrl))
+        emitEventFlow(ArchiveEvent.GoToArchiveUpload(vo.fileUrl, title))
     }
 
     fun seeBottomSheet(type : String, id : Int){
         if(type.equals(AUTHOR)){
             emitEventFlow(ArchiveEvent.SeeAuthorBottomSheet(id))
         }
-        else if(type.equals(AUTHOR)){
+        else if(type.equals(HOST)){
             emitEventFlow(ArchiveEvent.SeeHostBottomSheet(id))
         }
         else if(type.equals(NORMAL)){

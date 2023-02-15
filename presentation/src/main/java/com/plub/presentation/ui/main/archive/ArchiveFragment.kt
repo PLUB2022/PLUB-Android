@@ -99,7 +99,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 clickBottomSheet()
             }
             is ArchiveEvent.GoToArchiveUpload -> {
-                goToArchiveUpload(event.fileUri)
+                goToArchiveUpload(event.fileUri, event.title)
             }
             is ArchiveEvent.SeeAuthorBottomSheet -> {
                 showBottomSheetAuthor(event.archiveId)
@@ -146,12 +146,13 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
         }).show(childFragmentManager, "")
     }
 
-    private fun goToArchiveUpload(imageUri: String) {
+    private fun goToArchiveUpload(imageUri: String, title : String) {
         val action = ArchiveFragmentDirections.actionArchiveToUpdate(
             updateType,
             archiveFragmentArgs.plubbingId,
             0,
-            imageUri
+            imageUri,
+            title
         )
         findNavController().navigate(action)
     }

@@ -110,5 +110,8 @@
         <argument
             android:name="image"
             app:argType="string"/>
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
 </navigation>

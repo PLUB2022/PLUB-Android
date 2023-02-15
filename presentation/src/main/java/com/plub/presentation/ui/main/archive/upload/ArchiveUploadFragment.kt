@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.archive.upload
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
@@ -84,11 +85,11 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
     private fun initUploadView(){
         when(archiveUploadFragmentArgs.type){
             UPLOAD_TYPE -> {
-                viewModel.initPageWithFirstImage(archiveUploadFragmentArgs.image)
+                viewModel.initPageWithFirstImage(archiveUploadFragmentArgs.image, archiveUploadFragmentArgs.title, archiveUploadFragmentArgs.plubbingId)
             }
 
             EDIT_TYPE -> {
-                viewModel.initPage(archiveUploadFragmentArgs.plubbingId, archiveUploadFragmentArgs.archiveId)
+                viewModel.initPage(archiveUploadFragmentArgs.plubbingId, archiveUploadFragmentArgs.archiveId, archiveUploadFragmentArgs.title)
             }
         }
     }
@@ -123,6 +124,9 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
         when(event){
             is ArchiveUploadEvent.ShowBottomSheet ->{
                 showBottomSheetDialogSelectImage()
+            }
+            is ArchiveUploadEvent.GoToBack -> {
+                findNavController().popBackStack()
             }
         }
     }
