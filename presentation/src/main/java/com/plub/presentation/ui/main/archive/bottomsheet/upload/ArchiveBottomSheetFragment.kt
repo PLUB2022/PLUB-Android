@@ -9,7 +9,6 @@ import com.plub.presentation.base.BaseBottomSheetFragment
 import com.plub.presentation.databinding.BottomSheetArchiveUploadBinding
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.util.IntentUtil
-import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File

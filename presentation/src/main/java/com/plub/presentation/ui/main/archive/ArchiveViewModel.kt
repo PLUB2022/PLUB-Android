@@ -99,8 +99,7 @@ class ArchiveViewModel @Inject constructor(
             emitEventFlow(ArchiveEvent.SeeHostBottomSheet(id))
         }
         else if(type.equals(NORMAL)){
-            emitEventFlow(ArchiveEvent.SeeAuthorBottomSheet(id))
-            //emitEventFlow(ArchiveEvent.SeeNormalBottomSheet(id))
+            emitEventFlow(ArchiveEvent.SeeNormalBottomSheet(id))
         }
     }
 

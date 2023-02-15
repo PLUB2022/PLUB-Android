@@ -5,7 +5,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
-import com.plub.domain.model.vo.archive.ArchiveDetailResponseVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
 import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter
@@ -25,8 +24,6 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
 ) {
 
     companion object {
-        const val ARCHIVE_DETAIL_DIALOG_TAG = "Archive Detail Tag"
-        const val ARCHIVE_UPLOAD_BOTTOM_SHEET_TAG = "Archive Upload Bottom Sheet Tag"
         const val UPLOAD_TYPE = 0
         const val EDIT_TYPE = 1
     }
@@ -35,14 +32,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
     private val archiveAdapter: ArchiveAdapter by lazy {
         ArchiveAdapter(object : ArchiveAdapter.ArchiveDelegate {
             override fun onCardClick(archiveId: Int) {
-                //viewModel.seeDetailDialog(archiveId)
-                val list = arrayListOf<String>(
-                    "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
-                    "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
-                    "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/2625879414%40KAKAO_873db2c5-613a-41ea-84bd-dec8d194d629_.jpeg"
-                )
-                val response = ArchiveDetailResponseVo(list, archiveId, "2023-02-12", "테스트 아카이브")
-                ArchiveDetailDialog(response).show(childFragmentManager, ARCHIVE_DETAIL_DIALOG_TAG)
+                viewModel.seeDetailDialog(archiveId)
             }
 
             override fun onDotsClick(type: String, archiveId : Int) {
@@ -89,7 +79,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             is ArchiveEvent.SeeDetailArchiveDialog -> {
                 ArchiveDetailDialog(event.responseVo).show(
                     childFragmentManager,
-                    ARCHIVE_DETAIL_DIALOG_TAG
+                    ""
                 )
             }
             is ArchiveEvent.GoToBack -> {
@@ -130,7 +120,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             override fun onSuccessGetImage(file: File?) {
                 viewModel.uploadImageFile(file)
             }
-        }).show(childFragmentManager, ARCHIVE_UPLOAD_BOTTOM_SHEET_TAG)
+        }).show(childFragmentManager, "")
     }
 
     private fun showBottomSheetAuthor(archiveId : Int){

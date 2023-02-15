@@ -136,6 +136,6 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
             override fun onSuccessGetImage(file: File?) {
                 viewModel.uploadImageFile(file)
             }
-        }).show(childFragmentManager, ArchiveFragment.ARCHIVE_UPLOAD_BOTTOM_SHEET_TAG)
+        }).show(childFragmentManager, "")
     }
 }

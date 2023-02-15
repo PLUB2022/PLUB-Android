@@ -4,11 +4,8 @@ package com.plub.presentation.ui.main.archive.bottomsheet.author
 import androidx.fragment.app.viewModels
 import com.plub.presentation.base.BaseBottomSheetFragment
 import com.plub.presentation.databinding.BottomSheetArchiveAuthorBinding
-import com.plub.presentation.databinding.BottomSheetArchiveHostBinding
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.ui.main.archive.bottomsheet.ArchiveDotsBottomSheetEvent
-import com.plub.presentation.ui.main.archive.bottomsheet.host.ArchiveHostBottomSheetViewModel
-import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
