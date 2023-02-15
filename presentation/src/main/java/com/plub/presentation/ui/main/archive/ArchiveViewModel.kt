@@ -2,10 +2,7 @@ package com.plub.presentation.ui.main.archive
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.UploadFileType
-import com.plub.domain.model.vo.archive.ArchiveCardResponseVo
-import com.plub.domain.model.vo.archive.ArchiveDetailResponseVo
-import com.plub.domain.model.vo.archive.BrowseAllArchiveRequestVo
-import com.plub.domain.model.vo.archive.DetailArchiveRequestVo
+import com.plub.domain.model.vo.archive.*
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.usecase.GetAllArchiveUseCase
@@ -106,7 +103,18 @@ class ArchiveViewModel @Inject constructor(
         }
     }
 
-    fun goToReport(id : Int){
-        emitEventFlow(ArchiveEvent.GoToReport(id))
+    fun deleteArchive(archiveId : Int){
+        val originList = mutableListOf<ArchiveContentResponseVo>()
+        originList.addAll(uiState.value.archiveList)
+        for(content in originList){
+            if(content.archiveId == archiveId){
+                originList.remove(content)
+            }
+        }
+        updateUiState { uiState ->
+            uiState.copy(
+                archiveList = originList
+            )
+        }
     }
 }

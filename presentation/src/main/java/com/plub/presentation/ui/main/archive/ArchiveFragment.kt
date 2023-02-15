@@ -99,7 +99,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 clickBottomSheet()
             }
             is ArchiveEvent.GoToArchiveUpload -> {
-                goToArchiveUpload(event.fileUri, event.title)
+                goToArchiveUpdate(event.fileUri, event.title)
             }
             is ArchiveEvent.SeeAuthorBottomSheet -> {
                 showBottomSheetAuthor(event.archiveId)
@@ -135,18 +135,19 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
     }
 
     private fun showBottomSheetHost(archiveId : Int){
-        ArchiveHostBottomSheetFragment().show(childFragmentManager, "")
-    }
-
-    private fun showBottomSheetNormal(archiveId : Int){
-        ArchiveNormalBottomSheetFragment(object : ArchiveNormalBottomSheetFragment.ArchiveNormalBottomSheetDelegate{
-            override fun onClickReport(){
-                viewModel.goToReport(archiveId)
+        ArchiveHostBottomSheetFragment(archiveFragmentArgs.plubbingId, archiveId, object : ArchiveHostBottomSheetFragment.ArchiveHostDelegate{
+            override fun onDelete() {
+                viewModel.deleteArchive(archiveId)
             }
+
         }).show(childFragmentManager, "")
     }
 
-    private fun goToArchiveUpload(imageUri: String, title : String) {
+    private fun showBottomSheetNormal(archiveId : Int){
+        ArchiveNormalBottomSheetFragment(archiveFragmentArgs.plubbingId, archiveId).show(childFragmentManager, "")
+    }
+
+    private fun goToArchiveUpdate(imageUri: String, title : String) {
         val action = ArchiveFragmentDirections.actionArchiveToUpdate(
             updateType,
             archiveFragmentArgs.plubbingId,

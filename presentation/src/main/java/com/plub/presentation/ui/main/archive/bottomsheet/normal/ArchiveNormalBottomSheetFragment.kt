@@ -4,17 +4,14 @@ import androidx.fragment.app.viewModels
 import com.plub.presentation.base.BaseBottomSheetFragment
 import com.plub.presentation.databinding.BottomSheetArchiveNormalBinding
 import com.plub.presentation.ui.PageState
+import com.plub.presentation.ui.main.archive.bottomsheet.ArchiveDotsBottomSheetEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ArchiveNormalBottomSheetFragment(private val listener : ArchiveNormalBottomSheetDelegate) : BaseBottomSheetFragment<BottomSheetArchiveNormalBinding, PageState.Default, ArchiveNormalBottomSheetViewModel>(
+class ArchiveNormalBottomSheetFragment(private val plubbingId : Int, private val archiveId : Int) : BaseBottomSheetFragment<BottomSheetArchiveNormalBinding, PageState.Default, ArchiveNormalBottomSheetViewModel>(
     BottomSheetArchiveNormalBinding::inflate
 ) {
-
-    interface ArchiveNormalBottomSheetDelegate{
-        fun onClickReport()
-    }
 
     override val viewModel: ArchiveNormalBottomSheetViewModel by viewModels()
     override fun initView() {
@@ -27,18 +24,24 @@ class ArchiveNormalBottomSheetFragment(private val listener : ArchiveNormalBotto
         repeatOnStarted(viewLifecycleOwner){
             launch {
                 viewModel.eventFlow.collect{
-                    inspectEventFlow(it as ArchiveNormalBottomSheetEvent)
+                    inspectEventFlow(it as ArchiveDotsBottomSheetEvent)
                 }
             }
         }
     }
 
-    private fun inspectEventFlow(event : ArchiveNormalBottomSheetEvent){
+    private fun inspectEventFlow(event : ArchiveDotsBottomSheetEvent){
         when(event){
-            is ArchiveNormalBottomSheetEvent.GoToReport -> {
-                listener.onClickReport()
+            is ArchiveDotsBottomSheetEvent.GoToReport -> {
+                goToReport()
                 dismiss()
             }
+            ArchiveDotsBottomSheetEvent.DeleteArchive -> {}
+            ArchiveDotsBottomSheetEvent.EditArchive -> {}
         }
+    }
+
+    private fun goToReport(){
+
     }
 }
