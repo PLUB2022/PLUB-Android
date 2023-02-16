@@ -127,6 +127,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
             android:visibility="gone"
             app:layout_constraintDimensionRatio="296:222"
             app:layout_constraintEnd_toEndOf="parent"
