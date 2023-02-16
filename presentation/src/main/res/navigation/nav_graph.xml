@@ -56,6 +56,19 @@
         <argument
             android:name="plubingId"
             app:argType="integer" />
+    <fragment
+        android:id="@+id/plubingBoardWriteFragment"
+        android:name="com.plub.presentation.ui.main.plubing.board.write.BoardWriteFragment"
+        android:label="fragment_plubing_board_write"
+        tools:layout="@layout/fragment_board_write">
+
+        <argument
+            android:name="plubingId"
+            app:argType="integer" />
+
+        <argument
+            android:name="plubingName"
+            app:argType="string" />
     </fragment>
 
     <fragment

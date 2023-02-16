@@ -56,6 +56,7 @@
     <string name="word_sort_type_popular">인기순</string>
     <string name="word_sort">정렬</string>
     <string name="word_bookmark">북마크</string>
+    <string name="word_middle_slash">%d/%d</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>
@@ -208,6 +209,18 @@
 
     <string name="plubing_main_tab_board">게시판</string>
     <string name="plubing_main_tab_todo_list">그룹원 To-Do 리스트</string>
+    <string name="plubing_main_write_board">새 글 작성</string>
+    <string name="plubing_main_write_todo">TO-DO 추가</string>
 
     <string name="plubing_board_clipboard">클립보드</string>
+    <string name="plubing_board_write_feed_type">게시글 타입</string>
+    <string name="plubing_board_write_feed_type_text">글 Only</string>
+    <string name="plubing_board_write_feed_type_image">사진 Only</string>
+    <string name="plubing_board_write_feed_type_text_and_image">사진+글</string>
+    <string name="plubing_board_write_title">제목</string>
+    <string name="plubing_board_write_image">사진 추가</string>
+    <string name="plubing_board_write_content">게시할 내용</string>
+    <string name="plubing_board_write_post">글 업로드</string>
+    <string name="plubing_board_write_title_hint">제목을 입력해주세요</string>
+    <string name="plubing_board_write_content_hint">내용을 입력해주세요</string>
 </resources>

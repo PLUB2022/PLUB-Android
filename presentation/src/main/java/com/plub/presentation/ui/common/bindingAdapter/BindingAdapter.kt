@@ -27,6 +27,14 @@ fun loadUrl(view: WebView, url: String) {
     if(view.url != url) view.loadUrl(url)
 }
 
+@BindingAdapter("imageFile")
+fun ImageView.setImageFile(imageFile:File?) {
+    if(imageFile == null) return
+    else {
+        GlideUtil.loadImage(context, imageFile, this)
+    }
+}
+
 @BindingAdapter("imageFile","defaultImage")
 fun ImageView.setImageFile(imageFile:File?, defaultImage:Drawable) {
     if(imageFile == null) setImageDrawable(defaultImage)
