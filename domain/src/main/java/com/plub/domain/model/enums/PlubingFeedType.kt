@@ -9,5 +9,11 @@ enum class PlubingFeedType(val type: String) {
                 it.type == value
             } ?: TEXT
         }
+
+        fun boardWriteFeedTypeList(): List<PlubingFeedType> {
+            return listOf(
+                IMAGE, TEXT, TEXT_AND_IMAGE
+            )
+        }
     }
 }
