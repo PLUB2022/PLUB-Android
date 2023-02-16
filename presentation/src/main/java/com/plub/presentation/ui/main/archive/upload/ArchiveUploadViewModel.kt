@@ -9,8 +9,10 @@ import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.domain.usecase.PostCreateArchiveUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
+import com.plub.domain.usecase.PutEditArchiveUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -19,7 +21,8 @@ import javax.inject.Inject
 class ArchiveUploadViewModel @Inject constructor(
     private val postUploadFileUseCase: PostUploadFileUseCase,
     private val getDetailArchiveUseCase: GetDetailArchiveUseCase,
-    private val postCreateArchiveUseCase: PostCreateArchiveUseCase
+    private val postCreateArchiveUseCase: PostCreateArchiveUseCase,
+    private val putEditArchiveUseCase: PutEditArchiveUseCase
 ) : BaseViewModel<ArchiveUploadPageState>(ArchiveUploadPageState()) {
 
     companion object{
@@ -139,9 +142,10 @@ class ArchiveUploadViewModel @Inject constructor(
     }
 
     private fun addList(vo : ArchiveUploadVo){
-        val originList = uiState.value.archiveUploadVoList
-        val mergeList = arrayListOf(vo)
-        updateListState(originList + mergeList)
+        val originList = mutableListOf<ArchiveUploadVo>()
+        originList.addAll(uiState.value.archiveUploadVoList)
+        originList.add(vo)
+        updateListState(originList)
     }
 
     fun showBottomSheet(){
@@ -154,7 +158,7 @@ class ArchiveUploadViewModel @Inject constructor(
                 uploadArchive()
             }
             EDIT_TYPE -> {
-
+                editArchive()
             }
         }
     }
@@ -181,6 +185,20 @@ class ArchiveUploadViewModel @Inject constructor(
     }
 
     private fun handleSuccessCreateArchive(vo : ArchiveIdResponseVo){
+        emitEventFlow(ArchiveUploadEvent.GoToBack)
+    }
+
+    private fun editArchive(){
+        val mergeList = getImageList()
+        val request = EditArchiveRequestVo(plubbingId, archiveId, ArchiveContentRequestVo(editText, mergeList))
+        viewModelScope.launch {
+            putEditArchiveUseCase(request).collect{ state->
+                inspectUiState(state, ::handleSuccessEditArchive)
+            }
+        }
+    }
+
+    private fun handleSuccessEditArchive(vo : ArchiveIdResponseVo){
         emitEventFlow(ArchiveUploadEvent.GoToBack)
     }
 }

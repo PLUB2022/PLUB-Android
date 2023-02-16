@@ -5,6 +5,7 @@ import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.archive.*
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
+import com.plub.domain.usecase.DeleteArchiveUseCase
 import com.plub.domain.usecase.GetAllArchiveUseCase
 import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class ArchiveViewModel @Inject constructor(
     val postUploadFileUseCase: PostUploadFileUseCase,
     val getAllArchiveUseCase: GetAllArchiveUseCase,
-    val getDetailArchiveUseCase: GetDetailArchiveUseCase
+    val getDetailArchiveUseCase: GetDetailArchiveUseCase,
+    val deleteArchiveUseCase: DeleteArchiveUseCase
 )  :BaseViewModel<ArchivePageState>(ArchivePageState()) {
 
     companion object{
@@ -92,14 +94,16 @@ class ArchiveViewModel @Inject constructor(
     }
 
     fun seeBottomSheet(type : String, id : Int){
-        if(type.equals(AUTHOR)){
-            emitEventFlow(ArchiveEvent.SeeAuthorBottomSheet(id))
-        }
-        else if(type.equals(HOST)){
-            emitEventFlow(ArchiveEvent.SeeHostBottomSheet(id))
-        }
-        else if(type.equals(NORMAL)){
-            emitEventFlow(ArchiveEvent.SeeNormalBottomSheet(id))
+        when (type) {
+            AUTHOR -> {
+                emitEventFlow(ArchiveEvent.SeeAuthorBottomSheet(id))
+            }
+            HOST -> {
+                emitEventFlow(ArchiveEvent.SeeHostBottomSheet(id))
+            }
+            NORMAL -> {
+                emitEventFlow(ArchiveEvent.SeeNormalBottomSheet(id))
+            }
         }
     }
 

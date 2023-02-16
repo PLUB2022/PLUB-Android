@@ -10,7 +10,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ArchiveAuthorBottomSheetFragment(private val plubbingId : Int, private val archiveId : Int, private val listener : ArchiveAuthorDelegate) : BaseBottomSheetFragment<BottomSheetArchiveAuthorBinding, PageState.Default, ArchiveAuthorBottomSheetViewModel>(
+class ArchiveAuthorBottomSheetFragment(
+    private val plubbingId : Int,
+    private val archiveId : Int,
+    private val listener : ArchiveAuthorDelegate
+    ) : BaseBottomSheetFragment<BottomSheetArchiveAuthorBinding, PageState.Default, ArchiveAuthorBottomSheetViewModel>(
     BottomSheetArchiveAuthorBinding::inflate
 ) {
 

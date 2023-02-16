@@ -10,6 +10,10 @@ class ArchiveUploadEditViewHolder(
     private val listener: ArchiveUploadAdapter.ArchiveUploadDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    companion object{
+        const val EMPTY_TEXT = ""
+    }
+
     init {
         binding.apply {
             editTextTitle.addTextChangedListener {
@@ -19,7 +23,7 @@ class ArchiveUploadEditViewHolder(
     }
 
     fun bind(item: ArchiveUploadVo) {
-        if(!item.editText.equals("")){
+        if(item.editText != EMPTY_TEXT){
             binding.editTextTitle.setText(item.editText)
         }
     }

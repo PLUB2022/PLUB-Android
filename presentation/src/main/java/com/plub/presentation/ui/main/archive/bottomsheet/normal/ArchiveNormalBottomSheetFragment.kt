@@ -9,7 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ArchiveNormalBottomSheetFragment(private val plubbingId : Int, private val archiveId : Int) : BaseBottomSheetFragment<BottomSheetArchiveNormalBinding, PageState.Default, ArchiveNormalBottomSheetViewModel>(
+class ArchiveNormalBottomSheetFragment : BaseBottomSheetFragment<BottomSheetArchiveNormalBinding, PageState.Default, ArchiveNormalBottomSheetViewModel>(
     BottomSheetArchiveNormalBinding::inflate
 ) {
 

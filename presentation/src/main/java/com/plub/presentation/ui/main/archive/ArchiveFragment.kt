@@ -12,7 +12,7 @@ import com.plub.presentation.ui.main.archive.bottomsheet.author.ArchiveAuthorBot
 import com.plub.presentation.ui.main.archive.bottomsheet.host.ArchiveHostBottomSheetFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.normal.ArchiveNormalBottomSheetFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetFragment
-import com.plub.presentation.ui.main.archive.dialog.ArchiveDetailDialog
+import com.plub.presentation.ui.main.archive.dialog.ArchiveDetailDialogFragment
 import com.plub.presentation.util.PermissionManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -77,7 +77,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
     private fun inspectEventFlow(event: ArchiveEvent) {
         when (event) {
             is ArchiveEvent.SeeDetailArchiveDialog -> {
-                ArchiveDetailDialog(event.responseVo).show(
+                ArchiveDetailDialogFragment(event.responseVo).show(
                     childFragmentManager,
                     ""
                 )

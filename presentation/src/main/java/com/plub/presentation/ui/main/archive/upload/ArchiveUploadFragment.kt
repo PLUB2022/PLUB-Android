@@ -10,7 +10,6 @@ import com.plub.domain.model.vo.archive.ArchiveUploadVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentArchiveUpdateBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
-import com.plub.presentation.ui.main.archive.ArchiveFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetFragment
 import com.plub.presentation.ui.main.archive.upload.adapter.ArchiveUploadAdapter
 import com.plub.presentation.util.PlubLogger
@@ -25,8 +24,11 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
 ) {
 
     companion object{
-        const val ITEM_SPAN_COUNT_LINEAR = 1
-        const val ITEM_SPAN_COUNT_GRID = 2
+        const val ITEM_SPAN_COUNT_ONE = 1
+        const val ITEM_SPAN_COUNT_TWO = 2
+
+        const val HORIZONTAL_SPACE = 6
+        const val VERTICAL_SPACE = 4
 
         const val UPLOAD_TYPE = 0
         const val EDIT_TYPE = 1
@@ -64,20 +66,20 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
 
     private fun initRecycler(){
         binding.recyclerViewArchiveContent.apply {
-            layoutManager = GridLayoutManager(context, ITEM_SPAN_COUNT_GRID).apply {
+            layoutManager = GridLayoutManager(context, ITEM_SPAN_COUNT_TWO).apply {
                 spanSizeLookup = object : SpanSizeLookup(){
                     override fun getSpanSize(position: Int): Int {
-                        PlubLogger.logD("${ArchiveItemViewType.valueOf(archiveUploadAdapter.getItemViewType(position))}")
-                        return when (ArchiveItemViewType.valueOf(archiveUploadAdapter.getItemViewType(position))) {
-                            ArchiveItemViewType.EDIT_VIEW -> ITEM_SPAN_COUNT_GRID
-                            ArchiveItemViewType.IMAGE_TEXT_VIEW -> ITEM_SPAN_COUNT_GRID
-                            ArchiveItemViewType.IMAGE_VIEW -> ITEM_SPAN_COUNT_LINEAR
-                            ArchiveItemViewType.IMAGE_ADD_VIEW -> ITEM_SPAN_COUNT_LINEAR
+                        val archiveType = ArchiveItemViewType.valueOf(archiveUploadAdapter.getItemViewType(position))
+                        return when (archiveType) {
+                            ArchiveItemViewType.EDIT_VIEW -> ITEM_SPAN_COUNT_TWO
+                            ArchiveItemViewType.IMAGE_TEXT_VIEW -> ITEM_SPAN_COUNT_TWO
+                            ArchiveItemViewType.IMAGE_VIEW -> ITEM_SPAN_COUNT_ONE
+                            ArchiveItemViewType.IMAGE_ADD_VIEW -> ITEM_SPAN_COUNT_ONE
                         }
                     }
                 }
             }
-            addItemDecoration(GridSpaceDecoration(ITEM_SPAN_COUNT_GRID, 6.px, 4.px, false))
+            addItemDecoration(GridSpaceDecoration(ITEM_SPAN_COUNT_TWO, HORIZONTAL_SPACE.px, VERTICAL_SPACE.px, false))
             adapter = archiveUploadAdapter
         }
     }

@@ -12,7 +12,7 @@ import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeDialogDetailArchiveBinding
 import com.plub.presentation.util.px
 
-class ArchiveDetailDialog(
+class ArchiveDetailDialogFragment(
     private val detailVo: ArchiveDetailResponseVo
 ) : DialogFragment() {
     companion object{
