@@ -179,4 +179,10 @@ object UseCaseModule {
     fun providesDeletePlubingBoardUseCase(repository: PlubingBoardRepository): DeletePlubingBoardUseCase {
         return DeletePlubingBoardUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesPostPlubingBoardUseCase(repository: PlubingBoardRepository): PostPlubingBoardUseCase {
+        return PostPlubingBoardUseCase(repository)
+    }
 }
