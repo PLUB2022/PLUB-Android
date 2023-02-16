@@ -41,7 +41,7 @@ class SelectMenuBottomSheetDialog : BottomSheetDialogFragment() {
 
     private var menuClick:((DialogMenuItemType) -> Unit)? = null
     private val menuType: DialogMenuType by lazy {
-        arguments?.serializable(KEY_MENU_TYPE) ?: DialogMenuType.IMAGE
+        arguments?.serializable(KEY_MENU_TYPE) ?: DialogMenuType.IMAGE_HAS_DEFAULT
     }
     private val selectedMenuType: DialogMenuItemType? by lazy {
         arguments?.serializable(KEY_SELECTED_MENU_TYPE)
@@ -101,6 +101,10 @@ class SelectMenuBottomSheetDialog : BottomSheetDialogFragment() {
     private fun getMenuList():List<DialogMenuItemType> {
         return when(menuType) {
             DialogMenuType.IMAGE -> listOf(
+                DialogMenuItemType.CAMERA_IMAGE,
+                DialogMenuItemType.ALBUM_IMAGE,
+            )
+            DialogMenuType.IMAGE_HAS_DEFAULT -> listOf(
                 DialogMenuItemType.CAMERA_IMAGE,
                 DialogMenuItemType.ALBUM_IMAGE,
                 DialogMenuItemType.DEFAULT_IMAGE
