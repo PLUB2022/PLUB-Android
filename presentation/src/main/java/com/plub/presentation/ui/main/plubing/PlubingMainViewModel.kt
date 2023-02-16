@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.plubing
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.PlubingMainPageType
 import com.plub.domain.model.vo.plub.PlubingMainVo
 import com.plub.domain.usecase.FetchPlubingMainUseCase
 import com.plub.presentation.R
@@ -12,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.abs
+import kotlin.properties.Delegates
 
 @HiltViewModel
 class PlubingMainViewModel @Inject constructor(
@@ -23,6 +25,8 @@ class PlubingMainViewModel @Inject constructor(
         private const val SEPARATOR_OF_DAY = ","
         private const val SEPARATOR_OF_LOCATE = " "
     }
+
+    private var plubingId by Delegates.notNull<Int>()
 
     fun onAppBarOffsetChanged(height: Float, totalScrollRange: Int) {
         viewModelScope.launch(Dispatchers.Default) {
@@ -36,15 +40,36 @@ class PlubingMainViewModel @Inject constructor(
         }
     }
 
-    fun onFetchPlubingMainInfo(id: Int) {
+    fun initPlubingId(id:Int) {
+        plubingId = id
+    }
+
+    fun onFetchPlubingMainInfo() {
         viewModelScope.launch {
-            fetchPlubingMainUseCase(id).collect {
+            fetchPlubingMainUseCase(plubingId).collect {
                 inspectUiState(it, ::onSuccessPlubingMainInfo)
             }
         }
     }
 
-    fun onClickProfile(id: Int) {
+    fun onChangedPage(position: Int) {
+        val pageType = PlubingMainPageType.valueOf(position)
+        updateUiState { uiState ->
+            uiState.copy(
+                pageType = pageType
+            )
+        }
+    }
+
+    fun onClickWrite() {
+        val plubingName = uiState.value.plubingName
+        when(uiState.value.pageType) {
+            PlubingMainPageType.BOARD -> emitEventFlow(PlubingMainEvent.GoToWriteBoard(plubingId, plubingName))
+            PlubingMainPageType.TODO_LIST -> Unit
+        }
+    }
+
+    fun onClickProfile(profileId: Int) {
 
     }
 

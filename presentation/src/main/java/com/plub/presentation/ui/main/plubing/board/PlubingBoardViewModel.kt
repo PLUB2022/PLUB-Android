@@ -36,7 +36,7 @@ class PlubingBoardViewModel @Inject constructor(
     private var isLastPage: Boolean = false
     private var page: Int = FIRST_PAGE
 
-    fun setPlubbingId(plubingId: Int) {
+    fun initPlubingId(plubingId: Int) {
         this.plubingId = plubingId
     }
 

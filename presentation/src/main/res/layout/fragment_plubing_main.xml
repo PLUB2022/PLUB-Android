@@ -5,15 +5,17 @@
 
     <data>
 
+        <import type="com.plub.domain.model.enums.PlubingMainPageType" />
+
         <variable
             name="vm"
             type="com.plub.presentation.ui.main.plubing.PlubingMainViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:background="@color/color_faf9fe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_faf9fe">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout"
@@ -77,5 +79,45 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_write"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_40"
+            android:onClick="@{() -> vm.onClickWrite()}"
+            android:paddingHorizontal="19dp"
+            android:paddingVertical="7dp"
+            app:behavior_autoHide="false"
+            app:layout_anchor="@id/view_pager_plub_main"
+            app:layout_anchorGravity="bottom|center_horizontal">
+
+            <ImageView
+                android:id="@+id/image_view_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:src="@drawable/ic_plus"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/text_view_board_write"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_board_write"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.uiState.pageType == PlubingMainPageType.BOARD ? @string/plubing_main_write_board : @string/plubing_main_write_todo}"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_view_plus"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

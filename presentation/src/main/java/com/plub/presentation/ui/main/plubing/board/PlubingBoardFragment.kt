@@ -74,7 +74,7 @@ class PlubingBoardFragment :
                 })
             }
         }
-        viewModel.setPlubbingId(plubingId)
+        viewModel.initPlubingId(plubingId)
         viewModel.onFetchBoardList()
         viewModel.onFetchClipBoardList()
     }

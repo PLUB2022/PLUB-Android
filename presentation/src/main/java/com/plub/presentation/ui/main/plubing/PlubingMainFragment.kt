@@ -2,8 +2,10 @@ package com.plub.presentation.ui.main.plubing
 
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.plub.domain.model.enums.PlubingMainPageType
 import com.plub.presentation.R
@@ -25,9 +27,7 @@ class PlubingMainFragment :
     override val viewModel: PlubingMainViewModel by viewModels()
     private val plubingArgs: PlubingMainFragmentArgs by navArgs()
 
-    private val pagerAdapter: FragmentPlubingMainPagerAdapter by lazy {
-        FragmentPlubingMainPagerAdapter(this, plubingArgs.plubingId)
-    }
+    private var pagerAdapter: FragmentPlubingMainPagerAdapter? = null
 
     private val memberListAdapter: PlubingMemberAdapter by lazy {
         PlubingMemberAdapter(object : PlubingMemberAdapter.Delegate {
@@ -41,9 +41,10 @@ class PlubingMainFragment :
         binding.apply {
             vm = viewModel
 
+            pagerAdapter = FragmentPlubingMainPagerAdapter(this@PlubingMainFragment, plubingArgs.plubingId)
             viewPagerPlubMain.apply {
-                isUserInputEnabled = false
                 adapter = pagerAdapter
+                isUserInputEnabled = false
             }
 
             includeMainTop.recyclerViewMembers.apply {
@@ -61,7 +62,14 @@ class PlubingMainFragment :
                 tab.customView = getTabView(position)
             }.attach()
         }
-        viewModel.onFetchPlubingMainInfo(plubingArgs.plubingId)
+        viewModel.initPlubingId(plubingArgs.plubingId)
+        viewModel.onFetchPlubingMainInfo()
+    }
+
+    private val pageChangeListener = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            viewModel.onChangedPage(position)
+        }
     }
 
     private fun getTabView(tabIndex: Int): View {
@@ -86,6 +94,33 @@ class PlubingMainFragment :
                     memberListAdapter.submitList(it.memberList)
                 }
             }
+
+            launch {
+                viewModel.eventFlow.collect {
+                    inspectEventFlow(it as PlubingMainEvent)
+                }
+            }
         }
+    }
+
+    private fun inspectEventFlow(event: PlubingMainEvent) {
+        when (event) {
+            is PlubingMainEvent.GoToWriteBoard -> {
+            }
+
+            is PlubingMainEvent.GoToWriteTodo -> {
+
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.viewPagerPlubMain.registerOnPageChangeCallback(pageChangeListener)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.viewPagerPlubMain.unregisterOnPageChangeCallback(pageChangeListener)
     }
 }
