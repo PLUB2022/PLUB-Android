@@ -56,6 +56,12 @@
         <argument
             android:name="plubingId"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_plubing_board_write"
+            app:destination="@id/plubingBoardWriteFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/plubingBoardWriteFragment"
         android:name="com.plub.presentation.ui.main.plubing.board.write.BoardWriteFragment"

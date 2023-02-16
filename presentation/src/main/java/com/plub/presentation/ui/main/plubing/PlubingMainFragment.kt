@@ -106,6 +106,11 @@ class PlubingMainFragment :
     private fun inspectEventFlow(event: PlubingMainEvent) {
         when (event) {
             is PlubingMainEvent.GoToWriteBoard -> {
+                val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingBoardWrite(
+                    event.id,
+                    event.name
+                )
+                findNavController().navigate(action)
             }
 
             is PlubingMainEvent.GoToWriteTodo -> {
