@@ -12,7 +12,6 @@ import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.domain.usecase.PutEditArchiveUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -41,11 +40,11 @@ class ArchiveUploadViewModel @Inject constructor(
         plubTitle = title
         pageType = UPLOAD_TYPE
         val firstImageList = arrayListOf(ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_VIEW, image = imageUri))
-        val mergeList = getEmptyMergedList()
+        val mergeList = getFirstMergedList()
         updateListState(mergeList + firstImageList)
     }
 
-    private fun getEmptyMergedList() : List<ArchiveUploadVo>{
+    private fun getFirstMergedList() : List<ArchiveUploadVo>{
         val list = mutableListOf<ArchiveUploadVo>()
         list.add(ArchiveUploadVo(viewType = ArchiveItemViewType.EDIT_VIEW))
         list.add(ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_TEXT_VIEW))
@@ -64,6 +63,17 @@ class ArchiveUploadViewModel @Inject constructor(
                 pageType = pageType,
                 enableButton = isDataNotEmpty
             )
+        }
+    }
+
+    private fun updateButtonState(){
+        val isDataNotEmpty = ((uiState.value.imageCount > 0) && editText.isNotEmpty())
+        if (isDataNotEmpty != uiState.value.enableButton){
+            updateUiState { uiState ->
+                uiState.copy(
+                    enableButton = isDataNotEmpty
+                )
+            }
         }
     }
 
@@ -110,17 +120,6 @@ class ArchiveUploadViewModel @Inject constructor(
     fun updateEditText(text : String){
         editText = text
         updateButtonState()
-    }
-
-    private fun updateButtonState(){
-        val isDataNotEmpty = ((uiState.value.imageCount > 0) && editText.isNotEmpty())
-        if (isDataNotEmpty != uiState.value.enableButton){
-            updateUiState { uiState ->
-                uiState.copy(
-                    enableButton = isDataNotEmpty
-                )
-            }
-        }
     }
 
     fun uploadImageFile(file : File?){
