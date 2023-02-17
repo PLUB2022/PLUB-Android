@@ -125,6 +125,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
             is LoginEvent.GoToMain -> {
                 val intent = IntentUtil.getMainActivityIntent(requireContext())
                 startActivity(intent)
+                requireActivity().finish()
             }
             is LoginEvent.GoToSignUp -> {
                 val action = LoginFragmentDirections.actionLoginToSignUp()

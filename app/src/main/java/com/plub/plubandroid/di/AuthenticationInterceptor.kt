@@ -1,6 +1,6 @@
 package com.plub.plubandroid.di
 
-import com.plub.domain.usecase.FetchPlubAccessTokenUseCase
+import com.plub.domain.usecase.GetPlubAccessTokenUseCase
 import com.plub.plubandroid.util.RETROFIT_TAG
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
@@ -10,9 +10,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AuthenticationInterceptor@Inject constructor(private val fetchPlubAccessTokenUseCase: FetchPlubAccessTokenUseCase) : Interceptor {
+class AuthenticationInterceptor@Inject constructor(private val getPlubAccessTokenUseCase: GetPlubAccessTokenUseCase) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
-        val accessToken = runBlocking { fetchPlubAccessTokenUseCase(Unit).first() }
+        val accessToken = runBlocking { getPlubAccessTokenUseCase(Unit).first() }
 
         val request = chain.request().newBuilder()
             .addHeader("Authorization", "Bearer $accessToken").build()
