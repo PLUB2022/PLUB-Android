@@ -1,14 +1,8 @@
 package com.plub.presentation.ui.main.gathering.modifyGathering
 
 import com.plub.presentation.ui.PageState
-import com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState
-import com.plub.presentation.ui.main.gathering.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNamePageState
-import com.plub.presentation.ui.main.gathering.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndPicturePageState
-import com.plub.presentation.ui.main.gathering.createGathering.peopleNumber.CreateGatheringPeopleNumberPageState
-import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionPageState
-import com.plub.presentation.ui.main.gathering.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryPageState
-import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.RecruitPageState
+import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitPageState
 
 data class ModifyGatheringPageState(
-    val recruitPageState: RecruitPageState = RecruitPageState()
+    val modifyRecruitPageState: ModifyRecruitPageState = ModifyRecruitPageState()
 ) : PageState

@@ -4,9 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.RecruitPageState
+import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,13 +29,13 @@ class ModifyGatheringViewModel @Inject constructor(
     private fun handleGetGatheringInfoSuccess(data: RecruitDetailResponseVo) {
         updateUiState { uiState ->
             uiState.copy(
-                recruitPageState = getRecruitPageState(data)
+                modifyRecruitPageState = getRecruitPageState(data)
             )
         }
     }
 
-    private fun getRecruitPageState(data: RecruitDetailResponseVo): RecruitPageState {
-        return RecruitPageState(
+    private fun getRecruitPageState(data: RecruitDetailResponseVo): ModifyRecruitPageState {
+        return ModifyRecruitPageState(
             title = data.recruitTitle,
             name = data.plubbingName,
             goal = data.plubbingGoal,
