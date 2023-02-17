@@ -5,10 +5,10 @@ import com.plub.domain.repository.PlubJwtRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class FetchPlubRefreshTokenUseCase @Inject constructor(
+class GetPlubAccessTokenUseCase @Inject constructor(
     private val plubJwtRepository: PlubJwtRepository
 ):UseCase<Unit, Flow<String>>() {
     override suspend operator fun invoke(request: Unit): Flow<String> {
-        return plubJwtRepository.getRefreshToken()
+        return plubJwtRepository.getAccessToken()
     }
 }
