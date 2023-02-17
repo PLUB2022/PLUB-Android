@@ -5,6 +5,7 @@ import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemPlubCardListBinding
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
+import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.TimeFormatter
 
 class PlubCardListViewHolder(
@@ -47,7 +48,8 @@ class PlubCardListViewHolder(
             val bookmarkRes =
                 if (item.isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
             imageViewBookmark.setImageResource(bookmarkRes)
-//            GlideUtil.loadImage(root.context, item.photo, imageViewBackground)
+            GlideUtil.loadImage(root.context, item.photo, imageViewBackground)
+            imageViewBackground.clipToOutline = true
         }
     }
 }

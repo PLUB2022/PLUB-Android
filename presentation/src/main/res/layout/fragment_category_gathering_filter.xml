@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_view_back"
+            tools:text="춤" />
+
+        <TextView
+            android:id="@+id/text_view_sub_category_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/category_gathering_filter_sub_category"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_category" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_sub_hobbies"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_sub_category_title" />
+
+        <TextView
+            android:id="@+id/text_view_gathering_day_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/category_gathering_filter_day"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_sub_hobbies" />
+
+        <Button
+            android:id="@+id/button_all_day"
+            android:layout_width="73dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:text="@string/word_all_day"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_gathering_day_title" />
+
+        <Button
+            android:id="@+id/button_monday"
+            android:layout_width="73dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:text="@string/word_monday"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/button_tuesday"
+            app:layout_constraintStart_toEndOf="@id/button_all_day"
+            app:layout_constraintTop_toTopOf="@id/button_all_day" />
+
+        <Button
+            android:id="@+id/button_tuesday"
+            android:layout_width="73dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:text="@string/word_tuesday"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/button_wednesday"
+            app:layout_constraintStart_toEndOf="@id/button_monday"
+            app:layout_constraintTop_toTopOf="@id/button_all_day" />
+
+        <Button
+            android:id="@+id/button_wednesday"
+            android:layout_width="73dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:text="@string/word_wednesday"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/button_all_day" />
+
+
+        <Button
+            android:id="@+id/button_thursday"
+            android:layout_width="73dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:text="@string/word_thursday"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_all_day" />
+
+        <Button
+            android:id="@+id/button_friday"
+            android:layout_width="73dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:text="@string/word_friday"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/button_saturday"
+            app:layout_constraintStart_toEndOf="@id/button_thursday"
+            app:layout_constraintTop_toTopOf="@id/button_thursday" />
+
+        <Button
+            android:id="@+id/button_saturday"
+            android:layout_width="73dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:text="@string/word_saturday"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/button_sunday"
+            app:layout_constraintStart_toEndOf="@id/button_friday"
+            app:layout_constraintTop_toTopOf="@id/button_thursday" />
+
+        <Button
+            android:id="@+id/button_sunday"
+            android:layout_width="73dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:text="@string/word_sunday"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="12sp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/button_thursday" />
+        
+        <TextView
+            android:id="@+id/text_view_people"
+            android:layout_marginTop="32dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/button_thursday"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:text="@string/category_gathering_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            app:layout_constraintTop_toTopOf="@id/text_view_people"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_people"
+            app:layout_constraintStart_toEndOf="@id/text_view_people"
+            android:layout_marginStart="8dp"
+            android:text="@string/category_gathering_filter_people"
+            android:textColor="@color/color_5f5ff9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <SeekBar
+            android:id="@+id/seek_bar_people"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@null"
+            android:max="20"
+            android:progressDrawable="@drawable/layout_list_seekbar_2e3c3c43_to_5f5ff9"
+            android:splitTrack="false"
+            android:thumb="@drawable/layer_list_spinner_thumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_people"
+            android:layout_marginHorizontal="16dp"
+            tools:progress="0" />
+
+        <TextView
+            app:layout_constraintStart_toStartOf="@id/seek_bar_people"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar_people"
+            android:text="@string/category_gathering_filter_min_people"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            app:layout_constraintEnd_toEndOf="@id/seek_bar_people"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar_people"
+            android:text="@string/category_gathering_filter_max_people"
+            android:textSize="12sp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        
+        <Button
+            android:id="@+id/button_complete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="26dp"
+            android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
+            android:text="@string/category_gathering_filter_complete"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

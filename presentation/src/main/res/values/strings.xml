@@ -202,7 +202,6 @@
     <string name="apply_plubbing_apply_button">지원하기</string>
     <string name="apply_plubbing_question">%d. %s</string>
 
-    <string name="category_choice_see_all">전체</string>
     <string name="detail_recruitment_see_others">모임 둘러보기</string>
     <string name="detail_recruitment_together">같이 할래요!</string>
     <string name="detail_recruit_about_my_gathering">[ %s ] 모임은요...!</string>
@@ -231,11 +230,19 @@
     <string name="include_item_question_now_text">0</string>
 
     <string name="category_choice_popular">인기순</string>
-
     <string name="category_choice_empty_string">아직 등록된 모집글이 없어요\n 직접 모집글을 올려 볼까요?</string>
     <string name="category_choice_empty_button">모임 만들러 가기</string>
+    <string name="category_gathering_filter_sub_category">세부 카테고리</string>
+    <string name="category_choice_see_all">전체</string>
+    <string name="category_gathering_filter_day">모임 요일</string>
+    <string name="category_gathering_people">인원</string>
+    <string name="category_gathering_filter_people">%d명</string>
+    <string name="category_gathering_filter_min_people">4명</string>
+    <string name="category_gathering_filter_max_people">20명</string>
+    <string name="category_gathering_filter_complete">확인</string>
 
     <string name="apply_dialog_complete_apply">지원 완료!</string>
     <string name="apply_dialog_explain">정성스럽게 작성하신 답변을 \n모임 호스트에게 전달했어요.</string>
     <string name="apply_dialog_extra_explain">호스트가 수락하면 함께 활동할 수 있습니다.\n알림으로 알려드릴게요!</string>
+
 </resources>
