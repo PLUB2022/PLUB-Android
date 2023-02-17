@@ -27,7 +27,7 @@ class PlubCardListViewHolder(
 
         binding.root.setOnClickListener {
             vo?.let {
-                listener.onClickPlubCard(it.id)
+                listener.onClickPlubCard(it.id, it.isHost)
             }
         }
     }

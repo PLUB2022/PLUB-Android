@@ -13,5 +13,6 @@ data class PlubCardVo(
     val days : List<String> = emptyList(),
     val place:String = "",
     val remainMemberNumber: Int = -1,
-    val isBookmarked : Boolean = false
+    val isBookmarked : Boolean = false,
+    val isHost : Boolean = false
 ): DomainModel

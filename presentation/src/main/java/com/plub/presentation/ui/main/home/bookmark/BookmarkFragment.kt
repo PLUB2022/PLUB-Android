@@ -27,7 +27,7 @@ class BookmarkFragment :
                 viewModel.onClickBookmark(id)
             }
 
-            override fun onClickPlubCard(id: Int) {
+            override fun onClickPlubCard(id: Int, isHost : Boolean) {
 
             }
         })

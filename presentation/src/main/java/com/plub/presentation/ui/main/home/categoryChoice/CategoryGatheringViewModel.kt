@@ -177,8 +177,13 @@ class CategoryGatheringViewModel @Inject constructor(
         emitEventFlow(CategoryGatheringEvent.ShowSelectSortTypeBottomSheetDialog(menuItemType))
     }
 
-    fun goToDetailRecruitment(id : Int){
-        emitEventFlow(CategoryGatheringEvent.GoToRecruit(id))
+    fun goToDetailRecruitment(id : Int, isHost : Boolean){
+        if(isHost){
+            emitEventFlow(CategoryGatheringEvent.GoToHostRecruit(id))
+        }
+        else{
+            emitEventFlow(CategoryGatheringEvent.GoToRecruit(id))
+        }
     }
 
     fun clickSearch() {

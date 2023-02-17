@@ -188,7 +188,8 @@
                     android:layout_marginStart="16.5dp"
                     android:layout_marginEnd="14dp"
                     android:layout_marginTop="240dp"
-                    android:background="@color/color_c4c4c4"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/bg_rectangle_filled_e4e4e4_radius_10"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

@@ -31,8 +31,8 @@ class CategoryGatheringFragment :
                 viewModel.clickBookmark(plubbingId)
             }
 
-            override fun onClickPlubCard(id: Int) {
-                viewModel.goToDetailRecruitment(id)
+            override fun onClickPlubCard(id: Int, isHost : Boolean) {
+                viewModel.goToDetailRecruitment(id, isHost)
             }
         })
     }
@@ -137,6 +137,9 @@ class CategoryGatheringFragment :
             is CategoryGatheringEvent.ScrollTop ->{
                 recyclerScrollToTop()
             }
+            is CategoryGatheringEvent.GoToHostRecruit -> {
+                goToHostRecruitment(event.id)
+            }
         }
     }
 
@@ -165,6 +168,11 @@ class CategoryGatheringFragment :
     private fun goToDetailRecruitment(plubbingId : Int) {
         val action =
             CategoryGatheringFragmentDirections.actionCategoryGatheringToRecruitment(plubbingId)
+        findNavController().navigate(action)
+    }
+
+    private fun goToHostRecruitment(plubbingId: Int){
+        val action = CategoryGatheringFragmentDirections.actionCategoryGatheringToHostRecruitment(plubbingId)
         findNavController().navigate(action)
     }
 

@@ -57,6 +57,9 @@
         <action
             android:id="@+id/action_category_gathering_to_create_gathering"
             app:destination="@id/createGatheringFragment" />
+        <action
+            android:id="@+id/action_category_gathering_to_host_recruitment"
+            app:destination="@id/hostRecruitmentFragment"/>
         <argument
             android:name="categoryId"
             app:argType="integer"
