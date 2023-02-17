@@ -1,9 +1,11 @@
 package com.plub.presentation.ui.main.home.search
 
+import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.presentation.ui.Event
 
 sealed class SearchingEvent : Event {
+    object ClearFocus : SearchingEvent()
     object HideKeyboard : SearchingEvent()
-    object Clear : SearchingEvent()
-    data class GoToSearchResult(val search: String) : SearchingEvent()
+    object ScrollToTop : SearchingEvent()
+    data class ShowSelectSortTypeBottomSheetDialog(val selectedItem: DialogMenuItemType) : SearchingEvent()
 }

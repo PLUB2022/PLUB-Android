@@ -15,6 +15,7 @@ object Endpoints {
         private const val AUTH_URL = "/api/auth"
         const val SOCIAL_LOGIN = "$AUTH_URL/login"
         const val SIGN_UP = "$AUTH_URL/signup"
+        const val SOCIAL_LOGIN_ADMIN = "$AUTH_URL/login/admin"
     }
 
     object ACCOUNT {
@@ -34,9 +35,19 @@ object Endpoints {
 
     object PLUBBING {
         private const val PLUBBING_URL = "/api/plubbings"
+        private const val PLUBBING_ID_URL = "$PLUBBING_URL/{plubbingId}"
         const val CREATE = PLUBBING_URL
         const val RECRUIT = "$PLUBBING_URL/recruit"
-        const val BOOKMARK = "$PLUBBING_URL/{plubbingId}/recruit/bookmarks"
+        const val BOOKMARK = "$PLUBBING_ID_URL/recruit/bookmarks"
         const val BOOKMARK_ME = "$PLUBBING_URL/recruit/bookmarks/me"
+        const val PLUBING_MAIN = "$PLUBBING_ID_URL/main"
+
+        object BOARD {
+            const val FEEDS = "$PLUBBING_ID_URL/feeds"
+            const val PINS = "$PLUBBING_ID_URL/pins"
+            const val CHANGE_PIN = "$PLUBBING_URL/feeds/{feedId}/pin"
+            const val DELETE_FEED = "$PLUBBING_URL/feeds/{feedId}"
+            const val POST_FEED = "$PLUBBING_ID_URL/feeds"
+        }
     }
 }

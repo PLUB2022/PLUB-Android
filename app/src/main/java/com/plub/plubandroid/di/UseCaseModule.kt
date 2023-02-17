@@ -142,4 +142,46 @@ object UseCaseModule {
     fun providesGetMyPlubBookmarksUseCase(repository: BookmarkRepository): GetMyPlubBookmarksUseCase {
         return GetMyPlubBookmarksUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesFetchPlubingMainUseCase(repository: PlubingMainRepository): FetchPlubingMainUseCase {
+        return FetchPlubingMainUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostAdminLoginUseCase(repository: LoginRepository): PostAdminLoginUseCase {
+        return PostAdminLoginUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFetchPlubingBoardUseCase(repository: PlubingBoardRepository): FetchPlubingBoardUseCase {
+        return FetchPlubingBoardUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFetchPlubingPinsUseCase(repository: PlubingBoardRepository): FetchPlubingPinsUseCase {
+        return FetchPlubingPinsUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutPlubingBoardPinChangeUseCase(repository: PlubingBoardRepository): PutPlubingBoardPinChangeUseCase {
+        return PutPlubingBoardPinChangeUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesDeletePlubingBoardUseCase(repository: PlubingBoardRepository): DeletePlubingBoardUseCase {
+        return DeletePlubingBoardUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostPlubingBoardUseCase(repository: PlubingBoardRepository): PostPlubingBoardUseCase {
+        return PostPlubingBoardUseCase(repository)
+    }
 }

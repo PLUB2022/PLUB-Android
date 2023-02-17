@@ -19,6 +19,7 @@ import com.plub.domain.model.enums.TermsType
 import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
 import com.plub.domain.model.vo.login.SocialLoginRequestVo
 import com.plub.domain.model.vo.login.SocialLoginResponseVo
+import com.plub.domain.usecase.PostAdminLoginUseCase
 import com.plub.domain.usecase.PostSocialLoginUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.presentation.R
@@ -33,6 +34,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
+    val postAdminLoginUseCase: PostAdminLoginUseCase,
     val postSocialLoginUseCase: PostSocialLoginUseCase,
     val savePlubAccessTokenAndRefreshTokenUseCase: SavePlubAccessTokenAndRefreshTokenUseCase,
     val dataStoreUtil: DataStoreUtil,
@@ -41,6 +43,14 @@ class LoginViewModel @Inject constructor(
     init {
         updateUiState { uiState ->
             uiState.copy(termsText = getTermsString())
+        }
+    }
+
+    fun onAdminLogin() {
+        viewModelScope.launch {
+            postAdminLoginUseCase(Unit).collect {
+                inspectUiState(it, ::handleLoginSuccess)
+            }
         }
     }
 

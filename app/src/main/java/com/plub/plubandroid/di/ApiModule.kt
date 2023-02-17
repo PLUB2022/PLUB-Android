@@ -78,4 +78,16 @@ object ApiModule {
     fun provideBookmarkApi(@AuthRetrofit retrofit: Retrofit): BookmarkApi {
         return retrofit.create(BookmarkApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun providePlubingMainApi(@AuthRetrofit retrofit: Retrofit): PlubingMainApi {
+        return retrofit.create(PlubingMainApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePlubingBoardApi(@AuthRetrofit retrofit: Retrofit): PlubingBoardApi {
+        return retrofit.create(PlubingBoardApi::class.java)
+    }
 }

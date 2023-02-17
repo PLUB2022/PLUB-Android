@@ -105,7 +105,7 @@ class CreateGatheringGoalAndIntroduceAndImageFragment :
     }
 
     private fun showBottomSheetDialogSelectImage() {
-        SelectMenuBottomSheetDialog.newInstance(DialogMenuType.IMAGE) {
+        SelectMenuBottomSheetDialog.newInstance(DialogMenuType.IMAGE_HAS_DEFAULT) {
             viewModel.onClickImageMenuItemType(it)
         }.show(parentFragmentManager, "")
     }

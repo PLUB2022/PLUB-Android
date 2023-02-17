@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemPlubCardGridBinding
+import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.TimeFormatter
 
 class PlubCardGridViewHolder(
@@ -36,10 +37,9 @@ class PlubCardGridViewHolder(
             textViewMeetingDate.text = time
             textViewRecruitMemberCount.text = memberCount
             textViewName.text = item.title
-            val bookmarkRes =
-                if (item.isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
+            val bookmarkRes = if (item.isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
             imageViewBookmark.setImageResource(bookmarkRes)
-//            GlideUtil.loadImage(root.context, item.photo, imageViewBackground)
+            GlideUtil.loadImage(root.context, item.photo, imageViewBackground)
         }
     }
 }
