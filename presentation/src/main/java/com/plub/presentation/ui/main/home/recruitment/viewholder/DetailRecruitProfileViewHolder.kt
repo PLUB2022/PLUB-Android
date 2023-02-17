@@ -16,12 +16,13 @@ class DetailRecruitProfileViewHolder(
         private const val MAX_PROFILE = 8
     }
 
+    private var maxProfile : Int = 0
     private var nowNum : Int = 0
     private var accountId : Int = 0
 
     init {
         binding.imageViewProfile.setOnClickListener {
-            if(nowNum == MAX_PROFILE){
+            if(nowNum == maxProfile){
                 listener.onSeeMoreProfileClick()
             }
             else{
@@ -30,11 +31,12 @@ class DetailRecruitProfileViewHolder(
         }
     }
 
-    fun bind(item: RecruitDetailJoinedAccountsListVo, position: Int, allPeopleCount: Int) {
+    fun bind(item: RecruitDetailJoinedAccountsListVo, position: Int, allPeopleCount: Int, maxProfile : Int) {
+        this.maxProfile = maxProfile
         nowNum = position + 1
         val morePeopleCount = allPeopleCount - position
         binding.apply {
-            if (nowNum == MAX_PROFILE) {
+            if (nowNum == maxProfile) {
                 textViewMoreProfileNumber.text = root.context.getString(R.string.detail_recruitment_profile_county, morePeopleCount)
             }
             else{

@@ -3,7 +3,6 @@ package com.plub.presentation.ui.main.home.recruitment.hostrecruitment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -11,8 +10,6 @@ import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccounts
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHostDetailRecruitmentPlubbingBinding
 import com.plub.presentation.ui.main.home.recruitment.DetailRecruitPageState
-import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
-import com.plub.presentation.ui.main.home.recruitment.RecruitmentFragment
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.ui.main.home.recruitment.bottomsheet.ProfileBottomSheetFragment
@@ -28,8 +25,7 @@ class HostRecruitmentFragment :
     ) {
 
     companion object{
-        private const val ITEM_SPAN_COUNT = 8
-        private const val HORIZONTAL_SPACE = 4
+        private const val PROFILE_WIDTH = 42
     }
 
     private val detailRecruitProfileAdapter: DetailRecruitProfileAdapter by lazy {
@@ -67,7 +63,6 @@ class HostRecruitmentFragment :
                 adapter = detailRecruitCategoryAdapter
             }
             recyclerViewPlubbingPeopleProfile.apply {
-                addItemDecoration(GridSpaceDecoration(ITEM_SPAN_COUNT, HORIZONTAL_SPACE.px, 0,false))
                 layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                 adapter = detailRecruitProfileAdapter
             }
@@ -91,10 +86,12 @@ class HostRecruitmentFragment :
 
     private fun initDetailPage(data: DetailRecruitPageState) {
         binding.apply {
+            val maxProfile = recyclerViewPlubbingPeopleProfile.width / PROFILE_WIDTH.px
             constraintLayoutTop.bringToFront()
             GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
             imageViewPlubbingImage.clipToOutline = true
             detailRecruitCategoryAdapter.submitList(data.categories)
+            detailRecruitProfileAdapter.setMaxProfile(maxProfile)
             detailRecruitProfileAdapter.submitList(data.joinedAccounts)
         }
     }

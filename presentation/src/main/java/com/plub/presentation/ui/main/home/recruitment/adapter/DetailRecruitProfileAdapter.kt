@@ -14,9 +14,7 @@ class DetailRecruitProfileAdapter(private val listener: DetailProfileDelegate) :
         DetailRecruitProfileDiffCallBack()
     ) {
 
-    companion object {
-        const val MAX_PROFILE = 8
-    }
+    private var maxProfile = 0
 
     interface DetailProfileDelegate {
         fun onProfileClick(accountId: Int)
@@ -26,7 +24,7 @@ class DetailRecruitProfileAdapter(private val listener: DetailProfileDelegate) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is DetailRecruitProfileViewHolder -> {
-                holder.bind(currentList[position], position, currentList.size)
+                holder.bind(currentList[position], position, currentList.size, maxProfile)
             }
         }
     }
@@ -41,11 +39,15 @@ class DetailRecruitProfileAdapter(private val listener: DetailProfileDelegate) :
     }
 
     override fun getItemCount(): Int {
-        if (currentList.size >= MAX_PROFILE) {
-            return MAX_PROFILE
+        if (currentList.size >= maxProfile) {
+            return maxProfile
         } else {
             return currentList.size
         }
+    }
+
+    fun setMaxProfile(num : Int){
+        maxProfile = num
     }
 
 }

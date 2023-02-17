@@ -247,10 +247,13 @@
                     android:id="@+id/recycler_view_plubbing_people_profile"
                     android:layout_width="0dp"
                     android:layout_height="34dp"
-                    android:layout_marginTop="54dp"
+                    android:layout_marginTop="52dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="10.5dp"
                     android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="@id/image_view_plubbing_image"
-                    app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
+                    android:overScrollMode="never"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_hobby" />
 
                 <Button

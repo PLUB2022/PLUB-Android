@@ -3,12 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="34dp"
-        android:layout_height="34dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="4dp">
         <ImageView
             android:id="@+id/image_view_profile"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:scaleType="centerCrop"
             android:background="@drawable/bg_circle_filled_e4e4e4"/>
 
