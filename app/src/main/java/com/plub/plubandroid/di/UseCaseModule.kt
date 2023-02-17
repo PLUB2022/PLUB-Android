@@ -143,4 +143,10 @@ object UseCaseModule {
     fun providesGetMyPlubBookmarksUseCase(repository: BookmarkRepository): GetMyPlubBookmarksUseCase {
         return GetMyPlubBookmarksUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesGetRecruitDetailUseCase(repository: RecruitRepository): GetRecruitDetailUseCase {
+        return GetRecruitDetailUseCase(repository)
+    }
 }
