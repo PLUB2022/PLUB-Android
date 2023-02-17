@@ -1,5 +1,6 @@
-package com.plub.presentation.ui.main.gathering.modifyGathering
+package com.plub.presentation.ui.main.gathering.modifyGathering.recruit
 
+import android.graphics.Bitmap
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState
 import com.plub.presentation.ui.main.gathering.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNamePageState
@@ -7,8 +8,12 @@ import com.plub.presentation.ui.main.gathering.createGathering.goalAndIntroduceA
 import com.plub.presentation.ui.main.gathering.createGathering.peopleNumber.CreateGatheringPeopleNumberPageState
 import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionPageState
 import com.plub.presentation.ui.main.gathering.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryPageState
-import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.RecruitPageState
 
-data class ModifyGatheringPageState(
-    val recruitPageState: RecruitPageState = RecruitPageState()
+data class RecruitPageState(
+    val title: String = "",
+    val name: String = "",
+    val goal: String = "",
+    val introduce: String = "",
+    val plubbingMainImgUrl: String = "",
+    val tempPlubbingMainBitmap: Bitmap? = null
 ) : PageState

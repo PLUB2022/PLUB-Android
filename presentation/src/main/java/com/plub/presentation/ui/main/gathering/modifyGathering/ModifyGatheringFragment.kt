@@ -3,7 +3,9 @@ package com.plub.presentation.ui.main.gathering.modifyGathering
 import androidx.fragment.app.viewModels
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentModifyGatheringBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ModifyGatheringFragment : BaseFragment
 <FragmentModifyGatheringBinding, ModifyGatheringPageState, ModifyGatheringViewModel>(
     FragmentModifyGatheringBinding::inflate
@@ -14,5 +16,7 @@ class ModifyGatheringFragment : BaseFragment
         binding.apply {
             vm = viewModel
         }
+
+        viewModel.getGatheringInfoDetail(21)
     }
 }
