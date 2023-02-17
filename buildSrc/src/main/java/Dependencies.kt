@@ -73,13 +73,10 @@ object Libraries {
     const val IMAGE_CROPPER = "com.vanniktech:android-image-cropper:${Versions.IMAGE_CROPPER}"
 }
 
-object UnitTest {
-    const val JUNIT = "junit:junit:${Versions.JUNIT}"
-}
-
 object AndroidTest {
     const val ANDROID_JUNIT = "junit:junit:${Versions.ANDROID_JUNIT}"
     const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:${Versions.ESPRESSO_CORE}"
+    const val ANDROID_JUNIT_EXT = "androidx.test.ext:junit:${Versions.ANDROID_JUNIT_EXT}"
 }
 
 object Glide {

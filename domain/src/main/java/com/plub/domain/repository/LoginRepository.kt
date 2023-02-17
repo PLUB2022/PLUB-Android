@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface LoginRepository {
     suspend fun socialLogin(request: SocialLoginRequestVo): Flow<UiState<SocialLoginResponseVo>>
+    suspend fun adminLogin(): Flow<UiState<SocialLoginResponseVo>>
 }

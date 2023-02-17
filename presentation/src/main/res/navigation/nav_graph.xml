@@ -24,6 +24,10 @@
         <action
             android:id="@+id/action_main_to_modifyGathering"
             app:destination="@id/modifyGatheringFragment" />
+
+        <action
+            android:id="@+id/action_main_to_plubing_main"
+            app:destination="@id/plubingMainFragment" />
     </fragment>
 
     <fragment
@@ -37,21 +41,6 @@
         android:name="com.plub.presentation.ui.main.home.search.SearchingFragment"
         android:label="fragment_searching"
         tools:layout="@layout/fragment_searching">
-
-        <action
-            android:id="@+id/action_searching_to_search_result"
-            app:destination="@id/searchResultFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/searchResultFragment"
-        android:name="com.plub.presentation.ui.main.home.searchResult.SearchResultFragment"
-        android:label="fragment_search_result"
-        tools:layout="@layout/fragment_search_result">
-
-        <argument
-            android:name="search"
-            app:argType="string" />
     </fragment>
 
     <fragment
@@ -60,6 +49,37 @@
         android:label="fragment_bookmark"
         tools:layout="@layout/fragment_bookmark">
     </fragment>
+
+    <fragment
+        android:id="@+id/plubingMainFragment"
+        android:name="com.plub.presentation.ui.main.plubing.PlubingMainFragment"
+        android:label="fragment_plubing_main"
+        tools:layout="@layout/fragment_plubing_main">
+
+        <argument
+            android:name="plubingId"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_plubing_board_write"
+            app:destination="@id/plubingBoardWriteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/plubingBoardWriteFragment"
+        android:name="com.plub.presentation.ui.main.plubing.board.write.BoardWriteFragment"
+        android:label="fragment_plubing_board_write"
+        tools:layout="@layout/fragment_board_write">
+
+        <argument
+            android:name="plubingId"
+            app:argType="integer" />
+
+        <argument
+            android:name="plubingName"
+            app:argType="string" />
+    </fragment>
+
     <fragment
         android:id="@+id/menu_navigation_gathering"
         android:name="com.plub.presentation.ui.main.gathering.GatheringFragment"

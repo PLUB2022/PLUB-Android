@@ -18,8 +18,6 @@ class SignActivity : BaseActivity<ActivitySignBinding, PageState.Default,SignVie
     private lateinit var navController: NavController
 
     override fun initView() {
-        //TODO REMOVE
-        startActivity(Intent(this, MainActivity::class.java))
 
         binding.apply {
             vm = viewModel

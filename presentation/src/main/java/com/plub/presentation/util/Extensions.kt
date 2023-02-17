@@ -5,6 +5,8 @@ import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
+import android.text.Spanned
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
@@ -86,4 +88,13 @@ inline fun <reified T : Serializable> Bundle.serializable(key: String): T? = whe
 inline fun <reified T : Serializable> Intent.serializable(key: String): T? = when {
     Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getSerializableExtra(key, T::class.java)
     else -> @Suppress("DEPRECATION") getSerializableExtra(key) as? T
+}
+
+fun String.fromHtml(): Spanned {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        return Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
+    } else {
+        @Suppress("DEPRECATION")
+        return Html.fromHtml(this)
+    }
 }

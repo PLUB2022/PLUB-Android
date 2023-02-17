@@ -44,6 +44,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
             buttonModifyGathering.setOnClickListener {
                 findNavController().navigate(MainFragmentDirections.actionMainToModifyGathering())
             }
+            buttonPlubingMain.setOnClickListener {
+                val plubingId = 1
+                findNavController().navigate(MainFragmentDirections.actionMainToPlubingMain(plubingId))
+            }
         }
     }
 

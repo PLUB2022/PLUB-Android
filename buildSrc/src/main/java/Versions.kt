@@ -49,12 +49,10 @@ object Versions {
 
     const val IMAGE_CROPPER = "4.5.0"
 
-    /* [ UnitTest ] */
-    const val JUNIT = "4.13.2"
-
     /* [ AndroidTest ] */
-    const val ANDROID_JUNIT = "1.1.3"
-    const val ESPRESSO_CORE = "3.4.0"
+    const val ANDROID_JUNIT = "4.13.2"
+    const val ANDROID_JUNIT_EXT = "1.1.5"
+    const val ESPRESSO_CORE = "3.5.1"
 
     const val GLIDE = "4.13.2"
 

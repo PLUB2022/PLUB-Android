@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+        <import type="android.view.View" />
+
+        <import type="com.plub.domain.model.enums.PlubingFeedType" />
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.plubing.board.write.BoardWriteViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_faf9fe">
+
+
+        <ImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_plubing_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@{vm.uiState.plubingName}"
+            android:textColor="@color/color_363636"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_view_back"
+            app:layout_constraintTop_toTopOf="@+id/image_view_back"
+            tools:text="요란한 한 줄" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:paddingTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_write"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_back">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="30dp">
+
+                <TextView
+                    android:id="@+id/text_view_feed_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/plubing_board_write_feed_type"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_feed_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="7dp"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_feed_type" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_layout_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:paddingHorizontal="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_view_feed_type">
+
+                    <TextView
+                        android:id="@+id/text_view_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plubing_board_write_title"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/edit_text_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="46dp"
+                        android:layout_marginTop="8dp"
+                        android:afterTextChanged="@{(text) -> vm.onTitleTextChanged(text)}"
+                        android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                        android:hint="@string/plubing_board_write_title_hint"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingHorizontal="8dp"
+                        android:text="@={vm.uiState.title}"
+                        android:textColor="@color/color_363636"
+                        android:textColorHint="@color/color_8c8c8c"
+                        android:textSize="14dp"
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_title"
+                        tools:text="aepfofaeokpfkpoafekopfkpeaopokfpfekaopkopfaekpofkopfpfakeopkofekapfekoa" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_layout_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:paddingHorizontal="16dp"
+                    android:visibility="@{vm.uiState.selectedFeedType == PlubingFeedType.TEXT ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintTop_toBottomOf="@+id/constraint_layout_title"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/text_view_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plubing_board_write_image"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.plub.presentation.ui.common.custom.RadiusImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="8dp"
+                        android:onClick="@{() -> vm.onClickFeedImage()}"
+                        android:scaleType="centerCrop"
+                        android:src="@color/color_c4c4c4"
+                        app:imageFile="@{vm.uiState.imageFile}"
+                        app:layout_constraintDimensionRatio="328:245"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_image"
+                        app:radius="10dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_layout_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:paddingHorizontal="16dp"
+                    android:visibility="@{vm.uiState.selectedFeedType == PlubingFeedType.IMAGE ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintTop_toBottomOf="@+id/constraint_layout_image"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/text_view_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plubing_board_write_content"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/edit_text_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:afterTextChanged="@{(text) -> vm.onContentTextChanged(text)}"
+                        android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                        android:hint="@string/plubing_board_write_content_hint"
+                        android:inputType="textMultiLine"
+                        android:maxLength="@{vm.uiState.contentMaxLength}"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="11dp"
+                        android:text="@={vm.uiState.content}"
+                        android:textColor="@color/color_363636"
+                        android:textColorHint="@color/color_8c8c8c"
+                        android:textSize="14dp"
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_content"
+                        tools:text="aepfofaeokpfkpoafekopfkpeaopokfpfekaopkopfaekpofkopfpfakeopkofekapfekoa" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@{vm.uiState.contentCount}"
+                        android:textColor="@color/color_8c8c8c"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="@+id/edit_text_content"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_text_content"
+                        tools:text="150/300" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/view_dim"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:background="@drawable/dim_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_write"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:enabled="@{vm.uiState.postButtonEnable}"
+            android:onClick="@{() -> vm.onClickPostUpload()}"
+            android:text="@string/plubing_board_write_post"
+            android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/view_dim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view_dim" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

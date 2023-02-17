@@ -2,6 +2,7 @@ package com.plub.data.repository
 
 import com.plub.data.api.LoginApi
 import com.plub.data.base.BaseRepository
+import com.plub.data.dto.login.AdminLoginRequest
 import com.plub.data.mapper.SocialLoginRequestMapper
 import com.plub.data.mapper.SocialLoginResponseMapper
 import com.plub.domain.UiState
@@ -18,6 +19,15 @@ class LoginRepositoryImpl @Inject constructor(private val loginApi: LoginApi) : 
     override suspend fun socialLogin(request: SocialLoginRequestVo): Flow<UiState<SocialLoginResponseVo>> {
         val requestDto = SocialLoginRequestMapper.mapModelToDto(request)
         return apiLaunch(loginApi.socialLogin(requestDto), SocialLoginResponseMapper) {
+            LoginError.make(it)
+        }
+    }
+
+    override suspend fun adminLogin(): Flow<UiState<SocialLoginResponseVo>> {
+        val email = "admin1"
+        val password = "plubplub2023"
+        val request = AdminLoginRequest(email, password)
+        return apiLaunch(loginApi.adminLogin(request), SocialLoginResponseMapper) {
             LoginError.make(it)
         }
     }
