@@ -41,6 +41,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
             buttonBookmark.setOnClickListener {
                 findNavController().navigate(MainFragmentDirections.actionMainToBookmark())
             }
+            buttonModifyGathering.setOnClickListener {
+                findNavController().navigate(MainFragmentDirections.actionMainToModifyGathering())
+            }
         }
     }
 
