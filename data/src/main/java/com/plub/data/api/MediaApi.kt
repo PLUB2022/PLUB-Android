@@ -10,8 +10,4 @@ interface MediaApi {
     @Multipart
     @POST(Endpoints.FILE.FILE_URL)
     suspend fun uploadFile(@Part type: MultipartBody.Part, @Part files: MultipartBody.Part): Response<ApiResponse<UploadFilesResponse>>
-
-    @Multipart
-    @POST(Endpoints.FILE.CHANGE_FILE_URL)
-    suspend fun changeFile(@Part type: MultipartBody.Part, @Part toDeleteUrls: MultipartBody.Part, @Part files: MultipartBody.Part): Response<ApiResponse<UploadFilesResponse>>
 }

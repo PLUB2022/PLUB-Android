@@ -8,6 +8,7 @@ import com.plub.data.repository.KakaoLocationRepositoryImpl
 import com.plub.data.repository.HobbyRepositoryImpl
 import com.plub.data.repository.LoginRepositoryImpl
 import com.plub.data.repository.MediaRepositoryImpl
+import com.plub.data.repository.MediaRequireAuthRepositoryImpl
 import com.plub.data.repository.RecruitDetailRepositoryImpl
 import com.plub.data.repository.PlubingBoardRepositoryImpl
 import com.plub.data.repository.PlubingMainRepositoryImpl
@@ -21,6 +22,7 @@ import com.plub.domain.repository.HomePostRepository
 import com.plub.domain.repository.KakaoLocationRepository
 import com.plub.domain.repository.LoginRepository
 import com.plub.domain.repository.MediaRepository
+import com.plub.domain.repository.MediaRequireAuthRepository
 import com.plub.domain.repository.PlubingBoardRepository
 import com.plub.domain.repository.PlubingMainRepository
 import com.plub.domain.repository.RecruitRepository
@@ -59,6 +61,10 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesMediaRepository(repositoryImpl: MediaRepositoryImpl): MediaRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesMediaRequireAuthRepository(repositoryImpl: MediaRequireAuthRepositoryImpl): MediaRequireAuthRepository
 
     @Singleton
     @Binds

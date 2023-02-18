@@ -73,7 +73,7 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesChangeFileUseCase(repository: MediaRepository): PostChangeFileUseCase {
+    fun providesChangeFileUseCase(repository: MediaRequireAuthRepository): PostChangeFileUseCase {
         return PostChangeFileUseCase(repository)
     }
 

@@ -5,6 +5,11 @@ import com.plub.data.base.DataDto
 import com.plub.domain.model.enums.SocialLoginType
 
 data class ModifyRecruitRequest(
+    val plubbingId: Int,
+    val body: ModifyRecruitRequestBody
+): DataDto
+
+data class ModifyRecruitRequestBody(
     @SerializedName("title")
     val title:String,
     @SerializedName("name")

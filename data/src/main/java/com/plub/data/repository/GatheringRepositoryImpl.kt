@@ -22,6 +22,6 @@ class GatheringRepositoryImpl @Inject constructor(private val gatheringApi: Gath
 
     override suspend fun modifyGathering(request: ModifyRecruitRequestVo): Flow<UiState<CreateGatheringResponseVo>> {
         val requestDto = ModifyRecruitRequestMapper.mapModelToDto(request)
-        return apiLaunch(gatheringApi.modifyRecruit(requestDto), CreateGatheringResponseMapper)
+        return apiLaunch(gatheringApi.modifyRecruit(requestDto.plubbingId, requestDto.body), CreateGatheringResponseMapper)
     }
 }
