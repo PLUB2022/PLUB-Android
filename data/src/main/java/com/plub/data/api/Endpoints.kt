@@ -42,7 +42,7 @@ object Endpoints {
         const val RECRUIT = "$PLUBBING_URL/recruit"
         const val BOOKMARK = "$RECRUIT_URL/bookmarks"
         const val BOOKMARK_ME = "$PLUBBING_URL/recruit/bookmarks/me"
-        const val FETCH_RECOMMENDATION_GATHERING =  "$PLUBBING_URL/recommendation"
+        const val FETCH_RECOMMENDATION_GATHERING = "$PLUBBING_URL/recommendation"
         const val FETCH_CATEGORIES_GATHERING = "$PLUBBING_URL/categories/{categoryId}"
         const val FETCH_DETAIL_RECRUIT = "$RECRUIT_URL"
         const val APPLICANTS_RECRUIT = "$RECRUIT_URL/applicants"
@@ -51,6 +51,11 @@ object Endpoints {
         const val RECRUIT_END = "$RECRUIT_URL/end"
         const val RECRUIT_QUESTIONS = "$RECRUIT_URL/questions"
         const val PLUBING_MAIN = "$PLUBBING_ID_URL/main"
+        const val MODIFY_GATHERING_RECRUIT = RECRUIT_URL
+
+        object MODIFY_GATHERING {
+            const val RECRUIT = RECRUIT_URL
+        }
 
         object BOARD {
             const val FEEDS = "$PLUBBING_ID_URL/feeds"
