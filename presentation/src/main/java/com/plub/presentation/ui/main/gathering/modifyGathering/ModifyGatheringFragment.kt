@@ -61,6 +61,8 @@ class ModifyGatheringFragment : BaseFragment
     }
 
     private fun initViewPager() = binding.apply {
+        if(pagerAdapter != null) return@apply
+
         pagerAdapter = FragmentModifyGatheringPagerAdapter(this@ModifyGatheringFragment, viewModel.uiState.value)
 
         viewPagerModifyGathering.apply {

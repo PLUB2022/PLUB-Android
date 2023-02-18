@@ -57,6 +57,7 @@
     <string name="word_sort">정렬</string>
     <string name="word_bookmark">북마크</string>
     <string name="word_middle_slash">%d/%d</string>
+    <string name="word_save">저장</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>

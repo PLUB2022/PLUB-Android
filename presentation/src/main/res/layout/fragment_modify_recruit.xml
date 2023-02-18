@@ -244,6 +244,22 @@
 
         </ScrollView>
 
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginBottom="26dp"
+            android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:enabled="@{vm.uiState.isNextButtonEnabled}"
+            android:stateListAnimator="@null"
+            android:text="@string/word_save"
+            android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
