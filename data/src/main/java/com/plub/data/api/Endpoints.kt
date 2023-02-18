@@ -9,6 +9,7 @@ object Endpoints {
 
     object FILE {
         const val FILE_URL = "/api/files"
+        const val CHANGE_FILE_URL = "/api/files/change"
     }
 
     object AUTH {

@@ -73,6 +73,12 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun providesChangeFileUseCase(repository: MediaRepository): PostChangeFileUseCase {
+        return PostChangeFileUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun providesSetDataStoreUseCase(repository: PrefDataStoreRepository): SetDataStoreUseCase {
         return SetDataStoreUseCase(repository)
     }
