@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubingBoardType
+import com.plub.domain.model.vo.board.BoardRequestVo
 import com.plub.domain.model.vo.board.FetchPlubingBoardRequestVo
 import com.plub.domain.model.vo.board.PlubingBoardListVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
@@ -149,7 +150,8 @@ class PlubingBoardViewModel @Inject constructor(
 
     private fun boardFixClip(feedId: Int) {
         viewModelScope.launch {
-            putPlubingBoardPinChangeUseCase(feedId).collect {
+            val request = BoardRequestVo(plubingId, feedId)
+            putPlubingBoardPinChangeUseCase(request).collect {
                 inspectUiState(it, {
                     updateDeletedFeedList(feedId)
                     onFetchClipBoardList()
@@ -160,7 +162,8 @@ class PlubingBoardViewModel @Inject constructor(
 
     private fun boardDelete(feedId: Int) {
         viewModelScope.launch {
-            deletePlubingBoardUseCase(feedId).collect {
+            val request = BoardRequestVo(plubingId, feedId)
+            deletePlubingBoardUseCase(request).collect {
                 inspectUiState(it, {
                     updateDeletedFeedList(feedId)
                     onFetchClipBoardList()

@@ -45,9 +45,9 @@ object Endpoints {
         object BOARD {
             const val FEEDS = "$PLUBBING_ID_URL/feeds"
             const val PINS = "$PLUBBING_ID_URL/pins"
-            const val CHANGE_PIN = "$PLUBBING_URL/feeds/{feedId}/pin"
-            const val DELETE_FEED = "$PLUBBING_URL/feeds/{feedId}"
             const val POST_FEED = "$PLUBBING_ID_URL/feeds"
+            const val CHANGE_PIN = "$PLUBBING_ID_URL/feeds/{feedId}/pin"
+            const val DELETE_FEED = "$PLUBBING_ID_URL/feeds/{feedId}"
         }
     }
 }
