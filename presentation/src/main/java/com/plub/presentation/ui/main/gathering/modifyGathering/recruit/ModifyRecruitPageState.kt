@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.os.Parcelable
 import com.plub.presentation.ui.PageState
 import kotlinx.parcelize.Parcelize
+import java.io.File
 
 @Parcelize
 data class ModifyRecruitPageState(
@@ -12,5 +13,5 @@ data class ModifyRecruitPageState(
     val goal: String = "",
     val introduce: String = "",
     val plubbingMainImgUrl: String = "",
-    val tempPlubbingMainBitmap: Bitmap? = null
+    val tempPlubbingMainBitmap: File? = null
 ) : PageState, Parcelable

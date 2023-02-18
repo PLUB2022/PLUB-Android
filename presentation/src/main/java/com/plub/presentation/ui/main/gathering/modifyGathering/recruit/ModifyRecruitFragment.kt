@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.gathering.modifyGathering.recruit
 
 import android.os.Bundle
+import android.os.Parcel
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentModifyRecruitBinding
 import com.plub.presentation.ui.main.gathering.createGathering.question.bottomSheet.BottomSheetDeleteQuestion
+import com.plub.presentation.util.parcelable
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +25,9 @@ class ModifyRecruitFragment : BaseFragment<
         binding.apply {
             vm = viewModel
         }
+
+        val pageState = arguments?.parcelable(MODIFY_RECRUIT_PAGE_STATE) ?: ModifyRecruitPageState()
+        viewModel.initPageState(pageState)
     }
 
     companion object {
@@ -35,5 +40,11 @@ class ModifyRecruitFragment : BaseFragment<
                 putParcelable(MODIFY_RECRUIT_PAGE_STATE, initPageState)
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        arguments?.putParcelable(MODIFY_RECRUIT_PAGE_STATE, viewModel.uiState.value)
     }
 }
