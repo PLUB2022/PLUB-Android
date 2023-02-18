@@ -5,6 +5,7 @@ import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitPageState
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +20,7 @@ class ModifyGatheringViewModel @Inject constructor(
             getRecruitDetailUseCase(plubbingId).collect { state ->
                 inspectUiState(
                     state,
-                    succeedCallback = { handleGetGatheringInfoSuccess(it) },
+                    succeedCallback = { handleGetGatheringInfoSuccess(plubbingId, it) },
                     individualErrorCallback = null
                 )
             }
@@ -30,16 +31,17 @@ class ModifyGatheringViewModel @Inject constructor(
         if(uiState != ModifyGatheringPageState()) emitEventFlow(ModifyGatheringEvent.InitViewPager)
     }
 
-    private fun handleGetGatheringInfoSuccess(data: RecruitDetailResponseVo) {
+    private fun handleGetGatheringInfoSuccess(plubbingId: Int, data: RecruitDetailResponseVo) {
         updateUiState { uiState ->
             uiState.copy(
-                modifyRecruitPageState = getRecruitPageState(data)
+                modifyRecruitPageState = getRecruitPageState(plubbingId, data)
             )
         }
     }
 
-    private fun getRecruitPageState(data: RecruitDetailResponseVo): ModifyRecruitPageState {
+    private fun getRecruitPageState(plubbingId: Int, data: RecruitDetailResponseVo): ModifyRecruitPageState {
         return ModifyRecruitPageState(
+            plubbingId = plubbingId,
             title = data.recruitTitle,
             name = data.plubbingName,
             goal = data.plubbingGoal,

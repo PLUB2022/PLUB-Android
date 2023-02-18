@@ -9,6 +9,7 @@ import java.io.File
 
 @Parcelize
 data class ModifyRecruitPageState(
+    val plubbingId: Int = -1,
     val title: String = "",
     val name: String = "",
     val goal: String = "",

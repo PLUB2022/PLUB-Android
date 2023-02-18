@@ -31,7 +31,7 @@ class ModifyGatheringFragment : BaseFragment
             vm = viewModel
         }
 
-        viewModel.getGatheringInfoDetail(22)
+        viewModel.getGatheringInfoDetail(21)
     }
 
     override fun initStates() {
