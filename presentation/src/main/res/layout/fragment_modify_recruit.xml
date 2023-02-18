@@ -232,6 +232,7 @@
                     android:layout_marginTop="9dp"
                     android:onClick="@{() -> vm.onClickAddSingleImageButton()}"
                     app:gatheringImage="@{vm.uiState.tempPlubbingMainBitmap}"
+                    app:gatheringImageUrl="@{vm.uiState.plubbingMainImgUrl}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_view_gathering_picture_title"
                     tools:background="@color/color_5f5ff9"
