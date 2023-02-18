@@ -223,4 +223,9 @@
     <string name="plubing_board_write_post">글 업로드</string>
     <string name="plubing_board_write_title_hint">제목을 입력해주세요</string>
     <string name="plubing_board_write_content_hint">내용을 입력해주세요</string>
+    
+    <string name="modify_gathering_title">모임 정보 수정</string>
+    <string name="modify_gathering_tab_recruit">모집글</string>
+    <string name="modify_gathering_tab_info">모임 정보</string>
+    <string name="modify_gathering_tab_guest">게스트 질문</string>
 </resources>

@@ -26,6 +26,10 @@ class ModifyGatheringViewModel @Inject constructor(
         }
     }
 
+    fun handleUiState(uiState: ModifyGatheringPageState) {
+        if(uiState != ModifyGatheringPageState()) emitEventFlow(ModifyGatheringEvent.InitViewPager)
+    }
+
     private fun handleGetGatheringInfoSuccess(data: RecruitDetailResponseVo) {
         updateUiState { uiState ->
             uiState.copy(
