@@ -194,4 +194,8 @@ class CategoryGatheringViewModel @Inject constructor(
             fetchRecommendationGatheringData()
         }
     }
+
+    fun goToFilter(){
+        emitEventFlow(CategoryGatheringEvent.GoToFilter)
+    }
 }

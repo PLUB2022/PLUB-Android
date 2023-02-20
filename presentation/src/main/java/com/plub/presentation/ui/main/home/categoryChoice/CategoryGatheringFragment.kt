@@ -140,6 +140,9 @@ class CategoryGatheringFragment :
             is CategoryGatheringEvent.GoToHostRecruit -> {
                 goToHostRecruitment(event.id)
             }
+            CategoryGatheringEvent.GoToFilter -> {
+                goToCategoryGatheringFilter()
+            }
         }
     }
 
@@ -179,5 +182,10 @@ class CategoryGatheringFragment :
 
     private fun recyclerScrollToTop(){
         binding.recyclerViewCategoryChoiceList.scrollToPosition(0)
+    }
+
+    private fun goToCategoryGatheringFilter(){
+        val action = CategoryGatheringFragmentDirections.actionCategoryGatheringToFilter(categoryChoiceFragmentArgs.categoryId, categoryChoiceFragmentArgs.categoryName)
+        findNavController().navigate(action)
     }
 }

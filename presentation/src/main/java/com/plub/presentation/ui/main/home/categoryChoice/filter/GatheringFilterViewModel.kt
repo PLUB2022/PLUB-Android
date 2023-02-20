@@ -1,14 +1,35 @@
 package com.plub.presentation.ui.main.home.categoryChoice.filter
 
-import com.plub.domain.usecase.GetCategoriesUseCase
+import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.vo.common.SubHobbyVo
+import com.plub.domain.usecase.GetSubHobbiesUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class GatheringFilterViewModel @Inject constructor(
-    val getCategoriesUseCase: GetCategoriesUseCase
-): BaseViewModel<PageState.Default>(PageState.Default) {
+    val getSubHobbiesUseCase: GetSubHobbiesUseCase
+): BaseViewModel<GatheringFilterState>(GatheringFilterState()) {
 
+    private var categoryName = ""
+
+    fun fetchSubHobbies(categoryId : Int, categoryName : String){
+        this.categoryName = categoryName
+        viewModelScope.launch {
+            getSubHobbiesUseCase(categoryId).collect{
+                inspectUiState(it, ::handleSuccessFetchSubHobbies)
+            }
+        }
+    }
+
+    private fun handleSuccessFetchSubHobbies(vo : List<SubHobbyVo>){
+        updateUiState { uiState ->
+            uiState.copy(
+                categoryName = categoryName,
+                subHobbies = vo
+            )
+        }
+    }
 }

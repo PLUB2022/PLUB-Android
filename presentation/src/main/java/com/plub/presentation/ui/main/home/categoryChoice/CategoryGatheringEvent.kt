@@ -7,6 +7,7 @@ sealed class CategoryGatheringEvent : Event {
     object GoToBack : CategoryGatheringEvent()
     object GoToSearch : CategoryGatheringEvent()
     object GoToCreate : CategoryGatheringEvent()
+    object GoToFilter : CategoryGatheringEvent()
     data class GoToRecruit(val id : Int) : CategoryGatheringEvent()
     data class GoToHostRecruit(val id : Int) : CategoryGatheringEvent()
     object ScrollTop : CategoryGatheringEvent()

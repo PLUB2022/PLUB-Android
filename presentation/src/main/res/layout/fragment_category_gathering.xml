@@ -79,6 +79,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="52dp"
+                android:onClick="@{()->vm.goToFilter()}"
                 android:background="@color/transparent"
                 android:src="@drawable/ic_filter"
                 app:layout_constraintStart_toEndOf="@id/text_view_see_all_btn"
