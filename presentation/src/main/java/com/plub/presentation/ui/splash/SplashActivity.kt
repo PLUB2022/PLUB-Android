@@ -2,15 +2,11 @@ package com.plub.presentation.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import androidx.activity.viewModels
-import com.plub.presentation.R
 import com.plub.presentation.base.BaseActivity
 import com.plub.presentation.databinding.ActivitySplashBinding
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.ui.main.MainActivity
-import com.plub.presentation.ui.main.MainEvent
 import com.plub.presentation.ui.sign.SignActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,7 +19,7 @@ BaseActivity<ActivitySplashBinding, PageState.Default, SplashViewModel>(Activity
     override val viewModel: SplashViewModel by viewModels()
 
     override fun initView() {
-        viewModel.reIssueTokenAfterMoveActivity()
+        viewModel.fetchMyInfo()
     }
 
     override fun initState() {

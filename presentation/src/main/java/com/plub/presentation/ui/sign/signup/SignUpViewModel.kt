@@ -13,13 +13,16 @@ import com.plub.domain.model.vo.signUp.moreInfo.MoreInfoVo
 import com.plub.domain.model.vo.signUp.personalInfo.PersonalInfoVo
 import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
 import com.plub.domain.model.vo.signUp.terms.TermsPageVo
+import com.plub.domain.usecase.FetchMyInfoUseCase
 import com.plub.domain.usecase.PostSignUpUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.DataStoreUtil
+import com.plub.presentation.util.PlubUser
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,7 +32,8 @@ class SignUpViewModel @Inject constructor(
     val datsStoreUtil: DataStoreUtil,
     val postSignUpUseCase: PostSignUpUseCase,
     val postUploadFileUseCase: PostUploadFileUseCase,
-    val savePlubAccessTokenAndRefreshTokenUseCase: SavePlubAccessTokenAndRefreshTokenUseCase
+    val savePlubAccessTokenAndRefreshTokenUseCase: SavePlubAccessTokenAndRefreshTokenUseCase,
+    val fetchMyInfoUseCase: FetchMyInfoUseCase
 ) : BaseViewModel<SignUpPageState>(SignUpPageState()) {
 
     private var isNetworkCall = false
@@ -49,22 +53,25 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun updatePageVo(pageVo: SignUpPageVo) {
-        when(pageVo) {
+        when (pageVo) {
             is TermsPageVo -> {
                 updateUiState {
                     it.copy(termsPageVo = pageVo)
                 }
             }
+
             is PersonalInfoVo -> {
                 updateUiState {
                     it.copy(personalInfoVo = pageVo)
                 }
             }
+
             is ProfileComposeVo -> {
                 updateUiState {
                     it.copy(profileComposeVo = pageVo)
                 }
             }
+
             is MoreInfoVo -> {
                 updateUiState {
                     it.copy(moreInfoVo = pageVo)
@@ -80,7 +87,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun signUpProcess() {
-        if(isNetworkCall) return
+        if (isNetworkCall) return
         isNetworkCall = true
 
         getSignToken { token ->
@@ -90,7 +97,7 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    private fun getSignToken(onSuccess:(String) -> Unit) {
+    private fun getSignToken(onSuccess: (String) -> Unit) {
         viewModelScope.launch {
             datsStoreUtil.getSignUpToken().collect { signToken ->
                 inspectUiState(signToken, {
@@ -102,7 +109,7 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    private fun uploadProfile(onSuccess:(String) -> Unit) {
+    private fun uploadProfile(onSuccess: (String) -> Unit) {
         viewModelScope.launch {
             uiState.value.profileComposeVo.profileFile?.let { file ->
                 val fileRequest = UploadFileRequestVo(UploadFileType.PROFILE, file)
@@ -113,15 +120,15 @@ class SignUpViewModel @Inject constructor(
                         isNetworkCall = false
                     }
                 }
-            }?: onSuccess("")
+            } ?: onSuccess("")
         }
     }
 
-    private fun signUp(signToken:String, profileUrl:String) {
+    private fun signUp(signToken: String, profileUrl: String) {
         viewModelScope.launch {
             val request = uiState.value.getSignUpRequestVo(signToken, profileUrl)
             postSignUpUseCase(request).collect { state ->
-                inspectUiState(state,::signUpSuccess) { _, individual ->
+                inspectUiState(state, ::signUpSuccess) { _, individual ->
                     handleSignUpError(individual as SignUpError)
                     isNetworkCall = false
                 }
@@ -133,7 +140,9 @@ class SignUpViewModel @Inject constructor(
         isNetworkCall = false
         val request = SavePlubJwtRequestVo(jwtResponseVo.accessToken, jwtResponseVo.refreshToken)
         saveToken(request) {
-            goToWelcome()
+            fetchMyInfo {
+                goToWelcome()
+            }
         }
     }
 
@@ -151,10 +160,21 @@ class SignUpViewModel @Inject constructor(
         emitEventFlow(SignUpEvent.ShowSignUpErrorDialog(string))
     }
 
-    private fun saveToken(request:SavePlubJwtRequestVo, onSuccess: () -> Unit) {
+    private fun saveToken(request: SavePlubJwtRequestVo, onSuccess: () -> Unit) {
         viewModelScope.launch {
             savePlubAccessTokenAndRefreshTokenUseCase(request).collect {
-                if(it) onSuccess()
+                if (it) onSuccess()
+            }
+        }
+    }
+
+    private fun fetchMyInfo(onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            fetchMyInfoUseCase(Unit).collect { state ->
+                inspectUiState(state, succeedCallback = { info ->
+                    PlubUser.updateInfo(info)
+                    onSuccess()
+                })
             }
         }
     }
@@ -169,7 +189,8 @@ class SignUpViewModel @Inject constructor(
 
     private fun isFirstPage(currentPage: Int) = currentPage == 0
 
-    private fun isLastPage(currentPage: Int): Boolean = currentPage == SignUpPageType.values().size - 1
+    private fun isLastPage(currentPage: Int): Boolean =
+        currentPage == SignUpPageType.values().size - 1
 
     private fun moveToPage(page: Int) {
         updateUiState { uiState ->
