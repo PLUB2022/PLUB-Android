@@ -9,4 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface MediaRepository {
     suspend fun uploadFile(request: UploadFileRequestVo): Flow<UiState<UploadFileResponseVo>>
 
+    suspend fun changeFile(request: ChangeFileRequestVo): Flow<UiState<UploadFileResponseVo>>
 }
