@@ -5,6 +5,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -64,6 +65,8 @@ dependencies {
     implementation(Google.HILT_ANDROID)
     implementation(Google.GOOGLE_PLAY_SERVICE)
     implementation(Google.FLEX_BOX)
+    implementation(Google.FIREBASE_BOM)
+    implementation(Google.FCM)
 
     implementation(Glide.GLIDE)
     annotationProcessor(Glide.GLIDE_COMPILER)
