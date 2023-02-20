@@ -29,6 +29,7 @@ object Endpoints {
         private const val CATEGORY_URL = "/api/categories"
         const val GET_ALL_CATEGORIES = "$CATEGORY_URL/all"
         const val GET_BIG_CATEGORIES = "$CATEGORY_URL"
+        const val GET_SUB_CATEGORIES = "$CATEGORY_URL/{categoryId}/sub"
     }
 
     object KAKAO_LOCATION {

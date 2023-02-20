@@ -56,6 +56,12 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun providesGetSubHobbiesUseCase(repository: HobbyRepository): GetSubHobbiesUseCase {
+        return GetSubHobbiesUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun providesPostSignUpUseCase(repository: SignUpRepository): PostSignUpUseCase {
         return PostSignUpUseCase(repository)
     }

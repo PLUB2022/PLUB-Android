@@ -60,6 +60,9 @@
         <action
             android:id="@+id/action_category_gathering_to_host_recruitment"
             app:destination="@id/hostRecruitmentFragment"/>
+        <action
+            android:id="@+id/action_category_gathering_to_filter"
+            app:destination="@id/categoryGatheringFilterFragment"/>
         <argument
             android:name="categoryId"
             app:argType="integer"
@@ -72,6 +75,22 @@
         <argument
             android:name="plubbingId"
             app:argType="integer"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoryGatheringFilterFragment"
+        android:name="com.plub.presentation.ui.main.home.categoryChoice.filter.GatheringFilterFragment"
+        android:label="fragment_category_gathering_filter"
+        tools:layout="@layout/fragment_category_gathering_filter">
+        <argument
+            android:name="categoryId"
+            app:argType="integer"
+            />
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            android:defaultValue=""
             />
     </fragment>
 
