@@ -1,7 +1,7 @@
 package com.plub.domain.usecase
 
 import com.plub.domain.UiState
-import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponseVo
+import com.plub.domain.model.vo.home.interestRegisterVo.RegisterInterestResponseVo
 import com.plub.domain.repository.RegisterHobbiesRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

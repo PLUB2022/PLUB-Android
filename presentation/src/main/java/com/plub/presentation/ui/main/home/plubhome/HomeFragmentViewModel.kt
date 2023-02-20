@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.HomeViewType
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.home.HomePlubListVo
-import com.plub.domain.model.vo.home.categorylistresponsevo.CategoryListDataResponseVo
-import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponseVo
+import com.plub.domain.model.vo.home.categoryResponseVo.CategoryListDataResponseVo
+import com.plub.domain.model.vo.home.interestRegisterVo.RegisterInterestResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.*

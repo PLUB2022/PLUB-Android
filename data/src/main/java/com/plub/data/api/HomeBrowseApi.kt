@@ -1,7 +1,7 @@
 package com.plub.data.api
 
 import com.plub.data.base.ApiResponse
-import com.plub.data.dto.categorylistdata.CategoryListResponse
+import com.plub.data.dto.categoryListData.CategoryListResponse
 import com.plub.data.dto.plub.PlubCardListResponse
 import retrofit2.Response
 import retrofit2.http.GET

@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.main.home.recruitment.bottomsheet
 
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
+import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsListVo
 import com.plub.presentation.databinding.IncludeItemCircleProfileDetailBinding
 import com.plub.presentation.util.GlideUtil
 

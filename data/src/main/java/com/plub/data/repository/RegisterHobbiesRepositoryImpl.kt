@@ -2,10 +2,10 @@ package com.plub.data.repository
 
 import com.plub.data.api.InterestHobbiesApi
 import com.plub.data.base.BaseRepository
-import com.plub.data.dto.registerhobbies.RegisterHobbiesRequest
-import com.plub.data.mapper.registerinterestmapper.InterestRegisterResponseMapper
+import com.plub.data.dto.registerHobbies.RegisterHobbiesRequest
+import com.plub.data.mapper.registerInterestMapper.InterestRegisterResponseMapper
 import com.plub.domain.UiState
-import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponseVo
+import com.plub.domain.model.vo.home.interestRegisterVo.RegisterInterestResponseVo
 import com.plub.domain.repository.RegisterHobbiesRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.main.home.plubhome.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
+import com.plub.domain.model.vo.home.categoryResponseVo.CategoriesDataResponseVo
 import com.plub.presentation.databinding.IncludeItemHomeCategoryBinding
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
 import com.plub.presentation.util.GlideUtil

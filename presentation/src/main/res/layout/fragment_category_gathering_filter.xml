@@ -45,7 +45,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_sub_hobbies"
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -229,6 +229,7 @@
             android:layout_marginBottom="26dp"
             android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
             android:text="@string/category_gathering_filter_complete"
+            android:textColor="@color/white"
             android:layout_width="0dp"
             android:layout_height="46dp"
             app:layout_constraintStart_toStartOf="parent"

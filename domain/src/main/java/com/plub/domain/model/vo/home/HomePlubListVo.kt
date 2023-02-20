@@ -1,7 +1,7 @@
 package com.plub.domain.model.vo.home
 
 import com.plub.domain.model.enums.HomeViewType
-import com.plub.domain.model.vo.home.categorylistresponsevo.CategoriesDataResponseVo
+import com.plub.domain.model.vo.home.categoryResponseVo.CategoriesDataResponseVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 
 data class HomePlubListVo(

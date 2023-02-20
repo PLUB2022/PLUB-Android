@@ -1,7 +1,7 @@
 package com.plub.domain.repository
 
 import com.plub.domain.UiState
-import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponseVo
+import com.plub.domain.model.vo.home.interestRegisterVo.RegisterInterestResponseVo
 import kotlinx.coroutines.flow.Flow
 
 interface RegisterHobbiesRepository {

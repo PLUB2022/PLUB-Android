@@ -5,7 +5,7 @@ import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSortType
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
-import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
+import com.plub.domain.model.vo.home.categoriesGatheringResponse.CategoriesGatheringRequestVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase

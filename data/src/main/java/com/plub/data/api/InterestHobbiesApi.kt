@@ -1,7 +1,7 @@
 package com.plub.data.api
 
-import com.plub.data.dto.registerhobbies.RegisterHobbiesRequest
-import com.plub.data.dto.registerhobbies.RegisterHobbiesResponse
+import com.plub.data.dto.registerHobbies.RegisterHobbiesRequest
+import com.plub.data.dto.registerHobbies.RegisterHobbiesResponse
 import com.plub.data.base.ApiResponse
 import retrofit2.Response
 import retrofit2.http.Body

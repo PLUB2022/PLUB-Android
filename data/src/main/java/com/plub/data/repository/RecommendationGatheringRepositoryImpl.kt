@@ -4,7 +4,7 @@ import com.plub.data.api.HomeBrowseApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.PlubCardListResponseMapper
 import com.plub.domain.UiState
-import com.plub.domain.model.vo.home.categoriesgatheringresponse.CategoriesGatheringRequestVo
+import com.plub.domain.model.vo.home.categoriesGatheringResponse.CategoriesGatheringRequestVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.repository.RecommendationGatheringRepository
 import kotlinx.coroutines.flow.Flow

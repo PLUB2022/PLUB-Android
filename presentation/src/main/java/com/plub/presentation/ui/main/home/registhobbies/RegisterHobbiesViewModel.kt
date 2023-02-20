@@ -3,7 +3,7 @@ package com.plub.presentation.ui.main.home.registhobbies
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.common.HobbyVo
 import com.plub.domain.model.vo.common.SelectedHobbyVo
-import com.plub.domain.model.vo.home.interestregistervo.RegisterInterestResponseVo
+import com.plub.domain.model.vo.home.interestRegisterVo.RegisterInterestResponseVo
 import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.domain.usecase.GetAllHobbiesUseCase
 import com.plub.domain.usecase.PostRegisterHobbiesUseCase
