@@ -9,6 +9,7 @@ object Endpoints {
 
     object FILE {
         const val FILE_URL = "/api/files"
+        const val CHANGE_FILE_URL = "/api/files/change"
     }
 
     object AUTH {
@@ -35,12 +36,26 @@ object Endpoints {
 
     object PLUBBING {
         private const val PLUBBING_URL = "/api/plubbings"
+        private const val RECRUIT_URL = "$PLUBBING_URL/{plubbingId}/recruit"
         private const val PLUBBING_ID_URL = "$PLUBBING_URL/{plubbingId}"
         const val CREATE = PLUBBING_URL
         const val RECRUIT = "$PLUBBING_URL/recruit"
-        const val BOOKMARK = "$PLUBBING_ID_URL/recruit/bookmarks"
+        const val BOOKMARK = "$RECRUIT_URL/bookmarks"
         const val BOOKMARK_ME = "$PLUBBING_URL/recruit/bookmarks/me"
+        const val FETCH_RECOMMENDATION_GATHERING = "$PLUBBING_URL/recommendation"
+        const val FETCH_CATEGORIES_GATHERING = "$PLUBBING_URL/categories/{categoryId}"
+        const val FETCH_DETAIL_RECRUIT = "$RECRUIT_URL"
+        const val APPLICANTS_RECRUIT = "$RECRUIT_URL/applicants"
+        const val APPROVAL_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/approval"
+        const val REFUSE_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/refuse"
+        const val RECRUIT_END = "$RECRUIT_URL/end"
+        const val RECRUIT_QUESTIONS = "$RECRUIT_URL/questions"
         const val PLUBING_MAIN = "$PLUBBING_ID_URL/main"
+        const val MODIFY_GATHERING_RECRUIT = RECRUIT_URL
+
+        object MODIFY_GATHERING {
+            const val RECRUIT = RECRUIT_URL
+        }
 
         object BOARD {
             const val FEEDS = "$PLUBBING_ID_URL/feeds"

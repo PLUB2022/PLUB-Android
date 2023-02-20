@@ -34,7 +34,7 @@
         <com.plub.presentation.ui.common.custom.OvalDotsIndicator
             android:id="@+id/oval_dots_indicator"
             createGatheringCurrentPage="@{vm.uiState.currentPage}"
-            android:layout_width="140dp"
+            android:layout_width="136dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="18dp"
