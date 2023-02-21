@@ -82,6 +82,15 @@ fun List<CreateGatheringQuestion>.deepCopy(): List<CreateGatheringQuestion> {
     return temp
 }
 
+fun List<CreateGatheringQuestion>.deepCopyAfterUpdateQuestion(key: Int, question: String): List<CreateGatheringQuestion> {
+    val temp = mutableListOf<CreateGatheringQuestion>()
+    forEach {
+        temp.add(it.copy())
+    }
+    temp.find { it.key == key }?.question = question
+    return temp
+}
+
 inline fun <reified T : Serializable> Bundle.serializable(key: String): T? = when {
     Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getSerializable(key, T::class.java)
     else -> @Suppress("DEPRECATION") getSerializable(key) as? T

@@ -8,6 +8,7 @@ import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGa
 import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionViewModel
 import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.deepCopy
+import com.plub.presentation.util.deepCopyAfterUpdateQuestion
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -74,11 +75,12 @@ class ModifyGuestQuestionViewModel @Inject constructor(
 
     fun updateQuestion(data: CreateGatheringQuestion, text: String) {
         updateUiState { uiState ->
-            uiState.questions.find { it.key == data.key }?.question = text
+            val updatedQuestion = uiState.questions.deepCopyAfterUpdateQuestion(data.key, text)
 
             uiState.copy(
+                _questions = updatedQuestion,
                 needUpdateRecyclerView = false,
-                isAddQuestionButtonVisible = uiState.questions.isNotEmpty() && uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != CreateGatheringQuestionViewModel.MAX_QUESTION_SIZE
+                isAddQuestionButtonVisible = updatedQuestion.isNotEmpty() && updatedQuestion.find { it.question.isBlank() } == null && updatedQuestion.size != CreateGatheringQuestionViewModel.MAX_QUESTION_SIZE
             )
         }
     }

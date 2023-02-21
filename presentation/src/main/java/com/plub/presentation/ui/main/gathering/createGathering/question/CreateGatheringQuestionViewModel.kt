@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.util.deepCopy
+import com.plub.presentation.util.deepCopyAfterUpdateQuestion
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -65,11 +66,12 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
 
     fun updateQuestion(data: CreateGatheringQuestion, text: String) {
         updateUiState { uiState ->
-            uiState.questions.find { it.key == data.key }?.question = text
+            val updatedQuestion = uiState.questions.deepCopyAfterUpdateQuestion(data.key, text)
 
             uiState.copy(
+                _questions = updatedQuestion,
                 needUpdateRecyclerView = false,
-                isAddQuestionButtonVisible = uiState.questions.isNotEmpty() && uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != MAX_QUESTION_SIZE
+                isAddQuestionButtonVisible = updatedQuestion.isNotEmpty() && updatedQuestion.find { it.question.isBlank() } == null && updatedQuestion.size != CreateGatheringQuestionViewModel.MAX_QUESTION_SIZE
             )
         }
     }
