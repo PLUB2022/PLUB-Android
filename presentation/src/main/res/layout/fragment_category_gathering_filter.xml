@@ -73,7 +73,7 @@
 
         <Button
             android:id="@+id/button_all_day"
-            android:layout_width="73dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
@@ -86,10 +86,11 @@
 
         <Button
             android:id="@+id/button_monday"
-            android:layout_width="73dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
             android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
             android:text="@string/word_monday"
+            android:layout_marginHorizontal="12dp"
             android:textColor="@color/color_8c8c8c"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/button_tuesday"
@@ -98,10 +99,11 @@
 
         <Button
             android:id="@+id/button_tuesday"
-            android:layout_width="73dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
             android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
             android:text="@string/word_tuesday"
+            android:layout_marginEnd="12dp"
             android:textColor="@color/color_8c8c8c"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/button_wednesday"
@@ -110,7 +112,7 @@
 
         <Button
             android:id="@+id/button_wednesday"
-            android:layout_width="73dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
@@ -123,7 +125,7 @@
 
         <Button
             android:id="@+id/button_thursday"
-            android:layout_width="73dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
@@ -136,10 +138,11 @@
 
         <Button
             android:id="@+id/button_friday"
-            android:layout_width="73dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
             android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
             android:text="@string/word_friday"
+            android:layout_marginHorizontal="12dp"
             android:textColor="@color/color_8c8c8c"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/button_saturday"
@@ -148,10 +151,11 @@
 
         <Button
             android:id="@+id/button_saturday"
-            android:layout_width="73dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
             android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
             android:text="@string/word_saturday"
+            android:layout_marginEnd="12dp"
             android:textColor="@color/color_8c8c8c"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/button_sunday"
@@ -160,7 +164,7 @@
 
         <Button
             android:id="@+id/button_sunday"
-            android:layout_width="73dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
             android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
             android:text="@string/word_sunday"
