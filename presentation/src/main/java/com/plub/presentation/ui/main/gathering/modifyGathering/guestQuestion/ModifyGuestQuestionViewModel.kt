@@ -1,28 +1,12 @@
 package com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion
 
-import android.app.Activity
-import android.net.Uri
-import android.text.Editable
-import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
-import com.canhub.cropper.CropImageView
-import com.plub.domain.UiState
-import com.plub.domain.model.enums.DialogMenuItemType
-import com.plub.domain.model.enums.UploadFileType
-import com.plub.domain.model.vo.media.ChangeFileRequestVo
-import com.plub.domain.model.vo.media.UploadFileRequestVo
-import com.plub.domain.model.vo.media.UploadFileResponseVo
-import com.plub.domain.model.vo.modifyGathering.ModifyRecruitRequestVo
-import com.plub.domain.usecase.PostChangeFileUseCase
-import com.plub.domain.usecase.PostUploadFileUseCase
-import com.plub.domain.usecase.PutModifyRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.ImageUtil
-import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
+import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionViewModel
+import com.plub.presentation.util.deepCopy
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,14 +18,102 @@ class ModifyGuestQuestionViewModel @Inject constructor(
     fun initPageState(bundlePageState: ModifyGuestQuestionPageState) {
         updateUiState { uiState ->
             uiState.copy(
-                plubbingId = bundlePageState.plubbingId,
-                title = bundlePageState.title,
-                name = bundlePageState.name,
-                goal = bundlePageState.goal,
-                introduce = bundlePageState.introduce,
-                plubbingMainImgUrl = bundlePageState.plubbingMainImgUrl,
-                tempPlubbingMainBitmap = bundlePageState.tempPlubbingMainBitmap
+                _questions = bundlePageState.copy(isNeedQuestionCheck = true).questions.deepCopy(),
+                isNeedQuestionCheck = bundlePageState.isNeedQuestionCheck,
+                needUpdateRecyclerView = true,
+                isAddQuestionButtonVisible = bundlePageState.isAddQuestionButtonVisible
             )
+        }
+    }
+
+    fun onClickNeedQuestionButton() {
+        viewModelScope.launch {
+            updateUiState { uiState ->
+                uiState.copy(
+                    isNeedQuestionCheck = true,
+                    needUpdateRecyclerView = true
+                )
+            }
+        }
+    }
+
+    fun onClickNoQuestionButton() {
+        viewModelScope.launch {
+            updateUiState { uiState ->
+                uiState.copy(
+                    isNeedQuestionCheck = false,
+                    needUpdateRecyclerView = false
+                )
+            }
+        }
+    }
+
+    fun onClickRecyclerViewDeleteButton(position: Int) {
+        emitEventFlow(
+            ModifyGuestQuestionEvent.ShowBottomSheetDeleteQuestion(
+                uiState.value.questions.size,
+                position
+            )
+        )
+    }
+
+    fun updateQuestion(data: CreateGatheringQuestion, text: String) {
+        updateUiState { uiState ->
+            uiState.questions.find { it.key == data.key }?.question = text
+
+            uiState.copy(
+                needUpdateRecyclerView = false,
+                isAddQuestionButtonVisible = uiState.questions.isNotEmpty() && uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != CreateGatheringQuestionViewModel.MAX_QUESTION_SIZE
+            )
+        }
+    }
+
+    fun addQuestion() {
+        updateUiState { uiState ->
+            val key = uiState.questions.lastOrNull()?.key ?: 0
+            val emptyQuestion = CreateGatheringQuestion(
+                key = key + 1,
+                position = uiState.questions.size + 1
+            )
+            uiState.copy(
+                _questions = uiState.questions.plus(emptyQuestion),
+                needUpdateRecyclerView = true,
+                isAddQuestionButtonVisible = false
+            )
+        }
+    }
+
+    fun onClickBottomSheetDelete(size: Int, position: Int) {
+        deleteQuestionOrMakeQuestionSizeToOne(position)
+        if (size == 1)
+            emitEventFlow(ModifyGuestQuestionEvent.PerformClickNoQuestionRadioButton)
+    }
+
+    private fun deleteQuestionOrMakeQuestionSizeToOne(position: Int) {
+        val data = uiState.value.questions.find { it.position == position } ?: return
+
+        updateUiState { uiState ->
+            val deleteIndex = uiState.questions.indexOf(data)
+            val temp = uiState.questions.minus(data).deepCopy()
+                .ifEmpty { listOf(CreateGatheringQuestion()) }
+
+            updateQuestionPosition(deleteIndex, temp)
+            uiState.copy(
+                _questions = temp,
+                needUpdateRecyclerView = true,
+                isAddQuestionButtonVisible = temp.find { it.question.isBlank() } == null
+            )
+        }
+    }
+
+    private fun updateQuestionPosition(changeIndex: Int, questions: List<CreateGatheringQuestion>) {
+        var key = uiState.value.questions.lastOrNull()?.key ?: 0
+        questions.forEachIndexed { index, gatheringQuestion ->
+            if (index >= changeIndex) {
+                gatheringQuestion.position = index + 1
+                gatheringQuestion.key = ++key
+                gatheringQuestion.question = questions[index].question
+            }
         }
     }
 

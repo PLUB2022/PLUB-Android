@@ -12,7 +12,9 @@ import javax.inject.Inject
 class CreateGatheringQuestionViewModel @Inject constructor() :
     BaseViewModel<CreateGatheringQuestionPageState>(CreateGatheringQuestionPageState()) {
 
-    private val maxQuestionCount = 5
+    companion object {
+        const val MAX_QUESTION_SIZE = 5
+    }
 
     fun initUiState(savedUiState: PageState) {
         if (uiState.value != CreateGatheringQuestionPageState())
@@ -67,7 +69,7 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
 
             uiState.copy(
                 needUpdateRecyclerView = false,
-                isAddQuestionButtonVisible = uiState.questions.isNotEmpty() && uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != maxQuestionCount
+                isAddQuestionButtonVisible = uiState.questions.isNotEmpty() && uiState.questions.find { it.question.isBlank() } == null && uiState.questions.size != MAX_QUESTION_SIZE
             )
         }
     }
