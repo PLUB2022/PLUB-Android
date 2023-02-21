@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.main.gathering.createGathering.question
 
+import android.os.Parcelable
 import com.plub.presentation.ui.PageState
+import kotlinx.parcelize.Parcelize
 
 data class CreateGatheringQuestionPageState(
     private val _questions: List<CreateGatheringQuestion> = listOf(CreateGatheringQuestion()),
@@ -22,8 +24,9 @@ data class CreateGatheringQuestionPageState(
         }
 }
 
+@Parcelize
 data class CreateGatheringQuestion(
     var key: Int = 0,
     var position: Int = 1,
     var question: String = ""
-)
+) : Parcelable
