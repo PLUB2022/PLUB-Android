@@ -16,10 +16,11 @@ import com.plub.presentation.ui.main.gathering.createGathering.question.bottomSh
 import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitFragment
 import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitPageState
 import com.plub.presentation.util.parcelable
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class ModifyGuestQuestionFragment : BaseFragment<
         FragmentModifyGuestQuestionBinding, ModifyGuestQuestionPageState, ModifyGuestQuestionViewModel>(
     FragmentModifyGuestQuestionBinding::inflate

@@ -90,13 +90,13 @@ class ModifyGatheringViewModel @Inject constructor(
     ): ModifyGuestQuestionPageState {
         return ModifyGuestQuestionPageState(
             plubbingId = plubbingId,
-            _questions = data.questions.mapIndexed { index, questionsDataVo ->
+            _questions = if(data.questions.isNotEmpty()) data.questions.mapIndexed { index, questionsDataVo ->
                 CreateGatheringQuestion(
                     key = index,
                     position = index + 1,
                     question = questionsDataVo.question
                 )
-            },
+            } else listOf(CreateGatheringQuestion()),
             isNeedQuestionCheck = data.questions.isNotEmpty()
         )
     }

@@ -1,17 +1,22 @@
 package com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.vo.modifyGathering.ModifyQuestionRequestVo
+import com.plub.domain.usecase.PutModifyQuestionsUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
 import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionViewModel
 import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.deepCopy
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ModifyGuestQuestionViewModel @Inject constructor() : BaseViewModel<ModifyGuestQuestionPageState>(ModifyGuestQuestionPageState()) {
+class ModifyGuestQuestionViewModel @Inject constructor(
+    private val putModifyQuestionsUseCase: PutModifyQuestionsUseCase
+) : BaseViewModel<ModifyGuestQuestionPageState>(ModifyGuestQuestionPageState()) {
 
     fun initPageState(bundlePageState: ModifyGuestQuestionPageState) {
         updateUiState { uiState ->
@@ -22,6 +27,17 @@ class ModifyGuestQuestionViewModel @Inject constructor() : BaseViewModel<ModifyG
                 needUpdateRecyclerView = true,
                 isAddQuestionButtonVisible = bundlePageState.isAddQuestionButtonVisible
             )
+        }
+    }
+
+    fun onClickSaveButton() {
+        viewModelScope.launch {
+            val request = ModifyQuestionRequestVo(uiState.value.plubbingId, uiState.value.questions.map { it.question })
+            putModifyQuestionsUseCase(request).collect { state ->
+                inspectUiState(state,
+                    succeedCallback = { },
+                    individualErrorCallback = null)
+            }
         }
     }
 
