@@ -5,7 +5,9 @@ import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSortType
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
-import com.plub.domain.model.vo.home.categoriesGatheringResponse.CategoriesGatheringRequestVo
+import com.plub.domain.model.vo.home.categoriesGatheringVo.CategoriesGatheringBodyRequestVo
+import com.plub.domain.model.vo.home.categoriesGatheringVo.CategoriesGatheringParamsVo
+import com.plub.domain.model.vo.home.categoriesGatheringVo.CategoriesGatheringRequestVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
@@ -28,18 +30,22 @@ class CategoryGatheringViewModel @Inject constructor(
     private var categoryId: Int = 0
     private var pageNumber: Int = FIRST_PAGE
     private var hasMoreCards: Boolean = true
-    private var isNetworkCall : Boolean = false
+    private var isNetworkCall: Boolean = false
 
 
     fun fetchRecommendationGatheringData(id: Int) =
         viewModelScope.launch {
             categoryId = id
             isNetworkCall = true
+            val paramsVo = CategoriesGatheringParamsVo(
+                categoryId,
+                uiState.value.sortType.key,
+                pageNumber
+            )
+            val bodyVo = CategoriesGatheringBodyRequestVo()
             categoriesGatheringUseCase(
                 CategoriesGatheringRequestVo(
-                    categoryId,
-                    uiState.value.sortType.key,
-                    pageNumber
+                    paramsVo, bodyVo
                 )
             ).collect { state ->
                 inspectUiState(state, ::successResult)
@@ -49,12 +55,17 @@ class CategoryGatheringViewModel @Inject constructor(
     private fun fetchRecommendationGatheringData() =
         viewModelScope.launch {
             isNetworkCall = true
-            val request = CategoriesGatheringRequestVo(
+            val paramsVo = CategoriesGatheringParamsVo(
                 categoryId,
                 uiState.value.sortType.key,
                 pageNumber
             )
-            categoriesGatheringUseCase(request).collect { state ->
+            val bodyVo = CategoriesGatheringBodyRequestVo()
+            categoriesGatheringUseCase(
+                CategoriesGatheringRequestVo(
+                    paramsVo, bodyVo
+                )
+            ).collect { state ->
                 inspectUiState(state, ::successResult)
             }
         }
@@ -92,8 +103,8 @@ class CategoryGatheringViewModel @Inject constructor(
         }
     }
 
-    fun scrollTop(){
-        if(pageNumber == FIRST_PAGE){
+    fun scrollTop() {
+        if (pageNumber == FIRST_PAGE) {
             emitEventFlow(CategoryGatheringEvent.ScrollTop)
         }
     }
@@ -176,11 +187,10 @@ class CategoryGatheringViewModel @Inject constructor(
         emitEventFlow(CategoryGatheringEvent.ShowSelectSortTypeBottomSheetDialog(menuItemType))
     }
 
-    fun goToDetailRecruitment(id : Int, isHost : Boolean){
-        if(isHost){
+    fun goToDetailRecruitment(id: Int, isHost: Boolean) {
+        if (isHost) {
             emitEventFlow(CategoryGatheringEvent.GoToHostRecruit(id))
-        }
-        else{
+        } else {
             emitEventFlow(CategoryGatheringEvent.GoToRecruit(id))
         }
     }
@@ -195,7 +205,7 @@ class CategoryGatheringViewModel @Inject constructor(
         }
     }
 
-    fun goToFilter(){
+    fun goToFilter() {
         emitEventFlow(CategoryGatheringEvent.GoToFilter)
     }
 }
