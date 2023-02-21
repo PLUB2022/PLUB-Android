@@ -26,7 +26,9 @@ class ModifyGatheringFragment : BaseFragment
             vm = viewModel
         }
 
-        viewModel.getGatheringInfoDetail(21)
+        viewModel.getGatheringInfoDetail(21) { id ->
+            viewModel.getQuestions(id)
+        }
     }
 
     override fun initStates() {
