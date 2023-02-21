@@ -60,7 +60,7 @@ class CreateGatheringQuestionFragment : BaseFragment<
                     if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
 
                     when (it) {
-                        is com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringEvent.GoToPrevPage -> {
+                        is CreateGatheringEvent.GoToPrevPage -> {
                             parentViewModel.setChildrenPageState(viewModel.uiState.value)
                             parentViewModel.goToPrevPageAndEmitChildrenPageState()
                         }
