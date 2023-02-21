@@ -8,6 +8,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ModifyGuestQuestionPageState(
+    val plubbingId: Int = -1,
     private val _questions: List<CreateGatheringQuestion> = listOf(CreateGatheringQuestion()),
     val isNeedQuestionCheck: Boolean? = null,
     val needUpdateRecyclerView: Boolean = true,
@@ -15,6 +16,7 @@ data class ModifyGuestQuestionPageState(
 ) : PageState, Parcelable {
     val questions
         get() = if(isNeedQuestionCheck == true) _questions else emptyList()
+
     @IgnoredOnParcel
     val isSaveButtonEnabled =
         when (isNeedQuestionCheck) {

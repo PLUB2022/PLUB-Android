@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
 
         <variable
             name="vm"
@@ -17,7 +18,7 @@
         android:background="@color/color_f5f3f6"
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
-        tools:context=".ui.main.gathering.modifyGathering.guestQuestion.ModifyGuestQuestionFragment">>
+        tools:context=".ui.main.gathering.modifyGathering.guestQuestion.ModifyGuestQuestionFragment">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -51,6 +52,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
                         android:button="@null"
+                        android:checked="@{vm.uiState.isNeedQuestionCheck == true}"
                         android:gravity="center"
                         android:onClick="@{() -> vm.onClickNeedQuestionButton()}"
                         android:paddingVertical="11dp"
@@ -67,6 +69,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
                         android:button="@null"
+                        android:checked="@{vm.uiState.isNeedQuestionCheck == false}"
                         android:gravity="center"
                         android:onClick="@{() -> vm.onClickNoQuestionButton()}"
                         android:paddingVertical="11dp"
