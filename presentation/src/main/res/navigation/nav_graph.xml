@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/categoryGatheringFragment"
-        android:name="com.plub.presentation.ui.main.home.categoryChoice.CategoryGatheringFragment"
+        android:name="com.plub.presentation.ui.main.home.categoryGathering.CategoryGatheringFragment"
         android:label="fragment_category_gathering"
         tools:layout="@layout/fragment_category_gathering">
         <action
@@ -80,7 +80,7 @@
 
     <fragment
         android:id="@+id/categoryGatheringFilterFragment"
-        android:name="com.plub.presentation.ui.main.home.categoryChoice.filter.GatheringFilterFragment"
+        android:name="com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterFragment"
         android:label="fragment_category_gathering_filter"
         tools:layout="@layout/fragment_category_gathering_filter">
         <argument

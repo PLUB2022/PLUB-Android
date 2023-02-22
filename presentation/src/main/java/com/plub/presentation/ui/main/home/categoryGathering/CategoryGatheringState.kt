@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.categoryChoice
+package com.plub.presentation.ui.main.home.categoryGathering
 
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSortType

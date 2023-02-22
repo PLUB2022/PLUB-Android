@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.categoryChoice
+package com.plub.presentation.ui.main.home.categoryGathering
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogMenuItemType

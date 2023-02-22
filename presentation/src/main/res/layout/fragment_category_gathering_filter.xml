@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.home.categoryChoice.filter.GatheringFilterViewModel" />
+            type="com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterViewModel" />
+
+        <import type="com.plub.domain.model.enums.DaysType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,8 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:textColor="@color/black"
             android:text="@{vm.uiState.categoryName}"
+            android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_view_back"
@@ -78,6 +81,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:onClick="@{()->vm.onClickAllDay()}"
             android:text="@string/word_all_day"
             android:textColor="@color/color_8c8c8c"
             android:textSize="12sp"
@@ -88,9 +92,10 @@
             android:id="@+id/button_monday"
             android:layout_width="0dp"
             android:layout_height="32dp"
-            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            android:text="@string/word_monday"
             android:layout_marginHorizontal="12dp"
+            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:onClick="@{()->vm.onClickDay(DaysType.MON)}"
+            android:text="@string/word_monday"
             android:textColor="@color/color_8c8c8c"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/button_tuesday"
@@ -101,9 +106,10 @@
             android:id="@+id/button_tuesday"
             android:layout_width="0dp"
             android:layout_height="32dp"
-            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            android:text="@string/word_tuesday"
             android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:onClick="@{()->vm.onClickDay(DaysType.TUE)}"
+            android:text="@string/word_tuesday"
             android:textColor="@color/color_8c8c8c"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/button_wednesday"
@@ -116,6 +122,7 @@
             android:layout_height="32dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:onClick="@{()->vm.onClickDay(DaysType.WED)}"
             android:text="@string/word_wednesday"
             android:textColor="@color/color_8c8c8c"
             android:textSize="12sp"
@@ -130,6 +137,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:onClick="@{()->vm.onClickDay(DaysType.THR)}"
             android:text="@string/word_thursday"
             android:textColor="@color/color_8c8c8c"
             android:textSize="12sp"
@@ -140,9 +148,10 @@
             android:id="@+id/button_friday"
             android:layout_width="0dp"
             android:layout_height="32dp"
-            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            android:text="@string/word_friday"
             android:layout_marginHorizontal="12dp"
+            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:onClick="@{()->vm.onClickDay(DaysType.FRI)}"
+            android:text="@string/word_friday"
             android:textColor="@color/color_8c8c8c"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/button_saturday"
@@ -153,9 +162,10 @@
             android:id="@+id/button_saturday"
             android:layout_width="0dp"
             android:layout_height="32dp"
-            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            android:text="@string/word_saturday"
             android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:onClick="@{()->vm.onClickDay(DaysType.SAT)}"
+            android:text="@string/word_saturday"
             android:textColor="@color/color_8c8c8c"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/button_sunday"
@@ -166,40 +176,42 @@
             android:id="@+id/button_sunday"
             android:layout_width="0dp"
             android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            android:onClick="@{()->vm.onClickDay(DaysType.SUN)}"
             android:text="@string/word_sunday"
             android:textColor="@color/color_8c8c8c"
             android:textSize="12sp"
-            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/button_thursday" />
-        
-        <TextView
-            android:id="@+id/text_view_people"
-            android:layout_marginTop="32dp"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/button_thursday"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            android:text="@string/category_gathering_people"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
         <TextView
-            app:layout_constraintTop_toTopOf="@id/text_view_people"
-            app:layout_constraintBottom_toBottomOf="@id/text_view_people"
-            app:layout_constraintStart_toEndOf="@id/text_view_people"
+            android:id="@+id/text_view_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/category_gathering_people"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_thursday" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/category_gathering_filter_people"
             android:textColor="@color/color_5f5ff9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintBottom_toBottomOf="@id/text_view_people"
+            app:layout_constraintStart_toEndOf="@id/text_view_people"
+            app:layout_constraintTop_toTopOf="@id/text_view_people" />
 
         <SeekBar
             android:id="@+id/seek_bar_people"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
             android:background="@null"
             android:max="16"
@@ -209,43 +221,42 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_people"
-            android:layout_marginHorizontal="16dp"
             tools:progress="0" />
 
         <TextView
-            app:layout_constraintStart_toStartOf="@id/seek_bar_people"
-            app:layout_constraintTop_toBottomOf="@id/seek_bar_people"
-            android:text="@string/category_gathering_filter_min_people"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:layout_marginStart="3dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:text="@string/category_gathering_filter_min_people"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/seek_bar_people"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
 
         <TextView
-            app:layout_constraintEnd_toEndOf="@id/seek_bar_people"
-            app:layout_constraintTop_toBottomOf="@id/seek_bar_people"
-            android:text="@string/category_gathering_filter_max_people"
-            android:textSize="12sp"
-            android:layout_marginEnd="16dp"
-            android:textColor="@color/black"
-            android:layout_marginStart="3dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/category_gathering_filter_max_people"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/seek_bar_people"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
+
         <Button
             android:id="@+id/button_complete"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="26dp"
-            android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
-            android:text="@string/category_gathering_filter_complete"
-            android:textColor="@color/white"
             android:layout_width="0dp"
             android:layout_height="46dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="26dp"
+            android:enabled="@{vm.uiState.buttonEnable}"
+            android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:text="@string/category_gathering_filter_complete"
+            android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

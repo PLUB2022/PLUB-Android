@@ -1,11 +1,12 @@
-package com.plub.presentation.ui.main.home.categoryChoice.filter
+package com.plub.presentation.ui.main.home.categoryGathering.filter
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.common.SubHobbyVo
 import com.plub.domain.usecase.GetSubHobbiesUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.sign.hobbies.HobbiesEvent
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,6 +18,7 @@ class GatheringFilterViewModel @Inject constructor(
 
     private var categoryName = ""
     private val selectedList: MutableList<SelectedHobbyVo> = mutableListOf()
+    private val selectedDayList : MutableList<String> = mutableListOf()
 
     fun fetchSubHobbies(categoryId : Int, categoryName : String){
         this.categoryName = categoryName
@@ -62,5 +64,30 @@ class GatheringFilterViewModel @Inject constructor(
 
     private fun notifySubItem(selectedHobbyVo: SelectedHobbyVo) {
         emitEventFlow(GatheringFilterEvent.NotifySubHobby(selectedHobbyVo))
+    }
+
+    fun onClickAllDay(){
+        selectedDayList.add(DaysType.ALL.eng)
+        updateSelectDayList()
+        emitEventFlow(GatheringFilterEvent.ClickAllDay)
+    }
+
+    fun onClickDay(daysType : DaysType){
+        if(selectedDayList.contains(daysType.eng)){
+            selectedDayList.remove(daysType.eng)
+        }
+        else{
+            selectedDayList.add(daysType.eng)
+        }
+        updateSelectDayList()
+        emitEventFlow(GatheringFilterEvent.ClickDay(daysType, selectedDayList.contains(daysType.eng)))
+    }
+
+    private fun updateSelectDayList(){
+        updateUiState { uiState ->
+            uiState.copy(
+                dayList = selectedDayList
+            )
+        }
     }
 }
