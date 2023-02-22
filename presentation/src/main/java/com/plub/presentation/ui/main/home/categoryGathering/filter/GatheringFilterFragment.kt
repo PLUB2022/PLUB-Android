@@ -42,7 +42,6 @@ class GatheringFilterFragment :
 
             override fun onClickSubHobby(isClicked: Boolean, selectedHobbyVo: SelectedHobbyVo) {
                 viewModel.onClickSubHobby(isClicked, selectedHobbyVo)
-                PlubLogger.logD(selectedList.toString())
             }
 
             override fun onClickLatePick() {
@@ -100,6 +99,9 @@ class GatheringFilterFragment :
             }
             is GatheringFilterEvent.GoToCategoryGathering -> {
                 goToCategoryGathering(event.pageState)
+            }
+            is GatheringFilterEvent.GoToBack -> {
+                findNavController().popBackStack()
             }
         }
     }

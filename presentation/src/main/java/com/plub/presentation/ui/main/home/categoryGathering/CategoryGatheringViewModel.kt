@@ -1,10 +1,12 @@
 package com.plub.presentation.ui.main.home.categoryGathering
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSortType
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
+import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.home.categoriesGatheringVo.CategoriesGatheringBodyRequestVo
 import com.plub.domain.model.vo.home.categoriesGatheringVo.CategoriesGatheringParamsVo
 import com.plub.domain.model.vo.home.categoriesGatheringVo.CategoriesGatheringRequestVo
@@ -56,7 +58,24 @@ class CategoryGatheringViewModel @Inject constructor(
 
     private fun getBodyVo(body : GatheringFilterState) : CategoriesGatheringBodyRequestVo{
         PlubLogger.logD("게더링 필터", body.toString())
-        return CategoriesGatheringBodyRequestVo()
+        val days = if(body.dayList.isEmpty() || body.dayList.contains(DaysType.ALL.eng)) null else body.dayList
+        val subCategoryId = if(body.hobbiesSelectedVo.hobbies.isEmpty()) null else getMergeSelectedHobbyList(body.hobbiesSelectedVo.hobbies)
+        val accountNum = if(body.accountNum == 0) null else body.accountNum
+
+        return CategoriesGatheringBodyRequestVo(
+            days = days,
+            subCategoryId = subCategoryId,
+            accountNum = accountNum
+        )
+    }
+
+    private fun getMergeSelectedHobbyList(list : List<SelectedHobbyVo>) : List<Int>{
+        val subCategoryIdList = mutableListOf<Int>()
+        for(content in list){
+            subCategoryIdList.add(content.subId)
+        }
+
+        return subCategoryIdList
     }
 
     private fun fetchRecommendationGatheringData() =
