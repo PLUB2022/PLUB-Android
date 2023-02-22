@@ -50,7 +50,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
             }
             buttonPlubingSchedule.setOnClickListener {
                 val plubingId = 1
-                findNavController().navigate(MainFragmentDirections.actionMainToPlubingSchedule(plubingId))
+                findNavController().navigate(MainFragmentDirections.actionMainToPlubingSchedule(plubingId, "요란한 한줄"))
             }
         }
     }

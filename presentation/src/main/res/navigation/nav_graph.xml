@@ -114,5 +114,8 @@
             android:name="plubingId"
             app:argType="integer" />
 
+        <argument
+            android:name="plubingName"
+            app:argType="string" />
     </fragment>
 </navigation>
