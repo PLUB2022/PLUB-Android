@@ -229,4 +229,7 @@
     <string name="modify_gathering_tab_recruit">모집글</string>
     <string name="modify_gathering_tab_info">모임 정보</string>
     <string name="modify_gathering_tab_guest">게스트 질문</string>
+    
+    <string name="plubing_schedule_title">모임일정</string>
+    <string name="plubing_schedule_add">일정 추가하기</string>
 </resources>
