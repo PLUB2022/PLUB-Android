@@ -67,9 +67,22 @@ class GatheringFilterViewModel @Inject constructor(
     }
 
     fun onClickAllDay(){
-        selectedDayList.add(DaysType.ALL.eng)
+        if(selectedDayList.contains(DaysType.ALL.eng)){
+            selectedDayList.remove(DaysType.ALL.eng)
+        }
+        else{
+            selectedDayList.clear()
+            selectedDayList.add(DaysType.ALL.eng)
+            selectedDayList.add(DaysType.MON.eng)
+            selectedDayList.add(DaysType.TUE.eng)
+            selectedDayList.add(DaysType.WED.eng)
+            selectedDayList.add(DaysType.THR.eng)
+            selectedDayList.add(DaysType.FRI.eng)
+            selectedDayList.add(DaysType.SAT.eng)
+            selectedDayList.add(DaysType.SUN.eng)
+        }
         updateSelectDayList()
-        emitEventFlow(GatheringFilterEvent.ClickAllDay)
+        emitEventFlow(GatheringFilterEvent.ClickDay(DaysType.ALL, selectedDayList.contains(DaysType.ALL.eng)))
     }
 
     fun onClickDay(daysType : DaysType){
@@ -84,6 +97,7 @@ class GatheringFilterViewModel @Inject constructor(
     }
 
     private fun updateSelectDayList(){
+        PlubLogger.logD(selectedDayList.toString())
         updateUiState { uiState ->
             uiState.copy(
                 dayList = selectedDayList
