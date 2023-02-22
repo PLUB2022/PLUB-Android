@@ -10,6 +10,7 @@ import com.plub.domain.model.vo.home.HomePlubListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
+import com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -18,9 +19,6 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragmentViewModel>(
     FragmentHomeBinding::inflate
 ) {
-    companion object {
-        private const val NOTHING_PLUBBING = 0
-    }
 
     override val viewModel: HomeFragmentViewModel by viewModels()
 
@@ -135,9 +133,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
     private fun goToCategoryGathering(categoryId: Int, categoryName: String) {
         val action =
             HomeFragmentDirections.actionMainToCategoryGathering(
-                categoryId,
-                NOTHING_PLUBBING,
-                categoryName
+                categoryId = categoryId,
+                categoryName = categoryName,
+                filter = GatheringFilterState()
             )
         findNavController().navigate(action)
     }

@@ -13,6 +13,8 @@ import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,7 +35,7 @@ class CategoryGatheringViewModel @Inject constructor(
     private var isNetworkCall: Boolean = false
 
 
-    fun fetchRecommendationGatheringData(id: Int) =
+    fun fetchRecommendationGatheringData(id: Int, body : GatheringFilterState) =
         viewModelScope.launch {
             categoryId = id
             isNetworkCall = true
@@ -42,7 +44,7 @@ class CategoryGatheringViewModel @Inject constructor(
                 uiState.value.sortType.key,
                 pageNumber
             )
-            val bodyVo = CategoriesGatheringBodyRequestVo()
+            val bodyVo = getBodyVo(body)
             categoriesGatheringUseCase(
                 CategoriesGatheringRequestVo(
                     paramsVo, bodyVo
@@ -51,6 +53,11 @@ class CategoryGatheringViewModel @Inject constructor(
                 inspectUiState(state, ::successResult)
             }
         }
+
+    private fun getBodyVo(body : GatheringFilterState) : CategoriesGatheringBodyRequestVo{
+        PlubLogger.logD("게더링 필터", body.toString())
+        return CategoriesGatheringBodyRequestVo()
+    }
 
     private fun fetchRecommendationGatheringData() =
         viewModelScope.launch {

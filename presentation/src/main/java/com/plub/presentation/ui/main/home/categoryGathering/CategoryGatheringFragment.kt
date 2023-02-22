@@ -49,7 +49,7 @@ class CategoryGatheringFragment :
                 viewModel.goToCreate()
             }
         }
-        viewModel.fetchRecommendationGatheringData(categoryChoiceFragmentArgs.categoryId)
+        viewModel.fetchRecommendationGatheringData(categoryChoiceFragmentArgs.categoryId, categoryChoiceFragmentArgs.filter)
     }
 
     private fun initCategoryRecommendRecyclerView(){

@@ -114,7 +114,8 @@ class GatheringFilterViewModel @Inject constructor(
     private fun updateSeekbarProgress(progress: Int) {
         updateUiState { uiState ->
             uiState.copy(
-                seekBarProgress = progress
+                seekBarProgress = progress,
+                accountNum = progress + 4
             )
         }
     }
@@ -125,5 +126,9 @@ class GatheringFilterViewModel @Inject constructor(
                 seekBarPositionX = position
             )
         }
+    }
+
+    fun onClickApply(){
+        emitEventFlow(GatheringFilterEvent.GoToCategoryGathering(uiState.value))
     }
 }

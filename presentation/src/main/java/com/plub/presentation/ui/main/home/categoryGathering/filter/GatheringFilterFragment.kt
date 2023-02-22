@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.categoryGathering.filter
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.plub.domain.model.enums.DaysType
@@ -96,6 +97,9 @@ class GatheringFilterFragment :
             }
             is GatheringFilterEvent.ClickDay -> {
                 updateDayButton(event.day, event.isClick)
+            }
+            is GatheringFilterEvent.GoToCategoryGathering -> {
+                goToCategoryGathering(event.pageState)
             }
         }
     }
@@ -262,5 +266,14 @@ class GatheringFilterFragment :
         checkedFridayButton()
         checkedSaturdayButton()
         checkedSundayButton()
+    }
+
+    private fun goToCategoryGathering(pageState: GatheringFilterState){
+        val action = GatheringFilterFragmentDirections.actionFilterToCategoryGathering(
+            categoryId = gatheringFilterFragmentArgs.categoryId,
+            categoryName = gatheringFilterFragmentArgs.categoryName,
+            filter = pageState
+        )
+        findNavController().navigate(action)
     }
 }

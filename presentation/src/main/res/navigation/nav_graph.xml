@@ -73,8 +73,8 @@
             android:defaultValue=""
             />
         <argument
-            android:name="plubbingId"
-            app:argType="integer"
+            android:name="filter"
+            app:argType="com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState"
             />
     </fragment>
 
@@ -83,6 +83,9 @@
         android:name="com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterFragment"
         android:label="fragment_category_gathering_filter"
         tools:layout="@layout/fragment_category_gathering_filter">
+        <action
+            android:id="@+id/action_filter_to_category_gathering"
+            app:destination="@id/categoryGatheringFragment"/>
         <argument
             android:name="categoryId"
             app:argType="integer"
