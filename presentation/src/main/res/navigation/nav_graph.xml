@@ -38,21 +38,19 @@
         android:id="@+id/createGatheringFragment"
         android:name="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringFragment"
         android:label="CreateGatheringFragment"
-        tools:layout="@layout/fragment_create_gathering"/>
+        tools:layout="@layout/fragment_create_gathering" />
 
     <fragment
         android:id="@+id/searchingFragment"
         android:name="com.plub.presentation.ui.main.home.search.SearchingFragment"
         android:label="fragment_searching"
-        tools:layout="@layout/fragment_searching">
-    </fragment>
+        tools:layout="@layout/fragment_searching"></fragment>
 
     <fragment
         android:id="@+id/bookmarkFragment"
         android:name="com.plub.presentation.ui.main.home.bookmark.BookmarkFragment"
         android:label="fragment_bookmark"
-        tools:layout="@layout/fragment_bookmark">
-    </fragment>
+        tools:layout="@layout/fragment_bookmark"></fragment>
 
     <fragment
         android:id="@+id/plubingMainFragment"
@@ -103,7 +101,7 @@
         android:id="@+id/modifyGatheringFragment"
         android:name="com.plub.presentation.ui.main.gathering.modifyGathering.ModifyGatheringFragment"
         android:label="ModifyGatheringFragment"
-        tools:layout="@layout/fragment_modify_gathering"/>
+        tools:layout="@layout/fragment_modify_gathering" />
     <fragment
         android:id="@+id/plubingScheduleFragment"
         android:name="com.plub.presentation.ui.main.plubing.schedule.PlubingScheduleFragment"
@@ -117,5 +115,19 @@
         <argument
             android:name="plubingName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_plubingSchedule_to_plubingAddSchedule"
+            app:destination="@id/plubingAddScheduleFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/plubingAddScheduleFragment"
+        android:name="com.plub.presentation.ui.main.plubing.schedule.add.PlubingAddScheduleFragment"
+        android:label="PlubingAddScheduleFragment"
+        tools:layout="@layout/fragment_plubing_add_schedule" >
+
+        <argument
+            android:name="plubingId"
+            app:argType="integer" />
     </fragment>
 </navigation>

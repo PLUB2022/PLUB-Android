@@ -9,5 +9,7 @@ class PlubingScheduleViewModel @Inject constructor(
 
 ) : BaseViewModel<PlubingSchedulePageState>(PlubingSchedulePageState()) {
 
-
+    fun onClickAddScheduleButton() {
+        emitEventFlow(PlubingScheduleEvent.GoToAddSchedule(uiState.value.plubbingId))
+    }
 }
