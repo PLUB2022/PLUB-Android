@@ -288,4 +288,8 @@ class SearchingViewModel @Inject constructor(
         emitEventFlow(SearchingEvent.ClearFocus)
         emitEventFlow(SearchingEvent.HideKeyboard)
     }
+
+    fun onClickBack(){
+        emitEventFlow(SearchingEvent.GoToBack)
+    }
 }

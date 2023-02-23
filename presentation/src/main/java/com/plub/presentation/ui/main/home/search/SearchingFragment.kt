@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.plub.domain.model.enums.DialogMenuItemType
@@ -176,6 +177,7 @@ class SearchingFragment : BaseFragment<FragmentSearchingBinding, SearchingPageSt
             is SearchingEvent.HideKeyboard -> hideKeyboard()
             is SearchingEvent.ScrollToTop -> scrollToTop()
             is SearchingEvent.ShowSelectSortTypeBottomSheetDialog -> showSelectSortTypeDialog(event.selectedItem)
+            is SearchingEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 

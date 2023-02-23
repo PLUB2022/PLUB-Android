@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.bookmark
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.presentation.base.BaseFragment
@@ -76,6 +77,7 @@ class BookmarkFragment :
     private fun inspectEventFlow(event: BookmarksEvent) {
         when(event) {
             is BookmarksEvent.ScrollToTop -> scrollToTop()
+            is BookmarksEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 
