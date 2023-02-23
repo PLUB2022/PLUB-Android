@@ -85,6 +85,8 @@
         tools:layout="@layout/fragment_category_gathering_filter">
         <action
             android:id="@+id/action_filter_to_category_gathering"
+            app:popUpTo="@id/menu_navigation_main"
+            app:popUpToInclusive="false"
             app:destination="@id/categoryGatheringFragment"/>
         <argument
             android:name="categoryId"
