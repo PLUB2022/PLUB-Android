@@ -4,7 +4,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringPreviewBinding
-import com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringEvent
 import com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +21,7 @@ class CreateGatheringPreviewFragment : BaseFragment<
             parentVm = parentViewModel
         }
 
-        viewModel.fetchMyInfoUrl()
+        viewModel.updateMyInfoUrl()
     }
 
     override fun onResume() {

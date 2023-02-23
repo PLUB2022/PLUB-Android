@@ -38,8 +38,7 @@ class PlubCardGridViewHolder(
             textViewMeetingDate.text = time
             textViewRecruitMemberCount.text = memberCount
             textViewName.text = item.title
-            val bookmarkRes =
-                if (item.isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
+            val bookmarkRes = if (item.isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
             imageViewBookmark.setImageResource(bookmarkRes)
             GlideUtil.loadImage(root.context, item.photo, imageViewBackground)
             imageViewBackground.clipToOutline = true

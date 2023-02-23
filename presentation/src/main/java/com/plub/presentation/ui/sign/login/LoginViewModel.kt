@@ -19,12 +19,15 @@ import com.plub.domain.model.enums.TermsType
 import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
 import com.plub.domain.model.vo.login.SocialLoginRequestVo
 import com.plub.domain.model.vo.login.SocialLoginResponseVo
+import com.plub.domain.usecase.FetchMyInfoUseCase
+import com.plub.domain.usecase.PostAdminLoginUseCase
 import com.plub.domain.usecase.PostSocialLoginUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.DataStoreUtil
 import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.util.PlubUser
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -33,14 +36,24 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
+    val postAdminLoginUseCase: PostAdminLoginUseCase,
     val postSocialLoginUseCase: PostSocialLoginUseCase,
     val savePlubAccessTokenAndRefreshTokenUseCase: SavePlubAccessTokenAndRefreshTokenUseCase,
     val dataStoreUtil: DataStoreUtil,
+    val fetchMyInfoUseCase: FetchMyInfoUseCase
 ) : BaseViewModel<LoginPageState>(LoginPageState()) {
 
     init {
         updateUiState { uiState ->
             uiState.copy(termsText = getTermsString())
+        }
+    }
+
+    fun onAdminLogin() {
+        viewModelScope.launch {
+            postAdminLoginUseCase(Unit).collect {
+                inspectUiState(it, ::handleLoginSuccess)
+            }
         }
     }
 
@@ -104,7 +117,9 @@ class LoginViewModel @Inject constructor(
         val savePlubJwtRequestVo =
             SavePlubJwtRequestVo(loginResponseVo.accessToken, loginResponseVo.refreshToken)
         savePlubToken(savePlubJwtRequestVo) {
-            goToMain()
+            fetchMyInfo {
+                goToMain()
+            }
         }
     }
 
@@ -112,6 +127,17 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             savePlubAccessTokenAndRefreshTokenUseCase(saveRequestVo).collect {
                 if (it) saveCallback.invoke()
+            }
+        }
+    }
+
+    private fun fetchMyInfo(onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            fetchMyInfoUseCase(Unit).collect { state ->
+                inspectUiState(state, succeedCallback = { info ->
+                    PlubUser.updateInfo(info)
+                    onSuccess()
+                })
             }
         }
     }

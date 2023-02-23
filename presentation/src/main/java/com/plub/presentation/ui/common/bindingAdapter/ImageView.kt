@@ -20,7 +20,12 @@ fun ImageView.setImageFile(imageFile: File?, defaultImage: Drawable, radius: Int
 }
 
 @BindingAdapter("imageUrl","defaultImage")
-fun ImageView.setImageFile(imageUrl: String?, defaultImage: Drawable) {
+fun ImageView.setImageUrl(imageUrl: String?, defaultImage: Drawable) {
     if(imageUrl.isNullOrEmpty()) setImageDrawable(defaultImage)
     else { GlideUtil.loadImage(context,imageUrl,this) }
+}
+
+@BindingAdapter("imageUrl")
+fun ImageView.setImageUrl(imageUrl: String?) {
+    if(!imageUrl.isNullOrEmpty()) GlideUtil.loadImage(context,imageUrl,this)
 }

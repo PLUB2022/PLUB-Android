@@ -37,8 +37,8 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, PageState.Default, 
     private fun inspectEventFlow(event: WelcomeEvent) {
         when(event) {
             is WelcomeEvent.GoToMain -> {
-                val intent = Intent(context, MainActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(requireContext(), MainActivity::class.java))
+                requireActivity().finish()
             }
         }
     }

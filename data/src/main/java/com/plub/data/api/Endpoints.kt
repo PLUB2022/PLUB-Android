@@ -9,12 +9,14 @@ object Endpoints {
 
     object FILE {
         const val FILE_URL = "/api/files"
+        const val CHANGE_FILE_URL = "/api/files/change"
     }
 
     object AUTH {
         private const val AUTH_URL = "/api/auth"
         const val SOCIAL_LOGIN = "$AUTH_URL/login"
         const val SIGN_UP = "$AUTH_URL/signup"
+        const val SOCIAL_LOGIN_ADMIN = "$AUTH_URL/login/admin"
     }
 
     object ACCOUNT {
@@ -39,6 +41,7 @@ object Endpoints {
     object PLUBBING {
         private const val PLUBBING_URL = "/api/plubbings"
         private const val RECRUIT_URL = "$PLUBBING_URL/{plubbingId}/recruit"
+        private const val PLUBBING_ID_URL = "$PLUBBING_URL/{plubbingId}"
         const val CREATE = PLUBBING_URL
         const val RECRUIT = "$PLUBBING_URL/recruit"
         const val BOOKMARK = "$RECRUIT_URL/bookmarks"
@@ -51,6 +54,19 @@ object Endpoints {
         const val REFUSE_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/refuse"
         const val RECRUIT_END = "$RECRUIT_URL/end"
         const val RECRUIT_QUESTIONS = "$RECRUIT_URL/questions"
-    }
+        const val PLUBING_MAIN = "$PLUBBING_ID_URL/main"
+        const val MODIFY_GATHERING_RECRUIT = RECRUIT_URL
 
+        object MODIFY_GATHERING {
+            const val RECRUIT = RECRUIT_URL
+        }
+
+        object BOARD {
+            const val FEEDS = "$PLUBBING_ID_URL/feeds"
+            const val PINS = "$PLUBBING_ID_URL/pins"
+            const val CHANGE_PIN = "$PLUBBING_URL/feeds/{feedId}/pin"
+            const val DELETE_FEED = "$PLUBBING_URL/feeds/{feedId}"
+            const val POST_FEED = "$PLUBBING_ID_URL/feeds"
+        }
+    }
 }

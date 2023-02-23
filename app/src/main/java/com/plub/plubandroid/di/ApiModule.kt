@@ -53,6 +53,12 @@ object ApiModule {
 
     @Singleton
     @Provides
+    fun provideMediaRequireAuthApi(@AuthRetrofit retrofit: Retrofit): MediaRequireAuthApi {
+        return retrofit.create(MediaRequireAuthApi::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideGatheringApi(@AuthRetrofit retrofit: Retrofit): GatheringApi {
         return retrofit.create(GatheringApi::class.java)
     }
@@ -91,5 +97,23 @@ object ApiModule {
     @Provides
     fun provideInterestHobbiesApi(@AuthRetrofit retrofit: Retrofit): InterestHobbiesApi {
         return retrofit.create(InterestHobbiesApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRecruitApi(@AuthRetrofit retrofit: Retrofit): RecruitApi {
+        return retrofit.create(RecruitApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePlubingMainApi(@AuthRetrofit retrofit: Retrofit): PlubingMainApi {
+        return retrofit.create(PlubingMainApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePlubingBoardApi(@AuthRetrofit retrofit: Retrofit): PlubingBoardApi {
+        return retrofit.create(PlubingBoardApi::class.java)
     }
 }

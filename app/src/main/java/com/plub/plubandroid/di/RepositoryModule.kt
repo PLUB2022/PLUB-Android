@@ -50,15 +50,23 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
+    abstract fun providesPlubingMainRepository(repositoryImpl: PlubingMainRepositoryImpl): PlubingMainRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesPlubingBoardRepository(repositoryImpl: PlubingBoardRepositoryImpl): PlubingBoardRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailRepositoryImpl): RecruitRepository
+
+    @Singleton
+    @Binds
     abstract fun providesCategoryListRepository(categoryListResposImpl: CategoryListRepositoryImpl): CategoryListRepository
 
     @Singleton
     @Binds
     abstract fun providesRecommendationGatheringRepository(recommendationGatheringResposImpl: RecommendationGatheringRepositoryImpl): RecommendationGatheringRepository
-
-    @Singleton
-    @Binds
-    abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailRepositoryImpl): RecruitRepository
 
     @Singleton
     @Binds

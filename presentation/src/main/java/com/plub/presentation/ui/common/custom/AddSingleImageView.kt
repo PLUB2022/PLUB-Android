@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.plub.presentation.R
 import com.plub.presentation.databinding.CustomViewAddSingleImageBinding
@@ -20,12 +21,24 @@ class AddSingleImageView @JvmOverloads constructor(
     var gatheringImage: File? = null
     set(value) {
         field = value
-        if(value == null) {
-            binding.imageViewSelectedGathering.visibility = View.GONE
-            return
+        updateImageViewVisibility()
+        if(binding.imageViewSelectedGathering.isVisible)
+            gatheringImage?.let { file ->
+                GlideUtil.loadRadiusImageScaleTypeCenterCrop(context, file, binding.imageViewSelectedGathering, 6)
+            }
+    }
+
+    var gatheringImageUrl: String = ""
+        set(value) {
+            field = value
+            updateImageViewVisibility()
+
+            if(binding.imageViewSelectedGathering.isVisible && gatheringImage == null)
+                GlideUtil.loadRadiusImageScaleTypeCenterCrop(context, value, binding.imageViewSelectedGathering, 6)
         }
-        binding.imageViewSelectedGathering.visibility = View.VISIBLE
-        GlideUtil.loadRadiusImageScaleTypeCenterCrop(context, value, binding.imageViewSelectedGathering, 6)
+
+    private fun updateImageViewVisibility() {
+        binding.imageViewSelectedGathering.visibility = if(gatheringImage == null && gatheringImageUrl.isEmpty()) View.GONE else View.VISIBLE
     }
 
     init {

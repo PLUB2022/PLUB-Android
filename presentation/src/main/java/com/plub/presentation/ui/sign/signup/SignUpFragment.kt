@@ -17,9 +17,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
 
     override val viewModel: SignUpViewModel by viewModels()
 
-    private val pagerAdapter: FragmentSignUpPagerAdapter by lazy {
-        FragmentSignUpPagerAdapter(this)
-    }
+    private var pagerAdapter: FragmentSignUpPagerAdapter? = null
 
     private val backPressedDispatcher = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -29,6 +27,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
 
     override fun initView() {
         binding.apply {
+            pagerAdapter = FragmentSignUpPagerAdapter(this@SignUpFragment)
             vm = viewModel
             viewPager.apply {
                 isUserInputEnabled = false

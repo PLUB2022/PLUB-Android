@@ -21,12 +21,13 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@+id/view_dim"
+            app:layout_constraintBottom_toTopOf="@+id/button_next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingBottom="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -154,10 +155,10 @@
 
         <View
             android:id="@+id/view_dim"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:background="@drawable/dim_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="360:96"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
