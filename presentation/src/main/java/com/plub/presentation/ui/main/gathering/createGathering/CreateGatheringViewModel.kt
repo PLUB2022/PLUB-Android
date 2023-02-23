@@ -192,8 +192,8 @@ class CreateGatheringViewModel @Inject constructor(
     }
 
     fun onBackPressed() {
-        if(isFirstPage()) emitEventFlow(com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringEvent.NavigationPopEvent)
-        else emitEventFlow(com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringEvent.GoToPrevPage)
+        if(isFirstPage() || isLastPage()) emitEventFlow(CreateGatheringEvent.NavigationPopEvent)
+        else emitEventFlow(CreateGatheringEvent.GoToPrevPage)
     }
 
     fun goToPrevPageAndEmitChildrenPageState() {

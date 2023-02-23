@@ -73,6 +73,12 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun providesChangeFileUseCase(repository: MediaRepository): PostChangeFileUseCase {
+        return PostChangeFileUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun providesSetDataStoreUseCase(repository: PrefDataStoreRepository): SetDataStoreUseCase {
         return SetDataStoreUseCase(repository)
     }
@@ -99,6 +105,12 @@ object UseCaseModule {
     @Provides
     fun providesPostCreateGatheringUseCase(repository: GatheringRepository): PostCreateGatheringUseCase {
         return PostCreateGatheringUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutModifyRecruitUseCase(repository: GatheringRepository): PutModifyRecruitUseCase {
+        return PutModifyRecruitUseCase(repository)
     }
 
     @Singleton
@@ -183,5 +195,11 @@ object UseCaseModule {
     @Provides
     fun providesPostPlubingBoardUseCase(repository: PlubingBoardRepository): PostPlubingBoardUseCase {
         return PostPlubingBoardUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetRecruitDetailUseCase(repository: RecruitRepository): GetRecruitDetailUseCase {
+        return GetRecruitDetailUseCase(repository)
     }
 }
