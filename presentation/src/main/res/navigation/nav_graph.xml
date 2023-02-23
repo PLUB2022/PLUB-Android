@@ -13,7 +13,6 @@
         <action
             android:id="@+id/action_main_to_createGathering"
             app:destination="@id/createGatheringFragment" />
-
         <action
             android:id="@+id/action_main_to_searching"
             app:destination="@id/searchingFragment" />
@@ -32,7 +31,6 @@
         <action
             android:id="@+id/action_main_to_modifyGathering"
             app:destination="@id/modifyGatheringFragment" />
-
         <action
             android:id="@+id/action_main_to_plubing_main"
             app:destination="@id/plubingMainFragment" />
