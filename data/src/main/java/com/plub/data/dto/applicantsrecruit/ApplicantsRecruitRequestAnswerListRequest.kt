@@ -1,4 +1,4 @@
-package com.plub.data.dto.applicantsrecruit
+package com.plub.data.dto.applicantsRecruit
 
 import com.google.gson.annotations.SerializedName
 import com.plub.data.base.DataDto

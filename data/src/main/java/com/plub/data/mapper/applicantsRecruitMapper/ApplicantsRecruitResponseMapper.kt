@@ -10,6 +10,6 @@ object ApplicantsRecruitResponseMapper : Mapper.ResponseMapper<ApplicantsRecruit
             ApplicantsRecruitResponseVo(
                 plubbingId = this.plubbingId
             )
-        }?:ApplicantsRecruitResponseVo()
+        }?: ApplicantsRecruitResponseVo()
     }
 }

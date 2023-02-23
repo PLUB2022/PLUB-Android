@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.plub.domain.model.enums.DialogMenuItemType
@@ -19,7 +18,7 @@ import com.plub.presentation.databinding.IncludeTabSearchResultBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
-import com.plub.presentation.ui.main.home.adapter.PlubCardAdapter
+import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
 import com.plub.presentation.ui.main.home.search.adapter.RecentSearchAdapter
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,8 +57,8 @@ class SearchingFragment : BaseFragment<FragmentSearchingBinding, SearchingPageSt
                 viewModel.onClickBookmark(id)
             }
 
-            override fun onClickPlubCard(id: Int) {
-
+            override fun onClickPlubCard(id: Int, isHost: Boolean) {
+                TODO("Not yet implemented")
             }
         })
     }

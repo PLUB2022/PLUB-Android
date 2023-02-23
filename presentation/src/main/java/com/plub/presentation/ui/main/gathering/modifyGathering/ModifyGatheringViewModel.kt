@@ -1,11 +1,10 @@
 package com.plub.presentation.ui.main.gathering.modifyGathering
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
+import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailResponseVo
 import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitPageState
-import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
