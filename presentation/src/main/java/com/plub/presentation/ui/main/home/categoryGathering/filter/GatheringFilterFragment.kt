@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.main.home.categoryGathering.filter
 
+import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -26,6 +27,16 @@ class GatheringFilterFragment :
     ) {
 
     companion object{
+        const val ALL = 0
+        const val MON = 1
+        const val TUE = 2
+        const val WED = 3
+        const val THR = 4
+        const val FRI = 5
+        const val SAT = 6
+        const val SUN = 7
+
+
         const val ITEM_SPAN_SIZE = 4
         const val HORIZONTAL_SPACE = 12
         const val VERTICAL_SPACE = 8
@@ -50,16 +61,30 @@ class GatheringFilterFragment :
         })
     }
 
+    private val dayButtonList : MutableList<Button> = mutableListOf()
     private val gatheringFilterFragmentArgs : GatheringFilterFragmentArgs by navArgs()
     override val viewModel: GatheringFilterViewModel by viewModels()
 
     override fun initView() {
         binding.apply {
             vm = viewModel
-
+            setButtonList()
             initRecycler()
         }
         viewModel.fetchSubHobbies(gatheringFilterFragmentArgs.categoryId, gatheringFilterFragmentArgs.categoryName)
+    }
+
+    private fun setButtonList(){
+        binding.apply {
+            dayButtonList.add(buttonAllDay)
+            dayButtonList.add(buttonMonday)
+            dayButtonList.add(buttonTuesday)
+            dayButtonList.add(buttonWednesday)
+            dayButtonList.add(buttonThursday)
+            dayButtonList.add(buttonFriday)
+            dayButtonList.add(buttonSaturday)
+            dayButtonList.add(buttonSunday)
+        }
     }
 
     private fun initRecycler(){
@@ -78,6 +103,7 @@ class GatheringFilterFragment :
             launch {
                 viewModel.uiState.collect {
                     listAdapter.submitList(it.subHobbies)
+                    updateDayButton(it.dayList)
                 }
             }
 
@@ -94,180 +120,44 @@ class GatheringFilterFragment :
             is GatheringFilterEvent.NotifySubHobby -> {
                 listAdapter.updateOnClick(event.vo.subId)
             }
-            is GatheringFilterEvent.ClickDay -> {
-                updateDayButton(event.day, event.isClick)
-            }
             is GatheringFilterEvent.GoToCategoryGathering -> {
                 goToCategoryGathering(event.pageState)
             }
             is GatheringFilterEvent.GoToBack -> {
                 findNavController().popBackStack()
             }
-        }
-    }
-
-    private fun updateDayButton(day : DaysType, isClick : Boolean){
-        binding.apply {
-            when (day) {
-                DaysType.ALL -> {
-                    if (isClick) {
-                        setButtonAllCheck()
-                        checkedAllDayButton()
-                    }
-                    else{ uncheckedAllDayButton() }
-                }
-                DaysType.MON -> {
-                    if (isClick) { checkedMondayButton() }
-                    else{ uncheckedMondayButton() }
-                }
-                DaysType.TUE -> {
-                    if (isClick) { checkedTuesdayButton() }
-                    else{ uncheckedTuesdayButton() }
-                }
-                DaysType.WED -> {
-                    if (isClick) { checkedWednesdayButton() }
-                    else{ uncheckedWednesdayButton() }
-                }
-                DaysType.THR -> {
-                    if (isClick) { checkedThursdayButton() }
-                    else{ uncheckedThursdayButton() }
-                }
-                DaysType.FRI -> {
-                    if (isClick) { checkedFridayButton() }
-                    else{ uncheckedFridayButton() }
-                }
-                DaysType.SAT -> {
-                    if (isClick) { checkedSaturdayButton() }
-                    else{ uncheckedSaturdayButton() }
-                }
-                DaysType.SUN -> {
-                    if (isClick) { checkedSundayButton() }
-                    else{ uncheckedSundayButton() }
-                }
+            is GatheringFilterEvent.ClickDay -> {
+                updateDayButton(event.dayList)
             }
         }
     }
 
-    private fun checkedAllDayButton(){
-        binding.apply {
-            buttonAllDay.setBackgroundResource(R.drawable.bg_rectangle_filled_5f5ff9_radius_8)
-            buttonAllDay.setTextColor(resources.getColor(R.color.white))
+    private fun updateDayButton(dayList : List<DaysType>){
+        uncheckedDayButton()
+        dayList.forEach {
+            when(it){
+                DaysType.MON -> { checkedDayButton(MON) }
+                DaysType.TUE -> { checkedDayButton(TUE) }
+                DaysType.WED -> { checkedDayButton(WED) }
+                DaysType.THR -> { checkedDayButton(THR) }
+                DaysType.FRI -> { checkedDayButton(FRI) }
+                DaysType.SAT -> { checkedDayButton(SAT) }
+                DaysType.SUN -> { checkedDayButton(SUN) }
+                DaysType.ALL -> { checkedDayButton(ALL) }
+            }
         }
     }
 
-    private fun uncheckedAllDayButton(){
-        binding.apply {
-            buttonAllDay.setBackgroundResource(R.drawable.bg_rectangle_empty_8c8c8c_radius_8)
-            buttonAllDay.setTextColor(resources.getColor(R.color.color_8c8c8c))
-        }
+    private fun checkedDayButton(day : Int){
+        dayButtonList[day].setBackgroundResource(R.drawable.bg_rectangle_filled_5f5ff9_radius_8)
+        dayButtonList[day].setTextColor(resources.getColor(R.color.white))
     }
 
-    private fun checkedMondayButton(){
-        binding.apply {
-            buttonMonday.setBackgroundResource(R.drawable.bg_rectangle_filled_5f5ff9_radius_8)
-            buttonMonday.setTextColor(resources.getColor(R.color.white))
+    private fun uncheckedDayButton(){
+        dayButtonList.forEach {
+            it.setBackgroundResource(R.drawable.bg_rectangle_empty_8c8c8c_radius_8)
+            it.setTextColor(resources.getColor(R.color.color_8c8c8c))
         }
-    }
-
-    private fun uncheckedMondayButton(){
-        binding.apply {
-            buttonMonday.setBackgroundResource(R.drawable.bg_rectangle_empty_8c8c8c_radius_8)
-            buttonMonday.setTextColor(resources.getColor(R.color.color_8c8c8c))
-        }
-    }
-
-    private fun checkedTuesdayButton(){
-        binding.apply {
-            buttonTuesday.setBackgroundResource(R.drawable.bg_rectangle_filled_5f5ff9_radius_8)
-            buttonTuesday.setTextColor(resources.getColor(R.color.white))
-        }
-    }
-
-    private fun uncheckedTuesdayButton(){
-        binding.apply {
-            buttonTuesday.setBackgroundResource(R.drawable.bg_rectangle_empty_8c8c8c_radius_8)
-            buttonTuesday.setTextColor(resources.getColor(R.color.color_8c8c8c))
-        }
-    }
-
-    private fun checkedWednesdayButton(){
-        binding.apply {
-            buttonWednesday.setBackgroundResource(R.drawable.bg_rectangle_filled_5f5ff9_radius_8)
-            buttonWednesday.setTextColor(resources.getColor(R.color.white))
-        }
-    }
-
-    private fun uncheckedWednesdayButton(){
-        binding.apply {
-            buttonWednesday.setBackgroundResource(R.drawable.bg_rectangle_empty_8c8c8c_radius_8)
-            buttonWednesday.setTextColor(resources.getColor(R.color.color_8c8c8c))
-        }
-    }
-
-    private fun checkedThursdayButton(){
-        binding.apply {
-            buttonThursday.setBackgroundResource(R.drawable.bg_rectangle_filled_5f5ff9_radius_8)
-            buttonThursday.setTextColor(resources.getColor(R.color.white))
-        }
-    }
-
-    private fun uncheckedThursdayButton(){
-        binding.apply {
-            buttonThursday.setBackgroundResource(R.drawable.bg_rectangle_empty_8c8c8c_radius_8)
-            buttonThursday.setTextColor(resources.getColor(R.color.color_8c8c8c))
-        }
-    }
-
-    private fun checkedFridayButton(){
-        binding.apply {
-            buttonFriday.setBackgroundResource(R.drawable.bg_rectangle_filled_5f5ff9_radius_8)
-            buttonFriday.setTextColor(resources.getColor(R.color.white))
-        }
-    }
-
-    private fun uncheckedFridayButton(){
-        binding.apply {
-            buttonFriday.setBackgroundResource(R.drawable.bg_rectangle_empty_8c8c8c_radius_8)
-            buttonFriday.setTextColor(resources.getColor(R.color.color_8c8c8c))
-        }
-    }
-
-    private fun checkedSaturdayButton(){
-        binding.apply {
-            buttonSaturday.setBackgroundResource(R.drawable.bg_rectangle_filled_5f5ff9_radius_8)
-            buttonSaturday.setTextColor(resources.getColor(R.color.white))
-        }
-    }
-
-    private fun uncheckedSaturdayButton(){
-        binding.apply {
-            buttonSaturday.setBackgroundResource(R.drawable.bg_rectangle_empty_8c8c8c_radius_8)
-            buttonSaturday.setTextColor(resources.getColor(R.color.color_8c8c8c))
-        }
-    }
-
-    private fun checkedSundayButton(){
-        binding.apply {
-            buttonSunday.setBackgroundResource(R.drawable.bg_rectangle_filled_5f5ff9_radius_8)
-            buttonSunday.setTextColor(resources.getColor(R.color.white))
-        }
-    }
-
-    private fun uncheckedSundayButton(){
-        binding.apply {
-            buttonSunday.setBackgroundResource(R.drawable.bg_rectangle_empty_8c8c8c_radius_8)
-            buttonSunday.setTextColor(resources.getColor(R.color.color_8c8c8c))
-        }
-    }
-
-    private fun setButtonAllCheck(){
-        checkedMondayButton()
-        checkedTuesdayButton()
-        checkedWednesdayButton()
-        checkedThursdayButton()
-        checkedFridayButton()
-        checkedSaturdayButton()
-        checkedSundayButton()
     }
 
     private fun goToCategoryGathering(pageState: GatheringFilterState){

@@ -18,7 +18,7 @@ class GatheringFilterViewModel @Inject constructor(
 
     private var categoryName = ""
     private val selectedList: MutableList<SelectedHobbyVo> = mutableListOf()
-    private val selectedDayList : MutableList<String> = mutableListOf()
+    private val selectedDayList : MutableList<DaysType> = mutableListOf()
 
     fun fetchSubHobbies(categoryId : Int, categoryName : String){
         this.categoryName = categoryName
@@ -67,38 +67,37 @@ class GatheringFilterViewModel @Inject constructor(
     }
 
     fun onClickAllDay(){
-        if(selectedDayList.contains(DaysType.ALL.eng)){
-            selectedDayList.remove(DaysType.ALL.eng)
+        if(selectedDayList.contains(DaysType.ALL)){
+            selectedDayList.remove(DaysType.ALL)
         }
         else{
             selectedDayList.clear()
-            selectedDayList.add(DaysType.ALL.eng)
-            selectedDayList.add(DaysType.MON.eng)
-            selectedDayList.add(DaysType.TUE.eng)
-            selectedDayList.add(DaysType.WED.eng)
-            selectedDayList.add(DaysType.THR.eng)
-            selectedDayList.add(DaysType.FRI.eng)
-            selectedDayList.add(DaysType.SAT.eng)
-            selectedDayList.add(DaysType.SUN.eng)
+            selectedDayList.add(DaysType.ALL)
+            selectedDayList.add(DaysType.MON)
+            selectedDayList.add(DaysType.TUE)
+            selectedDayList.add(DaysType.WED)
+            selectedDayList.add(DaysType.THR)
+            selectedDayList.add(DaysType.FRI)
+            selectedDayList.add(DaysType.SAT)
+            selectedDayList.add(DaysType.SUN)
         }
         updateSelectDayList()
-        emitEventFlow(GatheringFilterEvent.ClickDay(DaysType.ALL, selectedDayList.contains(DaysType.ALL.eng)))
+        emitEventFlow(GatheringFilterEvent.ClickDay(selectedDayList))
     }
 
     fun onClickDay(daysType : DaysType){
-        if(selectedDayList.contains(DaysType.ALL.eng)){
-            selectedDayList.remove(DaysType.ALL.eng)
-            emitEventFlow(GatheringFilterEvent.ClickDay(DaysType.ALL, selectedDayList.contains(DaysType.ALL.eng)))
+        if(selectedDayList.contains(DaysType.ALL)){
+            selectedDayList.remove(DaysType.ALL)
         }
 
-        if(selectedDayList.contains(daysType.eng)){
-            selectedDayList.remove(daysType.eng)
+        if(selectedDayList.contains(daysType)){
+            selectedDayList.remove(daysType)
         }
         else{
-            selectedDayList.add(daysType.eng)
+            selectedDayList.add(daysType)
         }
         updateSelectDayList()
-        emitEventFlow(GatheringFilterEvent.ClickDay(daysType, selectedDayList.contains(daysType.eng)))
+        emitEventFlow(GatheringFilterEvent.ClickDay(selectedDayList))
     }
 
     private fun updateSelectDayList(){

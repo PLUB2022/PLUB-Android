@@ -131,11 +131,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
     }
 
     private fun goToCategoryGathering(categoryId: Int, categoryName: String) {
+        val filter = GatheringFilterState()
         val action =
             HomeFragmentDirections.actionMainToCategoryGathering(
                 categoryId = categoryId,
                 categoryName = categoryName,
-                filter = GatheringFilterState()
+                filter = filter
             )
         findNavController().navigate(action)
     }
