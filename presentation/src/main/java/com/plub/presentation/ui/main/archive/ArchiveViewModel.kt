@@ -122,7 +122,7 @@ class ArchiveViewModel @Inject constructor(
         }
     }
 
-    fun goToEdit(){
-        emitEventFlow(ArchiveEvent.GoToEdit(title))
+    fun goToEdit(archiveId : Int){
+        emitEventFlow(ArchiveEvent.GoToEdit(title, archiveId))
     }
 }

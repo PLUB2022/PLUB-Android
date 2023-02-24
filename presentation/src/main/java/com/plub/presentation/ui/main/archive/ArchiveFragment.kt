@@ -28,7 +28,6 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
         const val EDIT_TYPE = 1
     }
 
-    private var updateType: Int = UPLOAD_TYPE
     private val archiveAdapter: ArchiveAdapter by lazy {
         ArchiveAdapter(object : ArchiveAdapter.ArchiveDelegate {
             override fun onCardClick(archiveId: Int) {
@@ -104,7 +103,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 goToReport(event.archiveId)
             }
             is ArchiveEvent.GoToEdit -> {
-                goToArchiveEdit(event.title)
+                goToArchiveEdit(event.title, event.archiveId)
             }
         }
     }
@@ -130,8 +129,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             }
 
             override fun onClickEdit() {
-                updateType = EDIT_TYPE
-                viewModel.goToEdit()
+                viewModel.goToEdit(archiveId)
             }
 
         }).show(childFragmentManager, "")
@@ -152,22 +150,22 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
 
     private fun goToArchiveUpload(imageUri: String, title : String) {
         val action = ArchiveFragmentDirections.actionArchiveToUpdate(
-            updateType,
-            archiveFragmentArgs.plubbingId,
-            0,
-            imageUri,
-            title
+            type = UPLOAD_TYPE,
+            plubbingId = archiveFragmentArgs.plubbingId,
+            archiveId = 0,
+            image = imageUri,
+            title = title
         )
         findNavController().navigate(action)
     }
 
-    private fun goToArchiveEdit(title : String) {
+    private fun goToArchiveEdit(title : String, archiveId: Int) {
         val action = ArchiveFragmentDirections.actionArchiveToUpdate(
-            updateType,
-            archiveFragmentArgs.plubbingId,
-            0,
-            "",
-            title
+            type = EDIT_TYPE,
+            plubbingId = archiveFragmentArgs.plubbingId,
+            archiveId = archiveId,
+            image = "",
+            title = title
         )
         findNavController().navigate(action)
     }
