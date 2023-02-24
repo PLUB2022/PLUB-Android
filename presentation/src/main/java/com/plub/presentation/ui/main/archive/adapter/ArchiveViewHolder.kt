@@ -27,41 +27,18 @@ class ArchiveViewHolder(
     fun bind(item: ArchiveContentResponseVo) {
         vo = item
         binding.apply {
+            val imageList = arrayListOf(imageViewArchiveFirst, imageViewArchiveSecond, imageViewArchiveThird)
             for (position in 0..item.images.size) {
-                setImageView(position)
+                GlideUtil.loadImage(root.context, vo.images[position], imageList[position])
+                imageList[position].apply {
+                    clipToOutline = true
+                    isVisible = true
+                }
             }
             val imageCount = item.images.size.toString()
             textViewImageCount.text = imageCount
             textViewTimeLine.text = root.context.getString(R.string.archive_sequence_date, item.sequence, item.createdAt)
             textViewArchiveTitle.text = item.title
-        }
-    }
-
-    fun setImageView(position: Int) {
-        binding.apply {
-            when (position) {
-                0 -> {
-                    GlideUtil.loadImage(root.context, vo.images[position], imageViewArchiveFirst)
-                    imageViewArchiveFirst.apply {
-                        clipToOutline = true
-                        isVisible = true
-                    }
-                }
-                1 -> {
-                    GlideUtil.loadImage(root.context, vo.images[position], imageViewArchiveSecond)
-                    imageViewArchiveSecond.apply {
-                        clipToOutline = true
-                        isVisible = true
-                    }
-                }
-                2 -> {
-                    GlideUtil.loadImage(root.context, vo.images[position], imageViewArchiveThird)
-                    imageViewArchiveThird.apply {
-                        clipToOutline = true
-                        isVisible = true
-                    }
-                }
-            }
         }
     }
 }
