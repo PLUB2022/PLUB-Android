@@ -50,6 +50,7 @@ class ArchiveAuthorBottomSheetFragment(
             }
             is ArchiveDotsBottomSheetEvent.EditArchive -> {
                 listener.onClickEdit()
+                dismiss()
             }
         }
     }

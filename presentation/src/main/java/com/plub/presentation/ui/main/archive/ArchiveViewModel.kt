@@ -123,4 +123,8 @@ class ArchiveViewModel @Inject constructor(
     fun goToEdit(archiveId : Int){
         emitEventFlow(ArchiveEvent.GoToEdit(title, archiveId))
     }
+
+    fun goToReport(archiveId: Int){
+        emitEventFlow(ArchiveEvent.GoToReport(archiveId))
+    }
 }

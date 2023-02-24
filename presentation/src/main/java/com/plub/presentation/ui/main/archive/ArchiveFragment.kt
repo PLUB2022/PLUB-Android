@@ -141,11 +141,19 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 viewModel.deleteArchive(archiveId)
             }
 
+            override fun goToReport() {
+                viewModel.goToReport(archiveId)
+            }
+
         }).show(childFragmentManager, "")
     }
 
     private fun showBottomSheetNormal(archiveId : Int){
-        ArchiveNormalBottomSheetFragment(archiveFragmentArgs.plubbingId, archiveId).show(childFragmentManager, "")
+        ArchiveNormalBottomSheetFragment(object : ArchiveNormalBottomSheetFragment.ArchiveNormalDelegate{
+            override fun goToReport() {
+                viewModel.goToReport(archiveId)
+            }
+        }).show(childFragmentManager, "")
     }
 
     private fun goToArchiveUpload(imageUri: String, title : String) {

@@ -9,9 +9,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ArchiveNormalBottomSheetFragment(private val plubbingId : Int, private val archiveId : Int) : BaseBottomSheetFragment<BottomSheetArchiveNormalBinding, PageState.Default, ArchiveNormalBottomSheetViewModel>(
+class ArchiveNormalBottomSheetFragment(private val listener: ArchiveNormalDelegate) : BaseBottomSheetFragment<BottomSheetArchiveNormalBinding, PageState.Default, ArchiveNormalBottomSheetViewModel>(
     BottomSheetArchiveNormalBinding::inflate
 ) {
+
+    interface ArchiveNormalDelegate{
+        fun goToReport()
+    }
 
     override val viewModel: ArchiveNormalBottomSheetViewModel by viewModels()
     override fun initView() {
@@ -33,15 +37,11 @@ class ArchiveNormalBottomSheetFragment(private val plubbingId : Int, private val
     private fun inspectEventFlow(event : ArchiveDotsBottomSheetEvent){
         when(event){
             is ArchiveDotsBottomSheetEvent.GoToReport -> {
-                goToReport()
+                listener.goToReport()
                 dismiss()
             }
             ArchiveDotsBottomSheetEvent.DeleteArchive -> {}
             ArchiveDotsBottomSheetEvent.EditArchive -> {}
         }
-    }
-
-    private fun goToReport(){
-
     }
 }

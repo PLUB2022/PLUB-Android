@@ -15,6 +15,7 @@ class ArchiveHostBottomSheetFragment(private val plubbingId : Int, private val a
 
     interface ArchiveHostDelegate{
         fun onDelete()
+        fun goToReport()
     }
 
     override val viewModel: ArchiveHostBottomSheetViewModel by viewModels()
@@ -38,7 +39,7 @@ class ArchiveHostBottomSheetFragment(private val plubbingId : Int, private val a
     private fun inspectEventFlow(event : ArchiveDotsBottomSheetEvent){
         when(event){
             is ArchiveDotsBottomSheetEvent.GoToReport -> {
-                goToReport()
+                listener.goToReport()
                 dismiss()
             }
             ArchiveDotsBottomSheetEvent.DeleteArchive -> {
@@ -47,9 +48,5 @@ class ArchiveHostBottomSheetFragment(private val plubbingId : Int, private val a
             }
             ArchiveDotsBottomSheetEvent.EditArchive -> {}
         }
-    }
-
-    private fun goToReport(){
-
     }
 }
