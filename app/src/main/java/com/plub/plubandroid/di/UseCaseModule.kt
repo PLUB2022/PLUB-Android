@@ -199,6 +199,30 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun providesPostCommentUseCase(repository: PlubingBoardRepository): PostCommentUseCase {
+        return PostCommentUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetCommentListUseCase(repository: PlubingBoardRepository): GetCommentListUseCase {
+        return GetCommentListUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetBoardDetailUseCase(repository: PlubingBoardRepository): GetBoardDetailUseCase {
+        return GetBoardDetailUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutEditBoardUseCase(repository: PlubingBoardRepository): PutEditBoardUseCase {
+        return PutEditBoardUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun providesGetRecruitDetailUseCase(repository: RecruitRepository): GetRecruitDetailUseCase {
         return GetRecruitDetailUseCase(repository)
     }

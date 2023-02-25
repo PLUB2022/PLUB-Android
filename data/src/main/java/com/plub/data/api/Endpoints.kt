@@ -63,6 +63,12 @@ object Endpoints {
             const val POST_FEED = "$PLUBBING_ID_URL/feeds"
             const val CHANGE_PIN = "$PLUBBING_ID_URL/feeds/{feedId}/pin"
             const val DELETE_FEED = "$PLUBBING_ID_URL/feeds/{feedId}"
+            const val GET_DETAIL_FEED = "$PLUBBING_ID_URL/feeds/{feedId}"
+            const val GET_COMMENTS = "$PLUBBING_ID_URL/feeds/{feedId}/comments"
+            const val POST_COMMENT = "$PLUBBING_ID_URL/feeds/{feedId}/comments"
+            const val DELETE_COMMENT = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
+            const val EDIT_COMMENT = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
+            const val EDIT_BOARD = "$PLUBBING_ID_URL/feeds/{feedId}"
         }
     }
 }
