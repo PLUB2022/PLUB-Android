@@ -40,17 +40,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="요란한 한줄" />
 
-        <!-- android:afterTextChanged="@{(text) -> vm.updateGatheringGoal(text)}" -->
-        <!--            android:text="@{vm.uiState.gatheringGoal}"-->
         <EditText
             android:id="@+id/edit_text_schedule_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="30dp"
+            android:afterTextChanged="@{(text) -> vm.updateScheduleTitle(text)}"
             android:background="@null"
             android:hint="@string/plubing_add_schedule_schedule_title_hint"
             android:maxLength="300"
+            android:text="@{vm.uiState.scheduleTitle}"
             android:textColorHint="@color/color_c4c4c4"
             android:textCursorDrawable="@null"
             android:textSize="20sp"
@@ -83,7 +83,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:button="@null"
+            android:checked="@{vm.uiState.isAllDay}"
             android:drawableStart="@drawable/selector_check_18"
+            android:onClick="@{() -> vm.onClickIsAllDay()}"
             android:padding="4dp"
             app:layout_constraintEnd_toStartOf="@id/text_view_all_day"
             app:layout_constraintTop_toBottomOf="@id/view_divider1" />
@@ -222,10 +224,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginEnd="56dp"
+            android:afterTextChanged="@{(text) -> vm.updateMemo(text)}"
             android:background="@null"
             android:hint="@string/plubing_add_schedule_memo_hint"
             android:inputType="textMultiLine"
             android:paddingVertical="14dp"
+            android:text="@{vm.uiState.memo}"
             android:textColorHint="@color/color_c4c4c4"
             android:textCursorDrawable="@null"
             android:textSize="14sp"
