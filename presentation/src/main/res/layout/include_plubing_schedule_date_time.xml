@@ -42,7 +42,7 @@
             android:text="@{time}"
             android:textColor="@color/color_363636"
             android:textSize="14sp"
-            android:visibility="@{isAllTimeChecked ? View.VISIBLE : View.GONE}"
+            android:visibility="@{isAllTimeChecked ? View.GONE : View.VISIBLE}"
             tools:text="오후 4:00" />
 
     </LinearLayout>

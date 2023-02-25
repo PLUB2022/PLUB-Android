@@ -41,16 +41,17 @@
             tools:text="요란한 한줄" />
 
         <ScrollView
-            app:layout_constraintTop_toBottomOf="@id/text_view_plubing_name"
             android:layout_width="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp"
             android:fillViewport="true"
             android:paddingBottom="100dp"
-            android:layout_height="0dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_plubing_name">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <EditText
                     android:id="@+id/edit_text_schedule_title"
                     android:layout_width="match_parent"
@@ -119,9 +120,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="56dp"
+                    app:date="@{vm.uiState.startDate.text}"
+                    app:time="@{vm.uiState.startTime.text}"
+                    app:isAllTimeChecked="@{vm.uiState.isAllDay}"
                     app:layout_constraintBottom_toBottomOf="@id/image_view_arrow_right"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/image_view_arrow_right" />
+                    app:layout_constraintTop_toTopOf="@id/image_view_arrow_right"
+                     />
 
                 <ImageView
                     android:id="@+id/image_view_arrow_right"
@@ -133,12 +138,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/include_ic_schedule_text" />
 
+
                 <include
                     android:id="@+id/include_end_date_time"
                     layout="@layout/include_plubing_schedule_date_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="56dp"
+                    app:date="@{vm.uiState.endDate.text}"
+                    app:time="@{vm.uiState.endTime.text}"
+                    app:isAllTimeChecked="@{vm.uiState.isAllDay}"
                     app:layout_constraintBottom_toBottomOf="@id/image_view_arrow_right"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/image_view_arrow_right" />
@@ -257,7 +266,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
-
 
 
         <Button
