@@ -73,8 +73,9 @@ class BoardWriteFragment :
             }
         }
 
-        viewModel.initArgs(boardWriteArgs.plubingId, boardWriteArgs.plubingName)
+        viewModel.initArgs(boardWriteArgs)
         viewModel.fetchFeedTypeList()
+        viewModel.initEditInfo()
     }
 
     override fun initStates() {
