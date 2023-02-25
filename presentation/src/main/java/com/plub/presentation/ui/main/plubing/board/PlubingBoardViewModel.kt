@@ -5,15 +5,14 @@ import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubingBoardType
 import com.plub.domain.model.vo.board.BoardRequestVo
-import com.plub.domain.model.vo.board.FetchPlubingBoardRequestVo
+import com.plub.domain.model.vo.board.GetBoardFeedsRequestVo
 import com.plub.domain.model.vo.board.PlubingBoardListVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
-import com.plub.domain.usecase.DeletePlubingBoardUseCase
-import com.plub.domain.usecase.FetchPlubingBoardUseCase
-import com.plub.domain.usecase.FetchPlubingPinsUseCase
-import com.plub.domain.usecase.PutPlubingBoardPinChangeUseCase
+import com.plub.domain.usecase.DeleteBoardUseCase
+import com.plub.domain.usecase.GetBoardFeedsUseCase
+import com.plub.domain.usecase.GetBoardPinsUseCase
+import com.plub.domain.usecase.PutBoardChangePinUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.main.home.bookmark.BookmarkViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,10 +20,10 @@ import kotlin.properties.Delegates
 
 @HiltViewModel
 class PlubingBoardViewModel @Inject constructor(
-    val putPlubingBoardPinChangeUseCase: PutPlubingBoardPinChangeUseCase,
-    val deletePlubingBoardUseCase: DeletePlubingBoardUseCase,
-    val fetchPlubingBoardUseCase: FetchPlubingBoardUseCase,
-    val fetchPlubingPinsUseCase: FetchPlubingPinsUseCase,
+    val putBoardChangePinUseCase: PutBoardChangePinUseCase,
+    val deleteBoardUseCase: DeleteBoardUseCase,
+    val getBoardFeedsUseCase: GetBoardFeedsUseCase,
+    val getBoardPinsUseCase: GetBoardPinsUseCase,
 ) : BaseViewModel<PlubingBoardPageState>(PlubingBoardPageState()) {
 
     companion object {
@@ -93,8 +92,8 @@ class PlubingBoardViewModel @Inject constructor(
     }
 
     private suspend fun fetchPlubingBoardList() {
-        val requestVo = FetchPlubingBoardRequestVo(page, plubingId)
-        fetchPlubingBoardUseCase(requestVo).collect {
+        val requestVo = GetBoardFeedsRequestVo(page, plubingId)
+        getBoardFeedsUseCase(requestVo).collect {
             inspectUiState(it, ::onSuccessFetchPlubingBoardList)
         }
     }
@@ -116,7 +115,7 @@ class PlubingBoardViewModel @Inject constructor(
     }
 
     private suspend fun fetchClipBoardList() {
-        fetchPlubingPinsUseCase(plubingId).collect {
+        getBoardPinsUseCase(plubingId).collect {
             inspectUiState(it, ::onSuccessFetchClipBoardList)
         }
     }
@@ -149,7 +148,7 @@ class PlubingBoardViewModel @Inject constructor(
     private fun boardFixClip(feedId: Int) {
         viewModelScope.launch {
             val request = BoardRequestVo(plubingId, feedId)
-            putPlubingBoardPinChangeUseCase(request).collect {
+            putBoardChangePinUseCase(request).collect {
                 inspectUiState(it, {
                     updateDeletedFeedList(feedId)
                     onFetchClipBoardList()
@@ -161,7 +160,7 @@ class PlubingBoardViewModel @Inject constructor(
     private fun boardDelete(feedId: Int) {
         viewModelScope.launch {
             val request = BoardRequestVo(plubingId, feedId)
-            deletePlubingBoardUseCase(request).collect {
+            deleteBoardUseCase(request).collect {
                 inspectUiState(it, {
                     updateDeletedFeedList(feedId)
                     onFetchClipBoardList()

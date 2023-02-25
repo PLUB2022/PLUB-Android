@@ -6,8 +6,8 @@ import com.plub.data.dto.board.BoardCommentListResponse
 import com.plub.data.dto.board.PlubingBoardListResponse
 import com.plub.data.dto.board.PlubingBoardResponse
 import com.plub.data.dto.board.PlubingPinListResponse
-import com.plub.data.dto.board.PostBoardRequest
-import com.plub.data.dto.board.PostCommentRequest
+import com.plub.data.dto.board.BoardWriteRequest
+import com.plub.data.dto.board.CommentCreateRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -19,36 +19,43 @@ import retrofit2.http.Query
 
 interface PlubingBoardApi {
 
-    @GET(Endpoints.PLUBBING.BOARD.FEEDS)
-    suspend fun getBoardList(@Path("plubbingId") plubbingId:Int, @Query("page") page:Int): Response<ApiResponse<PlubingBoardListResponse>>
+    companion object {
+        private const val PATH_PLUBING_ID = "plubbingId"
+        private const val PATH_FEED_ID = "feedId"
+        private const val PATH_COMMENT_ID = "commentId"
+        private const val PATH_PAGE = "page"
+    }
 
     @GET(Endpoints.PLUBBING.BOARD.PINS)
-    suspend fun getPinList(@Path("plubbingId") plubbingId:Int): Response<ApiResponse<PlubingPinListResponse>>
+    suspend fun getPins(@Path(PATH_PLUBING_ID) plubbingId:Int): Response<ApiResponse<PlubingPinListResponse>>
 
-    @PUT(Endpoints.PLUBBING.BOARD.CHANGE_PIN)
-    suspend fun changePin(@Path("plubbingId") plubbingId:Int, @Path("feedId") feedId:Int): Response<ApiResponse<DataDto.DTO>>
+    @GET(Endpoints.PLUBBING.BOARD.FEEDS)
+    suspend fun getFeeds(@Path(PATH_PLUBING_ID) plubbingId:Int, @Query(PATH_PAGE) page:Int): Response<ApiResponse<PlubingBoardListResponse>>
 
-    @DELETE(Endpoints.PLUBBING.BOARD.DELETE_FEED)
-    suspend fun deletePlubing(@Path("plubbingId") plubbingId:Int, @Path("feedId") feedId:Int): Response<ApiResponse<DataDto.DTO>>
+    @POST(Endpoints.PLUBBING.BOARD.FEED_CREATE)
+    suspend fun createFeed(@Path(PATH_PLUBING_ID) plubbingId:Int, @Body boardWriteRequest: BoardWriteRequest): Response<ApiResponse<DataDto.DTO>>
 
-    @POST(Endpoints.PLUBBING.BOARD.POST_FEED)
-    suspend fun postBoard(@Path("plubbingId") plubbingId:Int, @Body postBoardRequest: PostBoardRequest): Response<ApiResponse<DataDto.DTO>>
+    @GET(Endpoints.PLUBBING.BOARD.FEED_DETAIL)
+    suspend fun detailFeed(@Path(PATH_PLUBING_ID) plubbingId:Int, @Path(PATH_FEED_ID) feedId:Int): Response<ApiResponse<PlubingBoardResponse>>
 
-    @GET(Endpoints.PLUBBING.BOARD.GET_DETAIL_FEED)
-    suspend fun getDetailBoard(@Path("plubbingId") plubbingId:Int, @Path("feedId") feedId:Int): Response<ApiResponse<PlubingBoardResponse>>
+    @PUT(Endpoints.PLUBBING.BOARD.FEED_CHANGE_PIN)
+    suspend fun changePin(@Path(PATH_PLUBING_ID) plubbingId:Int, @Path(PATH_FEED_ID) feedId:Int): Response<ApiResponse<DataDto.DTO>>
 
-    @GET(Endpoints.PLUBBING.BOARD.GET_COMMENTS)
-    suspend fun getCommentList(@Path("plubbingId") plubbingId:Int, @Path("feedId") feedId:Int, @Query("page") page:Int): Response<ApiResponse<BoardCommentListResponse>>
+    @DELETE(Endpoints.PLUBBING.BOARD.FEED_DELETE)
+    suspend fun deleteFeed(@Path(PATH_PLUBING_ID) plubbingId:Int, @Path(PATH_FEED_ID) feedId:Int): Response<ApiResponse<DataDto.DTO>>
 
-    @POST(Endpoints.PLUBBING.BOARD.POST_COMMENT)
-    suspend fun postComment(@Path("plubbingId") plubbingId:Int, @Path("feedId") feedId:Int, @Body request: PostCommentRequest): Response<ApiResponse<DataDto.DTO>>
+    @PUT(Endpoints.PLUBBING.BOARD.FEED_EDIT)
+    suspend fun editFeed(@Path(PATH_PLUBING_ID) plubbingId:Int, @Path(PATH_FEED_ID) feedId:Int, @Body request: BoardWriteRequest): Response<ApiResponse<DataDto.DTO>>
 
-    @DELETE(Endpoints.PLUBBING.BOARD.DELETE_COMMENT)
-    suspend fun deleteComment(@Path("plubbingId") plubbingId:Int, @Path("feedId") feedId:Int, @Path("commentId") commentId:Int): Response<ApiResponse<DataDto.DTO>>
+    @GET(Endpoints.PLUBBING.BOARD.COMMENTS)
+    suspend fun getComments(@Path(PATH_PLUBING_ID) plubbingId:Int, @Path(PATH_FEED_ID) feedId:Int, @Query(PATH_PAGE) page:Int): Response<ApiResponse<BoardCommentListResponse>>
 
-    @PUT(Endpoints.PLUBBING.BOARD.EDIT_COMMENT)
-    suspend fun editComment(@Path("plubbingId") plubbingId:Int, @Path("feedId") feedId:Int, @Path("commentId") commentId:Int): Response<ApiResponse<DataDto.DTO>>
+    @POST(Endpoints.PLUBBING.BOARD.COMMENT_CREATE)
+    suspend fun createComment(@Path(PATH_PLUBING_ID) plubbingId:Int, @Path(PATH_FEED_ID) feedId:Int, @Body request: CommentCreateRequest): Response<ApiResponse<DataDto.DTO>>
 
-    @PUT(Endpoints.PLUBBING.BOARD.EDIT_BOARD)
-    suspend fun editBoard(@Path("plubbingId") plubbingId:Int, @Path("feedId") feedId:Int, @Body request: PostBoardRequest): Response<ApiResponse<DataDto.DTO>>
+    @DELETE(Endpoints.PLUBBING.BOARD.COMMENT_DELETE)
+    suspend fun deleteComment(@Path(PATH_PLUBING_ID) plubbingId:Int, @Path(PATH_FEED_ID) feedId:Int, @Path(PATH_COMMENT_ID) commentId:Int): Response<ApiResponse<DataDto.DTO>>
+
+    @PUT(Endpoints.PLUBBING.BOARD.COMMENT_EDIT)
+    suspend fun editComment(@Path(PATH_PLUBING_ID) plubbingId:Int, @Path(PATH_FEED_ID) feedId:Int, @Path(PATH_COMMENT_ID) commentId:Int): Response<ApiResponse<DataDto.DTO>>
 }

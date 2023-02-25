@@ -12,16 +12,15 @@ import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.enums.PlubingFeedType
 import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.board.BoardRequestVo
-import com.plub.domain.model.vo.board.EditBoardRequestVo
+import com.plub.domain.model.vo.board.BoardEditRequestVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
-import com.plub.domain.model.vo.board.PostBoardRequestVo
+import com.plub.domain.model.vo.board.BoardCreateRequestVo
 import com.plub.domain.model.vo.board.WriteBoardFeedTypeVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.usecase.GetBoardDetailUseCase
-import com.plub.domain.usecase.PostPlubingBoardUseCase
+import com.plub.domain.usecase.PostBoardCreateUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
-import com.plub.domain.usecase.PutEditBoardUseCase
-import com.plub.domain.usecase.PutEditCommentUseCase
+import com.plub.domain.usecase.PutBoardEditUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.ImageUtil
@@ -38,8 +37,8 @@ import kotlin.properties.Delegates
 class BoardWriteViewModel @Inject constructor(
     val getBoardDetailUseCase: GetBoardDetailUseCase,
     val postUploadFileUseCase: PostUploadFileUseCase,
-    val postPlubingBoardUseCase: PostPlubingBoardUseCase,
-    val putEditBoardUseCase: PutEditBoardUseCase,
+    val postBoardCreateUseCase: PostBoardCreateUseCase,
+    val putBoardEditUseCase: PutBoardEditUseCase,
     val resourceProvider: ResourceProvider,
     val imageUtil: ImageUtil,
 ) : BaseViewModel<BoardWritePageState>(BoardWritePageState()) {
@@ -269,9 +268,9 @@ class BoardWriteViewModel @Inject constructor(
     private fun postUploadFeed(imageUrl: String, onSuccess: () -> Unit) {
         viewModelScope.launch {
             val request = uiState.value.run {
-                PostBoardRequestVo(plubingId, selectedFeedType, title, content, imageUrl)
+                BoardCreateRequestVo(plubingId, selectedFeedType, title, content, imageUrl)
             }
-            postPlubingBoardUseCase(request).collect {
+            postBoardCreateUseCase(request).collect {
                 inspectUiState(it, {
                     onSuccess()
                 })
@@ -282,9 +281,9 @@ class BoardWriteViewModel @Inject constructor(
     private fun putEditFeed(imageUrl: String, onSuccess: () -> Unit) {
         viewModelScope.launch {
             val request = uiState.value.run {
-                EditBoardRequestVo(plubingId, feedId, selectedFeedType, title, content, imageUrl)
+                BoardEditRequestVo(plubingId, feedId, selectedFeedType, title, content, imageUrl)
             }
-            putEditBoardUseCase(request).collect {
+            putBoardEditUseCase(request).collect {
                 inspectUiState(it, {
                     onSuccess()
                 })

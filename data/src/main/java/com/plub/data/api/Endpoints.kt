@@ -60,15 +60,15 @@ object Endpoints {
         object BOARD {
             const val FEEDS = "$PLUBBING_ID_URL/feeds"
             const val PINS = "$PLUBBING_ID_URL/pins"
-            const val POST_FEED = "$PLUBBING_ID_URL/feeds"
-            const val CHANGE_PIN = "$PLUBBING_ID_URL/feeds/{feedId}/pin"
-            const val DELETE_FEED = "$PLUBBING_ID_URL/feeds/{feedId}"
-            const val GET_DETAIL_FEED = "$PLUBBING_ID_URL/feeds/{feedId}"
-            const val GET_COMMENTS = "$PLUBBING_ID_URL/feeds/{feedId}/comments"
-            const val POST_COMMENT = "$PLUBBING_ID_URL/feeds/{feedId}/comments"
-            const val DELETE_COMMENT = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
-            const val EDIT_COMMENT = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
-            const val EDIT_BOARD = "$PLUBBING_ID_URL/feeds/{feedId}"
+            const val FEED_CREATE = "$PLUBBING_ID_URL/feeds"
+            const val FEED_CHANGE_PIN = "$PLUBBING_ID_URL/feeds/{feedId}/pin"
+            const val FEED_DELETE = "$PLUBBING_ID_URL/feeds/{feedId}"
+            const val FEED_DETAIL = "$PLUBBING_ID_URL/feeds/{feedId}"
+            const val FEED_EDIT = "$PLUBBING_ID_URL/feeds/{feedId}"
+            const val COMMENTS = "$PLUBBING_ID_URL/feeds/{feedId}/comments"
+            const val COMMENT_CREATE = "$PLUBBING_ID_URL/feeds/{feedId}/comments"
+            const val COMMENT_DELETE = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
+            const val COMMENT_EDIT = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
         }
     }
 }

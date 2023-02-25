@@ -2,7 +2,7 @@ package com.plub.domain.model.vo.board
 
 import com.plub.domain.model.DomainModel
 
-data class PostCommentRequestVo(
+data class CommentCreateRequestVo(
     val plubingId: Int,
     val feedId: Int,
     val content: String,

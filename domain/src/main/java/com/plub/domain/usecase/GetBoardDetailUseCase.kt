@@ -12,6 +12,6 @@ class GetBoardDetailUseCase @Inject constructor(
     private val plubingBoardRepository: PlubingBoardRepository
 ) : UseCase<BoardRequestVo, Flow<UiState<PlubingBoardVo>>>() {
     override suspend operator fun invoke(request: BoardRequestVo): Flow<UiState<PlubingBoardVo>> {
-        return plubingBoardRepository.getBoardDetail(request)
+        return plubingBoardRepository.feedDetail(request)
     }
 }

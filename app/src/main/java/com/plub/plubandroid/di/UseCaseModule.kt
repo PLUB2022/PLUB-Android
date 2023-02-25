@@ -169,44 +169,44 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesFetchPlubingBoardUseCase(repository: PlubingBoardRepository): FetchPlubingBoardUseCase {
-        return FetchPlubingBoardUseCase(repository)
+    fun providesFetchPlubingBoardUseCase(repository: PlubingBoardRepository): GetBoardFeedsUseCase {
+        return GetBoardFeedsUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesFetchPlubingPinsUseCase(repository: PlubingBoardRepository): FetchPlubingPinsUseCase {
-        return FetchPlubingPinsUseCase(repository)
+    fun providesFetchPlubingPinsUseCase(repository: PlubingBoardRepository): GetBoardPinsUseCase {
+        return GetBoardPinsUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesPutPlubingBoardPinChangeUseCase(repository: PlubingBoardRepository): PutPlubingBoardPinChangeUseCase {
-        return PutPlubingBoardPinChangeUseCase(repository)
+    fun providesPutPlubingBoardPinChangeUseCase(repository: PlubingBoardRepository): PutBoardChangePinUseCase {
+        return PutBoardChangePinUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesDeletePlubingBoardUseCase(repository: PlubingBoardRepository): DeletePlubingBoardUseCase {
-        return DeletePlubingBoardUseCase(repository)
+    fun providesDeletePlubingBoardUseCase(repository: PlubingBoardRepository): DeleteBoardUseCase {
+        return DeleteBoardUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesPostPlubingBoardUseCase(repository: PlubingBoardRepository): PostPlubingBoardUseCase {
-        return PostPlubingBoardUseCase(repository)
+    fun providesPostPlubingBoardUseCase(repository: PlubingBoardRepository): PostBoardCreateUseCase {
+        return PostBoardCreateUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesPostCommentUseCase(repository: PlubingBoardRepository): PostCommentUseCase {
-        return PostCommentUseCase(repository)
+    fun providesPostCommentUseCase(repository: PlubingBoardRepository): PostBoardCommentCreateUseCase {
+        return PostBoardCommentCreateUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesGetCommentListUseCase(repository: PlubingBoardRepository): GetCommentListUseCase {
-        return GetCommentListUseCase(repository)
+    fun providesGetCommentListUseCase(repository: PlubingBoardRepository): GetBoardCommentsUseCase {
+        return GetBoardCommentsUseCase(repository)
     }
 
     @Singleton
@@ -217,8 +217,8 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesPutEditBoardUseCase(repository: PlubingBoardRepository): PutEditBoardUseCase {
-        return PutEditBoardUseCase(repository)
+    fun providesPutEditBoardUseCase(repository: PlubingBoardRepository): PutBoardEditUseCase {
+        return PutBoardEditUseCase(repository)
     }
 
     @Singleton
