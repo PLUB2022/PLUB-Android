@@ -6,6 +6,7 @@ import com.plub.domain.model.vo.plub.PlubingMainVo
 import com.plub.domain.usecase.FetchPlubingMainUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.util.PlubingInfo
 import com.plub.presentation.util.ResourceProvider
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -74,6 +75,7 @@ class PlubingMainViewModel @Inject constructor(
     }
 
     private fun onSuccessPlubingMainInfo(mainVo: PlubingMainVo) {
+        PlubingInfo.updateInfo(mainVo)
         mainVo.run {
             val days = days.joinToString(SEPARATOR_OF_DAY)
             val time = TimeFormatter.getAmPmHourMin(time)
