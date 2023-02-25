@@ -2,13 +2,16 @@ package com.plub.presentation.ui.main.plubing.board
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
+import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingBoardBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
+import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -99,15 +102,19 @@ class PlubingBoardFragment :
 
     private fun inspectEventFlow(event: PlubingBoardEvent) {
         when (event) {
+            is PlubingBoardEvent.GoToDetailBoard -> {
+                val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingBoardDetail(event.feedId)
+                findNavController().navigate(action)
+            }
             is PlubingBoardEvent.NotifyClipBoardChanged -> {
                 boardListAdapter.notifyClipBoard()
             }
 
             is PlubingBoardEvent.ShowMenuBottomSheetDialog -> {
-                showMenuBottomSheetDialog(event.id, event.menuType)
+                showMenuBottomSheetDialog(event.feedId, event.menuType)
             }
 
-            is PlubingBoardEvent.GoToEditBoard -> Unit
+            is PlubingBoardEvent.GoToEditBoard -> goToEditBoard(event.feedId)
             is PlubingBoardEvent.GoToReportBoard -> Unit
         }
     }
@@ -116,5 +123,10 @@ class PlubingBoardFragment :
         SelectMenuBottomSheetDialog.newInstance(menuType) {
             viewModel.onClickMenuItemType(id, it)
         }.show(parentFragmentManager, "")
+    }
+
+    private fun goToEditBoard(feedId:Int) {
+        val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingBoardWrite(feedId = feedId, writeType = PlubingBoardWriteType.EDIT)
+        findNavController().navigate(action)
     }
 }

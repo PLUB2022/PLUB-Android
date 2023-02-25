@@ -65,7 +65,7 @@ class PlubingMainViewModel @Inject constructor(
     fun onClickWrite() {
         val plubingName = uiState.value.plubingName
         when(uiState.value.pageType) {
-            PlubingMainPageType.BOARD -> emitEventFlow(PlubingMainEvent.GoToWriteBoard(plubingId, plubingName))
+            PlubingMainPageType.BOARD -> emitEventFlow(PlubingMainEvent.GoToWriteBoard)
             PlubingMainPageType.TODO_LIST -> Unit
         }
     }

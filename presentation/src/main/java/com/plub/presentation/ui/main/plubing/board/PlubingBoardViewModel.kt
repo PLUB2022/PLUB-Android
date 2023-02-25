@@ -13,6 +13,7 @@ import com.plub.domain.usecase.FetchPlubingBoardUseCase
 import com.plub.domain.usecase.FetchPlubingPinsUseCase
 import com.plub.domain.usecase.PutPlubingBoardPinChangeUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.ui.main.home.bookmark.BookmarkViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -45,12 +46,7 @@ class PlubingBoardViewModel @Inject constructor(
         when (item) {
             DialogMenuItemType.BOARD_FIX_CLIP -> boardFixClip(feedId)
             DialogMenuItemType.BOARD_DELETE -> boardDelete(feedId)
-            DialogMenuItemType.BOARD_REPORT -> emitEventFlow(
-                PlubingBoardEvent.GoToReportBoard(
-                    feedId
-                )
-            )
-
+            DialogMenuItemType.BOARD_REPORT -> emitEventFlow(PlubingBoardEvent.GoToReportBoard(feedId))
             DialogMenuItemType.BOARD_EDIT -> emitEventFlow(PlubingBoardEvent.GoToEditBoard(feedId))
             else -> Unit
         }
@@ -61,7 +57,7 @@ class PlubingBoardViewModel @Inject constructor(
     }
 
     fun onClickNormalBoard(feedId: Int) {
-
+        emitEventFlow(PlubingBoardEvent.GoToDetailBoard(feedId))
     }
 
     fun onLongClickNormalBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
@@ -84,6 +80,7 @@ class PlubingBoardViewModel @Inject constructor(
         viewModelScope.launch {
             isNetworkCall = true
             page = FIRST_PAGE
+            isLastPage = false
             fetchPlubingBoardList()
         }
     }
@@ -114,7 +111,8 @@ class PlubingBoardViewModel @Inject constructor(
 
     private fun getMergeList(list: List<PlubingBoardVo>): List<PlubingBoardVo> {
         val originList = uiState.value.boardList
-        return originList + list
+        val pinList = originList.filter { it.viewType == PlubingBoardType.CLIP_BOARD }
+        return if (page == FIRST_PAGE) pinList + list else originList + list
     }
 
     private suspend fun fetchClipBoardList() {
