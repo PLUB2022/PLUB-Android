@@ -58,6 +58,9 @@
     <string name="word_bookmark">북마크</string>
     <string name="word_middle_slash">%d/%d</string>
     <string name="word_save">저장</string>
+    <string name="word_location">장소</string>
+    <string name="word_alarm">알림</string>
+    <string name="word_memo">메모</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>
@@ -232,4 +235,11 @@
 
     <string name="plubing_schedule_title">모임일정</string>
     <string name="plubing_schedule_add">일정 추가하기</string>
+    <string name="plubing_add_schedule_schedule_title_hint">일정 제목을 입력해 주세요.</string>
+    <string name="plubing_add_schedule_date_time">날짜/시간</string>
+    <string name="plubing_add_schedule_all_day">하루 종일</string>
+    <string name="plubing_add_schedule_location">장소를 입력해주세요</string>
+    <string name="plubing_add_schedule_alarm">알림 없음</string>
+    <string name="plubing_add_schedule_memo_hint">메모 내용을 입력해주세요</string>
+    <string name="plubing_add_schedule_add_schedule">일정 등록</string>
 </resources>
