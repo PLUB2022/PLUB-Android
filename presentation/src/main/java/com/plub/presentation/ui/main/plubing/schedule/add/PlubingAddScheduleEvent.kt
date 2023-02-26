@@ -7,4 +7,5 @@ sealed class PlubingAddScheduleEvent : Event {
     data class ShowEndDatePickerEvent(val onClickOk: (year: Int, month: Int, day: Int) -> Unit): PlubingAddScheduleEvent()
     data class ShowStartTimePickerEvent(val onClickOk: (hour: Int, minute: Int) -> Unit): PlubingAddScheduleEvent()
     data class ShowEndTimePickerEvent(val onClickOk: (hour: Int, minute: Int) -> Unit): PlubingAddScheduleEvent()
+    object ShowBottomSheetSearchLocation: PlubingAddScheduleEvent()
 }

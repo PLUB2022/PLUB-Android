@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.main.plubing.schedule.add
 
 import android.text.Editable
+import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
+import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoVo
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -114,6 +116,20 @@ class PlubingAddScheduleViewModel @Inject constructor(
             updateUiState { uiState ->
                 uiState.copy(endTime = endTime)
             }
+        }
+    }
+
+    fun onClickLocationText() {
+        emitEventFlow(
+            PlubingAddScheduleEvent.ShowBottomSheetSearchLocation
+        )
+    }
+
+    fun updateLocationData(data: KakaoLocationInfoDocumentVo) {
+        updateUiState { uiState ->
+            uiState.copy(
+                location = data
+            )
         }
     }
 }

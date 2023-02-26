@@ -3,9 +3,11 @@ package com.plub.presentation.ui.main.plubing.schedule.add
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.fragment.app.viewModels
+import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingAddScheduleBinding
+import com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -63,11 +65,14 @@ class PlubingAddScheduleFragment : BaseFragment<
                     showTimePickerDialog(this) { hour, min -> event.onClickOk(hour, min)  }
                 }
             }
+            is PlubingAddScheduleEvent.ShowBottomSheetSearchLocation -> {
+                showBottomSheetLocation()
+            }
         }
     }
 
     private fun showTimePickerDialog(initTime: Time, onSuccess: (hour: Int, min: Int) -> Unit) {
-        val timePickerDialog: TimePickerDialog = TimePickerDialog(requireActivity(),
+        val timePickerDialog = TimePickerDialog(requireActivity(),
                 { _, hour, min ->
                     onSuccess(hour, min)
                 },
@@ -91,5 +96,15 @@ class PlubingAddScheduleFragment : BaseFragment<
             initDate.day,
         )
         datePickerDialog.show()
+    }
+
+    private fun showBottomSheetLocation() {
+        val bottomSheetSearchLocation = BottomSheetSearchLocation.newInstance { data ->
+            viewModel.updateLocationData(data ?: KakaoLocationInfoDocumentVo())
+        }
+        bottomSheetSearchLocation.show(
+            parentFragmentManager,
+            bottomSheetSearchLocation.tag
+        )
     }
 }

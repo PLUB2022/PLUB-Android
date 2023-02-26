@@ -1,5 +1,7 @@
 package com.plub.presentation.ui.main.plubing.schedule.add
 
+import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
+import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoVo
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.util.TimeFormatter
 import org.threeten.bp.LocalDateTime
@@ -13,7 +15,7 @@ data class PlubingAddSchedulePageState(
     val startTime: Time = Time(),
     val endDate: Date = Date(),
     val endTime: Time = Time(),
-    val location: String = "",
+    val location: KakaoLocationInfoDocumentVo = KakaoLocationInfoDocumentVo(),
     val alarm: String = "",
     val memo: String = ""
 ) : PageState {
