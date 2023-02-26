@@ -2,6 +2,8 @@ package com.plub.presentation.ui.main.plubing.schedule.add
 
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.util.TimeFormatter
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
 import java.util.Calendar
 
 data class PlubingAddSchedulePageState(
@@ -14,7 +16,23 @@ data class PlubingAddSchedulePageState(
     val location: String = "",
     val alarm: String = "",
     val memo: String = ""
-) : PageState
+) : PageState {
+    val startTimeInMills: Long
+        get() {
+        val (year, month, day) = startDate
+        val (hour, minute) = startTime
+        val localDate = LocalDateTime.of(year, month, day, hour, minute)
+        return localDate.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+    }
+
+    val endTimeInMills: Long
+        get() {
+            val (year, month, day) = endDate
+            val (hour, minute) = endTime
+            val localDate = LocalDateTime.of(year, month, day, hour, minute)
+            return localDate.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        }
+}
 
 data class Date(
     val year: Int = Calendar.getInstance().get(Calendar.YEAR),

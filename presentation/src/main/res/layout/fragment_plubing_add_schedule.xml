@@ -120,13 +120,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="56dp"
+                    android:onClick="@{() -> vm.onClickStartDateTime()}"
                     app:date="@{vm.uiState.startDate.text}"
-                    app:time="@{vm.uiState.startTime.text}"
                     app:isAllTimeChecked="@{vm.uiState.isAllDay}"
                     app:layout_constraintBottom_toBottomOf="@id/image_view_arrow_right"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/image_view_arrow_right"
-                     />
+                    app:time="@{vm.uiState.startTime.text}" />
 
                 <ImageView
                     android:id="@+id/image_view_arrow_right"
@@ -145,12 +145,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="56dp"
+                    android:onClick="@{() -> vm.onClickEndDateTime()}"
                     app:date="@{vm.uiState.endDate.text}"
-                    app:time="@{vm.uiState.endTime.text}"
                     app:isAllTimeChecked="@{vm.uiState.isAllDay}"
                     app:layout_constraintBottom_toBottomOf="@id/image_view_arrow_right"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/image_view_arrow_right" />
+                    app:layout_constraintTop_toTopOf="@id/image_view_arrow_right"
+                    app:time="@{vm.uiState.endTime.text}" />
 
                 <View
                     android:id="@+id/view_divider2"

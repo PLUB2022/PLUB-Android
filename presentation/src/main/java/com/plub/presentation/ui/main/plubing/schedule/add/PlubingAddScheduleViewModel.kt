@@ -27,4 +27,93 @@ class PlubingAddScheduleViewModel @Inject constructor(
             uiState.copy(isAllDay = uiState.isAllDay.not())
         }
     }
+
+    fun onClickStartDateTime() {
+        emitEventFlow(
+            PlubingAddScheduleEvent.ShowStartDatePickerEvent { year, month, day ->
+                updateStartDateAndEmitShowStartTimePickerEvent(year, month, day)
+            }
+        )
+    }
+
+    fun onClickEndDateTime() {
+        emitEventFlow(
+            PlubingAddScheduleEvent.ShowEndDatePickerEvent { year, month, day ->
+                updateEndDateAndEmitShowEndTimePickerEvent(year, month, day)
+            }
+        )
+    }
+
+    private fun updateStartDateAndEmitShowStartTimePickerEvent(year: Int, month: Int, day: Int) {
+        val startDate = Date(
+            year, month, day
+        )
+
+        updateUiState { uiState ->
+            uiState.copy(startDate = startDate)
+        }
+
+        emitEventFlow(
+            PlubingAddScheduleEvent.ShowStartTimePickerEvent { hour, minute ->
+                updateStartTime(hour, minute)
+            }
+        )
+    }
+
+    private fun updateStartTime(hour: Int, minute: Int) {
+        val startTime = Time(
+            hour, minute
+        )
+
+        if (uiState.value.startTimeInMills > uiState.value.endTimeInMills) {
+            updateUiState { uiState ->
+                uiState.copy(
+                    endDate = uiState.startDate,
+                    startTime = startTime,
+                    endTime = startTime
+                )
+            }
+        } else {
+            updateUiState { uiState ->
+                uiState.copy(startTime = startTime)
+            }
+        }
+    }
+
+    private fun updateEndDateAndEmitShowEndTimePickerEvent(year: Int, month: Int, day: Int) {
+        val endDate = Date(
+            year, month, day
+        )
+
+        updateUiState { uiState ->
+            uiState.copy(endDate = endDate)
+        }
+
+        emitEventFlow(
+            PlubingAddScheduleEvent.ShowEndTimePickerEvent { hour, minute ->
+                updateEndTime(hour, minute)
+            }
+        )
+    }
+
+
+    private fun updateEndTime(hour: Int, minute: Int) {
+        val endTime = Time(
+            hour, minute
+        )
+
+        if (uiState.value.startTimeInMills > uiState.value.endTimeInMills) {
+            updateUiState { uiState ->
+                uiState.copy(
+                    startDate = uiState.endDate,
+                    startTime = endTime,
+                    endTime = endTime
+                )
+            }
+        } else {
+            updateUiState { uiState ->
+                uiState.copy(endTime = endTime)
+            }
+        }
+    }
 }
