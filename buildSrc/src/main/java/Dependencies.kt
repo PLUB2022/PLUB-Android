@@ -46,6 +46,7 @@ object Google {
     const val PROTOC = "com.google.protobuf:protoc:${Versions.PROTOBUF}"
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
     const val FCM = "com.google.firebase:firebase-messaging:${Versions.FCM}"
+    const val FCM_KTX = "com.google.firebase:firebase-messaging-ktx:${Versions.FCM}"
     const val FLEX_BOX = "com.google.android.flexbox:flexbox:${Versions.FLEX_BOX}"
 }
 

@@ -67,6 +67,7 @@ dependencies {
     implementation(Google.FLEX_BOX)
     implementation(Google.FIREBASE_BOM)
     implementation(Google.FCM)
+    implementation(Google.FCM_KTX)
 
     implementation(Glide.GLIDE)
     annotationProcessor(Glide.GLIDE_COMPILER)
