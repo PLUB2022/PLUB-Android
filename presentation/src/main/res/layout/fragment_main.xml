@@ -31,20 +31,28 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
+            android:id="@+id/button_searching"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="검색"
+            app:layout_constraintBottom_toTopOf="@+id/button_create_gathering"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
             android:id="@+id/button_create_gathering"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="모임생성"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/button_modify_gathering"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
-            app:layout_constraintBottom_toTopOf="@+id/button_create_gathering"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/button_searching"
+            android:id="@+id/button_modify_gathering"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="검색" />
+            android:text="모임수정"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
         <com.google.android.material.appbar.AppBarLayout
