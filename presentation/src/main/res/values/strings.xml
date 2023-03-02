@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="notification_channel_name">알람</string>
+
     <!-- DataBinding -->
     <string name="int_to_string">%d</string>
 
