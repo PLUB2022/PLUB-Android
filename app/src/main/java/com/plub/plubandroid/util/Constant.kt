@@ -1,6 +1,6 @@
 package com.plub.plubandroid.util
 
-const val BASE_URL = "http://www.plub.co.kr"
+const val BASE_URL = "https://www.plub.co.kr"
 const val KAKAO_LOCATION_BASE_URL = "https://dapi.kakao.com"
 const val RETROFIT_TAG = "Retrofit2"
 const val ENCRYPTED_DATA_STORE = "EncryptedDataStore"
