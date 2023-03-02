@@ -32,11 +32,6 @@ class MainActivity :
             vm = viewModel
             initNavigation()
         }
-
-        //TODO REMOVE
-        FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            PlubLogger.logD("Firebase","token=$it")
-        }
     }
 
     override fun initState() {
