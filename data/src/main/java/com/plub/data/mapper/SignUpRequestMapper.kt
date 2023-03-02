@@ -14,6 +14,7 @@ object SignUpRequestMapper: Mapper.RequestMapper<SignUpRequest, SignUpRequestVo>
             val gender = personalInfoVo.gender ?: Gender.MAN
             SignUpRequest(
                 signToken = signToken,
+                fcmToken = fcmToken,
                 categoryList = hobbyInfoVo.hobbies.map { it.subId },
                 profileImage = profileUrl,
                 birthday = DateFormatUtil.getSignUpBirthday(birthday),
