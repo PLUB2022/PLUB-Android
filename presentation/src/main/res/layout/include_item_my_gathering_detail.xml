@@ -29,6 +29,7 @@
             tools:text="당장 들어와" />
 
         <TextView
+            android:id="@+id/text_view_gathering_goal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

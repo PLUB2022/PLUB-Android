@@ -28,7 +28,7 @@ class MyPageFragment :
             vm = viewModel
 
             gatheringAdapter.submitList(arrayListOf(
-                MyPageGatheringVo(gatheringType = 0),
+                MyPageGatheringVo(gatheringList = arrayListOf("테스트용 1번"), gatheringType = 0),
                 MyPageGatheringVo(gatheringType = 1),
                 MyPageGatheringVo(gatheringType = 2),
                 MyPageGatheringVo(gatheringType = 3)))

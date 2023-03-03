@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.presentation.databinding.IncludeItemMyGatheringBinding
 
-class MyPageParentGatheringAdapter: ListAdapter<MyPageGatheringVo, RecyclerView.ViewHolder>(MyPageGatheringDiffCallback()) {
+class MyPageParentGatheringAdapter: ListAdapter<MyPageGatheringVo, RecyclerView.ViewHolder>(MyPageParentGatheringDiffCallback()) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -23,7 +23,7 @@ class MyPageParentGatheringAdapter: ListAdapter<MyPageGatheringVo, RecyclerView.
 
 }
 
-class MyPageGatheringDiffCallback : DiffUtil.ItemCallback<MyPageGatheringVo>() {
+class MyPageParentGatheringDiffCallback : DiffUtil.ItemCallback<MyPageGatheringVo>() {
     override fun areItemsTheSame(oldItem: MyPageGatheringVo, newItem: MyPageGatheringVo): Boolean =
         oldItem.gatheringType == newItem.gatheringType
 
