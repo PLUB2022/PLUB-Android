@@ -28,6 +28,10 @@
         <action
             android:id="@+id/action_main_to_plubing_main"
             app:destination="@id/plubingMainFragment" />
+
+        <action
+            android:id="@+id/action_main_to_my_page"
+            app:destination="@id/myPageFragment" />
     </fragment>
 
     <fragment
@@ -100,4 +104,10 @@
         android:name="com.plub.presentation.ui.main.gathering.modifyGathering.ModifyGatheringFragment"
         android:label="ModifyGatheringFragment"
         tools:layout="@layout/fragment_modify_gathering"/>
+
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.plub.presentation.ui.main.profile.MyPageFragment"
+        android:label="MyPageFragment"
+        tools:layout="@layout/fragment_my_page"/>
 </navigation>

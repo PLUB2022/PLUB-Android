@@ -229,5 +229,10 @@
     <string name="modify_gathering_tab_recruit">모집글</string>
     <string name="modify_gathering_tab_info">모임 정보</string>
     <string name="modify_gathering_tab_guest">게스트 질문</string>
+
     <string name="my_page_read_more">더보기</string>
+    <string name="my_page_recruiting_gathering">모집 중인 모임</string>
+    <string name="my_page_waiting_gathering">대기 중인 모임</string>
+    <string name="my_page_active_gathering">활동 중인 모임</string>
+    <string name="my_page_end_gathering">종료된 모임</string>
 </resources>

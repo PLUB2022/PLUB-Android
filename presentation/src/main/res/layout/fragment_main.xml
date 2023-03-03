@@ -15,6 +15,14 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/button_my_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="마이 페이지"
+            app:layout_constraintBottom_toTopOf="@+id/button_plubing_main"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
             android:id="@+id/button_plubing_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

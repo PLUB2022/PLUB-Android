@@ -48,6 +48,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, SampleHomeState, MainFrag
                 val plubingId = 1
                 findNavController().navigate(MainFragmentDirections.actionMainToPlubingMain(plubingId))
             }
+            buttonMyPage.setOnClickListener {
+                findNavController().navigate(MainFragmentDirections.actionMainToMyPage())
+            }
         }
     }
 
