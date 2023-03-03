@@ -9,6 +9,7 @@ import com.plub.data.mapper.PlubingBoardResponseMapper
 import com.plub.data.mapper.PlubingPinListResponseMapper
 import com.plub.data.mapper.BoardCreateRequestMapper
 import com.plub.data.mapper.CommentCreateRequestMapper
+import com.plub.data.mapper.CommentEditRequestMapper
 import com.plub.data.mapper.UnitResponseMapper
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.board.BoardCommentListVo
@@ -20,6 +21,7 @@ import com.plub.domain.model.vo.board.PlubingBoardListVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.board.BoardCreateRequestVo
 import com.plub.domain.model.vo.board.CommentCreateRequestVo
+import com.plub.domain.model.vo.board.CommentEditRequestVo
 import com.plub.domain.repository.PlubingBoardRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -27,7 +29,7 @@ import javax.inject.Inject
 class PlubingBoardRepositoryImpl @Inject constructor(private val boardApi: PlubingBoardApi) : PlubingBoardRepository, BaseRepository() {
 
     override suspend fun feedGetList(request: GetBoardFeedsRequestVo): Flow<UiState<PlubingBoardListVo>> {
-        return apiLaunch(boardApi.getFeeds(request.plubbingId, request.page), PlubingBoardListResponseMapper)
+        return apiLaunch(boardApi.getFeeds(request.plubbingId, request.cursorId), PlubingBoardListResponseMapper)
     }
 
     override suspend fun feedGetPinedList(plubingId: Int): Flow<UiState<List<PlubingBoardVo>>> {
@@ -57,7 +59,7 @@ class PlubingBoardRepositoryImpl @Inject constructor(private val boardApi: Plubi
     }
 
     override suspend fun commentGetList(request: GetBoardCommentsRequestVo): Flow<UiState<BoardCommentListVo>> {
-        return apiLaunch(boardApi.getComments(request.plubbingId, request.feedId, request.page), BoardCommentListResponseMapper)
+        return apiLaunch(boardApi.getComments(request.plubbingId, request.feedId, request.cursorId), BoardCommentListResponseMapper)
     }
 
     override suspend fun commentCreate(request: CommentCreateRequestVo): Flow<UiState<Unit>> {
@@ -69,7 +71,8 @@ class PlubingBoardRepositoryImpl @Inject constructor(private val boardApi: Plubi
         return apiLaunch(boardApi.deleteComment(request.plubbingId, request.feedId, request.commentId), UnitResponseMapper)
     }
 
-    override suspend fun commentEdit(request: BoardRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(boardApi.editComment(request.plubbingId, request.feedId, request.commentId), UnitResponseMapper)
+    override suspend fun commentEdit(request: CommentEditRequestVo): Flow<UiState<Unit>> {
+        val body = CommentEditRequestMapper.mapModelToDto(request)
+        return apiLaunch(boardApi.editComment(request.plubingId, request.feedId, request.commentId, body), UnitResponseMapper)
     }
 }

@@ -29,13 +29,13 @@ class PlubingBoardViewModel @Inject constructor(
     companion object {
         private const val CLIP_BOARD_SIZE = 3
         private const val CLIP_BOARD_POSITION = 0
-        private const val FIRST_PAGE = 1
+        private const val FIRST_CURSOR = 0
     }
 
     private var plubingId by Delegates.notNull<Int>()
     private var isNetworkCall: Boolean = false
     private var isLastPage: Boolean = false
-    private var page: Int = FIRST_PAGE
+    private var cursorId: Int = FIRST_CURSOR
 
     fun initPlubingId(plubingId: Int) {
         this.plubingId = plubingId
@@ -76,25 +76,28 @@ class PlubingBoardViewModel @Inject constructor(
     }
 
     fun onFetchBoardList() {
-        viewModelScope.launch {
-            isNetworkCall = true
-            page = FIRST_PAGE
-            isLastPage = false
-            fetchPlubingBoardList()
-        }
+        isNetworkCall = true
+        cursorUpdate()
+        fetchPlubingBoardList()
+    }
+
+    private fun refresh() {
+        isNetworkCall = true
+        isLastPage = false
+        cursorId = FIRST_CURSOR
+        fetchPlubingBoardList()
     }
 
     fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) viewModelScope.launch {
-            isNetworkCall = true
-            fetchPlubingBoardList()
-        }
+        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onFetchBoardList()
     }
 
-    private suspend fun fetchPlubingBoardList() {
-        val requestVo = GetBoardFeedsRequestVo(page, plubingId)
-        getBoardFeedsUseCase(requestVo).collect {
-            inspectUiState(it, ::onSuccessFetchPlubingBoardList)
+    private fun fetchPlubingBoardList() {
+        val requestVo = GetBoardFeedsRequestVo(cursorId, plubingId)
+        viewModelScope.launch {
+            getBoardFeedsUseCase(requestVo).collect {
+                inspectUiState(it, ::onSuccessFetchPlubingBoardList)
+            }
         }
     }
 
@@ -103,7 +106,6 @@ class PlubingBoardViewModel @Inject constructor(
             val mergedList = getMergeList(content)
             updateBoardList(mergedList)
             isLastPage = last
-            page++
             isNetworkCall = false
         }
     }
@@ -111,7 +113,7 @@ class PlubingBoardViewModel @Inject constructor(
     private fun getMergeList(list: List<PlubingBoardVo>): List<PlubingBoardVo> {
         val originList = uiState.value.boardList
         val pinList = originList.filter { it.viewType == PlubingBoardType.CLIP_BOARD }
-        return if (page == FIRST_PAGE) pinList + list else originList + list
+        return if (cursorId == FIRST_CURSOR) pinList + list else originList + list
     }
 
     private suspend fun fetchClipBoardList() {
@@ -180,5 +182,10 @@ class PlubingBoardViewModel @Inject constructor(
                 boardList = list
             )
         }
+    }
+
+    private fun cursorUpdate() {
+        val id = uiState.value.boardList.lastOrNull()?.feedId ?: FIRST_CURSOR
+        cursorId = id
     }
 }

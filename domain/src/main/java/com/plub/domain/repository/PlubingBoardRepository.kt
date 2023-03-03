@@ -10,6 +10,7 @@ import com.plub.domain.model.vo.board.PlubingBoardListVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.board.BoardCreateRequestVo
 import com.plub.domain.model.vo.board.CommentCreateRequestVo
+import com.plub.domain.model.vo.board.CommentEditRequestVo
 import kotlinx.coroutines.flow.Flow
 
 interface PlubingBoardRepository {
@@ -23,5 +24,5 @@ interface PlubingBoardRepository {
     suspend fun commentGetList(request: GetBoardCommentsRequestVo): Flow<UiState<BoardCommentListVo>>
     suspend fun commentCreate(request: CommentCreateRequestVo): Flow<UiState<Unit>>
     suspend fun commentDelete(request:BoardRequestVo): Flow<UiState<Unit>>
-    suspend fun commentEdit(request:BoardRequestVo): Flow<UiState<Unit>>
+    suspend fun commentEdit(request: CommentEditRequestVo): Flow<UiState<Unit>>
 }
