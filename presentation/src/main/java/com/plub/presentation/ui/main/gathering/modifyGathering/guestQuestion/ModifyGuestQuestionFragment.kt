@@ -1,34 +1,36 @@
-package com.plub.presentation.ui.main.gathering.createGathering.question
+package com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion
 
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
-import com.plub.presentation.databinding.FragmentCreateGatheringQuestionBinding
-import com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringEvent
-import com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel
-import com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationEvent
-import com.plub.presentation.ui.main.gathering.createGathering.peopleNumber.CreateGatheringPeopleNumberPageState
+import com.plub.presentation.databinding.FragmentModifyGuestQuestionBinding
+import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionEvent
 import com.plub.presentation.ui.main.gathering.createGathering.question.adapter.QuestionRecyclerViewAdapter
 import com.plub.presentation.ui.main.gathering.createGathering.question.bottomSheet.BottomSheetDeleteQuestion
-import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitFragment
+import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitPageState
+import com.plub.presentation.util.parcelable
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CreateGatheringQuestionFragment : BaseFragment<
-        FragmentCreateGatheringQuestionBinding, CreateGatheringQuestionPageState, CreateGatheringQuestionViewModel>(
-    FragmentCreateGatheringQuestionBinding::inflate
+class ModifyGuestQuestionFragment : BaseFragment<
+        FragmentModifyGuestQuestionBinding, ModifyGuestQuestionPageState, ModifyGuestQuestionViewModel>(
+    FragmentModifyGuestQuestionBinding::inflate
 ) {
-    override val viewModel: CreateGatheringQuestionViewModel by viewModels()
-    private val parentViewModel: CreateGatheringViewModel by viewModels({ requireParentFragment() })
+    override val viewModel: ModifyGuestQuestionViewModel by viewModels()
     private lateinit var questionRecyclerViewAdapter: QuestionRecyclerViewAdapter
 
     override fun initView() {
         binding.apply {
             vm = viewModel
-            parentVm = parentViewModel
 
             questionRecyclerViewAdapter =
                 QuestionRecyclerViewAdapter(
@@ -43,30 +45,15 @@ class CreateGatheringQuestionFragment : BaseFragment<
             questionRecyclerViewAdapter.setHasStableIds(true)
             recyclerViewQuestion.adapter = questionRecyclerViewAdapter
         }
+
+        val pageState = arguments?.parcelable(MODIFY_GUEST_QUESTION_PAGE_STATE) ?: ModifyGuestQuestionPageState()
+        viewModel.initPageState(pageState)
     }
 
     override fun initStates() {
         super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
-            launch {
-                parentViewModel.childrenPageStateFlow.collect { pageState ->
-                    viewModel.initUiState(pageState)
-                }
-            }
-
-            launch {
-                parentViewModel.eventFlow.collect {
-                    if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
-
-                    when (it) {
-                        is CreateGatheringEvent.GoToPrevPage -> {
-                            parentViewModel.setChildrenPageState(viewModel.uiState.value)
-                            parentViewModel.goToPrevPageAndEmitChildrenPageState()
-                        }
-                    }
-                }
-            }
 
             launch {
                 viewModel.uiState.collectLatest { pageState ->
@@ -78,11 +65,11 @@ class CreateGatheringQuestionFragment : BaseFragment<
             launch {
                 viewModel.eventFlow.collect {
                     when (it) {
-                        is CreateGatheringQuestionEvent.ShowBottomSheetDeleteQuestion -> {
+                        is ModifyGuestQuestionEvent.ShowBottomSheetDeleteQuestion -> {
                             showBottomSheetDeleteQuestion(it)
                         }
 
-                        is CreateGatheringQuestionEvent.PerformClickNoQuestionRadioButton -> {
+                        is ModifyGuestQuestionEvent.PerformClickNoQuestionRadioButton -> {
                             binding.radioButtonNoQuestion.performClick()
                         }
                     }
@@ -91,7 +78,13 @@ class CreateGatheringQuestionFragment : BaseFragment<
         }
     }
 
-    private fun showBottomSheetDeleteQuestion(it: CreateGatheringQuestionEvent.ShowBottomSheetDeleteQuestion) {
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        arguments?.putParcelable(MODIFY_GUEST_QUESTION_PAGE_STATE, viewModel.uiState.value)
+    }
+
+    private fun showBottomSheetDeleteQuestion(it: ModifyGuestQuestionEvent.ShowBottomSheetDeleteQuestion) {
         val bottomSheetDeleteQuestion = BottomSheetDeleteQuestion.newInstance(
             position = it.position,
             questionCount = it.size
@@ -103,5 +96,17 @@ class CreateGatheringQuestionFragment : BaseFragment<
             parentFragmentManager,
             bottomSheetDeleteQuestion.tag
         )
+    }
+
+    companion object {
+        private const val MODIFY_GUEST_QUESTION_PAGE_STATE = "MODIFY_GUEST_QUESTION_PAGE_STATE"
+
+        fun newInstance(
+            initPageState: ModifyGuestQuestionPageState
+        ) = ModifyGuestQuestionFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(MODIFY_GUEST_QUESTION_PAGE_STATE, initPageState)
+            }
+        }
     }
 }

@@ -9,11 +9,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionViewModel" />
-
-        <variable
-            name="parent_vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel" />
+            type="com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion.ModifyGuestQuestionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,13 +18,13 @@
         android:background="@color/color_f5f3f6"
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
-        tools:context=".ui.main.gathering.createGathering.question.CreateGatheringQuestionFragment">
+        tools:context=".ui.main.gathering.modifyGathering.guestQuestion.ModifyGuestQuestionFragment">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scrollbars="none"
-            app:layout_constraintBottom_toTopOf="@id/button_next"
+            app:layout_constraintBottom_toTopOf="@id/button_save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -36,29 +32,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="20dp">
-
-                <TextView
-                    android:id="@+id/text_view_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/create_gathering_question_title"
-                    android:textColor="@color/color_363636"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/text_view_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/create_gathering_question_description"
-                    android:textColor="@color/color_8c8c8c"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+                android:paddingBottom="40dp">
 
                 <RadioGroup
                     android:id="@+id/radio_group_question"
@@ -68,7 +42,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_view_description">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <RadioButton
                         android:id="@+id/radio_button_need_question"
@@ -78,6 +52,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
                         android:button="@null"
+                        android:checked="@{vm.uiState.isNeedQuestionCheck == true}"
                         android:gravity="center"
                         android:onClick="@{() -> vm.onClickNeedQuestionButton()}"
                         android:paddingVertical="11dp"
@@ -94,6 +69,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
                         android:button="@null"
+                        android:checked="@{vm.uiState.isNeedQuestionCheck == false}"
                         android:gravity="center"
                         android:onClick="@{() -> vm.onClickNoQuestionButton()}"
                         android:paddingVertical="11dp"
@@ -162,15 +138,15 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/button_next"
+            android:id="@+id/button_save"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginBottom="26dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
-            android:enabled="@{vm.uiState.isNextButtonEnabled}"
-            android:onClick="@{() -> parent_vm.onMoveToNextPage(vm.uiState)}"
+            android:enabled="@{vm.uiState.saveButtonEnabled}"
+            android:onClick="@{() -> vm.onClickSaveButton()}"
             android:stateListAnimator="@null"
-            android:text="@string/word_next"
+            android:text="@string/word_save"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             android:textSize="14sp"
             android:textStyle="bold"

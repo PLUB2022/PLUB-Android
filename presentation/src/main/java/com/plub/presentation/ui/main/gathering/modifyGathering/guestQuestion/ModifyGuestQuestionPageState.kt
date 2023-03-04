@@ -1,18 +1,24 @@
-package com.plub.presentation.ui.main.gathering.createGathering.question
+package com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion
 
 import android.os.Parcelable
 import com.plub.presentation.ui.PageState
+import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
-data class CreateGatheringQuestionPageState(
+@Parcelize
+data class ModifyGuestQuestionPageState(
+    val plubbingId: Int = -1,
     private val _questions: List<CreateGatheringQuestion> = listOf(CreateGatheringQuestion()),
     val isNeedQuestionCheck: Boolean? = null,
     val needUpdateRecyclerView: Boolean = true,
     val isAddQuestionButtonVisible: Boolean = false
-) : PageState {
+) : PageState, Parcelable {
     val questions
         get() = if(isNeedQuestionCheck == true) _questions else emptyList()
-    val isNextButtonEnabled =
+
+    @IgnoredOnParcel
+    val isSaveButtonEnabled =
         when (isNeedQuestionCheck) {
             true -> {
                 _questions.find { it.question.isBlank() } == null
@@ -23,10 +29,3 @@ data class CreateGatheringQuestionPageState(
             else -> false // null인 경우 (아무 것도 선택 되지 않은 상태)
         }
 }
-
-@Parcelize
-data class CreateGatheringQuestion(
-    var key: Int = 0,
-    var position: Int = 1,
-    var question: String = ""
-) : Parcelable
