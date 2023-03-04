@@ -23,6 +23,7 @@ import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.domain.usecase.PutBoardEditUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.util.ImageUtil
 import com.plub.presentation.util.PermissionManager
 import com.plub.presentation.util.PlubingInfo
@@ -220,15 +221,16 @@ class BoardWriteViewModel @Inject constructor(
     private fun createFeed() {
         uploadImage {
             postUploadFeed(it) {
-                emitEventFlow(BoardWriteEvent.CompleteWrite)
+                emitEventFlow(BoardWriteEvent.CompleteCreate)
             }
         }
     }
 
     private fun editFeed() {
         uploadImage {
-            putEditFeed(it) {
-                emitEventFlow(BoardWriteEvent.CompleteWrite)
+            putEditFeed(it) { vo ->
+                val parseVo = ParsePlubingBoardVo.mapToParse(vo)
+                emitEventFlow(BoardWriteEvent.CompleteEdit(parseVo))
             }
         }
     }
@@ -278,14 +280,14 @@ class BoardWriteViewModel @Inject constructor(
         }
     }
 
-    private fun putEditFeed(imageUrl: String, onSuccess: () -> Unit) {
+    private fun putEditFeed(imageUrl: String, onSuccess: (PlubingBoardVo) -> Unit) {
         viewModelScope.launch {
             val request = uiState.value.run {
                 BoardEditRequestVo(plubingId, feedId, selectedFeedType, title, content, imageUrl)
             }
             putBoardEditUseCase(request).collect {
-                inspectUiState(it, {
-                    onSuccess()
+                inspectUiState(it, { vo ->
+                    onSuccess(vo)
                 })
             }
         }

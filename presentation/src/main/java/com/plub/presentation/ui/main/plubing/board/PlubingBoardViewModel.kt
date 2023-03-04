@@ -13,6 +13,7 @@ import com.plub.domain.usecase.GetBoardFeedsUseCase
 import com.plub.domain.usecase.GetBoardPinsUseCase
 import com.plub.domain.usecase.PutBoardChangePinUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,15 +31,26 @@ class PlubingBoardViewModel @Inject constructor(
         private const val CLIP_BOARD_SIZE = 3
         private const val CLIP_BOARD_POSITION = 0
         private const val FIRST_CURSOR = 0
+        private const val SCROLL_TOP = 0
     }
 
     private var plubingId by Delegates.notNull<Int>()
     private var isNetworkCall: Boolean = false
     private var isLastPage: Boolean = false
     private var cursorId: Int = FIRST_CURSOR
+    private var scrollToPosition:Int? = null
 
     fun initPlubingId(plubingId: Int) {
         this.plubingId = plubingId
+    }
+
+    fun onCompleteBoardCreate() {
+        refresh()
+    }
+
+    fun onCompleteBoardEdit(vo: ParsePlubingBoardVo) {
+        val domainVo = ParsePlubingBoardVo.mapToDomain(vo)
+        updateEditFeedList(domainVo)
     }
 
     fun onClickMenuItemType(feedId: Int, item: DialogMenuItemType) {
@@ -57,6 +69,13 @@ class PlubingBoardViewModel @Inject constructor(
 
     fun onClickNormalBoard(feedId: Int) {
         emitEventFlow(PlubingBoardEvent.GoToDetailBoard(feedId))
+    }
+
+    fun onBoardUpdated() {
+        scrollToPosition?.let {
+            emitEventFlow(PlubingBoardEvent.ScrollToPosition(it))
+            scrollToPosition = null
+        }
     }
 
     fun onLongClickNormalBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
@@ -85,6 +104,7 @@ class PlubingBoardViewModel @Inject constructor(
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
+        scrollToPosition = SCROLL_TOP
         fetchPlubingBoardList()
     }
 
@@ -176,6 +196,13 @@ class PlubingBoardViewModel @Inject constructor(
         updateBoardList(deletedList)
     }
 
+    private fun updateEditFeedList(vo: PlubingBoardVo) {
+        val newList = uiState.value.boardList.toMutableList()
+        val idx = newList.indexOfFirst { it.feedId == vo.feedId }
+        newList[idx] = vo
+        updateBoardList(newList)
+    }
+
     private fun updateBoardList(list:List<PlubingBoardVo>) {
         updateUiState { uiState ->
             uiState.copy(
@@ -185,7 +212,7 @@ class PlubingBoardViewModel @Inject constructor(
     }
 
     private fun cursorUpdate() {
-        val id = uiState.value.boardList.lastOrNull()?.feedId ?: FIRST_CURSOR
-        cursorId = id
+        cursorId = if (uiState.value.boardList.isEmpty()) FIRST_CURSOR
+        else uiState.value.boardList.drop(CLIP_BOARD_POSITION).lastOrNull()?.feedId ?: FIRST_CURSOR
     }
 }

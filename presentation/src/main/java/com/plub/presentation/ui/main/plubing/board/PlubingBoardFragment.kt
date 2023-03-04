@@ -10,9 +10,12 @@ import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingBoardBinding
+import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
+import com.plub.presentation.ui.main.plubing.board.write.BoardWriteFragment
+import com.plub.presentation.util.getNavigationResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -88,7 +91,9 @@ class PlubingBoardFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-                    boardListAdapter.submitList(it.boardList)
+                    boardListAdapter.submitList(it.boardList) {
+                        viewModel.onBoardUpdated()
+                    }
                 }
             }
 
@@ -97,6 +102,14 @@ class PlubingBoardFragment :
                     inspectEventFlow(it as PlubingBoardEvent)
                 }
             }
+        }
+
+        getNavigationResult(BoardWriteFragment.KEY_RESULT_EDIT_COMPLETE) { vo:ParsePlubingBoardVo ->
+            viewModel.onCompleteBoardEdit(vo)
+        }
+
+        getNavigationResult(BoardWriteFragment.KEY_RESULT_CREATE_COMPLETE) { _:Unit ->
+            viewModel.onCompleteBoardCreate()
         }
     }
 
@@ -116,6 +129,7 @@ class PlubingBoardFragment :
 
             is PlubingBoardEvent.GoToEditBoard -> goToEditBoard(event.feedId)
             is PlubingBoardEvent.GoToReportBoard -> Unit
+            is PlubingBoardEvent.ScrollToPosition -> binding.recyclerViewBoard.scrollToPosition(event.position)
         }
     }
 

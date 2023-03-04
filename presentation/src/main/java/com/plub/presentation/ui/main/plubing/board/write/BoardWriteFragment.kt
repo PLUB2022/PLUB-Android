@@ -16,6 +16,7 @@ import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.plubing.board.write.adapter.WriteFeedTypeAdapter
 import com.plub.presentation.util.IntentUtil
 import com.plub.presentation.util.px
+import com.plub.presentation.util.setNavigationResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,6 +27,8 @@ class BoardWriteFragment :
     ) {
 
     companion object {
+        const val KEY_RESULT_EDIT_COMPLETE = "KEY_RESULT_EDIT_COMPLETE"
+        const val KEY_RESULT_CREATE_COMPLETE = "KEY_RESULT_CREATE_COMPLETE"
         private const val SPACE_FEED_TYPE_HORIZONTAL = 8
     }
 
@@ -108,7 +111,12 @@ class BoardWriteFragment :
                 val intent = IntentUtil.getOpenCameraIntent(event.uri)
                 cameraLauncher.launch(intent)
             }
-            is BoardWriteEvent.CompleteWrite -> {
+            is BoardWriteEvent.CompleteEdit -> {
+                setNavigationResult(KEY_RESULT_EDIT_COMPLETE, event.board)
+                findNavController().popBackStack()
+            }
+            is BoardWriteEvent.CompleteCreate -> {
+                setNavigationResult(KEY_RESULT_CREATE_COMPLETE, Unit)
                 findNavController().popBackStack()
             }
         }
