@@ -79,7 +79,7 @@
             android:id="@+id/image_view_comment"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_board_comment"
+            android:src="@drawable/ic_board_comment_blue"
             app:layout_constraintEnd_toStartOf="@+id/text_view_comment"
             app:layout_constraintTop_toTopOf="parent" />
 
