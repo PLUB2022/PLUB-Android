@@ -61,6 +61,10 @@
         <action
             android:id="@+id/action_plubing_main_to_plubing_board_write"
             app:destination="@id/plubingBoardWriteFragment" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_plubing_board_detail"
+            app:destination="@id/plubingBoardDetailFragment" />
     </fragment>
 
     <fragment
@@ -77,6 +81,21 @@
             android:name="feedId"
             android:defaultValue="-1"
             app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/plubingBoardDetailFragment"
+        android:name="com.plub.presentation.ui.main.plubing.board.detail.BoardDetailFragment"
+        android:label="fragment_plubing_board_detail"
+        tools:layout="@layout/fragment_board_detail">
+
+        <argument
+            android:name="feedId"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_plubing_board_detail_to_plubing_board_write"
+            app:destination="@id/plubingBoardWriteFragment" />
     </fragment>
 
     <fragment
