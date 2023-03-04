@@ -65,7 +65,7 @@ interface PlubingBoardApi {
         @Path(PATH_PLUBING_ID) plubbingId: Int,
         @Path(PATH_FEED_ID) feedId: Int,
         @Body request: BoardWriteRequest
-    ): Response<ApiResponse<DataDto.DTO>>
+    ): Response<ApiResponse<PlubingBoardResponse>>
 
     @GET(Endpoints.PLUBBING.BOARD.COMMENTS)
     suspend fun getComments(

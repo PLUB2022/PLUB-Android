@@ -53,9 +53,9 @@ class PlubingBoardRepositoryImpl @Inject constructor(private val boardApi: Plubi
         return apiLaunch(boardApi.detailFeed(request.plubbingId, request.feedId), PlubingBoardResponseMapper)
     }
 
-    override suspend fun feedEdit(request: BoardEditRequestVo): Flow<UiState<Unit>> {
+    override suspend fun feedEdit(request: BoardEditRequestVo): Flow<UiState<PlubingBoardVo>> {
         val body = BoardEditRequestMapper.mapModelToDto(request)
-        return apiLaunch(boardApi.editFeed(request.plubingId, request.feedId, body), UnitResponseMapper)
+        return apiLaunch(boardApi.editFeed(request.plubingId, request.feedId, body), PlubingBoardResponseMapper)
     }
 
     override suspend fun commentGetList(request: GetBoardCommentsRequestVo): Flow<UiState<BoardCommentListVo>> {

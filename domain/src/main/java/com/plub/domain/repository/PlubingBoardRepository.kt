@@ -20,7 +20,7 @@ interface PlubingBoardRepository {
     suspend fun feedDelete(request:BoardRequestVo): Flow<UiState<Unit>>
     suspend fun feedDetail(request:BoardRequestVo): Flow<UiState<PlubingBoardVo>>
     suspend fun feedCreate(request: BoardCreateRequestVo): Flow<UiState<Unit>>
-    suspend fun feedEdit(request: BoardEditRequestVo): Flow<UiState<Unit>>
+    suspend fun feedEdit(request: BoardEditRequestVo): Flow<UiState<PlubingBoardVo>>
     suspend fun commentGetList(request: GetBoardCommentsRequestVo): Flow<UiState<BoardCommentListVo>>
     suspend fun commentCreate(request: CommentCreateRequestVo): Flow<UiState<Unit>>
     suspend fun commentDelete(request:BoardRequestVo): Flow<UiState<Unit>>
