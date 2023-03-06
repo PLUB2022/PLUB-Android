@@ -2,6 +2,7 @@ package com.plub.presentation.ui.main.home.plubhome
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.HomeViewType
+import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.home.HomePlubListVo
 import com.plub.domain.model.vo.home.categoryResponseVo.CategoryListDataResponseVo
@@ -30,6 +31,7 @@ class HomeFragmentViewModel @Inject constructor(
     private var hasMoreCards: Boolean = true
     private var isNetworkCall: Boolean = false
     private var hasInterest: Boolean = false
+    private val loading = HomePlubListVo(viewType = HomeViewType.LOADING)
 
     fun fetchHomePageData() =
         viewModelScope.launch {
@@ -78,9 +80,8 @@ class HomeFragmentViewModel @Inject constructor(
         hasMoreCards = (pageNumber != data.totalPages)
         updateUiState { ui ->
             ui.copy(
-                homePlubList = addRecommendGatheringList(data),
-                isVisible = true,
-                isLoading = hasMoreCards
+                homePlubList = if(hasMoreCards) addRecommendGatheringList(data) + arrayListOf(loading) else addRecommendGatheringList(data),
+                isVisible = true
             )
         }
         isNetworkCall = false
@@ -88,7 +89,10 @@ class HomeFragmentViewModel @Inject constructor(
     }
 
     private fun addRecommendGatheringList(it: PlubCardListVo): List<HomePlubListVo> {
-        val originList = uiState.value.homePlubList
+        val originList = mutableListOf<HomePlubListVo>()
+        uiState.value.homePlubList.forEach {
+            originList.add(it)
+        }
         val mergedList = mutableListOf<HomePlubListVo>()
         if (pageNumber == FIRST_PAGE) {
             mergedList.add(getRecommendTitleVo())
@@ -96,8 +100,11 @@ class HomeFragmentViewModel @Inject constructor(
                 mergedList.add(getRegisterHobbiesVo())
             }
         }
-        for (contentPosition in 0 until it.content.size) {
-            mergedList.add(getGatheringsVo(it.content[contentPosition]))
+        else{
+            originList.remove(loading)
+        }
+        it.content.forEach { vo ->
+            mergedList.add(getGatheringsVo(vo))
         }
 
         return originList + mergedList

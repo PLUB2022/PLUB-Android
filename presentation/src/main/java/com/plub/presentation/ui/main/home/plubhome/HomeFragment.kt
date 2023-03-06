@@ -74,7 +74,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-                    if(it.isVisible) submitList(it)
+                    if(it.isVisible) homeAdapter.submitList(it.homePlubList)
                 }
             }
             launch {
@@ -82,21 +82,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
                     inspectEvent(it as HomeEvent)
                 }
             }
-        }
-    }
-
-    private fun submitList(data: HomePageState) {
-        homeAdapter.submitList(getMergedList(data.homePlubList, data.isLoading))
-    }
-
-    private fun getMergedList(list : List<HomePlubListVo>, isLoading : Boolean) : List<HomePlubListVo>{
-        val loadingList = mutableListOf<HomePlubListVo>()
-        loadingList.add(HomePlubListVo(viewType = HomeViewType.LOADING))
-        return if(isLoading){
-            list + loadingList
-        }
-        else{
-            list
         }
     }
 
