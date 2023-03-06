@@ -30,7 +30,7 @@ class CategoryGatheringFragment :
                 viewModel.clickBookmark(plubbingId)
             }
 
-            override fun onClickPlubCard(id: Int, isHost : Boolean) {
+            override fun onClickPlubCard(id: Int, isHost: Boolean) {
                 viewModel.goToDetailRecruitment(id, isHost)
             }
         })
@@ -49,10 +49,13 @@ class CategoryGatheringFragment :
                 viewModel.goToCreate()
             }
         }
-        viewModel.fetchRecommendationGatheringData(categoryChoiceFragmentArgs.categoryId, categoryChoiceFragmentArgs.filter)
+        viewModel.fetchRecommendationGatheringData(
+            categoryChoiceFragmentArgs.categoryId,
+            categoryChoiceFragmentArgs.filter
+        )
     }
 
-    private fun initCategoryRecommendRecyclerView(){
+    private fun initCategoryRecommendRecyclerView() {
         binding.recyclerViewCategoryChoiceList.apply {
             layoutManager = GridLayoutManager(context, PlubCardType.TOTAL_SPAN_SIZE).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -68,10 +71,11 @@ class CategoryGatheringFragment :
             addOnScrollListener((object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    val lastVisiblePosition = (layoutManager as GridLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val lastVisiblePosition =
+                        (layoutManager as GridLayoutManager).findLastCompletelyVisibleItemPosition()
                     val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
                     val isDownScroll = dy > 0
-                    viewModel.onScrollChanged(isBottom,isDownScroll)
+                    viewModel.onScrollChanged(isBottom, isDownScroll)
                 }
             }))
         }
@@ -81,14 +85,14 @@ class CategoryGatheringFragment :
         super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect{
-                    subListGatheringList(it.cardList, it.isLoading)
+                viewModel.uiState.collect {
+                    subListGatheringList(it.cardList)
                     setSortTypeText(it.sortType)
                 }
             }
 
             launch {
-                viewModel.eventFlow.collect{
+                viewModel.eventFlow.collect {
                     inspectEventFlow(it as CategoryGatheringEvent)
                 }
             }
@@ -96,15 +100,8 @@ class CategoryGatheringFragment :
     }
 
 
-    private fun subListGatheringList(list : List<PlubCardVo>, isLoading : Boolean){
-        val loadingList = mutableListOf<PlubCardVo>()
-        loadingList.add(PlubCardVo(viewType = PlubCardType.LOADING))
-        if(isLoading){
-            gatheringListAdapter.submitList(list + loadingList)
-        }
-        else{
-            gatheringListAdapter.submitList(list)
-        }
+    private fun subListGatheringList(list: List<PlubCardVo>) {
+        gatheringListAdapter.submitList(list)
         viewModel.scrollTop()
     }
 
@@ -116,8 +113,8 @@ class CategoryGatheringFragment :
         binding.textViewSortType.text = getString(sortTypeRes)
     }
 
-    private fun inspectEventFlow(event : CategoryGatheringEvent){
-        when(event){
+    private fun inspectEventFlow(event: CategoryGatheringEvent) {
+        when (event) {
             is CategoryGatheringEvent.GoToBack -> {
                 findNavController().popBackStack()
             }
@@ -130,10 +127,10 @@ class CategoryGatheringFragment :
             is CategoryGatheringEvent.GoToCreate -> {
                 goToCreateGatheringFragment()
             }
-            is CategoryGatheringEvent.GoToRecruit ->{
+            is CategoryGatheringEvent.GoToRecruit -> {
                 goToDetailRecruitment(event.id)
             }
-            is CategoryGatheringEvent.ScrollTop ->{
+            is CategoryGatheringEvent.ScrollTop -> {
                 recyclerScrollToTop()
             }
             is CategoryGatheringEvent.GoToHostRecruit -> {
@@ -167,24 +164,28 @@ class CategoryGatheringFragment :
         findNavController().navigate(action)
     }
 
-    private fun goToDetailRecruitment(plubbingId : Int) {
+    private fun goToDetailRecruitment(plubbingId: Int) {
         val action =
             CategoryGatheringFragmentDirections.actionCategoryGatheringToRecruitment(plubbingId)
         findNavController().navigate(action)
     }
 
-    private fun goToHostRecruitment(plubbingId: Int){
-        val action = CategoryGatheringFragmentDirections.actionCategoryGatheringToHostRecruitment(plubbingId)
+    private fun goToHostRecruitment(plubbingId: Int) {
+        val action =
+            CategoryGatheringFragmentDirections.actionCategoryGatheringToHostRecruitment(plubbingId)
         findNavController().navigate(action)
     }
 
 
-    private fun recyclerScrollToTop(){
+    private fun recyclerScrollToTop() {
         binding.recyclerViewCategoryChoiceList.scrollToPosition(0)
     }
 
-    private fun goToCategoryGatheringFilter(){
-        val action = CategoryGatheringFragmentDirections.actionCategoryGatheringToFilter(categoryChoiceFragmentArgs.categoryId, categoryChoiceFragmentArgs.categoryName)
+    private fun goToCategoryGatheringFilter() {
+        val action = CategoryGatheringFragmentDirections.actionCategoryGatheringToFilter(
+            categoryChoiceFragmentArgs.categoryId,
+            categoryChoiceFragmentArgs.categoryName
+        )
         findNavController().navigate(action)
     }
 }

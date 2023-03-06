@@ -35,6 +35,7 @@ class CategoryGatheringViewModel @Inject constructor(
     private var pageNumber: Int = FIRST_PAGE
     private var hasMoreCards: Boolean = true
     private var isNetworkCall: Boolean = false
+    private val loading = PlubCardVo(viewType = PlubCardType.LOADING)
 
 
     fun fetchRecommendationGatheringData(id: Int, body : GatheringFilterState) =
@@ -102,9 +103,8 @@ class CategoryGatheringViewModel @Inject constructor(
         val mergedList = getMergeList(mappedList)
         updateUiState { ui ->
             ui.copy(
-                cardList = mergedList,
-                isEmptyViewVisible = mergedList.isEmpty(),
-                isLoading = hasMoreCards
+                cardList = if(hasMoreCards) mergedList + arrayListOf(loading) else mergedList,
+                isEmptyViewVisible = mergedList.isEmpty()
             )
         }
         pageNumber++
@@ -119,11 +119,15 @@ class CategoryGatheringViewModel @Inject constructor(
     }
 
     private fun getMergeList(list: List<PlubCardVo>): List<PlubCardVo> {
-        val originList = uiState.value.cardList
+        val originList = mutableListOf<PlubCardVo>()
+        uiState.value.cardList.forEach {
+            originList.add(it)
+        }
         val mappedList = mapToCardType(list)
         return if (originList.isEmpty() || pageNumber == FIRST_PAGE) {
             mappedList
         } else {
+            originList.remove(loading)
             originList + mappedList
         }
     }
