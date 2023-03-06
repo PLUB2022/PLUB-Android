@@ -115,6 +115,12 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun providesPutModifyQuestionsUseCase(repository: RecruitRepository): PutModifyQuestionsUseCase {
+        return PutModifyQuestionsUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun providesFetchMyInfoUseCase(repository: AccountRepository): FetchMyInfoUseCase {
         return FetchMyInfoUseCase(repository)
     }

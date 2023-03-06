@@ -7,7 +7,11 @@ import com.plub.data.dto.applyrecruit.QuestionsListResponse
 import com.plub.data.dto.recruitdetail.host.EndRecruitResponse
 import com.plub.data.dto.recruitdetail.host.HostApplicantsListResponse
 import com.plub.data.base.ApiResponse
+import com.plub.data.dto.createGathering.CreateGatheringResponse
+import com.plub.data.dto.modifyGathering.ModifyQuestionRequest
+import com.plub.data.dto.modifyGathering.ModifyQuestionRequestBody
 import com.plub.data.dto.recruitdetail.RecruitDetailResponse
+import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -49,4 +53,10 @@ interface RecruitApi {
     suspend fun getQustions(
         @Path("plubbingId") plubbingID: Int
     ) : Response<ApiResponse<QuestionsListResponse>>
+
+    @PUT(Endpoints.PLUBBING.RECRUIT_QUESTIONS)
+    suspend fun modifyQuestions(
+        @Path("plubbingId") plubbingID: Int,
+        @Body request: ModifyQuestionRequestBody
+    ) : Response<ApiResponse<CreateGatheringResponse>>
 }

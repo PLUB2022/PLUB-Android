@@ -10,9 +10,11 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
+import com.kakao.sdk.user.UserApiClient
 import com.plub.domain.error.LoginError
 import com.plub.domain.model.enums.SocialLoginType
 import com.plub.domain.model.enums.TermsType
@@ -104,10 +106,13 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun socialLogin(request: SocialLoginRequestVo) {
-        viewModelScope.launch {
-            postSocialLoginUseCase(request).collect { state ->
-                inspectUiState(state, ::handleLoginSuccess) { data, individual ->
-                    handleLoginError(data, individual as LoginError)
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+            val requestWithFcmToken = request.copy(fcmToken = token)
+            viewModelScope.launch {
+                postSocialLoginUseCase(requestWithFcmToken).collect { state ->
+                    inspectUiState(state, ::handleLoginSuccess) { data, individual ->
+                        handleLoginError(data, individual as LoginError)
+                    }
                 }
             }
         }

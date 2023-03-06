@@ -4,17 +4,12 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.plub.domain.model.enums.ModifyGatheringPageType
-import com.plub.domain.model.enums.PlubingMainPageType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentModifyGatheringBinding
 import com.plub.presentation.databinding.IncludeTabModifyGatheringBinding
-import com.plub.presentation.databinding.IncludeTabPlubingMainBinding
-import com.plub.presentation.ui.Event
 import com.plub.presentation.ui.main.gathering.modifyGathering.adapter.FragmentModifyGatheringPagerAdapter
-import com.plub.presentation.ui.main.plubing.adapter.FragmentPlubingMainPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -31,7 +26,9 @@ class ModifyGatheringFragment : BaseFragment
             vm = viewModel
         }
 
-        viewModel.getGatheringInfoDetail(21)
+        viewModel.getGatheringInfoDetail(21) { id ->
+            viewModel.getQuestions(id)
+        }
     }
 
     override fun initStates() {
@@ -85,7 +82,7 @@ class ModifyGatheringFragment : BaseFragment
         return when (ModifyGatheringPageType.valueOf(tabIndex)) {
             ModifyGatheringPageType.RECRUIT -> getString(R.string.modify_gathering_tab_recruit)
             ModifyGatheringPageType.INFO -> getString(R.string.modify_gathering_tab_info)
-            ModifyGatheringPageType.GUEST -> getString(R.string.modify_gathering_tab_guest)
+            ModifyGatheringPageType.GUEST_QUESTION -> getString(R.string.modify_gathering_tab_guest)
         }
     }
 }

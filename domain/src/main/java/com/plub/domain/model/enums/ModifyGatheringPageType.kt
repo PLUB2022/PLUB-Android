@@ -3,7 +3,7 @@ package com.plub.domain.model.enums
 enum class ModifyGatheringPageType(val idx: Int) {
     RECRUIT(0),
     INFO(1),
-    GUEST(2);
+    GUEST_QUESTION(2);
 
     companion object {
         fun valueOf(value: Int): ModifyGatheringPageType {

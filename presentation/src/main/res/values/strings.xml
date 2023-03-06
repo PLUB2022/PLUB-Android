@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="notification_channel_name">알람</string>
+
     <!-- DataBinding -->
     <string name="int_to_string">%d</string>
 
@@ -226,6 +229,7 @@
     <string name="plubing_board_write_post">글 업로드</string>
     <string name="plubing_board_write_title_hint">제목을 입력해주세요</string>
     <string name="plubing_board_write_content_hint">내용을 입력해주세요</string>
+
     <string name="plubing_board_detail_comment_hint">댓글을 입력하세요</string>
     <string name="plubing_board_detail_comment_reply">답글달기</string>
     <string name="plubing_board_detail_reply_writing">%s 님에게 답글 쓰는 중…</string>
