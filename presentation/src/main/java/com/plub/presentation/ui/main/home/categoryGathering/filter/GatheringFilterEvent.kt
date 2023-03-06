@@ -7,6 +7,5 @@ import com.plub.presentation.ui.Event
 sealed class GatheringFilterEvent : Event {
     object GoToBack : GatheringFilterEvent()
     data class GoToCategoryGathering(val pageState: GatheringFilterState) : GatheringFilterEvent()
-    data class ClickDay(val dayList : List<DaysType>) : GatheringFilterEvent()
     data class NotifySubHobby(val vo: SelectedHobbyVo) : GatheringFilterEvent()
 }

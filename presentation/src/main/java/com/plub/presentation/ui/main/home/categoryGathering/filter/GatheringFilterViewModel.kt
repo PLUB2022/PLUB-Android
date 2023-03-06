@@ -7,6 +7,8 @@ import com.plub.domain.model.vo.common.SubHobbyVo
 import com.plub.domain.usecase.GetSubHobbiesUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.util.addOrRemoveElementAfterReturnNewHashSet
+import com.plub.presentation.util.removeElementAfterReturnNewHashSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,7 +20,6 @@ class GatheringFilterViewModel @Inject constructor(
 
     private var categoryName = ""
     private val selectedList: MutableList<SelectedHobbyVo> = mutableListOf()
-    private val selectedDayList : MutableList<DaysType> = mutableListOf()
 
     fun fetchSubHobbies(categoryId : Int, categoryName : String){
         this.categoryName = categoryName
@@ -66,46 +67,26 @@ class GatheringFilterViewModel @Inject constructor(
         emitEventFlow(GatheringFilterEvent.NotifySubHobby(selectedHobbyVo))
     }
 
-    fun onClickAllDay(){
-        if(selectedDayList.contains(DaysType.ALL)){
-            selectedDayList.remove(DaysType.ALL)
-        }
-        else{
-            selectedDayList.clear()
-            selectedDayList.add(DaysType.ALL)
-            selectedDayList.add(DaysType.MON)
-            selectedDayList.add(DaysType.TUE)
-            selectedDayList.add(DaysType.WED)
-            selectedDayList.add(DaysType.THR)
-            selectedDayList.add(DaysType.FRI)
-            selectedDayList.add(DaysType.SAT)
-            selectedDayList.add(DaysType.SUN)
-        }
-        updateSelectDayList()
-        emitEventFlow(GatheringFilterEvent.ClickDay(selectedDayList))
-    }
-
-    fun onClickDay(daysType : DaysType){
-        if(selectedDayList.contains(DaysType.ALL)){
-            selectedDayList.remove(DaysType.ALL)
-        }
-
-        if(selectedDayList.contains(daysType)){
-            selectedDayList.remove(daysType)
-        }
-        else{
-            selectedDayList.add(daysType)
-        }
-        updateSelectDayList()
-        emitEventFlow(GatheringFilterEvent.ClickDay(selectedDayList))
-    }
-
-    private fun updateSelectDayList(){
+    fun onClickCheckBox(element: DaysType): Void? {
         updateUiState { uiState ->
             uiState.copy(
-                dayList = selectedDayList
+                gatheringDays = uiState.gatheringDays
+                    .addOrRemoveElementAfterReturnNewHashSet(element)
+                    .removeElementAfterReturnNewHashSet(DaysType.ALL)
             )
         }
+        return null
+    }
+
+    fun onClickAllCheckBox(): Void? {
+        updateUiState { uiState ->
+            uiState.copy(
+                gatheringDays = if (DaysType.ALL in uiState.gatheringDays) hashSetOf() else hashSetOf(
+                    DaysType.ALL
+                )
+            )
+        }
+        return null
     }
 
     val updateSeekbarProgressAndPositionX: (progress: Int, position: Float) -> Unit =

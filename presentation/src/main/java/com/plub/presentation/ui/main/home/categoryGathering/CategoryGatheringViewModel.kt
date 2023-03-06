@@ -57,8 +57,7 @@ class CategoryGatheringViewModel @Inject constructor(
         }
 
     private fun getBodyVo(body : GatheringFilterState) : CategoriesGatheringBodyRequestVo{
-        PlubLogger.logD("게더링 필터", body.toString())
-        val days = if(body.dayList.isEmpty() || body.dayList.contains(DaysType.ALL)) null else body.dayList.map { it.eng }
+        val days = if(body.gatheringDays.isEmpty() || body.gatheringDays.contains(DaysType.ALL)) null else body.gatheringDays.map { it.eng }
         val subCategoryId = if(body.hobbiesSelectedVo.hobbies.isEmpty()) null else getMergeSelectedHobbyList(body.hobbiesSelectedVo.hobbies)
         val accountNum = if(body.accountNum == 0) null else body.accountNum
 

@@ -11,15 +11,15 @@ import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class GatheringFilterState(
+    val gatheringDays: HashSet<DaysType> = hashSetOf(),
     val categoryName : String ="",
     val subHobbies : @RawValue List<SubHobbyVo> = emptyList(),
-    val dayList : List<DaysType> = emptyList(),
     val seekBarProgress: Int = 0,
     val seekBarPositionX: Float = 0.0f,
     val accountNum : Int = 0,
     val hobbiesSelectedVo: @RawValue SignUpHobbiesVo = SignUpHobbiesVo()
 ): PageState, Parcelable {
     @IgnoredOnParcel
-    val isButtonEnable = hobbiesSelectedVo.hobbies.isNotEmpty() && dayList.isNotEmpty()
+    val isButtonEnable = hobbiesSelectedVo.hobbies.isNotEmpty() && gatheringDays.isNotEmpty()
     val peopleNumber = seekBarProgress + 4
 }

@@ -61,30 +61,15 @@ class GatheringFilterFragment :
         })
     }
 
-    private val dayButtonList : MutableList<Button> = mutableListOf()
     private val gatheringFilterFragmentArgs : GatheringFilterFragmentArgs by navArgs()
     override val viewModel: GatheringFilterViewModel by viewModels()
 
     override fun initView() {
         binding.apply {
             vm = viewModel
-            setButtonList()
             initRecycler()
         }
         viewModel.fetchSubHobbies(gatheringFilterFragmentArgs.categoryId, gatheringFilterFragmentArgs.categoryName)
-    }
-
-    private fun setButtonList(){
-        binding.apply {
-            dayButtonList.add(buttonAllDay)
-            dayButtonList.add(buttonMonday)
-            dayButtonList.add(buttonTuesday)
-            dayButtonList.add(buttonWednesday)
-            dayButtonList.add(buttonThursday)
-            dayButtonList.add(buttonFriday)
-            dayButtonList.add(buttonSaturday)
-            dayButtonList.add(buttonSunday)
-        }
     }
 
     private fun initRecycler(){
@@ -103,7 +88,6 @@ class GatheringFilterFragment :
             launch {
                 viewModel.uiState.collect {
                     listAdapter.submitList(it.subHobbies)
-                    updateDayButton(it.dayList)
                 }
             }
 
@@ -126,37 +110,6 @@ class GatheringFilterFragment :
             is GatheringFilterEvent.GoToBack -> {
                 findNavController().popBackStack()
             }
-            is GatheringFilterEvent.ClickDay -> {
-                updateDayButton(event.dayList)
-            }
-        }
-    }
-
-    private fun updateDayButton(dayList : List<DaysType>){
-        uncheckedDayButton()
-        dayList.forEach {
-            when(it){
-                DaysType.MON -> { checkedDayButton(MON) }
-                DaysType.TUE -> { checkedDayButton(TUE) }
-                DaysType.WED -> { checkedDayButton(WED) }
-                DaysType.THR -> { checkedDayButton(THR) }
-                DaysType.FRI -> { checkedDayButton(FRI) }
-                DaysType.SAT -> { checkedDayButton(SAT) }
-                DaysType.SUN -> { checkedDayButton(SUN) }
-                DaysType.ALL -> { checkedDayButton(ALL) }
-            }
-        }
-    }
-
-    private fun checkedDayButton(day : Int){
-        dayButtonList[day].setBackgroundResource(R.drawable.bg_rectangle_filled_5f5ff9_radius_8)
-        dayButtonList[day].setTextColor(resources.getColor(R.color.white))
-    }
-
-    private fun uncheckedDayButton(){
-        dayButtonList.forEach {
-            it.setBackgroundResource(R.drawable.bg_rectangle_empty_8c8c8c_radius_8)
-            it.setTextColor(resources.getColor(R.color.color_8c8c8c))
         }
     }
 

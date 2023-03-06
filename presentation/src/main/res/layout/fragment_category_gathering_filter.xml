@@ -76,116 +76,122 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recycler_view_sub_hobbies" />
 
-        <Button
-            android:id="@+id/button_all_day"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
+        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+            android:id="@+id/check_box_mon"
+            style="@style/create_gathering_day_fixed_text_width_check_box"
+            day="@{DaysType.MON}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
             android:layout_marginTop="8dp"
-            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            android:onClick="@{()->vm.onClickAllDay()}"
-            android:text="@string/word_all_day"
-            android:textColor="@color/color_8c8c8c"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_gathering_day_title" />
-
-        <Button
-            android:id="@+id/button_monday"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_marginHorizontal="12dp"
-            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            android:onClick="@{()->vm.onClickDay(DaysType.MON)}"
-            android:text="@string/word_monday"
-            android:textColor="@color/color_8c8c8c"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@id/button_tuesday"
-            app:layout_constraintStart_toEndOf="@id/button_all_day"
-            app:layout_constraintTop_toTopOf="@id/button_all_day" />
-
-        <Button
-            android:id="@+id/button_tuesday"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
             android:layout_marginEnd="12dp"
-            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            android:onClick="@{()->vm.onClickDay(DaysType.TUE)}"
-            android:text="@string/word_tuesday"
-            android:textColor="@color/color_8c8c8c"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@id/button_wednesday"
-            app:layout_constraintStart_toEndOf="@id/button_monday"
-            app:layout_constraintTop_toTopOf="@id/button_all_day" />
-
-        <Button
-            android:id="@+id/button_wednesday"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            android:onClick="@{()->vm.onClickDay(DaysType.WED)}"
-            android:text="@string/word_wednesday"
-            android:textColor="@color/color_8c8c8c"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/button_all_day" />
-
-
-        <Button
-            android:id="@+id/button_thursday"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            android:onClick="@{()->vm.onClickDay(DaysType.THR)}"
-            android:text="@string/word_thursday"
-            android:textColor="@color/color_8c8c8c"
-            android:textSize="12sp"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.MON)}"
+            app:layout_constraintEnd_toStartOf="@id/check_box_tue"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_all_day" />
+            app:layout_constraintTop_toBottomOf="@id/text_view_gathering_day_title"
+            app:text="@string/word_monday"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
 
-        <Button
-            android:id="@+id/button_friday"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_marginHorizontal="12dp"
-            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            android:onClick="@{()->vm.onClickDay(DaysType.FRI)}"
-            android:text="@string/word_friday"
-            android:textColor="@color/color_8c8c8c"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@id/button_saturday"
-            app:layout_constraintStart_toEndOf="@id/button_thursday"
-            app:layout_constraintTop_toTopOf="@id/button_thursday" />
-
-        <Button
-            android:id="@+id/button_saturday"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
+        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+            android:id="@+id/check_box_tue"
+            style="@style/create_gathering_day_fixed_text_width_check_box"
+            day="@{DaysType.TUE}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
             android:layout_marginEnd="12dp"
-            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            android:onClick="@{()->vm.onClickDay(DaysType.SAT)}"
-            android:text="@string/word_saturday"
-            android:textColor="@color/color_8c8c8c"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@id/button_sunday"
-            app:layout_constraintStart_toEndOf="@id/button_friday"
-            app:layout_constraintTop_toTopOf="@id/button_thursday" />
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.TUE)}"
+            app:layout_constraintEnd_toStartOf="@id/check_box_wed"
+            app:layout_constraintStart_toEndOf="@id/check_box_mon"
+            app:layout_constraintTop_toTopOf="@id/check_box_mon"
+            app:text="@string/word_tuesday"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
 
-        <Button
-            android:id="@+id/button_sunday"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
+        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+            android:id="@+id/check_box_wed"
+            style="@style/create_gathering_day_fixed_text_width_check_box"
+            day="@{DaysType.WED}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
+            android:layout_marginEnd="12dp"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.WED)}"
+            app:layout_constraintEnd_toStartOf="@id/check_box_thr"
+            app:layout_constraintStart_toEndOf="@id/check_box_tue"
+            app:layout_constraintTop_toTopOf="@id/check_box_tue"
+            app:text="@string/word_wednesday"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
+
+        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+            android:id="@+id/check_box_thr"
+            style="@style/create_gathering_day_fixed_text_width_check_box"
+            day="@{DaysType.THR}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            android:onClick="@{()->vm.onClickDay(DaysType.SUN)}"
-            android:text="@string/word_sunday"
-            android:textColor="@color/color_8c8c8c"
-            android:textSize="12sp"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.THR)}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/button_thursday" />
+            app:layout_constraintStart_toEndOf="@id/check_box_wed"
+            app:layout_constraintTop_toTopOf="@id/check_box_wed"
+            app:text="@string/word_thursday"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
+
+        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+            android:id="@+id/check_box_fri"
+            style="@style/create_gathering_day_fixed_text_width_check_box"
+            day="@{DaysType.FRI}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="16dp"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.FRI)}"
+            app:layout_constraintEnd_toStartOf="@id/check_box_sat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/check_box_mon"
+            app:text="@string/word_friday"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
+
+        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+            android:id="@+id/check_box_sat"
+            style="@style/create_gathering_day_fixed_text_width_check_box"
+            day="@{DaysType.SAT}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
+            android:layout_marginEnd="12dp"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.SAT)}"
+            app:layout_constraintEnd_toStartOf="@id/check_box_sun"
+            app:layout_constraintStart_toEndOf="@id/check_box_fri"
+            app:layout_constraintTop_toTopOf="@id/check_box_fri"
+            app:text="@string/word_saturday"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
+
+        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+            android:id="@+id/check_box_sun"
+            style="@style/create_gathering_day_fixed_text_width_check_box"
+            day="@{DaysType.SUN}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
+            android:layout_marginEnd="12dp"
+            android:onClick="@{() -> vm.onClickCheckBox(DaysType.SUN)}"
+            app:layout_constraintEnd_toStartOf="@id/check_box_all"
+            app:layout_constraintStart_toEndOf="@id/check_box_sat"
+            app:layout_constraintTop_toTopOf="@id/check_box_sat"
+            app:text="@string/word_sunday"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
+
+        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+            android:id="@+id/check_box_all"
+            style="@style/create_gathering_day_fixed_text_width_check_box"
+            day="@{DaysType.ALL}"
+            dayHashSet="@{vm.uiState.gatheringDays}"
+            android:onClick="@{() -> vm.onClickAllCheckBox()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toEndOf="@id/check_box_sun"
+            app:layout_constraintTop_toTopOf="@id/check_box_sun"
+            app:text="@string/word_all_day"
+            tools:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+            tools:layout_height="40dp"
+            tools:layout_width="80dp" />
 
         <TextView
             android:id="@+id/text_view_people"
@@ -197,7 +203,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_thursday" />
+            app:layout_constraintTop_toBottomOf="@id/check_box_all" />
 
         <TextView
             android:layout_width="wrap_content"
