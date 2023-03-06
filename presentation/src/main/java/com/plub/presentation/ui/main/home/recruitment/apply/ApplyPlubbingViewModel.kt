@@ -48,8 +48,8 @@ class ApplyPlubbingViewModel @Inject constructor(
 
     private fun setAnswerList(dataList : List<QuestionsDataVo>){
         val mergeList = mutableListOf<ApplicantsRecruitAnswerListVo>()
-        for(content in dataList){
-            mergeList.add(ApplicantsRecruitAnswerListVo(content.id, EMPTY_TEXT))
+        dataList.forEach {
+            mergeList.add(ApplicantsRecruitAnswerListVo(it.id, EMPTY_TEXT))
         }
         answerList = mergeList
     }
@@ -87,8 +87,8 @@ class ApplyPlubbingViewModel @Inject constructor(
 
     private fun isAnswerListNotEmpty() {
         var emptyState = true
-        for (content in answerList) {
-            if (content.answer.isEmpty()) {
+        answerList.forEach {
+            if(it.answer.isEmpty()){
                 emptyState = false
             }
         }
