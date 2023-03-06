@@ -11,6 +11,7 @@ import com.plub.data.repository.MediaRepositoryImpl
 import com.plub.data.repository.RecruitDetailRepositoryImpl
 import com.plub.data.repository.PlubingBoardRepositoryImpl
 import com.plub.data.repository.PlubingMainRepositoryImpl
+import com.plub.data.repository.ScheduleRepositoryImpl
 import com.plub.data.repository.SearchRepositoryImpl
 import com.plub.data.repository.SignUpRepositoryImpl
 import com.plub.domain.repository.AccountRepository
@@ -24,6 +25,7 @@ import com.plub.domain.repository.MediaRepository
 import com.plub.domain.repository.PlubingBoardRepository
 import com.plub.domain.repository.PlubingMainRepository
 import com.plub.domain.repository.RecruitRepository
+import com.plub.domain.repository.ScheduleRepository
 import com.plub.domain.repository.SearchRepository
 import com.plub.domain.repository.SignUpRepository
 import dagger.Binds
@@ -87,4 +89,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailRepositoryImpl): RecruitRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesScheduleRepository(scheduleRepositoryImpl: ScheduleRepositoryImpl): ScheduleRepository
 }

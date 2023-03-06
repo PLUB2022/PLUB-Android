@@ -208,4 +208,10 @@ object UseCaseModule {
     fun providesGetRecruitDetailUseCase(repository: RecruitRepository): GetRecruitDetailUseCase {
         return GetRecruitDetailUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesGetEntireScheduleUseCase(repository: ScheduleRepository): GetEntireScheduleUseCase {
+        return GetEntireScheduleUseCase(repository)
+    }
 }
