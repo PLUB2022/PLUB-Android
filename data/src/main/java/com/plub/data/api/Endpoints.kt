@@ -64,5 +64,9 @@ object Endpoints {
             const val DELETE_FEED = "$PLUBBING_URL/feeds/{feedId}"
             const val POST_FEED = "$PLUBBING_ID_URL/feeds"
         }
+
+        object SCHEDULE {
+            const val CALENDAR = "$PLUBBING_ID_URL/calendar"
+        }
     }
 }
