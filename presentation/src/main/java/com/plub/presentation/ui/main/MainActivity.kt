@@ -15,6 +15,7 @@ import com.plub.presentation.base.BaseActivity
 import com.plub.presentation.databinding.ActivityMainBinding
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.util.ResourceProvider
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.sign.signup
 
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.messaging.FirebaseMessaging
 import com.plub.domain.error.SignUpError
 import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.enums.UploadFileType
@@ -125,12 +126,14 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun signUp(signToken: String, profileUrl: String) {
-        viewModelScope.launch {
-            val request = uiState.value.getSignUpRequestVo(signToken, profileUrl)
-            postSignUpUseCase(request).collect { state ->
-                inspectUiState(state, ::signUpSuccess) { _, individual ->
-                    handleSignUpError(individual as SignUpError)
-                    isNetworkCall = false
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+            viewModelScope.launch {
+                val request = uiState.value.getSignUpRequestVo(signToken, token, profileUrl)
+                postSignUpUseCase(request).collect { state ->
+                    inspectUiState(state, ::signUpSuccess) { _, individual ->
+                        handleSignUpError(individual as SignUpError)
+                        isNetworkCall = false
+                    }
                 }
             }
         }

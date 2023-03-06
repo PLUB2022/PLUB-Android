@@ -1,34 +1,43 @@
-package com.plub.presentation.ui.main.gathering.createGathering.question
+package com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.vo.modifyGathering.ModifyQuestionRequestVo
+import com.plub.domain.usecase.PutModifyQuestionsUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.PageState
+import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
+import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionViewModel
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.deepCopy
 import com.plub.presentation.util.deepCopyAfterUpdateQuestion
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateGatheringQuestionViewModel @Inject constructor() :
-    BaseViewModel<CreateGatheringQuestionPageState>(CreateGatheringQuestionPageState()) {
+class ModifyGuestQuestionViewModel @Inject constructor(
+    private val putModifyQuestionsUseCase: PutModifyQuestionsUseCase
+) : BaseViewModel<ModifyGuestQuestionPageState>(ModifyGuestQuestionPageState()) {
 
-    companion object {
-        const val MAX_QUESTION_SIZE = 5
+    fun initPageState(bundlePageState: ModifyGuestQuestionPageState) {
+        updateUiState { uiState ->
+            uiState.copy(
+                plubbingId = bundlePageState.plubbingId,
+                _questions = bundlePageState.copy(isNeedQuestionCheck = true).questions.deepCopy(),
+                isNeedQuestionCheck = bundlePageState.isNeedQuestionCheck,
+                needUpdateRecyclerView = true,
+                isAddQuestionButtonVisible = bundlePageState.isAddQuestionButtonVisible
+            )
+        }
     }
 
-    fun initUiState(savedUiState: PageState) {
-        if (uiState.value != CreateGatheringQuestionPageState())
-            return
-
-        if (savedUiState is CreateGatheringQuestionPageState) {
-            updateUiState { uiState ->
-                uiState.copy(
-                    _questions = savedUiState.copy(isNeedQuestionCheck = true).questions.deepCopy(),
-                    isNeedQuestionCheck = savedUiState.isNeedQuestionCheck,
-                    needUpdateRecyclerView = true,
-                    isAddQuestionButtonVisible = savedUiState.isAddQuestionButtonVisible
-                )
+    fun onClickSaveButton() {
+        viewModelScope.launch {
+            val request = ModifyQuestionRequestVo(uiState.value.plubbingId, uiState.value.questions.map { it.question })
+            putModifyQuestionsUseCase(request).collect { state ->
+                inspectUiState(state,
+                    succeedCallback = { },
+                    individualErrorCallback = null)
             }
         }
     }
@@ -57,7 +66,7 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
 
     fun onClickRecyclerViewDeleteButton(position: Int) {
         emitEventFlow(
-            CreateGatheringQuestionEvent.ShowBottomSheetDeleteQuestion(
+            ModifyGuestQuestionEvent.ShowBottomSheetDeleteQuestion(
                 uiState.value.questions.size,
                 position
             )
@@ -94,7 +103,7 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
     fun onClickBottomSheetDelete(size: Int, position: Int) {
         deleteQuestionOrMakeQuestionSizeToOne(position)
         if (size == 1)
-            emitEventFlow(CreateGatheringQuestionEvent.PerformClickNoQuestionRadioButton)
+            emitEventFlow(ModifyGuestQuestionEvent.PerformClickNoQuestionRadioButton)
     }
 
     private fun deleteQuestionOrMakeQuestionSizeToOne(position: Int) {
@@ -116,12 +125,13 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
 
     private fun updateQuestionPosition(changeIndex: Int, questions: List<CreateGatheringQuestion>) {
         var key = uiState.value.questions.lastOrNull()?.key ?: 0
-        questions.forEachIndexed { index, createGatheringQuestion ->
+        questions.forEachIndexed { index, gatheringQuestion ->
             if (index >= changeIndex) {
-                createGatheringQuestion.position = index + 1
-                createGatheringQuestion.key = ++key
-                createGatheringQuestion.question = questions[index].question
+                gatheringQuestion.position = index + 1
+                gatheringQuestion.key = ++key
+                gatheringQuestion.question = questions[index].question
             }
         }
     }
+
 }
