@@ -64,10 +64,10 @@ class PlubingBoardViewModel @Inject constructor(
     }
 
     fun onClickClipBoard() {
-
+        emitEventFlow(PlubingBoardEvent.GoToPinBoard)
     }
 
-    fun onClickNormalBoard(feedId: Int) {
+    fun onClickBoard(feedId: Int) {
         emitEventFlow(PlubingBoardEvent.GoToDetailBoard(feedId))
     }
 
@@ -78,7 +78,7 @@ class PlubingBoardViewModel @Inject constructor(
         }
     }
 
-    fun onLongClickNormalBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
+    fun onLongClickBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
         val menuType = when {
             isHost && isAuthor -> DialogMenuType.BOARD_LIST_HOST_AND_AUTHOR_TYPE
             isHost -> DialogMenuType.BOARD_LIST_HOST_TYPE

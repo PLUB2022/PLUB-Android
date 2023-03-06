@@ -40,13 +40,13 @@
         android:id="@+id/searchingFragment"
         android:name="com.plub.presentation.ui.main.home.search.SearchingFragment"
         android:label="fragment_searching"
-        tools:layout="@layout/fragment_searching"></fragment>
+        tools:layout="@layout/fragment_searching" />
 
     <fragment
         android:id="@+id/bookmarkFragment"
         android:name="com.plub.presentation.ui.main.home.bookmark.BookmarkFragment"
         android:label="fragment_bookmark"
-        tools:layout="@layout/fragment_bookmark"></fragment>
+        tools:layout="@layout/fragment_bookmark" />
 
     <fragment
         android:id="@+id/plubingMainFragment"
@@ -65,6 +65,10 @@
         <action
             android:id="@+id/action_plubing_main_to_plubing_board_detail"
             app:destination="@id/plubingBoardDetailFragment" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_board_pin"
+            app:destination="@+id/boardPinFragment" />
     </fragment>
 
     <fragment
@@ -96,6 +100,21 @@
         <action
             android:id="@+id/action_plubing_board_detail_to_plubing_board_write"
             app:destination="@id/plubingBoardWriteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/boardPinFragment"
+        android:name="com.plub.presentation.ui.main.plubing.board.pin.BoardPinFragment"
+        android:label="fragment_board_pin"
+        tools:layout="@layout/fragment_board_pin">
+
+        <action
+            android:id="@+id/action_board_pin_to_plubing_board_write"
+            app:destination="@id/plubingBoardWriteFragment" />
+
+        <action
+            android:id="@+id/action_board_pin_to_board_detail"
+            app:destination="@id/plubingBoardDetailFragment" />
     </fragment>
 
     <fragment

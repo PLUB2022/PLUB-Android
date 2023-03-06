@@ -45,12 +45,12 @@ class PlubingBoardFragment :
                 viewModel.onClickClipBoard()
             }
 
-            override fun onClickNormalBoard(feedId: Int) {
-                viewModel.onClickNormalBoard(feedId)
+            override fun onClickBoard(feedId: Int) {
+                viewModel.onClickBoard(feedId)
             }
 
-            override fun onLongClickNormalBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
-                viewModel.onLongClickNormalBoard(feedId, isHost, isAuthor)
+            override fun onLongClickBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
+                viewModel.onLongClickBoard(feedId, isHost, isAuthor)
             }
 
             override val clipBoardList: List<PlubingBoardVo>
@@ -115,22 +115,18 @@ class PlubingBoardFragment :
 
     private fun inspectEventFlow(event: PlubingBoardEvent) {
         when (event) {
-            is PlubingBoardEvent.GoToDetailBoard -> {
-                val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingBoardDetail(event.feedId)
-                findNavController().navigate(action)
-            }
-            is PlubingBoardEvent.NotifyClipBoardChanged -> {
-                boardListAdapter.notifyClipBoard()
-            }
-
-            is PlubingBoardEvent.ShowMenuBottomSheetDialog -> {
-                showMenuBottomSheetDialog(event.feedId, event.menuType)
-            }
-
+            is PlubingBoardEvent.GoToDetailBoard -> goToDetailBoard(event.feedId)
+            is PlubingBoardEvent.NotifyClipBoardChanged -> notifyClipboard()
+            is PlubingBoardEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.feedId, event.menuType)
             is PlubingBoardEvent.GoToEditBoard -> goToEditBoard(event.feedId)
-            is PlubingBoardEvent.GoToReportBoard -> Unit
-            is PlubingBoardEvent.ScrollToPosition -> binding.recyclerViewBoard.scrollToPosition(event.position)
+            is PlubingBoardEvent.GoToReportBoard -> goToReport()
+            is PlubingBoardEvent.GoToPinBoard -> goToPinBoard()
+            is PlubingBoardEvent.ScrollToPosition -> scrollToPosition(event.position)
         }
+    }
+
+    private fun notifyClipboard() {
+        boardListAdapter.notifyClipBoard()
     }
 
     private fun showMenuBottomSheetDialog(id:Int, menuType: DialogMenuType) {
@@ -142,5 +138,23 @@ class PlubingBoardFragment :
     private fun goToEditBoard(feedId:Int) {
         val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingBoardWrite(feedId = feedId, writeType = PlubingBoardWriteType.EDIT)
         findNavController().navigate(action)
+    }
+
+    private fun goToDetailBoard(feedId: Int) {
+        val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingBoardDetail(feedId)
+        findNavController().navigate(action)
+    }
+
+    private fun goToReport() {
+
+    }
+
+    private fun goToPinBoard() {
+        val action = PlubingMainFragmentDirections.actionPlubingMainToBoardPin()
+        findNavController().navigate(action)
+    }
+
+    private fun scrollToPosition(position:Int) {
+        binding.recyclerViewBoard.scrollToPosition(position)
     }
 }

@@ -9,5 +9,6 @@ sealed class PlubingBoardEvent : Event {
     data class GoToReportBoard(val feedId: Int) : PlubingBoardEvent()
     data class GoToEditBoard(val feedId: Int) : PlubingBoardEvent()
     data class GoToDetailBoard(val feedId:Int) : PlubingBoardEvent()
+    object GoToPinBoard : PlubingBoardEvent()
     data class ScrollToPosition(val position:Int) : PlubingBoardEvent()
 }
