@@ -26,7 +26,7 @@ class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubList
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HomeCategoryViewHolder -> holder.bind(currentList[position].categoryList)
+            is HomeCategoryParentViewHolder -> holder.bind(currentList[position].categoryList)
             is HomeRecommendTitleViewHolder -> holder.bind()
             is HomeNoInterestViewHolder -> holder.bind()
             is HomeRecommendListViewHolder -> holder.bind(currentList[position].recommendGathering)
@@ -41,7 +41,7 @@ class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubList
             }
             HomeViewType.CATEGORY_VIEW -> {
                 val binding = IncludeItemHomeCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return HomeCategoryViewHolder(binding, listener)
+                return HomeCategoryParentViewHolder(binding, listener)
             }
             HomeViewType.RECOMMEND_TITLE_VIEW -> {
                 val binding = IncludeItemHomeRecommendFirstBinding.inflate(LayoutInflater.from(parent.context), parent, false)

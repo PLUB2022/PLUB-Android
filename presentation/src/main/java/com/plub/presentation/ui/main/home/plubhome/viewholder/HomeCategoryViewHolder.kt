@@ -2,85 +2,29 @@ package com.plub.presentation.ui.main.home.plubhome.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.categoryResponseVo.CategoriesDataResponseVo
-import com.plub.presentation.databinding.IncludeItemHomeCategoryBinding
+import com.plub.presentation.databinding.IncludeItemCategoryBinding
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
 import com.plub.presentation.util.GlideUtil
 
 class HomeCategoryViewHolder (
-    private val binding : IncludeItemHomeCategoryBinding,
+    private val binding : IncludeItemCategoryBinding,
     private val listener : HomeAdapter.HomeDelegate,
 ) : RecyclerView.ViewHolder(binding.root){
-    private var voList : List<CategoriesDataResponseVo> = emptyList()
 
-    companion object{
-        private const val FIRST = 0
-        private const val SECOND = 1
-        private const val THIRD = 2
-        private const val FOURTH = 3
-        private const val FIFTH = 4
-        private const val SIXTH = 5
-        private const val SEVENTH = 6
-        private const val EIGHTH = 7
-    }
+    private var itemVo : CategoriesDataResponseVo = CategoriesDataResponseVo()
+
     init {
-        binding.apply {
-            constraintLayoutFirstCategoryTouch.setOnClickListener {
-                onCategoryClick(FIRST)
-            }
-            constraintLayoutSecondCategoryTouch.setOnClickListener {
-                onCategoryClick(SECOND)
-            }
-            constraintLayoutThirdCategoryTouch.setOnClickListener {
-                onCategoryClick(THIRD)
-            }
-            constraintLayoutFourthCategoryTouch.setOnClickListener {
-                onCategoryClick(FOURTH)
-            }
-            constraintLayoutFifthCategoryTouch.setOnClickListener {
-                onCategoryClick(FIFTH)
-            }
-            constraintLayoutSixthCategoryTouch.setOnClickListener {
-                onCategoryClick(SIXTH)
-            }
-            constraintLayoutSeventhCategoryTouch.setOnClickListener {
-                onCategoryClick(SEVENTH)
-            }
-            constraintLayoutEighthCategoryTouch.setOnClickListener {
-                onCategoryClick(EIGHTH)
-            }
+        binding.root.setOnClickListener {
+            listener.onCategoryClick(itemVo.id, itemVo.name)
         }
     }
 
-    private fun onCategoryClick(position : Int){
-        listener.onCategoryClick(voList[position].id, voList[position].name)
-    }
 
-    fun bind(item: List<CategoriesDataResponseVo>) {
-        voList = item
+    fun bind(item: CategoriesDataResponseVo) {
+        itemVo = item
         binding.apply {
-            GlideUtil.loadImage(root.context, item[FIRST].icon, imageViewFirstCategory)
-            textViewTitleFirstCategory.text = item[FIRST].name
-
-            GlideUtil.loadImage(root.context, item[SECOND].icon, imageViewSecondCategory)
-            textViewTitleSecondCategory.text = item[SECOND].name
-
-            GlideUtil.loadImage(root.context, item[THIRD].icon, imageViewThirdCategory)
-            textViewTitleThirdCategory.text = item[THIRD].name
-
-            GlideUtil.loadImage(root.context, item[FOURTH].icon, imageViewFourthCategory)
-            textViewTitleFourthCategory.text = item[FOURTH].name
-
-            GlideUtil.loadImage(root.context, item[FIFTH].icon, imageViewFifthCategory)
-            textViewTitleFifthCategory.text = item[FIFTH].name
-
-            GlideUtil.loadImage(root.context, item[SIXTH].icon, imageViewSixthCategory)
-            textViewTitleSixthCategory.text = item[SIXTH].name
-
-            GlideUtil.loadImage(root.context, item[SEVENTH].icon, imageViewSeventhCategory)
-            textViewTitleSeventhCategory.text = item[SEVENTH].name
-
-            GlideUtil.loadImage(root.context, item[EIGHTH].icon, imageViewEighthCategory)
-            textViewTitleEighthCategory.text = item[EIGHTH].name
+            GlideUtil.loadImage(root.context, item.icon, imageViewCategory)
+            textViewCategory.text = item.name
         }
     }
 }
