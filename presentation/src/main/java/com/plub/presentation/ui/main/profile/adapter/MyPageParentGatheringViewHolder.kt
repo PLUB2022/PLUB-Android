@@ -1,11 +1,12 @@
 package com.plub.presentation.ui.main.profile.adapter
 
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemMyGatheringBinding
+import com.plub.presentation.util.animation.ArrowToggleAnimation
+import com.plub.presentation.util.animation.ExpandAnimation
 
 class MyPageParentGatheringViewHolder(
     private val binding: IncludeItemMyGatheringBinding,
@@ -15,10 +16,14 @@ class MyPageParentGatheringViewHolder(
         MyPageGatheringAdapter()
     }
 
+    var isExpand = false
+
     init {
         binding.apply {
             imageViewArrow.setOnClickListener {
-                recyclerViewGatheringList.isVisible = true
+                ArrowToggleAnimation.toggleArrow(it, isExpand)
+                ExpandAnimation.toggleLayout(constraintLayoutGathering, recyclerViewGatheringList, isExpand)
+                isExpand = !isExpand
             }
         }
     }
