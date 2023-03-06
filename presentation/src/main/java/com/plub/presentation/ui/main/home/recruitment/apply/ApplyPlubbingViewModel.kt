@@ -3,9 +3,9 @@ package com.plub.presentation.ui.main.home.recruitment.apply
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.ApplyRecruitQuestionViewType
-import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitAnswerListVo
-import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitRequestVo
-import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitResponseVo
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitResponseVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.usecase.PostApplyRecruitUseCase

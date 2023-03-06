@@ -1,7 +1,7 @@
-package com.plub.data.mapper.applyRecruitMapper
+package com.plub.data.mapper.applyrecruitmapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.dto.applyRecruit.QuestionDataResponse
+import com.plub.data.dto.applyrecruit.QuestionDataResponse
 import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 
 object QuestionMapper : Mapper.ResponseMapper<QuestionDataResponse, QuestionsDataVo> {

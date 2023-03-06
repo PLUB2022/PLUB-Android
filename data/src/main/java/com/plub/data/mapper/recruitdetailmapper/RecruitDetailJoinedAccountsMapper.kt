@@ -1,8 +1,8 @@
-package com.plub.data.mapper.recruitDetailMapper
+package com.plub.data.mapper.recruitdetailmapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.dto.recruitDetail.RecruitDetailJoinedAccountsDataResponse
-import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsListVo
+import com.plub.data.dto.recruitdetail.RecruitDetailJoinedAccountsDataResponse
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
 
 object RecruitDetailJoinedAccountsMapper: Mapper.ResponseMapper<RecruitDetailJoinedAccountsDataResponse, RecruitDetailJoinedAccountsListVo> {
     override fun mapDtoToModel(type: RecruitDetailJoinedAccountsDataResponse?): RecruitDetailJoinedAccountsListVo {

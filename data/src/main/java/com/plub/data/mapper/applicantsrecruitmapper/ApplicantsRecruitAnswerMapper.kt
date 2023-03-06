@@ -1,8 +1,8 @@
-package com.plub.data.mapper.applicantsRecruitMapper
+package com.plub.data.mapper.applicantsrecruitmapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.dto.applicantsRecruit.ApplicantsRecruitRequestAnswerListRequest
-import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitAnswerListVo
+import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitRequestAnswerListRequest
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
 
 object ApplicantsRecruitAnswerMapper : Mapper.RequestMapper<ApplicantsRecruitRequestAnswerListRequest, ApplicantsRecruitAnswerListVo> {
     override fun mapModelToDto(type: ApplicantsRecruitAnswerListVo): ApplicantsRecruitRequestAnswerListRequest {

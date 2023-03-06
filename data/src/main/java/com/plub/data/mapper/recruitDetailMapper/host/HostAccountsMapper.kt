@@ -1,8 +1,8 @@
-package com.plub.data.mapper.recruitDetailMapper.host
+package com.plub.data.mapper.recruitdetailmapper.host
 
 import com.plub.data.base.Mapper
-import com.plub.data.dto.recruitDetail.host.AccountDataResponse
-import com.plub.domain.model.vo.home.recruitDetailVo.host.AccountsVo
+import com.plub.data.dto.recruitdetail.host.AccountDataResponse
+import com.plub.domain.model.vo.home.recruitdetailvo.host.AccountsVo
 
 object HostAccountsMapper : Mapper.ResponseMapper<AccountDataResponse, AccountsVo> {
     override fun mapDtoToModel(type: AccountDataResponse?): AccountsVo {

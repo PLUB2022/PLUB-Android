@@ -1,4 +1,4 @@
-package com.plub.domain.model.vo.home.applicantsRecruitVo.replyVo
+package com.plub.domain.model.vo.home.applicantsrecruitvo.replyvo
 
 import com.plub.domain.model.DomainModel
 
