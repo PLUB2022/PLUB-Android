@@ -3,6 +3,7 @@ package com.plub.data.repository
 import com.plub.data.api.PlubingBoardApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.BoardCommentListResponseMapper
+import com.plub.data.mapper.BoardCommentResponseMapper
 import com.plub.data.mapper.BoardEditRequestMapper
 import com.plub.data.mapper.PlubingBoardListResponseMapper
 import com.plub.data.mapper.PlubingBoardResponseMapper
@@ -13,6 +14,7 @@ import com.plub.data.mapper.CommentEditRequestMapper
 import com.plub.data.mapper.UnitResponseMapper
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.board.BoardCommentListVo
+import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.domain.model.vo.board.BoardRequestVo
 import com.plub.domain.model.vo.board.BoardEditRequestVo
 import com.plub.domain.model.vo.board.GetBoardFeedsRequestVo
@@ -62,17 +64,17 @@ class PlubingBoardRepositoryImpl @Inject constructor(private val boardApi: Plubi
         return apiLaunch(boardApi.getComments(request.plubbingId, request.feedId, request.cursorId), BoardCommentListResponseMapper)
     }
 
-    override suspend fun commentCreate(request: CommentCreateRequestVo): Flow<UiState<Unit>> {
+    override suspend fun commentCreate(request: CommentCreateRequestVo): Flow<UiState<BoardCommentVo>> {
         val body = CommentCreateRequestMapper.mapModelToDto(request)
-        return apiLaunch(boardApi.createComment(request.plubingId, request.feedId, body), UnitResponseMapper)
+        return apiLaunch(boardApi.createComment(request.plubingId, request.feedId, body), BoardCommentResponseMapper)
     }
 
     override suspend fun commentDelete(request: BoardRequestVo): Flow<UiState<Unit>> {
         return apiLaunch(boardApi.deleteComment(request.plubbingId, request.feedId, request.commentId), UnitResponseMapper)
     }
 
-    override suspend fun commentEdit(request: CommentEditRequestVo): Flow<UiState<Unit>> {
+    override suspend fun commentEdit(request: CommentEditRequestVo): Flow<UiState<BoardCommentVo>> {
         val body = CommentEditRequestMapper.mapModelToDto(request)
-        return apiLaunch(boardApi.editComment(request.plubingId, request.feedId, request.commentId, body), UnitResponseMapper)
+        return apiLaunch(boardApi.editComment(request.plubingId, request.feedId, request.commentId, body), BoardCommentResponseMapper)
     }
 }

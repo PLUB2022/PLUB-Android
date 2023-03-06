@@ -3,6 +3,7 @@ package com.plub.data.api
 import com.plub.data.base.ApiResponse
 import com.plub.data.base.DataDto
 import com.plub.data.dto.board.BoardCommentListResponse
+import com.plub.data.dto.board.BoardCommentResponse
 import com.plub.data.dto.board.PlubingBoardListResponse
 import com.plub.data.dto.board.PlubingBoardResponse
 import com.plub.data.dto.board.PlubingPinListResponse
@@ -79,7 +80,7 @@ interface PlubingBoardApi {
         @Path(PATH_PLUBING_ID) plubbingId: Int,
         @Path(PATH_FEED_ID) feedId: Int,
         @Body request: CommentCreateRequest
-    ): Response<ApiResponse<DataDto.DTO>>
+    ): Response<ApiResponse<BoardCommentResponse>>
 
     @DELETE(Endpoints.PLUBBING.BOARD.COMMENT_DELETE)
     suspend fun deleteComment(
@@ -94,5 +95,5 @@ interface PlubingBoardApi {
         @Path(PATH_FEED_ID) feedId: Int,
         @Path(PATH_COMMENT_ID) commentId: Int,
         @Body request: CommentEditRequest
-    ): Response<ApiResponse<DataDto.DTO>>
+    ): Response<ApiResponse<BoardCommentResponse>>
 }

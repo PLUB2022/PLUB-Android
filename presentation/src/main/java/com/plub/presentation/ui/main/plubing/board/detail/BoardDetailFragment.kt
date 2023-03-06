@@ -84,7 +84,9 @@ class BoardDetailFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-                    boardDetailAdapter.submitList(it.commentList)
+                    boardDetailAdapter.submitList(it.commentList) {
+                        viewModel.onBoardUpdated()
+                    }
                 }
             }
 
@@ -108,8 +110,8 @@ class BoardDetailFragment :
             is BoardDetailEvent.ShowKeyboard -> showKeyboard()
             is BoardDetailEvent.ScrollToPosition -> scrollToPosition(event.position)
             is BoardDetailEvent.GoToEditBoard -> goToEditBoard(event.feedId)
-            is BoardDetailEvent.GoToReportBoard -> TODO()
-            is BoardDetailEvent.GoToReportComment -> TODO()
+            is BoardDetailEvent.GoToReportBoard -> goToReport()
+            is BoardDetailEvent.GoToReportComment -> goToReport()
             is BoardDetailEvent.Finish -> finish()
         }
     }
@@ -142,5 +144,9 @@ class BoardDetailFragment :
     private fun goToEditBoard(feedId:Int) {
         val action = BoardDetailFragmentDirections.actionPlubingBoardDetailToPlubingBoardWrite(feedId = feedId, writeType = PlubingBoardWriteType.EDIT)
         findNavController().navigate(action)
+    }
+
+    private fun goToReport() {
+
     }
 }

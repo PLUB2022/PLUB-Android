@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.plubing.board.detail
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.DialogMenuType
+import com.plub.domain.model.enums.PlubingCommentType
 import com.plub.domain.model.vo.board.BoardCommentListVo
 import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.domain.model.vo.board.BoardRequestVo
@@ -19,7 +20,6 @@ import com.plub.domain.usecase.PutBoardChangePinUseCase
 import com.plub.domain.usecase.PutBoardCommentEditUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.util.ImageUtil
 import com.plub.presentation.util.PlubUser
 import com.plub.presentation.util.PlubingInfo
@@ -55,6 +55,7 @@ class BoardDetailViewModel @Inject constructor(
     private var isLastPage: Boolean = false
     private var isNetworkCall: Boolean = false
 
+    private var scrollToPosition:Int? = null
     private var replyCommentId: Int? = null
     private var editCommentId: Int? = null
 
@@ -69,6 +70,13 @@ class BoardDetailViewModel @Inject constructor(
 
     fun onCompleteBoardEdit() {
         refresh()
+    }
+
+    fun onBoardUpdated() {
+        scrollToPosition?.let {
+            emitEventFlow(BoardDetailEvent.ScrollToPosition(it))
+            scrollToPosition = null
+        }
     }
 
     fun onClickMenuItemType(item: DialogMenuItemType, commentVo: BoardCommentVo) {
@@ -184,16 +192,15 @@ class BoardDetailViewModel @Inject constructor(
         val request = CommentCreateRequestVo(plubingId, feedId, comment, replyCommentId)
         viewModelScope.launch {
             postBoardCommentCreateUseCase(request).collect {
-                inspectUiState(it, {
-                    sendCommentSuccess()
-                })
+                inspectUiState(it, ::sendCommentSuccess)
             }
         }
     }
 
-    private fun sendCommentSuccess() {
+    private fun sendCommentSuccess(vo: BoardCommentVo) {
         replyInputModeCancel()
         commentClear()
+        updateAddCommentList(vo)
     }
 
     private fun refresh() {
@@ -253,16 +260,15 @@ class BoardDetailViewModel @Inject constructor(
         viewModelScope.launch {
             val request = CommentEditRequestVo(plubingId, feedId, commentId, comment)
             putBoardCommentEditUseCase(request).collect {
-                inspectUiState(it, {
-                    sendCommentEditSuccess()
-                })
+                inspectUiState(it, ::sendCommentEditSuccess)
             }
         }
     }
 
-    private fun sendCommentEditSuccess() {
+    private fun sendCommentEditSuccess(vo:BoardCommentVo) {
         commentEditingInputModeCancel()
         commentClear()
+        updateEditCommentList(vo)
     }
 
     private fun updateDeletedCommentList(commentId: Int) {
@@ -337,5 +343,27 @@ class BoardDetailViewModel @Inject constructor(
     private fun cursorUpdate() {
         cursorId = if (uiState.value.commentList.isEmpty()) FIRST_CURSOR
         else uiState.value.commentList.drop(DETAIL_INFO_POSITION).lastOrNull()?.commentId ?: FIRST_CURSOR
+    }
+
+    private fun updateEditCommentList(vo: BoardCommentVo) {
+        val newList = uiState.value.commentList.toMutableList()
+        val idx = newList.indexOfFirst { it.commentId == vo.commentId }
+        newList[idx] = vo
+        scrollToPosition = idx
+        updateCommentList(newList)
+    }
+
+    private fun updateAddCommentList(vo: BoardCommentVo) {
+        val newList = uiState.value.commentList.toMutableList()
+        val targetIdx = if (vo.commentType == PlubingCommentType.REPLY) {
+            val lastReplyCommentIdx = newList.indexOfLast { it.parentCommentId == vo.parentCommentId }
+            val commentIdx = newList.indexOfFirst { it.commentId == vo.parentCommentId }
+            if(lastReplyCommentIdx == -1) commentIdx else lastReplyCommentIdx
+        } else newList.lastIndex
+        val idx = targetIdx + 1
+
+        newList.add(idx, vo)
+        scrollToPosition = idx
+        updateCommentList(newList)
     }
 }

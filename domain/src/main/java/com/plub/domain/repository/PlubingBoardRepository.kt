@@ -2,6 +2,7 @@ package com.plub.domain.repository
 
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.board.BoardCommentListVo
+import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.domain.model.vo.board.BoardRequestVo
 import com.plub.domain.model.vo.board.BoardEditRequestVo
 import com.plub.domain.model.vo.board.GetBoardFeedsRequestVo
@@ -22,7 +23,7 @@ interface PlubingBoardRepository {
     suspend fun feedCreate(request: BoardCreateRequestVo): Flow<UiState<Unit>>
     suspend fun feedEdit(request: BoardEditRequestVo): Flow<UiState<PlubingBoardVo>>
     suspend fun commentGetList(request: GetBoardCommentsRequestVo): Flow<UiState<BoardCommentListVo>>
-    suspend fun commentCreate(request: CommentCreateRequestVo): Flow<UiState<Unit>>
+    suspend fun commentCreate(request: CommentCreateRequestVo): Flow<UiState<BoardCommentVo>>
     suspend fun commentDelete(request:BoardRequestVo): Flow<UiState<Unit>>
-    suspend fun commentEdit(request: CommentEditRequestVo): Flow<UiState<Unit>>
+    suspend fun commentEdit(request: CommentEditRequestVo): Flow<UiState<BoardCommentVo>>
 }
