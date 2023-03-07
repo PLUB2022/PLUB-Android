@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_view_recommend_meet_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp"
+            android:gravity="center_vertical"
+            android:letterSpacing="-0.01"
+            android:text="@string/main_recommend_no_interests_title"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_view_setting"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_setting"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_recommend_meet_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_view_recommend_meet_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

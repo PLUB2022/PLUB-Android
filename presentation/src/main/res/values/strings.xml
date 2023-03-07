@@ -242,4 +242,52 @@
     <string name="modify_gathering_tab_recruit">모집글</string>
     <string name="modify_gathering_tab_info">모임 정보</string>
     <string name="modify_gathering_tab_guest">게스트 질문</string>
+
+    <string name="apply_plubbing_title">함께 하기 위한 질문</string>
+    <string name="apply_plubbing_descrip">우리와 함께 하는 것에 대한 질문입니다. 상세하게 적어줄 수록 당신의 취미 레벨을 선정하기 쉬워집니다.</string>
+    <string name="apply_plubbing_apply_button">지원하기</string>
+    <string name="apply_plubbing_question">%d. %s</string>
+
+    <string name="detail_recruitment_see_others">모임 둘러보기</string>
+    <string name="detail_recruitment_together">같이 할래요!</string>
+    <string name="detail_recruit_about_my_gathering">[ %s ] 모임은요...!</string>
+    <string name="detail_recruitment_people">모집 인원 %s명</string>
+    <string name="detail_recruitment_already_apply">지원 완료</string>
+    <string name="detail_recruitment_profile_county">+%d</string>
+    <string name="detail_recruitment_with_us">With_Us!</string>
+
+    <string name="main_title">좋아하는 분야에서\n모임을 시작하세요!</string>
+    <string name="main_recommend_gathering">추천 모임</string>
+    <string name="main_recommend_no_interests_title">플럽이 추천하는 모임!</string>
+    <string name="main_recommend_descrip_no_interests">관심사 등록한 내용을 기반으로 모임을 추천해드려요!</string>
+    <string name="main_add_interests">관심사 등록 하기</string>
+
+    <string name="interests_register_title">취미모임 관심사 등록</string>
+    <string name="interests_register_descrip">PLUB에게 당신의 관심사를 알려주세요. 선택하신 관심사를 기반으로 좋아하실만한 모임을 추천해 드려요!</string>
+    <string name="interests_register_complete_choice_button">선택완료</string>
+
+    <string name="host_detail_recruit_edit">편집</string>
+    <string name="host_detail_recruit_see_applicants">지원자 확인하기</string>
+    <string name="host_detail_recruit_end">모집 끝내기</string>
+
+    <string name="include_item_question_hint">소개하는 내용을 입력해주세요</string>
+    <string name="include_item_question_max_text">/300</string>
+    <string name="include_item_question_now_text">0</string>
+
+    <string name="category_choice_popular">인기순</string>
+    <string name="category_choice_empty_string">아직 등록된 모집글이 없어요\n 직접 모집글을 올려 볼까요?</string>
+    <string name="category_choice_empty_button">모임 만들러 가기</string>
+    <string name="category_gathering_filter_sub_category">세부 카테고리</string>
+    <string name="category_choice_see_all">전체</string>
+    <string name="category_gathering_filter_day">모임 요일</string>
+    <string name="category_gathering_people">인원</string>
+    <string name="category_gathering_filter_people">%d명</string>
+    <string name="category_gathering_filter_min_people">4명</string>
+    <string name="category_gathering_filter_max_people">20명</string>
+    <string name="category_gathering_filter_complete">확인</string>
+
+    <string name="apply_dialog_complete_apply">지원 완료!</string>
+    <string name="apply_dialog_explain">정성스럽게 작성하신 답변을 \n모임 호스트에게 전달했어요.</string>
+    <string name="apply_dialog_extra_explain">호스트가 수락하면 함께 활동할 수 있습니다.\n알림으로 알려드릴게요!</string>
+
 </resources>

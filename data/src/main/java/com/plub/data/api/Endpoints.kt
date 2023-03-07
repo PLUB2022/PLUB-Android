@@ -23,11 +23,15 @@ object Endpoints {
         private const val ACCOUNT_URL = "/api/accounts"
         const val NICKNAME_CHECK = "$ACCOUNT_URL/check/nickname/{nickname}"
         const val FETCH_MY_INFO = "$ACCOUNT_URL/me"
+        const val REGIST_INTEREST = "$ACCOUNT_URL/interest"
+        const val BROWSE_INTEREST = "$ACCOUNT_URL/interest"
     }
 
     object CATEGORY {
         private const val CATEGORY_URL = "/api/categories"
         const val GET_ALL_CATEGORIES = "$CATEGORY_URL/all"
+        const val GET_PARENT_CATEGORIES = "$CATEGORY_URL"
+        const val GET_SUB_CATEGORIES = "$CATEGORY_URL/{categoryId}/sub"
     }
 
     object KAKAO_LOCATION {
@@ -42,7 +46,7 @@ object Endpoints {
         const val RECRUIT = "$PLUBBING_URL/recruit"
         const val BOOKMARK = "$RECRUIT_URL/bookmarks"
         const val BOOKMARK_ME = "$PLUBBING_URL/recruit/bookmarks/me"
-        const val FETCH_RECOMMENDATION_GATHERING = "$PLUBBING_URL/recommendation"
+        const val FETCH_RECOMMENDATION_GATHERING =  "$PLUBBING_URL/recommendation"
         const val FETCH_CATEGORIES_GATHERING = "$PLUBBING_URL/categories/{categoryId}"
         const val FETCH_DETAIL_RECRUIT = "$RECRUIT_URL"
         const val APPLICANTS_RECRUIT = "$RECRUIT_URL/applicants"
