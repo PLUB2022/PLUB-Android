@@ -11,13 +11,13 @@ class QuestionsViewHolder(
     private val binding: IncludeItemQuestionBinding,
     private val listener : QuestionsAdapter.QuestionsDegelate
 ) : RecyclerView.ViewHolder(binding.root) {
-    private var itemVo : QuestionsDataVo = QuestionsDataVo()
+    private var itemVo : QuestionsDataVo? = null
 
     init {
         binding.apply {
             editTextAnswer.addTextChangedListener {
                 textViewNowText.text = editTextAnswer.text.length.toString()
-                listener.textChanged(itemVo.id, editTextAnswer.text.toString())
+                itemVo?.let { listener.textChanged(it.id, editTextAnswer.text.toString())}
             }
         }
     }

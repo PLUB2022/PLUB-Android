@@ -14,7 +14,7 @@ class DetailRecruitProfileViewHolder(
 
     private var maxProfile : Int = 0
     private var nowNum : Int = 0
-    private var accountId : Int = 0
+    private var accountId : Int? = null
 
     init {
         binding.imageViewProfile.setOnClickListener {
@@ -22,7 +22,7 @@ class DetailRecruitProfileViewHolder(
                 listener.onSeeMoreProfileClick()
             }
             else{
-                listener.onProfileClick(accountId)
+                accountId?.let { listener.onProfileClick(it) }
             }
         }
     }

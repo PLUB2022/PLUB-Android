@@ -11,11 +11,11 @@ class BottomSheetProfileViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
 
-    private var accountId: Int = 0
+    private var accountId: Int? = null
 
     init {
         binding.imageViewProfile.setOnClickListener {
-            listener.onProfileClick(accountId)
+            accountId?.let { listener.onProfileClick(it) }
         }
     }
 

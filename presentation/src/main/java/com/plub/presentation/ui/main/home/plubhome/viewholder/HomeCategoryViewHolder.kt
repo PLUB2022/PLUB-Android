@@ -11,11 +11,11 @@ class HomeCategoryViewHolder (
     private val listener : HomeAdapter.HomeDelegate,
 ) : RecyclerView.ViewHolder(binding.root){
 
-    private var itemVo : CategoriesDataResponseVo = CategoriesDataResponseVo()
+    private var itemVo : CategoriesDataResponseVo? = null
 
     init {
         binding.root.setOnClickListener {
-            listener.onCategoryClick(itemVo.id, itemVo.name)
+            itemVo?.let { listener.onCategoryClick(it.id, it.name) }
         }
     }
 
