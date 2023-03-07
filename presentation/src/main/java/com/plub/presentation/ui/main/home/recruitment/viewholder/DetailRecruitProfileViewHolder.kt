@@ -12,10 +12,6 @@ class DetailRecruitProfileViewHolder(
     private val listener: DetailRecruitProfileAdapter.DetailProfileDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    companion object {
-        private const val MAX_PROFILE = 8
-    }
-
     private var maxProfile : Int = 0
     private var nowNum : Int = 0
     private var accountId : Int = 0

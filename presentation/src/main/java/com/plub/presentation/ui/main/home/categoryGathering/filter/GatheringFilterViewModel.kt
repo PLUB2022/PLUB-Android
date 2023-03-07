@@ -81,9 +81,7 @@ class GatheringFilterViewModel @Inject constructor(
     fun onClickAllCheckBox(): Void? {
         updateUiState { uiState ->
             uiState.copy(
-                gatheringDays = if (DaysType.ALL in uiState.gatheringDays) hashSetOf() else hashSetOf(
-                    DaysType.ALL
-                )
+                gatheringDays = if (DaysType.ALL in uiState.gatheringDays) hashSetOf() else hashSetOf(DaysType.ALL)
             )
         }
         return null

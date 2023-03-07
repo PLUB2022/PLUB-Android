@@ -45,8 +45,7 @@ class HomeRecommendListViewHolder(
             textViewRecruitMemberCount.text = memberCount
             textViewTitle.text = item.title
             textViewName.text = item.name
-            val bookmarkRes =
-                if (item.isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
+            val bookmarkRes = if (item.isBookmarked) R.drawable.ic_bookmark_checked else R.drawable.ic_bookmark_unchecked
             imageViewBookmark.setImageResource(bookmarkRes)
             GlideUtil.loadImage(root.context, item.photo, imageViewBackground)
         }

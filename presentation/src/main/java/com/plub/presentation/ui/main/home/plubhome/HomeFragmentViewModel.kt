@@ -30,7 +30,6 @@ class HomeFragmentViewModel @Inject constructor(
     private var hasMoreCards: Boolean = true
     private var isNetworkCall: Boolean = false
     private var hasInterest: Boolean = false
-    private val loading = HomePlubListVo(viewType = HomeViewType.LOADING)
 
     fun fetchHomePageData() =
         viewModelScope.launch {
@@ -79,7 +78,7 @@ class HomeFragmentViewModel @Inject constructor(
         hasMoreCards = (pageNumber != data.totalPages)
         updateUiState { ui ->
             ui.copy(
-                homePlubList = if(hasMoreCards) addRecommendGatheringList(data) + arrayListOf(loading) else addRecommendGatheringList(data),
+                homePlubList = if(hasMoreCards) addRecommendGatheringList(data) else addRecommendGatheringList(data),
                 isVisible = true
             )
         }

@@ -50,16 +50,10 @@ class CategoryGatheringViewModel @Inject constructor(
         viewModelScope.launch {
             categoryId = id
             isNetworkCall = true
-            val paramsVo = CategoriesGatheringParamsVo(
-                categoryId,
-                uiState.value.sortType.key,
-                pageNumber
-            )
+            val paramsVo = CategoriesGatheringParamsVo(categoryId, uiState.value.sortType.key, pageNumber)
             val bodyVo = getBodyVo(body)
             categoriesGatheringUseCase(
-                CategoriesGatheringRequestVo(
-                    paramsVo, bodyVo
-                )
+                CategoriesGatheringRequestVo(paramsVo, bodyVo)
             ).collect { state ->
                 inspectUiState(state, ::successResult)
             }
@@ -73,6 +67,7 @@ class CategoryGatheringViewModel @Inject constructor(
             )
         }
     }
+
     private fun getBodyVo(body : GatheringFilterState) : CategoriesGatheringBodyRequestVo{
         val days = if(body.gatheringDays.isEmpty() || body.gatheringDays.contains(DaysType.ALL)) null else body.gatheringDays.map { it.eng }
         val subCategoryId = if(body.hobbiesSelectedVo.hobbies.isEmpty()) null else getMergeSelectedHobbyList(body.hobbiesSelectedVo.hobbies)
@@ -97,16 +92,10 @@ class CategoryGatheringViewModel @Inject constructor(
     private fun fetchRecommendationGatheringData() =
         viewModelScope.launch {
             isNetworkCall = true
-            val paramsVo = CategoriesGatheringParamsVo(
-                categoryId,
-                uiState.value.sortType.key,
-                pageNumber
-            )
+            val paramsVo = CategoriesGatheringParamsVo(categoryId, uiState.value.sortType.key, pageNumber)
             val bodyVo = CategoriesGatheringBodyRequestVo()
             categoriesGatheringUseCase(
-                CategoriesGatheringRequestVo(
-                    paramsVo, bodyVo
-                )
+                CategoriesGatheringRequestVo(paramsVo, bodyVo)
             ).collect { state ->
                 inspectUiState(state, ::successResult)
             }

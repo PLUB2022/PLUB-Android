@@ -87,7 +87,6 @@ class HostRecruitmentFragment :
     private fun initDetailPage(data: DetailRecruitPageState) {
         binding.apply {
             val maxProfile = recyclerViewPlubbingPeopleProfile.width / PROFILE_WIDTH.px
-            constraintLayoutTop.bringToFront()
             GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
             imageViewPlubbingImage.clipToOutline = true
             detailRecruitCategoryAdapter.submitList(data.categories)

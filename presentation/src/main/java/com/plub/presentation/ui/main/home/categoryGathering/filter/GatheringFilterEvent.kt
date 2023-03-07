@@ -1,6 +1,5 @@
 package com.plub.presentation.ui.main.home.categoryGathering.filter
 
-import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.presentation.ui.Event
 

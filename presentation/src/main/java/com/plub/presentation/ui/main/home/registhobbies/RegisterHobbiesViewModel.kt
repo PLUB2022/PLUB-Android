@@ -104,8 +104,8 @@ class RegisterHobbiesViewModel @Inject constructor(
 
     private fun getMergeList() : List<Int>{
         val mergedList = mutableListOf<Int>()
-        for (data in selectedList){
-            mergedList.add(data.subId)
+        selectedList.forEach {
+            mergedList.add(it.subId)
         }
         return mergedList
     }
