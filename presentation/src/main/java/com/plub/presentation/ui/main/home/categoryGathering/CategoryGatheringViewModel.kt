@@ -14,9 +14,10 @@ import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState
-import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,7 +25,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryGatheringViewModel @Inject constructor(
     val categoriesGatheringUseCase: GetCategoriesGatheringUseCase,
-    val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase
+    val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
+    val resourceProvider: ResourceProvider
 ) : BaseViewModel<CategoryGatheringState>(CategoryGatheringState()) {
 
     companion object {
@@ -60,10 +62,15 @@ class CategoryGatheringViewModel @Inject constructor(
         }
 
 
-    fun updateSortTypeName(name : String){
+    fun updateSortTypeName(sortType : PlubSortType){
+        val sortTypeRes = when (sortType) {
+            PlubSortType.POPULAR -> R.string.word_sort_type_popular
+            PlubSortType.NEW -> R.string.word_sort_type_new
+        }
+
         updateUiState { uiState ->
             uiState.copy(
-                sortTypeName = name
+                sortTypeName = resourceProvider.getString(sortTypeRes)
             )
         }
     }

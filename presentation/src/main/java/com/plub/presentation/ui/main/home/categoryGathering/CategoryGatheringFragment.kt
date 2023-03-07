@@ -105,11 +105,7 @@ class CategoryGatheringFragment :
     }
 
     private fun setSortTypeText(sortType: PlubSortType) {
-        val sortTypeRes = when (sortType) {
-            PlubSortType.POPULAR -> R.string.word_sort_type_popular
-            PlubSortType.NEW -> R.string.word_sort_type_new
-        }
-        viewModel.updateSortTypeName(getString(sortTypeRes))
+        viewModel.updateSortTypeName(sortType)
     }
 
     private fun inspectEventFlow(event: CategoryGatheringEvent) {
