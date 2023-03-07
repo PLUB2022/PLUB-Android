@@ -6,6 +6,7 @@ import android.webkit.WebView
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.plub.domain.UiState
 import com.plub.presentation.util.GlideUtil
@@ -32,6 +33,14 @@ fun ImageView.setImageFile(imageFile:File?) {
     if(imageFile == null) return
     else {
         GlideUtil.loadImage(context, imageFile, this)
+    }
+}
+
+@BindingAdapter("imageFile", "imageUrl")
+fun ImageView.setImage(imageFile:File?, imageUrl:String) {
+    when {
+        imageUrl.isNotEmpty() -> GlideUtil.loadImage(context, imageUrl, this)
+        imageFile != null -> GlideUtil.loadImage(context, imageFile, this)
     }
 }
 

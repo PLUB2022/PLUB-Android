@@ -43,6 +43,7 @@
             android:name="com.canhub.cropper.CropImageActivity"
             android:theme="@style/Theme.PlubAndroid.ImageCrop" />
         <activity
+            android:windowSoftInputMode="adjustResize"
             android:name=".ui.main.MainActivity"
             android:exported="true" />
         <activity

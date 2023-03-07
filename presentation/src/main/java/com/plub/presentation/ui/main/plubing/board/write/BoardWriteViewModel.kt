@@ -8,17 +8,25 @@ import android.text.style.ForegroundColorSpan
 import androidx.lifecycle.viewModelScope
 import com.canhub.cropper.CropImageView
 import com.plub.domain.model.enums.DialogMenuItemType
+import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.enums.PlubingFeedType
 import com.plub.domain.model.enums.UploadFileType
-import com.plub.domain.model.vo.board.PostBoardRequestVo
+import com.plub.domain.model.vo.board.BoardRequestVo
+import com.plub.domain.model.vo.board.BoardEditRequestVo
+import com.plub.domain.model.vo.board.PlubingBoardVo
+import com.plub.domain.model.vo.board.BoardCreateRequestVo
 import com.plub.domain.model.vo.board.WriteBoardFeedTypeVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
-import com.plub.domain.usecase.PostPlubingBoardUseCase
+import com.plub.domain.usecase.GetBoardDetailUseCase
+import com.plub.domain.usecase.PostBoardCreateUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
+import com.plub.domain.usecase.PutBoardEditUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.util.ImageUtil
 import com.plub.presentation.util.PermissionManager
+import com.plub.presentation.util.PlubingInfo
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -28,8 +36,10 @@ import kotlin.properties.Delegates
 
 @HiltViewModel
 class BoardWriteViewModel @Inject constructor(
+    val getBoardDetailUseCase: GetBoardDetailUseCase,
     val postUploadFileUseCase: PostUploadFileUseCase,
-    val postPlubingBoardUseCase: PostPlubingBoardUseCase,
+    val postBoardCreateUseCase: PostBoardCreateUseCase,
+    val putBoardEditUseCase: PutBoardEditUseCase,
     val resourceProvider: ResourceProvider,
     val imageUtil: ImageUtil,
 ) : BaseViewModel<BoardWritePageState>(BoardWritePageState()) {
@@ -38,16 +48,35 @@ class BoardWriteViewModel @Inject constructor(
         private const val MAX_LENGTH_CONTENT = 300
     }
 
-    private var plubingId by Delegates.notNull<Int>()
+    private lateinit var writeType:PlubingBoardWriteType
+    private val plubingId = PlubingInfo.info.plubingId
+    private var feedId by Delegates.notNull<Int>()
+
     private var cameraTempImageUri: Uri? = null
 
-    fun initArgs(plubingId: Int, plubingName: String) {
-        this.plubingId = plubingId
+    fun initArgs(args: BoardWriteFragmentArgs) {
+        writeType = args.writeType
+        feedId = args.feedId
         updateUiState { uiState ->
             uiState.copy(
-                plubingName = plubingName,
+                plubingName = PlubingInfo.info.name,
                 contentMaxLength = MAX_LENGTH_CONTENT
             )
+        }
+    }
+
+    fun initEditInfo() {
+        if(writeType != PlubingBoardWriteType.EDIT) return
+
+        fetchBoardInfo {
+            updateUiState { uiState ->
+                uiState.copy(
+                    title = it.title,
+                    content = it.content,
+                    editImageUrl = it.feedImage
+                )
+            }
+            onClickFeedType(it.feedType)
         }
     }
 
@@ -125,19 +154,12 @@ class BoardWriteViewModel @Inject constructor(
     }
 
     fun onClickPostUpload() {
-        uploadImage {
-            uploadFeed(it) {
-                emitEventFlow(BoardWriteEvent.CompleteWrite)
-            }
-        }
+        if(writeType == PlubingBoardWriteType.CREATE) createFeed() else editFeed()
     }
 
     private fun getFeedTypeList(selectedFeedType: PlubingFeedType): List<WriteBoardFeedTypeVo> {
         return PlubingFeedType.boardWriteFeedTypeList().map {
-            WriteBoardFeedTypeVo(
-                it,
-                it == selectedFeedType
-            )
+            WriteBoardFeedTypeVo(it, it == selectedFeedType)
         }
     }
 
@@ -162,16 +184,19 @@ class BoardWriteViewModel @Inject constructor(
         _feedType: PlubingFeedType? = null,
         _title: String? = null,
         _content: String? = null,
-        _imageFile: File? = null
+        _imageFile: File? = null,
+        _editImageUrl: String? = null,
     ): Boolean {
         val feedType = _feedType ?: uiState.value.selectedFeedType
         val title = _title ?: uiState.value.title
         val content = _content ?: uiState.value.content
         val imageFile = _imageFile ?: uiState.value.imageFile
+        val editImageUrl = _editImageUrl ?: uiState.value.editImageUrl
+        val imageIsExist = imageFile != null || editImageUrl.isNotEmpty()
         return when (feedType) {
             PlubingFeedType.TEXT -> title.isNotEmpty() && content.isNotEmpty()
-            PlubingFeedType.IMAGE -> title.isNotEmpty() && imageFile != null
-            PlubingFeedType.TEXT_AND_IMAGE -> title.isNotEmpty() && content.isNotEmpty() && imageFile != null
+            PlubingFeedType.IMAGE -> title.isNotEmpty() && imageIsExist
+            PlubingFeedType.TEXT_AND_IMAGE -> title.isNotEmpty() && content.isNotEmpty() && imageIsExist
         }
     }
 
@@ -187,36 +212,92 @@ class BoardWriteViewModel @Inject constructor(
         updateUiState { uiState ->
             uiState.copy(
                 imageFile = file,
+                editImageUrl = "",
                 isPostButtonEnable = isPostButtonEnable(_imageFile = file)
             )
         }
     }
 
-    private fun uploadImage(onSuccess: (String) -> Unit) {
-        if(uiState.value.selectedFeedType == PlubingFeedType.TEXT) onSuccess("")
-        else {
-            viewModelScope.launch {
-                uiState.value.imageFile?.let {
-                    val fileRequest = UploadFileRequestVo(UploadFileType.PLUBBING_MAIN, it)
-                    postUploadFileUseCase(fileRequest).collect { state ->
-                        inspectUiState(state, { vo ->
-                            onSuccess(vo.fileUrl)
-                        })
-                    }
-                } ?: onSuccess("")
+    private fun createFeed() {
+        uploadImage {
+            postUploadFeed(it) {
+                emitEventFlow(BoardWriteEvent.CompleteCreate)
             }
         }
     }
 
-    private fun uploadFeed(imageUrl: String, onSuccess: () -> Unit) {
+    private fun editFeed() {
+        uploadImage {
+            putEditFeed(it) { vo ->
+                val parseVo = ParsePlubingBoardVo.mapToParse(vo)
+                emitEventFlow(BoardWriteEvent.CompleteEdit(parseVo))
+            }
+        }
+    }
+
+    private fun uploadImage(onSuccess: (String) -> Unit) {
+        when {
+            !isImageFeedType() -> onSuccess("")
+            hasEditImageUrl() -> onSuccess(uiState.value.editImageUrl)
+            else -> {
+                uiState.value.imageFile?.let {
+                    postUploadImage(it, onSuccess)
+                }?: onSuccess("")
+            }
+        }
+    }
+
+    private fun postUploadImage(imageFile: File, onSuccess: (String) -> Unit) {
+        val fileRequest = UploadFileRequestVo(UploadFileType.PLUBBING_MAIN, imageFile)
+        viewModelScope.launch {
+            postUploadFileUseCase(fileRequest).collect { state ->
+                inspectUiState(state, { vo ->
+                    onSuccess(vo.fileUrl)
+                })
+            }
+        }
+    }
+
+    private fun isImageFeedType():Boolean {
+        return uiState.value.selectedFeedType != PlubingFeedType.TEXT
+    }
+
+    private fun hasEditImageUrl():Boolean {
+        val isEditType = writeType == PlubingBoardWriteType.EDIT
+        return isEditType && uiState.value.editImageUrl.isNotEmpty()
+    }
+
+    private fun postUploadFeed(imageUrl: String, onSuccess: () -> Unit) {
         viewModelScope.launch {
             val request = uiState.value.run {
-                PostBoardRequestVo(plubingId, selectedFeedType, title, content, imageUrl)
+                BoardCreateRequestVo(plubingId, selectedFeedType, title, content, imageUrl)
             }
-            postPlubingBoardUseCase(request).collect {
+            postBoardCreateUseCase(request).collect {
                 inspectUiState(it, {
                     onSuccess()
                 })
+            }
+        }
+    }
+
+    private fun putEditFeed(imageUrl: String, onSuccess: (PlubingBoardVo) -> Unit) {
+        viewModelScope.launch {
+            val request = uiState.value.run {
+                BoardEditRequestVo(plubingId, feedId, selectedFeedType, title, content, imageUrl)
+            }
+            putBoardEditUseCase(request).collect {
+                inspectUiState(it, { vo ->
+                    onSuccess(vo)
+                })
+            }
+        }
+    }
+
+    private fun fetchBoardInfo(onSuccess: (PlubingBoardVo) -> Unit) {
+        val request = BoardRequestVo(plubingId, feedId)
+        viewModelScope.launch {
+            getBoardDetailUseCase(request).collect {
+                inspectUiState(it, onSuccess)
             }
         }
     }
