@@ -14,4 +14,5 @@ data class BoardCommentVo(
     val createAt: String = "",
     val isCommentAuthor: Boolean = false,
     val isFeedAuthor: Boolean = false,
+    val groupId: Int = -1
 ) : DomainModel

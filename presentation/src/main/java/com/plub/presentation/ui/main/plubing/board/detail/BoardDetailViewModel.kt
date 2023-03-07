@@ -356,9 +356,7 @@ class BoardDetailViewModel @Inject constructor(
     private fun updateAddCommentList(vo: BoardCommentVo) {
         val newList = uiState.value.commentList.toMutableList()
         val targetIdx = if (vo.commentType == PlubingCommentType.REPLY) {
-            val lastReplyCommentIdx = newList.indexOfLast { it.parentCommentId == vo.parentCommentId }
-            val commentIdx = newList.indexOfFirst { it.commentId == vo.parentCommentId }
-            if(lastReplyCommentIdx == -1) commentIdx else lastReplyCommentIdx
+            newList.indexOfLast { it.groupId == vo.groupId }
         } else newList.lastIndex
         val idx = targetIdx + 1
 
