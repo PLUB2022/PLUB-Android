@@ -21,6 +21,6 @@ interface HomeBrowseApi {
         @Body plubbingCardRequest : CategoryGatheringBodyRequest
     ) : Response<ApiResponse<PlubCardListResponse>>
 
-    @GET(Endpoints.CATEGORY.GET_BIG_CATEGORIES)
+    @GET(Endpoints.CATEGORY.GET_PARENT_CATEGORIES)
     suspend fun fetchCategoryList() : Response<ApiResponse<CategoryListResponse>>
 }

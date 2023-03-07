@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
 import com.plub.presentation.ui.main.home.recruitment.viewholder.DetailRecruitProfileViewHolder
 
 class DetailRecruitProfileAdapter(private val listener: DetailProfileDelegate) :
-    ListAdapter<RecruitDetailJoinedAccountsListVo, RecyclerView.ViewHolder>(
+    ListAdapter<RecruitDetailJoinedAccountsVo, RecyclerView.ViewHolder>(
         DetailRecruitProfileDiffCallBack()
     ) {
 
@@ -53,14 +53,14 @@ class DetailRecruitProfileAdapter(private val listener: DetailProfileDelegate) :
 }
 
 class DetailRecruitProfileDiffCallBack :
-    DiffUtil.ItemCallback<RecruitDetailJoinedAccountsListVo>() {
+    DiffUtil.ItemCallback<RecruitDetailJoinedAccountsVo>() {
     override fun areItemsTheSame(
-        oldItem: RecruitDetailJoinedAccountsListVo,
-        newItem: RecruitDetailJoinedAccountsListVo
+        oldItem: RecruitDetailJoinedAccountsVo,
+        newItem: RecruitDetailJoinedAccountsVo
     ): Boolean = oldItem.accountId == newItem.accountId
 
     override fun areContentsTheSame(
-        oldItem: RecruitDetailJoinedAccountsListVo,
-        newItem: RecruitDetailJoinedAccountsListVo
+        oldItem: RecruitDetailJoinedAccountsVo,
+        newItem: RecruitDetailJoinedAccountsVo
     ): Boolean = oldItem == newItem
 }

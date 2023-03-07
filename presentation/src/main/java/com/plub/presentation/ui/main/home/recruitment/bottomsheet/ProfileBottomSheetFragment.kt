@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.databinding.BottomSheetRecruitSeeMoreProfileBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.util.px
 
-class ProfileBottomSheetFragment(private val profileList : List<RecruitDetailJoinedAccountsListVo>) : BottomSheetDialogFragment() {
+class ProfileBottomSheetFragment(private val profileList : List<RecruitDetailJoinedAccountsVo>) : BottomSheetDialogFragment() {
     private val binding: BottomSheetRecruitSeeMoreProfileBinding by lazy {
         BottomSheetRecruitSeeMoreProfileBinding.inflate(layoutInflater)
     }

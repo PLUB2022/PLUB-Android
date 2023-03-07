@@ -3,7 +3,7 @@ package com.plub.presentation.ui.main.home.recruitment.apply
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.ApplyRecruitQuestionViewType
-import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitResponseVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
@@ -24,7 +24,7 @@ class ApplyPlubbingViewModel @Inject constructor(
     companion object{
         const val EMPTY_TEXT = ""
     }
-    private var answerList : List<ApplicantsRecruitAnswerListVo> = emptyList()
+    private var answerList : List<ApplicantsRecruitAnswerVo> = emptyList()
     private var plubbingId : Int = 0
 
     fun fetchQuestions(id: Int) {
@@ -47,9 +47,9 @@ class ApplyPlubbingViewModel @Inject constructor(
     }
 
     private fun setAnswerList(dataList : List<QuestionsDataVo>){
-        val mergeList = mutableListOf<ApplicantsRecruitAnswerListVo>()
+        val mergeList = mutableListOf<ApplicantsRecruitAnswerVo>()
         dataList.forEach {
-            mergeList.add(ApplicantsRecruitAnswerListVo(it.id, EMPTY_TEXT))
+            mergeList.add(ApplicantsRecruitAnswerVo(it.id, EMPTY_TEXT))
         }
         answerList = mergeList
     }

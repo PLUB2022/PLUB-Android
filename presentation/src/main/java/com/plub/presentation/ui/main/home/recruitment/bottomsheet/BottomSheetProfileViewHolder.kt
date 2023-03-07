@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.main.home.recruitment.bottomsheet
 
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.databinding.IncludeItemCircleProfileDetailBinding
 import com.plub.presentation.util.GlideUtil
 
@@ -19,7 +19,7 @@ class BottomSheetProfileViewHolder(
         }
     }
 
-    fun bind(item: RecruitDetailJoinedAccountsListVo) {
+    fun bind(item: RecruitDetailJoinedAccountsVo) {
         binding.apply {
             GlideUtil.loadImage(root.context, item.profileImage, imageViewProfile)
             imageViewProfile.clipToOutline = true

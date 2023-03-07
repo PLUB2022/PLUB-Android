@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.main.home.recruitment.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
@@ -27,7 +27,7 @@ class DetailRecruitProfileViewHolder(
         }
     }
 
-    fun bind(item: RecruitDetailJoinedAccountsListVo, position: Int, allPeopleCount: Int, maxProfile : Int) {
+    fun bind(item: RecruitDetailJoinedAccountsVo, position: Int, allPeopleCount: Int, maxProfile : Int) {
         this.maxProfile = maxProfile
         nowNum = position + 1
         val morePeopleCount = allPeopleCount - position

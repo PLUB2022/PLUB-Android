@@ -1,17 +1,17 @@
 package com.plub.data.mapper.applicantsrecruitmapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitRequestAnswerListRequest
-import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerListVo
+import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitRequestAnswerRequest
+import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitAnswerVo
 
-object ApplicantsRecruitAnswerMapper : Mapper.RequestMapper<ApplicantsRecruitRequestAnswerListRequest, ApplicantsRecruitAnswerListVo> {
-    override fun mapModelToDto(type: ApplicantsRecruitAnswerListVo): ApplicantsRecruitRequestAnswerListRequest {
+object ApplicantsRecruitAnswerMapper : Mapper.RequestMapper<ApplicantsRecruitRequestAnswerRequest, ApplicantsRecruitAnswerVo> {
+    override fun mapModelToDto(type: ApplicantsRecruitAnswerVo): ApplicantsRecruitRequestAnswerRequest {
         return type?.run {
-            ApplicantsRecruitRequestAnswerListRequest(
+            ApplicantsRecruitRequestAnswerRequest(
                 questionId = this.questionId,
                 answer = this.answer
             )
-        } ?: ApplicantsRecruitRequestAnswerListRequest()
+        } ?: ApplicantsRecruitRequestAnswerRequest()
     }
 
 }

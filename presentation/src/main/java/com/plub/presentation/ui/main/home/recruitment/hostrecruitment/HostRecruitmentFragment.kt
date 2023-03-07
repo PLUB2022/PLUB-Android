@@ -6,7 +6,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHostDetailRecruitmentPlubbingBinding
 import com.plub.presentation.ui.main.home.recruitment.DetailRecruitPageState
@@ -115,7 +115,7 @@ class HostRecruitmentFragment :
         }
     }
 
-    private fun openProfileBottomSheet(joinedAccountList : List<RecruitDetailJoinedAccountsListVo>){
+    private fun openProfileBottomSheet(joinedAccountList : List<RecruitDetailJoinedAccountsVo>){
         val bottomSheet = ProfileBottomSheetFragment(joinedAccountList)
         bottomSheet.show(childFragmentManager, bottomSheet.tag)
     }

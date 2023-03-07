@@ -1,6 +1,6 @@
 package com.plub.presentation.ui.main.home.recruitment
 
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsListVo
+import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.ui.PageState
 
 data class DetailRecruitPageState(
@@ -16,5 +16,5 @@ data class DetailRecruitPageState(
     val plubbingTime : String = "",
     val isBookmarked : Boolean = false,
     val isApplied : Boolean = false,
-    val joinedAccounts : List<RecruitDetailJoinedAccountsListVo> = emptyList()
+    val joinedAccounts : List<RecruitDetailJoinedAccountsVo> = emptyList()
 ) : PageState
