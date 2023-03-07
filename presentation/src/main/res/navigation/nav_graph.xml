@@ -162,7 +162,14 @@
         android:id="@+id/searchingFragment"
         android:name="com.plub.presentation.ui.main.home.search.SearchingFragment"
         android:label="fragment_searching"
-        tools:layout="@layout/fragment_searching" />
+        tools:layout="@layout/fragment_searching" >
+        <action
+            android:id="@+id/action_searching_to_recruitment"
+            app:destination="@id/recruitmentFragment" />
+        <action
+            android:id="@+id/action_searching_to_host_recruitment"
+            app:destination="@id/hostRecruitmentFragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/bookmarkFragment"
