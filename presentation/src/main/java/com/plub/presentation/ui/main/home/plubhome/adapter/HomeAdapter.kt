@@ -23,7 +23,6 @@ class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubList
         fun onClickSetting()
     }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is HomeCategoryParentViewHolder -> holder.bind(currentList[position].categoryList)
@@ -55,20 +54,13 @@ class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubList
                 val binding = IncludeItemPlubCardListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return HomeRecommendListViewHolder(binding, listener)
             }
-            HomeViewType.LOADING -> {
-                val binding = IncludeItemProgressBarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                LoadingViewHolder(binding)
-            }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return currentList[position].viewType.type
     }
-
 }
-
-
 
 class HomeItemDiffCallBack : DiffUtil.ItemCallback<HomePlubListVo>() {
     override fun areItemsTheSame(oldItem: HomePlubListVo, newItem: HomePlubListVo): Boolean = oldItem.viewType == newItem.viewType
