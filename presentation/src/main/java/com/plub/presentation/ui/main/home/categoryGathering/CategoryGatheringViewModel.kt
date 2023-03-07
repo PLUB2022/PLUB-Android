@@ -135,17 +135,9 @@ class CategoryGatheringViewModel @Inject constructor(
     }
 
     private fun getMergeList(list: List<PlubCardVo>): List<PlubCardVo> {
-        val originList = mutableListOf<PlubCardVo>()
-        uiState.value.cardList.forEach {
-            originList.add(it)
-        }
+        val originList =  uiState.value.cardList
         val mappedList = mapToCardType(list)
-        return if (originList.isEmpty() || pageNumber == FIRST_PAGE) {
-            mappedList
-        } else {
-            originList.remove(loading)
-            originList + mappedList
-        }
+        return if (originList.isEmpty() || pageNumber == FIRST_PAGE)  mappedList else originList + mappedList
     }
 
     fun scrollTop() {

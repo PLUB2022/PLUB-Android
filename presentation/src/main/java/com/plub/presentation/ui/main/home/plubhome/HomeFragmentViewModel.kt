@@ -2,7 +2,6 @@ package com.plub.presentation.ui.main.home.plubhome
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.HomeViewType
-import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.home.HomePlubListVo
 import com.plub.domain.model.vo.home.categoryResponseVo.CategoryListDataResponseVo
@@ -89,25 +88,23 @@ class HomeFragmentViewModel @Inject constructor(
     }
 
     private fun addRecommendGatheringList(it: PlubCardListVo): List<HomePlubListVo> {
-        val originList = mutableListOf<HomePlubListVo>()
-        uiState.value.homePlubList.forEach {
-            originList.add(it)
-        }
+        val originList = uiState.value.homePlubList
         val mergedList = mutableListOf<HomePlubListVo>()
-        if (pageNumber == FIRST_PAGE) {
-            mergedList.add(getRecommendTitleVo())
-            if (!hasInterest) {
-                mergedList.add(getRegisterHobbiesVo())
-            }
-        }
-        else{
-            originList.remove(loading)
-        }
+        addFirstViewList(mergedList)
         it.content.forEach { vo ->
             mergedList.add(getGatheringsVo(vo))
         }
 
         return originList + mergedList
+    }
+
+    private fun addFirstViewList(list : MutableList<HomePlubListVo>){
+        if (pageNumber == FIRST_PAGE) {
+            list.add(getRecommendTitleVo())
+            if (!hasInterest) {
+                list.add(getRegisterHobbiesVo())
+            }
+        }
     }
 
     private fun getRecommendTitleVo() : HomePlubListVo{
