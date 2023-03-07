@@ -5,6 +5,11 @@ import com.plub.data.base.DataDto
 import com.plub.domain.model.DomainModel
 
 data class GetEntireScheduleResponse(
+    @SerializedName("calendarList")
+    val calendarList: CalendarList = CalendarList()
+) : DataDto
+
+data class CalendarList(
     @SerializedName("totalPages")
     val totalPages: Int = -1,
     @SerializedName("totalElements")
@@ -13,7 +18,7 @@ data class GetEntireScheduleResponse(
     val content: List<Schedule> = emptyList(),
     @SerializedName("last")
     val last: Boolean = false,
-) : DataDto
+)
 
 data class Schedule(
     @SerializedName("calendarId")

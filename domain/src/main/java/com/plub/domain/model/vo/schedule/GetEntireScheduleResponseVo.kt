@@ -1,15 +1,21 @@
 package com.plub.domain.model.vo.schedule
 
 import com.plub.domain.model.DomainModel
+import com.plub.domain.model.enums.ScheduleCardType
 
 data class GetEntireScheduleResponseVo(
+    val calendarList: CalendarListVo = CalendarListVo()
+) : DomainModel
+
+data class CalendarListVo(
     val totalPages: Int = -1,
     val totalElements: Int = -1,
     val content: List<ScheduleVo> = emptyList(),
     val last: Boolean = false,
-) : DomainModel
+)
 
 data class ScheduleVo(
+    val viewType: ScheduleCardType = ScheduleCardType.CONTENT,
     val calendarId: Int =  -1,
     val title: String = "",
     val memo: String = "",
