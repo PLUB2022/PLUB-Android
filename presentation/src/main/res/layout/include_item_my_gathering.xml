@@ -5,12 +5,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout_gathering"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:background="@drawable/bg_rectangle_filled_white_radius_15"
             app:layout_constraintTop_toTopOf="parent">
 

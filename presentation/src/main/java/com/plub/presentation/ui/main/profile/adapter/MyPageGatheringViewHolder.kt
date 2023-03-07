@@ -14,6 +14,7 @@ class MyPageGatheringViewHolder(
     fun bind(item: String) {
         binding.apply {
             textViewGatheringName.text = item
+            textViewGatheringGoal.text = item
         }
     }
 }
