@@ -6,6 +6,8 @@ import com.plub.data.base.DataDto
 data class SocialLoginRequest(
     @SerializedName("accessToken")
     val accessToken: String,
+    @SerializedName("fcmToken")
+    val fcmToken: String,
     @SerializedName("authorizationCode")
     val authorizationCode: String,
     @SerializedName("socialType")

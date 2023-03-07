@@ -156,21 +156,19 @@
         android:id="@+id/createGatheringFragment"
         android:name="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringFragment"
         android:label="CreateGatheringFragment"
-        tools:layout="@layout/fragment_create_gathering"/>
+        tools:layout="@layout/fragment_create_gathering" />
 
     <fragment
         android:id="@+id/searchingFragment"
         android:name="com.plub.presentation.ui.main.home.search.SearchingFragment"
         android:label="fragment_searching"
-        tools:layout="@layout/fragment_searching">
-    </fragment>
+        tools:layout="@layout/fragment_searching" />
 
     <fragment
         android:id="@+id/bookmarkFragment"
         android:name="com.plub.presentation.ui.main.home.bookmark.BookmarkFragment"
         android:label="fragment_bookmark"
-        tools:layout="@layout/fragment_bookmark">
-    </fragment>
+        tools:layout="@layout/fragment_bookmark" />
 
     <fragment
         android:id="@+id/plubingMainFragment"
@@ -185,6 +183,14 @@
         <action
             android:id="@+id/action_plubing_main_to_plubing_board_write"
             app:destination="@id/plubingBoardWriteFragment" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_plubing_board_detail"
+            app:destination="@id/plubingBoardDetailFragment" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_board_pin"
+            app:destination="@+id/boardPinFragment" />
     </fragment>
 
     <fragment
@@ -194,12 +200,43 @@
         tools:layout="@layout/fragment_board_write">
 
         <argument
-            android:name="plubingId"
-            app:argType="integer" />
+            android:name="writeType"
+            app:argType="com.plub.domain.model.enums.PlubingBoardWriteType" />
 
         <argument
-            android:name="plubingName"
-            app:argType="string" />
+            android:name="feedId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/plubingBoardDetailFragment"
+        android:name="com.plub.presentation.ui.main.plubing.board.detail.BoardDetailFragment"
+        android:label="fragment_plubing_board_detail"
+        tools:layout="@layout/fragment_board_detail">
+
+        <argument
+            android:name="feedId"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_plubing_board_detail_to_plubing_board_write"
+            app:destination="@id/plubingBoardWriteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/boardPinFragment"
+        android:name="com.plub.presentation.ui.main.plubing.board.pin.BoardPinFragment"
+        android:label="fragment_board_pin"
+        tools:layout="@layout/fragment_board_pin">
+
+        <action
+            android:id="@+id/action_board_pin_to_plubing_board_write"
+            app:destination="@id/plubingBoardWriteFragment" />
+
+        <action
+            android:id="@+id/action_board_pin_to_board_detail"
+            app:destination="@id/plubingBoardDetailFragment" />
     </fragment>
 
     <fragment
@@ -221,5 +258,5 @@
         android:id="@+id/modifyGatheringFragment"
         android:name="com.plub.presentation.ui.main.gathering.modifyGathering.ModifyGatheringFragment"
         android:label="ModifyGatheringFragment"
-        tools:layout="@layout/fragment_modify_gathering"/>
+        tools:layout="@layout/fragment_modify_gathering" />
 </navigation>

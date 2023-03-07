@@ -17,13 +17,13 @@ class PlubingBoardPinViewHolder(
     init {
         binding.root.setOnClickListener {
             vo?.let {
-                listener.onClickNormalBoard(it.feedId)
+                listener.onClickBoard(it.feedId)
             }
         }
 
         binding.root.setOnLongClickListener {
             vo?.let {
-                listener.onLongClickNormalBoard(it.feedId, it.isHost, it.isAuthor)
+                listener.onLongClickBoard(it.feedId, it.isHost, it.isAuthor)
             }
             true
         }

@@ -19,7 +19,7 @@ data class PlubingBoardResponse(
     @SerializedName("pin")
     val pin: Boolean = false,
     @SerializedName("feedImage")
-    val feedImage: String = "",
+    val feedImage: String? = "",
     @SerializedName("profileImage")
     val profileImage: String = "",
     @SerializedName("nickname")

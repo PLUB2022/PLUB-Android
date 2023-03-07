@@ -58,4 +58,5 @@ object Versions {
 
     const val FIREBASE = "4.3.13"
     const val FIREBASE_BOM = "31.1.1"
+    const val FCM = "23.1.1"
 }
