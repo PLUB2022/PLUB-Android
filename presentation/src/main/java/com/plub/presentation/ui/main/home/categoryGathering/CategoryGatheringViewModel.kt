@@ -38,6 +38,14 @@ class CategoryGatheringViewModel @Inject constructor(
     private val loading = PlubCardVo(viewType = PlubCardType.LOADING)
 
 
+    fun updateCategoryName(name : String){
+        updateUiState { uiState->
+            uiState.copy(
+                categoryName = name
+            )
+        }
+    }
+
     fun fetchRecommendationGatheringData(id: Int, body : GatheringFilterState) =
         viewModelScope.launch {
             categoryId = id
@@ -57,6 +65,14 @@ class CategoryGatheringViewModel @Inject constructor(
             }
         }
 
+
+    fun updateSortTypeName(name : String){
+        updateUiState { uiState ->
+            uiState.copy(
+                sortTypeName = name
+            )
+        }
+    }
     private fun getBodyVo(body : GatheringFilterState) : CategoriesGatheringBodyRequestVo{
         val days = if(body.gatheringDays.isEmpty() || body.gatheringDays.contains(DaysType.ALL)) null else body.gatheringDays.map { it.eng }
         val subCategoryId = if(body.hobbiesSelectedVo.hobbies.isEmpty()) null else getMergeSelectedHobbyList(body.hobbiesSelectedVo.hobbies)

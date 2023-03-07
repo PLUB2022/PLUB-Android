@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.home.categoryGathering.CategoryGatheringViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -37,6 +43,7 @@
             android:layout_marginBottom="26dp"
             android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
             android:text="@string/category_choice_empty_button"
+            android:onClick="@{()->vm.goToCreate()}"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"

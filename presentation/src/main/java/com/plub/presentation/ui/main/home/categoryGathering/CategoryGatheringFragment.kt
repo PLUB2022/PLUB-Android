@@ -44,11 +44,10 @@ class CategoryGatheringFragment :
         binding.apply {
             vm = viewModel
             initCategoryRecommendRecyclerView()
-            textViewCategoryName.text = categoryChoiceFragmentArgs.categoryName
-            includeDataEmpty.buttonGoCreateGathering.setOnClickListener {
-                viewModel.goToCreate()
-            }
         }
+
+        viewModel.updateCategoryName(categoryChoiceFragmentArgs.categoryName)
+
         viewModel.fetchRecommendationGatheringData(
             categoryChoiceFragmentArgs.categoryId,
             categoryChoiceFragmentArgs.filter
@@ -110,7 +109,7 @@ class CategoryGatheringFragment :
             PlubSortType.POPULAR -> R.string.word_sort_type_popular
             PlubSortType.NEW -> R.string.word_sort_type_new
         }
-        binding.textViewSortType.text = getString(sortTypeRes)
+        viewModel.updateSortTypeName(getString(sortTypeRes))
     }
 
     private fun inspectEventFlow(event: CategoryGatheringEvent) {
