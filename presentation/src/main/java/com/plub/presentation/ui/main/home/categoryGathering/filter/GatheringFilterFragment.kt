@@ -27,16 +27,6 @@ class GatheringFilterFragment :
     ) {
 
     companion object{
-        const val ALL = 0
-        const val MON = 1
-        const val TUE = 2
-        const val WED = 3
-        const val THR = 4
-        const val FRI = 5
-        const val SAT = 6
-        const val SUN = 7
-
-
         const val ITEM_SPAN_SIZE = 4
         const val HORIZONTAL_SPACE = 12
         const val VERTICAL_SPACE = 8
