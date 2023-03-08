@@ -9,6 +9,7 @@ import com.plub.domain.model.enums.ScheduleCardType
 import com.plub.domain.model.vo.schedule.ScheduleVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleContentBinding
+import com.plub.presentation.ui.common.decoration.OverlapDecoration
 import com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.profile.PlubingScheduleProfileAdapter
 import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.TimeFormatter
@@ -17,6 +18,10 @@ class PlubingScheduleContentViewHolder(
     private val binding: LayoutRecyclerPlubingScheduleContentBinding,
     private val onClick: (() -> Unit)? = null
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    companion object {
+        private const val OVERLAP_WIDTH = 8
+    }
 
     private val plubingScheduleProfileAdapter: PlubingScheduleProfileAdapter by lazy {
         PlubingScheduleProfileAdapter()
@@ -30,6 +35,7 @@ class PlubingScheduleContentViewHolder(
         binding.recyclerViewProfile.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             adapter = plubingScheduleProfileAdapter
+            addItemDecoration(OverlapDecoration(OVERLAP_WIDTH))
             itemAnimator = null
         }
     }
