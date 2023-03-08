@@ -4,7 +4,6 @@ import com.plub.data.base.ApiResponse
 import com.plub.data.base.DataDto
 import com.plub.data.dto.board.PlubingBoardListResponse
 import com.plub.data.dto.board.PlubingPinListResponse
-import com.plub.data.dto.board.PostBoardRequest
 import com.plub.data.dto.schedule.GetEntireScheduleResponse
 import com.plub.domain.model.vo.schedule.GetEntireScheduleResponseVo
 import retrofit2.Response

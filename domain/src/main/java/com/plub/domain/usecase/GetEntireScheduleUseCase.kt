@@ -2,7 +2,6 @@ package com.plub.domain.usecase
 
 import com.plub.domain.UiState
 import com.plub.domain.base.UseCase
-import com.plub.domain.model.vo.board.FetchPlubingBoardRequestVo
 import com.plub.domain.model.vo.board.PlubingBoardListVo
 import com.plub.domain.model.vo.schedule.GetEntireScheduleRequestVo
 import com.plub.domain.model.vo.schedule.GetEntireScheduleResponseVo
