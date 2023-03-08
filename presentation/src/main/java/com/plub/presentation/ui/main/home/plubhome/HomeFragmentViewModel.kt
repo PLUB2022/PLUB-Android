@@ -11,6 +11,8 @@ import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,14 +36,18 @@ class HomeFragmentViewModel @Inject constructor(
     fun fetchHomePageData() =
         viewModelScope.launch {
             pageNumber = FIRST_PAGE
-            getCategoriesUseCase(Unit).collect { state ->
-                inspectUiState(state, ::handleGetCategoriesSuccess)
+            val jobCategories : Job = launch {
+                getCategoriesUseCase(Unit).collect { state ->
+                    inspectUiState(state, ::handleGetCategoriesSuccess)
+                }
             }
 
-            getMyInterestUseCase(Unit).collect { state ->
-                inspectUiState(state, ::handleGetMyInterestSuccess)
+            val jobMyInterest : Job = launch {
+                getMyInterestUseCase(Unit).collect { state ->
+                    inspectUiState(state, ::handleGetMyInterestSuccess)
+                }
             }
-
+            joinAll(jobCategories, jobMyInterest)
             getRecommendationGatheringUsecase(pageNumber)
                 .collect { state ->
                     inspectUiState(state, ::handleGetRecommendGatheringSuccess)

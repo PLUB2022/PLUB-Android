@@ -41,7 +41,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
             }
 
             override fun onClickSetting() {
-                //Setting 이동
+                //TODO REMOVE
+                val action = HomeFragmentDirections.actionMainToMyPage()
+                findNavController().navigate(action)
             }
         })
 
