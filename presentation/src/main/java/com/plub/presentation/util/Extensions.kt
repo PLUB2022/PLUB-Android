@@ -12,6 +12,8 @@ import android.text.Spanned
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
 import java.io.Serializable
 
@@ -113,4 +115,19 @@ fun String.fromHtml(): Spanned {
 inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
     SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getParcelable(key, T::class.java)
     else -> @Suppress("DEPRECATION") getParcelable(key) as? T
+}
+
+fun RecyclerView.infiniteScrolls(method: () -> Unit) {
+    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val lastVisiblePosition =
+                (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+            val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
+            val isDownScroll = dy > 0
+
+            if(isBottom and isDownScroll)
+                method()
+        }
+    })
 }
