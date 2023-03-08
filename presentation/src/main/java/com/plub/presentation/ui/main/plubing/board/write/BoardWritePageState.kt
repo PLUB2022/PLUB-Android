@@ -15,5 +15,6 @@ data class BoardWritePageState(
     var content: String = "",
     val contentCount: SpannableString = SpannableString(""),
     val contentMaxLength: Int = 0,
-    val isPostButtonEnable: Boolean = false
+    val isPostButtonEnable: Boolean = false,
+    val editImageUrl: String = "",
 ) : PageState

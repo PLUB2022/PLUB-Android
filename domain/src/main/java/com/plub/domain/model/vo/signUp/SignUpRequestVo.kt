@@ -9,6 +9,7 @@ import com.plub.domain.model.vo.signUp.terms.TermsPageVo
 
 data class SignUpRequestVo(
     val signToken:String,
+    val fcmToken: String,
     val profileUrl:String,
     val termsPageVo: TermsPageVo,
     val personalInfoVo: PersonalInfoVo,

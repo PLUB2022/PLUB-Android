@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="notification_channel_name">알람</string>
+
     <!-- DataBinding -->
     <string name="int_to_string">%d</string>
 
@@ -20,6 +23,7 @@
     </string>
     <string name="word_skip_uppercase">SKIP</string>
     <string name="word_next">다음</string>
+    <string name="word_cancel">취소</string>
     <string name="word_gender">성별</string>
     <string name="word_man">남성</string>
     <string name="word_woman">여성</string>
@@ -58,6 +62,7 @@
     <string name="word_bookmark">북마크</string>
     <string name="word_middle_slash">%d/%d</string>
     <string name="word_save">저장</string>
+    <string name="word_line">|</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>
@@ -224,7 +229,15 @@
     <string name="plubing_board_write_post">글 업로드</string>
     <string name="plubing_board_write_title_hint">제목을 입력해주세요</string>
     <string name="plubing_board_write_content_hint">내용을 입력해주세요</string>
-    
+
+    <string name="plubing_board_detail_comment_hint">댓글을 입력하세요</string>
+    <string name="plubing_board_detail_comment_reply">답글달기</string>
+    <string name="plubing_board_detail_reply_writing">%s 님에게 답글 쓰는 중…</string>
+    <string name="plubing_board_detail_replied">%s 님에게 쓴 답글</string>
+    <string name="plubing_board_detail_reply_cancel">답글 작성 취소</string>
+    <string name="plubing_board_detail_author">글쓴이</string>
+    <string name="plubing_board_detail_editing_comment">댓글 수정 중</string>
+
     <string name="modify_gathering_title">모임 정보 수정</string>
     <string name="modify_gathering_tab_recruit">모집글</string>
     <string name="modify_gathering_tab_info">모임 정보</string>

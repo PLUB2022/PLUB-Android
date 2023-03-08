@@ -1,10 +1,12 @@
 package com.plub.domain.repository
 
 import com.plub.domain.UiState
+import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitResponseVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
+import com.plub.domain.model.vo.modifyGathering.ModifyQuestionRequestVo
 import kotlinx.coroutines.flow.Flow
 
 interface RecruitRepository {
@@ -12,4 +14,6 @@ interface RecruitRepository {
     suspend fun applyRecruit(request : ApplicantsRecruitRequestVo) : Flow<UiState<ApplicantsRecruitResponseVo>>
     suspend fun getQuestions(request: Int): Flow<UiState<QuestionsResponseVo>>
     suspend fun endRecruit(request : Int) : Flow<UiState<ApplicantsRecruitResponseVo>>
+
+    suspend fun modifyQuestions(request: ModifyQuestionRequestVo) : Flow<UiState<CreateGatheringResponseVo>>
 }
