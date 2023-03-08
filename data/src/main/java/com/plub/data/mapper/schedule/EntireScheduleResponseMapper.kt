@@ -23,6 +23,7 @@ object EntireScheduleResponseMapper :
                 CalendarListVo(
                     totalPages = calendarList.totalPages,
                     totalElements = calendarList.totalElements,
+                    last = calendarList.last,
                     content = this.calendarList.content.map {
                         ScheduleVo(
                             calendarId = it.calendarId,
