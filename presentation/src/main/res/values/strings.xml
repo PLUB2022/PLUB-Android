@@ -64,6 +64,7 @@
     <string name="word_location">장소</string>
     <string name="word_alarm">알림</string>
     <string name="word_memo">메모</string>
+    <string name="word_middle_hyphen">%s - %s</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>
