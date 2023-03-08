@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.profile.adapter
+package com.plub.presentation.ui.main.home.profile.viewHolder
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -7,6 +7,8 @@ import com.plub.domain.model.enums.MyPageGatheringType
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemMyGatheringBinding
+import com.plub.presentation.ui.main.home.profile.adapter.MyPageGatheringAdapter
+import com.plub.presentation.ui.main.home.profile.adapter.MyPageParentGatheringAdapter
 import com.plub.presentation.util.animation.ArrowToggleAnimation
 
 class MyPageParentGatheringViewHolder(

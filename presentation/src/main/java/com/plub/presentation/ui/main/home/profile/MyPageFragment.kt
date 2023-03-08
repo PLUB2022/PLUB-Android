@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.profile
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.MyPageGatheringType
 import com.plub.domain.model.vo.myPage.MyPageGatheringDetailVo
@@ -88,7 +89,7 @@ class MyPageFragment :
     private fun inspectEvent(event: MyPageEvent) {
         when (event) {
             is MyPageEvent.GoToMyApplication -> {}
-            is MyPageEvent.GoToOtherApplication -> {}
+            is MyPageEvent.GoToOtherApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToRecruitingGathering())}
         }
     }
 }

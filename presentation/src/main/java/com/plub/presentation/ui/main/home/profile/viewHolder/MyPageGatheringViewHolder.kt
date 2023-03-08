@@ -1,9 +1,10 @@
-package com.plub.presentation.ui.main.home.profile.adapter
+package com.plub.presentation.ui.main.home.profile.viewHolder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.MyPageGatheringType
 import com.plub.domain.model.vo.myPage.MyPageGatheringDetailVo
 import com.plub.presentation.databinding.IncludeItemMyGatheringDetailBinding
+import com.plub.presentation.ui.main.home.profile.adapter.MyPageParentGatheringAdapter
 
 class MyPageGatheringViewHolder(
     private val binding: IncludeItemMyGatheringDetailBinding,

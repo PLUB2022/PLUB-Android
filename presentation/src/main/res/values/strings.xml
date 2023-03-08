@@ -302,4 +302,5 @@
     <string name="my_page_no_application">지원가 없습니다!</string>
     <string name="my_page_reject">거절하기</string>
     <string name="my_page_approve">받기</string>
+    <string name="my_page_complete_answer">%s 답변 작성완료</string>
 </resources>

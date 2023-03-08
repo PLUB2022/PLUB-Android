@@ -45,6 +45,7 @@
                 android:layout_marginTop="4dp"
                 android:paddingBottom="18dp"
                 android:textColor="@color/color_8c8c8c"
+                android:text="@string/my_page_complete_answer"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="@id/text_view_name"
                 app:layout_constraintTop_toBottomOf="@id/text_view_name"

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.myPage.MyPageGatheringDetailVo
 import com.plub.presentation.databinding.IncludeItemMyGatheringDetailBinding
+import com.plub.presentation.ui.main.home.profile.viewHolder.MyPageGatheringViewHolder
 
 class MyPageGatheringAdapter(private val listener: MyPageParentGatheringAdapter.MyPageDelegate): ListAdapter<MyPageGatheringDetailVo, RecyclerView.ViewHolder>(
     MyPageGatheringDiffCallback()
