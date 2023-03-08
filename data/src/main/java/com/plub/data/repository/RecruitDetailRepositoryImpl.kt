@@ -25,7 +25,8 @@ import javax.inject.Inject
 class RecruitDetailRepositoryImpl @Inject constructor(private val recruitApi: RecruitApi) : RecruitRepository, BaseRepository() {
     override suspend fun getRecruitDetail(request: Int): Flow<UiState<RecruitDetailResponseVo>> {
         return apiLaunch(
-            recruitApi.fetchRecruitDetail(request), RecruitDetailResponseMapper)
+            recruitApi.fetchRecruitDetail(request), RecruitDetailResponseMapper
+        )
     }
 
     override suspend fun applyRecruit(request: ApplicantsRecruitRequestVo): Flow<UiState<ApplicantsRecruitResponseVo>> {

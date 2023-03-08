@@ -18,6 +18,7 @@ import com.plub.domain.usecase.GetSearchPlubRecruitUseCase
 import com.plub.domain.usecase.InsertRecentSearchUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.ui.main.home.categoryGathering.CategoryGatheringEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -287,5 +288,17 @@ class SearchingViewModel @Inject constructor(
     private fun clear() {
         emitEventFlow(SearchingEvent.ClearFocus)
         emitEventFlow(SearchingEvent.HideKeyboard)
+    }
+
+    fun onClickBack(){
+        emitEventFlow(SearchingEvent.GoToBack)
+    }
+
+    fun goToDetailRecruitment(id: Int, isHost: Boolean){
+        if (isHost) {
+            emitEventFlow(SearchingEvent.GoToHostRecruit(id))
+        } else {
+            emitEventFlow(SearchingEvent.GoToRecruit(id))
+        }
     }
 }

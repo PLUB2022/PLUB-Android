@@ -34,4 +34,6 @@ data class PlubCardResponse(
     val curAccountNum: Int = -1,
     @SerializedName("isBookmarked")
     val isBookmarked: Boolean = false,
+    @SerializedName("isHost")
+    val isHost : Boolean = false
 ) : DataDto

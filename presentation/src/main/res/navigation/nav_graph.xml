@@ -7,24 +7,30 @@
 
     <fragment
         android:id="@+id/menu_navigation_main"
-        android:name="com.plub.presentation.ui.main.home.plubing.MainFragment"
+        android:name="com.plub.presentation.ui.main.home.plubhome.HomeFragment"
         android:label="menu_navigation_main"
-        tools:layout="@layout/fragment_main">
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_main_to_createGathering"
             app:destination="@id/createGatheringFragment" />
-
         <action
             android:id="@+id/action_main_to_searching"
             app:destination="@id/searchingFragment" />
-
         <action
             android:id="@+id/action_main_to_bookmark"
             app:destination="@id/bookmarkFragment" />
         <action
+            android:id="@+id/action_main_to_category_gathering"
+            app:destination="@id/categoryGatheringFragment"/>
+        <action
+            android:id="@+id/action_main_to_recruitment"
+            app:destination="@id/recruitmentFragment" />
+        <action
+            android:id="@+id/action_main_to_registerInterest"
+            app:destination="@id/registerHobbiesFragment"/>
+        <action
             android:id="@+id/action_main_to_modifyGathering"
             app:destination="@id/modifyGatheringFragment" />
-
         <action
             android:id="@+id/action_main_to_plubing_main"
             app:destination="@id/plubingMainFragment" />
@@ -32,6 +38,123 @@
         <action
             android:id="@+id/action_main_to_my_page"
             app:destination="@id/myPageFragment" />
+
+        <argument
+            android:name="categoryId"
+            app:argType="integer"
+            />
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            />
+        <argument
+            android:name="plubbingId"
+            app:argType="integer"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoryGatheringFragment"
+        android:name="com.plub.presentation.ui.main.home.categoryGathering.CategoryGatheringFragment"
+        android:label="fragment_category_gathering"
+        tools:layout="@layout/fragment_category_gathering">
+        <action
+            android:id="@+id/action_categoryGathering_to_recruitment"
+            app:destination="@id/recruitmentFragment" />
+        <action
+            android:id="@+id/action_category_gathering_to_searching"
+            app:destination="@id/searchingFragment" />
+        <action
+            android:id="@+id/action_category_gathering_to_create_gathering"
+            app:destination="@id/createGatheringFragment" />
+        <action
+            android:id="@+id/action_category_gathering_to_host_recruitment"
+            app:destination="@id/hostRecruitmentFragment"/>
+        <action
+            android:id="@+id/action_category_gathering_to_filter"
+            app:destination="@id/categoryGatheringFilterFragment"/>
+        <argument
+            android:name="categoryId"
+            app:argType="integer"
+            />
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            android:defaultValue=""
+            />
+        <argument
+            android:name="filter"
+            app:argType="com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoryGatheringFilterFragment"
+        android:name="com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterFragment"
+        android:label="fragment_category_gathering_filter"
+        tools:layout="@layout/fragment_category_gathering_filter">
+        <action
+            android:id="@+id/action_filter_to_category_gathering"
+            app:popUpTo="@id/menu_navigation_main"
+            app:popUpToInclusive="false"
+            app:destination="@id/categoryGatheringFragment"/>
+        <argument
+            android:name="categoryId"
+            app:argType="integer"
+            />
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            android:defaultValue=""
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recruitmentFragment"
+        android:name="com.plub.presentation.ui.main.home.recruitment.RecruitmentFragment"
+        android:label="fragment_recruitment_detail"
+        tools:layout="@layout/fragment_detail_recruitment_plubing"
+        >
+        <action
+            android:id="@+id/action_recruitment_to_applyPlubbing"
+            app:destination="@id/applyPlubbingFragment" />
+        <argument
+            android:name="plubbingId"
+            app:argType="integer"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/hostRecruitmentFragment"
+        android:name="com.plub.presentation.ui.main.home.recruitment.hostrecruitment.HostRecruitmentFragment"
+        android:label="fragment_recruitment_detail_host"
+        tools:layout="@layout/fragment_host_detail_recruitment_plubbing"
+        >
+        <argument
+            android:name="plubbingId"
+            app:argType="integer"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/applyPlubbingFragment"
+        android:name="com.plub.presentation.ui.main.home.recruitment.apply.ApplyPlubbingFragment"
+        android:label="fragment_apply_plubbing"
+        tools:layout="@layout/fragment_apply_plubbing"
+        >
+        <argument
+            android:name="plubbingId"
+            app:argType="integer"
+            android:defaultValue="0"
+            />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/registerHobbiesFragment"
+        android:name="com.plub.presentation.ui.main.home.registhobbies.RegisterHobbiesFragment"
+        android:label="fragment_register_interest"
+        tools:layout="@layout/fragment_register_hobbies">
     </fragment>
 
     <fragment
@@ -44,7 +167,14 @@
         android:id="@+id/searchingFragment"
         android:name="com.plub.presentation.ui.main.home.search.SearchingFragment"
         android:label="fragment_searching"
-        tools:layout="@layout/fragment_searching" />
+        tools:layout="@layout/fragment_searching" >
+        <action
+            android:id="@+id/action_searching_to_recruitment"
+            app:destination="@id/recruitmentFragment" />
+        <action
+            android:id="@+id/action_searching_to_host_recruitment"
+            app:destination="@id/hostRecruitmentFragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/bookmarkFragment"
@@ -133,7 +263,7 @@
         tools:layout="@layout/fragment_noti" />
     <fragment
         android:id="@+id/menu_navigation_profile"
-        android:name="com.plub.presentation.ui.main.profile.ProfileFragment"
+        android:name="com.plub.presentation.ui.main.home.profile.ProfileFragment"
         android:label="menu_navigation_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment

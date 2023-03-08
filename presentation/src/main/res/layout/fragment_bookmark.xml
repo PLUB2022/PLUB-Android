@@ -25,6 +25,7 @@
             android:layout_height="32dp"
             android:layout_marginStart="3dp"
             android:layout_marginTop="12dp"
+            android:onClick="@{()->vm.onClickBack()}"
             android:scaleType="center"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"

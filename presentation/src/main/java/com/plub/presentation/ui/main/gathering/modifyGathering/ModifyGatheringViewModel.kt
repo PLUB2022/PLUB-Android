@@ -9,8 +9,6 @@ import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
 import com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion.ModifyGuestQuestionPageState
 import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitPageState
-import com.plub.presentation.util.PlubLogger
-import com.plub.presentation.util.deepCopy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
