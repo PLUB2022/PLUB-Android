@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.MyPageGatheringType
 import com.plub.domain.model.vo.myPage.MyPageGatheringDetailVo
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageBinding
 import com.plub.presentation.ui.PageState
@@ -16,9 +17,13 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MyPageFragment :
-    BaseFragment<FragmentMyPageBinding, PageState.Default, MyPageViewModel>(
+    BaseFragment<FragmentMyPageBinding, MyPageState, MyPageViewModel>(
         FragmentMyPageBinding::inflate
     ) {
+
+    companion object{
+        const val LEAST_LINE = 1
+    }
 
     private val gatheringAdapter : MyPageParentGatheringAdapter by lazy {
         MyPageParentGatheringAdapter(object : MyPageParentGatheringAdapter.MyPageDelegate{
@@ -34,6 +39,8 @@ class MyPageFragment :
         binding.apply {
             vm = viewModel
 
+            textViewProfileName.text = "조경석"
+            textViewProfileExplain.text = "국회는 법률에 저촉되지 아니하는 범위안에서 의사와 내부규율에 관한 규칙을 제정할 수 있다. 국회는 법률에 저촉되지 아니하는 범위안에서 의사와 내부규율에 관한 규칙을 제정할 수 있다. 국회는 법률에 저촉되지 아니하는 범위안에서 의사와 내부규율에 관한 규칙을 제정할 수 있다."
             gatheringAdapter.submitList(arrayListOf(
                 MyPageGatheringVo(gatheringList = arrayListOf(MyPageGatheringDetailVo(
                     title = "테스트용 1번",
@@ -90,6 +97,20 @@ class MyPageFragment :
         when (event) {
             is MyPageEvent.GoToMyApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToWaitingGathering())}
             is MyPageEvent.GoToOtherApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToRecruitingGathering())}
+            is MyPageEvent.ReadMore -> { openText(event.isExpandText) }
+        }
+    }
+
+    private fun openText(isExpandText : Boolean){
+        binding.apply {
+            if(isExpandText){
+                textViewReadMore.text = getString(R.string.my_page_close)
+                textViewProfileExplain.maxLines = Int.MAX_VALUE
+            }
+            else{
+                textViewReadMore.text = getString(R.string.my_page_read_more)
+                textViewProfileExplain.maxLines = LEAST_LINE
+            }
         }
     }
 }

@@ -292,6 +292,7 @@
 
 
     <string name="my_page_read_more">더보기</string>
+    <string name="my_page_close">접기</string>
     <string name="my_page_recruiting_gathering">모집 중인 모임</string>
     <string name="my_page_waiting_gathering">대기 중인 모임</string>
     <string name="my_page_active_gathering">활동 중인 모임</string>

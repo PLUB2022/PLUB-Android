@@ -7,7 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MyPageViewModel @Inject constructor() : BaseViewModel<PageState.Default>(PageState.Default) {
+class MyPageViewModel @Inject constructor() : BaseViewModel<MyPageState>(MyPageState()) {
+
+    var isExpandText : Boolean = false
 
     fun goToDetail(gatheringType : MyPageGatheringType){
         when(gatheringType){
@@ -16,5 +18,10 @@ class MyPageViewModel @Inject constructor() : BaseViewModel<PageState.Default>(P
             MyPageGatheringType.ACTIVE -> {}
             MyPageGatheringType.END -> {}
         }
+    }
+
+    fun readMore(){
+        isExpandText = !isExpandText
+        emitEventFlow(MyPageEvent.ReadMore(isExpandText))
     }
 }
