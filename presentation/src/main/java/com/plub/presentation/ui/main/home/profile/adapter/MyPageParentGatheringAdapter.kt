@@ -1,14 +1,21 @@
-package com.plub.presentation.ui.main.profile.adapter
+package com.plub.presentation.ui.main.home.profile.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.enums.MyPageGatheringType
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.presentation.databinding.IncludeItemMyGatheringBinding
 
-class MyPageParentGatheringAdapter: ListAdapter<MyPageGatheringVo, RecyclerView.ViewHolder>(MyPageParentGatheringDiffCallback()) {
+class MyPageParentGatheringAdapter(private val listener: MyPageDelegate): ListAdapter<MyPageGatheringVo, RecyclerView.ViewHolder>(
+    MyPageParentGatheringDiffCallback()
+) {
+
+    interface MyPageDelegate{
+        fun onClickGathering(gatheringType : MyPageGatheringType)
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -18,7 +25,7 @@ class MyPageParentGatheringAdapter: ListAdapter<MyPageGatheringVo, RecyclerView.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = IncludeItemMyGatheringBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyPageParentGatheringViewHolder(binding)
+        return MyPageParentGatheringViewHolder(binding, listener)
     }
 
 }

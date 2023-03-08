@@ -1,12 +1,14 @@
-package com.plub.presentation.ui.main.profile
+package com.plub.presentation.ui.main.home.profile
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.enums.MyPageGatheringType
+import com.plub.domain.model.vo.myPage.MyPageGatheringDetailVo
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageBinding
 import com.plub.presentation.ui.PageState
-import com.plub.presentation.ui.main.profile.adapter.MyPageParentGatheringAdapter
+import com.plub.presentation.ui.main.home.profile.adapter.MyPageParentGatheringAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -18,7 +20,11 @@ class MyPageFragment :
     ) {
 
     private val gatheringAdapter : MyPageParentGatheringAdapter by lazy {
-        MyPageParentGatheringAdapter()
+        MyPageParentGatheringAdapter(object : MyPageParentGatheringAdapter.MyPageDelegate{
+            override fun onClickGathering(gatheringType: MyPageGatheringType) {
+                viewModel.goToDetail(gatheringType)
+            }
+        })
     }
 
     override val viewModel: MyPageViewModel by viewModels()
@@ -28,10 +34,26 @@ class MyPageFragment :
             vm = viewModel
 
             gatheringAdapter.submitList(arrayListOf(
-                MyPageGatheringVo(gatheringList = arrayListOf("테스트용 1번"), gatheringType = 0),
-                MyPageGatheringVo(gatheringType = 1),
-                MyPageGatheringVo(gatheringType = 2),
-                MyPageGatheringVo(gatheringType = 3)))
+                MyPageGatheringVo(gatheringList = arrayListOf(MyPageGatheringDetailVo(
+                    title = "테스트용 1번",
+                    goal = "테스트용 1번",
+                    gatheringType = MyPageGatheringType.RECRUITING
+                )), gatheringType = MyPageGatheringType.RECRUITING),
+                MyPageGatheringVo(gatheringList = arrayListOf(MyPageGatheringDetailVo(
+                    title = "테스트용 2번",
+                    goal = "테스트용 2번",
+                    gatheringType = MyPageGatheringType.WAITING
+                )), gatheringType = MyPageGatheringType.WAITING),
+                MyPageGatheringVo(gatheringList = arrayListOf(MyPageGatheringDetailVo(
+                    title = "테스트용 3번",
+                    goal = "테스트용 3번",
+                    gatheringType = MyPageGatheringType.ACTIVE
+                )), gatheringType = MyPageGatheringType.ACTIVE),
+                MyPageGatheringVo(gatheringList = arrayListOf(MyPageGatheringDetailVo(
+                    title = "테스트용 4번",
+                    goal = "테스트용 4번",
+                    gatheringType = MyPageGatheringType.END
+                )), gatheringType = MyPageGatheringType.END)))
             initRecycler()
         }
     }
@@ -54,6 +76,19 @@ class MyPageFragment :
 
                 }
             }
+
+            launch {
+                viewModel.eventFlow.collect{
+                    inspectEvent(it as MyPageEvent)
+                }
+            }
+        }
+    }
+
+    private fun inspectEvent(event: MyPageEvent) {
+        when (event) {
+            is MyPageEvent.GoToMyApplication -> {}
+            is MyPageEvent.GoToOtherApplication -> {}
         }
     }
 }

@@ -274,7 +274,7 @@
 
     <fragment
         android:id="@+id/myPageFragment"
-        android:name="com.plub.presentation.ui.main.profile.MyPageFragment"
+        android:name="com.plub.presentation.ui.main.home.profile.MyPageFragment"
         android:label="MyPageFragment"
         tools:layout="@layout/fragment_my_page"/>
 </navigation>

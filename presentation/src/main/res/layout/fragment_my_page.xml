@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.profile.MyPageViewModel" />
+            type="com.plub.presentation.ui.main.home.profile.MyPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

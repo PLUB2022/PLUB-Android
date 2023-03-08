@@ -1,8 +1,9 @@
-package com.plub.presentation.ui.main.profile.adapter
+package com.plub.presentation.ui.main.home.profile.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.enums.MyPageGatheringType
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemMyGatheringBinding
@@ -10,10 +11,11 @@ import com.plub.presentation.util.animation.ArrowToggleAnimation
 
 class MyPageParentGatheringViewHolder(
     private val binding: IncludeItemMyGatheringBinding,
+    private val listener: MyPageParentGatheringAdapter.MyPageDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private val detailAdapter : MyPageGatheringAdapter by lazy {
-        MyPageGatheringAdapter()
+        MyPageGatheringAdapter(listener)
     }
 
     var isExpand = false
@@ -36,10 +38,10 @@ class MyPageParentGatheringViewHolder(
     fun bind(item: MyPageGatheringVo) {
         binding.apply {
             when(item.gatheringType){
-                0 -> {textViewGatheringType.text = root.context.getString(R.string.my_page_recruiting_gathering)}
-                1 -> {textViewGatheringType.text = root.context.getString(R.string.my_page_waiting_gathering)}
-                2 -> {textViewGatheringType.text = root.context.getString(R.string.my_page_active_gathering)}
-                3 -> {textViewGatheringType.text = root.context.getString(R.string.my_page_end_gathering)}
+                MyPageGatheringType.RECRUITING -> {textViewGatheringType.text = root.context.getString(R.string.my_page_recruiting_gathering)}
+                MyPageGatheringType.WAITING  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_waiting_gathering)}
+                MyPageGatheringType.ACTIVE  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_active_gathering)}
+                MyPageGatheringType.END  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_end_gathering)}
             }
             detailAdapter.submitList(item.gatheringList)
             recyclerViewGatheringList.apply {
