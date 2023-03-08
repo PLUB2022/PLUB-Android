@@ -3,6 +3,7 @@ package com.plub.presentation.util
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.LocalTime
+import org.threeten.bp.ZoneOffset
 
 object TimeFormatter {
     private const val SPLIT_OF_TIME = ":"
@@ -73,5 +74,14 @@ object TimeFormatter {
         } catch (e: Exception) {
             ""
         }
+    }
+
+    fun getEpochMilliFromyyyyDashmmDashddFormat(yyyyDashmmDashddFormat: String): Long {
+        val (year, month, day) = yyyyDashmmDashddFormat.split(SPLIT_OF_DATE).map { it.toIntOrNull() ?: 0 }
+        return LocalDate.of(year, month, day).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
+    }
+
+    fun getCurrentEpochMilli(): Long {
+        return LocalDate.now().atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
     }
 }
