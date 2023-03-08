@@ -15,6 +15,7 @@ import com.plub.presentation.databinding.IncludeItemBoardPinBinding
 import com.plub.presentation.databinding.IncludeItemBoardSystemBinding
 import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleContentBinding
 import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleLoadingBinding
+import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleYearBinding
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubCardDiffCallback
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardNormalViewHolder
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardPinViewHolder
@@ -25,7 +26,7 @@ class PlubingScheduleAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is PlubingScheduleContentViewHolder -> holder.bind(currentList[position])
+            is PlubingScheduleContentViewHolder -> holder.bind(currentList, position)
             is PlubingScheduleLoadingViewHolder -> { }
             is PlubingScheduleYearViewHolder -> holder.bind(currentList[position].startedAt)
         }
@@ -34,8 +35,8 @@ class PlubingScheduleAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (ScheduleCardType.indexOf(viewType)) {
             ScheduleCardType.YEAR -> {
-                val binding = LayoutRecyclerPlubingScheduleContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                PlubingScheduleContentViewHolder(binding)
+                val binding = LayoutRecyclerPlubingScheduleYearBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                PlubingScheduleYearViewHolder(binding)
             }
             ScheduleCardType.CONTENT -> {
                 val binding = LayoutRecyclerPlubingScheduleContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
