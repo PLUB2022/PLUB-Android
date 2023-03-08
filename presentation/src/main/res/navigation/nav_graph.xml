@@ -46,6 +46,12 @@
             android:name="plubbingId"
             app:argType="integer"
             />
+
+
+        <!-- TODO REMOVE -->
+        <action
+            android:id="@+id/action_plubing_main_to_schedule"
+            app:destination="@+id/plubingScheduleFragment" />
     </fragment>
 
     <fragment

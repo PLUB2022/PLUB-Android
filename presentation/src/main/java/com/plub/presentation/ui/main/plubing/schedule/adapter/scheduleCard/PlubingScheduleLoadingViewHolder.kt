@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.plubing.schedule.adapter
+package com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.board.PlubingBoardVo

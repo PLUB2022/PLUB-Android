@@ -3,18 +3,11 @@ package com.plub.presentation.ui.main.plubing.schedule
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingScheduleBinding
-import com.plub.presentation.ui.main.plubing.PlubingMainEvent
-import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
-import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
-import com.plub.presentation.ui.main.plubing.schedule.adapter.PlubingScheduleAdapter
-import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.PlubingScheduleAdapter
 import com.plub.presentation.util.infiniteScrolls
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

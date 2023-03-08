@@ -1,24 +1,15 @@
-package com.plub.presentation.ui.main.plubing.schedule.adapter
+package com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.enums.PlubingBoardType
 import com.plub.domain.model.enums.ScheduleCardType
-import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.schedule.ScheduleVo
-import com.plub.presentation.databinding.IncludeItemBoardClipBoardBinding
-import com.plub.presentation.databinding.IncludeItemBoardNormalBinding
-import com.plub.presentation.databinding.IncludeItemBoardPinBinding
-import com.plub.presentation.databinding.IncludeItemBoardSystemBinding
 import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleContentBinding
 import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleLoadingBinding
 import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleYearBinding
-import com.plub.presentation.ui.main.plubing.board.adapter.PlubCardDiffCallback
-import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardNormalViewHolder
-import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardPinViewHolder
 
 class PlubingScheduleAdapter(
     private val onClick: (() -> Unit)? = null

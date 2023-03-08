@@ -1,13 +1,16 @@
-package com.plub.presentation.ui.main.plubing.schedule.adapter
+package com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.ScheduleCardType
 import com.plub.domain.model.vo.schedule.ScheduleVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleContentBinding
+import com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.profile.PlubingScheduleProfileAdapter
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.TimeFormatter
 
 class PlubingScheduleContentViewHolder(
@@ -15,9 +18,19 @@ class PlubingScheduleContentViewHolder(
     private val onClick: (() -> Unit)? = null
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    private val plubingScheduleProfileAdapter: PlubingScheduleProfileAdapter by lazy {
+        PlubingScheduleProfileAdapter()
+    }
+
     init {
         binding.root.setOnClickListener {
             onClick?.invoke()
+        }
+
+        binding.recyclerViewProfile.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            adapter = plubingScheduleProfileAdapter
+            itemAnimator = null
         }
     }
 
@@ -30,6 +43,10 @@ class PlubingScheduleContentViewHolder(
             textViewTime.text = getTextViewTime(currentItem)
             setLocation(textViewLocation, imageViewLocation, currentItem)
         }
+
+
+        val profileList = currentItem.calendarAttendList.calendarAttendList.map { it.profileImage }
+        plubingScheduleProfileAdapter.submitList(profileList)
     }
 
     private fun setTextViewMonth(textViewMonth: TextView, items: List<ScheduleVo>, position: Int) {

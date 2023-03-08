@@ -26,13 +26,15 @@
             android:id="@+id/image_view_profile"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:background="@drawable/bg_circle_filled_e4e4e4"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />'
 
         <TextView
-            android:id="@+id/text_view_people_number"
+            android:id="@+id/text_view_more_people_number"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center"
