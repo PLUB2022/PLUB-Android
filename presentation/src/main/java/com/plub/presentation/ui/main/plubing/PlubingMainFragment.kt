@@ -7,6 +7,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.enums.PlubingMainPageType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
@@ -106,10 +107,7 @@ class PlubingMainFragment :
     private fun inspectEventFlow(event: PlubingMainEvent) {
         when (event) {
             is PlubingMainEvent.GoToWriteBoard -> {
-                val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingBoardWrite(
-                    event.id,
-                    event.name
-                )
+                val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingBoardWrite(writeType = PlubingBoardWriteType.CREATE)
                 findNavController().navigate(action)
             }
 

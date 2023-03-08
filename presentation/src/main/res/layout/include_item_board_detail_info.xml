@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage,ContentDescription">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_faf9fe"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="26dp">
+
+        <com.plub.presentation.ui.common.custom.CircleImageView
+            android:id="@+id/circle_image_view_profile"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/color_c4c4c4" />
+
+        <TextView
+            android:id="@+id/text_view_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/color_363636"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_menu"
+            app:layout_constraintStart_toEndOf="@+id/circle_image_view_profile"
+            app:layout_constraintTop_toTopOf="@+id/image_view_menu"
+            app:layout_goneMarginStart="0dp"
+            tools:text="개나리" />
+
+        <TextView
+            android:id="@+id/text_view_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/color_363636"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_menu"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_like"
+            app:layout_constraintStart_toEndOf="@+id/text_view_nickname"
+            app:layout_constraintTop_toTopOf="@+id/image_view_menu"
+            tools:text="| 2022. 08. 10." />
+
+        <ImageView
+            android:id="@+id/image_view_menu"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_menu_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_menu"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_menu"
+            app:layout_constraintTop_toTopOf="@+id/image_view_menu"
+            tools:text="3" />
+
+        <ImageView
+            android:id="@+id/image_view_comment"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_comment_black"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_comment_count"
+            app:layout_constraintTop_toTopOf="@+id/image_view_menu" />
+
+
+        <TextView
+            android:id="@+id/text_view_like_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_comment"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_comment"
+            app:layout_constraintTop_toTopOf="@+id/image_view_comment"
+            tools:text="3" />
+
+        <ImageView
+            android:id="@+id/image_view_like"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_board_like"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_like_count"
+            app:layout_constraintTop_toTopOf="@+id/image_view_menu" />
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_menu"
+            tools:text="안녕하세요 반갑습니다. 게시판 제목입니다." />
+
+        <com.plub.presentation.ui.common.custom.RadiusImageView
+            android:id="@+id/image_view_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="328:245"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_title"
+            app:radius="10dp" />
+
+        <TextView
+            android:id="@+id/text_view_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/color_363636"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

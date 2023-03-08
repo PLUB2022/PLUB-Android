@@ -2,14 +2,20 @@ package com.plub.presentation.ui.main.plubing.board
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
+import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingBoardBinding
+import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
+import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
+import com.plub.presentation.ui.main.plubing.board.write.BoardWriteFragment
+import com.plub.presentation.util.getNavigationResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -39,12 +45,12 @@ class PlubingBoardFragment :
                 viewModel.onClickClipBoard()
             }
 
-            override fun onClickNormalBoard(feedId: Int) {
-                viewModel.onClickNormalBoard(feedId)
+            override fun onClickBoard(feedId: Int) {
+                viewModel.onClickBoard(feedId)
             }
 
-            override fun onLongClickNormalBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
-                viewModel.onLongClickNormalBoard(feedId, isHost, isAuthor)
+            override fun onLongClickBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
+                viewModel.onLongClickBoard(feedId, isHost, isAuthor)
             }
 
             override val clipBoardList: List<PlubingBoardVo>
@@ -85,7 +91,9 @@ class PlubingBoardFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-                    boardListAdapter.submitList(it.boardList)
+                    boardListAdapter.submitList(it.boardList) {
+                        viewModel.onBoardUpdated()
+                    }
                 }
             }
 
@@ -95,26 +103,58 @@ class PlubingBoardFragment :
                 }
             }
         }
+
+        getNavigationResult(BoardWriteFragment.KEY_RESULT_EDIT_COMPLETE) { vo:ParsePlubingBoardVo ->
+            viewModel.onCompleteBoardEdit(vo)
+        }
+
+        getNavigationResult(BoardWriteFragment.KEY_RESULT_CREATE_COMPLETE) { _:Unit ->
+            viewModel.onCompleteBoardCreate()
+        }
     }
 
     private fun inspectEventFlow(event: PlubingBoardEvent) {
         when (event) {
-            is PlubingBoardEvent.NotifyClipBoardChanged -> {
-                boardListAdapter.notifyClipBoard()
-            }
-
-            is PlubingBoardEvent.ShowMenuBottomSheetDialog -> {
-                showMenuBottomSheetDialog(event.id, event.menuType)
-            }
-
-            is PlubingBoardEvent.GoToEditBoard -> Unit
-            is PlubingBoardEvent.GoToReportBoard -> Unit
+            is PlubingBoardEvent.GoToDetailBoard -> goToDetailBoard(event.feedId)
+            is PlubingBoardEvent.NotifyClipBoardChanged -> notifyClipboard()
+            is PlubingBoardEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.feedId, event.menuType)
+            is PlubingBoardEvent.GoToEditBoard -> goToEditBoard(event.feedId)
+            is PlubingBoardEvent.GoToReportBoard -> goToReport()
+            is PlubingBoardEvent.GoToPinBoard -> goToPinBoard()
+            is PlubingBoardEvent.ScrollToPosition -> scrollToPosition(event.position)
         }
+    }
+
+    private fun notifyClipboard() {
+        boardListAdapter.notifyClipBoard()
     }
 
     private fun showMenuBottomSheetDialog(id:Int, menuType: DialogMenuType) {
         SelectMenuBottomSheetDialog.newInstance(menuType) {
             viewModel.onClickMenuItemType(id, it)
         }.show(parentFragmentManager, "")
+    }
+
+    private fun goToEditBoard(feedId:Int) {
+        val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingBoardWrite(feedId = feedId, writeType = PlubingBoardWriteType.EDIT)
+        findNavController().navigate(action)
+    }
+
+    private fun goToDetailBoard(feedId: Int) {
+        val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingBoardDetail(feedId)
+        findNavController().navigate(action)
+    }
+
+    private fun goToReport() {
+
+    }
+
+    private fun goToPinBoard() {
+        val action = PlubingMainFragmentDirections.actionPlubingMainToBoardPin()
+        findNavController().navigate(action)
+    }
+
+    private fun scrollToPosition(position:Int) {
+        binding.recyclerViewBoard.scrollToPosition(position)
     }
 }

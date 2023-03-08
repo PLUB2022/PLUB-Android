@@ -3,7 +3,6 @@ package com.plub.plubandroid.di
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import com.google.gson.JsonSyntaxException
-import com.plub.data.api.PostHomeApi
 import com.plub.plubandroid.util.BASE_URL
 import com.plub.plubandroid.util.KAKAO_LOCATION_BASE_URL
 import com.plub.plubandroid.util.RETROFIT_TAG
@@ -89,11 +88,5 @@ object NormalNetworkModule {
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
-    }
-
-    @Singleton
-    @Provides
-    fun providePostHomeApi(@NormalRetrofit retrofit: Retrofit): PostHomeApi {
-        return retrofit.create(PostHomeApi::class.java)
     }
 }

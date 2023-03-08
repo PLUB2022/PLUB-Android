@@ -28,6 +28,8 @@ import com.plub.domain.repository.RecruitRepository
 import com.plub.domain.repository.ScheduleRepository
 import com.plub.domain.repository.SearchRepository
 import com.plub.domain.repository.SignUpRepository
+import com.plub.data.repository.*
+import com.plub.domain.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -41,10 +43,6 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesLoginRepository(repositoryImpl: LoginRepositoryImpl): LoginRepository
-
-    @Singleton
-    @Binds
-    abstract fun providesHomePostRepository(homePostReposImpl: HomePostReposImpl): HomePostRepository
 
     @Singleton
     @Binds
@@ -93,4 +91,24 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesScheduleRepository(scheduleRepositoryImpl: ScheduleRepositoryImpl): ScheduleRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesCategoryListRepository(categoryListResposImpl: CategoryListRepositoryImpl): CategoryListRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesRecommendationGatheringRepository(recommendationGatheringResposImpl: RecommendationGatheringRepositoryImpl): RecommendationGatheringRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesReplyApplicantsRepository(repositoryImpl: ReplyApplicantsRecruitRepositoryImpl): ReplyApplicantsRecruitRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesRegisterHobbiesRepository(repositoryImpl: RegisterHobbiesRepositoryImpl): RegisterHobbiesRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesApplicantsRepository(repositoryImpl: ApplicantsRepositoryImpl): ApplicantsRepository
 }

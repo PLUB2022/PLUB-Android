@@ -19,7 +19,8 @@ object PlubCardResponseMapper : Mapper.ResponseMapper<PlubCardResponse, PlubCard
                 days = days,
                 place = address,
                 remainMemberNumber = remainAccountNum,
-                isBookmarked = isBookmarked
+                isBookmarked = isBookmarked,
+                isHost = isHost
             )
         }?: PlubCardVo()
     }

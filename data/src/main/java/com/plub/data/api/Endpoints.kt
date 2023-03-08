@@ -23,11 +23,15 @@ object Endpoints {
         private const val ACCOUNT_URL = "/api/accounts"
         const val NICKNAME_CHECK = "$ACCOUNT_URL/check/nickname/{nickname}"
         const val FETCH_MY_INFO = "$ACCOUNT_URL/me"
+        const val REGIST_INTEREST = "$ACCOUNT_URL/interest"
+        const val BROWSE_INTEREST = "$ACCOUNT_URL/interest"
     }
 
     object CATEGORY {
         private const val CATEGORY_URL = "/api/categories"
         const val GET_ALL_CATEGORIES = "$CATEGORY_URL/all"
+        const val GET_PARENT_CATEGORIES = "$CATEGORY_URL"
+        const val GET_SUB_CATEGORIES = "$CATEGORY_URL/{categoryId}/sub"
     }
 
     object KAKAO_LOCATION {
@@ -42,7 +46,7 @@ object Endpoints {
         const val RECRUIT = "$PLUBBING_URL/recruit"
         const val BOOKMARK = "$RECRUIT_URL/bookmarks"
         const val BOOKMARK_ME = "$PLUBBING_URL/recruit/bookmarks/me"
-        const val FETCH_RECOMMENDATION_GATHERING = "$PLUBBING_URL/recommendation"
+        const val FETCH_RECOMMENDATION_GATHERING =  "$PLUBBING_URL/recommendation"
         const val FETCH_CATEGORIES_GATHERING = "$PLUBBING_URL/categories/{categoryId}"
         const val FETCH_DETAIL_RECRUIT = "$RECRUIT_URL"
         const val APPLICANTS_RECRUIT = "$RECRUIT_URL/applicants"
@@ -60,9 +64,15 @@ object Endpoints {
         object BOARD {
             const val FEEDS = "$PLUBBING_ID_URL/feeds"
             const val PINS = "$PLUBBING_ID_URL/pins"
-            const val CHANGE_PIN = "$PLUBBING_URL/feeds/{feedId}/pin"
-            const val DELETE_FEED = "$PLUBBING_URL/feeds/{feedId}"
-            const val POST_FEED = "$PLUBBING_ID_URL/feeds"
+            const val FEED_CREATE = "$PLUBBING_ID_URL/feeds"
+            const val FEED_CHANGE_PIN = "$PLUBBING_ID_URL/feeds/{feedId}/pin"
+            const val FEED_DELETE = "$PLUBBING_ID_URL/feeds/{feedId}"
+            const val FEED_DETAIL = "$PLUBBING_ID_URL/feeds/{feedId}"
+            const val FEED_EDIT = "$PLUBBING_ID_URL/feeds/{feedId}"
+            const val COMMENTS = "$PLUBBING_ID_URL/feeds/{feedId}/comments"
+            const val COMMENT_CREATE = "$PLUBBING_ID_URL/feeds/{feedId}/comments"
+            const val COMMENT_DELETE = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
+            const val COMMENT_EDIT = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
         }
 
         object SCHEDULE {

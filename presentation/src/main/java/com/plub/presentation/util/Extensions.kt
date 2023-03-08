@@ -14,6 +14,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
 import java.io.Serializable
 
@@ -115,6 +117,19 @@ fun String.fromHtml(): Spanned {
 inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
     SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getParcelable(key, T::class.java)
     else -> @Suppress("DEPRECATION") getParcelable(key) as? T
+}
+
+fun <T> Fragment.getNavigationResult(key: String = "result", singleCall : Boolean = true , result: (T) -> (Unit)) {
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
+        ?.observe(viewLifecycleOwner) {
+            result(it)
+            //if not removed then when click back without set data it will return previous data
+            if(singleCall) findNavController().currentBackStackEntry?.savedStateHandle?.remove<T>(key)
+        }
+}
+
+fun <T>Fragment.setNavigationResult(key: String = "result", result: T) {
+    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
 }
 
 fun RecyclerView.infiniteScrolls(method: () -> Unit) {
