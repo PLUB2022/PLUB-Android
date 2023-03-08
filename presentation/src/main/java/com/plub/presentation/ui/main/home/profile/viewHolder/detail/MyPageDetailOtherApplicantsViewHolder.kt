@@ -8,11 +8,10 @@ import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemApplicationBinding
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageDetailApplicationAnswerAdapter
-import com.plub.presentation.ui.main.home.profile.adapter.MyPageDetailPageAdapter
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.px
 
-class MyPageDetailApplicationViewHolder(
+class MyPageDetailOtherApplicantsViewHolder(
     private val binding: IncludeItemApplicationBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 

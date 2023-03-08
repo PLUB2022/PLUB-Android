@@ -17,9 +17,10 @@ class MyPageDetailPageAdapter(): ListAdapter<MyPageDetailVo, RecyclerView.ViewHo
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MyPageDetailTopViewHolder -> holder.bind(currentList[position].title)
-            is MyPageDetailMyApplicationsViewHolder -> holder.bind()
-            is MyPageDetailOtherApplicationsViewHolder -> holder.bind()
-            is MyPageDetailApplicationViewHolder -> holder.bind(currentList[position].application)
+            is MyPageDetailMyApplicationsTextViewHolder -> holder.bind()
+            is MyPageDetailOtherApplicationTextViewHolder -> holder.bind()
+            is MyPageDetailOtherApplicantsViewHolder -> holder.bind(currentList[position].application)
+            is MyPageDetailMyApplicantsViewHolder -> holder.bind(currentList[position].application)
         }
     }
 
@@ -29,17 +30,21 @@ class MyPageDetailPageAdapter(): ListAdapter<MyPageDetailVo, RecyclerView.ViewHo
                 val binding = IncludeItemMyPageTopBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return MyPageDetailTopViewHolder(binding)
             }
-            MyPageDetailViewType.MY_APPLICANTS -> {
+            MyPageDetailViewType.MY_APPLICANTS_TEXT -> {
                 val binding = IncludeItemMyPageMyApplicationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailMyApplicationsViewHolder(binding)
+                return MyPageDetailMyApplicationsTextViewHolder(binding)
             }
-            MyPageDetailViewType.OTHER_APPLICANTS -> {
+            MyPageDetailViewType.OTHER_APPLICANTS_TEXT -> {
                 val binding = IncludeItemMyPageOtherApplicationsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailOtherApplicationsViewHolder(binding)
+                return MyPageDetailOtherApplicationTextViewHolder(binding)
             }
-            MyPageDetailViewType.APPLICANTS -> {
+            MyPageDetailViewType.MY_APPLICATION -> {
+                val binding = IncludeItemMyApplicationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return MyPageDetailMyApplicantsViewHolder(binding)
+            }
+            MyPageDetailViewType.OTHER_APPLICATION -> {
                 val binding = IncludeItemApplicationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailApplicationViewHolder(binding)
+                return MyPageDetailOtherApplicantsViewHolder(binding)
             }
             MyPageDetailViewType.EMPTY -> {
                 val binding = IncludeItemMyPageNoOtherApplicationsBinding.inflate(LayoutInflater.from(parent.context), parent, false)

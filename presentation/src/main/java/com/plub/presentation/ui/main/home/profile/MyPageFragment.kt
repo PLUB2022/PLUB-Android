@@ -88,7 +88,7 @@ class MyPageFragment :
 
     private fun inspectEvent(event: MyPageEvent) {
         when (event) {
-            is MyPageEvent.GoToMyApplication -> {}
+            is MyPageEvent.GoToMyApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToWaitingGathering())}
             is MyPageEvent.GoToOtherApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToRecruitingGathering())}
         }
     }

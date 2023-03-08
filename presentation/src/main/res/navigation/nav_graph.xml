@@ -267,6 +267,10 @@
             android:id="@+id/my_page_to_recruiting_gathering"
             app:destination="@id/myPageRecruitingGatheringFragment" />
 
+        <action
+            android:id="@+id/my_page_to_waiting_gathering"
+            app:destination="@id/myPageWaitingGatheringFragment" />
+
     </fragment>
 
     <fragment
@@ -274,4 +278,10 @@
         android:name="com.plub.presentation.ui.main.home.profile.recruiting.RecruitingGatheringFragment"
         android:label="RecruitingFragment"
         tools:layout="@layout/fragment_my_page_recruiting_gathering" />
+
+    <fragment
+        android:id="@+id/myPageWaitingGatheringFragment"
+        android:name="com.plub.presentation.ui.main.home.profile.waiting.WaitingGatheringFragment"
+        android:label="WaitingFragment"
+        tools:layout="@layout/fragment_my_page_waiting_gathering" />
 </navigation>

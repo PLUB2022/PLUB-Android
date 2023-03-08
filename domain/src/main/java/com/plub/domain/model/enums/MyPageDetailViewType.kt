@@ -1,7 +1,7 @@
 package com.plub.domain.model.enums
 
 enum class MyPageDetailViewType (val type:Int) {
-    TOP(0),MY_APPLICANTS(1),OTHER_APPLICANTS(2),APPLICANTS(3),EMPTY(4);
+    TOP(0),MY_APPLICANTS_TEXT(1),OTHER_APPLICANTS_TEXT(2),MY_APPLICATION(3),OTHER_APPLICATION(4),EMPTY(5);
 
     companion object {
         fun valueOf(value: Int): MyPageDetailViewType {

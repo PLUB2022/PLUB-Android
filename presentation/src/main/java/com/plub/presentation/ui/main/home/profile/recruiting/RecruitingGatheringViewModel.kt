@@ -10,7 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class RecruitingGatheringViewModel @Inject constructor() : BaseViewModel<RecruitingGatheringState>(RecruitingGatheringState()) {
+class RecruitingGatheringViewModel @Inject constructor() : BaseViewModel<MyPageApplicantsGatheringState>(MyPageApplicantsGatheringState()) {
 
     fun getPageDetail(){
         val list = arrayListOf(MyPageDetailVo(
@@ -23,10 +23,10 @@ class RecruitingGatheringViewModel @Inject constructor() : BaseViewModel<Recruit
             )
         ),
             MyPageDetailVo(
-                viewType = MyPageDetailViewType.OTHER_APPLICANTS,
+                viewType = MyPageDetailViewType.OTHER_APPLICANTS_TEXT,
             ),
             MyPageDetailVo(
-                viewType = MyPageDetailViewType.APPLICANTS,
+                viewType = MyPageDetailViewType.OTHER_APPLICATION,
                 application = MyPageApplicationsVo(
                     profileImage = "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
                     name = "조경석",
@@ -49,7 +49,7 @@ class RecruitingGatheringViewModel @Inject constructor() : BaseViewModel<Recruit
                 )
             ),
             MyPageDetailVo(
-                viewType = MyPageDetailViewType.APPLICANTS,
+                viewType = MyPageDetailViewType.OTHER_APPLICATION,
                 application = MyPageApplicationsVo(
                     profileImage = "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
                     name = "조경석",
@@ -68,7 +68,7 @@ class RecruitingGatheringViewModel @Inject constructor() : BaseViewModel<Recruit
                 )
             ),
             MyPageDetailVo(
-                viewType = MyPageDetailViewType.APPLICANTS,
+                viewType = MyPageDetailViewType.OTHER_APPLICATION,
                 application = MyPageApplicationsVo(
                     profileImage = "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
                     name = "조경석",
