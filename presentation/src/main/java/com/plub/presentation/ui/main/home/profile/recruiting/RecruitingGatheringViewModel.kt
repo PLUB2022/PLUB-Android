@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.home.profile.recruiting
 import com.plub.domain.model.enums.MyPageDetailViewType
 import com.plub.domain.model.vo.home.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.home.myPage.MyPageDetailVo
+import com.plub.domain.model.vo.home.recruitdetailvo.host.AnswersVo
 import com.plub.domain.model.vo.myPage.MyPageApplicationsVo
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +30,22 @@ class RecruitingGatheringViewModel @Inject constructor() : BaseViewModel<Recruit
                 application = MyPageApplicationsVo(
                     profileImage = "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
                     name = "조경석",
-                    date = "2001. 11. 06"
+                    date = "2001. 11. 06",
+                    answerList = arrayListOf(AnswersVo(
+                        id = 1,
+                        questions = "함께 하기 위한 질문",
+                        answer = "안녕하세요 반가워여"
+                    ),
+                        AnswersVo(
+                            id = 2,
+                            questions = "함께 하기 위한 질문",
+                            answer = "안녕하세요 반가워여"
+                        ),
+                        AnswersVo(
+                            id = 3,
+                            questions = "함께 하기 위한 질문",
+                            answer = "안녕하세요 반가워여"
+                        ))
                 )
             ),
             MyPageDetailVo(
@@ -37,7 +53,18 @@ class RecruitingGatheringViewModel @Inject constructor() : BaseViewModel<Recruit
                 application = MyPageApplicationsVo(
                     profileImage = "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
                     name = "조경석",
-                    date = "2001. 11. 06"
+                    date = "2001. 11. 06",
+                    answerList = arrayListOf(AnswersVo(
+                        id = 1,
+                        questions = "함께 하기 위한 질문",
+                        answer = "안녕하세요 반가워여"
+                    ),
+                        AnswersVo(
+                            id = 2,
+                            questions = "함께 하기 위한 질문",
+                            answer = "안녕하세요 반가워여"
+                        ),)
+
                 )
             ),
             MyPageDetailVo(
@@ -45,7 +72,12 @@ class RecruitingGatheringViewModel @Inject constructor() : BaseViewModel<Recruit
                 application = MyPageApplicationsVo(
                     profileImage = "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
                     name = "조경석",
-                    date = "2001. 11. 06"
+                    date = "2001. 11. 06",
+                    answerList = arrayListOf(AnswersVo(
+                        id = 1,
+                        questions = "함께 하기 위한 질문",
+                        answer = "안녕하세요 반가워여"
+                    ))
                 )
             ),
 
