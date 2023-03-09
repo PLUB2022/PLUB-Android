@@ -12,7 +12,6 @@ import com.plub.domain.model.vo.signUp.profile.NicknameCheckRequestVo
 import com.plub.domain.usecase.GetNicknameCheckUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.sign.profileCompose.ProfileComposeEvent
 import com.plub.presentation.util.ImageUtil
 import com.plub.presentation.util.PermissionManager
 import com.plub.presentation.util.PlubUser
@@ -31,11 +30,6 @@ class MyPageSettingViewModel @Inject constructor(
 
     private var isNetworkCall:Boolean = false
     private var cameraTempImageUri: Uri? = null
-
-    init {
-        onTextChangedAfter()
-        onIntroChangedAfter()
-    }
 
     fun onInitProfile() {
         updateUiState { ui ->
@@ -147,7 +141,7 @@ class MyPageSettingViewModel @Inject constructor(
     private fun updateNicknameState(isActiveNickname: Boolean?, nicknameDescriptionRes: Int) {
         updateUiState { uiState ->
             uiState.copy(
-                isSaveButtonEnable = isNextButtonEnable(isActiveNickname),
+                isSaveButtonEnable = isSaveButtonEnable(isActiveNickname),
                 nicknameIsActive = isActiveNickname,
                 nicknameDescription = resourceProvider.getString(nicknameDescriptionRes)
             )
@@ -170,18 +164,19 @@ class MyPageSettingViewModel @Inject constructor(
         }
     }
 
-    private fun isNextButtonEnable(isActiveNickname:Boolean?): Boolean {
+    private fun isSaveButtonEnable(isActiveNickname:Boolean?): Boolean {
         return isActiveNickname == true && !isNetworkCall
     }
 
     fun onIntroChangedAfter() {
         val introduce: String = uiState.value.introduce
-        updateIntroduceState(introduce)
+        updateIntroduceState(introduce, introduce.isNotEmpty())
     }
 
-    private fun updateIntroduceState(introduce:String) {
+    private fun updateIntroduceState(introduce:String, isSaveButtonEnable : Boolean) {
         updateUiState { uiState ->
             uiState.copy(
+                isSaveButtonEnable = isSaveButtonEnable,
                 introduceCount = getIntroduceCountSpannableString(introduce.length.toString())
             )
         }
