@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage,ContentDescription">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp">
+
+        <com.plub.presentation.ui.common.custom.CircleImageView
+            android:id="@+id/circle_image_view_profile"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/black" />
+
+        <ImageView
+            android:id="@+id/image_view_like_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:paddingHorizontal="2dp"
+            android:src="@drawable/ic_heart_no_padding"
+            app:layout_constraintBottom_toBottomOf="@+id/text_view_like_count"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_like_count"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@id/circle_image_view_profile"
+            app:layout_constraintTop_toTopOf="@+id/text_view_like_count" />
+
+        <TextView
+            android:id="@+id/text_view_like_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/color_c4c4c4"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/circle_image_view_profile"
+            app:layout_constraintStart_toEndOf="@+id/image_view_like_icon"
+            app:layout_constraintTop_toBottomOf="@+id/circle_image_view_profile"
+            tools:text="32" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/circle_image_view_profile"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_menu"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/ic_menu_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_todo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="14dp"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_menu"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
