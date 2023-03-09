@@ -304,4 +304,6 @@
     <string name="my_page_reject">거절하기</string>
     <string name="my_page_approve">받기</string>
     <string name="my_page_complete_answer">%s 답변 작성완료</string>
+
+    <string name="my_page_setting_profile_image">프로필 사진</string>
 </resources>
