@@ -93,11 +93,6 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
                 adapter = foldProfileAdapter
             }
 
-//            recyclerViewAttendFold.apply {
-//                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-//                adapter = foldProfileAdapter
-//            }
-
             val profileList =
                 scheduleVo.calendarAttendList.calendarAttendList.map { it.profileImage }
             foldProfileAdapter.submitList(profileList)
