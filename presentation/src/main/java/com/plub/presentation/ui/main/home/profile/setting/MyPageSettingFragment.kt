@@ -87,6 +87,7 @@ class MyPageSettingFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
+                    setProfileImage(it.profileImage)
                     nicknameIsActiveState(it.nicknameIsActive)
                 }
             }
@@ -96,6 +97,13 @@ class MyPageSettingFragment :
                     inspectEventFlow(it as MyPageSettingEvent)
                 }
             }
+        }
+    }
+
+    private fun setProfileImage(image : String){
+        binding.apply {
+            GlideUtil.loadImage(root.context, image, imageViewProfile)
+            imageViewProfile.clipToOutline = true
         }
     }
 

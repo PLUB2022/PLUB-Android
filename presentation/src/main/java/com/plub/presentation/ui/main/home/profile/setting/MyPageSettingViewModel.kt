@@ -8,8 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.canhub.cropper.CropImageView
 import com.plub.domain.error.NicknameError
 import com.plub.domain.model.enums.DialogMenuItemType
+import com.plub.domain.model.enums.UploadFileType
+import com.plub.domain.model.vo.media.UploadFileRequestVo
+import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.model.vo.signUp.profile.NicknameCheckRequestVo
 import com.plub.domain.usecase.GetNicknameCheckUseCase
+import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.ImageUtil
@@ -26,6 +30,7 @@ class MyPageSettingViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
     val imageUtil: ImageUtil,
     val getNicknameCheckUseCase: GetNicknameCheckUseCase,
+    val postUploadFileUseCase: PostUploadFileUseCase
 ) : BaseViewModel<MyPageSettingState>(MyPageSettingState()) {
 
     private var isNetworkCall:Boolean = false
@@ -108,7 +113,9 @@ class MyPageSettingViewModel @Inject constructor(
         if (result.isSuccessful) {
             result.uriContent?.let { uri ->
                 val file = imageUtil.uriToOptimizeImageFile(uri)
-                updateProfileFile(file)
+                if (file != null) {
+                    uploadProfileFile(file)
+                }
             }
         }
     }
@@ -119,7 +126,7 @@ class MyPageSettingViewModel @Inject constructor(
     }
 
     private fun defaultImage() {
-        updateProfileFile(null)
+
     }
 
     private fun handleNicknameCheckSuccess(isAvailableNickname: Boolean) {
@@ -148,10 +155,18 @@ class MyPageSettingViewModel @Inject constructor(
         }
     }
 
-    private fun updateProfileFile(file: File?) {
+    private fun uploadProfileFile(file: File) {
+        viewModelScope.launch {
+            postUploadFileUseCase(UploadFileRequestVo(UploadFileType.PROFILE, file)).collect{
+                inspectUiState(it, ::handleUploadImageSuccess)
+            }
+        }
+    }
+
+    private fun handleUploadImageSuccess(state : UploadFileResponseVo){
         updateUiState { uiState ->
             uiState.copy(
-                profileImage = file?.path
+                profileImage = state.fileUrl
             )
         }
     }
