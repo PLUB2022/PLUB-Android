@@ -15,6 +15,7 @@ class MyPageParentGatheringAdapter(private val listener: MyPageDelegate): ListAd
 ) {
 
     interface MyPageDelegate{
+        fun onClickCardExpand(gatheringType: MyPageGatheringType)
         fun onClickGathering(gatheringType : MyPageGatheringType)
     }
 

@@ -20,24 +20,25 @@ class MyPageParentGatheringViewHolder(
         MyPageGatheringAdapter(listener)
     }
 
-    var isExpand = false
+    var myPageGatheringVo : MyPageGatheringVo? = null
 
     init {
         binding.apply {
+            recyclerViewGatheringList.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = detailAdapter
+            }
             imageViewArrow.setOnClickListener {
-                ArrowToggleAnimation.toggleArrow(it, isExpand)
-                if(isExpand){
-                    recyclerViewGatheringList.visibility = View.GONE
+                myPageGatheringVo?.let {
+                    ArrowToggleAnimation.toggleArrow(imageViewArrow, it.isExpand)
+                    listener.onClickCardExpand(it.gatheringType)
                 }
-                else{
-                    recyclerViewGatheringList.visibility = View.VISIBLE
-                }
-                isExpand = !isExpand
             }
         }
     }
 
     fun bind(item: MyPageGatheringVo) {
+        myPageGatheringVo = item
         binding.apply {
             when(item.gatheringType){
                 MyPageGatheringType.RECRUITING -> {textViewGatheringType.text = root.context.getString(R.string.my_page_recruiting_gathering)}
@@ -46,10 +47,7 @@ class MyPageParentGatheringViewHolder(
                 MyPageGatheringType.END  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_end_gathering)}
             }
             detailAdapter.submitList(item.gatheringList)
-            recyclerViewGatheringList.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = detailAdapter
-            }
+            recyclerViewGatheringList.visibility = if (item.isExpand) View.VISIBLE else View.GONE
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.main.home.profile.viewHolder.detail
 
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.myPage.MyPageDetailTitleVo
+import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemMyPageTopBinding
 import com.plub.presentation.util.TimeFormatter

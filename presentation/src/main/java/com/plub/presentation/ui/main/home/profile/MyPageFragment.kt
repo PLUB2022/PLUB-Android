@@ -27,6 +27,10 @@ class MyPageFragment :
 
     private val gatheringAdapter : MyPageParentGatheringAdapter by lazy {
         MyPageParentGatheringAdapter(object : MyPageParentGatheringAdapter.MyPageDelegate{
+            override fun onClickCardExpand(gatheringType: MyPageGatheringType) {
+                viewModel.onClickExpand(gatheringType)
+            }
+
             override fun onClickGathering(gatheringType: MyPageGatheringType) {
                 viewModel.goToDetail(gatheringType)
             }
@@ -38,30 +42,9 @@ class MyPageFragment :
     override fun initView() {
         binding.apply {
             vm = viewModel
-
+            viewModel.getMyPageData()
             textViewProfileName.text = "조경석"
             textViewProfileExplain.text = "국회는 법률에 저촉되지 아니하는 범위안에서 의사와 내부규율에 관한 규칙을 제정할 수 있다. 국회는 법률에 저촉되지 아니하는 범위안에서 의사와 내부규율에 관한 규칙을 제정할 수 있다. 국회는 법률에 저촉되지 아니하는 범위안에서 의사와 내부규율에 관한 규칙을 제정할 수 있다."
-            gatheringAdapter.submitList(arrayListOf(
-                MyPageGatheringVo(gatheringList = arrayListOf(MyPageGatheringDetailVo(
-                    title = "테스트용 1번",
-                    goal = "테스트용 1번",
-                    gatheringType = MyPageGatheringType.RECRUITING
-                )), gatheringType = MyPageGatheringType.RECRUITING),
-                MyPageGatheringVo(gatheringList = arrayListOf(MyPageGatheringDetailVo(
-                    title = "테스트용 2번",
-                    goal = "테스트용 2번",
-                    gatheringType = MyPageGatheringType.WAITING
-                )), gatheringType = MyPageGatheringType.WAITING),
-                MyPageGatheringVo(gatheringList = arrayListOf(MyPageGatheringDetailVo(
-                    title = "테스트용 3번",
-                    goal = "테스트용 3번",
-                    gatheringType = MyPageGatheringType.ACTIVE
-                )), gatheringType = MyPageGatheringType.ACTIVE),
-                MyPageGatheringVo(gatheringList = arrayListOf(MyPageGatheringDetailVo(
-                    title = "테스트용 4번",
-                    goal = "테스트용 4번",
-                    gatheringType = MyPageGatheringType.END
-                )), gatheringType = MyPageGatheringType.END)))
             initRecycler()
         }
     }
@@ -81,7 +64,7 @@ class MyPageFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-
+                    gatheringAdapter.submitList(it.myPageGatheringList)
                 }
             }
 

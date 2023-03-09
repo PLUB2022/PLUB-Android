@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.MyPageDetailViewType
-import com.plub.domain.model.vo.home.myPage.MyPageDetailVo
+import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.presentation.databinding.*
 import com.plub.presentation.ui.main.home.profile.viewHolder.detail.*
 

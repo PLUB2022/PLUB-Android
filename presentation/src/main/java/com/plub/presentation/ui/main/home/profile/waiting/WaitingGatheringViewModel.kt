@@ -1,8 +1,8 @@
 package com.plub.presentation.ui.main.home.profile.waiting
 
 import com.plub.domain.model.enums.MyPageDetailViewType
-import com.plub.domain.model.vo.home.myPage.MyPageDetailTitleVo
-import com.plub.domain.model.vo.home.myPage.MyPageDetailVo
+import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
+import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.domain.model.vo.home.recruitdetailvo.host.AnswersVo
 import com.plub.domain.model.vo.myPage.MyPageApplicationsVo
 import com.plub.presentation.base.BaseViewModel

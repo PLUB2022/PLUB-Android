@@ -1,4 +1,4 @@
-package com.plub.domain.model.vo.home.myPage
+package com.plub.domain.model.vo.myPage
 
 import com.plub.domain.model.DomainModel
 

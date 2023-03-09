@@ -1,8 +1,8 @@
 package com.plub.presentation.ui.main.home.profile.recruiting
 
 import com.plub.domain.model.enums.MyPageDetailViewType
-import com.plub.domain.model.vo.home.myPage.MyPageDetailTitleVo
-import com.plub.domain.model.vo.home.myPage.MyPageDetailVo
+import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
+import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.domain.model.vo.home.recruitdetailvo.host.AnswersVo
 import com.plub.domain.model.vo.myPage.MyPageApplicationsVo
 import com.plub.presentation.base.BaseViewModel
@@ -13,7 +13,8 @@ import javax.inject.Inject
 class RecruitingGatheringViewModel @Inject constructor() : BaseViewModel<MyPageApplicantsGatheringState>(MyPageApplicantsGatheringState()) {
 
     fun getPageDetail(){
-        val list = arrayListOf(MyPageDetailVo(
+        val list = arrayListOf(
+            MyPageDetailVo(
             viewType = MyPageDetailViewType.TOP,
             title = MyPageDetailTitleVo(
                 title = "요란한 한줄",
