@@ -195,6 +195,15 @@
     <string name="dialog_menu_comment_delete">댓글 삭제</string>
     <string name="dialog_menu_comment_edit">댓글 수정</string>
     <string name="dialog_menu_comment_report">댓글 신고</string>
+    <string name="dialog_menu_todo_report">신고</string>
+    <string name="dialog_menu_todo_manage">TO-DO 관리</string>
+    <string name="dialog_menu_todo_delete">TO-DO 삭제</string>
+    <string name="dialog_menu_todo_edit">TO-DO 수정</string>
+    <string name="dialog_menu_todo_proof">사진/글 추가</string>
+
+    <string name="dialog_todo_proof_default_text">내가 이룬것을 사진으로 자랑해보세요!</string>
+    <string name="dialog_todo_proof_button_late_proof">나중에 할게요!</string>
+    <string name="dialog_todo_proof_button_proof_complete">완료!</string>
 
     <string name="image_descriptor_back_button">뒤로 가기 버튼</string>
     <string name="image_descriptor_shadow">그림자 이미지</string>
