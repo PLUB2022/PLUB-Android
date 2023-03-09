@@ -12,7 +12,7 @@ import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleLoadingBin
 import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleYearBinding
 
 class PlubingScheduleAdapter(
-    private val onClick: (() -> Unit)? = null
+    private val onClick: ((scheduleVo: ScheduleVo) -> Unit)? = null
 ) : ListAdapter<ScheduleVo, RecyclerView.ViewHolder>(ScheduleDiffCallback()) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

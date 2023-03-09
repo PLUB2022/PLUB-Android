@@ -106,4 +106,10 @@ class PlubingScheduleViewModel @Inject constructor(
 
         return mergedList
     }
+
+    fun emitShowBottomSheetEvent(scheduleVo: ScheduleVo) {
+        emitEventFlow(
+            PlubingScheduleEvent.ShowBottomSheetScheduleDetail(scheduleVo)
+        )
+    }
 }

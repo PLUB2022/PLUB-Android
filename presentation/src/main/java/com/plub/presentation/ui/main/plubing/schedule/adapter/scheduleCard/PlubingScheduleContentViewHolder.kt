@@ -16,7 +16,7 @@ import com.plub.presentation.util.TimeFormatter
 
 class PlubingScheduleContentViewHolder(
     private val binding: LayoutRecyclerPlubingScheduleContentBinding,
-    private val onClick: (() -> Unit)? = null
+    private val onClick: ((scheduleVo: ScheduleVo) -> Unit)? = null
 ) : RecyclerView.ViewHolder(binding.root) {
 
     companion object {
@@ -27,9 +27,14 @@ class PlubingScheduleContentViewHolder(
         PlubingScheduleProfileAdapter()
     }
 
+    private var currentItem: ScheduleVo? = null
+
     init {
         binding.root.setOnClickListener {
-            onClick?.invoke()
+            currentItem?.let { item ->
+                onClick?.invoke(item)
+            }
+
         }
 
         binding.recyclerViewProfile.apply {
@@ -41,20 +46,22 @@ class PlubingScheduleContentViewHolder(
     }
 
     fun bind(items: List<ScheduleVo>, position: Int) {
-        val currentItem = items[position]
-        binding.apply {
-            textViewTitle.text = currentItem.title
-            setTextViewMonth(textViewMonth, items, position)
-            textViewDate.text = getTextViewDate(currentItem)
-            textViewTime.text = getTextViewTime(currentItem)
-            setLocation(textViewLocation, imageViewLocation, currentItem)
-            setTextColor(currentItem.startedAt)
-            viewDivider1.visibility = if(position == 1) View.INVISIBLE else View.VISIBLE
+        currentItem = items[position]
+        currentItem?.let { data ->
+            binding.apply {
+                textViewTitle.text = data.title
+                setTextViewMonth(textViewMonth, items, position)
+                textViewDate.text = getTextViewDate(data)
+                textViewTime.text = getTextViewTime(data)
+                setLocation(textViewLocation, imageViewLocation, data)
+                setTextColor(data.startedAt)
+                viewDivider1.visibility = if(position == 1) View.INVISIBLE else View.VISIBLE
+            }
+
+
+            val profileList = data.calendarAttendList.calendarAttendList.map { it.profileImage }
+            plubingScheduleProfileAdapter.submitList(profileList)
         }
-
-
-        val profileList = currentItem.calendarAttendList.calendarAttendList.map { it.profileImage }
-        plubingScheduleProfileAdapter.submitList(profileList)
     }
 
     private fun setTextViewMonth(textViewMonth: TextView, items: List<ScheduleVo>, position: Int) {

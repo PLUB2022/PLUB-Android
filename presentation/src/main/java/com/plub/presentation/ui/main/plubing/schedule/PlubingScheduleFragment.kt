@@ -3,9 +3,13 @@ package com.plub.presentation.ui.main.plubing.schedule
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.vo.schedule.ScheduleVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingScheduleBinding
+import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionEvent
+import com.plub.presentation.ui.main.gathering.createGathering.question.bottomSheet.BottomSheetDeleteQuestion
 import com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.PlubingScheduleAdapter
+import com.plub.presentation.ui.main.plubing.schedule.bottomSheet.BottomSheetScheduleDetail
 import com.plub.presentation.util.infiniteScrolls
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -16,7 +20,9 @@ class PlubingScheduleFragment : BaseFragment<
     FragmentPlubingScheduleBinding::inflate
 ) {
     private val scheduleAdapter: PlubingScheduleAdapter by lazy {
-        PlubingScheduleAdapter()
+        PlubingScheduleAdapter {
+            viewModel.emitShowBottomSheetEvent(it)
+        }
     }
 
     override val viewModel: PlubingScheduleViewModel by viewModels()
@@ -65,6 +71,21 @@ class PlubingScheduleFragment : BaseFragment<
                 )
                 findNavController().navigate(action)
             }
+
+            is PlubingScheduleEvent.ShowBottomSheetScheduleDetail -> {
+                showBottomSheetScheduleDetail(event.scheduleVo)
+            }
         }
+    }
+
+    private fun showBottomSheetScheduleDetail(scheduleVo: ScheduleVo) {
+        val bottomSheetScheduleDetail = BottomSheetScheduleDetail.newInstance(
+            scheduleVo = scheduleVo
+        )
+
+        bottomSheetScheduleDetail.show(
+            parentFragmentManager,
+            bottomSheetScheduleDetail.tag
+        )
     }
 }

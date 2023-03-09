@@ -2,6 +2,7 @@ package com.plub.domain.model.vo.schedule
 
 import com.plub.domain.model.DomainModel
 import com.plub.domain.model.enums.ScheduleCardType
+import java.io.Serializable
 
 data class GetEntireScheduleResponseVo(
     val calendarList: CalendarListVo = CalendarListVo()
@@ -29,7 +30,7 @@ data class ScheduleVo(
     val placeName: String = "",
     val alarmType: String = "",
     val calendarAttendList: CalendarAttendListVo = CalendarAttendListVo()
-)
+): Serializable
 
 data class CalendarAttendListVo(
     val calendarAttendList: List<CalendarAttendVo> = emptyList()
