@@ -248,7 +248,7 @@ class BoardWriteViewModel @Inject constructor(
     }
 
     private fun postUploadImage(imageFile: File, onSuccess: (String) -> Unit) {
-        val fileRequest = UploadFileRequestVo(UploadFileType.PLUBBING_MAIN, imageFile)
+        val fileRequest = UploadFileRequestVo(UploadFileType.PLUBING_BOARD, imageFile)
         viewModelScope.launch {
             postUploadFileUseCase(fileRequest).collect { state ->
                 inspectUiState(state, { vo ->
