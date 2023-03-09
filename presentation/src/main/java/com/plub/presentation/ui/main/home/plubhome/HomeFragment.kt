@@ -64,6 +64,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
                     }
                 }))
                 adapter = homeAdapter
+
+                imageViewPlubLogo.setOnClickListener {
+                    val plubingId = 1
+                    val action = HomeFragmentDirections.actionMainToPlubingMain(plubingId)
+                    findNavController().navigate(action)
+                }
             }
         }
         viewModel.fetchHomePageData()
