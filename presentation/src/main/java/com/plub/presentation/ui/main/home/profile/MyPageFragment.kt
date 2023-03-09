@@ -94,6 +94,7 @@ class MyPageFragment :
             is MyPageEvent.GoToMyApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToWaitingGathering())}
             is MyPageEvent.GoToOtherApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToRecruitingGathering())}
             is MyPageEvent.ReadMore -> { openText(event.isExpandText) }
+            is MyPageEvent.GoToSetting -> {findNavController().navigate(MyPageFragmentDirections.myPageToSetting())}
         }
     }
 

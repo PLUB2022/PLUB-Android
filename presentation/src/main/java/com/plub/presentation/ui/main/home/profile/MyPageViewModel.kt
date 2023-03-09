@@ -74,4 +74,8 @@ class MyPageViewModel @Inject constructor() : BaseViewModel<MyPageState>(MyPageS
         isExpandText = !isExpandText
         emitEventFlow(MyPageEvent.ReadMore(isExpandText))
     }
+
+    fun goToSetting(){
+        emitEventFlow(MyPageEvent.GoToSetting)
+    }
 }

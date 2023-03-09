@@ -271,7 +271,17 @@
             android:id="@+id/my_page_to_waiting_gathering"
             app:destination="@id/myPageWaitingGatheringFragment" />
 
+        <action
+            android:id="@+id/my_page_to_setting"
+            app:destination="@id/myPageSettingFragment" />
+
     </fragment>
+
+    <fragment
+        android:id="@+id/myPageSettingFragment"
+        android:name="com.plub.presentation.ui.main.home.profile.setting.MyPageSettingFragment"
+        android:label="MyPageSettingFragment"
+        tools:layout="@layout/fragment_my_page_setting" />
 
     <fragment
         android:id="@+id/myPageRecruitingGatheringFragment"

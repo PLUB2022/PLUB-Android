@@ -5,5 +5,6 @@ import com.plub.presentation.ui.Event
 sealed class MyPageEvent : Event {
     object GoToMyApplication : MyPageEvent()
     object GoToOtherApplication : MyPageEvent()
+    object GoToSetting : MyPageEvent()
     data class ReadMore(val isExpandText : Boolean) : MyPageEvent()
 }

@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.home.profile.setting.MyPageSettingViewModel" />
+    </data>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -59,6 +66,7 @@
                 android:id="@+id/image_view_profile_edit"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:onClick="@{()->vm.onClickProfileImage()}"
                 android:src="@drawable/ic_edit_pencil"
                 app:layout_constraintBottom_toBottomOf="@id/image_view_profile"
                 app:layout_constraintEnd_toEndOf="@id/image_view_profile" />
@@ -89,6 +97,7 @@
                     android:id="@+id/edit_text_nickname"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:afterTextChanged="@{() -> vm.onTextChangedAfter()}"
                     android:background="@null"
                     android:hint="@string/sign_up_profile_compose_nickname_hint"
                     android:importantForAutofill="no"
@@ -96,6 +105,7 @@
                     android:lines="1"
                     android:maxLength="8"
                     android:paddingHorizontal="8dp"
+                    android:text="@{vm.uiState.nickname}"
                     android:textColorHint="@color/color_c4c4c4"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toStartOf="@+id/image_view_nickname_delete"
@@ -106,6 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:onClick="@{() -> vm.onClickNicknameDeleteButton()}"
                     android:padding="6dp"
                     android:src="@drawable/ic_delete_box_c4c4c4"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -126,6 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:text="@{vm.uiState.nicknameDescription}"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/image_view_nickname_description"
                 app:layout_constraintTop_toBottomOf="@+id/constraint_layout_nickname" />
@@ -149,6 +161,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
+                android:afterTextChanged="@{() -> vm.onIntroChangedAfter()}"
+                android:text="@{vm.uiState.introduce}"
                 android:background="@drawable/bg_rectangle_filled_white_radius_8"
                 android:hint="@string/sign_up_more_info_introduce_hint"
                 android:importantForAutofill="no"
@@ -167,6 +181,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:text="@{vm.uiState.introduceCount}"
                 android:textColor="@color/color_8c8c8c"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="@+id/edit_text_introduce"
@@ -178,10 +193,10 @@
                 android:layout_height="46dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="86dp"
+                android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
                 android:text="@string/word_save"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_introduce_count" />
