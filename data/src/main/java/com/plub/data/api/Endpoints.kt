@@ -74,5 +74,10 @@ object Endpoints {
             const val COMMENT_DELETE = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
             const val COMMENT_EDIT = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
         }
+
+        object TODO {
+            const val TIMELINES = "$PLUBBING_ID_URL/timeline"
+            const val PROOF = "$PLUBBING_ID_URL/todolist/{todolistId}/proof"
+        }
     }
 }
