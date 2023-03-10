@@ -12,7 +12,7 @@
             android:id="@+id/image_view_profile"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/iv_default_profile"
+            android:background="@drawable/bg_circle_filled_e4e4e4"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

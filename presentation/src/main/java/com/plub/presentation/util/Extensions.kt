@@ -11,6 +11,8 @@ import android.text.Html
 import android.text.Spanned
 import android.text.TextWatcher
 import android.view.MotionEvent
+import android.view.View
+import android.view.animation.AlphaAnimation
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -160,4 +162,20 @@ fun RecyclerView.setOnRecyclerViewClickListener(method: () -> Unit) {
     setOnClickListener { _ ->
         method()
     }
+}
+
+fun View.setVisibleWithAnimation() {
+    val animationDuration = 500L
+    val visibleAnimation = AlphaAnimation(0f, 1f)
+    visibleAnimation.duration = animationDuration
+    visibility = View.VISIBLE
+    animation = visibleAnimation
+}
+
+fun View.setInVisibleWithAnimation() {
+    val animationDuration = 500L
+    val invisibleAnimation = AlphaAnimation(1f, 0f)
+    invisibleAnimation.duration = animationDuration
+    visibility = View.INVISIBLE
+    animation = invisibleAnimation
 }
