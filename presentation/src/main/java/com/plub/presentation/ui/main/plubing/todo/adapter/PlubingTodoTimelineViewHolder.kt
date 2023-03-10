@@ -44,4 +44,10 @@ class PlubingTodoTimelineViewHolder(
             GlideUtil.loadImage(root.context, item.accountInfoVo.profileImage, circleImageViewProfile)
         }
     }
+
+    fun updateList(item: TodoTimelineVo, payload: Any) {
+        vo = item
+        val todoList = payload as List<TodoItemVo>
+        todoItemAdapter.submitList(todoList)
+    }
 }
