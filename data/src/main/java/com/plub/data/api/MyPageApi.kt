@@ -1,6 +1,7 @@
 package com.plub.data.api
 
 import com.plub.data.base.ApiResponse
+import com.plub.data.dto.myPage.MyGatheringResponse
 import com.plub.data.dto.signUp.NicknameCheckResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -10,5 +11,5 @@ interface MyPageApi {
     @GET(Endpoints.PLUBBING.MY_PAGE.BROWSE_MY_GATHERING)
     suspend fun getMyGathering(
         @Query("status") status: String
-    ): Response<ApiResponse<NicknameCheckResponse>>
+    ): Response<ApiResponse<MyGatheringResponse>>
 }

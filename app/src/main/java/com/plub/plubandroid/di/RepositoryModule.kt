@@ -79,4 +79,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesApplicantsRepository(repositoryImpl: ApplicantsRepositoryImpl): ApplicantsRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesMyPageRepository(repositoryImpl: MyPageRepositoryImpl): MyPageRepository
 }
