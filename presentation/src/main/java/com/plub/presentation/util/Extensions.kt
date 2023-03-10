@@ -10,12 +10,14 @@ import android.text.Editable
 import android.text.Html
 import android.text.Spanned
 import android.text.TextWatcher
+import android.view.MotionEvent
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
 import java.io.Serializable
 
@@ -145,4 +147,17 @@ fun RecyclerView.infiniteScrolls(method: () -> Unit) {
                 method()
         }
     })
+}
+
+fun RecyclerView.setOnRecyclerViewClickListener(method: () -> Unit) {
+    setOnTouchListener { view, motionEvent ->
+        if (motionEvent.action == MotionEvent.ACTION_UP)
+            view.performClick()
+        else
+            false
+    }
+
+    setOnClickListener { _ ->
+        method()
+    }
 }
