@@ -32,15 +32,16 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
         BottomSheetScheduleDetailBinding.inflate(layoutInflater)
     }
 
-    private val maxProfile: Int by lazy { (getScreenWidth() - PADDING_HORIZONTAL.px) / PROFILE_FOLD_WIDTH.px }
+    private val MAX_FOLD_COLUMN: Int
+        get() = (getScreenWidth() - PADDING_HORIZONTAL.px) / PROFILE_FOLD_WIDTH.px
 
     private val foldProfileAdapter: FoldProfileAdapter by lazy {
-        FoldProfileAdapter(maxProfile)
+        FoldProfileAdapter(MAX_FOLD_COLUMN)
     }
 
     companion object {
         private const val SCHEDULE_VO = "SCHEDULE_VO"
-        private const val PROFILE_FOLD_WIDTH = 48
+        private const val PROFILE_FOLD_WIDTH = 50
         private const val PADDING_HORIZONTAL = 32
         private const val ITEM_SPAN_SIZE = 1
         private const val PROFILE_FOLD_ITEM_SPACE = 4
@@ -114,14 +115,14 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
             setLocation(textViewLocation, imageViewLocation, scheduleVo)
 
             recyclerViewAttendFold.apply {
-                layoutManager = GridLayoutManager(context, maxProfile).apply {
+                layoutManager = GridLayoutManager(context, MAX_FOLD_COLUMN).apply {
                     spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                         override fun getSpanSize(position: Int): Int {
                             return ITEM_SPAN_SIZE
                         }
                     }
                 }
-                addItemDecoration(GridSpaceDecoration(maxProfile, PROFILE_FOLD_ITEM_SPACE.px, PROFILE_FOLD_ITEM_SPACE.px, false))
+                addItemDecoration(GridSpaceDecoration(MAX_FOLD_COLUMN, PROFILE_FOLD_ITEM_SPACE.px, PROFILE_FOLD_ITEM_SPACE.px, false))
                 adapter = foldProfileAdapter
 
                 setOnRecyclerViewClickListener {
