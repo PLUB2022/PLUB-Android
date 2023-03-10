@@ -8,6 +8,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -29,5 +30,17 @@ interface TodoApi {
         @Path(PATH_PLUBING_ID) plubbingId: Int,
         @Path(PATH_TODO_LIST_ID) todoId: Int,
         @Body request: TodoProofRequest,
+    ): Response<ApiResponse<DataDto.DTO>>
+
+    @PUT(Endpoints.PLUBBING.TODO.COMPLETE)
+    suspend fun putTodoComplete(
+        @Path(PATH_PLUBING_ID) plubbingId: Int,
+        @Path(PATH_TODO_LIST_ID) todoId: Int,
+    ): Response<ApiResponse<DataDto.DTO>>
+
+    @PUT(Endpoints.PLUBBING.TODO.CANCEL)
+    suspend fun putTodoCancel(
+        @Path(PATH_PLUBING_ID) plubbingId: Int,
+        @Path(PATH_TODO_LIST_ID) todoId: Int,
     ): Response<ApiResponse<DataDto.DTO>>
 }

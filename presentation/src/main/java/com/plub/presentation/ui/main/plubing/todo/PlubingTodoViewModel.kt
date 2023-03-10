@@ -5,20 +5,20 @@ import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.TodoTimelineViewType
 import com.plub.domain.model.enums.UploadFileType
-import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
+import com.plub.domain.model.vo.todo.TodoGetTimelineRequestVo
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoProofRequestVo
 import com.plub.domain.model.vo.todo.TodoRequestVo
 import com.plub.domain.model.vo.todo.TodoTimelineListVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
+import com.plub.domain.usecase.PutTodoCompleteUseCase
 import com.plub.domain.usecase.GetTodoListUseCase
 import com.plub.domain.usecase.PostTodoProofUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
+import com.plub.domain.usecase.PutTodoCancelUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.parcelableVo.ParseTodoItemVo
-import com.plub.presentation.ui.main.plubing.board.PlubingBoardViewModel
-import com.plub.presentation.ui.main.plubing.board.detail.BoardDetailEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -29,7 +29,9 @@ import kotlin.properties.Delegates
 class PlubingTodoViewModel @Inject constructor(
     val getTodoListUseCase: GetTodoListUseCase,
     val postTodoProofUseCase: PostTodoProofUseCase,
-    val postUploadFileUseCase: PostUploadFileUseCase
+    val postUploadFileUseCase: PostUploadFileUseCase,
+    val putTodoCompleteUseCase: PutTodoCompleteUseCase,
+    val putTodoCancelUseCase: PutTodoCancelUseCase,
 ) : BaseViewModel<PlubingTodoPageState>(PlubingTodoPageState()) {
 
     companion object {
@@ -56,10 +58,11 @@ class PlubingTodoViewModel @Inject constructor(
         if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onGetTodoList()
     }
 
-    fun onClickTodoCheck(vo: TodoItemVo) {
+    fun onClickTodoCheck(timelineId: Int, vo: TodoItemVo) {
 //        if(!vo.isAuthor) return
 
-        if (vo.isChecked) cancelTodoCheck(vo) else showProofDialog(vo)
+        if (vo.isChecked) cancelTodoCheck(timelineId,vo.todoId)
+        else completeTodoCheck(timelineId, vo)
     }
 
     fun onClickTodoMenu(vo: TodoTimelineVo) {
@@ -86,13 +89,9 @@ class PlubingTodoViewModel @Inject constructor(
         }
     }
 
-    fun onClickLateProof(todoId: Int) {
-
-    }
-
     private fun getTodoList() {
         viewModelScope.launch {
-            val requestVo = TodoRequestVo(plubbingId = plubingId, cursorId = cursorId)
+            val requestVo = TodoGetTimelineRequestVo(plubbingId = plubingId, cursorId = cursorId)
             getTodoListUseCase(requestVo).collect {
                 inspectUiState(it, ::successGetTodoList)
             }
@@ -144,11 +143,42 @@ class PlubingTodoViewModel @Inject constructor(
         emitEventFlow(PlubingTodoEvent.ShowTodoProofDialog(vo))
     }
 
-    private fun cancelTodoCheck(todoItemVo: TodoItemVo) {
-
+    private fun cancelTodoCheck(timelineId: Int, todoId: Int) {
+        putTodoCancel(todoId) {
+            updateTodoCheckChange(timelineId, todoId)
+        }
     }
 
-    private fun goToTodoReport(todoTimelineVo: TodoTimelineVo) {
+    private fun completeTodoCheck(timelineId: Int, vo: TodoItemVo) {
+        getTodoComplete(vo.todoId) {
+            updateTodoCheckChange(timelineId, vo.todoId)
+            showProofDialog(vo)
+        }
+    }
+
+    private fun updateTodoCheckChange(timelineId: Int, todoId: Int) {
+        updateUiState { uiState ->
+            uiState.copy(
+                todoList = getTodoListCheckChanged(timelineId, todoId)
+            )
+        }
+    }
+
+    private fun getTodoListCheckChanged(timelineId: Int, todoId: Int): List<TodoTimelineVo> {
+        return uiState.value.todoList.map {
+            val todoItemList = if (it.timelineId == timelineId) getTodoItemListCheckChanged(it.todoList, todoId) else it.todoList
+            it.copy(todoList = todoItemList)
+        }
+    }
+
+    private fun getTodoItemListCheckChanged(list: List<TodoItemVo>, todoId: Int): List<TodoItemVo> {
+        return list.map {
+            val isChecked = if (it.todoId == todoId) !it.isChecked else it.isChecked
+            it.copy(isChecked = isChecked)
+        }
+    }
+
+    fun goToTodoReport(todoTimelineVo: TodoTimelineVo) {
 
     }
 
@@ -171,6 +201,28 @@ class PlubingTodoViewModel @Inject constructor(
         val request = TodoProofRequestVo(plubingId, todoId, imageUrl)
         viewModelScope.launch {
             postTodoProofUseCase(request).collect { state ->
+                inspectUiState(state, {
+                    onSuccess()
+                })
+            }
+        }
+    }
+
+    private fun getTodoComplete(todoId: Int, onSuccess: () -> Unit) {
+        val request = TodoRequestVo(plubingId, todoId)
+        viewModelScope.launch {
+            putTodoCompleteUseCase(request).collect { state ->
+                inspectUiState(state, {
+                    onSuccess()
+                })
+            }
+        }
+    }
+
+    private fun putTodoCancel(todoId: Int, onSuccess: () -> Unit) {
+        val request = TodoRequestVo(plubingId, todoId)
+        viewModelScope.launch {
+            putTodoCancelUseCase(request).collect { state ->
                 inspectUiState(state, {
                     onSuccess()
                 })

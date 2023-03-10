@@ -18,7 +18,7 @@ class PlubingTodoAdapter(
 ) : ListAdapter<TodoTimelineVo, RecyclerView.ViewHolder>(PlubingTodoDiffCallback()) {
 
     interface Delegate {
-        fun onClickTodoChecked(vo: TodoItemVo)
+        fun onClickTodoChecked(timelineId: Int, vo: TodoItemVo)
         fun onClickTodoMenu(vo: TodoTimelineVo)
     }
 

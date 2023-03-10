@@ -39,8 +39,8 @@ class PlubingTodoFragment : BaseFragment<FragmentPlubingTodoBinding, PlubingTodo
     private val todoListAdapter: PlubingTodoAdapter by lazy {
         PlubingTodoAdapter(object : PlubingTodoAdapter.Delegate {
 
-            override fun onClickTodoChecked(vo: TodoItemVo) {
-                viewModel.onClickTodoCheck(vo)
+            override fun onClickTodoChecked(timelineId:Int, vo: TodoItemVo) {
+                viewModel.onClickTodoCheck(timelineId, vo)
             }
 
             override fun onClickTodoMenu(vo: TodoTimelineVo) {
@@ -111,9 +111,7 @@ class PlubingTodoFragment : BaseFragment<FragmentPlubingTodoBinding, PlubingTodo
                 viewModel.onClickProofComplete(todoId, proofFile)
             }
 
-            override fun onClickLateProof(todoId: Int) {
-                viewModel.onClickLateProof(todoId)
-            }
+            override fun onClickLateProof(todoId: Int) {}
         }).show(parentFragmentManager, "")
     }
 }

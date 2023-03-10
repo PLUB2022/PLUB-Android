@@ -17,7 +17,9 @@ class PlubingTodoTimelineViewHolder(
     private val todoItemAdapter: TodoItemAdapter =
         TodoItemAdapter(object : TodoItemAdapter.Delegate {
             override fun onClickTodoCheck(todoItemVo: TodoItemVo) {
-                listener.onClickTodoChecked(todoItemVo)
+                vo?.let {
+                    listener.onClickTodoChecked(it.timelineId, todoItemVo)
+                }
             }
         })
 
