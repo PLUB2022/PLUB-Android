@@ -17,7 +17,7 @@ class PlubingScheduleAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is PlubingScheduleContentViewHolder -> holder.bind(currentList, position)
+            is PlubingScheduleContentViewHolder -> holder.bind(currentList, currentList[position], position)
             is PlubingScheduleLoadingViewHolder -> { }
             is PlubingScheduleYearViewHolder -> holder.bind(currentList[position].startedAt)
         }

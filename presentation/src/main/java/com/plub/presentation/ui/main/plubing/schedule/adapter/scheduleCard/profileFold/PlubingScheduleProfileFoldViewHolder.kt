@@ -22,13 +22,15 @@ class PlubingScheduleProfileFoldViewHolder(
         val morePeopleCount = allPeopleCount - SHOW_MAX_PROFILE_COUNT
         binding.apply {
             if (position == SHOW_MAX_PROFILE_COUNT) {
+                textViewMorePeopleNumber.visibility = View.VISIBLE
                 textViewMorePeopleNumber.text = root.context.getString(R.string.detail_recruitment_profile_county, morePeopleCount)
                 imageViewProfile.visibility = View.GONE
             }
             else {
-                GlideUtil.loadImage(root.context, imageUrl, imageViewProfile)
+                GlideUtil.loadImage(root.context, imageUrl, imageViewProfile, R.drawable.iv_default_profile)
                 imageViewProfile.clipToOutline = true
                 imageViewProfile.visibility = View.VISIBLE
+                textViewMorePeopleNumber.visibility = View.INVISIBLE
             }
         }
     }

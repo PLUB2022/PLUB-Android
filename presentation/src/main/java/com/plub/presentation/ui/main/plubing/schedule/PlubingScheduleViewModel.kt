@@ -3,6 +3,8 @@ package com.plub.presentation.ui.main.plubing.schedule
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.AttendStatus
 import com.plub.domain.model.enums.ScheduleCardType
+import com.plub.domain.model.vo.schedule.CalendarAttendListVo
+import com.plub.domain.model.vo.schedule.CalendarAttendVo
 import com.plub.domain.model.vo.schedule.GetEntireScheduleRequestVo
 import com.plub.domain.model.vo.schedule.GetEntireScheduleResponseVo
 import com.plub.domain.model.vo.schedule.PutScheduleAttendRequestVo
@@ -10,6 +12,7 @@ import com.plub.domain.model.vo.schedule.ScheduleVo
 import com.plub.domain.usecase.GetEntireScheduleUseCase
 import com.plub.domain.usecase.PutScheduleAttendUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.asFlow
@@ -119,31 +122,76 @@ class PlubingScheduleViewModel @Inject constructor(
         )
     }
 
-    fun putScheduleAttendYes(scheduleId: Int) {
+    fun putScheduleAttendYes(calendarId: Int) {
         viewModelScope.launch {
             putScheduleAttendUseCase(
                 PutScheduleAttendRequestVo(
                     1,
-                    scheduleId,
+                    calendarId,
                     AttendStatus.YES.value
                 )
-            ).collect {
-
+            ).collect { state ->
+                inspectUiState(state, succeedCallback = { plusAttendPeople(calendarId, it) })
             }
         }
     }
 
-    fun putScheduleAttendNo(scheduleId: Int) {
+    private fun plusAttendPeople(calendarId: Int,data: CalendarAttendVo) {
+
+        val scheduleVo = findScheduleVo(calendarId)
+        if(scheduleVo.calendarAttendList.calendarAttendList.contains(data)) return
+
+        val newCalendarAttendList = scheduleVo.calendarAttendList.calendarAttendList.plus(data)
+
+        updateAttendPeople(scheduleVo, newCalendarAttendList)
+    }
+
+    fun putScheduleAttendNo(calendarId: Int) {
         viewModelScope.launch {
             putScheduleAttendUseCase(
                 PutScheduleAttendRequestVo(
                     1,
-                    scheduleId,
+                    calendarId,
                     AttendStatus.NO.value
                 )
-            ).collect {
-
+            ).collect { state ->
+                inspectUiState(state, succeedCallback = { removeAttendPeople(calendarId, it) })
             }
+        }
+    }
+
+    private fun findScheduleVo(calendarId: Int): ScheduleVo {
+        return uiState.value.scheduleList.find { schedule ->
+            schedule.calendarId == calendarId
+        } ?: ScheduleVo()
+    }
+
+    private fun removeAttendPeople(calendarId: Int,data: CalendarAttendVo) {
+        val scheduleVo = findScheduleVo(calendarId)
+        val newCalendarAttendList = scheduleVo.calendarAttendList.calendarAttendList.minus(data.copy(
+            AttendStatus = AttendStatus.YES.value
+        ))
+        updateAttendPeople(scheduleVo, newCalendarAttendList)
+    }
+
+    private fun updateAttendPeople(scheduleVo: ScheduleVo, calendarAttendList: List<CalendarAttendVo>) {
+        updateUiState { uiState ->
+            val newScheduleVo = scheduleVo.copy(
+                calendarAttendList = CalendarAttendListVo(calendarAttendList)
+            )
+
+            PlubLogger.logD("테스트", "이전 값 ${scheduleVo.placeName}")
+            PlubLogger.logD("테스트", "새 값 ${newScheduleVo.placeName}")
+
+            val copiedScheduleList = mutableListOf<ScheduleVo>()
+            uiState.scheduleList.forEach {
+                val copiedSchedule = if(it.calendarId == newScheduleVo.calendarId) newScheduleVo else it
+                copiedScheduleList.add(copiedSchedule)
+            }
+
+            uiState.copy(
+                scheduleList = copiedScheduleList
+            )
         }
     }
 }

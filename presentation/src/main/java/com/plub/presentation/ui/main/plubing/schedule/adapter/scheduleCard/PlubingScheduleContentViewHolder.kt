@@ -44,32 +44,35 @@ class PlubingScheduleContentViewHolder(
         }
     }
 
-    fun bind(items: List<ScheduleVo>, position: Int) {
-        currentItem = items[position]
-        currentItem?.let { data ->
-            binding.apply {
-                textViewTitle.text = data.title
-                setTextViewMonth(textViewMonth, items, position)
-                textViewDate.text = getTextViewDate(data)
-                textViewTime.text = getTextViewTime(data)
-                setLocation(textViewLocation, imageViewLocation, data)
-                setTextColor(data.startedAt)
-                viewDivider1.visibility = if(position == 1) View.INVISIBLE else View.VISIBLE
-            }
-
-
-            val profileList = data.calendarAttendList.calendarAttendList.map { it.profileImage }
-            plubingScheduleProfileAdapter.submitList(profileList)
+    fun bind(items: List<ScheduleVo>, currentItem: ScheduleVo, position: Int) {
+        this.currentItem = currentItem
+        binding.apply {
+            textViewTitle.text = currentItem.title
+            setTextViewMonth(textViewMonth, items, position)
+            textViewDate.text = getTextViewDate(currentItem)
+            textViewTime.text = getTextViewTime(currentItem)
+            setLocation(textViewLocation, imageViewLocation, currentItem)
+            setTextColor(currentItem.startedAt)
+            viewDivider1.visibility = if (position == 1) View.INVISIBLE else View.VISIBLE
         }
+
+        val profileList = currentItem.calendarAttendList.calendarAttendList.map { it.profileImage }
+        plubingScheduleProfileAdapter.submitList(profileList)
+
     }
 
     private fun setTextViewMonth(textViewMonth: TextView, items: List<ScheduleVo>, position: Int) {
-        val firstStartMonth = TimeFormatter.getIntMonthFromyyyyDashmmDashddFormat(items[position].startedAt)
-        val secondStartMonth = TimeFormatter.getIntMonthFromyyyyDashmmDashddFormat(items.prevItem(position).startedAt)
+        val firstStartMonth =
+            TimeFormatter.getIntMonthFromyyyyDashmmDashddFormat(items[position].startedAt)
+        val secondStartMonth =
+            TimeFormatter.getIntMonthFromyyyyDashmmDashddFormat(items.prevItem(position).startedAt)
 
-        if(firstStartMonth != secondStartMonth || items.prevItemTypeIsContent(position).not()) {
+        if (firstStartMonth != secondStartMonth || items.prevItemTypeIsContent(position).not()) {
             textViewMonth.visibility = View.VISIBLE
-            textViewMonth.text = binding.root.context.getString(R.string.word_birth_month,firstStartMonth.toString())
+            textViewMonth.text = binding.root.context.getString(
+                R.string.word_birth_month,
+                firstStartMonth.toString()
+            )
         } else {
             textViewMonth.visibility = View.GONE
         }
@@ -80,7 +83,7 @@ class PlubingScheduleContentViewHolder(
     }
 
     private fun List<ScheduleVo>.prevItem(index: Int): ScheduleVo {
-        return if(this.size > 1)
+        return if (this.size > 1)
             this[index - 1]
         else ScheduleVo()
     }
@@ -96,19 +99,39 @@ class PlubingScheduleContentViewHolder(
         return binding.root.context.getString(R.string.word_birth_day, day)
     }
 
-    private fun setLocation(textViewLocation: TextView, imageViewLocation: ImageView, item: ScheduleVo) {
-        if(item.placeName.isEmpty()) {
+    private fun setLocation(
+        textViewLocation: TextView,
+        imageViewLocation: ImageView,
+        item: ScheduleVo
+    ) {
+        if (item.placeName.isEmpty()) {
             textViewLocation.visibility = View.GONE
             imageViewLocation.visibility = View.GONE
-        } else textViewLocation.text = item.placeName
+        } else {
+            textViewLocation.visibility = View.VISIBLE
+            imageViewLocation.visibility = View.VISIBLE
+            textViewLocation.text = item.placeName
+        }
     }
 
     private fun setTextColor(startDate: String) {
-        val (color, imageResource) = if(TimeFormatter.getEpochMilliFromyyyyDashmmDashddFormat(startDate) < TimeFormatter.getCurrentEpochMilli())
-            listOf(R.color.color_8c8c8c, R.drawable.ic_schedule_oval_inactive) else listOf(R.color.color_363636, R.drawable.ic_schedule_oval_active)
+        val (color, imageResource) = if (TimeFormatter.getEpochMilliFromyyyyDashmmDashddFormat(
+                startDate
+            ) < TimeFormatter.getCurrentEpochMilli()
+        )
+            listOf(
+                R.color.color_8c8c8c,
+                R.drawable.ic_schedule_oval_inactive
+            ) else listOf(R.color.color_363636, R.drawable.ic_schedule_oval_active)
 
         binding.apply {
-            listOf(textViewDate, textViewMonth, textViewTitle, textViewTime, textViewLocation).forEach {
+            listOf(
+                textViewDate,
+                textViewMonth,
+                textViewTitle,
+                textViewTime,
+                textViewLocation
+            ).forEach {
                 it.setTextColor(root.context.getColor(color))
             }
 
