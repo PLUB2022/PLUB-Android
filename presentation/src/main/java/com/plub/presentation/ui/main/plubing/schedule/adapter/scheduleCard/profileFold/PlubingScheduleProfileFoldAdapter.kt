@@ -1,15 +1,11 @@
-package com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.profile
+package com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.profileFold
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsVo
-import com.plub.domain.model.vo.schedule.ScheduleVo
-import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
 import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleProfileBinding
-import com.plub.presentation.ui.main.home.recruitment.viewholder.DetailRecruitProfileViewHolder
 
 class PlubingScheduleProfileAdapter() :
     ListAdapter<String, RecyclerView.ViewHolder>(
@@ -22,7 +18,7 @@ class PlubingScheduleProfileAdapter() :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is PlubingScheduleProfileViewHolder -> {
+            is PlubingScheduleProfileFoldViewHolder -> {
                 holder.bind(currentList[position], position, currentList.size)
             }
         }
@@ -34,7 +30,7 @@ class PlubingScheduleProfileAdapter() :
             parent,
             false
         )
-        return PlubingScheduleProfileViewHolder(binding)
+        return PlubingScheduleProfileFoldViewHolder(binding)
     }
 
     override fun getItemCount(): Int {

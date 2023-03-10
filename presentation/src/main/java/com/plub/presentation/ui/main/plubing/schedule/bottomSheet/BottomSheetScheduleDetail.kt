@@ -4,13 +4,21 @@ import android.app.Activity
 import android.graphics.Point
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_DRAGGING
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HALF_EXPANDED
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.plub.domain.model.vo.schedule.ScheduleVo
 import com.plub.presentation.R
@@ -20,6 +28,7 @@ import com.plub.presentation.ui.sign.hobbies.adapter.HobbyViewHolder
 import com.plub.presentation.util.TimeFormatter
 import com.plub.presentation.util.px
 import com.plub.presentation.util.serializable
+import com.plub.presentation.util.setOnRecyclerViewClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -74,6 +83,36 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val bottomSheet = dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) ?: return
+        val behavior = BottomSheetBehavior.from<View>(bottomSheet)
+        behavior.peekHeight = 250.px
+        behavior.isHideable = true
+        behavior.state = STATE_COLLAPSED
+
+        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+
+                when (newState) {
+                        STATE_EXPANDED -> {
+                            setLayoutExpanded()
+                        }
+
+                        STATE_COLLAPSED -> {
+                            setLayoutCollapsed()
+                        }
+
+                        STATE_DRAGGING -> {
+                            setLayoutDragging()
+                        }
+                    }
+
+            }
+        })
+
         binding.apply {
             textViewTitle.text = scheduleVo.title
             setTextViewMonth(textViewMonth, scheduleVo)
@@ -91,6 +130,11 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
                 }
                 addItemDecoration(GridSpaceDecoration(maxProfile, ITEM_SPACE.px, ITEM_SPACE.px, false))
                 adapter = foldProfileAdapter
+
+                setOnRecyclerViewClickListener {
+                    setLayoutDragging()
+                    behavior.state = STATE_EXPANDED
+                }
             }
 
             val profileList =
@@ -106,6 +150,39 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
                 noButtonClickEvent?.let { it(scheduleVo.calendarId) }
                 dismiss()
             }
+        }
+    }
+
+    private fun setLayoutDragging() {
+        binding.apply {
+            recyclerViewAttendFold.visibility = View.INVISIBLE
+            recyclerViewAttendExpand.visibility = View.INVISIBLE
+            buttonNo.visibility = View.INVISIBLE
+            buttonYes.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun setLayoutCollapsed() {
+        binding.apply {
+            recyclerViewAttendFold.visibility = View.VISIBLE
+            recyclerViewAttendExpand.visibility = View.INVISIBLE
+            buttonNo.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topToBottom = binding.recyclerViewAttendFold.id
+            }
+            buttonNo.visibility = View.VISIBLE
+            buttonYes.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setLayoutExpanded() {
+        binding.apply {
+            recyclerViewAttendFold.visibility = View.INVISIBLE
+            recyclerViewAttendExpand.visibility = View.VISIBLE
+            buttonNo.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topToBottom = recyclerViewAttendExpand.id
+            }
+            buttonNo.visibility = View.VISIBLE
+            buttonYes.visibility = View.VISIBLE
         }
     }
 

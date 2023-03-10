@@ -10,8 +10,7 @@ import com.plub.domain.model.vo.schedule.ScheduleVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleContentBinding
 import com.plub.presentation.ui.common.decoration.OverlapDecoration
-import com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.profile.PlubingScheduleProfileAdapter
-import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.profileFold.PlubingScheduleProfileAdapter
 import com.plub.presentation.util.TimeFormatter
 
 class PlubingScheduleContentViewHolder(
