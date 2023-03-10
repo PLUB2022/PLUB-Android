@@ -43,7 +43,7 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
         private const val PROFILE_FOLD_WIDTH = 48
         private const val PADDING_HORIZONTAL = 32
         private const val ITEM_SPAN_SIZE = 1
-        private const val ITEM_SPACE = 4
+        private const val PROFILE_FOLD_ITEM_SPACE = 4
 
 
         fun newInstance(
@@ -121,7 +121,7 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
                         }
                     }
                 }
-                addItemDecoration(GridSpaceDecoration(maxProfile, ITEM_SPACE.px, ITEM_SPACE.px, false))
+                addItemDecoration(GridSpaceDecoration(maxProfile, PROFILE_FOLD_ITEM_SPACE.px, PROFILE_FOLD_ITEM_SPACE.px, false))
                 adapter = foldProfileAdapter
 
                 setOnRecyclerViewClickListener {
