@@ -1,10 +1,7 @@
 package com.plub.presentation.ui.main.plubing.schedule.bottomSheet
 
-import android.app.Activity
-import android.graphics.Point
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -12,19 +9,15 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_DRAGGING
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HALF_EXPANDED
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.plub.domain.model.vo.schedule.ScheduleVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.BottomSheetScheduleDetailBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
-import com.plub.presentation.ui.sign.hobbies.adapter.HobbyViewHolder
 import com.plub.presentation.util.TimeFormatter
 import com.plub.presentation.util.px
 import com.plub.presentation.util.serializable
@@ -39,7 +32,7 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
         BottomSheetScheduleDetailBinding.inflate(layoutInflater)
     }
 
-    private val maxProfile: Int by lazy { (getScreenWidth() - PADDING_HORIZONTAL.px) / PROFILE_WIDTH.px }
+    private val maxProfile: Int by lazy { (getScreenWidth() - PADDING_HORIZONTAL.px) / PROFILE_FOLD_WIDTH.px }
 
     private val foldProfileAdapter: FoldProfileAdapter by lazy {
         FoldProfileAdapter(maxProfile)
@@ -47,7 +40,7 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
 
     companion object {
         private const val SCHEDULE_VO = "SCHEDULE_VO"
-        private const val PROFILE_WIDTH = 48
+        private const val PROFILE_FOLD_WIDTH = 48
         private const val PADDING_HORIZONTAL = 32
         private const val ITEM_SPAN_SIZE = 1
         private const val ITEM_SPACE = 4
