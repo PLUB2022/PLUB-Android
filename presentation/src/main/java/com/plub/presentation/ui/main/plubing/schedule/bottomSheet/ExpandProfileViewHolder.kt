@@ -19,7 +19,7 @@ class ExpandProfileViewHolder(
 
     fun bind(item: CalendarAttendVo) {
         binding.apply {
-            GlideUtil.loadImage(root.context, item.profileImage, imageViewProfile)
+            GlideUtil.loadImage(root.context, item.profileImage, imageViewProfile, R.drawable.iv_default_profile)
             imageViewProfile.clipToOutline = true
             textViewNickname.text = item.nickname
         }

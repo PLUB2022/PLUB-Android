@@ -23,7 +23,7 @@ class FoldProfileViewHolder(
                 textViewMoreProfileNumber.text = root.context.getString(R.string.detail_recruitment_profile_county, morePeopleCount)
             }
             else{
-                GlideUtil.loadImage(root.context, item, imageViewProfile)
+                GlideUtil.loadImage(root.context, item, imageViewProfile, R.drawable.iv_default_profile)
                 imageViewProfile.clipToOutline = true
             }
         }
