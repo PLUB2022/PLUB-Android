@@ -2,6 +2,7 @@ package com.plub.data.mapper.myPageMapper
 
 import com.plub.data.base.Mapper
 import com.plub.data.dto.myPage.MyGatheringDataResponse
+import com.plub.domain.model.enums.MyPageGatheringMyType
 import com.plub.domain.model.vo.myPage.MyPageGatheringDetailVo
 
 object MyGatheringDataMapper: Mapper.ResponseMapper<MyGatheringDataResponse, MyPageGatheringDetailVo> {
@@ -11,7 +12,7 @@ object MyGatheringDataMapper: Mapper.ResponseMapper<MyGatheringDataResponse, MyP
                 image = iconImage,
                 title = title,
                 goal =goal,
-                gatheringType = myPlubbingStatus,
+                gatheringType = MyPageGatheringMyType.valueOf(myPlubbingStatus),
             )
         }?: MyPageGatheringDetailVo()
     }

@@ -293,4 +293,10 @@ object UseCaseModule {
     fun providesGetMyInterestUseCase(repository: RegisterHobbiesRepository): GetMyInterestUseCase {
         return GetMyInterestUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesGetMyGatheringUseCase(repository: MyPageRepository): GetMyGatheringUseCase {
+        return GetMyGatheringUseCase(repository)
+    }
 }
