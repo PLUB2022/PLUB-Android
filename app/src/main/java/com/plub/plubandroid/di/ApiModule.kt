@@ -110,4 +110,10 @@ object ApiModule {
     fun providePlubingBoardApi(@AuthRetrofit retrofit: Retrofit): PlubingBoardApi {
         return retrofit.create(PlubingBoardApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideMyPageApi(@AuthRetrofit retrofit: Retrofit): MyPageApi {
+        return retrofit.create(MyPageApi::class.java)
+    }
 }

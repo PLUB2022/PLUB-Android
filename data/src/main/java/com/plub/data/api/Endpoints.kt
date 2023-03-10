@@ -2,11 +2,6 @@ package com.plub.data.api
 
 object Endpoints {
 
-    object TEST {
-        private const val TEST_URL = "/api"
-        const val LOGIN_TEST = "$TEST_URL/test"
-    }
-
     object FILE {
         const val FILE_URL = "/api/files"
         const val CHANGE_FILE_URL = "/api/files/change"
@@ -73,6 +68,10 @@ object Endpoints {
             const val COMMENT_CREATE = "$PLUBBING_ID_URL/feeds/{feedId}/comments"
             const val COMMENT_DELETE = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
             const val COMMENT_EDIT = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
+        }
+
+        object MY_PAGE{
+            const val BROWSE_MY_GATHERING = "$PLUBBING_URL/all/my"
         }
     }
 }
