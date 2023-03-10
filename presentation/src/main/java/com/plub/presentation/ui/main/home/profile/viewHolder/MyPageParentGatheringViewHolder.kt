@@ -3,7 +3,7 @@ package com.plub.presentation.ui.main.home.profile.viewHolder
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.enums.MyPageGatheringType
+import com.plub.domain.model.enums.MyPageGatheringStateType
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemMyGatheringBinding
@@ -41,10 +41,11 @@ class MyPageParentGatheringViewHolder(
         myPageGatheringVo = item
         binding.apply {
             when(item.gatheringType){
-                MyPageGatheringType.RECRUITING -> {textViewGatheringType.text = root.context.getString(R.string.my_page_recruiting_gathering)}
-                MyPageGatheringType.WAITING  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_waiting_gathering)}
-                MyPageGatheringType.ACTIVE  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_active_gathering)}
-                MyPageGatheringType.END  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_end_gathering)}
+                //MyPageGatheringStateType.RECRUITING -> {textViewGatheringType.text = root.context.getString(R.string.my_page_recruiting_gathering)}
+                //MyPageGatheringStateType.WAITING  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_waiting_gathering)}
+                MyPageGatheringStateType.ACTIVE  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_active_gathering)}
+                MyPageGatheringStateType.END  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_end_gathering)}
+                else -> {}
             }
             detailAdapter.submitList(item.gatheringList)
             recyclerViewGatheringList.visibility = if (item.isExpand) View.VISIBLE else View.GONE

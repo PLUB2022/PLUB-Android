@@ -3,13 +3,10 @@ package com.plub.presentation.ui.main.home.profile
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.plub.domain.model.enums.MyPageGatheringType
-import com.plub.domain.model.vo.myPage.MyPageGatheringDetailVo
-import com.plub.domain.model.vo.myPage.MyPageGatheringVo
+import com.plub.domain.model.enums.MyPageGatheringStateType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageBinding
-import com.plub.presentation.ui.PageState
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageParentGatheringAdapter
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.PlubUser
@@ -29,11 +26,11 @@ class MyPageFragment :
 
     private val gatheringAdapter : MyPageParentGatheringAdapter by lazy {
         MyPageParentGatheringAdapter(object : MyPageParentGatheringAdapter.MyPageDelegate{
-            override fun onClickCardExpand(gatheringType: MyPageGatheringType) {
+            override fun onClickCardExpand(gatheringType: MyPageGatheringStateType) {
                 viewModel.onClickExpand(gatheringType)
             }
 
-            override fun onClickGathering(gatheringType: MyPageGatheringType) {
+            override fun onClickGathering(gatheringType: MyPageGatheringStateType) {
                 viewModel.goToDetail(gatheringType)
             }
         })

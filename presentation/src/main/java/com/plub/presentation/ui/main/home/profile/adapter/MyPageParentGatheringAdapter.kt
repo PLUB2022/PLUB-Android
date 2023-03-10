@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.enums.MyPageGatheringType
+import com.plub.domain.model.enums.MyPageGatheringStateType
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.presentation.databinding.IncludeItemMyGatheringBinding
 import com.plub.presentation.ui.main.home.profile.viewHolder.MyPageParentGatheringViewHolder
@@ -15,8 +15,8 @@ class MyPageParentGatheringAdapter(private val listener: MyPageDelegate): ListAd
 ) {
 
     interface MyPageDelegate{
-        fun onClickCardExpand(gatheringType: MyPageGatheringType)
-        fun onClickGathering(gatheringType : MyPageGatheringType)
+        fun onClickCardExpand(gatheringType: MyPageGatheringStateType)
+        fun onClickGathering(gatheringType : MyPageGatheringStateType)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
