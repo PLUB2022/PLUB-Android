@@ -1,15 +1,19 @@
 package com.plub.presentation.ui.main.plubing.schedule
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.AttendStatus
 import com.plub.domain.model.enums.ScheduleCardType
 import com.plub.domain.model.vo.schedule.GetEntireScheduleRequestVo
 import com.plub.domain.model.vo.schedule.GetEntireScheduleResponseVo
+import com.plub.domain.model.vo.schedule.PutScheduleAttendRequestVo
 import com.plub.domain.model.vo.schedule.ScheduleVo
 import com.plub.domain.usecase.GetEntireScheduleUseCase
+import com.plub.domain.usecase.PutScheduleAttendUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.launch
@@ -17,9 +21,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlubingScheduleViewModel @Inject constructor(
-    private val getEntireScheduleUseCase: GetEntireScheduleUseCase
+    private val getEntireScheduleUseCase: GetEntireScheduleUseCase,
+    private val putScheduleAttendUseCase: PutScheduleAttendUseCase
 ) : BaseViewModel<PlubingSchedulePageState>(PlubingSchedulePageState()) {
 
+    //TODO uiState.value.plubbingId 값 초기화 해주는 코드 필요, 현재 1로 하드코딩 되어 있음
     fun fetchEntireScheduleUseCase() {
         viewModelScope.launch {
             getEntireScheduleUseCase(GetEntireScheduleRequestVo(uiState.value.scheduleCursorId, 1)).collect {
@@ -111,5 +117,33 @@ class PlubingScheduleViewModel @Inject constructor(
         emitEventFlow(
             PlubingScheduleEvent.ShowBottomSheetScheduleDetail(scheduleVo)
         )
+    }
+
+    fun putScheduleAttendYes(scheduleId: Int) {
+        viewModelScope.launch {
+            putScheduleAttendUseCase(
+                PutScheduleAttendRequestVo(
+                    1,
+                    scheduleId,
+                    AttendStatus.YES.value
+                )
+            ).collect {
+
+            }
+        }
+    }
+
+    fun putScheduleAttendNo(scheduleId: Int) {
+        viewModelScope.launch {
+            putScheduleAttendUseCase(
+                PutScheduleAttendRequestVo(
+                    1,
+                    scheduleId,
+                    AttendStatus.NO.value
+                )
+            ).collect {
+
+            }
+        }
     }
 }

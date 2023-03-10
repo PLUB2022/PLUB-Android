@@ -77,6 +77,7 @@ object Endpoints {
 
         object SCHEDULE {
             const val CALENDAR = "$PLUBBING_ID_URL/calendar"
+            const val ATTEND = "$CALENDAR/{calendarId}/attend"
         }
     }
 }

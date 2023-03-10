@@ -2,7 +2,6 @@ package com.plub.data.dto.schedule
 
 import com.google.gson.annotations.SerializedName
 import com.plub.data.base.DataDto
-import com.plub.domain.model.DomainModel
 
 data class GetEntireScheduleResponse(
     @SerializedName("calendarList")
@@ -51,10 +50,10 @@ data class Schedule(
 
 data class CalendarAttendList(
     @SerializedName("calendarAttendList")
-    val calendarAttendList: List<CalendarAttend> = emptyList()
+    val calendarAttendResponseList: List<CalendarAttendResponse> = emptyList()
 )
 
-data class CalendarAttend(
+data class CalendarAttendResponse(
     @SerializedName("calendarAttendId")
     val calendarAttendId: Int = -1,
     @SerializedName("nickname")
@@ -63,4 +62,4 @@ data class CalendarAttend(
     val profileImage: String = "",
     @SerializedName("AttendStatus")
     val AttendStatus: String = ""
-)
+) : DataDto

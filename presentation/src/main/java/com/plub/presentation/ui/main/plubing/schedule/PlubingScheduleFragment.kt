@@ -80,7 +80,9 @@ class PlubingScheduleFragment : BaseFragment<
 
     private fun showBottomSheetScheduleDetail(scheduleVo: ScheduleVo) {
         val bottomSheetScheduleDetail = BottomSheetScheduleDetail.newInstance(
-            scheduleVo = scheduleVo
+            scheduleVo = scheduleVo,
+            okButtonClickEvent = { calendarId ->  viewModel.putScheduleAttendYes(calendarId) },
+            noButtonClickEvent = { calendarId ->  viewModel.putScheduleAttendNo(calendarId) }
         )
 
         bottomSheetScheduleDetail.show(

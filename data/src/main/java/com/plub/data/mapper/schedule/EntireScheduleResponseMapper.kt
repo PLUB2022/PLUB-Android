@@ -1,18 +1,12 @@
 package com.plub.data.mapper.schedule
 
 import com.plub.data.base.Mapper
-import com.plub.data.dto.board.PlubingBoardResponse
-import com.plub.data.dto.schedule.CalendarList
 import com.plub.data.dto.schedule.GetEntireScheduleResponse
-import com.plub.domain.model.enums.PlubingBoardType
-import com.plub.domain.model.enums.PlubingFeedType
-import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.schedule.CalendarAttendListVo
 import com.plub.domain.model.vo.schedule.CalendarAttendVo
 import com.plub.domain.model.vo.schedule.CalendarListVo
 import com.plub.domain.model.vo.schedule.GetEntireScheduleResponseVo
 import com.plub.domain.model.vo.schedule.ScheduleVo
-import timber.log.Timber
 
 object EntireScheduleResponseMapper :
     Mapper.ResponseMapper<GetEntireScheduleResponse, GetEntireScheduleResponseVo> {
@@ -38,7 +32,7 @@ object EntireScheduleResponseMapper :
                             roadAddress = it.roadAddress,
                             placeName = it.placeName,
                             alarmType = it.alarmType,
-                            calendarAttendList = CalendarAttendListVo(it.calendarAttendList.calendarAttendList.map { calendar ->
+                            calendarAttendList = CalendarAttendListVo(it.calendarAttendList.calendarAttendResponseList.map { calendar ->
                                 CalendarAttendVo(
                                     calendarAttendId = calendar.calendarAttendId,
                                     nickname = calendar.nickname,
