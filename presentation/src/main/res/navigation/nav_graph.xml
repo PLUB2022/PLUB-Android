@@ -331,7 +331,7 @@
 
         <action
             android:id="@+id/action_my_page_recruit_to_recruit"
-            app:destination="@id/recruitmentFragment" />
+            app:destination="@id/hostRecruitmentFragment" />
     </fragment>
 
     <fragment
