@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -94,11 +95,15 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
         val behavior = BottomSheetBehavior.from<View>(bottomSheet)
         behavior.peekHeight = 250.px
         behavior.isHideable = true
+        behavior.isDraggable = false
         behavior.state = STATE_COLLAPSED
 
         behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                binding.buttonNo.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                    topMargin = (slideOffset * (binding.bottomSheetScheduleDetail.height -250.px)).toInt() + 16.px
+                }
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -214,11 +219,6 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
         binding.apply {
             recyclerViewAttendFold.visibility = View.INVISIBLE
             recyclerViewAttendExpand.visibility = View.INVISIBLE
-            buttonNo.visibility = View.INVISIBLE
-            buttonYes.visibility = View.INVISIBLE
-            buttonNo.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                topToBottom = recyclerViewAttendExpand.id
-            }
         }
     }
 
@@ -226,11 +226,6 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
         binding.apply {
             recyclerViewAttendFold.setVisibleWithAnimation()
             recyclerViewAttendExpand.visibility = View.INVISIBLE
-            buttonNo.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                topToBottom = binding.recyclerViewAttendFold.id
-            }
-            buttonNo.setVisibleWithAnimation()
-            buttonYes.setVisibleWithAnimation()
         }
     }
 
@@ -238,11 +233,6 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
         binding.apply {
             recyclerViewAttendFold.visibility = View.INVISIBLE
             recyclerViewAttendExpand.setVisibleWithAnimation()
-            buttonNo.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                topToBottom = recyclerViewAttendExpand.id
-            }
-            buttonNo.setVisibleWithAnimation()
-            buttonYes.setVisibleWithAnimation()
         }
     }
 

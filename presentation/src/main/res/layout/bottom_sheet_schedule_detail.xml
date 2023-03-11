@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
-        android:paddingBottom="20dp"
+        android:paddingBottom="66dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <include
@@ -125,6 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:paddingBottom="16dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -142,9 +143,8 @@
             android:id="@+id/button_no"
             android:layout_width="0dp"
             android:layout_height="46dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="12dp"
-            android:layout_marginBottom="20dp"
             android:background="@drawable/bg_rectangle_filled_f2f3f4_radius_10"
             android:stateListAnimator="@null"
             android:text="@string/bottom_sheet_not_attend"
