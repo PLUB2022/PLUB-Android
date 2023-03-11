@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.gathering.createGathering.finish
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringFinishBinding
 import com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel

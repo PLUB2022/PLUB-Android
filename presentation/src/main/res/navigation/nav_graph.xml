@@ -131,6 +131,10 @@
         <argument
             android:name="plubbingId"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/action_host_to_applicants"
+            app:destination="@id/myPageRecruitingGatheringFragment" />
     </fragment>
 
     <fragment
