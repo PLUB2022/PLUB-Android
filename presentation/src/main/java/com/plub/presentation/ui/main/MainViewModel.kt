@@ -13,11 +13,8 @@ class MainViewModel @Inject constructor() : BaseViewModel<PageState.Default>(Pag
 
     private val fragmentStatusBarColorWhite = listOf(R.id.plubingAddScheduleFragment)
 
-    fun onSelectedBottomNavigationMenu(item: MenuItem) {
-        val idx = getBottomMenuIndex(item.itemId)
-        idx?.let {
-            emitEventFlow(MainEvent.ShowBottomNavigationBadge(it))
-        }
+    fun onSelectedBottomNavigationMenu(id: Int) {
+        emitEventFlow(MainEvent.ShowBottomNavigationBadge(id))
     }
 
     fun onDestinationChanged(fragmentId: Int) {
