@@ -301,6 +301,9 @@
     <string name="my_page_my_application">나의 지원서</string>
     <string name="my_page_other_application">지원자 내역</string>
     <string name="my_page_no_application">지원가 없습니다!</string>
+    <string name="my_page_gathering_host">호스트</string>
+    <string name="my_page_gathering_guest">게스트</string>
+    <string name="my_page_gathering_end">종료</string>
     <string name="my_page_reject">거절하기</string>
     <string name="my_page_approve">받기</string>
     <string name="my_page_complete_answer">%s 답변 작성완료</string>

@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.home.profile
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.enums.MyPageGatheringMyType
 import com.plub.domain.model.enums.MyPageGatheringStateType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
@@ -30,9 +31,13 @@ class MyPageFragment :
                 viewModel.onClickExpand(gatheringType)
             }
 
-            override fun onClickGathering(gatheringType: MyPageGatheringStateType) {
-                viewModel.goToDetail(gatheringType)
+            override fun onClickGathering(
+                gatheringParentType: MyPageGatheringStateType,
+                gatheringType: MyPageGatheringMyType
+            ) {
+                viewModel.goToDetail(gatheringParentType)
             }
+
         })
     }
 

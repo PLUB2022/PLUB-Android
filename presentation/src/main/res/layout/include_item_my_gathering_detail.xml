@@ -12,7 +12,6 @@
             android:id="@+id/image_view_gathering_icon"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:background="@color/color_e4e4e4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
