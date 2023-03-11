@@ -17,7 +17,14 @@ class WaitingGatheringFragment :
     ) {
 
     private val myPageDetailPageAdapter : MyPageDetailPageAdapter by lazy {
-        MyPageDetailPageAdapter()
+        MyPageDetailPageAdapter(object : MyPageDetailPageAdapter.ApplicantsDelegate{
+            override fun onClickApproveButton(accountId: Int) {
+            }
+
+            override fun onClickRejectButton(accountId: Int) {
+
+            }
+        })
     }
 
     override val viewModel: WaitingGatheringViewModel by viewModels()
