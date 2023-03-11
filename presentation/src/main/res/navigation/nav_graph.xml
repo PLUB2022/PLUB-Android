@@ -39,16 +39,6 @@
             android:id="@+id/action_main_to_my_page"
             app:destination="@id/myPageFragment" />
 
-        <argument
-            android:name="categoryId"
-            app:argType="integer" />
-        <argument
-            android:name="categoryName"
-            app:argType="string" />
-        <argument
-            android:name="plubbingId"
-            app:argType="integer" />
-
         <!-- TODO REMOVE -->
         <action
             android:id="@+id/action_plubing_main_to_schedule"
@@ -173,8 +163,12 @@
         <action
             android:id="@+id/action_create_gathering_to_host_recruitment"
             app:destination="@id/hostRecruitmentFragment"
-            app:popUpTo="@id/createGatheringFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/menu_navigation_main" />
+
+        <action
+            android:id="@+id/action_create_gathering_to_meun_navigation_main"
+            app:destination="@id/menu_navigation_main"
+            app:popUpTo="@id/menu_navigation_main" />
 
     </fragment>
 

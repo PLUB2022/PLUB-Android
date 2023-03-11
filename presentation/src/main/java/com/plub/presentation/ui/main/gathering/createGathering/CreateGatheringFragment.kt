@@ -60,6 +60,11 @@ class CreateGatheringFragment : BaseFragment<FragmentCreateGatheringBinding, Cre
             }
 
             CreateGatheringEvent.GoToPrevPage -> { }
+
+            CreateGatheringEvent.GoToHome -> {
+                val action = CreateGatheringFragmentDirections.actionCreateGatheringToMeunNavigationMain()
+                findNavController().navigate(action)
+            }
         }
     }
 }
