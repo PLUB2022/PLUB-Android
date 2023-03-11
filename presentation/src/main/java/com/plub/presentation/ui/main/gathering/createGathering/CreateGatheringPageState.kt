@@ -15,5 +15,6 @@ data class CreateGatheringPageState(
     val goalAndIntroduceAndPicturePageState: CreateGatheringGoalAndIntroduceAndPicturePageState = CreateGatheringGoalAndIntroduceAndPicturePageState(),
     val dayAndOnOfflineAndLocationPageState: CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState = CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState(),
     val peopleNumberPageState: CreateGatheringPeopleNumberPageState = CreateGatheringPeopleNumberPageState(),
-    val questionPageState: CreateGatheringQuestionPageState = CreateGatheringQuestionPageState()
+    val questionPageState: CreateGatheringQuestionPageState = CreateGatheringQuestionPageState(),
+    val plubbingId: Int = 0
 ) : PageState

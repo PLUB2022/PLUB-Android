@@ -164,7 +164,15 @@
         android:id="@+id/createGatheringFragment"
         android:name="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringFragment"
         android:label="CreateGatheringFragment"
-        tools:layout="@layout/fragment_create_gathering" />
+        tools:layout="@layout/fragment_create_gathering" >
+
+        <action
+            android:id="@+id/action_create_gathering_to_host_recruitment"
+            app:destination="@id/hostRecruitmentFragment"
+            app:popUpTo="@id/createGatheringFragment"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/searchingFragment"

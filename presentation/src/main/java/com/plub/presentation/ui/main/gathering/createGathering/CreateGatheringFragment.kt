@@ -14,9 +14,7 @@ class CreateGatheringFragment : BaseFragment<FragmentCreateGatheringBinding, Cre
     FragmentCreateGatheringBinding::inflate
 ) {
     override val viewModel: CreateGatheringViewModel by viewModels()
-    private val pagerAdapter: FragmentCreateGatheringPagerAdapter by lazy {
-        FragmentCreateGatheringPagerAdapter(this)
-    }
+    private var pagerAdapter: FragmentCreateGatheringPagerAdapter? = null
 
     private val backPressedDispatcher = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -26,6 +24,7 @@ class CreateGatheringFragment : BaseFragment<FragmentCreateGatheringBinding, Cre
 
     override fun initView() {
         binding.apply {
+            pagerAdapter = FragmentCreateGatheringPagerAdapter(this@CreateGatheringFragment)
             vm = viewModel
             viewPager.apply {
                 isUserInputEnabled = false
@@ -55,7 +54,12 @@ class CreateGatheringFragment : BaseFragment<FragmentCreateGatheringBinding, Cre
             is CreateGatheringEvent.NavigationPopEvent -> {
                 findNavController().popBackStack()
             }
-            else -> { }
+            is CreateGatheringEvent.GoToHostRecruitment -> {
+                val action = CreateGatheringFragmentDirections.actionCreateGatheringToHostRecruitment(event.plubbingId)
+                findNavController().navigate(action)
+            }
+
+            CreateGatheringEvent.GoToPrevPage -> { }
         }
     }
 }
