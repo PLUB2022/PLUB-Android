@@ -272,6 +272,10 @@
             app:destination="@id/myPageWaitingGatheringFragment" />
 
         <action
+            android:id="@+id/my_page_to_active_gathering"
+            app:destination="@id/myPageActiveGatheringFragment" />
+
+        <action
             android:id="@+id/my_page_to_setting"
             app:destination="@id/myPageSettingFragment" />
 
@@ -298,6 +302,16 @@
         android:name="com.plub.presentation.ui.main.home.profile.waiting.WaitingGatheringFragment"
         android:label="WaitingFragment"
         tools:layout="@layout/fragment_my_page_waiting_gathering" >
+        <argument
+            android:name="plubbingId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myPageActiveGatheringFragment"
+        android:name="com.plub.presentation.ui.main.home.profile.active.ActiveGatheringFragment"
+        android:label="ActiveGathering"
+        tools:layout="@layout/fragment_my_page_active_gathering" >
         <argument
             android:name="plubbingId"
             app:argType="integer" />
