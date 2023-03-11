@@ -180,9 +180,6 @@ class PlubingScheduleViewModel @Inject constructor(
                 calendarAttendList = CalendarAttendListVo(calendarAttendList)
             )
 
-            PlubLogger.logD("테스트", "이전 값 ${scheduleVo.placeName}")
-            PlubLogger.logD("테스트", "새 값 ${newScheduleVo.placeName}")
-
             val copiedScheduleList = mutableListOf<ScheduleVo>()
             uiState.scheduleList.forEach {
                 val copiedSchedule = if(it.calendarId == newScheduleVo.calendarId) newScheduleVo else it

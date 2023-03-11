@@ -50,7 +50,7 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
 
     companion object {
         private const val SCHEDULE_VO = "SCHEDULE_VO"
-        private const val PROFILE_FOLD_WIDTH = 50
+        private const val PROFILE_FOLD_WIDTH = 44
         private const val PROFILE_EXPAND_WIDTH = 74
         private const val PADDING_HORIZONTAL = 32
         private const val ITEM_SPAN_SIZE = 1
