@@ -10,9 +10,14 @@ import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.presentation.databinding.*
 import com.plub.presentation.ui.main.home.profile.viewHolder.detail.*
 
-class MyPageDetailPageAdapter(): ListAdapter<MyPageDetailVo, RecyclerView.ViewHolder>(
+class MyPageDetailPageAdapter(private val listener : ApplicantsDelegate): ListAdapter<MyPageDetailVo, RecyclerView.ViewHolder>(
     MyPageDetailDiffCallback()
 ) {
+
+    interface ApplicantsDelegate{
+        fun onClickApproveButton(accountId : Int)
+        fun onClickRejectButton(accountId : Int)
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -44,7 +49,7 @@ class MyPageDetailPageAdapter(): ListAdapter<MyPageDetailVo, RecyclerView.ViewHo
             }
             MyPageDetailViewType.OTHER_APPLICATION -> {
                 val binding = IncludeItemApplicationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailOtherApplicantsViewHolder(binding)
+                return MyPageDetailOtherApplicantsViewHolder(binding, listener)
             }
             MyPageDetailViewType.EMPTY -> {
                 val binding = IncludeItemMyPageNoOtherApplicationsBinding.inflate(LayoutInflater.from(parent.context), parent, false)

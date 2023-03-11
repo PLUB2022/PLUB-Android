@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.profile.waiting
 
 import com.plub.domain.model.enums.MyPageDetailViewType
+import com.plub.domain.model.vo.home.recruitdetailvo.host.AccountsVo
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.domain.model.vo.home.recruitdetailvo.host.AnswersVo
@@ -32,11 +33,11 @@ class WaitingGatheringViewModel @Inject constructor() :
             ),
             MyPageDetailVo(
                 viewType = MyPageDetailViewType.MY_APPLICATION,
-                application = MyPageApplicationsVo(
+                application = AccountsVo(
                     profileImage = "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
-                    name = "조경석",
-                    date = "2001. 11. 06",
-                    answerList = arrayListOf(
+                    accountName = "조경석",
+                    createdAt = "2001. 11. 06",
+                    answers = arrayListOf(
                         AnswersVo(
                             id = 1,
                             questions = "함께 하기 위한 질문",

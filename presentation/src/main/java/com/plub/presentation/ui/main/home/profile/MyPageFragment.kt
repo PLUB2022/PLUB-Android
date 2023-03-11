@@ -80,7 +80,7 @@ class MyPageFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-                    if(it.isVisible) gatheringAdapter.submitList(it.myPageGatheringList)
+                    gatheringAdapter.submitList(it.myPageGatheringList)
                 }
             }
 

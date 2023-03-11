@@ -15,7 +15,7 @@ class MyPageDetailApplicationAnswerAdapter: ListAdapter<AnswersVo, RecyclerView.
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MyPageDetailApplicationAnswerViewHolder -> holder.bind(currentList[position])
+            is MyPageDetailApplicationAnswerViewHolder -> holder.bind(currentList[position], position)
         }
     }
 
