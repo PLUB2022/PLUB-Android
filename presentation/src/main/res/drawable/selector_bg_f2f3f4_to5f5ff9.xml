@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bg_rectangle_filled_f2f3f4_radius_10" android:state_enabled="false" />
+    <item android:drawable="@drawable/bg_rectangle_filled_5f5ff9_radius_10" />
+</selector>

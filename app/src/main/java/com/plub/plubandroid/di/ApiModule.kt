@@ -116,4 +116,10 @@ object ApiModule {
     fun provideMyPageApi(@AuthRetrofit retrofit: Retrofit): MyPageApi {
         return retrofit.create(MyPageApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideArchiveApi(@AuthRetrofit retrofit: Retrofit): ArchiveApi {
+        return retrofit.create(ArchiveApi::class.java)
+    }
 }

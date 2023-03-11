@@ -15,7 +15,9 @@ object PermissionManager {
                 doWhenPermissionGranted()
             }
 
-            override fun onPermissionDenied(deniedPermissions: List<String>) {}
+            override fun onPermissionDenied(deniedPermissions: List<String>) {
+                PlubLogger.logD(deniedPermissions.toString())
+            }
         }
         return permissionListener
     }

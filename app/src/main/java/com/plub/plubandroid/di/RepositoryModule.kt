@@ -83,4 +83,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesMyPageRepository(repositoryImpl: MyPageRepositoryImpl): MyPageRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesArchiveRepository(repositoryImpl: ArchiveRepositoryImpl): ArchiveRepository
 }

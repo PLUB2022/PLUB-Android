@@ -309,4 +309,20 @@
     <string name="my_page_complete_answer">%s 답변 작성완료</string>
 
     <string name="my_page_setting_profile_image">프로필 사진</string>
+
+    <string name="archive_gathering">모임 아카이브</string>
+    <string name="archive_upload">업로드</string>
+    <string name="archive_sequence_date">%d번째 기록 | %s</string>
+    <string name="archive_dialog_sequence">%d번째 기록</string>
+    <string name="archive_bottom_sheet_camera">카메라로 촬영</string>
+    <string name="archive_bottom_sheet_album">앨범에서 사진 업로드</string>
+    <string name="archive_edit">아카이브 수정</string>
+    <string name="archive_complete">완료</string>
+    <string name="archive_edit_text_title">제목</string>
+    <string name="archive_update_please_enter_title">제목을 입력해주세요</string>
+    <string name="archive_update_photo">사진</string>
+    <string name="archive_add_image">사진 추가</string>
+    <string name="archive_bottom_sheet_delete">아카이브 삭제</string>
+    <string name="archive_bottom_sheet_report">게시물 신고</string>
+    <string name="archive_bottom_sheet_edit">아카이브 수정</string>
 </resources>

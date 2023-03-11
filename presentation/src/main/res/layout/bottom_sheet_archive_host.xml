@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.archive.bottomsheet.host.ArchiveHostBottomSheetViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="35dp">
+
+        <include
+            android:id="@+id/include_header"
+            layout="@layout/include_dialog_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_report"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:onClick="@{()->vm.goToReport()}"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_10_shadow"
+            app:layout_constraintTop_toBottomOf="@id/include_header">
+
+            <ImageView
+                android:id="@+id/image_view_report"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_report_5f5ff9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/archive_bottom_sheet_report"
+                android:textColor="@color/color_363636"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_report"
+                app:layout_constraintStart_toEndOf="@id/image_view_report"
+                app:layout_constraintTop_toTopOf="@id/image_view_report" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_delete"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:onClick="@{()->vm.deleteArchive()}"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_10_shadow"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_report">
+
+            <ImageView
+                android:id="@+id/image_view_delete"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_delete_f75b2b"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/archive_bottom_sheet_delete"
+                android:textColor="@color/color_f75b2b"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_delete"
+                app:layout_constraintStart_toEndOf="@id/image_view_delete"
+                app:layout_constraintTop_toTopOf="@id/image_view_delete" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
