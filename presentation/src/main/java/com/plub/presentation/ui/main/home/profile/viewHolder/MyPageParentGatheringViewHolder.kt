@@ -54,7 +54,12 @@ class MyPageParentGatheringViewHolder(
                 MyPageGatheringStateType.END  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_end_gathering)}
                 else -> {}
             }
-            detailAdapter.submitList(item.gatheringList)
+            val gatheringList = item.gatheringList.map {
+                it.copy(
+                    gatheringParentType = item.gatheringType
+                )
+            }
+            detailAdapter.submitList(gatheringList)
             recyclerViewGatheringList.visibility = if (item.isExpand) View.VISIBLE else View.GONE
         }
     }
