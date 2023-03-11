@@ -4,9 +4,6 @@ import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.presentation.ui.PageState
 
 data class MyPageState(
-    val myPageGatheringList : List<MyPageGatheringVo> = List(4){
-        MyPageGatheringVo()
-    },
+    val myPageGatheringList : List<MyPageGatheringVo> = emptyList(),
     val isReadMore : Boolean = false,
-    val isVisible : Boolean = false,
 ) : PageState

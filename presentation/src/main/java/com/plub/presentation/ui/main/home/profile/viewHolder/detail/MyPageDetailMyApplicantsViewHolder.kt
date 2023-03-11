@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.home.profile.viewHolder.detail
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.vo.home.recruitdetailvo.host.AccountsVo
 import com.plub.domain.model.vo.myPage.MyPageApplicationsVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemMyApplicationBinding
@@ -45,13 +46,13 @@ class MyPageDetailMyApplicantsViewHolder(
         }
     }
 
-    fun bind(item: MyPageApplicationsVo) {
+    fun bind(item: AccountsVo) {
         binding.apply {
             GlideUtil.loadImage(root.context, item.profileImage, imageViewProfile)
             imageViewProfile.clipToOutline = true
-            textViewName.text = item.name
-            textViewDate.text = root.context.getString(R.string.my_page_complete_answer, item.date)
-            myPageDetailPageAdapter.submitList(item.answerList)
+            textViewName.text = item.accountName
+            textViewDate.text = root.context.getString(R.string.my_page_complete_answer, item.createdAt)
+            myPageDetailPageAdapter.submitList(item.answers)
         }
     }
 }

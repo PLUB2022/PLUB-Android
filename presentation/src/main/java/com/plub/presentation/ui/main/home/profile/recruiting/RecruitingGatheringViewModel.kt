@@ -1,92 +1,78 @@
 package com.plub.presentation.ui.main.home.profile.recruiting
 
+import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.MyPageDetailViewType
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.domain.model.vo.home.recruitdetailvo.host.AnswersVo
+import com.plub.domain.model.vo.home.recruitdetailvo.host.HostApplicantsResponseVo
 import com.plub.domain.model.vo.myPage.MyPageApplicationsVo
+import com.plub.domain.usecase.GetRecruitApplicantsUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecruitingGatheringViewModel @Inject constructor() : BaseViewModel<MyPageApplicantsGatheringState>(MyPageApplicantsGatheringState()) {
+class RecruitingGatheringViewModel @Inject constructor(
+    val getRecruitApplicantsUseCase: GetRecruitApplicantsUseCase
+) : BaseViewModel<MyPageApplicantsGatheringState>(MyPageApplicantsGatheringState()) {
 
-    fun getPageDetail(){
+    fun getPageDetail(plubbingId : Int){
+        viewModelScope.launch {
+            getRecruitApplicantsUseCase(plubbingId).collect{
+                inspectUiState(it, ::handleGetApplicantsSuccess)
+            }
+        }
+    }
+
+    private fun handleGetApplicantsSuccess(state : HostApplicantsResponseVo){
+        if(uiState.value.detailList.isEmpty()){
+            updateFirstPage()
+        }
+        val originList = uiState.value.detailList
+        val mergedList = getMergedList(state)
+        updateUiState {uiState ->
+            uiState.copy(
+                detailList = originList + mergedList
+            )
+        }
+    }
+
+    private fun updateFirstPage() {
+        //TODO REMOVE 임시
         val list = arrayListOf(
             MyPageDetailVo(
-            viewType = MyPageDetailViewType.TOP,
-            title = MyPageDetailTitleVo(
-                title = "요란한 한줄",
-                date = arrayListOf("월", "화", "수", "목", "금", "토"),
-                time = "17:30",
-                position = "경기도 의정부시 동일로 474번길"
-            )
-        ),
+                viewType = MyPageDetailViewType.TOP,
+                title = MyPageDetailTitleVo(
+                    title = "요란한 한줄",
+                    date = arrayListOf("월", "화", "수", "목", "금", "토"),
+                    time = "17:30",
+                    position = "경기도 의정부시 동일로 474번길"
+                )
+            ),
             MyPageDetailVo(
                 viewType = MyPageDetailViewType.OTHER_APPLICANTS_TEXT,
-            ),
-            MyPageDetailVo(
-                viewType = MyPageDetailViewType.OTHER_APPLICATION,
-                application = MyPageApplicationsVo(
-                    profileImage = "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
-                    name = "조경석",
-                    date = "2001. 11. 06",
-                    answerList = arrayListOf(AnswersVo(
-                        id = 1,
-                        questions = "함께 하기 위한 질문",
-                        answer = "안녕하세요 반가워여"
-                    ),
-                        AnswersVo(
-                            id = 2,
-                            questions = "함께 하기 위한 질문",
-                            answer = "안녕하세요 반가워여"
-                        ),
-                        AnswersVo(
-                            id = 3,
-                            questions = "함께 하기 위한 질문",
-                            answer = "안녕하세요 반가워여"
-                        ))
-                )
-            ),
-            MyPageDetailVo(
-                viewType = MyPageDetailViewType.OTHER_APPLICATION,
-                application = MyPageApplicationsVo(
-                    profileImage = "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
-                    name = "조경석",
-                    date = "2001. 11. 06",
-                    answerList = arrayListOf(AnswersVo(
-                        id = 1,
-                        questions = "함께 하기 위한 질문",
-                        answer = "안녕하세요 반가워여"
-                    ),
-                        AnswersVo(
-                            id = 2,
-                            questions = "함께 하기 위한 질문",
-                            answer = "안녕하세요 반가워여"
-                        ),)
-
-                )
-            ),
-            MyPageDetailVo(
-                viewType = MyPageDetailViewType.OTHER_APPLICATION,
-                application = MyPageApplicationsVo(
-                    profileImage = "https://plub.s3.ap-northeast-2.amazonaws.com/plubbing/mainImage/sports1.png",
-                    name = "조경석",
-                    date = "2001. 11. 06",
-                    answerList = arrayListOf(AnswersVo(
-                        id = 1,
-                        questions = "함께 하기 위한 질문",
-                        answer = "안녕하세요 반가워여"
-                    ))
-                )
-            ),
-
-        )
-        updateUiState {uiState->
+            ))
+        updateUiState { uiState ->
             uiState.copy(
                 detailList = list
             )
         }
+    }
+
+    private fun getMergedList(state : HostApplicantsResponseVo) : List<MyPageDetailVo>{
+        val list = mutableListOf<MyPageDetailVo>()
+        state.appliedAccounts.forEach {
+            list.add(
+                MyPageDetailVo(
+                    viewType = MyPageDetailViewType.OTHER_APPLICATION,
+                    application = it
+                )
+            )
+        }
+
+        return list
     }
 }

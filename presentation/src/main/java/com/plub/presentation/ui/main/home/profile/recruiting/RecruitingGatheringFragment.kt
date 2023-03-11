@@ -1,9 +1,11 @@
 package com.plub.presentation.ui.main.home.profile.recruiting
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageRecruitingGatheringBinding
+import com.plub.presentation.ui.main.home.categoryGathering.CategoryGatheringFragmentArgs
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageDetailPageAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -14,6 +16,7 @@ class RecruitingGatheringFragment :
         FragmentMyPageRecruitingGatheringBinding::inflate
     ) {
 
+    private val recruitingGatheringFragmentArgs: RecruitingGatheringFragmentArgs by navArgs()
     private val myPageDetailPageAdapter : MyPageDetailPageAdapter by lazy {
         MyPageDetailPageAdapter()
     }
@@ -29,7 +32,7 @@ class RecruitingGatheringFragment :
             }
         }
 
-        viewModel.getPageDetail()
+        viewModel.getPageDetail(recruitingGatheringFragmentArgs.plubbingId)
     }
 
     override fun initStates() {
