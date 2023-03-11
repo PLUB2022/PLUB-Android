@@ -211,6 +211,10 @@ class CreateGatheringViewModel @Inject constructor(
         emitEventFlow(CreateGatheringEvent.GoToHostRecruitment(uiState.value.plubbingId))
     }
 
+    fun goToHome() {
+        emitEventFlow(CreateGatheringEvent.GoToHome)
+    }
+
     private fun isFirstPage() = currentPage == 0
     private fun isLastPage() = currentPage == maxPage
 }
