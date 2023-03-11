@@ -18,7 +18,15 @@ class RecruitingGatheringFragment :
 
     private val recruitingGatheringFragmentArgs: RecruitingGatheringFragmentArgs by navArgs()
     private val myPageDetailPageAdapter : MyPageDetailPageAdapter by lazy {
-        MyPageDetailPageAdapter()
+        MyPageDetailPageAdapter(object : MyPageDetailPageAdapter.ApplicantsDelegate{
+            override fun onClickApproveButton(accountId: Int) {
+                viewModel.approve(accountId)
+            }
+
+            override fun onClickRejectButton(accountId: Int) {
+                viewModel.reject(accountId)
+            }
+        })
     }
 
     override val viewModel: RecruitingGatheringViewModel by viewModels()
