@@ -8,6 +8,7 @@ import com.plub.domain.usecase.PutEndRecruitUseCase
 import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.main.home.recruitment.DetailRecruitPageState
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -83,7 +84,8 @@ class HostRecruitmentViewModel @Inject constructor(
     }
 
     fun goToEditPage(){
-        emitEventFlow(HostDetailPageEvent.GoToEditFragment)
+        PlubLogger.logD("편집")
+        emitEventFlow(HostDetailPageEvent.GoToEditFragment(plubbingId))
     }
 
     fun openBottomSheet(){
