@@ -287,11 +287,19 @@
         android:id="@+id/myPageRecruitingGatheringFragment"
         android:name="com.plub.presentation.ui.main.home.profile.recruiting.RecruitingGatheringFragment"
         android:label="RecruitingFragment"
-        tools:layout="@layout/fragment_my_page_recruiting_gathering" />
+        tools:layout="@layout/fragment_my_page_recruiting_gathering" >
+        <argument
+            android:name="plubbingId"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/myPageWaitingGatheringFragment"
         android:name="com.plub.presentation.ui.main.home.profile.waiting.WaitingGatheringFragment"
         android:label="WaitingFragment"
-        tools:layout="@layout/fragment_my_page_waiting_gathering" />
+        tools:layout="@layout/fragment_my_page_waiting_gathering" >
+        <argument
+            android:name="plubbingId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

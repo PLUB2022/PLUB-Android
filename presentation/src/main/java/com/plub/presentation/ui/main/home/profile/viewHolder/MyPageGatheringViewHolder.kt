@@ -19,7 +19,7 @@ class MyPageGatheringViewHolder(
 
     init {
         binding.root.setOnClickListener {
-            myPageGatheringDetailVo?.let { listener.onClickGathering(it.gatheringParentType, it.gatheringType) }
+            myPageGatheringDetailVo?.let { listener.onClickGathering(it.gatheringParentType, it.gatheringType, it.plubbingId) }
         }
     }
 

@@ -17,7 +17,7 @@ class MyPageParentGatheringAdapter(private val listener: MyPageDelegate): ListAd
 
     interface MyPageDelegate{
         fun onClickCardExpand(gatheringType: MyPageGatheringStateType)
-        fun onClickGathering(gatheringParentType : MyPageGatheringStateType, gatheringType : MyPageGatheringMyType)
+        fun onClickGathering(gatheringParentType : MyPageGatheringStateType, gatheringType : MyPageGatheringMyType, plubbingId : Int)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

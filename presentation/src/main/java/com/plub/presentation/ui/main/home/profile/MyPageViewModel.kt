@@ -143,13 +143,13 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun goToDetail(gatheringType: MyPageGatheringStateType) {
+    fun goToDetail(gatheringType: MyPageGatheringStateType, plubbingId : Int) {
         when (gatheringType) {
             MyPageGatheringStateType.RECRUITING -> {
-                emitEventFlow(MyPageEvent.GoToOtherApplication)
+                emitEventFlow(MyPageEvent.GoToOtherApplication(plubbingId))
             }
             MyPageGatheringStateType.WAIT -> {
-                emitEventFlow(MyPageEvent.GoToMyApplication)
+                emitEventFlow(MyPageEvent.GoToMyApplication(plubbingId))
             }
             MyPageGatheringStateType.ACTIVE -> {}
             MyPageGatheringStateType.END -> {}

@@ -8,6 +8,7 @@ data class MyPageGatheringDetailVo(
     val image : String = "",
     val title : String = "",
     val goal : String = "",
+    val plubbingId : Int = -1,
     val gatheringType : MyPageGatheringMyType = MyPageGatheringMyType.GUEST,
     val gatheringParentType : MyPageGatheringStateType = MyPageGatheringStateType.RECRUITING
 ) : DomainModel

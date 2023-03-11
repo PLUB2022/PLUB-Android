@@ -33,9 +33,10 @@ class MyPageFragment :
 
             override fun onClickGathering(
                 gatheringParentType: MyPageGatheringStateType,
-                gatheringType: MyPageGatheringMyType
+                gatheringType: MyPageGatheringMyType,
+                plubbingId : Int
             ) {
-                viewModel.goToDetail(gatheringParentType)
+                viewModel.goToDetail(gatheringParentType, plubbingId)
             }
 
         })
@@ -93,8 +94,8 @@ class MyPageFragment :
 
     private fun inspectEvent(event: MyPageEvent) {
         when (event) {
-            is MyPageEvent.GoToMyApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToWaitingGathering())}
-            is MyPageEvent.GoToOtherApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToRecruitingGathering())}
+            is MyPageEvent.GoToMyApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToWaitingGathering(event.plubbingId))}
+            is MyPageEvent.GoToOtherApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToRecruitingGathering(event.plubbingId))}
             is MyPageEvent.ReadMore -> { openText(event.isExpandText) }
             is MyPageEvent.GoToSetting -> {findNavController().navigate(MyPageFragmentDirections.myPageToSetting())}
         }

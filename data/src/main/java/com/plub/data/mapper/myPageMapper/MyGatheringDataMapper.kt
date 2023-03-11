@@ -12,6 +12,7 @@ object MyGatheringDataMapper: Mapper.ResponseMapper<MyGatheringDataResponse, MyP
                 image = iconImage,
                 title = title,
                 goal =goal,
+                plubbingId = plubbingId,
                 gatheringType = MyPageGatheringMyType.valueOf(myPlubbingStatus),
             )
         }?: MyPageGatheringDetailVo()
