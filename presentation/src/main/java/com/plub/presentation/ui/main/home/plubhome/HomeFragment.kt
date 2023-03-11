@@ -49,6 +49,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
     override fun initView() {
 
         binding.apply {
+
+            imageViewPlubLogo.setOnClickListener {
+                findNavController().navigate(HomeFragmentDirections.actionMainToPlubingMain(1))
+            }
             vm = viewModel
             recyclerViewMainPage.apply {
                 layoutManager = LinearLayoutManager(context)

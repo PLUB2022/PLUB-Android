@@ -34,7 +34,7 @@ class BoardDetailInfoViewHolder(
             textViewNickname.text = item.nickname
             textViewTitle.text = item.title
             GlideUtil.loadImage(root.context, item.feedImage, imageViewContent)
-            GlideUtil.loadImage(root.context, item.profileImage, circleImageViewProfile)
+            //GlideUtil.loadImage(root.context, item.profileImage, circleImageViewProfile)
         }
     }
 
