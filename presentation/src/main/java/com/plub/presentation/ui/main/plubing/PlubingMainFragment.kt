@@ -55,6 +55,10 @@ class PlubingMainFragment :
                 adapter = memberListAdapter
             }
 
+            includeMainHeader.imageViewArchiveCollapsed.setOnClickListener {
+                findNavController().navigate(PlubingMainFragmentDirections.actionPlubingMainToArchive("조깅삭 아카이브", 1))
+            }
+
             appBarLayout.addOnOffsetChangedListener { appBarLayout, _ ->
                 viewModel.onAppBarOffsetChanged(appBarLayout.y, appBarLayout.totalScrollRange)
             }

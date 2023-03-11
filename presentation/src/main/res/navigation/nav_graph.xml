@@ -212,6 +212,10 @@
         <action
             android:id="@+id/action_plubing_main_to_board_pin"
             app:destination="@+id/boardPinFragment" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_archive"
+            app:destination="@+id/archiveFragment" />
     </fragment>
 
     <fragment

@@ -28,7 +28,7 @@ class ArchiveViewHolder(
         vo = item
         binding.apply {
             val imageList = arrayListOf(imageViewArchiveFirst, imageViewArchiveSecond, imageViewArchiveThird)
-            for (position in 0..item.images.size) {
+            for (position in 0 until item.images.size) {
                 GlideUtil.loadImage(root.context, vo.images[position], imageList[position])
                 imageList[position].apply {
                     clipToOutline = true
