@@ -115,7 +115,7 @@ class CategoryGatheringViewModel @Inject constructor(
         val mergedList = getMergeList(mappedList)
         updateUiState { ui ->
             ui.copy(
-                cardList = if(hasMoreCards) mergedList + arrayListOf(loading) else mergedList,
+                cardList = if(hasMoreCards) mergedList else mergedList,
                 isEmptyViewVisible = mergedList.isEmpty()
             )
         }

@@ -4,10 +4,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.enums.HomeViewType
-import com.plub.domain.model.enums.PlubCardType
-import com.plub.domain.model.vo.home.HomePlubListVo
-import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
 import com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState
