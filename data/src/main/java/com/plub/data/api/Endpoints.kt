@@ -72,6 +72,8 @@ object Endpoints {
 
         object MY_PAGE{
             const val BROWSE_MY_GATHERING = "$PLUBBING_URL/all/my"
+            const val BROWSE_MY_POST = "$PLUBBING_URL/{plubbingId}/feed/my"
+            const val BROWSE_MY_TODO = "$PLUBBING_URL/{plubbingId}/todo/my"
         }
     }
 }
