@@ -325,6 +325,10 @@
         <argument
             android:name="plubbingId"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/action_my_page_recruit_to_recruit"
+            app:destination="@id/recruitmentFragment" />
     </fragment>
 
     <fragment

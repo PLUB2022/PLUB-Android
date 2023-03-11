@@ -48,6 +48,7 @@
             android:layout_width="123dp"
             android:elevation="14dp"
             android:textColor="@color/white"
+            android:onClick="@{()->vm.goToRecruit()}"
             android:textSize="14sp"
             android:text="@string/my_page_go_recruit"
             android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_40"

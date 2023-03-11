@@ -114,4 +114,8 @@ class RecruitingGatheringViewModel @Inject constructor(
             }
         }
     }
+
+    fun goToRecruit(){
+        emitEventFlow(MyPageRecruitingEvent.GoToRecruit(plubbingId))
+    }
 }

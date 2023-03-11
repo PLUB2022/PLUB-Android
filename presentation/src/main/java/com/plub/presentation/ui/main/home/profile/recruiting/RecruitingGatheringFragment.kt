@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.profile.recruiting
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.presentation.base.BaseFragment
@@ -55,6 +56,9 @@ class RecruitingGatheringFragment :
 
             launch {
                 viewModel.eventFlow.collect{
+                    when(it as MyPageRecruitingEvent){
+                        is MyPageRecruitingEvent.GoToRecruit -> findNavController().navigate(RecruitingGatheringFragmentDirections.actionMyPageRecruitToRecruit(recruitingGatheringFragmentArgs.plubbingId))
+                    }
                 }
             }
         }
