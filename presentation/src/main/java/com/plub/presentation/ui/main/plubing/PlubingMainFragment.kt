@@ -69,6 +69,12 @@ class PlubingMainFragment :
         }
         viewModel.initPlubingId(plubingArgs.plubingId)
         viewModel.onFetchPlubingMainInfo()
+
+
+        binding.includeMainTop.textViewDate.setOnClickListener {
+            val action = PlubingMainFragmentDirections.actionPlubingMainToSchedule(1, "123")
+            findNavController().navigate(action)
+        }
     }
 
     private val pageChangeListener = object : ViewPager2.OnPageChangeCallback() {
