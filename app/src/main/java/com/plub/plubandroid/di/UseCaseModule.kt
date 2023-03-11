@@ -299,4 +299,10 @@ object UseCaseModule {
     fun providesGetMyGatheringUseCase(repository: MyPageRepository): GetMyGatheringUseCase {
         return GetMyGatheringUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesGetMyPostUseCase(repository: MyPageRepository): GetMyPostUseCase {
+        return GetMyPostUseCase(repository)
+    }
 }

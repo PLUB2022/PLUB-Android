@@ -1,6 +1,7 @@
 package com.plub.data.api
 
 import com.plub.data.base.ApiResponse
+import com.plub.data.dto.board.PlubingBoardListResponse
 import com.plub.data.dto.myPage.MyGatheringResponse
 import com.plub.data.dto.signUp.NicknameCheckResponse
 import retrofit2.Response
@@ -24,5 +25,5 @@ interface MyPageApi {
     suspend fun getMyPost(
         @Path("plubbingId") plubbingId : Int,
         @Query("cursorId") cursorId: Int
-    ): Response<ApiResponse<MyGatheringResponse>>
+    ): Response<ApiResponse<PlubingBoardListResponse>>
 }
