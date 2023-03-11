@@ -9,15 +9,16 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
-import com.google.firebase.messaging.FirebaseMessaging
 import com.plub.domain.model.enums.BottomNavigationItemType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseActivity
 import com.plub.presentation.databinding.ActivityMainBinding
 import com.plub.presentation.ui.PageState
+import com.plub.presentation.util.ResourceProvider
 import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -26,6 +27,8 @@ class MainActivity :
 
     override val viewModel: MainViewModel by viewModels()
     private lateinit var navController: NavController
+    @Inject
+    lateinit var resourceProvider: ResourceProvider
 
     override fun initView() {
         binding.apply {
@@ -75,6 +78,9 @@ class MainActivity :
             is MainEvent.BottomNavigationVisibility -> {
                 bottomNavigationVisibility(event.isVisible)
             }
+            is MainEvent.ChangeStatusBarColor -> {
+                changeStatusBarColor(event.colorId)
+            }
         }
     }
 
@@ -113,4 +119,7 @@ class MainActivity :
         binding.bottomNavigationView.visibility = if(isVisible) View.VISIBLE else View.GONE
     }
 
+    private fun changeStatusBarColor(colorId: Int) {
+        window.statusBarColor = resourceProvider.getColor(colorId)
+    }
 }

@@ -8,6 +8,7 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
 import com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
+import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

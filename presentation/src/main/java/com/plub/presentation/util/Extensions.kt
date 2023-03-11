@@ -10,10 +10,16 @@ import android.text.Editable
 import android.text.Html
 import android.text.Spanned
 import android.text.TextWatcher
+import android.view.MotionEvent
+import android.view.View
+import android.view.animation.AlphaAnimation
 import android.widget.EditText
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
 import java.io.Serializable
 
@@ -128,4 +134,48 @@ fun <T> Fragment.getNavigationResult(key: String = "result", singleCall : Boolea
 
 fun <T>Fragment.setNavigationResult(key: String = "result", result: T) {
     findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
+}
+
+fun RecyclerView.infiniteScrolls(method: () -> Unit) {
+    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val lastVisiblePosition =
+                (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+            val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
+            val isDownScroll = dy > 0
+
+            if(isBottom and isDownScroll)
+                method()
+        }
+    })
+}
+
+fun RecyclerView.setOnRecyclerViewClickListener(method: () -> Unit) {
+    setOnTouchListener { view, motionEvent ->
+        if (motionEvent.action == MotionEvent.ACTION_UP)
+            view.performClick()
+        else
+            false
+    }
+
+    setOnClickListener { _ ->
+        method()
+    }
+}
+
+fun View.setVisibleWithAnimation() {
+    val animationDuration = 500L
+    val visibleAnimation = AlphaAnimation(0f, 1f)
+    visibleAnimation.duration = animationDuration
+    visibility = View.VISIBLE
+    animation = visibleAnimation
+}
+
+fun View.setInVisibleWithAnimation() {
+    val animationDuration = 500L
+    val invisibleAnimation = AlphaAnimation(1f, 0f)
+    invisibleAnimation.duration = animationDuration
+    visibility = View.INVISIBLE
+    animation = invisibleAnimation
 }

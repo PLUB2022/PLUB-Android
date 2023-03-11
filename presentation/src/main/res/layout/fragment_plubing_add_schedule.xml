@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.plubing.schedule.add.PlubingAddScheduleViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.main.plubing.schedule.add.PlubingAddScheduleFragment">
+
+        <ImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="12dp"
+            android:padding="9dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_plubing_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/color_363636"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="요란한 한줄" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:paddingBottom="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_plubing_name">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_text_schedule_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="30dp"
+                    android:afterTextChanged="@{(text) -> vm.updateScheduleTitle(text)}"
+                    android:background="@null"
+                    android:hint="@string/plubing_add_schedule_schedule_title_hint"
+                    android:maxLength="20"
+                    android:text="@{vm.uiState.scheduleTitle}"
+                    android:textColorHint="@color/color_c4c4c4"
+                    android:textCursorDrawable="@null"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view_divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@color/color_f2f3f4"
+                    app:layout_constraintTop_toBottomOf="@id/edit_text_schedule_title" />
+
+                <include
+                    android:id="@+id/include_ic_schedule_text"
+                    layout="@layout/include_plubing_add_schedule_icon_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:addScheduleIcon="@{@drawable/ic_schedule}"
+                    app:addScheduleTitle="@{@string/plubing_add_schedule_date_time}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider1" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/check_box_all_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:button="@null"
+                    android:checked="@{vm.uiState.isAllDay}"
+                    android:drawableStart="@drawable/selector_check_18"
+                    android:onClick="@{() -> vm.onClickIsAllDay()}"
+                    android:padding="4dp"
+                    app:layout_constraintEnd_toStartOf="@id/text_view_all_day"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider1" />
+
+                <TextView
+                    android:id="@+id/text_view_all_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:text="@string/plubing_add_schedule_all_day"
+                    android:textColor="@color/color_363636"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/check_box_all_day"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/check_box_all_day" />
+
+                <include
+                    android:id="@+id/include_start_date_time"
+                    layout="@layout/include_plubing_schedule_date_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="56dp"
+                    android:onClick="@{() -> vm.onClickStartDateTime()}"
+                    app:date="@{vm.uiState.startDate.text}"
+                    app:isAllTimeChecked="@{vm.uiState.isAllDay}"
+                    app:layout_constraintBottom_toBottomOf="@id/image_view_arrow_right"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/image_view_arrow_right"
+                    app:time="@{vm.uiState.startTime.text}" />
+
+                <ImageView
+                    android:id="@+id/image_view_arrow_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="29dp"
+                    android:src="@drawable/ic_arrow_right"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/include_ic_schedule_text" />
+
+
+                <include
+                    android:id="@+id/include_end_date_time"
+                    layout="@layout/include_plubing_schedule_date_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="56dp"
+                    android:onClick="@{() -> vm.onClickEndDateTime()}"
+                    app:date="@{vm.uiState.endDate.text}"
+                    app:isAllTimeChecked="@{vm.uiState.isAllDay}"
+                    app:layout_constraintBottom_toBottomOf="@id/image_view_arrow_right"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/image_view_arrow_right"
+                    app:time="@{vm.uiState.endTime.text}" />
+
+                <View
+                    android:id="@+id/view_divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/color_faf9fe"
+                    app:layout_constraintTop_toBottomOf="@id/include_end_date_time" />
+
+                <include
+                    android:id="@+id/include_ic_location_text"
+                    layout="@layout/include_plubing_add_schedule_icon_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:addScheduleIcon="@{@drawable/ic_location_active}"
+                    app:addScheduleTitle="@{@string/word_location}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider2" />
+
+                <TextView
+                    android:id="@+id/text_view_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="56dp"
+                    android:layout_marginEnd="56dp"
+                    android:onClick="@{() -> vm.onClickLocationText()}"
+                    android:paddingVertical="14dp"
+                    android:text="@{vm.uiState.location.placeName.blank ? @string/plubing_add_schedule_location : vm.uiState.location.placeName}"
+                    android:textColor="@{vm.uiState.location.placeName.blank ? @color/color_c4c4c4 : @color/color_363636}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/include_ic_location_text" />
+
+                <View
+                    android:id="@+id/view_divider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/color_faf9fe"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_location" />
+
+                <include
+                    android:id="@+id/include_ic_alarm_text"
+                    layout="@layout/include_plubing_add_schedule_icon_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:addScheduleIcon="@{@drawable/ic_alarm}"
+                    app:addScheduleTitle="@{@string/word_alarm}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider3" />
+
+                <TextView
+                    android:id="@+id/text_view_alarm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="56dp"
+                    android:layout_marginEnd="56dp"
+                    android:paddingVertical="14dp"
+                    android:text="@string/plubing_add_schedule_alarm"
+                    android:textColor="@color/color_363636"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/include_ic_alarm_text" />
+
+                <View
+                    android:id="@+id/view_divider4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/color_faf9fe"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_alarm" />
+
+                <include
+                    android:id="@+id/include_ic_memo_text"
+                    layout="@layout/include_plubing_add_schedule_icon_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:addScheduleIcon="@{@drawable/ic_memo}"
+                    app:addScheduleTitle="@{@string/word_memo}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider4" />
+
+                <EditText
+                    android:id="@+id/text_view_memo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="56dp"
+                    android:layout_marginEnd="56dp"
+                    android:afterTextChanged="@{(text) -> vm.updateMemo(text)}"
+                    android:background="@null"
+                    android:hint="@string/plubing_add_schedule_memo_hint"
+                    android:inputType="textMultiLine"
+                    android:paddingVertical="14dp"
+                    android:text="@{vm.uiState.memo}"
+                    android:textColorHint="@color/color_c4c4c4"
+                    android:textCursorDrawable="@null"
+                    android:textSize="14sp"
+                    android:maxLength="30"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/include_ic_memo_text" />
+
+                <View
+                    android:id="@+id/view_divider5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/color_faf9fe"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_memo" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:stateListAnimator="@null"
+            android:text="@string/plubing_add_schedule_add_schedule"
+            android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

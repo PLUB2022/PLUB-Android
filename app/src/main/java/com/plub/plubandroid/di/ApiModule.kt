@@ -122,4 +122,10 @@ object ApiModule {
     fun provideArchiveApi(@AuthRetrofit retrofit: Retrofit): ArchiveApi {
         return retrofit.create(ArchiveApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideScheduleApi(@AuthRetrofit retrofit: Retrofit): ScheduleApi {
+        return retrofit.create(ScheduleApi::class.java)
+    }
 }

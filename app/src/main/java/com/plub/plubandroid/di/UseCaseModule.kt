@@ -329,4 +329,10 @@ object UseCaseModule {
     fun providesDeleteArchiveUseCase(repository: ArchiveRepository): DeleteArchiveUseCase {
         return DeleteArchiveUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesGetEntireScheduleUseCase(repository: ScheduleRepository): GetEntireScheduleUseCase {
+        return GetEntireScheduleUseCase(repository)
+    }
 }

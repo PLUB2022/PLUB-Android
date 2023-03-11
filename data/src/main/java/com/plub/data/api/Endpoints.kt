@@ -80,5 +80,10 @@ object Endpoints {
         object MY_PAGE{
             const val BROWSE_MY_GATHERING = "$PLUBBING_URL/all/my"
         }
+
+        object SCHEDULE {
+            const val CALENDAR = "$PLUBBING_ID_URL/calendar"
+            const val ATTEND = "$CALENDAR/{calendarId}/attend"
+        }
     }
 }
