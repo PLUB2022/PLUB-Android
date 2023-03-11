@@ -63,7 +63,7 @@ class HostRecruitmentViewModel @Inject constructor(
     }
 
     fun seeApplicants(){
-        emitEventFlow(HostDetailPageEvent.GoToSeeApplicants)
+        emitEventFlow(HostDetailPageEvent.GoToSeeApplicants(plubbingId))
     }
 
     fun endRecruit(){

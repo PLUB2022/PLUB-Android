@@ -5,7 +5,7 @@ import com.plub.presentation.ui.Event
 
 sealed class HostDetailPageEvent : Event {
     object GoToBack : HostDetailPageEvent()
-    object GoToSeeApplicants : HostDetailPageEvent()
+    data class GoToSeeApplicants(val plubbingId : Int) : HostDetailPageEvent()
     object GoToEditFragment : HostDetailPageEvent()
     data class GoToProfile(val accountId : Int) : HostDetailPageEvent()
     data class OpenBottomSheet(val joinedAccountsList : List<RecruitDetailJoinedAccountsVo>) : HostDetailPageEvent()

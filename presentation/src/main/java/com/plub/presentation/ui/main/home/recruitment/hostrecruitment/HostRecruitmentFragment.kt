@@ -104,7 +104,7 @@ class HostRecruitmentFragment :
 
             }
             is HostDetailPageEvent.GoToSeeApplicants->{
-
+                findNavController().navigate(HostRecruitmentFragmentDirections.actionHostToApplicants(event.plubbingId))
             }
             is HostDetailPageEvent.OpenBottomSheet -> {
                 openProfileBottomSheet(event.joinedAccountsList)
