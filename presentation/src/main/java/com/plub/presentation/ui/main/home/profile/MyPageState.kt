@@ -5,5 +5,6 @@ import com.plub.presentation.ui.PageState
 
 data class MyPageState(
     val myPageGatheringList : List<MyPageGatheringVo> = emptyList(),
-    val isReadMore : Boolean = false
+    val isReadMore : Boolean = false,
+    val isVisible : Boolean = false,
 ) : PageState

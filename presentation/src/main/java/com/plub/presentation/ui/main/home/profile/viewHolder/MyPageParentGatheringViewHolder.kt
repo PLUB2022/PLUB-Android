@@ -41,8 +41,8 @@ class MyPageParentGatheringViewHolder(
         myPageGatheringVo = item
         binding.apply {
             when(item.gatheringType){
-                //MyPageGatheringStateType.RECRUITING -> {textViewGatheringType.text = root.context.getString(R.string.my_page_recruiting_gathering)}
-                //MyPageGatheringStateType.WAITING  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_waiting_gathering)}
+                MyPageGatheringStateType.RECRUITING -> {textViewGatheringType.text = root.context.getString(R.string.my_page_recruiting_gathering)}
+                MyPageGatheringStateType.WAIT  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_waiting_gathering)}
                 MyPageGatheringStateType.ACTIVE  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_active_gathering)}
                 MyPageGatheringStateType.END  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_end_gathering)}
                 else -> {}

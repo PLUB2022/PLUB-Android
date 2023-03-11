@@ -1,7 +1,7 @@
 package com.plub.domain.model.enums
 
 enum class MyPageGatheringStateType(val type:String) {
-    ACTIVE("ACTIVE"), END("END"), DELETED("DELETED"), PAUSE("PAUSE");
+    ACTIVE("ACTIVE"), END("END"), WAIT("WAIT"), RECRUITING("RECRUITING");
 
     companion object {
         fun valueOf(type: String): MyPageGatheringStateType {

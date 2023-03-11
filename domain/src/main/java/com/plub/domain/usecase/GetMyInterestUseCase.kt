@@ -4,6 +4,7 @@ import com.plub.domain.UiState
 import com.plub.domain.base.UseCase
 import com.plub.domain.model.vo.home.interestRegisterVo.RegisterInterestResponseVo
 import com.plub.domain.repository.RegisterHobbiesRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
