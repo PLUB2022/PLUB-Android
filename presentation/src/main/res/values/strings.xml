@@ -298,6 +298,7 @@
     <string name="my_page_active_gathering">활동 중인 모임</string>
     <string name="my_page_end_gathering">종료된 모임</string>
     <string name="my_page_go_recruit">모집글 바로가기</string>
+    <string name="my_page_go_gathering">모임 바로가기</string>
     <string name="my_page_my_application">나의 지원서</string>
     <string name="my_page_other_application">지원자 내역</string>
     <string name="my_page_no_application">지원가 없습니다!</string>
@@ -309,4 +310,9 @@
     <string name="my_page_complete_answer">%s 답변 작성완료</string>
 
     <string name="my_page_setting_profile_image">프로필 사진</string>
+    <string name="my_page_my_todo">My To-Do</string>
+    <string name="my_page_my_post">My 게시글</string>
+    <string name="my_page_see_all">전체보기</string>
+    <string name="my_page_go_add_todo">TO-DO 추가하러 가기</string>
+    <string name="my_page_go_add_post">새 게시글 작성하기</string>
 </resources>
