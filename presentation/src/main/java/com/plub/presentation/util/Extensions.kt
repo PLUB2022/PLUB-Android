@@ -13,7 +13,6 @@ import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AlphaAnimation
-import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
