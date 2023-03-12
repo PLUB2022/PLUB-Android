@@ -1,10 +1,9 @@
-package com.plub.presentation.ui.main.home.profile.viewHolder.detail
+package com.plub.presentation.ui.main.home.profile.viewHolder.detail.wait
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recruitdetailvo.host.AccountsVo
-import com.plub.domain.model.vo.myPage.MyPageApplicationsVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemMyApplicationBinding
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
