@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ActiveGatheringViewModel @Inject constructor(
     private val getMyPostUseCase: GetMyPostUseCase,
-    private val fetchPlubingMainUseCase: FetchPlubingMainUseCase
+    private val fetchPlubingMainUseCase: FetchPlubingMainUseCase,
 ) : BaseViewModel<ActiveGatheringPageState>(ActiveGatheringPageState()) {
 
     companion object {
@@ -36,10 +36,14 @@ class ActiveGatheringViewModel @Inject constructor(
         gatheringMyType = type
     }
 
-    fun setTopView() {
+    fun setView() {
         viewModelScope.launch {
             fetchPlubingMainUseCase(plubingId).collect {
                 inspectUiState(it, ::onSuccessPlubingMainInfo)
+            }
+
+            getMyPostUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect {
+                inspectUiState(it, ::handlegetMyPostSuccess)
             }
         }
     }
@@ -69,23 +73,18 @@ class ActiveGatheringViewModel @Inject constructor(
         )
     }
 
-    fun getMyPost() {
-        viewModelScope.launch {
-            getMyPostUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect {
-                inspectUiState(it, ::handlegetMyPostSuccess)
-            }
-        }
-    }
-
     private fun handlegetMyPostSuccess(state: PlubingBoardListVo) {
-        if (state.totalElements > MAX_POST_COUNT) {
+        val originList = uiState.value.detailList
+        val mergedList = if (state.totalElements > MAX_POST_COUNT) {
             setListOverBoardMaxCount(state.content)
         } else {
             setListUnderBoardMaxCount(state.content)
         }
+
+        updateBoardList(originList + mergedList)
     }
 
-    private fun setListOverBoardMaxCount(list: List<PlubingBoardVo>) {
+    private fun setListOverBoardMaxCount(list: List<PlubingBoardVo>) : List<MyPageActiveDetailVo> {
         val contentList = mutableListOf<PlubingBoardVo>()
         for (index in 0..MAX_POST_COUNT) {
             if (index == MAX_POST_COUNT) {
@@ -95,10 +94,37 @@ class ActiveGatheringViewModel @Inject constructor(
             contentList.add(list[index])
         }
 
+        return arrayListOf(
+            MyPageActiveDetailVo(
+                viewType = MyPageActiveDetailViewType.MY_POST,
+                postList = contentList
+            )
+        )
     }
 
-    private fun setListUnderBoardMaxCount(list: List<PlubingBoardVo>) {
+    private fun setListUnderBoardMaxCount(list: List<PlubingBoardVo>): List<MyPageActiveDetailVo> {
+        return arrayListOf(
+            MyPageActiveDetailVo(
+                viewType = MyPageActiveDetailViewType.MY_POST,
+                postList = list
+            )
+        )
+    }
 
+    private fun updateBoardList(list : List<MyPageActiveDetailVo>){
+        updateUiState { uiState ->
+            uiState.copy(
+                detailList = list
+            )
+        }
+    }
+
+    fun getMyToDo(){
+
+    }
+
+    fun onClickBoard(feedId: Int) {
+        emitEventFlow(ActiveGatheringEvent.GoToDetailBoard(feedId))
     }
 
 

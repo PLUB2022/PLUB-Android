@@ -4,11 +4,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageActiveGatheringBinding
+import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.main.home.profile.active.adapter.ActiveGatheringParentAdapter
-import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
+import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -18,29 +18,18 @@ class ActiveGatheringFragment :
         FragmentMyPageActiveGatheringBinding::inflate
     ) {
 
-    private val activeGatheringFragmentArgs : ActiveGatheringFragmentArgs by navArgs()
-
-    private val boardListAdapter: PlubingBoardAdapter by lazy {
-        PlubingBoardAdapter(object : PlubingBoardAdapter.Delegate {
-            override fun onClickClipBoard() {
-
-            }
-
-            override fun onClickBoard(feedId: Int) {
-                //viewModel.onClickBoard(feedId)
-            }
-
-            override fun onLongClickBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
-                //viewModel.onLongClickBoard(feedId, isHost, isAuthor)
-            }
-
-            override val clipBoardList: List<PlubingBoardVo>
-                get() = emptyList()
-        })
+    companion object{
+        const val VERTICAL_SPACE = 24
     }
 
+    private val activeGatheringFragmentArgs : ActiveGatheringFragmentArgs by navArgs()
+
     private val activeGatheringParentAdapter: ActiveGatheringParentAdapter by lazy {
-        ActiveGatheringParentAdapter()
+        ActiveGatheringParentAdapter(object : ActiveGatheringParentAdapter.ActiveGatheringDelegate{
+            override fun onClickBoard(feedId: Int) {
+                viewModel.onClickBoard(feedId)
+            }
+        })
     }
 
     override val viewModel: ActiveGatheringViewModel by viewModels()
@@ -55,14 +44,13 @@ class ActiveGatheringFragment :
 
             recyclerViewMyPageContent.apply {
                 layoutManager = LinearLayoutManager(context)
+                addItemDecoration(VerticalSpaceDecoration(VERTICAL_SPACE.px))
                 adapter = activeGatheringParentAdapter
             }
 
         }
         viewModel.setPlubIdAndStateType(activeGatheringFragmentArgs.plubbingId, activeGatheringFragmentArgs.stateType)
-        viewModel.setTopView()
-        //TODO viewModel.getMyToDo
-        viewModel.getMyPost()
+        viewModel.setView()
     }
 
     override fun initStates() {
@@ -77,8 +65,20 @@ class ActiveGatheringFragment :
 
             launch {
                 viewModel.eventFlow.collect{
+                    inspectEventFlow(it as ActiveGatheringEvent)
                 }
             }
         }
+    }
+
+    private fun inspectEventFlow(event: ActiveGatheringEvent) {
+        when (event) {
+            is ActiveGatheringEvent.GoToDetailBoard -> goToDetailBoard(event.feedId)
+        }
+    }
+
+    private fun goToDetailBoard(feedId: Int) {
+        val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToPlubingBoardDetail(feedId)
+        findNavController().navigate(action)
     }
 }

@@ -13,15 +13,19 @@ import com.plub.presentation.ui.main.home.profile.viewHolder.detail.MyPageDetail
 import com.plub.presentation.ui.main.home.profile.viewHolder.detail.active.MyPageDetailMyPostViewHolder
 import com.plub.presentation.ui.main.home.profile.viewHolder.detail.active.MyPageDetailMyTodoViewHolder
 
-class ActiveGatheringParentAdapter(): ListAdapter<MyPageActiveDetailVo, RecyclerView.ViewHolder>(
+class ActiveGatheringParentAdapter(private val listener : ActiveGatheringDelegate): ListAdapter<MyPageActiveDetailVo, RecyclerView.ViewHolder>(
     MyPageActiveDetailDiffCallback()
 ) {
+
+    interface ActiveGatheringDelegate{
+        fun onClickBoard(feedId: Int)
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MyPageDetailTopViewHolder -> holder.bind(currentList[position].title)
             is MyPageDetailMyTodoViewHolder -> holder.bind()
-            is MyPageDetailMyPostViewHolder -> holder.bind()
+            is MyPageDetailMyPostViewHolder -> holder.bind(currentList[position].postList)
         }
     }
 
@@ -37,7 +41,7 @@ class ActiveGatheringParentAdapter(): ListAdapter<MyPageActiveDetailVo, Recycler
             }
             MyPageActiveDetailViewType.MY_POST -> {
                 val binding = IncludeItemMyPageActiveMyPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailMyPostViewHolder(binding)
+                return MyPageDetailMyPostViewHolder(binding, listener)
             }
         }
     }
