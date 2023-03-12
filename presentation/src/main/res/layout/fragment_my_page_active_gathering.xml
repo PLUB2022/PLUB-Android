@@ -49,7 +49,7 @@
             android:elevation="14dp"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:text="@string/my_page_go_recruit"
+            android:text="@string/my_page_go_gathering"
             android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_40"
             android:layout_height="32dp"/>
 

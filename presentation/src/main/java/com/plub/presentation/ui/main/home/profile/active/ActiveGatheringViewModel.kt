@@ -1,76 +1,104 @@
 package com.plub.presentation.ui.main.home.profile.active
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.enums.PlubingBoardType
+import com.plub.domain.model.enums.MyPageActiveDetailViewType
+import com.plub.domain.model.enums.MyPageGatheringMyType
 import com.plub.domain.model.vo.board.PlubingBoardListVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
+import com.plub.domain.model.vo.myPage.MyPageActiveDetailVo
 import com.plub.domain.model.vo.myPage.MyPageActiveRequestVo
+import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
+import com.plub.domain.model.vo.plub.PlubingMainVo
+import com.plub.domain.usecase.FetchPlubingMainUseCase
 import com.plub.domain.usecase.GetMyPostUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.PageState
-import com.plub.presentation.ui.main.plubing.board.PlubingBoardViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ActiveGatheringViewModel @Inject constructor(
-    private val getMyPostUseCase: GetMyPostUseCase
+    private val getMyPostUseCase: GetMyPostUseCase,
+    private val fetchPlubingMainUseCase: FetchPlubingMainUseCase
 ) : BaseViewModel<ActiveGatheringPageState>(ActiveGatheringPageState()) {
 
-    companion object{
-        const val FIRST_PAGE = 1
+    companion object {
+        const val FIRST_CURSOR = 0
         const val MAX_POST_COUNT = 3
     }
 
-    private var cursorId : Int = FIRST_PAGE
+    private var cursorId: Int = FIRST_CURSOR
+    private var plubingId: Int = 0
+    private var gatheringMyType : MyPageGatheringMyType = MyPageGatheringMyType.END
 
-    fun getMyPost(plubbingId : Int) {
+    fun setPlubIdAndStateType(id: Int, type: MyPageGatheringMyType) {
+        plubingId = id
+        gatheringMyType = type
+    }
+
+    fun setTopView() {
         viewModelScope.launch {
-            getMyPostUseCase(MyPageActiveRequestVo(plubbingId, cursorId)).collect{
+            fetchPlubingMainUseCase(plubingId).collect {
+                inspectUiState(it, ::onSuccessPlubingMainInfo)
+            }
+        }
+    }
+
+    private fun onSuccessPlubingMainInfo(mainVo: PlubingMainVo) {
+        val topView = MyPageDetailTitleVo(
+            title = mainVo.name,
+            date = mainVo.days,
+            position = mainVo.placeName,
+            time = mainVo.time,
+            viewType = gatheringMyType
+        )
+
+        updateUiState { uiState ->
+            uiState.copy(
+                detailList = getMergedTopList(topView)
+            )
+        }
+    }
+
+    private fun getMergedTopList(view : MyPageDetailTitleVo) : List<MyPageActiveDetailVo>{
+        return arrayListOf(
+            MyPageActiveDetailVo(
+                viewType = MyPageActiveDetailViewType.TOP,
+                title = view
+            )
+        )
+    }
+
+    fun getMyPost() {
+        viewModelScope.launch {
+            getMyPostUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect {
                 inspectUiState(it, ::handlegetMyPostSuccess)
             }
         }
     }
 
-    private fun handlegetMyPostSuccess(state : PlubingBoardListVo){
-        if(state.totalElements > MAX_POST_COUNT){
+    private fun handlegetMyPostSuccess(state: PlubingBoardListVo) {
+        if (state.totalElements > MAX_POST_COUNT) {
             setListOverBoardMaxCount(state.content)
-        }
-        else{
+        } else {
             setListUnderBoardMaxCount(state.content)
         }
     }
 
-    private fun setListOverBoardMaxCount(list: List<PlubingBoardVo>){
+    private fun setListOverBoardMaxCount(list: List<PlubingBoardVo>) {
         val contentList = mutableListOf<PlubingBoardVo>()
-        for(index in 0..MAX_POST_COUNT){
-            if(index == MAX_POST_COUNT){
+        for (index in 0..MAX_POST_COUNT) {
+            if (index == MAX_POST_COUNT) {
                 break
             }
 
             contentList.add(list[index])
         }
-        val mergedList = getMergeList(contentList)
-        updateBoardList(mergedList)
+
     }
 
-    private fun setListUnderBoardMaxCount(list: List<PlubingBoardVo>){
-        val mergedList = getMergeList(list)
-        updateBoardList(mergedList)
+    private fun setListUnderBoardMaxCount(list: List<PlubingBoardVo>) {
+
     }
 
-    private fun updateBoardList(list:List<PlubingBoardVo>) {
-        updateUiState { uiState ->
-            uiState.copy(
-                boardList = list
-            )
-        }
-    }
-
-
-    private fun getMergeList(list: List<PlubingBoardVo>): List<PlubingBoardVo> {
-        val originList = uiState.value.boardList
-        return if (cursorId == FIRST_PAGE) list else originList + list
-    }
 }

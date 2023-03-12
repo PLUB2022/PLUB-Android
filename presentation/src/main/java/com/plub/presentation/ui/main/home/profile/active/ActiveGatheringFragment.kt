@@ -2,10 +2,11 @@ package com.plub.presentation.ui.main.home.profile.active
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageActiveGatheringBinding
-import com.plub.presentation.ui.PageState
+import com.plub.presentation.ui.main.home.profile.active.adapter.ActiveGatheringParentAdapter
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -37,17 +38,26 @@ class ActiveGatheringFragment :
         })
     }
 
+    private val activeGatheringParentAdapter: ActiveGatheringParentAdapter by lazy {
+        ActiveGatheringParentAdapter()
+    }
+
     override val viewModel: ActiveGatheringViewModel by viewModels()
 
     override fun initView() {
         binding.apply {
             vm = viewModel
 
+            recyclerViewMyPageContent.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = activeGatheringParentAdapter
+            }
 
         }
-
+        viewModel.setPlubIdAndStateType(activeGatheringFragmentArgs.plubbingId, activeGatheringFragmentArgs.stateType)
+        viewModel.setTopView()
         //TODO viewModel.getMyToDo
-        viewModel.getMyPost(activeGatheringFragmentArgs.plubbingId)
+        viewModel.getMyPost()
     }
 
     override fun initStates() {
@@ -56,7 +66,7 @@ class ActiveGatheringFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-
+                    activeGatheringParentAdapter.submitList(it.detailList)
                 }
             }
 
