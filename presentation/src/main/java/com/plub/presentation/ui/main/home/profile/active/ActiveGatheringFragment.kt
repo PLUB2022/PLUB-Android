@@ -1,26 +1,53 @@
 package com.plub.presentation.ui.main.home.profile.active
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
+import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageActiveGatheringBinding
 import com.plub.presentation.ui.PageState
+import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ActiveGatheringFragment :
-    BaseFragment<FragmentMyPageActiveGatheringBinding, PageState.Default, ActiveGatheringViewModel>(
+    BaseFragment<FragmentMyPageActiveGatheringBinding, ActiveGatheringPageState, ActiveGatheringViewModel>(
         FragmentMyPageActiveGatheringBinding::inflate
     ) {
 
+    private val activeGatheringFragmentArgs : ActiveGatheringFragmentArgs by navArgs()
+
+    private val boardListAdapter: PlubingBoardAdapter by lazy {
+        PlubingBoardAdapter(object : PlubingBoardAdapter.Delegate {
+            override fun onClickClipBoard() {
+
+            }
+
+            override fun onClickBoard(feedId: Int) {
+                //viewModel.onClickBoard(feedId)
+            }
+
+            override fun onLongClickBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
+                //viewModel.onLongClickBoard(feedId, isHost, isAuthor)
+            }
+
+            override val clipBoardList: List<PlubingBoardVo>
+                get() = emptyList()
+        })
+    }
 
     override val viewModel: ActiveGatheringViewModel by viewModels()
 
     override fun initView() {
         binding.apply {
             vm = viewModel
+
+
         }
 
+        //TODO viewModel.getMyToDo
+        viewModel.getMyPost(activeGatheringFragmentArgs.plubbingId)
     }
 
     override fun initStates() {
