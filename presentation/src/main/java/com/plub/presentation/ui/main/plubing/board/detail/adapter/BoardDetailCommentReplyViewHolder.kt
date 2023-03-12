@@ -6,6 +6,7 @@ import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemBoardDetailCommentReplyBinding
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 
 class BoardDetailCommentReplyViewHolder(
     private val binding: IncludeItemBoardDetailCommentReplyBinding,
@@ -15,13 +16,13 @@ class BoardDetailCommentReplyViewHolder(
     private var vo: BoardCommentVo? = null
 
     init {
-        binding.imageViewMenu.setOnClickListener {
+        binding.imageViewMenu.onThrottleClick {
             vo?.let {
                 listener.onClickCommentMenu(it)
             }
         }
 
-        binding.textViewReply.setOnClickListener {
+        binding.textViewReply.onThrottleClick {
             vo?.let {
                 listener.onClickCommentReply(it)
             }

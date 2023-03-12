@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_40"
-            android:onClick="@{() -> vm.onClickWrite()}"
+            app:onThrottleClick="@{() -> vm.onClickWrite()}"
             android:paddingHorizontal="19dp"
             android:paddingVertical="7dp"
             app:behavior_autoHide="false"

@@ -43,7 +43,7 @@
             android:layout_marginBottom="26dp"
             android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
             android:text="@string/category_choice_empty_button"
-            android:onClick="@{()->vm.goToCreate()}"
+            app:onThrottleClick="@{()->vm.goToCreate()}"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
