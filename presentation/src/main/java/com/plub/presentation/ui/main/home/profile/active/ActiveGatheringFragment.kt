@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.profile.active
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.board.PlubingBoardVo
@@ -47,6 +48,10 @@ class ActiveGatheringFragment :
     override fun initView() {
         binding.apply {
             vm = viewModel
+
+            buttonGoGathering.setOnClickListener {
+                findNavController().navigate(ActiveGatheringFragmentDirections.actionMyPageRecruitToRecruit(activeGatheringFragmentArgs.plubbingId))
+            }
 
             recyclerViewMyPageContent.apply {
                 layoutManager = LinearLayoutManager(context)
