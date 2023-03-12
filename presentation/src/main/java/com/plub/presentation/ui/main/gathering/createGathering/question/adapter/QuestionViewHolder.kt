@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.databinding.LayoutRecyclerCreateGatheringQuestionBinding
 import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
 import com.plub.presentation.util.afterTextChanged
+import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.requestAndClearFocus
 
 class QuestionViewHolder(
@@ -19,7 +20,7 @@ class QuestionViewHolder(
             }
         }
 
-        binding.imageViewDelete.setOnClickListener {
+        binding.imageViewDelete.onThrottleClick {
             /**
              * recyclerView의 animation을 disable한 상태에서
              * editText가 focus된 상태로 recyclerView의 아이템이 갱신되면

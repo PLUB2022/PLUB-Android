@@ -6,6 +6,7 @@ import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.common.SubHobbyVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemSubHobbyBinding
+import com.plub.presentation.util.onThrottleClick
 
 class SubHobbyViewHolder(
     private val binding: IncludeItemSubHobbyBinding,
@@ -16,7 +17,7 @@ class SubHobbyViewHolder(
     private var isClicked:Boolean = false
 
     init {
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             vo?.let {
                 listener.onClickSubHobby(isClicked, SelectedHobbyVo(it.parentHobbyId, it.id, it.name))
             }

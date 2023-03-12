@@ -9,7 +9,7 @@ import com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
  * Unit으로 할 경우 DataBinding Complier가 올바르지 않은 java code를 생성함.
  * 따라서 Void를 사용
  */
-@BindingAdapter("android:onClick")
+@BindingAdapter("app:onThrottleClick")
 fun FixedTextWidthCheckBox.bindFixedTextWidthCheckboxClickEvent(method: () -> Void) {
     checkBoxClickEvent = method
 }

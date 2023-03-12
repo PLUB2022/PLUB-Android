@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.plub.domain.UiState
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.OnThrottleClickListener
 import com.plub.presentation.util.afterTextChanged
 import java.io.File
 
@@ -60,4 +61,12 @@ fun EditText.setHintIcon(icon:Int) {
             else -> setCompoundDrawables(null,null,null,null)
         }
     }
+}
+
+@BindingAdapter("onThrottleClick", "clickInterval", requireAll = false)
+fun applyThrottleClick(view: View, listener: View.OnClickListener, interval: Long? = 300L) {
+    val throttleListener = interval?.let { time ->
+        OnThrottleClickListener(listener, time)
+    } ?: OnThrottleClickListener(listener)
+    view.setOnClickListener(throttleListener)
 }
