@@ -12,6 +12,7 @@ import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleContentBin
 import com.plub.presentation.ui.common.decoration.OverlapDecoration
 import com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.profileFold.PlubingScheduleProfileAdapter
 import com.plub.presentation.util.TimeFormatter
+import com.plub.presentation.util.onThrottleClick
 
 class PlubingScheduleContentViewHolder(
     private val binding: LayoutRecyclerPlubingScheduleContentBinding,
@@ -29,7 +30,7 @@ class PlubingScheduleContentViewHolder(
     private var currentItem: ScheduleVo? = null
 
     init {
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             currentItem?.let { item ->
                 onClick?.invoke(item)
             }

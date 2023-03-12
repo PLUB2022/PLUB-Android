@@ -62,7 +62,7 @@
             android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_40"
             android:drawableStart="@drawable/ic_plus"
             android:drawablePadding="4dp"
-            android:onClick="@{() -> vm.onClickAddScheduleButton()}"
+            app:onThrottleClick="@{() -> vm.onClickAddScheduleButton()}"
             android:paddingVertical="6dp"
             android:paddingStart="8dp"
             android:paddingEnd="10dp"

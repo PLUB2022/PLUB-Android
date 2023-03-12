@@ -166,7 +166,7 @@ fun RecyclerView.setOnRecyclerViewClickListener(method: () -> Unit) {
             false
     }
 
-    setOnClickListener { _ ->
+    onThrottleClick { _ ->
         method()
     }
 }

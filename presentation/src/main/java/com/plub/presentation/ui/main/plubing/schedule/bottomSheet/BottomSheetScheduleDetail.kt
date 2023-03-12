@@ -20,6 +20,7 @@ import com.plub.presentation.R
 import com.plub.presentation.databinding.BottomSheetScheduleDetailBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.util.TimeFormatter
+import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 import com.plub.presentation.util.serializable
 import com.plub.presentation.util.setInVisibleWithAnimation
@@ -135,12 +136,12 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
             setRecyclerViewAttendFold(behavior)
             setRecyclerViewAttendExpand(behavior)
 
-            buttonYes.setOnClickListener {
+            buttonYes.onThrottleClick {
                 okButtonClickEvent?.let { it(scheduleVo.calendarId) }
                 dismiss()
             }
 
-            buttonNo.setOnClickListener {
+            buttonNo.onThrottleClick {
                 noButtonClickEvent?.let { it(scheduleVo.calendarId) }
                 dismiss()
             }
