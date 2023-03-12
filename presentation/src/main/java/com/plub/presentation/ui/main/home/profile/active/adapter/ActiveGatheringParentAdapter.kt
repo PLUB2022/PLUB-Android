@@ -19,6 +19,8 @@ class ActiveGatheringParentAdapter(private val listener : ActiveGatheringDelegat
 
     interface ActiveGatheringDelegate{
         fun onClickBoard(feedId: Int)
+        fun onClickNew()
+        fun onClickSeeAll()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

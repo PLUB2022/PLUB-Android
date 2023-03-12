@@ -38,6 +38,14 @@ class MyPageDetailMyPostViewHolder(
                 layoutManager = LinearLayoutManager(context)
                 adapter = boardListAdapter
             }
+
+            textViewSeeAll.setOnClickListener {
+                listener.onClickSeeAll()
+            }
+
+            constraintLayoutEmptyPost.setOnClickListener {
+                listener.onClickNew()
+            }
         }
     }
 

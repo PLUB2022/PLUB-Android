@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageActiveGatheringBinding
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
@@ -28,6 +29,14 @@ class ActiveGatheringFragment :
         ActiveGatheringParentAdapter(object : ActiveGatheringParentAdapter.ActiveGatheringDelegate{
             override fun onClickBoard(feedId: Int) {
                 viewModel.onClickBoard(feedId)
+            }
+
+            override fun onClickNew() {
+                findNavController().navigate(ActiveGatheringFragmentDirections.goNew(writeType = PlubingBoardWriteType.CREATE))
+            }
+
+            override fun onClickSeeAll() {
+                findNavController().navigate(ActiveGatheringFragmentDirections.goAll(activeGatheringFragmentArgs.plubbingId))
             }
         })
     }

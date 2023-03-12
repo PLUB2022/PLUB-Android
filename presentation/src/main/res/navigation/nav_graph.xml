@@ -365,6 +365,17 @@
         <action
             android:id="@+id/action_my_page_recruit_to_recruit"
             app:destination="@id/plubingMainFragment" />
+
+        <action
+            android:id="@+id/action_my_page_active_detail_to_plubing_board_detail"
+            app:destination="@id/plubingBoardDetailFragment"/>
+
+        <action
+            android:id="@+id/go_new"
+            app:destination="@id/plubingBoardWriteFragment"/>
+        <action
+            android:id="@+id/go_all"
+            app:destination="@id/myPageAllMyPostFragment"/>
     </fragment>
 
     <fragment

@@ -13,8 +13,11 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingMainBinding
 import com.plub.presentation.databinding.IncludeTabPlubingMainBinding
+import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.ui.main.plubing.adapter.FragmentPlubingMainPagerAdapter
 import com.plub.presentation.ui.main.plubing.adapter.PlubingMemberAdapter
+import com.plub.presentation.ui.main.plubing.board.write.BoardWriteFragment
+import com.plub.presentation.util.getNavigationResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -111,6 +114,14 @@ class PlubingMainFragment :
                     inspectEventFlow(it as PlubingMainEvent)
                 }
             }
+        }
+
+        getNavigationResult(BoardWriteFragment.KEY_RESULT_EDIT_COMPLETE) { vo: ParsePlubingBoardVo ->
+            //
+        }
+
+        getNavigationResult(BoardWriteFragment.KEY_RESULT_CREATE_COMPLETE) { _:Unit ->
+            //viewModel.onCompleteBoardCreate()
         }
     }
 
