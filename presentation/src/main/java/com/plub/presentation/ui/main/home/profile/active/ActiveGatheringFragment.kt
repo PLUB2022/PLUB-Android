@@ -6,7 +6,9 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageActiveGatheringBinding
+import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.main.home.profile.active.adapter.ActiveGatheringParentAdapter
+import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -15,6 +17,10 @@ class ActiveGatheringFragment :
     BaseFragment<FragmentMyPageActiveGatheringBinding, ActiveGatheringPageState, ActiveGatheringViewModel>(
         FragmentMyPageActiveGatheringBinding::inflate
     ) {
+
+    companion object{
+        const val VERTICAL_SPACE = 24
+    }
 
     private val activeGatheringFragmentArgs : ActiveGatheringFragmentArgs by navArgs()
 
@@ -34,13 +40,13 @@ class ActiveGatheringFragment :
 
             recyclerViewMyPageContent.apply {
                 layoutManager = LinearLayoutManager(context)
+                addItemDecoration(VerticalSpaceDecoration(VERTICAL_SPACE.px))
                 adapter = activeGatheringParentAdapter
             }
 
         }
         viewModel.setPlubIdAndStateType(activeGatheringFragmentArgs.plubbingId, activeGatheringFragmentArgs.stateType)
         viewModel.setView()
-        //viewModel.getMyToDo()
     }
 
     override fun initStates() {
