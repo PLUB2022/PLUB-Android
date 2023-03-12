@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.presentation.databinding.IncludeItemBoardDetailCommentNormalBinding
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 
 class BoardDetailCommentNormalViewHolder(
     private val binding: IncludeItemBoardDetailCommentNormalBinding,
@@ -14,13 +15,13 @@ class BoardDetailCommentNormalViewHolder(
     private var vo: BoardCommentVo? = null
 
     init {
-        binding.imageViewMenu.setOnClickListener {
+        binding.imageViewMenu.onThrottleClick {
             vo?.let {
                 listener.onClickCommentMenu(it)
             }
         }
 
-        binding.textViewReply.setOnClickListener {
+        binding.textViewReply.onThrottleClick {
             vo?.let {
                 listener.onClickCommentReply(it)
             }

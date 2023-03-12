@@ -18,6 +18,7 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentLoginBinding
 import com.plub.presentation.util.IntentUtil
 import com.plub.presentation.ui.main.MainActivity
+import com.plub.presentation.util.onThrottleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -43,12 +44,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
                 highlightColor = Color.TRANSPARENT
             }
 
-            textViewSignUp.setOnClickListener {
+            textViewSignUp.onThrottleClick {
                 val action = LoginFragmentDirections.actionLoginToSignUp()
                 findNavController().navigate(action)
             }
 
-            textViewLoginAdmin.setOnClickListener {
+            textViewLoginAdmin.onThrottleClick {
                 viewModel.onAdminLogin()
             }
         }

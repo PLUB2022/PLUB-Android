@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.databinding.IncludeItemCircleProfileDetailBinding
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 
 class BottomSheetProfileViewHolder(
     private val binding: IncludeItemCircleProfileDetailBinding,
@@ -14,7 +15,7 @@ class BottomSheetProfileViewHolder(
     private var accountId: Int? = null
 
     init {
-        binding.imageViewProfile.setOnClickListener {
+        binding.imageViewProfile.onThrottleClick {
             accountId?.let { listener.onProfileClick(it) }
         }
     }

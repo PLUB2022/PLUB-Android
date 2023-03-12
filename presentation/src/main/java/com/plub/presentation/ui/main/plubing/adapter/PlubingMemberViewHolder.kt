@@ -5,6 +5,7 @@ import com.plub.domain.model.vo.plub.PlubingMemberInfoVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemMemberBinding
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 
 class PlubingMemberViewHolder(
     private val binding: IncludeItemMemberBinding,
@@ -14,7 +15,7 @@ class PlubingMemberViewHolder(
     private var vo: PlubingMemberInfoVo? = null
 
     init {
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             vo?.let {
                 listener.onClickProfile(it.id)
             }
