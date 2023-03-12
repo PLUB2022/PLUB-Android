@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.home.plubhome.viewholder
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.databinding.IncludeItemLayoutHomeRecommendGatheringNoChoiceBinding
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
+import com.plub.presentation.util.onThrottleClick
 
 class HomeNoInterestViewHolder(
     private val binding: IncludeItemLayoutHomeRecommendGatheringNoChoiceBinding,
@@ -10,7 +11,7 @@ class HomeNoInterestViewHolder(
 ): RecyclerView.ViewHolder(binding.root){
 
     init {
-        binding.constraintLayoutRegisterInterest.setOnClickListener {
+        binding.constraintLayoutRegisterInterest.onThrottleClick {
             listener.onClickRegister()
         }
     }

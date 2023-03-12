@@ -20,6 +20,7 @@ import com.plub.presentation.databinding.BottomSheetDeleteQuestionBinding
 import com.plub.presentation.databinding.BottomSheetSearchLocationBinding
 import com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.bottomSheet.adapter.KakaoLocationRecyclerViewAdapter
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
+import com.plub.presentation.util.onThrottleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -67,12 +68,12 @@ class BottomSheetDeleteQuestion : BottomSheetDialogFragment() {
         binding.position = position
         binding.questionCount = questionCount
 
-        binding.buttonYes.setOnClickListener {
+        binding.buttonYes.onThrottleClick {
             okButtonClickEvent?.let { it(position) }
             dismiss()
         }
 
-        binding.buttonNo.setOnClickListener {
+        binding.buttonNo.onThrottleClick {
             dismiss()
         }
     }

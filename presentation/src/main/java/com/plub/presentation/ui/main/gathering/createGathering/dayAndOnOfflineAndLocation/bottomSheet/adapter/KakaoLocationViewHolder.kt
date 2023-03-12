@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.LayoutRecyclerKakaoLocationByKeywordBinding
+import com.plub.presentation.util.onThrottleClick
 
 class KakaoLocationViewHolder(
     val binding: LayoutRecyclerKakaoLocationByKeywordBinding,
@@ -14,7 +15,7 @@ class KakaoLocationViewHolder(
     private var position: Int? = null
 
     init {
-        binding.constraintLayoutLocation.setOnClickListener {
+        binding.constraintLayoutLocation.onThrottleClick {
             vo?.let { data ->
                 position?.let { position ->
                     listener.onClickItem(data, position)

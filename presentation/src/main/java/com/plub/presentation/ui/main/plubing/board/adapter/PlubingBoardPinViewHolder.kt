@@ -6,6 +6,7 @@ import com.plub.domain.model.enums.PlubingFeedType
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.databinding.IncludeItemBoardPinBinding
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 
 class PlubingBoardPinViewHolder(
     private val binding: IncludeItemBoardPinBinding,
@@ -15,7 +16,7 @@ class PlubingBoardPinViewHolder(
     private var vo: PlubingBoardVo? = null
 
     init {
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             vo?.let {
                 listener.onClickBoard(it.feedId)
             }
