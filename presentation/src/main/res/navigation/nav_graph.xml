@@ -320,5 +320,9 @@
         <argument
             android:name="plubbingId"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/action_my_page_active_detail_to_plubing_board_detail"
+            app:destination="@id/plubingBoardDetailFragment" />
     </fragment>
 </navigation>
