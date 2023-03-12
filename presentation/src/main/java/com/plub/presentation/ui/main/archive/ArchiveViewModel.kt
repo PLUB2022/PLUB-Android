@@ -108,14 +108,14 @@ class ArchiveViewModel @Inject constructor(
     }
 
     fun deleteArchive(archiveId : Int){
-        val originList = mutableListOf<ArchiveContentResponseVo>()
-        originList.addAll(uiState.value.archiveList)
+        val originList = uiState.value.archiveList
+        val mergedList = originList.toMutableList()
         originList.forEach {
-            if(it.archiveId == archiveId) originList.remove(it)
+            if(it.archiveId == archiveId) mergedList.remove(it)
         }
         updateUiState { uiState ->
             uiState.copy(
-                archiveList = originList
+                archiveList = mergedList
             )
         }
     }
