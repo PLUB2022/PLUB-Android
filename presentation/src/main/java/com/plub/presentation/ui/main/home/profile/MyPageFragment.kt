@@ -36,7 +36,7 @@ class MyPageFragment :
                 gatheringType: MyPageGatheringMyType,
                 plubbingId : Int
             ) {
-                viewModel.goToDetail(gatheringParentType, plubbingId)
+                viewModel.goToDetail(gatheringParentType, plubbingId, gatheringType)
             }
 
         })
@@ -98,6 +98,7 @@ class MyPageFragment :
             is MyPageEvent.GoToOtherApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToRecruitingGathering(event.plubbingId))}
             is MyPageEvent.ReadMore -> { openText(event.isExpandText) }
             is MyPageEvent.GoToSetting -> {findNavController().navigate(MyPageFragmentDirections.myPageToSetting())}
+            is MyPageEvent.GoToActiveGathering -> {findNavController().navigate(MyPageFragmentDirections.myPageToActiveGathering(event.gatheringType, event.plubbingId))}
         }
     }
 

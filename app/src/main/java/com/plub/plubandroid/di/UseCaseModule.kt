@@ -335,4 +335,10 @@ object UseCaseModule {
     fun providesGetEntireScheduleUseCase(repository: ScheduleRepository): GetEntireScheduleUseCase {
         return GetEntireScheduleUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesGetMyPostUseCase(repository: MyPageRepository): GetMyPostUseCase {
+        return GetMyPostUseCase(repository)
+    }
 }

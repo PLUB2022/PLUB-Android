@@ -9,6 +9,12 @@ import com.plub.domain.model.enums.MyPageDetailViewType
 import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.presentation.databinding.*
 import com.plub.presentation.ui.main.home.profile.viewHolder.detail.*
+import com.plub.presentation.ui.main.home.profile.viewHolder.detail.active.MyPageDetailMyTodoViewHolder
+import com.plub.presentation.ui.main.home.profile.viewHolder.detail.recruiting.MyPageDetailEmptyViewHolder
+import com.plub.presentation.ui.main.home.profile.viewHolder.detail.recruiting.MyPageDetailOtherApplicantsViewHolder
+import com.plub.presentation.ui.main.home.profile.viewHolder.detail.recruiting.MyPageDetailOtherApplicationTextViewHolder
+import com.plub.presentation.ui.main.home.profile.viewHolder.detail.wait.MyPageDetailMyApplicantsViewHolder
+import com.plub.presentation.ui.main.home.profile.viewHolder.detail.wait.MyPageDetailMyApplicationsTextViewHolder
 
 class MyPageDetailPageAdapter(private val listener : ApplicantsDelegate): ListAdapter<MyPageDetailVo, RecyclerView.ViewHolder>(
     MyPageDetailDiffCallback()
