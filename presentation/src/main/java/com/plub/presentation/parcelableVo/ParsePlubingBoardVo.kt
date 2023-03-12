@@ -16,7 +16,7 @@ data class ParsePlubingBoardVo(
     val content: String = "",
     val createAt: String = "",
     val pin: Boolean = false,
-    val profileImage: String = "",
+    val profileImage: String? = "",
     val nickname: String = "",
     val likeCount: Int = -1,
     val commentCount: Int = -1,
