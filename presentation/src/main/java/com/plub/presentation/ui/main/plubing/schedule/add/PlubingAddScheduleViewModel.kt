@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.plubing.schedule.add
 
 import android.text.Editable
+import com.plub.domain.model.enums.DialogCheckboxItemType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoVo
 import com.plub.presentation.base.BaseViewModel
@@ -12,6 +13,11 @@ class PlubingAddScheduleViewModel @Inject constructor(
 
 ) : BaseViewModel<PlubingAddSchedulePageState>(PlubingAddSchedulePageState()) {
 
+    fun updateAlarm(alarm: DialogCheckboxItemType) {
+        updateUiState { uiState ->
+            uiState.copy(alarm = alarm)
+        }
+    }
     fun updateScheduleTitle(text: Editable) {
         updateUiState { uiState ->
             uiState.copy(scheduleTitle = text.toString())

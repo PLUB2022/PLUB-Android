@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.main.plubing.schedule.add
 
+import com.plub.domain.model.enums.DialogCheckboxItemType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoVo
 import com.plub.presentation.ui.PageState
@@ -16,7 +17,7 @@ data class PlubingAddSchedulePageState(
     val endDate: Date = Date(),
     val endTime: Time = Time(),
     val location: KakaoLocationInfoDocumentVo = KakaoLocationInfoDocumentVo(),
-    val alarm: String = "",
+    val alarm: DialogCheckboxItemType = DialogCheckboxItemType.ALARM_NONE,
     val memo: String = ""
 ) : PageState {
     val startTimeInMills: Long

@@ -3,11 +3,16 @@ package com.plub.presentation.ui.main.plubing.schedule.add
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.fragment.app.viewModels
+import com.plub.domain.model.enums.DialogCheckboxType
+import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingAddScheduleBinding
+import com.plub.presentation.ui.common.dialog.SelectCheckboxBottomSheetDialog
+import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocation
+import com.plub.presentation.util.onThrottleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -24,6 +29,10 @@ class PlubingAddScheduleFragment : BaseFragment<
     override fun initView() {
         binding.apply {
             vm = viewModel
+        }
+
+        binding.textViewAlarm.onThrottleClick {
+            showBottomSheetDialogSelectAlarm()
         }
     }
 
@@ -106,5 +115,16 @@ class PlubingAddScheduleFragment : BaseFragment<
             parentFragmentManager,
             bottomSheetSearchLocation.tag
         )
+    }
+
+    private fun showBottomSheetDialogSelectAlarm() {
+        SelectCheckboxBottomSheetDialog.newInstance(
+            checkboxType = DialogCheckboxType.ALARM_TYPE,
+            title = requireContext().getString(R.string.word_alarm),
+            icon = R.drawable.ic_alarm,
+            selectedCheckboxType = viewModel.uiState.value.alarm
+        ) {
+            viewModel.updateAlarm(it)
+        }.show(parentFragmentManager, "")
     }
 }

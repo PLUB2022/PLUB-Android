@@ -212,7 +212,7 @@
                     android:layout_marginStart="56dp"
                     android:layout_marginEnd="56dp"
                     android:paddingVertical="14dp"
-                    android:text="@string/plubing_add_schedule_alarm"
+                    android:text="@{vm.uiState.alarm.kor}"
                     android:textColor="@color/color_363636"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
