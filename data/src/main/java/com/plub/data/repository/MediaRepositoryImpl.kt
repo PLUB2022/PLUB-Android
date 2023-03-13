@@ -33,8 +33,8 @@ class MediaRepositoryImpl @Inject constructor(
         return apiLaunch(mediaApi.uploadFile(typeBody, fileBody), UploadFileResponseMapper)
     }
 
-    override suspend fun deleteFile(request: DeleteFileRequestVo): Flow<UiState<String>> {
-        return apiLaunch(mediaRequireAuthApi.deleteFile(request.type.type, request.file), DeleteImageFileResponseMapper)
+    override suspend fun deleteFile(request: DeleteFileRequestVo):String {
+        return mediaRequireAuthApi.deleteFile(request.type.type, request.file)
     }
 
     override suspend fun changeFile(request: ChangeFileRequestVo): Flow<UiState<UploadFileResponseVo>> {

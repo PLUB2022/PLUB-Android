@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 class DeleteFileUseCase @Inject constructor(
     private val mediaRepository: MediaRepository,
-) : UseCase<DeleteFileRequestVo, Flow<UiState<String>>>() {
+) : UseCase<DeleteFileRequestVo, String>() {
 
-    override suspend operator fun invoke(request: DeleteFileRequestVo): Flow<UiState<String>> {
+    override suspend operator fun invoke(request: DeleteFileRequestVo): String {
         return mediaRepository.deleteFile(request)
     }
 }

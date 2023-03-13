@@ -9,6 +9,7 @@ import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -112,9 +113,7 @@ class ArchiveUploadViewModel @Inject constructor(
     fun deleteList(position : Int, image : String){
         val request = DeleteFileRequestVo(UploadFileType.ARCHIVE, image)
         viewModelScope.launch {
-            deleteFileUseCase(request).collect{ state ->
-                inspectUiState(state, { onDeleteSuccess(position) })
-            }
+            PlubLogger.logD(deleteFileUseCase(request))
         }
     }
 
