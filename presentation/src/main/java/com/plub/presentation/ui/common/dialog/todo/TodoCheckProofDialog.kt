@@ -24,6 +24,7 @@ import com.plub.presentation.util.ImageUtil
 import com.plub.presentation.util.IntentUtil
 import com.plub.presentation.util.PermissionManager
 import com.plub.presentation.util.PlubUser
+import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.parcelable
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -100,19 +101,19 @@ class TodoCheckProofDialog : DialogFragment() {
 
     private fun initView() {
         binding.apply {
-            imageViewBack.setOnClickListener {
+            imageViewBack.onThrottleClick {
                 dismiss()
             }
-            imageViewProof.setOnClickListener {
+            imageViewProof.onThrottleClick {
                 PermissionManager.createGetImagePermission {
                     showBottomSheetDialogSelectImage()
                 }
             }
-            buttonLateProof.setOnClickListener {
+            buttonLateProof.onThrottleClick {
                 dismiss()
                 delegate?.onClickLateProof(todoItemVo.todoId)
             }
-            buttonProofComplete.setOnClickListener {
+            buttonProofComplete.onThrottleClick {
                 proofFile?.let {
                     dismiss()
                     delegate?.onClickComplete(todoItemVo.todoId, it)

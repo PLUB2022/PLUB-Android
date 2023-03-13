@@ -6,6 +6,7 @@ import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.databinding.IncludeItemTodoTimelineBinding
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 
 class PlubingTodoTimelineViewHolder(
     private val binding: IncludeItemTodoTimelineBinding,
@@ -30,7 +31,7 @@ class PlubingTodoTimelineViewHolder(
                 layoutManager = LinearLayoutManager(root.context)
             }
 
-            imageViewMenu.setOnClickListener {
+            imageViewMenu.onThrottleClick {
                 vo?.let {
                     listener.onClickTodoMenu(it)
                 }
