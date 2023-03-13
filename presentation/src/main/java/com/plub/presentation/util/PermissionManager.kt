@@ -16,7 +16,6 @@ object PermissionManager {
             }
 
             override fun onPermissionDenied(deniedPermissions: List<String>) {
-                PlubLogger.logD(deniedPermissions.toString())
             }
         }
         return permissionListener

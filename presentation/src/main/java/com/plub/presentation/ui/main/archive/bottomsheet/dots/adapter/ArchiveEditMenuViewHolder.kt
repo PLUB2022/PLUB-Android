@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.archive.bottomsheet.dots.adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.ArchiveMenuType
 import com.plub.presentation.databinding.IncludeItemArchiveEditBinding
+import com.plub.presentation.util.onThrottleClick
 
 class ArchiveEditMenuViewHolder(
     private val binding: IncludeItemArchiveEditBinding,
@@ -12,7 +13,7 @@ class ArchiveEditMenuViewHolder(
     var menuType : ArchiveMenuType? = null
 
     init {
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             menuType?.let { listener.onClick(it) }
         }
     }
