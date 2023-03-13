@@ -62,7 +62,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             }
         }
         viewModel.setTitleAndPlubbingId(archiveFragmentArgs.title, archiveFragmentArgs.plubbingId)
-        viewModel.fetchArchivePage()
+        viewModel.onFetchArchiveList()
     }
 
     override fun initStates() {

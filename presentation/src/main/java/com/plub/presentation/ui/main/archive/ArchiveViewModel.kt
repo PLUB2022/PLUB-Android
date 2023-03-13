@@ -40,7 +40,7 @@ class ArchiveViewModel @Inject constructor(
         val request = BrowseAllArchiveRequestVo(plubbingId, cursorId)
         viewModelScope.launch {
             cursorId = FIRST_CURSOR
-            getAllArchiveUseCase(request).collect{ state ->
+            if(!isLastPage) getAllArchiveUseCase(request).collect{ state ->
                 inspectUiState(state, ::handleSuccessFetchArchives)
             }
         }
@@ -64,10 +64,10 @@ class ArchiveViewModel @Inject constructor(
     }
 
     fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onFetchBoardList()
+        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onFetchArchiveList()
     }
 
-    fun onFetchBoardList() {
+    fun onFetchArchiveList() {
         isNetworkCall = true
         cursorUpdate()
         fetchArchivePage()
