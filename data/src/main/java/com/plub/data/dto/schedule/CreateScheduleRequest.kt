@@ -9,13 +9,13 @@ data class CreateScheduleRequest(
     @SerializedName("memo")
     val memo: String,
     @SerializedName("startedAt")
-    val startedAt: String?,
+    val startedAt: String,
     @SerializedName("endedAt")
-    val endedAt: String?,
+    val endedAt: String,
     @SerializedName("startTime")
-    val startTime: String,
+    val startTime: String?,
     @SerializedName("endTime")
-    val endTime: String,
+    val endTime: String?,
     @SerializedName("isAllDay")
     val isAllDay: Boolean,
     @SerializedName("address")

@@ -18,12 +18,18 @@ object TimeFormatter {
     private const val HHcolonmm = "HH:mm"
     private const val HHmm = "HH:mm"
     private const val yyyydotMMdotddE = "yyyy. MM. dd E"
+    private const val yyyydashMMdashdd = "yyyy-MM-dd"
 
     private val ahmLocaleKoreanFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(ahmLocaleKorean)
     private val ah_colon_mmFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(ah_colon_mm)
     private val HHmmFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(HHmm)
     private val HHcolonmmFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(HHcolonmm)
     private val yyyydotMMdotddEFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(yyyydotMMdotddE)
+    private val yyyydashMMdashddFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(yyyydashMMdashdd)
+
+    fun getyyyydashMMdashdd(year: Int, month: Int, day: Int): String {
+        return yyyydashMMdashddFormatter.format(LocalDate.of(year, month, day))
+    }
 
     fun get_ah_colon_mm(time: String): String {
         val list = time.split(SPLIT_OF_TIME)

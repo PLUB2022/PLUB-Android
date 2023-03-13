@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.plubing.schedule.add
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.plub.domain.model.enums.DialogCheckboxType
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
@@ -76,6 +77,11 @@ class PlubingAddScheduleFragment : BaseFragment<
 
             is PlubingAddScheduleEvent.ShowBottomSheetDialogSelectAlarm -> {
                 showBottomSheetDialogSelectAlarm()
+            }
+
+            is PlubingAddScheduleEvent.GoToSchedule -> {
+                val action = PlubingAddScheduleFragmentDirections.actionPlubingAddScheduleToPlubingSchedule(event.plubbingId, "123")
+                findNavController().navigate(action)
             }
         }
     }

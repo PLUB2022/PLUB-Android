@@ -304,5 +304,11 @@
         <argument
             android:name="plubingId"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/action_plubingAddSchedule_to_plubingSchedule"
+            app:destination="@+id/plubingScheduleFragment"
+            app:popUpTo="@id/plubingScheduleFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

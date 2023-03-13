@@ -274,11 +274,13 @@
 
         <Button
             android:id="@+id/button_next"
+            onThrottleClick="@{() -> vm.createSchedule()}"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginHorizontal="24dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:enabled="@{vm.uiState.nextButtonEnabled}"
             android:stateListAnimator="@null"
             android:text="@string/plubing_add_schedule_add_schedule"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"

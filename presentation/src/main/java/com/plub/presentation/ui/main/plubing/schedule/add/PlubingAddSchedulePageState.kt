@@ -20,6 +20,7 @@ data class PlubingAddSchedulePageState(
     val alarm: DialogCheckboxItemType = DialogCheckboxItemType.ALARM_NONE,
     val memo: String = ""
 ) : PageState {
+    val isNextButtonEnabled = scheduleTitle.isNotEmpty()
     val startTimeInMills: Long
         get() {
         val (year, month, day) = startDate

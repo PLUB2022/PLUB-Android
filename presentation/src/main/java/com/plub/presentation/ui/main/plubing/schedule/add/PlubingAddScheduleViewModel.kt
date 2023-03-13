@@ -1,16 +1,22 @@
 package com.plub.presentation.ui.main.plubing.schedule.add
 
 import android.text.Editable
+import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogCheckboxItemType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoVo
+import com.plub.domain.model.vo.schedule.CreateScheduleRequestVo
+import com.plub.domain.usecase.PostScheduleUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectIndexed
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PlubingAddScheduleViewModel @Inject constructor(
-
+    private val postScheduleUseCase: PostScheduleUseCase
 ) : BaseViewModel<PlubingAddSchedulePageState>(PlubingAddSchedulePageState()) {
 
     fun updateAlarm(alarm: DialogCheckboxItemType) {
@@ -141,6 +147,39 @@ class PlubingAddScheduleViewModel @Inject constructor(
         updateUiState { uiState ->
             uiState.copy(
                 location = data
+            )
+        }
+    }
+
+    fun createSchedule() {
+        viewModelScope.launch {
+            postScheduleUseCase(getCreateScheduleRequestVo(1)).collect {
+                inspectUiState(it, succeedCallback = { emitGotoScheduleEvent() })
+            }
+        }
+    }
+
+    private fun emitGotoScheduleEvent() {
+        emitEventFlow(
+            PlubingAddScheduleEvent.GoToSchedule(1)
+        )
+    }
+
+    private fun getCreateScheduleRequestVo(plubbingId: Int): CreateScheduleRequestVo {
+        return with(uiState.value) {
+            CreateScheduleRequestVo(
+                plubbingId = plubbingId,
+                title = scheduleTitle,
+                memo = memo,
+                isAllDay = isAllDay,
+                startedAt = TimeFormatter.getyyyydashMMdashdd(startDate.year, startDate.month, startDate.day),
+                endedAt = TimeFormatter.getyyyydashMMdashdd(endDate.year, endDate.month, endDate.day),
+                startTime = if(isAllDay) null else TimeFormatter.getHHcolonmm(startTime.hour, startTime.minute),
+                endTime = if(isAllDay) null else TimeFormatter.getHHcolonmm(endTime.hour, endTime.minute),
+                address = location.addressName,
+                roadAddress = location.roadAddressName,
+                placeName = location.placeName,
+                alarmType = alarm.value
             )
         }
     }
