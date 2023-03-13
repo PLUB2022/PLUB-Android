@@ -80,6 +80,11 @@ object Endpoints {
             const val PROOF = "$PLUBBING_ID_URL/todolist/{todolistId}/proof"
             const val COMPLETE = "$PLUBBING_ID_URL/todolist/{todolistId}/complete"
             const val CANCEL = "$PLUBBING_ID_URL/todolist/{todolistId}/cancel"
+            const val TODO_DAYS_IN_MONTH = "$PLUBBING_ID_URL/timeline/year/{year}/month/{month}"
+            const val MY_TODO_IN_DAY = "$PLUBBING_ID_URL/timeline/{todoDate}"
+            const val TODO_CREATE = "$PLUBBING_ID_URL/todolist"
+            const val TODO_EDIT = "$PLUBBING_ID_URL/todolist/{todoId}"
+            const val TODO_DELETE = "$PLUBBING_ID_URL/todolist/{todoId}"
         }
     }
 }
