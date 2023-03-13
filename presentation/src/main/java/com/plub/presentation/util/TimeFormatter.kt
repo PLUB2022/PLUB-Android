@@ -16,7 +16,7 @@ object TimeFormatter {
     private const val ahmLocaleKorean = "a h시 m분"
     private const val ah_colon_mm = "a h:mm"
     private const val HHcolonmm = "HH:mm"
-    private const val HHmm = "HH:mm"
+    private const val HHmm = "HHmm"
     private const val yyyydotMMdotddE = "yyyy. MM. dd E"
     private const val yyyydashMMdashdd = "yyyy-MM-dd"
 
