@@ -14,5 +14,5 @@ interface MediaRequireAuthApi {
     suspend fun changeFile(@Part type: MultipartBody.Part, @Part toDeleteUrls: MultipartBody.Part, @Part files: MultipartBody.Part): Response<ApiResponse<UploadFilesResponse>>
 
     @DELETE(Endpoints.FILE.DELETE_FILE)
-    suspend fun deleteFile(@Path("type") type: String, @Query("fileUrl") fileUrl : String) : Response<ApiResponse<DeleteFileResponse>>
+    suspend fun deleteFile(@Path("type") type: String, @Query("fileUrl") fileUrl : String) : DeleteFileResponse
 }

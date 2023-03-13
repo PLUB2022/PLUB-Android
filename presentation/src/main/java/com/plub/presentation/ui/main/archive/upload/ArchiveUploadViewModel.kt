@@ -27,6 +27,8 @@ class ArchiveUploadViewModel @Inject constructor(
     companion object{
         const val UPLOAD_TYPE = 0
         const val EDIT_TYPE = 1
+
+        const val DELETE_IMAGE = "DELETE SUCCESS"
     }
 
     private var editText : String = ""
@@ -112,8 +114,8 @@ class ArchiveUploadViewModel @Inject constructor(
     fun deleteList(position : Int, image : String){
         val request = DeleteFileRequestVo(UploadFileType.ARCHIVE, image)
         viewModelScope.launch {
-            deleteFileUseCase(request).collect{ state ->
-                inspectUiState(state, { onDeleteSuccess(position) })
+            if(deleteFileUseCase(request) == DELETE_IMAGE){
+                onDeleteSuccess(position)
             }
         }
     }
