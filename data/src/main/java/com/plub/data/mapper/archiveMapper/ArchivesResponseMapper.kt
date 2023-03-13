@@ -8,7 +8,6 @@ object ArchivesResponseMapper : Mapper.ResponseMapper<ArchiveResponse, ArchiveCa
     override fun mapDtoToModel(type: ArchiveResponse?): ArchiveCardResponseVo {
         return type?.run{
             ArchiveCardResponseVo(
-                totalPages = totalPages,
                 content = content.map {
                     ArchiveContentResponseMapper.mapDtoToModel(it)
                 }

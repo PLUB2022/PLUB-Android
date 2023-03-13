@@ -19,7 +19,7 @@ class ArchiveRepositoryImpl @Inject constructor(private val archiveApi: ArchiveA
     }
 
     override suspend fun fetchAllArchive(request: BrowseAllArchiveRequestVo): Flow<UiState<ArchiveCardResponseVo>> {
-        return apiLaunch(archiveApi.fetchAllArchives(request.plubbindId, request.page), ArchivesResponseMapper)
+        return apiLaunch(archiveApi.fetchAllArchives(request.plubbindId, request.cursorId), ArchivesResponseMapper)
     }
 
     override suspend fun fetchDetailArchive(request: DetailArchiveRequestVo): Flow<UiState<ArchiveDetailResponseVo>> {

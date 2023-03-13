@@ -1,11 +1,11 @@
 package com.plub.presentation.ui.main.archive
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.archive.*
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
-import com.plub.domain.usecase.DeleteArchiveUseCase
 import com.plub.domain.usecase.GetAllArchiveUseCase
 import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
@@ -19,25 +19,21 @@ import javax.inject.Inject
 class ArchiveViewModel @Inject constructor(
     val postUploadFileUseCase: PostUploadFileUseCase,
     val getAllArchiveUseCase: GetAllArchiveUseCase,
-    val getDetailArchiveUseCase: GetDetailArchiveUseCase,
-    val deleteArchiveUseCase: DeleteArchiveUseCase
+    val getDetailArchiveUseCase: GetDetailArchiveUseCase
 )  :BaseViewModel<ArchivePageState>(ArchivePageState()) {
 
     companion object{
-        const val AUTHOR = "author"
-        const val HOST = "host"
-        const val NORMAL = "normal"
-        const val FIRST_PAGE = 1
+        const val FIRST_PAGE = Int.MAX_VALUE
     }
     private var title : String = ""
-    private var page : Int = FIRST_PAGE
+    private var cursorId : Int = FIRST_PAGE
     private var plubbingId : Int = -1
     private var hasMoreList : Boolean = false
 
     fun fetchArchivePage(name : String, id : Int){
         title = name
         plubbingId = id
-        val request = BrowseAllArchiveRequestVo(id, page)
+        val request = BrowseAllArchiveRequestVo(id, cursorId)
         viewModelScope.launch {
             getAllArchiveUseCase(request).collect{ state ->
                 inspectUiState(state, ::handleSuccessFetchArchives)
@@ -46,7 +42,6 @@ class ArchiveViewModel @Inject constructor(
     }
 
     private fun handleSuccessFetchArchives(vo : ArchiveCardResponseVo){
-        hasMoreList = (page != vo.totalPages)
         updateUiState { uiState ->
             uiState.copy(
                 title = title,
@@ -54,7 +49,6 @@ class ArchiveViewModel @Inject constructor(
                 isLoading = hasMoreList
             )
         }
-        page++
     }
 
     fun seeDetailDialog(id : Int){
@@ -93,15 +87,15 @@ class ArchiveViewModel @Inject constructor(
         emitEventFlow(ArchiveEvent.GoToArchiveUpload(vo.fileUrl, title))
     }
 
-    fun seeBottomSheet(type : String, id : Int){
+    fun seeBottomSheet(type : ArchiveAccessType, id : Int){
         when (type) {
-            AUTHOR -> {
+            ArchiveAccessType.AUTHOR -> {
                 emitEventFlow(ArchiveEvent.SeeAuthorBottomSheet(id))
             }
-            HOST -> {
+            ArchiveAccessType.HOST -> {
                 emitEventFlow(ArchiveEvent.SeeHostBottomSheet(id))
             }
-            NORMAL -> {
+            ArchiveAccessType.NORMAL -> {
                 emitEventFlow(ArchiveEvent.SeeNormalBottomSheet(id))
             }
         }

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
 import com.plub.presentation.databinding.IncludeItemArchiveBinding
 
@@ -14,7 +15,7 @@ class ArchiveAdapter(private val listener: ArchiveDelegate) : ListAdapter<Archiv
 
     interface ArchiveDelegate {
         fun onCardClick(archiveId : Int)
-        fun onDotsClick(type : String, archiveId : Int)
+        fun onDotsClick(type : ArchiveAccessType, archiveId : Int)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
@@ -34,7 +35,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 viewModel.seeDetailDialog(archiveId)
             }
 
-            override fun onDotsClick(type: String, archiveId : Int) {
+            override fun onDotsClick(type: ArchiveAccessType, archiveId : Int) {
                 viewModel.seeBottomSheet(type, archiveId)
             }
         })
