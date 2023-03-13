@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.archive.bottomsheet.dots
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.enums.ArchiveMenuType
+import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
 import com.plub.domain.model.vo.archive.ArchiveIdResponseVo
 import com.plub.domain.model.vo.archive.DetailArchiveRequestVo
 import com.plub.domain.usecase.DeleteArchiveUseCase
@@ -88,7 +89,7 @@ class ArchiveDotsMenuBottomSheetViewModel @Inject constructor(
         }
     }
 
-    private fun handleSuccessDelete(vo : ArchiveIdResponseVo){
+    private fun handleSuccessDelete(vo : ArchiveContentResponseVo){
         emitEventFlow(ArchiveDotsMenuBottomSheetEvent.DeleteArchive)
     }
 }
