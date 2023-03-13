@@ -207,7 +207,7 @@
             android:enabled="@{vm.uiState.okButtonEnabled}"
             android:stateListAnimator="@null"
             android:text="@string/word_ok"
-            android:onClick="@{() -> vm.onClickConfirm()}"
+            app:onThrottleClick="@{() -> vm.onClickConfirm()}"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             android:textSize="14sp"
             android:textStyle="bold"

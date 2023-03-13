@@ -28,6 +28,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/text_view_login_admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:text="admin 로그인"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_sign_up" />
+
+        <TextView
             android:id="@+id/text_view_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/bg_rectangle_filled_fee500_radius_5"
-                android:onClick="@{() -> vm.onClickKakaoLogin()}"
+                app:onThrottleClick="@{() -> vm.onClickKakaoLogin()}"
                 android:paddingHorizontal="20dp"
                 app:layout_constraintDimensionRatio="280:45"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +109,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_rectangle_filled_white_radius_5"
-                android:onClick="@{() -> vm.onClickGoogleLogin()}"
+                app:onThrottleClick="@{() -> vm.onClickGoogleLogin()}"
                 android:paddingHorizontal="20dp"
                 app:layout_constraintDimensionRatio="280:45"
                 app:layout_constraintEnd_toEndOf="parent"

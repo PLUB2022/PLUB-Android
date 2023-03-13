@@ -111,4 +111,8 @@ class BookmarkViewModel @Inject constructor(
             )
         }
     }
+
+    fun onClickBack(){
+        emitEventFlow(BookmarksEvent.GoToBack)
+    }
 }

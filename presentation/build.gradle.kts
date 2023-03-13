@@ -5,6 +5,8 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -64,6 +66,9 @@ dependencies {
     implementation(Google.HILT_ANDROID)
     implementation(Google.GOOGLE_PLAY_SERVICE)
     implementation(Google.FLEX_BOX)
+    implementation(Google.FIREBASE_BOM)
+    implementation(Google.FCM)
+    implementation(Google.FCM_KTX)
 
     implementation(Glide.GLIDE)
     annotationProcessor(Glide.GLIDE_COMPILER)

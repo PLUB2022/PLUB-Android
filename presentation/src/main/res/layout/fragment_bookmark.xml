@@ -25,6 +25,7 @@
             android:layout_height="32dp"
             android:layout_marginStart="3dp"
             android:layout_marginTop="12dp"
+            app:onThrottleClick="@{()->vm.onClickBack()}"
             android:scaleType="center"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +50,7 @@
             android:layout_height="32dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
-            android:onClick="@{() -> vm.onClickCardType(PlubCardType.GRID)}"
+            app:onThrottleClick="@{() -> vm.onClickCardType(PlubCardType.GRID)}"
             android:src="@{vm.uiState.cardType == PlubCardType.GRID ? @drawable/ic_grid_item_active : @drawable/ic_grid_item_inactive}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_view_back" />
@@ -59,7 +60,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="3dp"
-            android:onClick="@{() -> vm.onClickCardType(PlubCardType.LIST)}"
+            app:onThrottleClick="@{() -> vm.onClickCardType(PlubCardType.LIST)}"
             android:src="@{vm.uiState.cardType == PlubCardType.LIST ? @drawable/ic_list_item_active : @drawable/ic_list_item_inactive}"
             app:layout_constraintEnd_toStartOf="@+id/image_view_grid_type"
             app:layout_constraintTop_toTopOf="@id/image_view_grid_type" />

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage,ContentDescription">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_rectangle_filled_white_radius_10_border_f2f3f4"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp">
+
+        <TextView
+            android:id="@+id/text_view_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_comment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_view_comment"
+            tools:text="3" />
+
+        <ImageView
+            android:id="@+id/image_view_comment"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_board_comment_blue"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_comment"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_like"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_comment"
+            app:layout_constraintTop_toTopOf="@+id/image_view_like"
+            tools:text="3" />
+
+        <ImageView
+            android:id="@+id/image_view_like"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_board_like"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_like"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:textColor="@color/color_5f5ff9"
+            android:textSize="17sp"
+            android:lines="1"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_like"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginStart="0dp"
+            tools:text="8번째 멤버와 함께갑니다!" />
+
+        <TextView
+            android:id="@+id/text_view_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/color_363636"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_title"
+            tools:text="김밥먹고싶다 님이 요란한 한줄 에 들어왔어요\n멤버들과 함께 환영인사를 나눠보세요!" />
+
+        <TextView
+            android:id="@+id/text_view_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_content"
+            tools:text="2022. 08. 10." />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

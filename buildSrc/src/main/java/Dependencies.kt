@@ -45,6 +45,8 @@ object Google {
     const val PROTOBUF = "com.google.protobuf:protobuf-javalite:${Versions.PROTOBUF}"
     const val PROTOC = "com.google.protobuf:protoc:${Versions.PROTOBUF}"
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
+    const val FCM = "com.google.firebase:firebase-messaging:${Versions.FCM}"
+    const val FCM_KTX = "com.google.firebase:firebase-messaging-ktx:${Versions.FCM}"
     const val FLEX_BOX = "com.google.android.flexbox:flexbox:${Versions.FLEX_BOX}"
 }
 
@@ -73,13 +75,10 @@ object Libraries {
     const val IMAGE_CROPPER = "com.vanniktech:android-image-cropper:${Versions.IMAGE_CROPPER}"
 }
 
-object UnitTest {
-    const val JUNIT = "junit:junit:${Versions.JUNIT}"
-}
-
 object AndroidTest {
     const val ANDROID_JUNIT = "junit:junit:${Versions.ANDROID_JUNIT}"
     const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:${Versions.ESPRESSO_CORE}"
+    const val ANDROID_JUNIT_EXT = "androidx.test.ext:junit:${Versions.ANDROID_JUNIT_EXT}"
 }
 
 object Glide {

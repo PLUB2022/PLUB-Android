@@ -8,6 +8,8 @@ import com.plub.domain.model.enums.SocialLoginType
 data class SignUpRequest(
     @SerializedName("signToken")
     val signToken: String,
+    @SerializedName("fcmToken")
+    val fcmToken: String,
     @SerializedName("categoryList")
     val categoryList: List<Int>,
     @SerializedName("profileImage")

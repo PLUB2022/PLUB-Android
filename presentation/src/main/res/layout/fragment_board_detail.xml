@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.plubing.board.detail.BoardDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_faf9fe">
+
+        <ImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_plubing_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@{vm.uiState.plubingName}"
+            android:textColor="@color/color_363636"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_view_back"
+            app:layout_constraintTop_toTopOf="@+id/image_view_back"
+            tools:text="요란한 한 줄" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_board_detail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/color_f2f3f4"
+            app:layout_constraintBottom_toTopOf="@+id/constraint_layout_reply_writing"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_back" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_reply_writing"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:paddingHorizontal="16dp"
+            android:visibility="@{vm.uiState.replyWritingVisibility ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/constraint_layout_editing_comment"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/text_view_reply_writing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.uiState.replyWritingText}"
+                android:textColor="@color/black"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/plubing_board_detail_reply_writing" />
+
+            <TextView
+                android:id="@+id/text_view_reply_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:onThrottleClick="@{() -> vm.onClickCommentReplyCancel()}"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="@string/plubing_board_detail_reply_cancel"
+                android:textColor="@color/color_5f5ff9"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_editing_comment"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:paddingHorizontal="16dp"
+            android:visibility="@{vm.uiState.editCommentVisibility ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/constraint_layout_input_comment"
+            tools:visibility="gone">
+
+            <TextView
+                android:id="@+id/text_view_editing_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/plubing_board_detail_editing_comment"
+                android:textColor="@color/black"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_editing_comment_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:onThrottleClick="@{() -> vm.onClickCommentEditingCancel()}"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="@string/word_cancel"
+                android:textColor="@color/color_5f5ff9"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_input_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_faf9fe"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.plub.presentation.ui.common.custom.CircleImageView
+                android:id="@+id/circle_image_view_profile"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:imageUrl="@{vm.uiState.profileImage}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@color/color_8c8c8c" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_text_comment"
+                app:layout_constraintEnd_toEndOf="@+id/image_view_send"
+                app:layout_constraintStart_toStartOf="@+id/edit_text_comment"
+                app:layout_constraintTop_toTopOf="@+id/edit_text_comment" />
+
+            <EditText
+                android:id="@+id/edit_text_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@null"
+                android:hint="@string/plubing_board_detail_comment_hint"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="6dp"
+                android:text="@={vm.uiState.commentText}"
+                android:textColor="@color/color_363636"
+                android:textColorHint="@color/color_c4c4c4"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_send"
+                app:layout_constraintStart_toEndOf="@+id/circle_image_view_profile"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_view_send"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:onThrottleClick="@{() -> vm.onClickSendComment(vm.uiState.commentText)}"
+                android:scaleType="center"
+                android:src="@drawable/ic_send_comment"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_text_comment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/edit_text_comment" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

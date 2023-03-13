@@ -6,9 +6,12 @@ import android.webkit.WebView
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.plub.domain.UiState
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.OnThrottleClickListener
+import com.plub.presentation.util.afterTextChanged
 import java.io.File
 
 @BindingAdapter("showLoadingProgressBar")
@@ -26,6 +29,22 @@ fun loadUrl(view: WebView, url: String) {
     if(view.url != url) view.loadUrl(url)
 }
 
+@BindingAdapter("imageFile")
+fun ImageView.setImageFile(imageFile:File?) {
+    if(imageFile == null) return
+    else {
+        GlideUtil.loadImage(context, imageFile, this)
+    }
+}
+
+@BindingAdapter("imageFile", "imageUrl")
+fun ImageView.setImage(imageFile:File?, imageUrl:String) {
+    when {
+        imageUrl.isNotEmpty() -> GlideUtil.loadImage(context, imageUrl, this)
+        imageFile != null -> GlideUtil.loadImage(context, imageFile, this)
+    }
+}
+
 @BindingAdapter("imageFile","defaultImage")
 fun ImageView.setImageFile(imageFile:File?, defaultImage:Drawable) {
     if(imageFile == null) setImageDrawable(defaultImage)
@@ -36,10 +55,18 @@ fun ImageView.setImageFile(imageFile:File?, defaultImage:Drawable) {
 
 @BindingAdapter("hintIcon")
 fun EditText.setHintIcon(icon:Int) {
-    setOnFocusChangeListener { view, gotFocus ->
+    afterTextChanged {
         when {
-            gotFocus -> setCompoundDrawables(null,null,null,null)
             text.isEmpty() -> setCompoundDrawablesWithIntrinsicBounds(icon,0,0,0)
+            else -> setCompoundDrawables(null,null,null,null)
         }
     }
+}
+
+@BindingAdapter("onThrottleClick", "clickInterval", requireAll = false)
+fun applyThrottleClick(view: View, listener: View.OnClickListener, interval: Long? = 300L) {
+    val throttleListener = interval?.let { time ->
+        OnThrottleClickListener(listener, time)
+    } ?: OnThrottleClickListener(listener)
+    view.setOnClickListener(throttleListener)
 }

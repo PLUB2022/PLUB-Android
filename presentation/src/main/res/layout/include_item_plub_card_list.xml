@@ -27,7 +27,12 @@
                     android:id="@+id/image_view_background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@color/color_5f5ff9" />
+                    android:src="@color/color_c4c4c4" />
+                <ImageView
+                    android:id="@+id/image_view_background_dim"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dim_plub_card_list" />
 
                 <ImageView
                     android:id="@+id/image_view_location"
@@ -45,6 +50,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:textColor="@color/white"
+                    android:ellipsize="end"
+                    android:maxLength="6"
                     android:textSize="11sp"
                     app:layout_constraintBottom_toBottomOf="@+id/image_view_location"
                     app:layout_constraintStart_toEndOf="@+id/image_view_location"

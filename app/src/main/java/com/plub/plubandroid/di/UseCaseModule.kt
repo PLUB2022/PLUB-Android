@@ -1,13 +1,7 @@
 package com.plub.plubandroid.di
 
-import com.plub.domain.repository.HomePostRepository
-import com.plub.domain.repository.KakaoLocationRepository
-import com.plub.domain.repository.LoginRepository
-import com.plub.domain.repository.PlubJwtRepository
 import com.plub.domain.repository.*
 import com.plub.domain.usecase.*
-import com.plub.domain.usecase.TestPostHomeUseCase
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,14 +20,14 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesFetchPlubAccessTokenUseCase(repository: PlubJwtRepository): FetchPlubAccessTokenUseCase {
-        return FetchPlubAccessTokenUseCase(repository)
+    fun providesFetchPlubAccessTokenUseCase(repository: PlubJwtRepository): GetPlubAccessTokenUseCase {
+        return GetPlubAccessTokenUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesFetchPlubRefreshTokenUseCase(repository: PlubJwtRepository): FetchPlubRefreshTokenUseCase {
-        return FetchPlubRefreshTokenUseCase(repository)
+    fun providesFetchPlubRefreshTokenUseCase(repository: PlubJwtRepository): GetPlubRefreshTokenUseCase {
+        return GetPlubRefreshTokenUseCase(repository)
     }
 
     @Singleton
@@ -62,6 +56,12 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun providesGetSubHobbiesUseCase(repository: HobbyRepository): GetSubHobbiesUseCase {
+        return GetSubHobbiesUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun providesPostSignUpUseCase(repository: SignUpRepository): PostSignUpUseCase {
         return PostSignUpUseCase(repository)
     }
@@ -70,6 +70,12 @@ object UseCaseModule {
     @Provides
     fun providesUploadFileUseCase(repository: MediaRepository): PostUploadFileUseCase {
         return PostUploadFileUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesChangeFileUseCase(repository: MediaRepository): PostChangeFileUseCase {
+        return PostChangeFileUseCase(repository)
     }
 
     @Singleton
@@ -86,12 +92,6 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesTestPostHomeUseCase(repository: HomePostRepository): TestPostHomeUseCase {
-        return TestPostHomeUseCase(repository)
-    }
-
-    @Singleton
-    @Provides
     fun providesFetchKakaoLocationByKeywordUseCase(repository: KakaoLocationRepository) : FetchKakaoLocationByKeywordUseCase {
         return FetchKakaoLocationByKeywordUseCase(repository)
     }
@@ -100,6 +100,18 @@ object UseCaseModule {
     @Provides
     fun providesPostCreateGatheringUseCase(repository: GatheringRepository): PostCreateGatheringUseCase {
         return PostCreateGatheringUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutModifyRecruitUseCase(repository: GatheringRepository): PutModifyRecruitUseCase {
+        return PutModifyRecruitUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutModifyQuestionsUseCase(repository: RecruitRepository): PutModifyQuestionsUseCase {
+        return PutModifyQuestionsUseCase(repository)
     }
 
     @Singleton
@@ -142,6 +154,144 @@ object UseCaseModule {
     @Provides
     fun providesGetMyPlubBookmarksUseCase(repository: BookmarkRepository): GetMyPlubBookmarksUseCase {
         return GetMyPlubBookmarksUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFetchPlubingMainUseCase(repository: PlubingMainRepository): FetchPlubingMainUseCase {
+        return FetchPlubingMainUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostAdminLoginUseCase(repository: LoginRepository): PostAdminLoginUseCase {
+        return PostAdminLoginUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFetchPlubingBoardUseCase(repository: PlubingBoardRepository): GetBoardFeedsUseCase {
+        return GetBoardFeedsUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFetchPlubingPinsUseCase(repository: PlubingBoardRepository): GetBoardPinsUseCase {
+        return GetBoardPinsUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutPlubingBoardPinChangeUseCase(repository: PlubingBoardRepository): PutBoardChangePinUseCase {
+        return PutBoardChangePinUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesDeletePlubingBoardUseCase(repository: PlubingBoardRepository): DeleteBoardUseCase {
+        return DeleteBoardUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostPlubingBoardUseCase(repository: PlubingBoardRepository): PostBoardCreateUseCase {
+        return PostBoardCreateUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostCommentUseCase(repository: PlubingBoardRepository): PostBoardCommentCreateUseCase {
+        return PostBoardCommentCreateUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetCommentListUseCase(repository: PlubingBoardRepository): GetBoardCommentsUseCase {
+        return GetBoardCommentsUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetBoardDetailUseCase(repository: PlubingBoardRepository): GetBoardDetailUseCase {
+        return GetBoardDetailUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutEditBoardUseCase(repository: PlubingBoardRepository): PutBoardEditUseCase {
+        return PutBoardEditUseCase(repository)
+    }
+
+
+    @Singleton
+    @Provides
+    fun providesGetCategoriesUseCase(repository: CategoryListRepository): GetCategoriesUseCase  {
+        return GetCategoriesUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetRecommendationGatheringUseCase(repository: RecommendationGatheringRepository): GetRecommendationGatheringUsecase {
+        return GetRecommendationGatheringUsecase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetRecruitDetailUseCase(repository: RecruitRepository): GetRecruitDetailUseCase {
+        return GetRecruitDetailUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostApplyRecruitUseCase(repository: RecruitRepository): PostApplyRecruitUseCase {
+        return PostApplyRecruitUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostApprovalApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): PostApprovalApplicantsRecruitUseCase {
+        return PostApprovalApplicantsRecruitUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetCategoriesGatheringUseCase(repository: RecommendationGatheringRepository): GetCategoriesGatheringUseCase {
+        return GetCategoriesGatheringUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostRegisterHobbiesUseCase(repository: RegisterHobbiesRepository): PostRegisterHobbiesUseCase {
+        return PostRegisterHobbiesUseCase(repository)
+    }
+    @Singleton
+    @Provides
+    fun providesGetRecruitApplicantsUseCase(repository: ApplicantsRepository): GetRecruitApplicantsUseCase {
+        return GetRecruitApplicantsUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetQuestionsUseCase(repository: RecruitRepository): GetRecruitQuestionUseCase {
+        return GetRecruitQuestionUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutEndRecruitUseCase(repository: RecruitRepository): PutEndRecruitUseCase {
+        return PutEndRecruitUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostRefuseApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): PostRefuseApplicantsRecruitUseCase {
+        return PostRefuseApplicantsRecruitUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetMyInterestUseCase(repository: RegisterHobbiesRepository): GetMyInterestUseCase {
+        return GetMyInterestUseCase(repository)
     }
 
     @Singleton

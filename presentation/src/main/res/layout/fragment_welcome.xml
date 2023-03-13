@@ -64,7 +64,7 @@
             android:layout_height="46dp"
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
-            android:onClick="@{() -> vm.onClickPlubStartButton()}"
+            app:onThrottleClick="@{() -> vm.onClickPlubStartButton()}"
             android:text="@string/sign_up_welcome_start_button"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             android:textSize="14dp"

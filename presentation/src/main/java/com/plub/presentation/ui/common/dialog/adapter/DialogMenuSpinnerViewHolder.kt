@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemDialogMenuSpinnerBinding
+import com.plub.presentation.util.onThrottleClick
 
 class DialogMenuSpinnerViewHolder(
     private val binding: IncludeItemDialogMenuSpinnerBinding,
@@ -13,7 +14,7 @@ class DialogMenuSpinnerViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             menuType?.let {
                 listener.onClickMenu(it)
             }

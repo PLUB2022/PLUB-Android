@@ -10,6 +10,7 @@ object SocialLoginRequestMapper: Mapper.RequestMapper<SocialLoginRequest, Social
         return type.run {
             SocialLoginRequest(
                 accessToken = this.accessToken,
+                fcmToken = this.fcmToken,
                 authorizationCode = authCode,
                 socialType = this.socialLoginType.value
             )

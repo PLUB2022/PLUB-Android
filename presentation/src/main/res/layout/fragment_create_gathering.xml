@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/image_descriptor_back_button"
-            android:onClick="@{() -> vm.onBackPressed()}"
+            app:onThrottleClick="@{() -> vm.onBackPressed()}"
             android:paddingHorizontal="16dp"
             android:paddingVertical="18dp"
             android:src="@drawable/ic_back"
@@ -34,7 +34,7 @@
         <com.plub.presentation.ui.common.custom.OvalDotsIndicator
             android:id="@+id/oval_dots_indicator"
             createGatheringCurrentPage="@{vm.uiState.currentPage}"
-            android:layout_width="140dp"
+            android:layout_width="136dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="18dp"

@@ -1,11 +1,12 @@
 package com.plub.presentation.ui.main.home.bookmark
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentBookmarkBinding
-import com.plub.presentation.ui.main.home.adapter.PlubCardAdapter
+import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -27,7 +28,7 @@ class BookmarkFragment :
                 viewModel.onClickBookmark(id)
             }
 
-            override fun onClickPlubCard(id: Int) {
+            override fun onClickPlubCard(id: Int, isHost : Boolean) {
 
             }
         })
@@ -76,6 +77,7 @@ class BookmarkFragment :
     private fun inspectEventFlow(event: BookmarksEvent) {
         when(event) {
             is BookmarksEvent.ScrollToTop -> scrollToTop()
+            is BookmarksEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 

@@ -10,21 +10,26 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
+import com.kakao.sdk.user.UserApiClient
 import com.plub.domain.error.LoginError
 import com.plub.domain.model.enums.SocialLoginType
 import com.plub.domain.model.enums.TermsType
 import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
 import com.plub.domain.model.vo.login.SocialLoginRequestVo
 import com.plub.domain.model.vo.login.SocialLoginResponseVo
+import com.plub.domain.usecase.FetchMyInfoUseCase
+import com.plub.domain.usecase.PostAdminLoginUseCase
 import com.plub.domain.usecase.PostSocialLoginUseCase
 import com.plub.domain.usecase.SavePlubAccessTokenAndRefreshTokenUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.DataStoreUtil
 import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.util.PlubUser
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -33,14 +38,24 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
+    val postAdminLoginUseCase: PostAdminLoginUseCase,
     val postSocialLoginUseCase: PostSocialLoginUseCase,
     val savePlubAccessTokenAndRefreshTokenUseCase: SavePlubAccessTokenAndRefreshTokenUseCase,
     val dataStoreUtil: DataStoreUtil,
+    val fetchMyInfoUseCase: FetchMyInfoUseCase
 ) : BaseViewModel<LoginPageState>(LoginPageState()) {
 
     init {
         updateUiState { uiState ->
             uiState.copy(termsText = getTermsString())
+        }
+    }
+
+    fun onAdminLogin() {
+        viewModelScope.launch {
+            postAdminLoginUseCase(Unit).collect {
+                inspectUiState(it, ::handleLoginSuccess)
+            }
         }
     }
 
@@ -91,10 +106,13 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun socialLogin(request: SocialLoginRequestVo) {
-        viewModelScope.launch {
-            postSocialLoginUseCase(request).collect { state ->
-                inspectUiState(state, ::handleLoginSuccess) { data, individual ->
-                    handleLoginError(data, individual as LoginError)
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+            val requestWithFcmToken = request.copy(fcmToken = token)
+            viewModelScope.launch {
+                postSocialLoginUseCase(requestWithFcmToken).collect { state ->
+                    inspectUiState(state, ::handleLoginSuccess) { data, individual ->
+                        handleLoginError(data, individual as LoginError)
+                    }
                 }
             }
         }
@@ -104,7 +122,9 @@ class LoginViewModel @Inject constructor(
         val savePlubJwtRequestVo =
             SavePlubJwtRequestVo(loginResponseVo.accessToken, loginResponseVo.refreshToken)
         savePlubToken(savePlubJwtRequestVo) {
-            goToMain()
+            fetchMyInfo {
+                goToMain()
+            }
         }
     }
 
@@ -112,6 +132,17 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             savePlubAccessTokenAndRefreshTokenUseCase(saveRequestVo).collect {
                 if (it) saveCallback.invoke()
+            }
+        }
+    }
+
+    private fun fetchMyInfo(onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            fetchMyInfoUseCase(Unit).collect { state ->
+                inspectUiState(state, succeedCallback = { info ->
+                    PlubUser.updateInfo(info)
+                    onSuccess()
+                })
             }
         }
     }

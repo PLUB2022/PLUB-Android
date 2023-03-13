@@ -58,8 +58,6 @@ dependencies {
     implementation(Google.TINK)
     implementation(platform(Google.FIREBASE_BOM))
 
-    testImplementation(UnitTest.JUNIT)
-
     implementation(Libraries.RETROFIT)
     implementation(Libraries.RETROFIT_CONVERTER_GSON)
     implementation(Libraries.OKHTTP)
@@ -73,4 +71,5 @@ dependencies {
 
     androidTestImplementation(AndroidTest.ANDROID_JUNIT)
     androidTestImplementation(AndroidTest.ESPRESSO_CORE)
+    androidTestImplementation(AndroidTest.ANDROID_JUNIT_EXT)
 }

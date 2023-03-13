@@ -18,10 +18,6 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providesHomePostRepository(homePostReposImpl: HomePostReposImpl): HomePostRepository
-
-    @Singleton
-    @Binds
     abstract fun providesKakaoLocationRepository(repositoryImpl: KakaoLocationRepositoryImpl): KakaoLocationRepository
 
     @Singleton
@@ -51,6 +47,38 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesBookmarkRepository(repositoryImpl: BookmarkRepositoryImpl): BookmarkRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesPlubingMainRepository(repositoryImpl: PlubingMainRepositoryImpl): PlubingMainRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesPlubingBoardRepository(repositoryImpl: PlubingBoardRepositoryImpl): PlubingBoardRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesRecruitDetailRepository(recruitDetailResposImpl: RecruitDetailRepositoryImpl): RecruitRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesCategoryListRepository(categoryListResposImpl: CategoryListRepositoryImpl): CategoryListRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesRecommendationGatheringRepository(recommendationGatheringResposImpl: RecommendationGatheringRepositoryImpl): RecommendationGatheringRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesReplyApplicantsRepository(repositoryImpl: ReplyApplicantsRecruitRepositoryImpl): ReplyApplicantsRecruitRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesRegisterHobbiesRepository(repositoryImpl: RegisterHobbiesRepositoryImpl): RegisterHobbiesRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesApplicantsRepository(repositoryImpl: ApplicantsRepositoryImpl): ApplicantsRepository
 
     @Singleton
     @Binds

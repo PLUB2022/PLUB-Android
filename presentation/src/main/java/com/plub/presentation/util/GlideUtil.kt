@@ -38,6 +38,10 @@ object GlideUtil {
         loadScaleTypeCenterCrop(context, file, view, radiusDp)
     }
 
+    fun loadRadiusImageScaleTypeCenterCrop(context: Context, imageUrl: String, view: ImageView, radiusDp: Int) {
+        loadScaleTypeCenterCrop(context, imageUrl, view, radiusDp)
+    }
+
     private fun load(
         context: Context,
         url: String,
@@ -77,6 +81,25 @@ object GlideUtil {
         listener: RequestListener<Drawable>? = null
     ) {
         Glide.with(context).load(file)
+            .transform(CenterCrop(), RoundedCorners(radiusDp.px))
+            .listener(listener)
+            .apply {
+                placeHolder?.let {
+                    error(it).placeholder(it)
+                }
+                into(view)
+            }
+    }
+
+    private fun loadScaleTypeCenterCrop(
+        context: Context,
+        imageUrl: String,
+        view: ImageView,
+        radiusDp: Int,
+        placeHolder: Int? = null,
+        listener: RequestListener<Drawable>? = null
+    ) {
+        Glide.with(context).load(imageUrl)
             .transform(CenterCrop(), RoundedCorners(radiusDp.px))
             .listener(listener)
             .apply {

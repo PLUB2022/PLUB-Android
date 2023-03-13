@@ -3,16 +3,12 @@ package com.plub.plubandroid.di
 import com.plub.data.api.KakaoLocationApi
 import com.plub.data.api.LoginApi
 import com.plub.data.api.PlubJwtTokenApi
-import com.plub.domain.repository.LoginRepository
-import com.plub.domain.usecase.PostSocialLoginUseCase
-import dagger.Binds
 import com.plub.data.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -57,6 +53,12 @@ object ApiModule {
 
     @Singleton
     @Provides
+    fun provideMediaRequireAuthApi(@AuthRetrofit retrofit: Retrofit): MediaRequireAuthApi {
+        return retrofit.create(MediaRequireAuthApi::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideGatheringApi(@AuthRetrofit retrofit: Retrofit): GatheringApi {
         return retrofit.create(GatheringApi::class.java)
     }
@@ -77,6 +79,36 @@ object ApiModule {
     @Provides
     fun provideBookmarkApi(@AuthRetrofit retrofit: Retrofit): BookmarkApi {
         return retrofit.create(BookmarkApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideHomeBrowseApi(@AuthRetrofit retrofit: Retrofit): HomeBrowseApi {
+        return retrofit.create(HomeBrowseApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideInterestHobbiesApi(@AuthRetrofit retrofit: Retrofit): InterestHobbiesApi {
+        return retrofit.create(InterestHobbiesApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRecruitApi(@AuthRetrofit retrofit: Retrofit): RecruitApi {
+        return retrofit.create(RecruitApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePlubingMainApi(@AuthRetrofit retrofit: Retrofit): PlubingMainApi {
+        return retrofit.create(PlubingMainApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePlubingBoardApi(@AuthRetrofit retrofit: Retrofit): PlubingBoardApi {
+        return retrofit.create(PlubingBoardApi::class.java)
     }
 
     @Singleton

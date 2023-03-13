@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.home.plubhome.HomeFragmentViewModel" />
+    </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f5f3f6"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_f5f3f6"
+                app:contentInsetStart="0dp"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <ImageView
+                    android:id="@+id/image_view_plub_logo"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="16dp"
+                    android:layout_width="81.93dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_plub_logo"/>
+
+
+                <ImageView
+                    android:id="@+id/image_view_bookmark"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="16dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:onThrottleClick="@{()->vm.goToBookmark()}"
+                    android:layout_marginEnd="15.78dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_bookmark"/>
+
+                <ImageView
+                    android:id="@+id/image_view_search"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="16dp"
+                    android:layout_width="32dp"
+                    app:onThrottleClick="@{()->vm.goToSearch()}"
+                    android:layout_height="32dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_search"/>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_main_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="16dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

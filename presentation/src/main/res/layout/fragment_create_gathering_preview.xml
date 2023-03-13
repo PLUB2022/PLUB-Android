@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:src="@drawable/ic_people"
+                android:src="@drawable/ic_people_363636"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_gathering_goal" />
 
@@ -225,7 +225,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="26dp"
                 android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
-                android:onClick="@{() -> parent_vm.onClickNextButtonInPreViewPage()}"
+                app:onThrottleClick="@{() -> parent_vm.onClickNextButtonInPreViewPage()}"
                 android:stateListAnimator="@null"
                 android:text="@string/word_next"
                 android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
