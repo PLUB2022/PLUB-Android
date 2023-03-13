@@ -59,7 +59,7 @@ class PlubingMainFragment :
             }
 
             includeMainHeader.imageViewArchiveCollapsed.setOnClickListener {
-                findNavController().navigate(PlubingMainFragmentDirections.actionPlubingMainToArchive("조깅삭 아카이브", 1))
+                findNavController().navigate(PlubingMainFragmentDirections.actionPlubingMainToArchive("조깅삭 아카이브", plubingArgs.plubingId))
             }
 
             appBarLayout.addOnOffsetChangedListener { appBarLayout, _ ->
