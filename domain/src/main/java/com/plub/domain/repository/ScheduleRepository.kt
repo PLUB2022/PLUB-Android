@@ -14,4 +14,6 @@ interface ScheduleRepository {
     suspend fun putScheduleAttend(request: PutScheduleAttendRequestVo): Flow<UiState<CalendarAttendVo>>
 
     suspend fun createSchedule(request: CreateScheduleRequestVo): Flow<UiState<Unit>>
+
+    suspend fun editSchedule(request: CreateScheduleRequestVo): Flow<UiState<Unit>>
 }

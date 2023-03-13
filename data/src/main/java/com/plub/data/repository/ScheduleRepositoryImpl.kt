@@ -32,4 +32,9 @@ class ScheduleRepositoryImpl @Inject constructor(private val scheduleApi: Schedu
         val body = CreateScheduleRequestMapper.mapModelToDto(request)
         return apiLaunch(scheduleApi.createSchedule(request.plubbingId, body), UnitResponseMapper)
     }
+
+    override suspend fun editSchedule(request: CreateScheduleRequestVo): Flow<UiState<Unit>> {
+        val body = CreateScheduleRequestMapper.mapModelToDto(request)
+        return apiLaunch(scheduleApi.editSchedule(request.plubbingId, body), UnitResponseMapper)
+    }
 }

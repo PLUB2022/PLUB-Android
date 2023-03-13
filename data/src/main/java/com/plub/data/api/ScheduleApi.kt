@@ -24,4 +24,7 @@ interface ScheduleApi {
 
     @POST(Endpoints.PLUBBING.SCHEDULE.CALENDAR)
     suspend fun createSchedule(@Path("plubbingId") plubbingId: Int, @Body body: CreateScheduleRequest): Response<ApiResponse<DataDto.DTO>>
+
+    @PUT(Endpoints.PLUBBING.SCHEDULE.CALENDAR)
+    suspend fun editSchedule(@Path("plubbingId") plubbingId: Int, @Body body: CreateScheduleRequest): Response<ApiResponse<DataDto.DTO>>
 }
