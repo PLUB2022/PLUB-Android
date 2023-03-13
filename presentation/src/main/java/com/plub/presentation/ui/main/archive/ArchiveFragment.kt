@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
 import com.plub.presentation.base.BaseFragment
@@ -49,9 +50,21 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             recyclerViewArchive.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = archiveAdapter
+
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        val lastVisiblePosition =
+                            (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                        val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
+                        val isDownScroll = dy > 0
+                        viewModel.onScrollChanged(isBottom, isDownScroll)
+                    }
+                })
             }
         }
-        viewModel.fetchArchivePage(archiveFragmentArgs.title, archiveFragmentArgs.plubbingId)
+        viewModel.setTitleAndPlubbingId(archiveFragmentArgs.title, archiveFragmentArgs.plubbingId)
+        viewModel.fetchArchivePage()
     }
 
     override fun initStates() {

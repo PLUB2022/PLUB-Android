@@ -23,17 +23,21 @@ class ArchiveViewModel @Inject constructor(
 )  :BaseViewModel<ArchivePageState>(ArchivePageState()) {
 
     companion object{
-        const val FIRST_PAGE = Int.MAX_VALUE
+        const val FIRST_CURSOR = Int.MAX_VALUE
     }
     private var title : String = ""
-    private var cursorId : Int = FIRST_PAGE
+    private var cursorId : Int = FIRST_CURSOR
+    private var isNetworkCall : Boolean = false
     private var plubbingId : Int = -1
-    private var hasMoreList : Boolean = false
+    private var isLastPage : Boolean = false
 
-    fun fetchArchivePage(name : String, id : Int){
+    fun setTitleAndPlubbingId(name : String , id : Int){
         title = name
         plubbingId = id
-        val request = BrowseAllArchiveRequestVo(id, cursorId)
+    }
+
+    fun fetchArchivePage(){
+        val request = BrowseAllArchiveRequestVo(plubbingId, cursorId)
         viewModelScope.launch {
             getAllArchiveUseCase(request).collect{ state ->
                 inspectUiState(state, ::handleSuccessFetchArchives)
@@ -42,13 +46,35 @@ class ArchiveViewModel @Inject constructor(
     }
 
     private fun handleSuccessFetchArchives(vo : ArchiveCardResponseVo){
+        isNetworkCall = false
+        isLastPage = vo.last
+
         updateUiState { uiState ->
             uiState.copy(
                 title = title,
-                archiveList = vo.content,
-                isLoading = hasMoreList
+                archiveList = getMergeList(vo.content),
             )
         }
+    }
+
+    private fun getMergeList(list : List<ArchiveContentResponseVo>) : List<ArchiveContentResponseVo>{
+        val originList = uiState.value.archiveList
+        return if(originList.isEmpty()) list else originList + list
+    }
+
+    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
+        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onFetchBoardList()
+    }
+
+    fun onFetchBoardList() {
+        isNetworkCall = true
+        cursorUpdate()
+        fetchArchivePage()
+    }
+
+    private fun cursorUpdate() {
+        cursorId = if (uiState.value.archiveList.isEmpty()) FIRST_CURSOR
+        else uiState.value.archiveList.lastOrNull()?.archiveId ?: FIRST_CURSOR
     }
 
     fun seeDetailDialog(id : Int){
