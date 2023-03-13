@@ -10,6 +10,7 @@ import org.threeten.bp.ZoneId
 import java.util.Calendar
 
 data class PlubingAddSchedulePageState(
+    val plubbingId: Int = -1,
     val scheduleTitle: String = "",
     val isAllDay: Boolean = false,
     val startDate: Date = Date(),

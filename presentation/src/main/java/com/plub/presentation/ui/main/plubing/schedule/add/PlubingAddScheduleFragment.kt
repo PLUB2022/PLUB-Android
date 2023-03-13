@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.plub.domain.model.enums.DialogCheckboxType
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
@@ -13,6 +14,7 @@ import com.plub.presentation.databinding.FragmentPlubingAddScheduleBinding
 import com.plub.presentation.ui.common.dialog.SelectCheckboxBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocation
+import com.plub.presentation.ui.main.plubing.schedule.PlubingScheduleFragmentArgs
 import com.plub.presentation.util.onThrottleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -24,13 +26,15 @@ class PlubingAddScheduleFragment : BaseFragment<
     FragmentPlubingAddScheduleBinding::inflate
 ) {
     override val viewModel: PlubingAddScheduleViewModel by viewModels()
-
+    private val args: PlubingScheduleFragmentArgs by navArgs()
 
 
     override fun initView() {
         binding.apply {
             vm = viewModel
         }
+
+        viewModel.updatePlubbingId(args.plubingId)
     }
 
     override fun initStates() {

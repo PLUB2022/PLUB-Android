@@ -2,6 +2,7 @@ package com.plub.presentation.ui.main.plubing.schedule
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.schedule.ScheduleVo
 import com.plub.presentation.base.BaseFragment
@@ -26,6 +27,7 @@ class PlubingScheduleFragment : BaseFragment<
     }
 
     override val viewModel: PlubingScheduleViewModel by viewModels()
+    private val args: PlubingScheduleFragmentArgs by navArgs()
 
     override fun initView() {
         binding.apply {
@@ -41,6 +43,7 @@ class PlubingScheduleFragment : BaseFragment<
             }
         }
 
+        viewModel.updatePlubbingId(args.plubingId)
         viewModel.fetchEntireScheduleUseCase()
     }
 

@@ -28,10 +28,16 @@ class PlubingScheduleViewModel @Inject constructor(
     private val putScheduleAttendUseCase: PutScheduleAttendUseCase
 ) : BaseViewModel<PlubingSchedulePageState>(PlubingSchedulePageState()) {
 
-    //TODO uiState.value.plubbingId 값 초기화 해주는 코드 필요, 현재 1로 하드코딩 되어 있음
+    fun updatePlubbingId(plubbingId: Int) {
+        updateUiState { uiState ->
+            uiState.copy(
+                plubbingId = plubbingId
+            )
+        }
+    }
     fun fetchEntireScheduleUseCase() {
         viewModelScope.launch {
-            getEntireScheduleUseCase(GetEntireScheduleRequestVo(uiState.value.scheduleCursorId, 1)).collect {
+            getEntireScheduleUseCase(GetEntireScheduleRequestVo(uiState.value.scheduleCursorId, uiState.value.plubbingId)).collect {
                 inspectUiState(it, ::handleSuccessGetEntireSchedule)
             }
         }
@@ -126,7 +132,7 @@ class PlubingScheduleViewModel @Inject constructor(
         viewModelScope.launch {
             putScheduleAttendUseCase(
                 PutScheduleAttendRequestVo(
-                    1,
+                    uiState.value.plubbingId,
                     calendarId,
                     AttendStatus.YES.value
                 )
@@ -150,7 +156,7 @@ class PlubingScheduleViewModel @Inject constructor(
         viewModelScope.launch {
             putScheduleAttendUseCase(
                 PutScheduleAttendRequestVo(
-                    1,
+                    uiState.value.plubbingId,
                     calendarId,
                     AttendStatus.NO.value
                 )

@@ -19,6 +19,14 @@ class PlubingAddScheduleViewModel @Inject constructor(
     private val postScheduleUseCase: PostScheduleUseCase
 ) : BaseViewModel<PlubingAddSchedulePageState>(PlubingAddSchedulePageState()) {
 
+    fun updatePlubbingId(plubbingId: Int) {
+        updateUiState { uiState ->
+            uiState.copy(
+                plubbingId = plubbingId
+            )
+        }
+    }
+
     fun updateAlarm(alarm: DialogCheckboxItemType) {
         updateUiState { uiState ->
             uiState.copy(alarm = alarm)
@@ -153,7 +161,7 @@ class PlubingAddScheduleViewModel @Inject constructor(
 
     fun createSchedule() {
         viewModelScope.launch {
-            postScheduleUseCase(getCreateScheduleRequestVo(1)).collect {
+            postScheduleUseCase(getCreateScheduleRequestVo()).collect {
                 inspectUiState(it, succeedCallback = { emitGotoScheduleEvent() })
             }
         }
@@ -161,14 +169,14 @@ class PlubingAddScheduleViewModel @Inject constructor(
 
     private fun emitGotoScheduleEvent() {
         emitEventFlow(
-            PlubingAddScheduleEvent.GoToSchedule(1)
+            PlubingAddScheduleEvent.GoToSchedule(uiState.value.plubbingId)
         )
     }
 
-    private fun getCreateScheduleRequestVo(plubbingId: Int): CreateScheduleRequestVo {
+    private fun getCreateScheduleRequestVo(): CreateScheduleRequestVo {
         return with(uiState.value) {
             CreateScheduleRequestVo(
-                plubbingId = plubbingId,
+                plubbingId = uiState.value.plubbingId,
                 title = scheduleTitle,
                 memo = memo,
                 isAllDay = isAllDay,
