@@ -167,10 +167,10 @@ class SelectMenuBottomSheetDialog : BottomSheetDialogFragment() {
                 DialogMenuItemType.TODO_PLANNER
             )
             DialogMenuType.TODO_PLANNER_CHECKED_PROOFED_TYPE -> listOf(
-                DialogMenuItemType.TODO_PROOF,
                 DialogMenuItemType.TODO_DELETE
             )
             DialogMenuType.TODO_PLANNER_CHECKED_NOT_PROOFED_TYPE -> listOf(
+                DialogMenuItemType.TODO_PROOF,
                 DialogMenuItemType.TODO_DELETE
             )
             DialogMenuType.TODO_PLANNER_UNCHECKED_TYPE -> listOf(
