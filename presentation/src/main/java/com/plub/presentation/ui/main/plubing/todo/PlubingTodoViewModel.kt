@@ -13,7 +13,7 @@ import com.plub.domain.model.vo.todo.TodoRequestVo
 import com.plub.domain.model.vo.todo.TodoTimelineListVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.domain.usecase.PutTodoCompleteUseCase
-import com.plub.domain.usecase.GetTodoListUseCase
+import com.plub.domain.usecase.GetTimelineListUseCase
 import com.plub.domain.usecase.PostTodoProofUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.domain.usecase.PutTodoCancelUseCase
@@ -27,7 +27,7 @@ import kotlin.properties.Delegates
 
 @HiltViewModel
 class PlubingTodoViewModel @Inject constructor(
-    val getTodoListUseCase: GetTodoListUseCase,
+    val getTimelineListUseCase: GetTimelineListUseCase,
     val postTodoProofUseCase: PostTodoProofUseCase,
     val postUploadFileUseCase: PostUploadFileUseCase,
     val putTodoCompleteUseCase: PutTodoCompleteUseCase,
@@ -59,7 +59,7 @@ class PlubingTodoViewModel @Inject constructor(
     }
 
     fun onClickTodoCheck(timelineId: Int, vo: TodoItemVo) {
-//        if(!vo.isAuthor) return
+        if(!vo.isAuthor) return
 
         if (vo.isChecked) cancelTodoCheck(timelineId,vo.todoId)
         else completeTodoCheck(timelineId, vo)
@@ -81,10 +81,10 @@ class PlubingTodoViewModel @Inject constructor(
         }
     }
 
-    fun onClickProofComplete(todoId: Int, proofFile: File) {
+    fun onClickProofComplete(timelineId: Int, todoId: Int, proofFile: File) {
         postUploadImage(proofFile) {
             postTodoProof(todoId, it) {
-
+                updateTodoProofChange(timelineId, todoId)
             }
         }
     }
@@ -92,7 +92,7 @@ class PlubingTodoViewModel @Inject constructor(
     private fun getTodoList() {
         viewModelScope.launch {
             val requestVo = TodoGetTimelineRequestVo(plubbingId = plubingId, cursorId = cursorId)
-            getTodoListUseCase(requestVo).collect {
+            getTimelineListUseCase(requestVo).collect {
                 inspectUiState(it, ::successGetTodoList)
             }
         }
@@ -138,9 +138,9 @@ class PlubingTodoViewModel @Inject constructor(
             ?: FIRST_CURSOR
     }
 
-    private fun showProofDialog(todoItemVo: TodoItemVo) {
+    private fun showProofDialog(timelineId: Int, todoItemVo: TodoItemVo) {
         val vo = ParseTodoItemVo.mapToParse(todoItemVo)
-        emitEventFlow(PlubingTodoEvent.ShowTodoProofDialog(vo))
+        emitEventFlow(PlubingTodoEvent.ShowTodoProofDialog(timelineId, vo))
     }
 
     private fun cancelTodoCheck(timelineId: Int, todoId: Int) {
@@ -152,7 +152,7 @@ class PlubingTodoViewModel @Inject constructor(
     private fun completeTodoCheck(timelineId: Int, vo: TodoItemVo) {
         getTodoComplete(vo.todoId) {
             updateTodoCheckChange(timelineId, vo.todoId)
-            showProofDialog(vo)
+            showProofDialog(timelineId, vo)
         }
     }
 
@@ -160,6 +160,14 @@ class PlubingTodoViewModel @Inject constructor(
         updateUiState { uiState ->
             uiState.copy(
                 todoList = getTodoListCheckChanged(timelineId, todoId)
+            )
+        }
+    }
+
+    private fun updateTodoProofChange(timelineId: Int, todoId: Int) {
+        updateUiState { uiState ->
+            uiState.copy(
+                todoList = getTodoListProofChanged(timelineId, todoId)
             )
         }
     }
@@ -175,6 +183,20 @@ class PlubingTodoViewModel @Inject constructor(
         return list.map {
             val isChecked = if (it.todoId == todoId) !it.isChecked else it.isChecked
             it.copy(isChecked = isChecked)
+        }
+    }
+
+    private fun getTodoListProofChanged(timelineId: Int, todoId: Int): List<TodoTimelineVo> {
+        return uiState.value.todoList.map {
+            val todoItemList = if (it.timelineId == timelineId) getTodoItemListProofChanged(it.todoList, todoId) else it.todoList
+            it.copy(todoList = todoItemList)
+        }
+    }
+
+    private fun getTodoItemListProofChanged(list: List<TodoItemVo>, todoId: Int): List<TodoItemVo> {
+        return list.map {
+            val isProofed = if (it.todoId == todoId) !it.isProof else it.isProof
+            it.copy(isProof = isProofed)
         }
     }
 

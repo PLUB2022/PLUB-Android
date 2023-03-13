@@ -112,6 +112,8 @@ class PlubingMainFragment :
             }
 
             is PlubingMainEvent.GoToPlannerTodo -> {
+                val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingTodoPlanner()
+                findNavController().navigate(action)
             }
         }
     }

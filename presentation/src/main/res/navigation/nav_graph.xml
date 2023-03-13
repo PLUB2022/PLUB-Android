@@ -198,6 +198,10 @@
         <action
             android:id="@+id/action_plubing_main_to_board_pin"
             app:destination="@+id/boardPinFragment" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_plubing_todo_planner"
+            app:destination="@id/todoPlannerFragment" />
     </fragment>
 
     <fragment
@@ -245,6 +249,12 @@
             android:id="@+id/action_board_pin_to_board_detail"
             app:destination="@id/plubingBoardDetailFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/todoPlannerFragment"
+        android:name="com.plub.presentation.ui.main.plubing.todo.planner.TodoPlannerFragment"
+        android:label="fragment_todo_planner"
+        tools:layout="@layout/fragment_todo_planner"/>
 
     <fragment
         android:id="@+id/menu_navigation_gathering"

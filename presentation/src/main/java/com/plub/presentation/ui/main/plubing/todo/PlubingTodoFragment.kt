@@ -95,7 +95,7 @@ class PlubingTodoFragment : BaseFragment<FragmentPlubingTodoBinding, PlubingTodo
     private fun inspectEventFlow(event: PlubingTodoEvent) {
         when (event) {
             is PlubingTodoEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.todoTimelineVo, event.menuType)
-            is PlubingTodoEvent.ShowTodoProofDialog -> showTodoProofDialog(event.parseTodoItemVo)
+            is PlubingTodoEvent.ShowTodoProofDialog -> showTodoProofDialog(event.timelineId, event.parseTodoItemVo)
         }
     }
 
@@ -105,10 +105,10 @@ class PlubingTodoFragment : BaseFragment<FragmentPlubingTodoBinding, PlubingTodo
         }.show(parentFragmentManager, "")
     }
 
-    private fun showTodoProofDialog(parseTodoItemVo: ParseTodoItemVo) {
+    private fun showTodoProofDialog(timelineId: Int, parseTodoItemVo: ParseTodoItemVo) {
         TodoCheckProofDialog.newInstance(parseTodoItemVo, object: TodoCheckProofDialog.Delegate {
             override fun onClickComplete(todoId: Int, proofFile: File) {
-                viewModel.onClickProofComplete(todoId, proofFile)
+                viewModel.onClickProofComplete(timelineId, todoId, proofFile)
             }
 
             override fun onClickLateProof(todoId: Int) {}

@@ -7,5 +7,5 @@ import com.plub.presentation.ui.Event
 
 sealed class PlubingTodoEvent : Event {
     data class ShowMenuBottomSheetDialog(val todoTimelineVo: TodoTimelineVo, val menuType: DialogMenuType) : PlubingTodoEvent()
-    data class ShowTodoProofDialog(val parseTodoItemVo: ParseTodoItemVo) : PlubingTodoEvent()
+    data class ShowTodoProofDialog(val timelineId: Int, val parseTodoItemVo: ParseTodoItemVo) : PlubingTodoEvent()
 }
