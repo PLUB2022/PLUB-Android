@@ -68,7 +68,7 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.BOARD_RELEASE_CLIP  -> R.string.dialog_menu_board_release_clip
             DialogMenuItemType.BOARD_FIX_OR_RELEASE_CLIP  -> R.string.dialog_menu_board_fix_or_release_clip
             DialogMenuItemType.TODO_PROOF  -> R.string.dialog_menu_todo_proof
-            DialogMenuItemType.TODO_MANAGE  -> R.string.dialog_menu_todo_manage
+            DialogMenuItemType.TODO_PLANNER  -> R.string.dialog_menu_todo_manage
             DialogMenuItemType.TODO_REPORT  -> R.string.dialog_menu_todo_report
             DialogMenuItemType.TODO_DELETE  -> R.string.dialog_menu_todo_delete
             DialogMenuItemType.TODO_EDIT  -> R.string.dialog_menu_todo_edit

@@ -111,8 +111,7 @@ class PlubingMainFragment :
                 findNavController().navigate(action)
             }
 
-            is PlubingMainEvent.GoToWriteTodo -> {
-
+            is PlubingMainEvent.GoToPlannerTodo -> {
             }
         }
     }

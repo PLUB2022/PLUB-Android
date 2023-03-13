@@ -75,7 +75,7 @@ class PlubingTodoViewModel @Inject constructor(
 
     fun onClickMenuItemType(item: DialogMenuItemType, todoTimelineVo: TodoTimelineVo) {
         when (item) {
-            DialogMenuItemType.TODO_MANAGE -> goToTodoManage(todoTimelineVo)
+            DialogMenuItemType.TODO_PLANNER -> goToTodoPlanner(todoTimelineVo)
             DialogMenuItemType.TODO_REPORT -> goToTodoReport(todoTimelineVo)
             else -> Unit
         }
@@ -182,7 +182,7 @@ class PlubingTodoViewModel @Inject constructor(
 
     }
 
-    private fun goToTodoManage(todoTimelineVo: TodoTimelineVo) {
+    private fun goToTodoPlanner(todoTimelineVo: TodoTimelineVo) {
 
     }
 
