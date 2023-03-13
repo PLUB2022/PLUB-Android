@@ -247,6 +247,9 @@
     <string name="plubing_board_detail_author">글쓴이</string>
     <string name="plubing_board_detail_editing_comment">댓글 수정 중</string>
 
+    <string name="plubing_todo_planner_title">내 Planner 관리하기</string>
+    <string name="plubing_todo_planner_input_hint">새로운 TO-DO 추가하기</string>
+
     <string name="modify_gathering_title">모임 정보 수정</string>
     <string name="modify_gathering_tab_recruit">모집글</string>
     <string name="modify_gathering_tab_info">모임 정보</string>

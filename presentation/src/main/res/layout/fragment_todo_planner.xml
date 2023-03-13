@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.plubing.todo.planner.TodoPlannerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_faf9fe">
+
+        <ImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_plubing_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@{vm.uiState.plubingName}"
+            android:textColor="@color/color_363636"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_view_back"
+            app:layout_constraintTop_toTopOf="@+id/image_view_back"
+            tools:text="요란한 한 줄" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_back">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/text_view_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/plubing_todo_planner_title"
+                    android:textColor="@color/color_363636"
+                    android:textSize="26dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_layout_calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_rectangle_filled_white_radius_10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_title">
+
+                    <ImageView
+                        android:id="@+id/image_view_previous_month"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="6dp"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="11dp"
+                        android:src="@drawable/ic_arrow_left"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:onThrottleClick="@{() -> vm.onClickPreviousMonth()}" />
+
+                    <TextView
+                        android:id="@+id/text_view_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.uiState.calendarDateText}"
+                        android:textColor="@color/color_8c8c8c"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/image_view_previous_month"
+                        app:layout_constraintStart_toEndOf="@+id/image_view_previous_month"
+                        app:layout_constraintTop_toTopOf="@id/image_view_previous_month"
+                        tools:text="11월" />
+
+                    <ImageView
+                        android:id="@+id/image_view_next_month"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="11dp"
+                        android:src="@drawable/ic_arrow_right"
+                        app:layout_constraintStart_toEndOf="@+id/text_view_date"
+                        app:layout_constraintTop_toTopOf="@id/image_view_previous_month"
+                        app:onThrottleClick="@{() -> vm.onClickNextMonth()}" />
+
+                    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                        android:id="@+id/calendar_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        app:layout_constraintTop_toBottomOf="@+id/image_view_previous_month"
+                        app:mcv_selectionColor="@color/color_5f5ff9"
+                        app:mcv_selectionMode="single" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_layout_todo_manage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@{vm.uiState.isToday() ? @drawable/bg_rectangle_filled_f6f6fe_radius_10_border_5f5ff9 : @drawable/bg_rectangle_filled_white_radius_10}"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/constraint_layout_calendar">
+
+                    <TextView
+                        android:id="@+id/text_view_todo_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.uiState.todoDateText}"
+                        android:textColor="@{vm.uiState.isToday() ? @color/color_5f5ff9 : @color/color_363636}"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="11.07 (오늘)" />
+
+                    <ImageView
+                        android:id="@+id/image_view_empty_box"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="10dp"
+                        android:padding="7dp"
+                        android:src="@drawable/ic_box_empty_e1e1fa"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_todo_date" />
+
+                    <EditText
+                        android:id="@+id/edit_text_todo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/plubing_todo_planner_input_hint"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:textColor="@color/color_363636"
+                        android:textColorHint="@color/color_e1e1fa"
+                        android:textSize="14dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/image_view_empty_box"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/image_view_empty_box"
+                        app:layout_constraintTop_toTopOf="@+id/image_view_empty_box" />
+
+                    <View
+                        android:id="@+id/view_line_todo"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="@color/color_e1e1fa"
+                        app:layout_constraintEnd_toEndOf="@+id/edit_text_todo"
+                        app:layout_constraintStart_toStartOf="@+id/edit_text_todo"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_text_todo" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@id/recycler_view_todo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/image_view_empty_box" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
