@@ -4,11 +4,11 @@ import android.content.Context
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.vo.todo.TodoItemVo
-import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentTodoPlannerBinding
@@ -17,8 +17,9 @@ import com.plub.presentation.ui.common.decoration.CalendarDotDecorator
 import com.plub.presentation.ui.common.decoration.CalendarTodayDecorator
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.todo.TodoCheckProofDialog
-import com.plub.presentation.ui.main.plubing.todo.adapter.PlubingTodoAdapter
 import com.plub.presentation.ui.main.plubing.todo.adapter.TodoItemAdapter
+import com.plub.presentation.util.hideKeyboard
+import com.plub.presentation.util.showKeyboard
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -113,7 +114,12 @@ class TodoPlannerFragment :
             is TodoPlannerEvent.CalendarMonthNext -> binding.calendarView.goToNext()
             is TodoPlannerEvent.CalendarMonthPrevious -> binding.calendarView.goToPrevious()
             is TodoPlannerEvent.ClearTodoEditText -> binding.editTextTodo.setText("")
-            is TodoPlannerEvent.HideKeyboard -> hideKeyboard()
+            is TodoPlannerEvent.HideKeyboard -> binding.editTextTodo.hideKeyboard()
+            is TodoPlannerEvent.ShowKeyboard -> {
+                binding.root.postDelayed({
+                    binding.editTextTodo.showKeyboard()
+                },100)
+            }
             is TodoPlannerEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.menuType, event.todoVo)
             is TodoPlannerEvent.ShowTodoProofDialog -> showTodoProofDialog(event.parseTodoItemVo)
         }
@@ -128,11 +134,6 @@ class TodoPlannerFragment :
         dotDecoration.setDays(days)
         binding.calendarView.removeDecorator(dotDecoration)
         binding.calendarView.addDecorator(dotDecoration)
-    }
-
-    private fun hideKeyboard() {
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.editTextTodo.windowToken, 0)
     }
 
     private fun showMenuBottomSheetDialog(menuType: DialogMenuType, todoItemVo: TodoItemVo) {

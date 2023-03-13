@@ -10,6 +10,7 @@ sealed class TodoPlannerEvent : Event {
     object CalendarMonthNext : TodoPlannerEvent()
     object CalendarMonthPrevious : TodoPlannerEvent()
     object ClearTodoEditText : TodoPlannerEvent()
+    object ShowKeyboard : TodoPlannerEvent()
     object HideKeyboard : TodoPlannerEvent()
     data class SetCalendarCurrentDate(val calendarDay: CalendarDay) : TodoPlannerEvent()
     data class ShowMenuBottomSheetDialog(val menuType: DialogMenuType, val todoVo: TodoItemVo) : TodoPlannerEvent()

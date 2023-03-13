@@ -19,6 +19,8 @@ import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
 import com.plub.presentation.ui.main.plubing.board.detail.adapter.BoardDetailAdapter
 import com.plub.presentation.ui.main.plubing.board.write.BoardWriteFragment
 import com.plub.presentation.util.getNavigationResult
+import com.plub.presentation.util.hideKeyboard
+import com.plub.presentation.util.showKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -117,14 +119,11 @@ class BoardDetailFragment :
     }
 
     private fun hideKeyboard() {
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.editTextComment.windowToken, 0)
+        binding.editTextComment.hideKeyboard()
     }
 
     private fun showKeyboard() {
-        binding.editTextComment.requestFocus()
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(binding.editTextComment, 0)
+        binding.editTextComment.showKeyboard()
     }
 
     private fun scrollToPosition(position:Int) {

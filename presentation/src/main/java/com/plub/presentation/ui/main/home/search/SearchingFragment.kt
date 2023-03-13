@@ -22,6 +22,7 @@ import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
 import com.plub.presentation.ui.main.home.categoryGathering.CategoryGatheringFragmentDirections
 import com.plub.presentation.ui.main.home.search.adapter.RecentSearchAdapter
+import com.plub.presentation.util.hideKeyboard
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -197,8 +198,7 @@ class SearchingFragment : BaseFragment<FragmentSearchingBinding, SearchingPageSt
     }
 
     private fun hideKeyboard() {
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.editTextSearch.windowToken, 0)
+        binding.editTextSearch.hideKeyboard()
     }
 
     private fun goToDetailRecruitment(plubbingId: Int) {
