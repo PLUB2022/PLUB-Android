@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeDialogSuccessRecruitApplyBinding
+import com.plub.presentation.util.onThrottleClick
 
 class RecruitApplySuccessDialogFragment(private val listener : Delegate) : DialogFragment(){
     private val binding: IncludeDialogSuccessRecruitApplyBinding by lazy {
@@ -34,7 +35,7 @@ class RecruitApplySuccessDialogFragment(private val listener : Delegate) : Dialo
 
     private fun initView(){
         binding.apply {
-            imageViewClose.setOnClickListener {
+            imageViewClose.onThrottleClick {
                 listener.closeButtonClick()
                 dismiss()
             }

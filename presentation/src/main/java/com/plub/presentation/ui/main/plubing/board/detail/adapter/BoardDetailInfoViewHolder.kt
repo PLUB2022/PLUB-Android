@@ -7,6 +7,7 @@ import com.plub.domain.model.enums.PlubingFeedType
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.databinding.IncludeItemBoardDetailInfoBinding
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 
 class BoardDetailInfoViewHolder(
     private val binding: IncludeItemBoardDetailInfoBinding,
@@ -16,7 +17,7 @@ class BoardDetailInfoViewHolder(
     private var vo: PlubingBoardVo? = null
 
     init {
-        binding.imageViewMenu.setOnClickListener {
+        binding.imageViewMenu.onThrottleClick {
             vo?.let {
                 listener.onClickBoardMenu(it)
             }

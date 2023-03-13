@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.home.plubhome.viewholder
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.databinding.IncludeItemHomeRecommendFirstBinding
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
+import com.plub.presentation.util.onThrottleClick
 
 class HomeRecommendTitleViewHolder(
     private val binding: IncludeItemHomeRecommendFirstBinding,
@@ -10,7 +11,7 @@ class HomeRecommendTitleViewHolder(
 ): RecyclerView.ViewHolder(binding.root){
 
     init {
-        binding.imageViewSetting.setOnClickListener {
+        binding.imageViewSetting.onThrottleClick {
             listener.onClickSetting()
         }
     }

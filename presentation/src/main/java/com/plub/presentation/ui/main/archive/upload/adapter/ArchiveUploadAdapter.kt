@@ -17,7 +17,7 @@ class ArchiveUploadAdapter(private val listener: ArchiveUploadDelegate) : ListAd
 ) {
 
     interface ArchiveUploadDelegate {
-        fun onClickDelete(position : Int)
+        fun onClickDelete(position : Int, image : String)
         fun addImage()
         fun onChangedText(text : String)
     }

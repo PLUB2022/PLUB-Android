@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_main_to_plubing_main"
             app:destination="@id/plubingMainFragment" />
+        <action
+            android:id="@+id/action_main_to_archive"
+            app:destination="@id/archiveFragment" />
 
         <action
             android:id="@+id/action_main_to_my_page"
@@ -89,7 +92,8 @@
             app:popUpToInclusive="false" />
         <argument
             android:name="categoryId"
-            app:argType="integer" />
+            app:argType="integer"
+            />
         <argument
             android:name="categoryName"
             android:defaultValue=""

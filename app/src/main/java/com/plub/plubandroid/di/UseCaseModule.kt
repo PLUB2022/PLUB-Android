@@ -92,7 +92,7 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesFetchKakaoLocationByKeywordUseCase(repository: KakaoLocationRepository) : FetchKakaoLocationByKeywordUseCase {
+    fun providesFetchKakaoLocationByKeywordUseCase(repository: KakaoLocationRepository): FetchKakaoLocationByKeywordUseCase {
         return FetchKakaoLocationByKeywordUseCase(repository)
     }
 
@@ -164,6 +164,12 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun providesPostCreateArchiveUseCase(repository: ArchiveRepository): PostCreateArchiveUseCase {
+        return PostCreateArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun providesPostAdminLoginUseCase(repository: LoginRepository): PostAdminLoginUseCase {
         return PostAdminLoginUseCase(repository)
     }
@@ -225,7 +231,7 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesGetCategoriesUseCase(repository: CategoryListRepository): GetCategoriesUseCase  {
+    fun providesGetCategoriesUseCase(repository: CategoryListRepository): GetCategoriesUseCase {
         return GetCategoriesUseCase(repository)
     }
 
@@ -264,6 +270,7 @@ object UseCaseModule {
     fun providesPostRegisterHobbiesUseCase(repository: RegisterHobbiesRepository): PostRegisterHobbiesUseCase {
         return PostRegisterHobbiesUseCase(repository)
     }
+
     @Singleton
     @Provides
     fun providesGetRecruitApplicantsUseCase(repository: ApplicantsRepository): GetRecruitApplicantsUseCase {
@@ -326,8 +333,42 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesDeleteArchiveUseCase(repository: ArchiveRepository): DeleteArchiveUseCase {
-        return DeleteArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostCreateArchiveUseCase(repository: ArchiveRepository): PostCreateArchiveUseCase {
+        return PostCreateArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetAllArchiveUseCase(repository: ArchiveRepository): GetAllArchiveUseCase {
+        return GetAllArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetDetailArchiveUseCase(repository: ArchiveRepository): GetDetailArchiveUseCase {
+        return GetDetailArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutEditArchiveUseCase(repository: ArchiveRepository): PutEditArchiveUseCase {
+        return PutEditArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+        fun providesDeleteArchiveUseCase(repository: ArchiveRepository): DeleteArchiveUseCase {
+            return DeleteArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesDeleteFileUseCase(repository: MediaRepository): DeleteFileUseCase {
+        return DeleteFileUseCase(repository)
     }
 
     @Singleton
@@ -340,5 +381,5 @@ object UseCaseModule {
     @Provides
     fun providesGetMyPostUseCase(repository: MyPageRepository): GetMyPostUseCase {
         return GetMyPostUseCase(repository)
+        }
     }
-}

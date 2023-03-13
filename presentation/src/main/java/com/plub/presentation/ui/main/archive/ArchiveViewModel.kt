@@ -39,7 +39,8 @@ class ArchiveViewModel @Inject constructor(
     fun fetchArchivePage(){
         val request = BrowseAllArchiveRequestVo(plubbingId, cursorId)
         viewModelScope.launch {
-            getAllArchiveUseCase(request).collect{ state ->
+            cursorId = FIRST_CURSOR
+            if(!isLastPage) getAllArchiveUseCase(request).collect{ state ->
                 inspectUiState(state, ::handleSuccessFetchArchives)
             }
         }
@@ -59,14 +60,14 @@ class ArchiveViewModel @Inject constructor(
 
     private fun getMergeList(list : List<ArchiveContentResponseVo>) : List<ArchiveContentResponseVo>{
         val originList = uiState.value.archiveList
-        return if(originList.isEmpty()) list else originList + list
+        return if(originList.isEmpty() || cursorId == FIRST_CURSOR) list else originList + list
     }
 
     fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onFetchBoardList()
+        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onFetchArchiveList()
     }
 
-    fun onFetchBoardList() {
+    fun onFetchArchiveList() {
         isNetworkCall = true
         cursorUpdate()
         fetchArchivePage()

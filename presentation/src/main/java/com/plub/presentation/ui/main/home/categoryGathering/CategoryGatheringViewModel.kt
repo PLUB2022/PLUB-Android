@@ -119,7 +119,6 @@ class CategoryGatheringViewModel @Inject constructor(
                 isEmptyViewVisible = mergedList.isEmpty()
             )
         }
-        pageNumber++
     }
 
     private fun mapToCardType(list: List<PlubCardVo>): List<PlubCardVo> {
@@ -234,6 +233,7 @@ class CategoryGatheringViewModel @Inject constructor(
 
     fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
         if (!isNetworkCall && isBottom && isDownScroll && hasMoreCards) {
+            pageNumber++
             fetchRecommendationGatheringData()
         }
     }

@@ -4,14 +4,13 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.ArchiveItemViewType
 import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.archive.*
+import com.plub.domain.model.vo.media.DeleteFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
-import com.plub.domain.usecase.GetDetailArchiveUseCase
-import com.plub.domain.usecase.PostCreateArchiveUseCase
-import com.plub.domain.usecase.PostUploadFileUseCase
-import com.plub.domain.usecase.PutEditArchiveUseCase
+import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -21,6 +20,7 @@ class ArchiveUploadViewModel @Inject constructor(
     private val postUploadFileUseCase: PostUploadFileUseCase,
     private val getDetailArchiveUseCase: GetDetailArchiveUseCase,
     private val postCreateArchiveUseCase: PostCreateArchiveUseCase,
+    private val deleteFileUseCase: DeleteFileUseCase,
     private val putEditArchiveUseCase: PutEditArchiveUseCase
 ) : BaseViewModel<ArchiveUploadPageState>(ArchiveUploadPageState()) {
 
@@ -109,7 +109,16 @@ class ArchiveUploadViewModel @Inject constructor(
         return list
     }
 
-    fun deleteList(position : Int){
+    fun deleteList(position : Int, image : String){
+        val request = DeleteFileRequestVo(UploadFileType.ARCHIVE, image)
+        viewModelScope.launch {
+            deleteFileUseCase(request).collect{ state ->
+                inspectUiState(state, { onDeleteSuccess(position) })
+            }
+        }
+    }
+
+    private fun onDeleteSuccess(position : Int){
         val originList = uiState.value.archiveUploadVoList
         val mergeList = mutableListOf<ArchiveUploadVo>()
         mergeList.addAll(originList)

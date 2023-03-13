@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.plub.presentation.R
 import com.plub.presentation.databinding.CustomViewFixedTextWidthCheckBoxBinding
+import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 
 class FixedTextWidthCheckBox @JvmOverloads constructor(
@@ -60,7 +61,7 @@ class FixedTextWidthCheckBox @JvmOverloads constructor(
                 paddingVertical.px,
                 paddingHorizontal.px,
                 paddingVertical.px)
-            setOnClickListener {
+            onThrottleClick {
                 isChecked = !isChecked
                 checkBoxClickEvent?.let {
                     it()

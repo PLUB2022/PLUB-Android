@@ -41,8 +41,8 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
 
     private val archiveUploadAdapter : ArchiveUploadAdapter by lazy {
         ArchiveUploadAdapter(object : ArchiveUploadAdapter.ArchiveUploadDelegate{
-            override fun onClickDelete(position: Int) {
-                viewModel.deleteList(position)
+            override fun onClickDelete(position: Int, image : String) {
+                viewModel.deleteList(position, image)
             }
 
             override fun addImage() {
