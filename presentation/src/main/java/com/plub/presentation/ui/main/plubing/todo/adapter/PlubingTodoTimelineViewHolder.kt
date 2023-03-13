@@ -22,6 +22,8 @@ class PlubingTodoTimelineViewHolder(
                     listener.onClickTodoChecked(it.timelineId, todoItemVo)
                 }
             }
+
+            override fun onClickTodoMenu(todoItemVo: TodoItemVo) {}
         })
 
     init {

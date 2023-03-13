@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage,ContentDescription">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+
+        <ImageView
+            android:id="@+id/image_view_check"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="7dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_uncheck_box_e1e1fa" />
+
+        <TextView
+            android:id="@+id/text_view_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:textColor="@color/color_363636"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_check"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_menu"
+            app:layout_constraintStart_toEndOf="@+id/image_view_check"
+            app:layout_constraintTop_toTopOf="@+id/image_view_check" />
+
+        <ImageView
+            android:id="@+id/image_view_menu"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_menu_horizontal_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/color_e1e1fa"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/text_view_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.TodoItemViewType
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.presentation.databinding.IncludeItemTodoBinding
+import com.plub.presentation.databinding.IncludeItemTodoPlannerBinding
 
 class TodoItemAdapter(
     private val listener: Delegate,
@@ -15,22 +16,27 @@ class TodoItemAdapter(
 
     interface Delegate {
         fun onClickTodoCheck(todoItemVo: TodoItemVo)
+        fun onClickTodoMenu(todoItemVo: TodoItemVo)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is PlubingTodoItemViewHolder -> holder.bind(currentList[position])
+            is TodoItemViewHolder -> holder.bind(currentList[position])
+            is TodoItemPlannerViewHolder -> holder.bind(currentList[position])
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (TodoItemViewType.indexOf(viewType)) {
             TodoItemViewType.PLUBING,
-            TodoItemViewType.MANAGING,
             TodoItemViewType.DETAIL,
             TodoItemViewType.PROFILE -> {
                 val binding = IncludeItemTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                PlubingTodoItemViewHolder(binding, listener)
+                TodoItemViewHolder(binding, listener)
+            }
+            TodoItemViewType.PLANNER -> {
+                val binding = IncludeItemTodoPlannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                TodoItemPlannerViewHolder(binding, listener)
             }
         }
     }
