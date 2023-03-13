@@ -10,10 +10,7 @@ import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
 import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter
-import com.plub.presentation.ui.main.archive.bottomsheet.author.ArchiveAuthorBottomSheetFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.dots.ArchiveDotsMenuBottomSheetFragment
-import com.plub.presentation.ui.main.archive.bottomsheet.host.ArchiveHostBottomSheetFragment
-import com.plub.presentation.ui.main.archive.bottomsheet.normal.ArchiveNormalBottomSheetFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetFragment
 import com.plub.presentation.ui.main.archive.dialog.ArchiveDetailDialogFragment
 import com.plub.presentation.util.PermissionManager
@@ -105,15 +102,6 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             is ArchiveEvent.GoToArchiveUpload -> {
                 goToArchiveUpload(event.fileUri, event.title)
             }
-            is ArchiveEvent.SeeAuthorBottomSheet -> {
-                showBottomSheetAuthor(event.archiveId)
-            }
-            is ArchiveEvent.SeeHostBottomSheet -> {
-                showBottomSheetHost(event.archiveId)
-            }
-            is ArchiveEvent.SeeNormalBottomSheet -> {
-                showBottomSheetNormal(event.archiveId)
-            }
             is ArchiveEvent.GoToReport -> {
                 goToReport(event.archiveId)
             }
@@ -140,40 +128,6 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
         }).show(childFragmentManager, "")
     }
 
-    private fun showBottomSheetAuthor(archiveId : Int){
-        ArchiveAuthorBottomSheetFragment(archiveFragmentArgs.plubbingId, archiveId, object : ArchiveAuthorBottomSheetFragment.ArchiveAuthorDelegate{
-            override fun onDelete() {
-                viewModel.deleteArchive(archiveId)
-            }
-
-            override fun onClickEdit() {
-                viewModel.goToEdit(archiveId)
-            }
-
-        }).show(childFragmentManager, "")
-    }
-
-    private fun showBottomSheetHost(archiveId : Int){
-        ArchiveHostBottomSheetFragment(archiveFragmentArgs.plubbingId, archiveId, object : ArchiveHostBottomSheetFragment.ArchiveHostDelegate{
-            override fun onDelete() {
-                viewModel.deleteArchive(archiveId)
-            }
-
-            override fun goToReport() {
-                viewModel.goToReport(archiveId)
-            }
-
-        }).show(childFragmentManager, "")
-    }
-
-    private fun showBottomSheetNormal(archiveId : Int){
-        ArchiveNormalBottomSheetFragment(object : ArchiveNormalBottomSheetFragment.ArchiveNormalDelegate{
-            override fun goToReport() {
-                viewModel.goToReport(archiveId)
-            }
-        }).show(childFragmentManager, "")
-    }
-
     private fun showBottomSheetDots(archiveId : Int, accessType: ArchiveAccessType){
         ArchiveDotsMenuBottomSheetFragment(
             archiveFragmentArgs.plubbingId,
@@ -191,8 +145,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 override fun onClickReport() {
                     viewModel.goToReport(archiveId)
                 }
-
-            })
+            }).show(childFragmentManager,"")
     }
 
     private fun goToArchiveUpload(imageUri: String, title : String) {

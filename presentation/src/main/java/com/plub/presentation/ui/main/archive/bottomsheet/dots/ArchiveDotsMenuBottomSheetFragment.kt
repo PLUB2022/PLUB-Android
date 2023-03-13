@@ -22,11 +22,6 @@ class ArchiveDotsMenuBottomSheetFragment(
     private val listener : ArchiveDotsDelegate) : BaseBottomSheetFragment<BottomSheetArchiveDotsMenuBinding, ArchiveDotsMenuBottomSheetState, ArchiveDotsMenuBottomSheetViewModel>(
     BottomSheetArchiveDotsMenuBinding::inflate
 ) {
-
-    companion object{
-        const val VERTICAL_SPACE = 8
-    }
-
     interface ArchiveDotsDelegate{
         fun onDelete()
         fun onClickEdit()
@@ -50,9 +45,7 @@ class ArchiveDotsMenuBottomSheetFragment(
             recyclerViewMenuDots.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = archiveDotsMenuAdapter
-                addItemDecoration(VerticalSpaceDecoration(VERTICAL_SPACE.px))
             }
-
         }
 
         viewModel.setMenu(archiveAccessType)
@@ -61,6 +54,12 @@ class ArchiveDotsMenuBottomSheetFragment(
 
     override fun initStates() {
         repeatOnStarted(viewLifecycleOwner){
+            launch {
+                viewModel.uiState.collect{
+                    archiveDotsMenuAdapter.submitList(it.typeList)
+                }
+            }
+
             launch {
                 viewModel.eventFlow.collect{
                     inspectEventFlow(it as ArchiveDotsMenuBottomSheetEvent)
