@@ -8,4 +8,6 @@ sealed class PlubingAddScheduleEvent : Event {
     data class ShowStartTimePickerEvent(val onClickOk: (hour: Int, minute: Int) -> Unit): PlubingAddScheduleEvent()
     data class ShowEndTimePickerEvent(val onClickOk: (hour: Int, minute: Int) -> Unit): PlubingAddScheduleEvent()
     object ShowBottomSheetSearchLocation: PlubingAddScheduleEvent()
+
+    object ShowBottomSheetDialogSelectAlarm: PlubingAddScheduleEvent()
 }

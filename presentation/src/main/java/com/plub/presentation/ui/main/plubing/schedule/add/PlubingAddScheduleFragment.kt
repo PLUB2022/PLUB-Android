@@ -30,10 +30,6 @@ class PlubingAddScheduleFragment : BaseFragment<
         binding.apply {
             vm = viewModel
         }
-
-        binding.textViewAlarm.onThrottleClick {
-            showBottomSheetDialogSelectAlarm()
-        }
     }
 
     override fun initStates() {
@@ -76,6 +72,10 @@ class PlubingAddScheduleFragment : BaseFragment<
             }
             is PlubingAddScheduleEvent.ShowBottomSheetSearchLocation -> {
                 showBottomSheetLocation()
+            }
+
+            is PlubingAddScheduleEvent.ShowBottomSheetDialogSelectAlarm -> {
+                showBottomSheetDialogSelectAlarm()
             }
         }
     }

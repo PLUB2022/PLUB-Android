@@ -131,6 +131,12 @@ class PlubingAddScheduleViewModel @Inject constructor(
         )
     }
 
+    fun onClickAlarmText() {
+        emitEventFlow(
+            PlubingAddScheduleEvent.ShowBottomSheetDialogSelectAlarm
+        )
+    }
+
     fun updateLocationData(data: KakaoLocationInfoDocumentVo) {
         updateUiState { uiState ->
             uiState.copy(

@@ -97,10 +97,10 @@
                     android:button="@null"
                     android:checked="@{vm.uiState.isAllDay}"
                     android:drawableStart="@drawable/selector_check_18"
-                    app:onThrottleClick="@{() -> vm.onClickIsAllDay()}"
                     android:padding="4dp"
                     app:layout_constraintEnd_toStartOf="@id/text_view_all_day"
-                    app:layout_constraintTop_toBottomOf="@id/view_divider1" />
+                    app:layout_constraintTop_toBottomOf="@id/view_divider1"
+                    app:onThrottleClick="@{() -> vm.onClickIsAllDay()}" />
 
                 <TextView
                     android:id="@+id/text_view_all_day"
@@ -178,13 +178,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="56dp"
                     android:layout_marginEnd="56dp"
-                    app:onThrottleClick="@{() -> vm.onClickLocationText()}"
                     android:paddingVertical="14dp"
                     android:text="@{vm.uiState.location.placeName.blank ? @string/plubing_add_schedule_location : vm.uiState.location.placeName}"
                     android:textColor="@{vm.uiState.location.placeName.blank ? @color/color_c4c4c4 : @color/color_363636}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/include_ic_location_text" />
+                    app:layout_constraintTop_toBottomOf="@id/include_ic_location_text"
+                    app:onThrottleClick="@{() -> vm.onClickLocationText()}" />
 
                 <View
                     android:id="@+id/view_divider3"
@@ -207,6 +207,7 @@
 
                 <TextView
                     android:id="@+id/text_view_alarm"
+                    onThrottleClick="@{() -> vm.onClickAlarmText()}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="56dp"
@@ -247,12 +248,12 @@
                     android:background="@null"
                     android:hint="@string/plubing_add_schedule_memo_hint"
                     android:inputType="textMultiLine"
+                    android:maxLength="30"
                     android:paddingVertical="14dp"
                     android:text="@{vm.uiState.memo}"
                     android:textColorHint="@color/color_c4c4c4"
                     android:textCursorDrawable="@null"
                     android:textSize="14sp"
-                    android:maxLength="30"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/include_ic_memo_text" />
