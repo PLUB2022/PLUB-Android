@@ -197,7 +197,7 @@ class ArchiveUploadViewModel @Inject constructor(
         }
     }
 
-    private fun handleSuccessEditArchive(vo : ArchiveIdResponseVo){
+    private fun handleSuccessEditArchive(vo : ArchiveContentResponseVo){
         emitEventFlow(ArchiveUploadEvent.GoToBack)
     }
 }

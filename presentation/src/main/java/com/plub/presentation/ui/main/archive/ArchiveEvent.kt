@@ -10,9 +10,6 @@ sealed class ArchiveEvent : Event{
     data class GoToEdit(val title : String, val archiveId: Int) : ArchiveEvent()
     data class GoToReport(val archiveId : Int) : ArchiveEvent()
     data class SeeDotsBottomSheet(val archiveId : Int, val archiveAccessType: ArchiveAccessType) : ArchiveEvent()
-    data class SeeAuthorBottomSheet(val archiveId : Int) : ArchiveEvent()
-    data class SeeHostBottomSheet(val archiveId : Int) : ArchiveEvent()
-    data class SeeNormalBottomSheet(val archiveId : Int) : ArchiveEvent()
     data class GoToArchiveUpload(val fileUri : String, val title : String) : ArchiveEvent()
     data class SeeDetailArchiveDialog(val responseVo: ArchiveDetailResponseVo) : ArchiveEvent()
 }

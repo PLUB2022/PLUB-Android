@@ -1,10 +1,7 @@
 package com.plub.data.api
 
 import com.plub.data.base.ApiResponse
-import com.plub.data.dto.archive.ArchiveUpdateRequest
-import com.plub.data.dto.archive.ArchiveUpdateResponse
-import com.plub.data.dto.archive.ArchiveDetailResponse
-import com.plub.data.dto.archive.ArchiveResponse
+import com.plub.data.dto.archive.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -38,11 +35,11 @@ interface ArchiveApi {
         @Path("plubbingId") plubbingId : Int,
         @Path("archiveId") archiveId : Int,
         @Body request: ArchiveUpdateRequest
-    ): Response<ApiResponse<ArchiveUpdateResponse>>
+    ): Response<ApiResponse<ArchiveContentResponse>>
 
     @DELETE(Endpoints.PLUBBING.DELETE_ARCHIVE)
     suspend fun deleteArchive(
         @Path("plubbingId") plubbingId : Int,
         @Path("archiveId") archiveId : Int
-    ): Response<ApiResponse<ArchiveUpdateResponse>>
+    ): Response<ApiResponse<ArchiveContentResponse>>
 }
