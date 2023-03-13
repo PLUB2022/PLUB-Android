@@ -16,11 +16,13 @@ object TimeFormatter {
     private const val ahmLocaleKorean = "a h시 m분"
     private const val ah_colon_mm = "a h:mm"
     private const val HHcolonmm = "HH:mm"
+    private const val HHmm = "HH:mm"
     private const val yyyydotMMdotddE = "yyyy. MM. dd E"
 
     private val ahmLocaleKoreanFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(ahmLocaleKorean)
     private val ah_colon_mmFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(ah_colon_mm)
-    private val HHmmFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(HHcolonmm)
+    private val HHmmFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(HHmm)
+    private val HHcolonmmFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(HHcolonmm)
     private val yyyydotMMdotddEFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(yyyydotMMdotddE)
 
     fun get_ah_colon_mm(time: String): String {
@@ -46,6 +48,10 @@ object TimeFormatter {
 
     fun getHHmm(hour: Int, min: Int): String {
         return HHmmFormatter.format(LocalTime.of(hour, min))
+    }
+
+    fun getHHcolonmm(hour: Int, min: Int): String {
+        return HHcolonmmFormatter.format(LocalTime.of(hour, min))
     }
 
     fun getyyyydotMMdotddE(year: Int, month: Int, day: Int): String {
