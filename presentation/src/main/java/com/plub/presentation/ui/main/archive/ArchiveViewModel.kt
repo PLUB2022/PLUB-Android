@@ -114,17 +114,7 @@ class ArchiveViewModel @Inject constructor(
     }
 
     fun seeBottomSheet(type : ArchiveAccessType, id : Int){
-        when (type) {
-            ArchiveAccessType.AUTHOR -> {
-                emitEventFlow(ArchiveEvent.SeeAuthorBottomSheet(id))
-            }
-            ArchiveAccessType.HOST -> {
-                emitEventFlow(ArchiveEvent.SeeHostBottomSheet(id))
-            }
-            ArchiveAccessType.NORMAL -> {
-                emitEventFlow(ArchiveEvent.SeeNormalBottomSheet(id))
-            }
-        }
+        emitEventFlow(ArchiveEvent.SeeDotsBottomSheet(id, type))
     }
 
     fun deleteArchive(archiveId : Int){

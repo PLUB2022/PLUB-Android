@@ -6,7 +6,7 @@ import com.plub.domain.model.vo.archive.DetailArchiveRequestVo
 import com.plub.domain.usecase.DeleteArchiveUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.PageState
-import com.plub.presentation.ui.main.archive.bottomsheet.ArchiveDotsBottomSheetEvent
+import com.plub.presentation.ui.main.archive.bottomsheet.dots.ArchiveDotsMenuBottomSheetEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,10 +34,10 @@ class ArchiveHostBottomSheetViewModel @Inject constructor(
     }
 
     private fun handleSuccessDelete(vo : ArchiveIdResponseVo){
-        emitEventFlow(ArchiveDotsBottomSheetEvent.DeleteArchive)
+        emitEventFlow(ArchiveDotsMenuBottomSheetEvent.DeleteArchive)
     }
 
     fun goToReport(){
-        emitEventFlow(ArchiveDotsBottomSheetEvent.GoToReport)
+        emitEventFlow(ArchiveDotsMenuBottomSheetEvent.GoToReport)
     }
 }

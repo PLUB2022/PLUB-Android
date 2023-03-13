@@ -11,6 +11,7 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
 import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter
 import com.plub.presentation.ui.main.archive.bottomsheet.author.ArchiveAuthorBottomSheetFragment
+import com.plub.presentation.ui.main.archive.bottomsheet.dots.ArchiveDotsMenuBottomSheetFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.host.ArchiveHostBottomSheetFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.normal.ArchiveNormalBottomSheetFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetFragment
@@ -119,6 +120,9 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             is ArchiveEvent.GoToEdit -> {
                 goToArchiveEdit(event.title, event.archiveId)
             }
+            is ArchiveEvent.SeeDotsBottomSheet -> {
+                showBottomSheetDots(event.archiveId, event.archiveAccessType)
+            }
         }
     }
 
@@ -168,6 +172,27 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 viewModel.goToReport(archiveId)
             }
         }).show(childFragmentManager, "")
+    }
+
+    private fun showBottomSheetDots(archiveId : Int, accessType: ArchiveAccessType){
+        ArchiveDotsMenuBottomSheetFragment(
+            archiveFragmentArgs.plubbingId,
+            archiveId,
+            accessType,
+            object : ArchiveDotsMenuBottomSheetFragment.ArchiveDotsDelegate{
+                override fun onDelete() {
+                    viewModel.deleteArchive(archiveId)
+                }
+
+                override fun onClickEdit() {
+                    viewModel.goToEdit(archiveId)
+                }
+
+                override fun onClickReport() {
+                    viewModel.goToReport(archiveId)
+                }
+
+            })
     }
 
     private fun goToArchiveUpload(imageUri: String, title : String) {

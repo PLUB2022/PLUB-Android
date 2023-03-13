@@ -5,7 +5,7 @@ import androidx.fragment.app.viewModels
 import com.plub.presentation.base.BaseBottomSheetFragment
 import com.plub.presentation.databinding.BottomSheetArchiveAuthorBinding
 import com.plub.presentation.ui.PageState
-import com.plub.presentation.ui.main.archive.bottomsheet.ArchiveDotsBottomSheetEvent
+import com.plub.presentation.ui.main.archive.bottomsheet.dots.ArchiveDotsMenuBottomSheetEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -35,20 +35,20 @@ class ArchiveAuthorBottomSheetFragment(
         repeatOnStarted(viewLifecycleOwner){
             launch {
                 viewModel.eventFlow.collect{
-                    inspectEventFlow(it as ArchiveDotsBottomSheetEvent)
+                    inspectEventFlow(it as ArchiveDotsMenuBottomSheetEvent)
                 }
             }
         }
     }
 
-    private fun inspectEventFlow(event : ArchiveDotsBottomSheetEvent){
+    private fun inspectEventFlow(event : ArchiveDotsMenuBottomSheetEvent){
         when(event){
-            is ArchiveDotsBottomSheetEvent.GoToReport -> {}
-            is ArchiveDotsBottomSheetEvent.DeleteArchive -> {
+            is ArchiveDotsMenuBottomSheetEvent.GoToReport -> {}
+            is ArchiveDotsMenuBottomSheetEvent.DeleteArchive -> {
                 listener.onDelete()
                 dismiss()
             }
-            is ArchiveDotsBottomSheetEvent.EditArchive -> {
+            is ArchiveDotsMenuBottomSheetEvent.EditArchive -> {
                 listener.onClickEdit()
                 dismiss()
             }
