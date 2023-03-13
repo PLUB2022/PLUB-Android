@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.main.archive
 
+import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.vo.archive.ArchiveDetailResponseVo
 import com.plub.presentation.ui.Event
 
@@ -8,6 +9,7 @@ sealed class ArchiveEvent : Event{
     object ClickUploadBottomSheet : ArchiveEvent()
     data class GoToEdit(val title : String, val archiveId: Int) : ArchiveEvent()
     data class GoToReport(val archiveId : Int) : ArchiveEvent()
+    data class SeeDotsBottomSheet(val archiveId : Int, val archiveAccessType: ArchiveAccessType) : ArchiveEvent()
     data class SeeAuthorBottomSheet(val archiveId : Int) : ArchiveEvent()
     data class SeeHostBottomSheet(val archiveId : Int) : ArchiveEvent()
     data class SeeNormalBottomSheet(val archiveId : Int) : ArchiveEvent()

@@ -4,11 +4,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
 import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter
 import com.plub.presentation.ui.main.archive.bottomsheet.author.ArchiveAuthorBottomSheetFragment
+import com.plub.presentation.ui.main.archive.bottomsheet.dots.ArchiveDotsMenuBottomSheetFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.host.ArchiveHostBottomSheetFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.normal.ArchiveNormalBottomSheetFragment
 import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetFragment
@@ -34,7 +37,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 viewModel.seeDetailDialog(archiveId)
             }
 
-            override fun onDotsClick(type: String, archiveId : Int) {
+            override fun onDotsClick(type: ArchiveAccessType, archiveId : Int) {
                 viewModel.seeBottomSheet(type, archiveId)
             }
         })
@@ -48,9 +51,21 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             recyclerViewArchive.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = archiveAdapter
+
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        val lastVisiblePosition =
+                            (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                        val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
+                        val isDownScroll = dy > 0
+                        viewModel.onScrollChanged(isBottom, isDownScroll)
+                    }
+                })
             }
         }
-        viewModel.fetchArchivePage(archiveFragmentArgs.title, archiveFragmentArgs.plubbingId)
+        viewModel.setTitleAndPlubbingId(archiveFragmentArgs.title, archiveFragmentArgs.plubbingId)
+        viewModel.fetchArchivePage()
     }
 
     override fun initStates() {
@@ -105,6 +120,9 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             is ArchiveEvent.GoToEdit -> {
                 goToArchiveEdit(event.title, event.archiveId)
             }
+            is ArchiveEvent.SeeDotsBottomSheet -> {
+                showBottomSheetDots(event.archiveId, event.archiveAccessType)
+            }
         }
     }
 
@@ -154,6 +172,27 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 viewModel.goToReport(archiveId)
             }
         }).show(childFragmentManager, "")
+    }
+
+    private fun showBottomSheetDots(archiveId : Int, accessType: ArchiveAccessType){
+        ArchiveDotsMenuBottomSheetFragment(
+            archiveFragmentArgs.plubbingId,
+            archiveId,
+            accessType,
+            object : ArchiveDotsMenuBottomSheetFragment.ArchiveDotsDelegate{
+                override fun onDelete() {
+                    viewModel.deleteArchive(archiveId)
+                }
+
+                override fun onClickEdit() {
+                    viewModel.goToEdit(archiveId)
+                }
+
+                override fun onClickReport() {
+                    viewModel.goToReport(archiveId)
+                }
+
+            })
     }
 
     private fun goToArchiveUpload(imageUri: String, title : String) {

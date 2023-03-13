@@ -1,11 +1,11 @@
 package com.plub.presentation.ui.main.archive
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.archive.*
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
-import com.plub.domain.usecase.DeleteArchiveUseCase
 import com.plub.domain.usecase.GetAllArchiveUseCase
 import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
@@ -19,25 +19,25 @@ import javax.inject.Inject
 class ArchiveViewModel @Inject constructor(
     val postUploadFileUseCase: PostUploadFileUseCase,
     val getAllArchiveUseCase: GetAllArchiveUseCase,
-    val getDetailArchiveUseCase: GetDetailArchiveUseCase,
-    val deleteArchiveUseCase: DeleteArchiveUseCase
+    val getDetailArchiveUseCase: GetDetailArchiveUseCase
 )  :BaseViewModel<ArchivePageState>(ArchivePageState()) {
 
     companion object{
-        const val AUTHOR = "author"
-        const val HOST = "host"
-        const val NORMAL = "normal"
-        const val FIRST_PAGE = 1
+        const val FIRST_CURSOR = Int.MAX_VALUE
     }
     private var title : String = ""
-    private var page : Int = FIRST_PAGE
+    private var cursorId : Int = FIRST_CURSOR
+    private var isNetworkCall : Boolean = false
     private var plubbingId : Int = -1
-    private var hasMoreList : Boolean = false
+    private var isLastPage : Boolean = false
 
-    fun fetchArchivePage(name : String, id : Int){
+    fun setTitleAndPlubbingId(name : String , id : Int){
         title = name
         plubbingId = id
-        val request = BrowseAllArchiveRequestVo(id, page)
+    }
+
+    fun fetchArchivePage(){
+        val request = BrowseAllArchiveRequestVo(plubbingId, cursorId)
         viewModelScope.launch {
             getAllArchiveUseCase(request).collect{ state ->
                 inspectUiState(state, ::handleSuccessFetchArchives)
@@ -46,15 +46,35 @@ class ArchiveViewModel @Inject constructor(
     }
 
     private fun handleSuccessFetchArchives(vo : ArchiveCardResponseVo){
-        hasMoreList = (page != vo.totalPages)
+        isNetworkCall = false
+        isLastPage = vo.last
+
         updateUiState { uiState ->
             uiState.copy(
                 title = title,
-                archiveList = vo.content,
-                isLoading = hasMoreList
+                archiveList = getMergeList(vo.content),
             )
         }
-        page++
+    }
+
+    private fun getMergeList(list : List<ArchiveContentResponseVo>) : List<ArchiveContentResponseVo>{
+        val originList = uiState.value.archiveList
+        return if(originList.isEmpty()) list else originList + list
+    }
+
+    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
+        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onFetchBoardList()
+    }
+
+    fun onFetchBoardList() {
+        isNetworkCall = true
+        cursorUpdate()
+        fetchArchivePage()
+    }
+
+    private fun cursorUpdate() {
+        cursorId = if (uiState.value.archiveList.isEmpty()) FIRST_CURSOR
+        else uiState.value.archiveList.lastOrNull()?.archiveId ?: FIRST_CURSOR
     }
 
     fun seeDetailDialog(id : Int){
@@ -93,18 +113,8 @@ class ArchiveViewModel @Inject constructor(
         emitEventFlow(ArchiveEvent.GoToArchiveUpload(vo.fileUrl, title))
     }
 
-    fun seeBottomSheet(type : String, id : Int){
-        when (type) {
-            AUTHOR -> {
-                emitEventFlow(ArchiveEvent.SeeAuthorBottomSheet(id))
-            }
-            HOST -> {
-                emitEventFlow(ArchiveEvent.SeeHostBottomSheet(id))
-            }
-            NORMAL -> {
-                emitEventFlow(ArchiveEvent.SeeNormalBottomSheet(id))
-            }
-        }
+    fun seeBottomSheet(type : ArchiveAccessType, id : Int){
+        emitEventFlow(ArchiveEvent.SeeDotsBottomSheet(id, type))
     }
 
     fun deleteArchive(archiveId : Int){

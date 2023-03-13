@@ -2,6 +2,7 @@ package com.plub.data.mapper.archiveMapper
 
 import com.plub.data.base.Mapper
 import com.plub.data.dto.archive.ArchiveContentResponse
+import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
 
 object ArchiveContentResponseMapper : Mapper.ResponseMapper<ArchiveContentResponse, ArchiveContentResponseVo> {
@@ -14,7 +15,7 @@ object ArchiveContentResponseMapper : Mapper.ResponseMapper<ArchiveContentRespon
                 imageCount = imageCount,
                 sequence = sequence,
                 createdAt = createdAt,
-                accessType = accessType
+                accessType = ArchiveAccessType.valuesOf(accessType)
             )
         }?:ArchiveContentResponseVo()
     }

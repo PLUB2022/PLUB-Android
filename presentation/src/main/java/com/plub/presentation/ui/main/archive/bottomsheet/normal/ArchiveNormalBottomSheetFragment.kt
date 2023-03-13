@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import com.plub.presentation.base.BaseBottomSheetFragment
 import com.plub.presentation.databinding.BottomSheetArchiveNormalBinding
 import com.plub.presentation.ui.PageState
-import com.plub.presentation.ui.main.archive.bottomsheet.ArchiveDotsBottomSheetEvent
+import com.plub.presentation.ui.main.archive.bottomsheet.dots.ArchiveDotsMenuBottomSheetEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -28,20 +28,20 @@ class ArchiveNormalBottomSheetFragment(private val listener: ArchiveNormalDelega
         repeatOnStarted(viewLifecycleOwner){
             launch {
                 viewModel.eventFlow.collect{
-                    inspectEventFlow(it as ArchiveDotsBottomSheetEvent)
+                    inspectEventFlow(it as ArchiveDotsMenuBottomSheetEvent)
                 }
             }
         }
     }
 
-    private fun inspectEventFlow(event : ArchiveDotsBottomSheetEvent){
+    private fun inspectEventFlow(event : ArchiveDotsMenuBottomSheetEvent){
         when(event){
-            is ArchiveDotsBottomSheetEvent.GoToReport -> {
+            is ArchiveDotsMenuBottomSheetEvent.GoToReport -> {
                 listener.goToReport()
                 dismiss()
             }
-            ArchiveDotsBottomSheetEvent.DeleteArchive -> {}
-            ArchiveDotsBottomSheetEvent.EditArchive -> {}
+            ArchiveDotsMenuBottomSheetEvent.DeleteArchive -> {}
+            ArchiveDotsMenuBottomSheetEvent.EditArchive -> {}
         }
     }
 }

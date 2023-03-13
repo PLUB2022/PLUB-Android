@@ -24,7 +24,7 @@ interface ArchiveApi {
     @GET(Endpoints.PLUBBING.FETCH_ALL_ARCHIVES)
     suspend fun fetchAllArchives(
         @Path("plubbingId") plubbingId : Int,
-        @Query("page") page : Int
+        @Query("cursorId") cursorId : Int
     ): Response<ApiResponse<ArchiveResponse>>
 
     @GET(Endpoints.PLUBBING.FETCH_DETAIL_ARCHIVE)

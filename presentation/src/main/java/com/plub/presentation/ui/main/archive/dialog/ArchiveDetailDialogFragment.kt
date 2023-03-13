@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.main.archive.dialog
 
+import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +34,7 @@ class ArchiveDetailDialogFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return binding.root
     }
 
@@ -43,6 +46,9 @@ class ArchiveDetailDialogFragment(
 
     private fun initView() {
         binding.apply {
+            imageButtonCancel.setOnClickListener {
+                dismiss()
+            }
             initRecycler()
             archiveViewPagerAdapter.submitList(detailVo.images)
             textViewSequence.text = getString(R.string.archive_dialog_sequence, detailVo.sequence)
