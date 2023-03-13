@@ -10,17 +10,19 @@ class ArchiveUploadImageViewHolder(
     private val listener: ArchiveUploadAdapter.ArchiveUploadDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private var myPosition : Int = 0
+    private var myPosition: Int = 0
+    private var image: String? = null
 
     init {
         binding.imageViewDelete.setOnClickListener {
-            listener.onClickDelete(myPosition)
+            image?.let { listener.onClickDelete(myPosition, it) }
         }
 
     }
 
-    fun bind(item: ArchiveUploadVo, position : Int) {
+    fun bind(item: ArchiveUploadVo, position: Int) {
         myPosition = position
+        image = item.image
         binding.apply {
             GlideUtil.loadImage(root.context, item.image, imageViewArchive)
             imageViewArchive.clipToOutline = true

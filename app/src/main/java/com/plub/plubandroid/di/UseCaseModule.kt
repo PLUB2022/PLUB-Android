@@ -323,4 +323,10 @@ object UseCaseModule {
     fun providesDeleteArchiveUseCase(repository: ArchiveRepository): DeleteArchiveUseCase {
         return DeleteArchiveUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesDeleteFileUseCase(repository: MediaRepository): DeleteFileUseCase {
+        return DeleteFileUseCase(repository)
+    }
 }
