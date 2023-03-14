@@ -31,6 +31,7 @@ class PlubingAddOrEditScheduleFragment : BaseFragment<
         }
 
         viewModel.updatePlubbingId(args.plubingId)
+        viewModel.updatePageState(args.scheduleVo)
     }
 
     override fun initStates() {

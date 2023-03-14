@@ -28,5 +28,13 @@ enum class DialogCheckboxItemType(val value: String = "", val kor: String = "") 
     ALARM_ONE_WEEK(
         value = "ONE_WEEK",
         kor = "1주 전"
-    )
+    );
+
+    companion object {
+        fun typeOf(value: String): DialogCheckboxItemType {
+            return DialogCheckboxItemType.values().find {
+                it.value == value
+            } ?: ALARM_NONE
+        }
+    }
 }

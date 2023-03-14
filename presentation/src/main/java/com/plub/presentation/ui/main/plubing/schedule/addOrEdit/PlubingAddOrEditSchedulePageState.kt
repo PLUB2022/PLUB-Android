@@ -10,6 +10,7 @@ import java.util.Calendar
 
 data class PlubingAddOrEditSchedulePageState(
     val plubbingId: Int = -1,
+    val calendarId: Int = -1,
     val scheduleTitle: String = "",
     val isAllDay: Boolean = false,
     val startDate: Date = Date(),
@@ -18,7 +19,8 @@ data class PlubingAddOrEditSchedulePageState(
     val endTime: Time = Time(),
     val location: KakaoLocationInfoDocumentVo = KakaoLocationInfoDocumentVo(),
     val alarm: DialogCheckboxItemType = DialogCheckboxItemType.ALARM_NONE,
-    val memo: String = ""
+    val memo: String = "",
+    val isEditMode: Boolean = false
 ) : PageState {
     val isNextButtonEnabled = scheduleTitle.isNotEmpty()
     val startTimeInMills: Long
@@ -43,6 +45,7 @@ data class Date(
     val month: Int = Calendar.getInstance().get(Calendar.MONTH) + 1,
     val day: Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
 ) {
+    constructor(list: List<Int>) : this(list[0], list[1], list[2])
     val text = TimeFormatter.getyyyydotMMdotddE(year, month, day)
 }
 
@@ -50,5 +53,6 @@ data class Time(
     val hour: Int = Calendar.getInstance().get(Calendar.HOUR),
     val minute: Int = Calendar.getInstance().get(Calendar.MINUTE)
 ) {
+    constructor(list: List<Int>) : this(list[0], list[1])
     val text = TimeFormatter.getAmPmHourColonMin(hour, minute)
 }

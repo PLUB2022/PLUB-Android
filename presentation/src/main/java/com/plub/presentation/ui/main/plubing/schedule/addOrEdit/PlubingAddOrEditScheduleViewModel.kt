@@ -5,7 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogCheckboxItemType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.domain.model.vo.schedule.CreateScheduleRequestVo
+import com.plub.domain.model.vo.schedule.EditScheduleRequestVo
+import com.plub.domain.model.vo.schedule.ScheduleVo
 import com.plub.domain.usecase.PostScheduleUseCase
+import com.plub.domain.usecase.PutScheduleUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlubingAddOrEditScheduleViewModel @Inject constructor(
-    private val postScheduleUseCase: PostScheduleUseCase
+    private val postScheduleUseCase: PostScheduleUseCase,
+    private val putScheduleUseCase: PutScheduleUseCase
 ) : BaseViewModel<PlubingAddOrEditSchedulePageState>(PlubingAddOrEditSchedulePageState()) {
 
     fun updatePlubbingId(plubbingId: Int) {
@@ -22,6 +26,30 @@ class PlubingAddOrEditScheduleViewModel @Inject constructor(
             uiState.copy(
                 plubbingId = plubbingId
             )
+        }
+    }
+
+    fun updatePageState(scheduleVo: ScheduleVo?) {
+        scheduleVo?.let {
+            updateUiState { uiState ->
+                uiState.copy(
+                    isEditMode = true,
+                    calendarId = it.calendarId,
+                    scheduleTitle = it.title,
+                    isAllDay = it.isAllDay,
+                    startDate = Date(TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(it.startedAt)),
+                    startTime = Time(TimeFormatter.getIntHourIntMin(it.startTime)),
+                    endDate = Date(TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(it.endedAt)),
+                    endTime = Time(TimeFormatter.getIntHourIntMin(it.endTime)),
+                    location = KakaoLocationInfoDocumentVo(
+                        placeName = it.placeName,
+                        addressName = it.address,
+                        roadAddressName = it.roadAddress
+                    ),
+                    alarm = DialogCheckboxItemType.typeOf(it.alarmType),
+                    memo = it.memo
+                )
+            }
         }
     }
 
@@ -157,9 +185,21 @@ class PlubingAddOrEditScheduleViewModel @Inject constructor(
         }
     }
 
-    fun createSchedule() {
+    fun onClickFinishButton() {
+        if(uiState.value.isEditMode) editSchedule() else createSchedule()
+    }
+
+    private fun createSchedule() {
         viewModelScope.launch {
             postScheduleUseCase(getCreateScheduleRequestVo()).collect {
+                inspectUiState(it, succeedCallback = { emitGotoScheduleEvent() })
+            }
+        }
+    }
+
+    private fun editSchedule() {
+        viewModelScope.launch {
+            putScheduleUseCase(getEditScheduleRequestVo()).collect {
                 inspectUiState(it, succeedCallback = { emitGotoScheduleEvent() })
             }
         }
@@ -175,6 +215,26 @@ class PlubingAddOrEditScheduleViewModel @Inject constructor(
         return with(uiState.value) {
             CreateScheduleRequestVo(
                 plubbingId = uiState.value.plubbingId,
+                title = scheduleTitle,
+                memo = memo,
+                isAllDay = isAllDay,
+                startedAt = TimeFormatter.getyyyydashMMdashdd(startDate.year, startDate.month, startDate.day),
+                endedAt = TimeFormatter.getyyyydashMMdashdd(endDate.year, endDate.month, endDate.day),
+                startTime = if(isAllDay) null else TimeFormatter.getHHcolonmm(startTime.hour, startTime.minute),
+                endTime = if(isAllDay) null else TimeFormatter.getHHcolonmm(endTime.hour, endTime.minute),
+                address = location.addressName,
+                roadAddress = location.roadAddressName,
+                placeName = location.placeName,
+                alarmType = alarm.value
+            )
+        }
+    }
+
+    private fun getEditScheduleRequestVo(): EditScheduleRequestVo {
+        return with(uiState.value) {
+            EditScheduleRequestVo(
+                plubbingId = uiState.value.plubbingId,
+                calendarId = uiState.value.calendarId,
                 title = scheduleTitle,
                 memo = memo,
                 isAllDay = isAllDay,

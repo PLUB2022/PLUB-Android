@@ -27,6 +27,18 @@ object TimeFormatter {
     private val yyyydotMMdotddEFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(yyyydotMMdotddE)
     private val yyyydashMMdashddFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(yyyydashMMdashdd)
 
+    fun getIntHourIntMin(HHcolonmm: String): List<Int> {
+        val list = HHcolonmm.split(SPLIT_OF_TIME)
+        val hour = list[INDEX_OF_HOUR].toInt()
+        val min = list[INDEX_OF_MIN].toInt()
+        return listOf(hour, min)
+    }
+
+    fun getIntYearIntMonthIntDay(yyyyDashmmDashddFormat: String): List<Int> {
+        val list = yyyyDashmmDashddFormat.split(SPLIT_OF_DATE).map { it.toIntOrNull() ?: 0 }
+        return list
+    }
+
     fun getyyyydashMMdashdd(year: Int, month: Int, day: Int): String {
         return yyyydashMMdashddFormatter.format(LocalDate.of(year, month, day))
     }

@@ -258,6 +258,7 @@
     <string name="plubing_add_schedule_alarm">알림 없음</string>
     <string name="plubing_add_schedule_memo_hint">메모 내용을 입력해주세요</string>
     <string name="plubing_add_schedule_add_schedule">일정 등록</string>
+    <string name="plubing_add_schedule_edit_schedule">일정 수정</string>
 
     <string name="apply_plubbing_title">함께 하기 위한 질문</string>
     <string name="apply_plubbing_descrip">우리와 함께 하는 것에 대한 질문입니다. 상세하게 적어줄 수록 당신의 취미 레벨을 선정하기 쉬워집니다.</string>
