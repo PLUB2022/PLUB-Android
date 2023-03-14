@@ -73,6 +73,7 @@ object Endpoints {
 
         object MY_PAGE{
             const val BROWSE_MY_GATHERING = "$PLUBBING_URL/all/my"
+            const val BROWSE_MY_APPLICATION = "$PLUBBING_URL/{plubbingId}/recruit/applicants/me"
         }
     }
 }

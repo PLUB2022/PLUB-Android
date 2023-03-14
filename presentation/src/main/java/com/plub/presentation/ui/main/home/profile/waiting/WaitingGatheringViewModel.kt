@@ -1,23 +1,38 @@
 package com.plub.presentation.ui.main.home.profile.waiting
 
+import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.MyPageDetailViewType
 import com.plub.domain.model.vo.home.recruitdetailvo.host.AccountsVo
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.domain.model.vo.home.recruitdetailvo.host.AnswersVo
 import com.plub.domain.model.vo.myPage.MyPageApplicationsVo
+import com.plub.domain.model.vo.plub.PlubingMainVo
+import com.plub.domain.usecase.FetchPlubingMainUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.main.home.profile.recruiting.MyPageApplicantsGatheringState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WaitingGatheringViewModel @Inject constructor() :
+class WaitingGatheringViewModel @Inject constructor(
+    val fetchPlubingMainUseCase: FetchPlubingMainUseCase,
+) :
     BaseViewModel<MyPageApplicantsGatheringState>(
         MyPageApplicantsGatheringState()
     ) {
 
-    fun getPageDetail() {
+    fun getPageDetail(plubbingId : Int) {
+        viewModelScope.launch {
+            fetchPlubingMainUseCase(plubbingId).collect {
+                inspectUiState(it, ::onSuccessPlubingMainInfo)
+            }
+//
+//            getRecruitApplicantsUseCase(plubbingId).collect{
+//                inspectUiState(it, ::handleGetApplicantsSuccess)
+//            }
+        }
         val list = arrayListOf(
             MyPageDetailVo(
                 viewType = MyPageDetailViewType.TOP,
@@ -63,5 +78,32 @@ class WaitingGatheringViewModel @Inject constructor() :
                 detailList = list
             )
         }
+    }
+
+    private fun onSuccessPlubingMainInfo(mainVo: PlubingMainVo) {
+        val topView = MyPageDetailTitleVo(
+            title = mainVo.name,
+            date = mainVo.days,
+            position = mainVo.placeName,
+            time = mainVo.time,
+        )
+
+        updateUiState { uiState ->
+            uiState.copy(
+                detailList = getMergedTopList(topView)
+            )
+        }
+    }
+
+    private fun getMergedTopList(view : MyPageDetailTitleVo) : List<MyPageDetailVo>{
+        return arrayListOf(
+            MyPageDetailVo(
+                viewType = MyPageDetailViewType.TOP,
+                title = view
+            ),
+            MyPageDetailVo(
+                viewType = MyPageDetailViewType.MY_APPLICANTS_TEXT,
+            )
+        )
     }
 }
