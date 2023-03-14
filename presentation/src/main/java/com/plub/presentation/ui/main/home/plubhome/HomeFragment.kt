@@ -68,10 +68,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
             }
         }
         viewModel.fetchHomePageData()
-
-        //TODO REMOVE
-        val action = HomeFragmentDirections.actionPlubingMainToSchedule(67, "123")
-        findNavController().navigate(action)
     }
 
     override fun initStates() {
