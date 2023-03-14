@@ -254,7 +254,13 @@
         android:id="@+id/todoPlannerFragment"
         android:name="com.plub.presentation.ui.main.plubing.todo.planner.TodoPlannerFragment"
         android:label="fragment_todo_planner"
-        tools:layout="@layout/fragment_todo_planner"/>
+        tools:layout="@layout/fragment_todo_planner">
+
+        <argument
+            android:name="todoDate"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/menu_navigation_gathering"

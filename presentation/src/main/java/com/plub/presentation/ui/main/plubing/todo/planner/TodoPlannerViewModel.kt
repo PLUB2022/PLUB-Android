@@ -32,6 +32,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.threeten.bp.format.DateTimeFormatter
 import java.io.File
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.Calendar
 import javax.inject.Inject
 
@@ -52,8 +54,9 @@ class TodoPlannerViewModel @Inject constructor(
     companion object {
         private const val DATE_FORMAT_CALENDAR_OTHER_YEAR = "YYYY년 MM월"
         private const val DATE_FORMAT_CALENDAR_THIS_YEAR = "MM월"
-        private const val DATE_FORMAT_REQUEST_DATE = "YYYY-MM-dd"
+        private const val DATE_FORMAT_SERVER_FORM_DATE = "YYYY-MM-dd"
         private const val DATE_FORMAT_TODO_DATE = "MM.dd"
+        private const val SPLIT_DATE = "-"
     }
 
     private var plubingId = PlubingInfo.info.plubingId
@@ -80,16 +83,19 @@ class TodoPlannerViewModel @Inject constructor(
         todoTextStateFlow.asStateFlow()
     )
 
-    fun initDate() {
-        val date = CalendarDay.today()
-        onChangeCalendarMonth(date)
-        onSelectedCalendarDay(date)
-        emitEventFlow(TodoPlannerEvent.SetCalendarCurrentDate(date))
+    fun initDate(date:String) {
+        val todoDate = if(date.isEmpty()) CalendarDay.today() else {
+            val dateList = date.split(SPLIT_DATE)
+            CalendarDay.from(dateList[0].toInt(), dateList[1].toInt(), dateList[2].toInt())
+        }
+        onChangeCalendarMonth(todoDate)
+        onSelectedCalendarDay(todoDate)
+        emitEventFlow(TodoPlannerEvent.SetCalendarCurrentDate(todoDate))
     }
 
     fun onSelectedCalendarDay(date: CalendarDay) {
         clear()
-        currentDate = DateTimeFormatter.ofPattern(DATE_FORMAT_REQUEST_DATE).format(date.date).also {
+        currentDate = DateTimeFormatter.ofPattern(DATE_FORMAT_SERVER_FORM_DATE).format(date.date).also {
             getMyTodoListInDay(it)
         }
 

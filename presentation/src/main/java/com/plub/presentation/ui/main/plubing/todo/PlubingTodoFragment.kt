@@ -2,6 +2,7 @@ package com.plub.presentation.ui.main.plubing.todo
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
@@ -12,6 +13,7 @@ import com.plub.presentation.databinding.FragmentPlubingTodoBinding
 import com.plub.presentation.parcelableVo.ParseTodoItemVo
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.todo.TodoCheckProofDialog
+import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
 import com.plub.presentation.ui.main.plubing.todo.adapter.PlubingTodoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -100,6 +102,7 @@ class PlubingTodoFragment : BaseFragment<FragmentPlubingTodoBinding, PlubingTodo
         when (event) {
             is PlubingTodoEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.todoTimelineVo, event.menuType)
             is PlubingTodoEvent.ShowTodoProofDialog -> showTodoProofDialog(event.timelineId, event.parseTodoItemVo)
+            is PlubingTodoEvent.GoToPlannerTodo -> goToPlanner(event.date)
         }
     }
 
@@ -117,5 +120,10 @@ class PlubingTodoFragment : BaseFragment<FragmentPlubingTodoBinding, PlubingTodo
 
             override fun onClickLateProof(todoId: Int) {}
         }).show(parentFragmentManager, "")
+    }
+
+    private fun goToPlanner(date:String) {
+        val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingTodoPlanner(date)
+        findNavController().navigate(action)
     }
 }

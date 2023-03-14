@@ -20,6 +20,7 @@ import com.plub.domain.usecase.PutTodoCancelUseCase
 import com.plub.domain.usecase.PutTodoLikeToggleUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.parcelableVo.ParseTodoItemVo
+import com.plub.presentation.ui.main.plubing.PlubingMainEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -85,7 +86,7 @@ class PlubingTodoViewModel @Inject constructor(
 
     fun onClickMenuItemType(item: DialogMenuItemType, todoTimelineVo: TodoTimelineVo) {
         when (item) {
-            DialogMenuItemType.TODO_PLANNER -> goToTodoPlanner(todoTimelineVo)
+            DialogMenuItemType.TODO_PLANNER -> goToTodoPlanner(todoTimelineVo.date)
             DialogMenuItemType.TODO_REPORT -> goToTodoReport(todoTimelineVo)
             else -> Unit
         }
@@ -221,8 +222,8 @@ class PlubingTodoViewModel @Inject constructor(
 
     }
 
-    private fun goToTodoPlanner(todoTimelineVo: TodoTimelineVo) {
-
+    private fun goToTodoPlanner(date:String) {
+        emitEventFlow(PlubingTodoEvent.GoToPlannerTodo(date))
     }
 
     private fun postUploadImage(imageFile: File, onSuccess: (String) -> Unit) {

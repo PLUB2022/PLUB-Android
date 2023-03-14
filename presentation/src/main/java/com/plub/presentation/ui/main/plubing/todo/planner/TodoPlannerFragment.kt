@@ -6,6 +6,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.vo.todo.TodoItemVo
@@ -17,6 +18,7 @@ import com.plub.presentation.ui.common.decoration.CalendarDotDecorator
 import com.plub.presentation.ui.common.decoration.CalendarTodayDecorator
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.todo.TodoCheckProofDialog
+import com.plub.presentation.ui.main.plubing.board.detail.BoardDetailFragmentArgs
 import com.plub.presentation.ui.main.plubing.todo.adapter.TodoItemAdapter
 import com.plub.presentation.util.hideKeyboard
 import com.plub.presentation.util.showKeyboard
@@ -31,6 +33,8 @@ class TodoPlannerFragment :
     BaseTestFragment<FragmentTodoPlannerBinding, TodoPlannerPageState, TodoPlannerViewModel>(
         FragmentTodoPlannerBinding::inflate
     ) {
+
+    private val todoPlannerArgs: TodoPlannerFragmentArgs by navArgs()
 
     private val todoListAdapter: TodoItemAdapter by lazy {
         TodoItemAdapter(object : TodoItemAdapter.Delegate {
@@ -80,7 +84,7 @@ class TodoPlannerFragment :
             }
         }
 
-        viewModel.initDate()
+        viewModel.initDate(todoPlannerArgs.todoDate)
         viewModel.onUpdatePlubName()
     }
 
