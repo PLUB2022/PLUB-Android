@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.home.search.adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.search.RecentSearchVo
 import com.plub.presentation.databinding.IncludeItemRecentSearchBinding
+import com.plub.presentation.util.onThrottleClick
 
 class RecentSearchViewHolder(
     private val binding: IncludeItemRecentSearchBinding,
@@ -12,13 +13,13 @@ class RecentSearchViewHolder(
     private var vo: RecentSearchVo? = null
 
     init {
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             vo?.let {
                 listener.onClickRecentSearch(it.search)
             }
         }
 
-        binding.imageViewDeleteIcon.setOnClickListener {
+        binding.imageViewDeleteIcon.onThrottleClick {
             vo?.let {
                 listener.onClickDelete(it.search)
             }

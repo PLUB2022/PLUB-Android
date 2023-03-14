@@ -6,6 +6,7 @@ import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 
 class DetailRecruitProfileViewHolder(
     private val binding: IncludeItemCircleProfileBinding,
@@ -17,7 +18,7 @@ class DetailRecruitProfileViewHolder(
     private var accountId : Int? = null
 
     init {
-        binding.imageViewProfile.setOnClickListener {
+        binding.imageViewProfile.onThrottleClick {
             if(nowNum == maxProfile){
                 listener.onSeeMoreProfileClick()
             }

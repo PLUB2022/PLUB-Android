@@ -6,6 +6,7 @@ import com.plub.domain.model.enums.PlubingFeedType
 import com.plub.domain.model.vo.board.WriteBoardFeedTypeVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemWriteFeedTypeBinding
+import com.plub.presentation.util.onThrottleClick
 
 class WriteFeedTypeViewHolder(
     private val binding: IncludeItemWriteFeedTypeBinding,
@@ -15,7 +16,7 @@ class WriteFeedTypeViewHolder(
     private var type:PlubingFeedType? = null
 
     init {
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             type?.let {
                 listener.onClickFeedType(it)
             }

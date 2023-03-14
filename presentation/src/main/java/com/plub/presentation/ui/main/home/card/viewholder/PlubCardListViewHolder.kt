@@ -7,6 +7,7 @@ import com.plub.presentation.databinding.IncludeItemPlubCardListBinding
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.TimeFormatter
+import com.plub.presentation.util.onThrottleClick
 
 class PlubCardListViewHolder(
     private val binding: IncludeItemPlubCardListBinding,
@@ -20,13 +21,13 @@ class PlubCardListViewHolder(
     private var vo: PlubCardVo? = null
 
     init {
-        binding.imageViewBookmark.setOnClickListener {
+        binding.imageViewBookmark.onThrottleClick {
             vo?.let {
                 listener.onClickBookmark(it.id)
             }
         }
 
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             vo?.let {
                 listener.onClickPlubCard(it.id, it.isHost)
             }

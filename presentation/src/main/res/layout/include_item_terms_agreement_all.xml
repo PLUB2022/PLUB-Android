@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:button="@drawable/selector_check"
             android:checked="@{vo.checked}"
-            android:onClick="@{() -> vm.onClickTermsChecked(vo.termsType, vo.checked)}"
+            app:onThrottleClick="@{() -> vm.onClickTermsChecked(vo.termsType, vo.checked)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

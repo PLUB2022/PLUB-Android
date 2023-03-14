@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:onClick="@{() -> vm.onClickTermsExpand(vo.termsType, vo.expanded)}"
+                app:onThrottleClick="@{() -> vm.onClickTermsExpand(vo.termsType, vo.expanded)}"
                 android:src="@drawable/ic_arrow_under"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
                 android:layout_marginEnd="13dp"
                 android:button="@drawable/selector_check"
                 android:checked="@{vo.checked}"
-                android:onClick="@{() -> vm.onClickTermsChecked(vo.termsType, vo.checked)}"
+                app:onThrottleClick="@{() -> vm.onClickTermsChecked(vo.termsType, vo.checked)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
