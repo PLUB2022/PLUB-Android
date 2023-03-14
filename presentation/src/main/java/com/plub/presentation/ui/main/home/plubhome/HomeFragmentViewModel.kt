@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.HomeViewType
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.home.HomePlubListVo
+import com.plub.domain.model.vo.home.categoryResponseVo.CategoriesDataResponseVo
 import com.plub.domain.model.vo.home.categoryResponseVo.CategoryListDataResponseVo
 import com.plub.domain.model.vo.home.interestRegisterVo.RegisterInterestResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
@@ -65,15 +66,22 @@ class HomeFragmentViewModel @Inject constructor(
     }
 
     private fun getMergeCategoryList(data: CategoryListDataResponseVo): List<HomePlubListVo> {
-        val mergedCategoryList = mutableListOf<HomePlubListVo>()
-        mergedCategoryList.add(HomePlubListVo(viewType = HomeViewType.TITLE_VIEW))
-        mergedCategoryList.add(
+        return getTitleViewList() + getCategoryViewList(data.categories)
+    }
+
+    private fun getTitleViewList() : List<HomePlubListVo>{
+        return arrayListOf(
+            HomePlubListVo(viewType = HomeViewType.TITLE_VIEW)
+        )
+    }
+
+    private fun getCategoryViewList(list : List<CategoriesDataResponseVo>) : List<HomePlubListVo>{
+        return arrayListOf(
             HomePlubListVo(
                 viewType = HomeViewType.CATEGORY_VIEW,
-                categoryList = data.categories
+                categoryList = list
             )
         )
-        return mergedCategoryList
     }
 
     private fun handleGetMyInterestSuccess(data: RegisterInterestResponseVo) {

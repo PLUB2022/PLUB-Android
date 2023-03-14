@@ -1,6 +1,6 @@
 package com.plub.data.repository
 
-import com.plub.data.api.HomeBrowseApi
+import com.plub.data.api.HomeApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.PlubCardListResponseMapper
 import com.plub.data.mapper.categoryGatheringMapper.CategoryGatheringBodyRequestMapper
@@ -12,7 +12,7 @@ import com.plub.domain.repository.RecommendationGatheringRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RecommendationGatheringRepositoryImpl @Inject constructor(private val browseApi: HomeBrowseApi) : RecommendationGatheringRepository, BaseRepository() {
+class RecommendationGatheringRepositoryImpl @Inject constructor(private val browseApi: HomeApi) : RecommendationGatheringRepository, BaseRepository() {
     override suspend fun getRecommendationGatheringList(request: Int): Flow<UiState<PlubCardListVo>> {
         return apiLaunch(browseApi.fetchRecommendationGathering(request), PlubCardListResponseMapper)
     }
