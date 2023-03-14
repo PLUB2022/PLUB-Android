@@ -23,6 +23,7 @@ import com.plub.domain.usecase.PutTodoEditUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParseTodoItemVo
 import com.plub.presentation.util.PlubingInfo
+import com.plub.presentation.util.ResourceProvider
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,6 +46,7 @@ class TodoPlannerViewModel @Inject constructor(
     val postUploadFileUseCase: PostUploadFileUseCase,
     val putTodoCompleteUseCase: PutTodoCompleteUseCase,
     val putTodoCancelUseCase: PutTodoCancelUseCase,
+    val resourceProvider: ResourceProvider,
 ) : BaseTestViewModel<TodoPlannerPageState>() {
 
     companion object {
@@ -64,6 +66,8 @@ class TodoPlannerViewModel @Inject constructor(
     private val calendarDateTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val todoDateTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val isTodayStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val isTodoEditModeStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val todoTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
 
     override val uiState: TodoPlannerPageState = TodoPlannerPageState(
         plubNameStateFlow.asStateFlow(),
@@ -71,7 +75,9 @@ class TodoPlannerViewModel @Inject constructor(
         todoListStateFlow.asStateFlow(),
         calendarDateTextStateFlow.asStateFlow(),
         todoDateTextStateFlow.asStateFlow(),
-        isTodayStateFlow.asStateFlow()
+        isTodayStateFlow.asStateFlow(),
+        isTodoEditModeStateFlow.asStateFlow(),
+        todoTextStateFlow.asStateFlow()
     )
 
     fun initDate() {
@@ -82,6 +88,7 @@ class TodoPlannerViewModel @Inject constructor(
     }
 
     fun onSelectedCalendarDay(date: CalendarDay) {
+        clear()
         currentDate = DateTimeFormatter.ofPattern(DATE_FORMAT_REQUEST_DATE).format(date.date).also {
             getMyTodoListInDay(it)
         }
@@ -121,7 +128,7 @@ class TodoPlannerViewModel @Inject constructor(
 
     fun onClickMenuItemType(item: DialogMenuItemType, todoItemVo: TodoItemVo) {
         when (item) {
-            DialogMenuItemType.TODO_EDIT -> todoEdit(todoItemVo.todoId, todoItemVo.content)
+            DialogMenuItemType.TODO_EDIT -> todoEditMode(todoItemVo)
             DialogMenuItemType.TODO_DELETE -> todoDelete(todoItemVo.todoId)
             DialogMenuItemType.TODO_PROOF -> showProofDialog(todoItemVo)
             else -> Unit
@@ -296,6 +303,18 @@ class TodoPlannerViewModel @Inject constructor(
         }
     }
 
+    private fun updateIsTodoEditMode(isEditMode: Boolean) {
+        viewModelScope.launch {
+            isTodoEditModeStateFlow.update { isEditMode }
+        }
+    }
+
+    private fun updateTodoText(text: String) {
+        viewModelScope.launch {
+            todoTextStateFlow.update { text }
+        }
+    }
+
     private fun getCalendarTitleFormat(calendarDay: CalendarDay): String {
         val format = if (isThisYear(calendarDay.year)) DATE_FORMAT_CALENDAR_THIS_YEAR else DATE_FORMAT_CALENDAR_OTHER_YEAR
         return DateTimeFormatter.ofPattern(format).format(calendarDay.date)
@@ -340,8 +359,16 @@ class TodoPlannerViewModel @Inject constructor(
         }
     }
 
+    private fun todoEditMode(todoItemVo: TodoItemVo) {
+        emitEventFlow(TodoPlannerEvent.ShowKeyboard)
+        editTodoId = todoItemVo.todoId
+        updateTodoText(todoItemVo.content)
+        updateIsTodoEditMode(true)
+    }
+
     private fun clear() {
         editTodoId = null
+        updateIsTodoEditMode(false)
         emitEventFlow(TodoPlannerEvent.ClearTodoEditText)
         emitEventFlow(TodoPlannerEvent.HideKeyboard)
     }
