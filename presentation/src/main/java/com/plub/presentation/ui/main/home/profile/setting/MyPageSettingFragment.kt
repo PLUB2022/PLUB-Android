@@ -34,7 +34,7 @@ class MyPageSettingFragment :
     private val myPageSettingConfirmDialogFragment : MyPageSettingConfirmDialogFragment by lazy {
         MyPageSettingConfirmDialogFragment(object : MyPageSettingConfirmDialogFragment.Delegate{
             override fun onYesButtonClick() {
-                viewModel.
+                viewModel.updateMyInfo()
             }
 
         })
@@ -98,7 +98,7 @@ class MyPageSettingFragment :
         }
     }
 
-    private fun setProfileImage(image : String){
+    private fun setProfileImage(image : String?){
         binding.apply {
             if(image == "" || image == null) imageViewProfile.setImageResource(R.drawable.iv_default_profile) else GlideUtil.loadImage(root.context, image, imageViewProfile)
             imageViewProfile.clipToOutline = true

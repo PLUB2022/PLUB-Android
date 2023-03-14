@@ -9,12 +9,15 @@ import com.canhub.cropper.CropImageView
 import com.plub.domain.error.NicknameError
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.UploadFileType
+import com.plub.domain.model.vo.account.MyInfoResponseVo
+import com.plub.domain.model.vo.account.UpdateMyInfoRequestVo
 import com.plub.domain.model.vo.media.ChangeFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.model.vo.signUp.profile.NicknameCheckRequestVo
 import com.plub.domain.usecase.GetNicknameCheckUseCase
 import com.plub.domain.usecase.PostChangeFileUseCase
+import com.plub.domain.usecase.PostUpdateMyInfoUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
@@ -31,7 +34,8 @@ class MyPageSettingViewModel @Inject constructor(
     val imageUtil: ImageUtil,
     val getNicknameCheckUseCase: GetNicknameCheckUseCase,
     val postUploadFileUseCase: PostUploadFileUseCase,
-    val postChangeFileUseCase: PostChangeFileUseCase
+    val postChangeFileUseCase: PostChangeFileUseCase,
+    val postUpdateMyInfoUseCase: PostUpdateMyInfoUseCase
 ) : BaseViewModel<MyPageSettingState>(MyPageSettingState()) {
 
     private var isNetworkCall:Boolean = false
@@ -130,7 +134,11 @@ class MyPageSettingViewModel @Inject constructor(
     }
 
     private fun defaultImage() {
-
+        updateUiState { uiState ->
+            uiState.copy(
+                profileImage = null
+            )
+        }
     }
 
     private fun handleNicknameCheckSuccess(isAvailableNickname: Boolean) {
@@ -167,7 +175,8 @@ class MyPageSettingViewModel @Inject constructor(
                 }
             }
             else{
-                postChangeFileUseCase(ChangeFileRequestVo(UploadFileType.PROFILE, uiState.value.profileImage, file)).collect{
+                postChangeFileUseCase(ChangeFileRequestVo(UploadFileType.PROFILE,
+                    uiState.value.profileImage!!, file)).collect{
                     inspectUiState(it, ::handleUploadImageSuccess)
                 }
             }
@@ -216,10 +225,28 @@ class MyPageSettingViewModel @Inject constructor(
     }
 
     fun saveChangedOnlyIntro() {
-
+        updateMyInfo()
     }
 
     fun onClickBackButton(){
+        emitEventFlow(MyPageSettingEvent.GoToBack)
+    }
+
+    fun updateMyInfo(){
+        val request = UpdateMyInfoRequestVo(
+            nickname = uiState.value.nickname,
+            introduce = uiState.value.introduce,
+            profileImageUrl = uiState.value.profileImage
+        )
+        viewModelScope.launch {
+            postUpdateMyInfoUseCase(request).collect{
+                inspectUiState(it , ::handleUpdateMyInfoSuccess)
+            }
+        }
+    }
+
+    private fun handleUpdateMyInfoSuccess(vo : MyInfoResponseVo){
+        PlubUser.updateInfo(vo)
         emitEventFlow(MyPageSettingEvent.GoToBack)
     }
 

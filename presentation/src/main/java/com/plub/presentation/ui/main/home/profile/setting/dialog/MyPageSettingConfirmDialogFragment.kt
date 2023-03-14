@@ -1,5 +1,7 @@
 package com.plub.presentation.ui.main.home.profile.setting.dialog
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +25,7 @@ class MyPageSettingConfirmDialogFragment(private val listener : Delegate) : Dial
         savedInstanceState: Bundle?
     ): View {
         dialog?.setCancelable(false)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return binding.root
     }
 

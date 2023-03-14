@@ -4,7 +4,7 @@ import android.text.SpannableString
 import com.plub.presentation.ui.PageState
 
 data class MyPageSettingState(
-    val profileImage: String = "",
+    val profileImage: String? = "",
     val originProfile : String = "",
     var nickname: String ="",
     var introduce: String = "",

@@ -2,11 +2,19 @@ package com.plub.data.api
 
 import com.plub.data.dto.account.MyInfoResponse
 import com.plub.data.base.ApiResponse
+import com.plub.domain.model.vo.account.UpdateMyInfoRequestVo
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface AccountApi {
 
     @GET(Endpoints.ACCOUNT.FETCH_MY_INFO)
     suspend fun fetchMyInfo(): Response<ApiResponse<MyInfoResponse>>
+
+    @POST(Endpoints.ACCOUNT.UPDATE_PROFILE)
+    suspend fun updateMyInfo(
+        @Body request : UpdateMyInfoRequestVo
+    ) : Response<ApiResponse<MyInfoResponse>>
 }
