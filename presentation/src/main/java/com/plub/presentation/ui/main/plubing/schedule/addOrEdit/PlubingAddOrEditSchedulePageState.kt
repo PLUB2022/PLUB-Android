@@ -8,7 +8,7 @@ import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 import java.util.Calendar
 
-data class PlubingAddSchedulePageState(
+data class PlubingAddOrEditSchedulePageState(
     val plubbingId: Int = -1,
     val scheduleTitle: String = "",
     val isAllDay: Boolean = false,

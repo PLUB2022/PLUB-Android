@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PlubingAddOrEditScheduleFragment : BaseFragment<
-        FragmentPlubingAddOrEditScheduleBinding, PlubingAddSchedulePageState, PlubingAddOrEditScheduleViewModel>(
+        FragmentPlubingAddOrEditScheduleBinding, PlubingAddOrEditSchedulePageState, PlubingAddOrEditScheduleViewModel>(
     FragmentPlubingAddOrEditScheduleBinding::inflate
 ) {
     override val viewModel: PlubingAddOrEditScheduleViewModel by viewModels()

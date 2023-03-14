@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PlubingAddOrEditScheduleViewModel @Inject constructor(
     private val postScheduleUseCase: PostScheduleUseCase
-) : BaseViewModel<PlubingAddSchedulePageState>(PlubingAddSchedulePageState()) {
+) : BaseViewModel<PlubingAddOrEditSchedulePageState>(PlubingAddOrEditSchedulePageState()) {
 
     fun updatePlubbingId(plubbingId: Int) {
         updateUiState { uiState ->
