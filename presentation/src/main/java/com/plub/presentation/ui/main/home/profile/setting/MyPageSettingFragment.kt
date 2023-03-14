@@ -89,7 +89,7 @@ class MyPageSettingFragment :
 
     private fun setProfileImage(image : String){
         binding.apply {
-            GlideUtil.loadImage(root.context, image, imageViewProfile)
+            if(image == "" || image == null) imageViewProfile.setImageResource(R.drawable.iv_default_profile) else GlideUtil.loadImage(root.context, image, imageViewProfile)
             imageViewProfile.clipToOutline = true
         }
     }
