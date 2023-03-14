@@ -8,6 +8,7 @@ import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.domain.usecase.GetMyGatheringUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.joinAll
@@ -20,27 +21,40 @@ class MyPageViewModel @Inject constructor(
 ) : BaseViewModel<MyPageState>(MyPageState()) {
 
     private var isExpandText: Boolean = false
+    private var isFirstInit : Boolean = true
     private val myPageGatheringVoList = mutableListOf<MyPageGatheringVo>()
 
+    fun setMyInfo(){
+        updateUiState { uiState ->
+            uiState.copy(
+                myName = PlubUser.info.nickname,
+                myIntro = PlubUser.info.introduce,
+                profileImage = PlubUser.info.profileImage
+            )
+        }
+    }
+
     fun getMyPageData() {
-        myPageGatheringVoList.clear()
-        viewModelScope.launch {
-            getMyGatheringUseCase(MyPageGatheringStateType.RECRUITING).collect {
-                inspectUiState(it, ::handleGetMyGatheringSuccess)
-            }
+        if(isFirstInit) {
+            viewModelScope.launch {
+                getMyGatheringUseCase(MyPageGatheringStateType.RECRUITING).collect {
+                    inspectUiState(it, ::handleGetMyGatheringSuccess)
+                }
 
-            getMyGatheringUseCase(MyPageGatheringStateType.WAIT).collect {
-                inspectUiState(it, ::handleGetMyGatheringSuccess)
-            }
+                getMyGatheringUseCase(MyPageGatheringStateType.WAIT).collect {
+                    inspectUiState(it, ::handleGetMyGatheringSuccess)
+                }
 
-            getMyGatheringUseCase(MyPageGatheringStateType.ACTIVE).collect {
-                inspectUiState(it, ::handleGetMyGatheringSuccess)
-            }
+                getMyGatheringUseCase(MyPageGatheringStateType.ACTIVE).collect {
+                    inspectUiState(it, ::handleGetMyGatheringSuccess)
+                }
 
-            getMyGatheringUseCase(MyPageGatheringStateType.END).collect {
-                inspectUiState(it, ::handleGetMyGatheringSuccess)
+                getMyGatheringUseCase(MyPageGatheringStateType.END).collect {
+                    inspectUiState(it, ::handleGetMyGatheringSuccess)
+                }
+                updateMyGathering(myPageGatheringVoList)
             }
-            updateMyGathering(myPageGatheringVoList)
+            isFirstInit = false
         }
     }
 

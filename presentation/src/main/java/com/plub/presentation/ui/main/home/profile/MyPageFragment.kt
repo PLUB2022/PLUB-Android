@@ -47,19 +47,10 @@ class MyPageFragment :
     override fun initView() {
         binding.apply {
             vm = viewModel
-            viewModel.getMyPageData()
-            setMyInfo()
-            initRecycler()
         }
-    }
-
-    private fun setMyInfo(){
-        binding.apply {
-            textViewProfileName.text = PlubUser.info.nickname
-            textViewProfileExplain.text = PlubUser.info.introduce
-            GlideUtil.loadImage(root.context, PlubUser.info.profileImage, imageViewProfile)
-            imageViewProfile.clipToOutline = true
-        }
+        viewModel.getMyPageData()
+        viewModel.setMyInfo()
+        initRecycler()
     }
 
     private fun initRecycler(){
@@ -77,6 +68,7 @@ class MyPageFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
+                    setProfileImage(it.profileImage)
                     gatheringAdapter.submitList(it.myPageGatheringList)
                 }
             }
@@ -86,6 +78,14 @@ class MyPageFragment :
                     inspectEvent(it as MyPageEvent)
                 }
             }
+        }
+    }
+
+    private fun setProfileImage(image: String?){
+        binding.apply {
+            if (image == "" || image == null) imageViewProfile.setImageResource(R.drawable.iv_default_profile)
+            else GlideUtil.loadImage(root.context, image, imageViewProfile)
+            imageViewProfile.clipToOutline = true
         }
     }
 
