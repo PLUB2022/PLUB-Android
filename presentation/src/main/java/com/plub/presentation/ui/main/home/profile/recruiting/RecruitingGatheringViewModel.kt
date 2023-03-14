@@ -105,14 +105,10 @@ class RecruitingGatheringViewModel @Inject constructor(
     }
 
     private fun handleReplySuccess(accountId: Int) {
-        val originList = uiState.value.detailList
-        val mutableOriginList = originList.toMutableList()
-        originList.forEach {
-            if(it.application.accountId ==  accountId){
-                mutableOriginList.remove(it)
-            }
+        val list = uiState.value.detailList.filter {
+            it.application.accountId != accountId
         }
-        updateDetailList(mutableOriginList)
+        updateDetailList(list)
     }
 
     fun reject(accountId: Int){
