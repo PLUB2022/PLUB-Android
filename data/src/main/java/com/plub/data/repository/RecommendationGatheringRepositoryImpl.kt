@@ -12,14 +12,14 @@ import com.plub.domain.repository.RecommendationGatheringRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RecommendationGatheringRepositoryImpl @Inject constructor(private val browseApi: HomeApi) : RecommendationGatheringRepository, BaseRepository() {
+class RecommendationGatheringRepositoryImpl @Inject constructor(private val homeApi: HomeApi) : RecommendationGatheringRepository, BaseRepository() {
     override suspend fun getRecommendationGatheringList(request: Int): Flow<UiState<PlubCardListVo>> {
-        return apiLaunch(browseApi.fetchRecommendationGathering(request), PlubCardListResponseMapper)
+        return apiLaunch(homeApi.fetchRecommendationGathering(request), PlubCardListResponseMapper)
     }
 
     override suspend fun getCategoriesGatheringList(request: CategoriesGatheringParamsVo, requestBody: CategoriesGatheringBodyRequestVo): Flow<UiState<PlubCardListVo>> {
         val body = CategoryGatheringBodyRequestMapper.mapModelToDto(requestBody)
-        return apiLaunch(browseApi.fetchCategoriesGathering(
+        return apiLaunch(homeApi.fetchCategoriesGathering(
             request.categoryId,
             request.sort,
             request.pageNumber, body), PlubCardListResponseMapper)

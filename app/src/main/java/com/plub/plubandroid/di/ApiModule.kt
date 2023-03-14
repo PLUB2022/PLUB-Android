@@ -83,7 +83,7 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideHomeBrowseApi(@AuthRetrofit retrofit: Retrofit): HomeApi {
+    fun provideHomeApi(@AuthRetrofit retrofit: Retrofit): HomeApi {
         return retrofit.create(HomeApi::class.java)
     }
 
