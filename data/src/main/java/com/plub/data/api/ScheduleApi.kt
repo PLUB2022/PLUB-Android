@@ -8,6 +8,7 @@ import com.plub.data.dto.schedule.GetEntireScheduleResponse
 import com.plub.data.dto.schedule.PutScheduleAttendRequest
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -25,6 +26,9 @@ interface ScheduleApi {
     @POST(Endpoints.PLUBBING.SCHEDULE.CALENDAR)
     suspend fun createSchedule(@Path("plubbingId") plubbingId: Int, @Body body: CreateScheduleRequest): Response<ApiResponse<DataDto.DTO>>
 
-    @PUT(Endpoints.PLUBBING.SCHEDULE.CALENDAR)
-    suspend fun editSchedule(@Path("plubbingId") plubbingId: Int, @Body body: CreateScheduleRequest): Response<ApiResponse<DataDto.DTO>>
+    @PUT(Endpoints.PLUBBING.SCHEDULE.CALENDAR_ID)
+    suspend fun editSchedule(@Path("plubbingId") plubbingId: Int, @Path("calendarId") calendarId:Int, @Body body: CreateScheduleRequest): Response<ApiResponse<DataDto.DTO>>
+
+    @DELETE(Endpoints.PLUBBING.SCHEDULE.CALENDAR_ID)
+    suspend fun deleteSchedule(@Path("plubbingId") plubbingId:Int, @Path("calendarId") calendarId:Int): Response<ApiResponse<DataDto.DTO>>
 }
