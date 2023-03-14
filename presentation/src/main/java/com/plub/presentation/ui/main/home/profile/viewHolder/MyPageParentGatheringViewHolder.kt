@@ -10,7 +10,6 @@ import com.plub.presentation.databinding.IncludeItemMyGatheringBinding
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageGatheringAdapter
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageParentGatheringAdapter
-import com.plub.presentation.util.animation.ArrowToggleAnimation
 import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 

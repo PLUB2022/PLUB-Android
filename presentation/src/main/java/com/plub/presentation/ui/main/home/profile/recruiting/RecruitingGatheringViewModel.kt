@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.MyPageDetailViewType
 import com.plub.domain.model.vo.home.applicantsrecruitvo.replyvo.ReplyApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.replyvo.ReplyApplicantsRecruitResponseVo
+import com.plub.domain.model.vo.home.recruitdetailvo.host.AccountsVo
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.domain.model.vo.home.recruitdetailvo.host.HostApplicantsResponseVo
@@ -26,15 +27,15 @@ class RecruitingGatheringViewModel @Inject constructor(
     val fetchPlubingMainUseCase: FetchPlubingMainUseCase
 ) : BaseViewModel<MyPageApplicantsGatheringState>(MyPageApplicantsGatheringState()) {
 
-    var plubbingId : Int = 0
-    fun getPageDetail(id : Int){
+    var plubbingId: Int = 0
+    fun getPageDetail(id: Int) {
         this.plubbingId = id
         viewModelScope.launch {
             fetchPlubingMainUseCase(plubbingId).collect {
                 inspectUiState(it, ::onSuccessPlubingMainInfo)
             }
 
-            getRecruitApplicantsUseCase(plubbingId).collect{
+            getRecruitApplicantsUseCase(plubbingId).collect {
                 inspectUiState(it, ::handleGetApplicantsSuccess)
             }
         }
@@ -55,7 +56,7 @@ class RecruitingGatheringViewModel @Inject constructor(
         }
     }
 
-    private fun getMergedTopList(view : MyPageDetailTitleVo) : List<MyPageDetailVo>{
+    private fun getMergedTopList(view: MyPageDetailTitleVo): List<MyPageDetailVo> {
         return arrayListOf(
             MyPageDetailVo(
                 viewType = MyPageDetailViewType.TOP,
@@ -67,38 +68,48 @@ class RecruitingGatheringViewModel @Inject constructor(
         )
     }
 
-    private fun handleGetApplicantsSuccess(state : HostApplicantsResponseVo){
+    private fun handleGetApplicantsSuccess(state: HostApplicantsResponseVo) {
         val originList = uiState.value.detailList
-        val mergedList = getMergedList(state)
+        val mergedList = getMergedList(state.appliedAccounts)
         updateDetailList(originList + mergedList)
     }
 
-    private fun updateDetailList(list : List<MyPageDetailVo>){
-        updateUiState {uiState ->
+    private fun updateDetailList(list: List<MyPageDetailVo>) {
+        updateUiState { uiState ->
             uiState.copy(
                 detailList = list
             )
         }
     }
 
-    private fun getMergedList(state : HostApplicantsResponseVo) : List<MyPageDetailVo>{
-        val list = mutableListOf<MyPageDetailVo>()
-        state.appliedAccounts.forEach {
-            list.add(
+    private fun getMergedList(list: List<AccountsVo>): List<MyPageDetailVo> {
+        return if(list.isEmpty()) getEmptyApplicantsList() else getApplicantsList(list)
+    }
+
+    private fun getEmptyApplicantsList() : List<MyPageDetailVo>{
+        return arrayListOf(MyPageDetailVo(
+            viewType = MyPageDetailViewType.EMPTY,
+        ))
+    }
+
+    private fun getApplicantsList(list : List<AccountsVo>): List<MyPageDetailVo>{
+        val detailList = mutableListOf<MyPageDetailVo>()
+        list.forEach {
+            detailList.add(
                 MyPageDetailVo(
                     viewType = MyPageDetailViewType.OTHER_APPLICATION,
                     application = it
                 )
             )
         }
-
-        return list
+        return detailList
     }
 
-    fun approve(accountId : Int){
+    fun approve(accountId: Int) {
         viewModelScope.launch {
             postApprovalApplicantsRecruitUseCase(
-                ReplyApplicantsRecruitRequestVo(plubbingId, accountId)).collect{ state ->
+                ReplyApplicantsRecruitRequestVo(plubbingId, accountId)
+            ).collect { state ->
                 inspectUiState(state, succeedCallback = { handleReplySuccess(accountId) })
             }
         }
@@ -111,12 +122,17 @@ class RecruitingGatheringViewModel @Inject constructor(
         updateDetailList(list)
     }
 
-    fun reject(accountId: Int){
+    fun reject(accountId: Int) {
         viewModelScope.launch {
             postRefuseApplicantsRecruitUseCase(
-                ReplyApplicantsRecruitRequestVo(plubbingId, accountId)).collect{ state ->
+                ReplyApplicantsRecruitRequestVo(plubbingId, accountId)
+            ).collect { state ->
                 inspectUiState(state, succeedCallback = { handleReplySuccess(accountId) })
             }
         }
+    }
+
+    fun goToRecruitPage() {
+        emitEventFlow(MyPageRecruitingGatheringEvent.GoToRecruit)
     }
 }
