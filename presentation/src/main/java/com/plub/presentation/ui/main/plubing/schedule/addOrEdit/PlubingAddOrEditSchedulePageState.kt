@@ -1,8 +1,7 @@
-package com.plub.presentation.ui.main.plubing.schedule.add
+package com.plub.presentation.ui.main.plubing.schedule.addOrEdit
 
 import com.plub.domain.model.enums.DialogCheckboxItemType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
-import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoVo
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.util.TimeFormatter
 import org.threeten.bp.LocalDateTime

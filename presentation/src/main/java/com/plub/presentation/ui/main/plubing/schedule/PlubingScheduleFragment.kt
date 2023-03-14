@@ -79,7 +79,9 @@ class PlubingScheduleFragment : BaseFragment<
             is PlubingScheduleEvent.GoToAddSchedule -> {
                 val action =
                     PlubingScheduleFragmentDirections.actionPlubingScheduleToPlubingAddSchedule(
-                        event.id, args.plubingName
+                        plubingId = args.plubingId,
+                        plubingName = args.plubingName,
+                        scheduleVo = event.scheduleVo
                     )
                 findNavController().navigate(action)
             }

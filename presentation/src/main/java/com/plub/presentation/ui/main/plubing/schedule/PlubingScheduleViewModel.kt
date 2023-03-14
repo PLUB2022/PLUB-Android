@@ -49,7 +49,7 @@ class PlubingScheduleViewModel @Inject constructor(
     }
 
     fun onClickAddScheduleButton() {
-        emitEventFlow(PlubingScheduleEvent.GoToAddSchedule(uiState.value.plubbingId))
+        emitEventFlow(PlubingScheduleEvent.GoToAddSchedule(null))
     }
 
     private fun handleSuccessGetEntireSchedule(response: GetEntireScheduleResponseVo) =
@@ -216,11 +216,15 @@ class PlubingScheduleViewModel @Inject constructor(
             }
 
             DialogMenuItemType.SCHEDULE_EDIT -> {
-
+                onClickEditScheduleButton(scheduleVo)
             }
 
             else -> { }
         }
+    }
+
+    private fun onClickEditScheduleButton(scheduleVo: ScheduleVo) {
+        emitEventFlow(PlubingScheduleEvent.GoToAddSchedule(scheduleVo))
     }
 
     private fun deleteSchedule(scheduleVo: ScheduleVo) {

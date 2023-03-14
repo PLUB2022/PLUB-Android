@@ -297,9 +297,9 @@
 
     <fragment
         android:id="@+id/plubingAddScheduleFragment"
-        android:name="com.plub.presentation.ui.main.plubing.schedule.add.PlubingAddScheduleFragment"
+        android:name="com.plub.presentation.ui.main.plubing.schedule.addOrEdit.PlubingAddOrEditScheduleFragment"
         android:label="PlubingAddScheduleFragment"
-        tools:layout="@layout/fragment_plubing_add_schedule" >
+        tools:layout="@layout/fragment_plubing_add_or_edit_schedule" >
 
         <argument
             android:name="plubingId"
@@ -308,6 +308,12 @@
         <argument
             android:name="plubingName"
             app:argType="string" />
+
+        <argument
+            android:name="scheduleVo"
+            app:argType="com.plub.domain.model.vo.schedule.ScheduleVo"
+            android:defaultValue="@null"
+            app:nullable="true" />
 
         <action
             android:id="@+id/action_plubingAddSchedule_to_plubingSchedule"

@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.plubing.schedule.add
+package com.plub.presentation.ui.main.plubing.schedule.addOrEdit
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -6,27 +6,22 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.plub.domain.model.enums.DialogCheckboxType
-import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
-import com.plub.presentation.databinding.FragmentPlubingAddScheduleBinding
+import com.plub.presentation.databinding.FragmentPlubingAddOrEditScheduleBinding
 import com.plub.presentation.ui.common.dialog.SelectCheckboxBottomSheetDialog
-import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocation
-import com.plub.presentation.ui.main.plubing.schedule.PlubingScheduleFragmentArgs
-import com.plub.presentation.util.onThrottleClick
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PlubingAddScheduleFragment : BaseFragment<
-        FragmentPlubingAddScheduleBinding, PlubingAddSchedulePageState, PlubingAddScheduleViewModel>(
-    FragmentPlubingAddScheduleBinding::inflate
+class PlubingAddOrEditScheduleFragment : BaseFragment<
+        FragmentPlubingAddOrEditScheduleBinding, PlubingAddSchedulePageState, PlubingAddOrEditScheduleViewModel>(
+    FragmentPlubingAddOrEditScheduleBinding::inflate
 ) {
-    override val viewModel: PlubingAddScheduleViewModel by viewModels()
-    private val args: PlubingAddScheduleFragmentArgs by navArgs()
+    override val viewModel: PlubingAddOrEditScheduleViewModel by viewModels()
+    private val args: PlubingAddOrEditScheduleFragmentArgs by navArgs()
 
 
     override fun initView() {
@@ -44,48 +39,48 @@ class PlubingAddScheduleFragment : BaseFragment<
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.eventFlow.collect { event ->
-                    if(event is PlubingAddScheduleEvent) inspectEventFlow(event)
+                    if(event is PlubingAddOrEditScheduleEvent) inspectEventFlow(event)
                 }
             }
         }
     }
 
-    private fun inspectEventFlow(event: PlubingAddScheduleEvent) {
+    private fun inspectEventFlow(event: PlubingAddOrEditScheduleEvent) {
         when(event) {
-            is PlubingAddScheduleEvent.ShowStartDatePickerEvent -> {
+            is PlubingAddOrEditScheduleEvent.ShowStartDatePickerEventOrEdit -> {
                 val startDate = viewModel.uiState.value.startDate
                 startDate.apply {
                     showDatePickerDialog(this) { year, month, day ->  event.onClickOk(year, month + 1, day) }
                 }
             }
-            is PlubingAddScheduleEvent.ShowEndDatePickerEvent -> {
+            is PlubingAddOrEditScheduleEvent.ShowEndDatePickerEventOrEdit -> {
                 val endDate = viewModel.uiState.value.endDate
                 endDate.apply {
                     showDatePickerDialog(this) { year, month, day ->  event.onClickOk(year, month + 1, day) }
                 }
             }
-            is PlubingAddScheduleEvent.ShowStartTimePickerEvent -> {
+            is PlubingAddOrEditScheduleEvent.ShowStartTimePickerEventOrEdit -> {
                 val startTime = viewModel.uiState.value.startTime
                 startTime.apply {
                     showTimePickerDialog(this) { hour, min -> event.onClickOk(hour, min)  }
                 }
             }
-            is PlubingAddScheduleEvent.ShowEndTimePickerEvent -> {
+            is PlubingAddOrEditScheduleEvent.ShowEndTimePickerEventOrEdit -> {
                 val endTime = viewModel.uiState.value.endTime
                 endTime.apply {
                     showTimePickerDialog(this) { hour, min -> event.onClickOk(hour, min)  }
                 }
             }
-            is PlubingAddScheduleEvent.ShowBottomSheetSearchLocation -> {
+            is PlubingAddOrEditScheduleEvent.ShowBottomSheetSearchLocation -> {
                 showBottomSheetLocation()
             }
 
-            is PlubingAddScheduleEvent.ShowBottomSheetDialogSelectAlarm -> {
+            is PlubingAddOrEditScheduleEvent.ShowBottomSheetDialogSelectAlarm -> {
                 showBottomSheetDialogSelectAlarm()
             }
 
-            is PlubingAddScheduleEvent.GoToSchedule -> {
-                val action = PlubingAddScheduleFragmentDirections.actionPlubingAddScheduleToPlubingSchedule(event.plubbingId, args.plubingName)
+            is PlubingAddOrEditScheduleEvent.GoToOrEditSchedule -> {
+                val action = PlubingAddOrEditScheduleFragmentDirections.actionPlubingAddScheduleToPlubingSchedule(event.plubbingId, args.plubingName)
                 findNavController().navigate(action)
             }
         }

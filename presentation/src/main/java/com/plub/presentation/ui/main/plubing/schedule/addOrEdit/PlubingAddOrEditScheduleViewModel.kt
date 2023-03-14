@@ -1,21 +1,19 @@
-package com.plub.presentation.ui.main.plubing.schedule.add
+package com.plub.presentation.ui.main.plubing.schedule.addOrEdit
 
 import android.text.Editable
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogCheckboxItemType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
-import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoVo
 import com.plub.domain.model.vo.schedule.CreateScheduleRequestVo
 import com.plub.domain.usecase.PostScheduleUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PlubingAddScheduleViewModel @Inject constructor(
+class PlubingAddOrEditScheduleViewModel @Inject constructor(
     private val postScheduleUseCase: PostScheduleUseCase
 ) : BaseViewModel<PlubingAddSchedulePageState>(PlubingAddSchedulePageState()) {
 
@@ -52,7 +50,7 @@ class PlubingAddScheduleViewModel @Inject constructor(
 
     fun onClickStartDateTime() {
         emitEventFlow(
-            PlubingAddScheduleEvent.ShowStartDatePickerEvent { year, month, day ->
+            PlubingAddOrEditScheduleEvent.ShowStartDatePickerEventOrEdit { year, month, day ->
                 updateStartDateAndEmitShowStartTimePickerEvent(year, month, day)
             }
         )
@@ -60,7 +58,7 @@ class PlubingAddScheduleViewModel @Inject constructor(
 
     fun onClickEndDateTime() {
         emitEventFlow(
-            PlubingAddScheduleEvent.ShowEndDatePickerEvent { year, month, day ->
+            PlubingAddOrEditScheduleEvent.ShowEndDatePickerEventOrEdit { year, month, day ->
                 updateEndDateAndEmitShowEndTimePickerEvent(year, month, day)
             }
         )
@@ -76,7 +74,7 @@ class PlubingAddScheduleViewModel @Inject constructor(
         }
 
         emitEventFlow(
-            PlubingAddScheduleEvent.ShowStartTimePickerEvent { hour, minute ->
+            PlubingAddOrEditScheduleEvent.ShowStartTimePickerEventOrEdit { hour, minute ->
                 updateStartTime(hour, minute)
             }
         )
@@ -112,7 +110,7 @@ class PlubingAddScheduleViewModel @Inject constructor(
         }
 
         emitEventFlow(
-            PlubingAddScheduleEvent.ShowEndTimePickerEvent { hour, minute ->
+            PlubingAddOrEditScheduleEvent.ShowEndTimePickerEventOrEdit { hour, minute ->
                 updateEndTime(hour, minute)
             }
         )
@@ -141,13 +139,13 @@ class PlubingAddScheduleViewModel @Inject constructor(
 
     fun onClickLocationText() {
         emitEventFlow(
-            PlubingAddScheduleEvent.ShowBottomSheetSearchLocation
+            PlubingAddOrEditScheduleEvent.ShowBottomSheetSearchLocation
         )
     }
 
     fun onClickAlarmText() {
         emitEventFlow(
-            PlubingAddScheduleEvent.ShowBottomSheetDialogSelectAlarm
+            PlubingAddOrEditScheduleEvent.ShowBottomSheetDialogSelectAlarm
         )
     }
 
@@ -169,7 +167,7 @@ class PlubingAddScheduleViewModel @Inject constructor(
 
     private fun emitGotoScheduleEvent() {
         emitEventFlow(
-            PlubingAddScheduleEvent.GoToSchedule(uiState.value.plubbingId)
+            PlubingAddOrEditScheduleEvent.GoToOrEditSchedule(uiState.value.plubbingId)
         )
     }
 

@@ -7,14 +7,14 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.plubing.schedule.add.PlubingAddScheduleViewModel" />
+            type="com.plub.presentation.ui.main.plubing.schedule.addOrEdit.PlubingAddOrEditScheduleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.main.plubing.schedule.add.PlubingAddScheduleFragment">
+        tools:context=".ui.main.plubing.schedule.addOrEdit.PlubingAddOrEditScheduleFragment">
 
         <ImageView
             android:id="@+id/image_view_back"
