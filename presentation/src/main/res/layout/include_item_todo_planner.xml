@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="start"
+            android:lines="1"
             android:textColor="@color/color_363636"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_check"

@@ -12,6 +12,7 @@ import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.databinding.IncludeItemTodoBinding
 import com.plub.presentation.databinding.IncludeItemTodoTimelineBinding
 import com.plub.presentation.databinding.IncludeItemTodoTimelineDateBinding
+import com.plub.presentation.databinding.IncludeItemTodoTimelineGoalBinding
 
 class PlubingTodoAdapter(
     private val listener: Delegate,
@@ -27,6 +28,7 @@ class PlubingTodoAdapter(
         when (holder) {
             is PlubingTodoTimelineViewHolder -> holder.bind(currentList[position])
             is PlubingTodoTimelineDateViewHolder -> holder.bind(currentList[position])
+            is PlubingTodoTimelineGoalViewHolder -> holder.bind()
         }
     }
 
@@ -49,6 +51,11 @@ class PlubingTodoAdapter(
             TodoTimelineViewType.DATE -> {
                 val binding = IncludeItemTodoTimelineDateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 PlubingTodoTimelineDateViewHolder(binding)
+            }
+
+            TodoTimelineViewType.GOAL -> {
+                val binding = IncludeItemTodoTimelineGoalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                PlubingTodoTimelineGoalViewHolder(binding)
             }
         }
     }

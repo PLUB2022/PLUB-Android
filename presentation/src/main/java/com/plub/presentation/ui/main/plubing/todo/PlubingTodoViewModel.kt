@@ -37,6 +37,7 @@ class PlubingTodoViewModel @Inject constructor(
 ) : BaseViewModel<PlubingTodoPageState>(PlubingTodoPageState()) {
 
     companion object {
+        private const val GOAL_TYPE_POSITION = 0
         private const val FIRST_CURSOR = 0
         private const val FIRST_IDX = 0
     }
@@ -129,7 +130,9 @@ class PlubingTodoViewModel @Inject constructor(
 
     private fun getMergeList(list: List<TodoTimelineVo>): List<TodoTimelineVo> {
         val originList = uiState.value.todoList
-        return if (cursorId == FIRST_CURSOR) list else originList + list
+        return if (cursorId == FIRST_CURSOR) list.toMutableList().apply {
+            add(GOAL_TYPE_POSITION, TodoTimelineVo(viewType = TodoTimelineViewType.GOAL))
+        } else originList + list
     }
 
     private fun updateTodoTimelineList(list: List<TodoTimelineVo>) {
