@@ -58,6 +58,8 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
         private const val ITEM_SPAN_SIZE = 1
         private const val PROFILE_FOLD_ITEM_SPACE = 4
         private const val PROFILE_EXPAND_ITEM_SPACE = 6
+        private const val PEEK_HEIGHT = 250
+        private const val BUTTON_PADDING = 16
 
 
         fun newInstance(
@@ -94,7 +96,7 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
             dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
                 ?: return
         val behavior = BottomSheetBehavior.from<View>(bottomSheet)
-        behavior.peekHeight = 250.px
+        behavior.peekHeight = PEEK_HEIGHT.px
         behavior.isHideable = true
         behavior.isDraggable = false
         behavior.state = STATE_COLLAPSED
@@ -103,7 +105,7 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 binding.buttonNo.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                    topMargin = (slideOffset * (binding.bottomSheetScheduleDetail.height -250.px)).toInt() + 16.px
+                    topMargin = (slideOffset * (binding.bottomSheetScheduleDetail.height - PEEK_HEIGHT.px)).toInt() + BUTTON_PADDING.px
                 }
             }
 
