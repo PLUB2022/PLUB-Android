@@ -12,9 +12,12 @@ import com.plub.domain.usecase.DeleteBoardUseCase
 import com.plub.domain.usecase.GetBoardFeedsUseCase
 import com.plub.domain.usecase.GetBoardPinsUseCase
 import com.plub.domain.usecase.PutBoardChangePinUseCase
-import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -25,7 +28,7 @@ class PlubingBoardViewModel @Inject constructor(
     val deleteBoardUseCase: DeleteBoardUseCase,
     val getBoardFeedsUseCase: GetBoardFeedsUseCase,
     val getBoardPinsUseCase: GetBoardPinsUseCase,
-) : BaseViewModel<PlubingBoardPageState>(PlubingBoardPageState()) {
+) : BaseTestViewModel<PlubingBoardPageState>() {
 
     companion object {
         private const val CLIP_BOARD_SIZE = 3
@@ -33,6 +36,14 @@ class PlubingBoardViewModel @Inject constructor(
         private const val FIRST_CURSOR = 0
         private const val SCROLL_TOP = 0
     }
+
+    private val clipBoardListStateFlow: MutableStateFlow<List<PlubingBoardVo>> = MutableStateFlow(emptyList())
+    private val boardListStateFlow: MutableStateFlow<List<PlubingBoardVo>> = MutableStateFlow(emptyList())
+
+    override val uiState: PlubingBoardPageState = PlubingBoardPageState(
+        clipBoardListStateFlow.asStateFlow(),
+        boardListStateFlow.asStateFlow(),
+    )
 
     private var plubingId by Delegates.notNull<Int>()
     private var isNetworkCall: Boolean = false
@@ -131,7 +142,7 @@ class PlubingBoardViewModel @Inject constructor(
     }
 
     private fun getMergeList(list: List<PlubingBoardVo>): List<PlubingBoardVo> {
-        val originList = uiState.value.boardList
+        val originList = boardListStateFlow.value
         val pinList = originList.filter { it.viewType == PlubingBoardType.CLIP_BOARD }
         return if (cursorId == FIRST_CURSOR) pinList + list else originList + list
     }
@@ -144,12 +155,8 @@ class PlubingBoardViewModel @Inject constructor(
 
     private fun onSuccessFetchClipBoardList(list: List<PlubingBoardVo>) {
         val isClipBoardEmpty = list.isNotEmpty()
-        updateUiState { uiState ->
-            uiState.copy(
-                clipBoardList = list.take(CLIP_BOARD_SIZE),
-                boardList = getClipBoardList(uiState.boardList, isClipBoardEmpty)
-            )
-        }
+        updateClipBoardList(list.take(CLIP_BOARD_SIZE))
+        updateBoardList(getClipBoardList(boardListStateFlow.value, isClipBoardEmpty))
         emitEventFlow(PlubingBoardEvent.NotifyClipBoardChanged)
     }
 
@@ -192,27 +199,31 @@ class PlubingBoardViewModel @Inject constructor(
     }
 
     private fun updateDeletedFeedList(feedId: Int) {
-        val deletedList = uiState.value.boardList.filterNot { it.feedId == feedId }
+        val deletedList = boardListStateFlow.value.filterNot { it.feedId == feedId }
         updateBoardList(deletedList)
     }
 
     private fun updateEditFeedList(vo: PlubingBoardVo) {
-        val newList = uiState.value.boardList.toMutableList()
+        val newList = boardListStateFlow.value.toMutableList()
         val idx = newList.indexOfFirst { it.feedId == vo.feedId }
         newList[idx] = vo
         updateBoardList(newList)
     }
 
-    private fun updateBoardList(list:List<PlubingBoardVo>) {
-        updateUiState { uiState ->
-            uiState.copy(
-                boardList = list
-            )
+    private fun cursorUpdate() {
+        cursorId = if (boardListStateFlow.value.isEmpty()) FIRST_CURSOR
+        else boardListStateFlow.value.drop(CLIP_BOARD_POSITION).lastOrNull()?.feedId ?: FIRST_CURSOR
+    }
+
+    private fun updateBoardList(list: List<PlubingBoardVo>) {
+        viewModelScope.launch {
+            boardListStateFlow.update { list }
         }
     }
 
-    private fun cursorUpdate() {
-        cursorId = if (uiState.value.boardList.isEmpty()) FIRST_CURSOR
-        else uiState.value.boardList.drop(CLIP_BOARD_POSITION).lastOrNull()?.feedId ?: FIRST_CURSOR
+    private fun updateClipBoardList(list: List<PlubingBoardVo>) {
+        viewModelScope.launch {
+            clipBoardListStateFlow.update { list }
+        }
     }
 }
