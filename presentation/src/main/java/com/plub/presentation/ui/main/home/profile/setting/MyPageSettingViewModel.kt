@@ -9,15 +9,18 @@ import com.canhub.cropper.CropImageView
 import com.plub.domain.error.NicknameError
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.UploadFileType
+import com.plub.domain.model.vo.media.ChangeFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.model.vo.signUp.profile.NicknameCheckRequestVo
 import com.plub.domain.usecase.GetNicknameCheckUseCase
+import com.plub.domain.usecase.PostChangeFileUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -27,7 +30,8 @@ class MyPageSettingViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
     val imageUtil: ImageUtil,
     val getNicknameCheckUseCase: GetNicknameCheckUseCase,
-    val postUploadFileUseCase: PostUploadFileUseCase
+    val postUploadFileUseCase: PostUploadFileUseCase,
+    val postChangeFileUseCase: PostChangeFileUseCase
 ) : BaseViewModel<MyPageSettingState>(MyPageSettingState()) {
 
     private var isNetworkCall:Boolean = false
@@ -37,6 +41,7 @@ class MyPageSettingViewModel @Inject constructor(
         updateUiState { ui ->
             ui.copy(
                 profileImage = PlubUser.info.profileImage,
+                originProfile = PlubUser.info.profileImage,
                 nickname = PlubUser.info.nickname,
                 originNickname = PlubUser.info.nickname,
                 introduce = PlubUser.info.introduce,
@@ -156,8 +161,15 @@ class MyPageSettingViewModel @Inject constructor(
 
     private fun uploadProfileFile(file: File) {
         viewModelScope.launch {
-            postUploadFileUseCase(UploadFileRequestVo(UploadFileType.PROFILE, file)).collect{
-                inspectUiState(it, ::handleUploadImageSuccess)
+            if(uiState.value.profileImage == "" || uiState.value.profileImage == null){
+                postUploadFileUseCase(UploadFileRequestVo(UploadFileType.PROFILE, file)).collect{
+                    inspectUiState(it, ::handleUploadImageSuccess)
+                }
+            }
+            else{
+                postChangeFileUseCase(ChangeFileRequestVo(UploadFileType.PROFILE, uiState.value.profileImage, file)).collect{
+                    inspectUiState(it, ::handleUploadImageSuccess)
+                }
             }
         }
     }
@@ -200,11 +212,15 @@ class MyPageSettingViewModel @Inject constructor(
     }
 
     fun saveChangedNickName(){
-        
+        emitEventFlow(MyPageSettingEvent.ShowDialog)
     }
 
     fun saveChangedOnlyIntro() {
 
+    }
+
+    fun onClickBackButton(){
+        emitEventFlow(MyPageSettingEvent.GoToBack)
     }
 
 }

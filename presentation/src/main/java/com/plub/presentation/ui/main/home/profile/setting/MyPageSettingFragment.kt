@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.DialogMenuType
@@ -13,6 +14,7 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageSettingBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
+import com.plub.presentation.ui.main.home.profile.setting.dialog.MyPageSettingConfirmDialogFragment
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.IntentUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +30,15 @@ class MyPageSettingFragment :
     private lateinit var albumLauncher: ActivityResultLauncher<Intent>
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     override val viewModel: MyPageSettingViewModel by viewModels()
+
+    private val myPageSettingConfirmDialogFragment : MyPageSettingConfirmDialogFragment by lazy {
+        MyPageSettingConfirmDialogFragment(object : MyPageSettingConfirmDialogFragment.Delegate{
+            override fun onYesButtonClick() {
+                viewModel.
+            }
+
+        })
+    }
 
     override fun initView() {
         binding.apply {
@@ -106,6 +117,8 @@ class MyPageSettingFragment :
             }
             is MyPageSettingEvent.ShowSelectImageBottomSheetDialog -> showBottomSheetDialogSelectImage()
             is MyPageSettingEvent.CropImageAndOptimize -> startCropImage(event.cropImageContractOptions)
+            is MyPageSettingEvent.ShowDialog -> { showConfirmDialog() }
+            is MyPageSettingEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 
@@ -140,5 +153,9 @@ class MyPageSettingFragment :
                 }
             }
         }
+    }
+
+    private fun showConfirmDialog(){
+        myPageSettingConfirmDialogFragment.show(childFragmentManager, "")
     }
 }
