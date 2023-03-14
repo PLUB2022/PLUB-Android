@@ -36,12 +36,18 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.CAMERA_IMAGE -> R.drawable.ic_camera
             DialogMenuItemType.ALBUM_IMAGE -> R.drawable.ic_album
             DialogMenuItemType.DEFAULT_IMAGE -> R.drawable.ic_album
+
+            DialogMenuItemType.SCHEDULE_DELETE,
             DialogMenuItemType.BOARD_DELETE,
             DialogMenuItemType.BOARD_COMMENT_DELETE -> R.drawable.ic_delete_red
+
+            DialogMenuItemType.SCHEDULE_EDIT,
             DialogMenuItemType.BOARD_EDIT,
             DialogMenuItemType.BOARD_COMMENT_EDIT -> R.drawable.ic_edit_black
+
             DialogMenuItemType.BOARD_REPORT,
             DialogMenuItemType.BOARD_COMMENT_REPORT -> R.drawable.ic_report_blue
+
             DialogMenuItemType.BOARD_FIX_CLIP,
             DialogMenuItemType.BOARD_RELEASE_CLIP,
             DialogMenuItemType.BOARD_FIX_OR_RELEASE_CLIP -> R.drawable.ic_clipboard_black
@@ -63,6 +69,8 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.BOARD_FIX_CLIP -> R.string.dialog_menu_board_fix_clip
             DialogMenuItemType.BOARD_RELEASE_CLIP  -> R.string.dialog_menu_board_release_clip
             DialogMenuItemType.BOARD_FIX_OR_RELEASE_CLIP  -> R.string.dialog_menu_board_fix_or_release_clip
+            DialogMenuItemType.SCHEDULE_EDIT -> R.string.dialog_menu_schedule_edit
+            DialogMenuItemType.SCHEDULE_DELETE -> R.string.dialog_menu_schedule_delete
             else -> throw IllegalAccessException()
         }
     }

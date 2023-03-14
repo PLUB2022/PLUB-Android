@@ -4,9 +4,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.vo.schedule.ScheduleVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingScheduleBinding
+import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionEvent
 import com.plub.presentation.ui.main.gathering.createGathering.question.bottomSheet.BottomSheetDeleteQuestion
 import com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.PlubingScheduleAdapter
@@ -21,9 +23,14 @@ class PlubingScheduleFragment : BaseFragment<
     FragmentPlubingScheduleBinding::inflate
 ) {
     private val scheduleAdapter: PlubingScheduleAdapter by lazy {
-        PlubingScheduleAdapter {
-            viewModel.emitShowBottomSheetEvent(it)
-        }
+        PlubingScheduleAdapter(
+            onClick = {
+                viewModel.emitShowBottomSheetEvent(it)
+            },
+            onLongClick = {
+                viewModel.emitShowBottomSheetDialogEditOrDeleteScheduleEvent(it)
+            }
+        )
     }
 
     override val viewModel: PlubingScheduleViewModel by viewModels()
@@ -53,7 +60,7 @@ class PlubingScheduleFragment : BaseFragment<
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.eventFlow.collect { event ->
-                    if(event is PlubingScheduleEvent)
+                    if (event is PlubingScheduleEvent)
                         inspectEventFlow(event)
                 }
             }
@@ -69,14 +76,19 @@ class PlubingScheduleFragment : BaseFragment<
     private fun inspectEventFlow(event: PlubingScheduleEvent) {
         when (event) {
             is PlubingScheduleEvent.GoToAddSchedule -> {
-                val action = PlubingScheduleFragmentDirections.actionPlubingScheduleToPlubingAddSchedule(
-                    event.id
-                )
+                val action =
+                    PlubingScheduleFragmentDirections.actionPlubingScheduleToPlubingAddSchedule(
+                        event.id
+                    )
                 findNavController().navigate(action)
             }
 
             is PlubingScheduleEvent.ShowBottomSheetScheduleDetail -> {
                 showBottomSheetScheduleDetail(event.scheduleVo)
+            }
+
+            is PlubingScheduleEvent.ShowBottomSheetDialogEditOrDeleteSchedule -> {
+                showBottomSheetDialogEditOrDeleteSchedule(event.scheduleVo)
             }
         }
     }
@@ -84,13 +96,19 @@ class PlubingScheduleFragment : BaseFragment<
     private fun showBottomSheetScheduleDetail(scheduleVo: ScheduleVo) {
         val bottomSheetScheduleDetail = BottomSheetScheduleDetail.newInstance(
             scheduleVo = scheduleVo,
-            okButtonClickEvent = { calendarId ->  viewModel.putScheduleAttendYes(calendarId) },
-            noButtonClickEvent = { calendarId ->  viewModel.putScheduleAttendNo(calendarId) }
+            okButtonClickEvent = { calendarId -> viewModel.putScheduleAttendYes(calendarId) },
+            noButtonClickEvent = { calendarId -> viewModel.putScheduleAttendNo(calendarId) }
         )
 
         bottomSheetScheduleDetail.show(
             parentFragmentManager,
             bottomSheetScheduleDetail.tag
         )
+    }
+
+    private fun showBottomSheetDialogEditOrDeleteSchedule(scheduleVo: ScheduleVo) {
+        SelectMenuBottomSheetDialog.newInstance(DialogMenuType.SCHEDULE_TYPE) {
+
+        }.show(parentFragmentManager, "")
     }
 }

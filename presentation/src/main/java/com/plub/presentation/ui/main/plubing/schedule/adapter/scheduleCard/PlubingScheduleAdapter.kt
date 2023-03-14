@@ -12,7 +12,8 @@ import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleLoadingBin
 import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleYearBinding
 
 class PlubingScheduleAdapter(
-    private val onClick: ((scheduleVo: ScheduleVo) -> Unit)? = null
+    private val onClick: ((scheduleVo: ScheduleVo) -> Unit)? = null,
+    private val onLongClick: ((scheduleVo: ScheduleVo) -> Unit)? = null
 ) : ListAdapter<ScheduleVo, RecyclerView.ViewHolder>(ScheduleDiffCallback()) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -31,7 +32,7 @@ class PlubingScheduleAdapter(
             }
             ScheduleCardType.CONTENT -> {
                 val binding = LayoutRecyclerPlubingScheduleContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                PlubingScheduleContentViewHolder(binding, onClick)
+                PlubingScheduleContentViewHolder(binding, onClick, onLongClick)
             }
             ScheduleCardType.LOADING -> {
                 val binding = LayoutRecyclerPlubingScheduleLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)

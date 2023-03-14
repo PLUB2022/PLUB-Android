@@ -128,6 +128,12 @@ class PlubingScheduleViewModel @Inject constructor(
         )
     }
 
+    fun emitShowBottomSheetDialogEditOrDeleteScheduleEvent(scheduleVo: ScheduleVo) {
+        emitEventFlow(
+            PlubingScheduleEvent.ShowBottomSheetDialogEditOrDeleteSchedule(scheduleVo)
+        )
+    }
+
     fun putScheduleAttendYes(calendarId: Int) {
         viewModelScope.launch {
             putScheduleAttendUseCase(

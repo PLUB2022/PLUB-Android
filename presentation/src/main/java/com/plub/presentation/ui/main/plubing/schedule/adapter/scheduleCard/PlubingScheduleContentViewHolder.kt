@@ -16,7 +16,8 @@ import com.plub.presentation.util.onThrottleClick
 
 class PlubingScheduleContentViewHolder(
     private val binding: LayoutRecyclerPlubingScheduleContentBinding,
-    private val onClick: ((scheduleVo: ScheduleVo) -> Unit)? = null
+    private val onClick: ((scheduleVo: ScheduleVo) -> Unit)? = null,
+    private val onLongClick: ((scheduleVo: ScheduleVo) -> Unit)? = null
 ) : RecyclerView.ViewHolder(binding.root) {
 
     companion object {
@@ -34,7 +35,13 @@ class PlubingScheduleContentViewHolder(
             currentItem?.let { item ->
                 onClick?.invoke(item)
             }
+        }
 
+        binding.root.setOnLongClickListener {
+            currentItem?.let { item ->
+                onLongClick?.invoke(item)
+            }
+            true
         }
 
         binding.recyclerViewProfile.apply {
