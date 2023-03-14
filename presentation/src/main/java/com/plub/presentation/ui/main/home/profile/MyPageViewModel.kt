@@ -20,16 +20,22 @@ class MyPageViewModel @Inject constructor(
     val getMyGatheringUseCase: GetMyGatheringUseCase,
 ) : BaseViewModel<MyPageState>(MyPageState()) {
 
+    companion object{
+        const val MAX_LENGTH = 15
+    }
+
     private var isExpandText: Boolean = false
     private var isFirstInit : Boolean = true
     private val myPageGatheringVoList = mutableListOf<MyPageGatheringVo>()
 
     fun setMyInfo(){
+
         updateUiState { uiState ->
             uiState.copy(
                 myName = PlubUser.info.nickname,
                 myIntro = PlubUser.info.introduce,
-                profileImage = PlubUser.info.profileImage
+                profileImage = PlubUser.info.profileImage,
+                isReadMore = PlubUser.info.introduce.length > MAX_LENGTH
             )
         }
     }

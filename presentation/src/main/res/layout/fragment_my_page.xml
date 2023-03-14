@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View" />
         <variable
             name="vm"
             type="com.plub.presentation.ui.main.home.profile.MyPageViewModel" />
@@ -100,6 +100,7 @@
                     android:layout_marginTop="4dp"
                     android:onClick="@{()->vm.readMore()}"
                     android:text="@string/my_page_read_more"
+                    android:visibility="@{vm.uiState.readMore == true ? View.VISIBLE : View.GONE}"
                     android:textColor="@color/color_363636"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@id/text_view_profile_explain"

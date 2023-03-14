@@ -12,7 +12,7 @@ object MyGatheringMapper : Mapper.ResponseMapper<MyGatheringResponse, MyPageGath
                 gatheringList = plubbings.map {
                     MyGatheringDataMapper.mapDtoToModel(it)
                 },
-                gatheringType = MyPageGatheringStateType.valueOf(plubbingStatus)
+                gatheringType = MyPageGatheringStateType.valuesOf(plubbingStatus)
             )
         }?: MyPageGatheringVo()
     }
