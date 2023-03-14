@@ -21,6 +21,7 @@ import com.plub.domain.usecase.PutTodoLikeToggleUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.parcelableVo.ParseTodoItemVo
 import com.plub.presentation.ui.main.plubing.PlubingMainEvent
+import com.plub.presentation.ui.main.plubing.todo.planner.TodoPlannerViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -65,7 +66,7 @@ class PlubingTodoViewModel @Inject constructor(
     fun onClickTodoCheck(timelineId: Int, vo: TodoItemVo) {
         if(!vo.isAuthor) return
 
-        if (vo.isChecked) cancelTodoCheck(timelineId,vo.todoId)
+        if (vo.isChecked) cancelTodoCheck(timelineId, vo)
         else completeTodoCheck(timelineId, vo)
     }
 
@@ -151,29 +152,38 @@ class PlubingTodoViewModel @Inject constructor(
             ?: FIRST_CURSOR
     }
 
-    private fun showProofDialog(timelineId: Int, todoItemVo: TodoItemVo) {
-        val vo = ParseTodoItemVo.mapToParse(todoItemVo)
-        emitEventFlow(PlubingTodoEvent.ShowTodoProofDialog(timelineId, vo))
-    }
-
-    private fun cancelTodoCheck(timelineId: Int, todoId: Int) {
-        putTodoCancel(todoId) {
-            updateTodoCheckChange(timelineId, todoId)
-        }
-    }
-
     private fun completeTodoCheck(timelineId: Int, vo: TodoItemVo) {
         getTodoComplete(vo.todoId) {
-            updateTodoCheckChange(timelineId, vo.todoId)
+            val checkChangedVo = vo.copy(isChecked = !vo.isChecked)
+            val rebasedTimelineList = getReplaceItemTodoRebasedList(timelineId, checkChangedVo, true)
+            updateTodoTimelineList(rebasedTimelineList)
             showProofDialog(timelineId, vo)
         }
     }
 
-    private fun updateTodoCheckChange(timelineId: Int, todoId: Int) {
-        updateUiState { uiState ->
-            uiState.copy(
-                todoList = getTodoListCheckChanged(timelineId, todoId)
-            )
+    private fun cancelTodoCheck(timelineId: Int, vo: TodoItemVo) {
+        putTodoCancel(vo.todoId) {
+            val checkChangedVo = vo.copy(isChecked = !vo.isChecked)
+            val rebasedTimelineList = getReplaceItemTodoRebasedList(timelineId, checkChangedVo, false)
+            updateTodoTimelineList(rebasedTimelineList)
+        }
+    }
+
+    private fun getReplaceItemTodoRebasedList(timelineId: Int, vo: TodoItemVo, isTop: Boolean): List<TodoTimelineVo> {
+        return uiState.value.todoList.toMutableList().apply {
+            val timelinePosition = indexOfFirst { it.timelineId == timelineId }
+            val timelineVo = get(timelinePosition)
+            val rebasedTodoList = getTodoItemListRebaseItem(timelineVo.todoList,vo, isTop)
+            val rebasedTimelineVo = timelineVo.copy(todoList = rebasedTodoList)
+            set(timelinePosition, rebasedTimelineVo)
+        }
+    }
+
+    private fun getTodoItemListRebaseItem(list: List<TodoItemVo>, vo: TodoItemVo, isTop: Boolean): List<TodoItemVo> {
+        return list.toMutableList().apply {
+            val removePosition = indexOfFirst { it.todoId == vo.todoId }
+            removeAt(removePosition)
+            if(isTop) add(FIRST_IDX, vo) else add(vo)
         }
     }
 
@@ -185,18 +195,9 @@ class PlubingTodoViewModel @Inject constructor(
         }
     }
 
-    private fun getTodoListCheckChanged(timelineId: Int, todoId: Int): List<TodoTimelineVo> {
-        return uiState.value.todoList.map {
-            val todoItemList = if (it.timelineId == timelineId) getTodoItemListCheckChanged(it.todoList, todoId) else it.todoList
-            it.copy(todoList = todoItemList)
-        }
-    }
-
-    private fun getTodoItemListCheckChanged(list: List<TodoItemVo>, todoId: Int): List<TodoItemVo> {
-        return list.map {
-            val isChecked = if (it.todoId == todoId) !it.isChecked else it.isChecked
-            it.copy(isChecked = isChecked)
-        }
+    private fun showProofDialog(timelineId: Int, todoItemVo: TodoItemVo) {
+        val vo = ParseTodoItemVo.mapToParse(todoItemVo)
+        emitEventFlow(PlubingTodoEvent.ShowTodoProofDialog(timelineId, vo))
     }
 
     private fun getTodoListProofChanged(timelineId: Int, todoId: Int): List<TodoTimelineVo> {

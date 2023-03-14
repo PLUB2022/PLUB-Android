@@ -57,6 +57,7 @@ class TodoPlannerViewModel @Inject constructor(
         private const val DATE_FORMAT_SERVER_FORM_DATE = "YYYY-MM-dd"
         private const val DATE_FORMAT_TODO_DATE = "MM.dd"
         private const val SPLIT_DATE = "-"
+        private const val FIRST_INDEX = 0
     }
 
     private var plubingId = PlubingInfo.info.plubingId
@@ -120,7 +121,7 @@ class TodoPlannerViewModel @Inject constructor(
     }
 
     fun onClickTodoCheck(vo: TodoItemVo) {
-        if (vo.isChecked) cancelTodoCheck(vo.todoId) else completeTodoCheck(vo)
+        if (vo.isChecked) cancelTodoCheck(vo) else completeTodoCheck(vo)
     }
 
     fun onClickTodoMenu(vo: TodoItemVo) {
@@ -336,25 +337,30 @@ class TodoPlannerViewModel @Inject constructor(
         emitEventFlow(TodoPlannerEvent.ShowTodoProofDialog(vo))
     }
 
-    private fun cancelTodoCheck(todoId: Int) {
-        putTodoCancel(todoId) {
-            val uncheckedList = getTodoListCheckChanged(todoId)
-            updateTodoList(uncheckedList)
+    private fun cancelTodoCheck(vo: TodoItemVo) {
+        putTodoCancel(vo.todoId) {
+            checkChangeRebaseUpdate(vo, false)
         }
     }
 
     private fun completeTodoCheck(vo: TodoItemVo) {
         getTodoComplete(vo.todoId) {
-            val checkedList = getTodoListCheckChanged(vo.todoId)
-            updateTodoList(checkedList)
+            checkChangeRebaseUpdate(vo, true)
             showProofDialog(vo)
         }
     }
 
-    private fun getTodoListCheckChanged(todoId: Int): List<TodoItemVo> {
-        return uiState.todoList.value.map {
-            val isChecked = if (it.todoId == todoId) !it.isChecked else it.isChecked
-            it.copy(isChecked = isChecked)
+    private fun checkChangeRebaseUpdate(vo: TodoItemVo, isTop: Boolean) {
+        val checkChangedVo = vo.copy(isChecked = !vo.isChecked)
+        val rebasedList = getTodoListRebaseItem(checkChangedVo, isTop)
+        updateTodoList(rebasedList)
+    }
+
+    private fun getTodoListRebaseItem(vo: TodoItemVo, isTop: Boolean): List<TodoItemVo> {
+        return uiState.todoList.value.toMutableList().apply {
+            val removePosition = indexOfFirst { it.todoId == vo.todoId }
+            removeAt(removePosition)
+            if(isTop) add(FIRST_INDEX, vo) else add(vo)
         }
     }
 
