@@ -2,16 +2,20 @@ package com.plub.presentation.ui.main.plubing.schedule
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.AttendStatus
+import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.ScheduleCardType
 import com.plub.domain.model.vo.schedule.CalendarAttendListVo
 import com.plub.domain.model.vo.schedule.CalendarAttendVo
+import com.plub.domain.model.vo.schedule.DeleteScheduleRequestVo
 import com.plub.domain.model.vo.schedule.GetEntireScheduleRequestVo
 import com.plub.domain.model.vo.schedule.GetEntireScheduleResponseVo
 import com.plub.domain.model.vo.schedule.PutScheduleAttendRequestVo
 import com.plub.domain.model.vo.schedule.ScheduleVo
+import com.plub.domain.usecase.DeleteScheduleUseCase
 import com.plub.domain.usecase.GetEntireScheduleUseCase
 import com.plub.domain.usecase.PutScheduleAttendUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.ui.main.gathering.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndImageEvent
 import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +29,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PlubingScheduleViewModel @Inject constructor(
     private val getEntireScheduleUseCase: GetEntireScheduleUseCase,
-    private val putScheduleAttendUseCase: PutScheduleAttendUseCase
+    private val putScheduleAttendUseCase: PutScheduleAttendUseCase,
+    private val deleteScheduleUseCase: DeleteScheduleUseCase
 ) : BaseViewModel<PlubingSchedulePageState>(PlubingSchedulePageState()) {
 
     fun updatePlubbingId(plubbingId: Int) {
@@ -200,6 +205,39 @@ class PlubingScheduleViewModel @Inject constructor(
 
             uiState.copy(
                 scheduleList = copiedScheduleList
+            )
+        }
+    }
+
+    fun onClickImageMenuItemType(type: DialogMenuItemType, scheduleVo: ScheduleVo) {
+        when (type) {
+            DialogMenuItemType.SCHEDULE_DELETE -> {
+                deleteSchedule(scheduleVo)
+            }
+
+            DialogMenuItemType.SCHEDULE_EDIT -> {
+
+            }
+
+            else -> { }
+        }
+    }
+
+    private fun deleteSchedule(scheduleVo: ScheduleVo) {
+        viewModelScope.launch {
+            deleteScheduleUseCase(DeleteScheduleRequestVo(
+                plubbingId = uiState.value.plubbingId,
+                calendarId = scheduleVo.calendarId
+            )).collect {
+                inspectUiState(it, succeedCallback = { handleDeleteScheduleSuccess(scheduleVo) })
+            }
+        }
+    }
+
+    private fun handleDeleteScheduleSuccess(scheduleVo: ScheduleVo) {
+        updateUiState { uiState ->
+            uiState.copy(
+                scheduleList = uiState.scheduleList.minus(scheduleVo)
             )
         }
     }

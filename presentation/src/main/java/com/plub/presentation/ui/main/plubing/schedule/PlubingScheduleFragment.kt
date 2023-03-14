@@ -39,6 +39,7 @@ class PlubingScheduleFragment : BaseFragment<
     override fun initView() {
         binding.apply {
             vm = viewModel
+            textViewPlubingName.text = args.plubingName
 
             recyclerViewSchedule.apply {
                 layoutManager = LinearLayoutManager(context)
@@ -78,7 +79,7 @@ class PlubingScheduleFragment : BaseFragment<
             is PlubingScheduleEvent.GoToAddSchedule -> {
                 val action =
                     PlubingScheduleFragmentDirections.actionPlubingScheduleToPlubingAddSchedule(
-                        event.id
+                        event.id, args.plubingName
                     )
                 findNavController().navigate(action)
             }
@@ -108,7 +109,7 @@ class PlubingScheduleFragment : BaseFragment<
 
     private fun showBottomSheetDialogEditOrDeleteSchedule(scheduleVo: ScheduleVo) {
         SelectMenuBottomSheetDialog.newInstance(DialogMenuType.SCHEDULE_TYPE) {
-
+            viewModel.onClickImageMenuItemType(it, scheduleVo)
         }.show(parentFragmentManager, "")
     }
 }

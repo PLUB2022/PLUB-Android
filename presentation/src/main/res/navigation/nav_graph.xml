@@ -305,6 +305,10 @@
             android:name="plubingId"
             app:argType="integer" />
 
+        <argument
+            android:name="plubingName"
+            app:argType="string" />
+
         <action
             android:id="@+id/action_plubingAddSchedule_to_plubingSchedule"
             app:destination="@+id/plubingScheduleFragment"

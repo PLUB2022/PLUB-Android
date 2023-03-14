@@ -26,12 +26,13 @@ class PlubingAddScheduleFragment : BaseFragment<
     FragmentPlubingAddScheduleBinding::inflate
 ) {
     override val viewModel: PlubingAddScheduleViewModel by viewModels()
-    private val args: PlubingScheduleFragmentArgs by navArgs()
+    private val args: PlubingAddScheduleFragmentArgs by navArgs()
 
 
     override fun initView() {
         binding.apply {
             vm = viewModel
+            textViewPlubingName.text = args.plubingName
         }
 
         viewModel.updatePlubbingId(args.plubingId)
@@ -84,7 +85,7 @@ class PlubingAddScheduleFragment : BaseFragment<
             }
 
             is PlubingAddScheduleEvent.GoToSchedule -> {
-                val action = PlubingAddScheduleFragmentDirections.actionPlubingAddScheduleToPlubingSchedule(event.plubbingId, "123")
+                val action = PlubingAddScheduleFragmentDirections.actionPlubingAddScheduleToPlubingSchedule(event.plubbingId, args.plubingName)
                 findNavController().navigate(action)
             }
         }
