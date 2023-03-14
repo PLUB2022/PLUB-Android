@@ -10,6 +10,7 @@ import com.plub.presentation.databinding.IncludeItemMyApplicationBinding
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageDetailApplicationAnswerAdapter
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 
 class MyPageDetailMyApplicantsViewHolder(
@@ -28,13 +29,8 @@ class MyPageDetailMyApplicantsViewHolder(
 
     init {
         binding.apply {
-            imageViewArrow.setOnClickListener {
-                if(isExpand){
-                    constraintLayoutRecycler.visibility = View.GONE
-                }
-                else{
-                    constraintLayoutRecycler.visibility = View.VISIBLE
-                }
+            imageViewArrow.onThrottleClick {
+                constraintLayoutRecycler.visibility = if(isExpand) View.GONE else View.VISIBLE
                 isExpand = !isExpand
             }
 

@@ -11,6 +11,7 @@ import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageGatheringAdapter
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageParentGatheringAdapter
 import com.plub.presentation.util.animation.ArrowToggleAnimation
+import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 
 class MyPageParentGatheringViewHolder(
@@ -35,9 +36,8 @@ class MyPageParentGatheringViewHolder(
                 addItemDecoration(VerticalSpaceDecoration(VERTICAL_SPACE.px))
                 adapter = detailAdapter
             }
-            imageViewArrow.setOnClickListener {
+            imageViewArrow.onThrottleClick {
                 myPageGatheringVo?.let {
-                    //ArrowToggleAnimation.toggleArrow(imageViewArrow, it.isExpand)
                     listener.onClickCardExpand(it.gatheringType)
                 }
             }

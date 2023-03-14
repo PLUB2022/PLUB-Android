@@ -38,7 +38,7 @@ class WaitingGatheringFragment :
             }
         }
 
-        viewModel.getPageDetail()
+        //viewModel.getPageDetail()
     }
 
     override fun initStates() {
