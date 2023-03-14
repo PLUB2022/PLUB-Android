@@ -20,6 +20,7 @@ class PlubingTodoAdapter(
     interface Delegate {
         fun onClickTodoChecked(timelineId: Int, vo: TodoItemVo)
         fun onClickTodoMenu(vo: TodoTimelineVo)
+        fun onClickTodoLike(timelineId: Int)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

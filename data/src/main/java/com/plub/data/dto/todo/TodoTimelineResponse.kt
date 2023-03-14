@@ -15,4 +15,8 @@ data class TodoTimelineResponse(
     val accountInfo: AccountInfoResponse = AccountInfoResponse(),
     @SerializedName("todoList")
     val todoList: List<TodoItemResponse> = emptyList(),
+    @SerializedName("isAuthor")
+    val isAuthor: Boolean = false,
+    @SerializedName("isLike")
+    val isLike: Boolean = false,
 ) : DataDto

@@ -17,6 +17,7 @@ import com.plub.domain.usecase.GetTimelineListUseCase
 import com.plub.domain.usecase.PostTodoProofUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.domain.usecase.PutTodoCancelUseCase
+import com.plub.domain.usecase.PutTodoLikeToggleUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.parcelableVo.ParseTodoItemVo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,6 +33,7 @@ class PlubingTodoViewModel @Inject constructor(
     val postUploadFileUseCase: PostUploadFileUseCase,
     val putTodoCompleteUseCase: PutTodoCompleteUseCase,
     val putTodoCancelUseCase: PutTodoCancelUseCase,
+    val putTodoLikeToggleUseCase: PutTodoLikeToggleUseCase,
 ) : BaseViewModel<PlubingTodoPageState>(PlubingTodoPageState()) {
 
     companion object {
@@ -71,6 +73,13 @@ class PlubingTodoViewModel @Inject constructor(
             else -> DialogMenuType.TODO_LIST_COMMON_TYPE
         }
         emitEventFlow(PlubingTodoEvent.ShowMenuBottomSheetDialog(vo, menuType))
+    }
+
+    fun onClickTodoLike(timelineId: Int) {
+        putTodoLikeToggle(timelineId) {
+            val replacedList = getTimelineListItemReplaced(timelineId, it)
+            updateTodoTimelineList(replacedList)
+        }
     }
 
     fun onClickMenuItemType(item: DialogMenuItemType, todoTimelineVo: TodoTimelineVo) {
@@ -199,6 +208,11 @@ class PlubingTodoViewModel @Inject constructor(
             it.copy(isProof = isProofed)
         }
     }
+    private fun getTimelineListItemReplaced(timelineId: Int, timelineVo: TodoTimelineVo): List<TodoTimelineVo> {
+        return uiState.value.todoList.map {
+            if(it.timelineId == timelineId) timelineVo else it.copy()
+        }
+    }
 
     fun goToTodoReport(todoTimelineVo: TodoTimelineVo) {
 
@@ -231,7 +245,7 @@ class PlubingTodoViewModel @Inject constructor(
     }
 
     private fun getTodoComplete(todoId: Int, onSuccess: () -> Unit) {
-        val request = TodoRequestVo(plubingId, todoId)
+        val request = TodoRequestVo(plubingId, todoId = todoId)
         viewModelScope.launch {
             putTodoCompleteUseCase(request).collect { state ->
                 inspectUiState(state, {
@@ -242,12 +256,21 @@ class PlubingTodoViewModel @Inject constructor(
     }
 
     private fun putTodoCancel(todoId: Int, onSuccess: () -> Unit) {
-        val request = TodoRequestVo(plubingId, todoId)
+        val request = TodoRequestVo(plubingId, todoId = todoId)
         viewModelScope.launch {
             putTodoCancelUseCase(request).collect { state ->
                 inspectUiState(state, {
                     onSuccess()
                 })
+            }
+        }
+    }
+
+    private fun putTodoLikeToggle(timelineId: Int, onSuccess: (TodoTimelineVo) -> Unit) {
+        val request = TodoRequestVo(plubingId, timelineId = timelineId)
+        viewModelScope.launch {
+            putTodoLikeToggleUseCase(request).collect { state ->
+                inspectUiState(state, onSuccess)
             }
         }
     }

@@ -4,8 +4,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
+import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemTodoTimelineBinding
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.PlubUser
 import com.plub.presentation.util.onThrottleClick
 
 class PlubingTodoTimelineViewHolder(
@@ -38,15 +40,23 @@ class PlubingTodoTimelineViewHolder(
                     listener.onClickTodoMenu(it)
                 }
             }
+
+            imageViewLikeIcon.onThrottleClick {
+                vo?.let {
+                    listener.onClickTodoLike(it.timelineId)
+                }
+            }
         }
     }
 
     fun bind(item: TodoTimelineVo) {
         vo = item
         binding.apply {
+            val likeIcon = if(item.isLike) R.drawable.ic_heart_no_padding else R.drawable.ic_heart_no_padding
+            imageViewLikeIcon.setImageResource(likeIcon)
             textViewLikeCount.text = item.totalLikes.toString()
             todoItemAdapter.submitList(item.todoList)
-            GlideUtil.loadImage(root.context, item.accountInfoVo.profileImage, circleImageViewProfile)
+            GlideUtil.loadImage(root.context, PlubUser.info.profileImage, circleImageViewProfile)
         }
     }
 

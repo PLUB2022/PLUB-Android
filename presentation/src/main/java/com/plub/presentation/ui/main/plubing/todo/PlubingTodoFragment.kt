@@ -46,6 +46,10 @@ class PlubingTodoFragment : BaseFragment<FragmentPlubingTodoBinding, PlubingTodo
             override fun onClickTodoMenu(vo: TodoTimelineVo) {
                 viewModel.onClickTodoMenu(vo)
             }
+
+            override fun onClickTodoLike(timelineId: Int) {
+                viewModel.onClickTodoLike(timelineId)
+            }
         })
     }
 

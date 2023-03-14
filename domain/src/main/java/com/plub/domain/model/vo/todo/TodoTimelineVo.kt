@@ -12,5 +12,6 @@ data class TodoTimelineVo(
     val totalLikes: Int = -1,
     val accountInfoVo: AccountInfoVo = AccountInfoVo(),
     val todoList: List<TodoItemVo> = emptyList(),
-    val isAuthor:Boolean = false
+    val isAuthor:Boolean = false,
+    val isLike:Boolean = false
 ) : DomainModel

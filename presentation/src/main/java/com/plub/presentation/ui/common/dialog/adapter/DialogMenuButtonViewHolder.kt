@@ -40,6 +40,7 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.TODO_DELETE,
             DialogMenuItemType.BOARD_DELETE,
             DialogMenuItemType.BOARD_COMMENT_DELETE -> R.drawable.ic_delete_red
+            DialogMenuItemType.TODO_PLANNER,
             DialogMenuItemType.TODO_EDIT,
             DialogMenuItemType.BOARD_EDIT,
             DialogMenuItemType.BOARD_COMMENT_EDIT -> R.drawable.ic_edit_black

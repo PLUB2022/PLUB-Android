@@ -20,6 +20,7 @@ import retrofit2.http.Query
 interface TodoApi {
     companion object {
         private const val PATH_PLUBING_ID = "plubbingId"
+        private const val PATH_TIMELINE_ID = "timelineId"
         private const val PATH_TODO_LIST_ID = "todolistId"
         private const val PATH_TODO_YEAR = "year"
         private const val PATH_TODO_ID = "todoId"
@@ -84,4 +85,10 @@ interface TodoApi {
         @Path(PATH_PLUBING_ID) plubbingId: Int,
         @Path(PATH_TODO_ID) todoId: Int
     ): Response<ApiResponse<DataDto.DTO>>
+
+    @PUT(Endpoints.PLUBBING.TODO.TODO_LIKE_TOGGLE)
+    suspend fun putLikeToggleTodo(
+        @Path(PATH_PLUBING_ID) plubbingId: Int,
+        @Path(PATH_TIMELINE_ID) timelineId: Int
+    ): Response<ApiResponse<TodoTimelineResponse>>
 }

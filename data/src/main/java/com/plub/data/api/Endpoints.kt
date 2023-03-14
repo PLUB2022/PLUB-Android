@@ -85,6 +85,7 @@ object Endpoints {
             const val TODO_CREATE = "$PLUBBING_ID_URL/todolist"
             const val TODO_EDIT = "$PLUBBING_ID_URL/todolist/{todoId}"
             const val TODO_DELETE = "$PLUBBING_ID_URL/todolist/{todoId}"
+            const val TODO_LIKE_TOGGLE = "$PLUBBING_ID_URL/timeline/{timelineId}/like"
         }
     }
 }

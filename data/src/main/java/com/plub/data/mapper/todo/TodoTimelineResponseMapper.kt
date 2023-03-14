@@ -19,6 +19,8 @@ object TodoTimelineResponseMapper : Mapper.ResponseMapper<TodoTimelineResponse, 
                 timelineId = todoTimelineId,
                 date = date,
                 totalLikes = totalLikes,
+                isLike = isLike,
+                isAuthor = isAuthor,
                 accountInfoVo = AccountInfoResponseMapper.mapDtoToModel(accountInfo),
                 todoList = todoList.map {
                     todoItemRespoMapper.mapDtoToModel(it)

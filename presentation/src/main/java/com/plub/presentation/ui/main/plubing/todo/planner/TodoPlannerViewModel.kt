@@ -179,7 +179,7 @@ class TodoPlannerViewModel @Inject constructor(
     }
 
     private fun todoDelete(todoId: Int) {
-        val request = TodoRequestVo(plubingId, todoId)
+        val request = TodoRequestVo(plubingId, todoId = todoId)
         viewModelScope.launch {
             deleteTodoUseCase(request).collect {
                 inspectUiState(it, { vo ->
@@ -246,7 +246,7 @@ class TodoPlannerViewModel @Inject constructor(
     }
 
     private fun getTodoComplete(todoId: Int, onSuccess: () -> Unit) {
-        val request = TodoRequestVo(plubingId, todoId)
+        val request = TodoRequestVo(plubingId, todoId = todoId)
         viewModelScope.launch {
             putTodoCompleteUseCase(request).collect { state ->
                 inspectUiState(state, {
@@ -257,7 +257,7 @@ class TodoPlannerViewModel @Inject constructor(
     }
 
     private fun putTodoCancel(todoId: Int, onSuccess: () -> Unit) {
-        val request = TodoRequestVo(plubingId, todoId)
+        val request = TodoRequestVo(plubingId, todoId = todoId)
         viewModelScope.launch {
             putTodoCancelUseCase(request).collect { state ->
                 inspectUiState(state, {

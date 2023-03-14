@@ -22,4 +22,5 @@ interface PlubingTodoRepository {
     suspend fun deleteTodo(request: TodoRequestVo): Flow<UiState<Unit>>
     suspend fun postTodoCreate(request: TodoWriteRequestVo): Flow<UiState<TodoItemVo>>
     suspend fun putTodoEdit(request: TodoWriteRequestVo): Flow<UiState<TodoItemVo>>
+    suspend fun putTodoLikeToggle(request: TodoRequestVo): Flow<UiState<TodoTimelineVo>>
 }

@@ -68,4 +68,8 @@ class PlubingTodoRepositoryImpl @Inject constructor(private val todoApi: TodoApi
         val body = TodoWriteRequestMapper.mapModelToDto(request)
         return apiLaunch(todoApi.postTodoCreate(request.plubbingId, body), TodoItemResponseMapper)
     }
+
+    override suspend fun putTodoLikeToggle(request: TodoRequestVo): Flow<UiState<TodoTimelineVo>> {
+        return apiLaunch(todoApi.putLikeToggleTodo(request.plubbingId, request.timelineId), TodoTimelineResponseMapper)
+    }
 }
