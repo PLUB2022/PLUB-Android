@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentPlubingTodoBinding
 import com.plub.presentation.parcelableVo.ParseTodoItemVo
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
-class PlubingTodoFragment : BaseFragment<FragmentPlubingTodoBinding, PlubingTodoPageState, PlubingTodoViewModel>(
+class PlubingTodoFragment : BaseTestFragment<FragmentPlubingTodoBinding, PlubingTodoPageState, PlubingTodoViewModel>(
     FragmentPlubingTodoBinding::inflate
 ) {
 
@@ -82,8 +82,8 @@ class PlubingTodoFragment : BaseFragment<FragmentPlubingTodoBinding, PlubingTodo
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    todoListAdapter.submitList(it.todoList)
+                viewModel.uiState.todoList.collect {
+                    todoListAdapter.submitList(it)
                 }
             }
 

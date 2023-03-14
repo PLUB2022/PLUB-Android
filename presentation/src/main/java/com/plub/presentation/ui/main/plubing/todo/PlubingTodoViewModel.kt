@@ -12,17 +12,18 @@ import com.plub.domain.model.vo.todo.TodoProofRequestVo
 import com.plub.domain.model.vo.todo.TodoRequestVo
 import com.plub.domain.model.vo.todo.TodoTimelineListVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
-import com.plub.domain.usecase.PutTodoCompleteUseCase
 import com.plub.domain.usecase.GetTimelineListUseCase
 import com.plub.domain.usecase.PostTodoProofUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.domain.usecase.PutTodoCancelUseCase
+import com.plub.domain.usecase.PutTodoCompleteUseCase
 import com.plub.domain.usecase.PutTodoLikeToggleUseCase
-import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParseTodoItemVo
-import com.plub.presentation.ui.main.plubing.PlubingMainEvent
-import com.plub.presentation.ui.main.plubing.todo.planner.TodoPlannerViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -36,7 +37,13 @@ class PlubingTodoViewModel @Inject constructor(
     val putTodoCompleteUseCase: PutTodoCompleteUseCase,
     val putTodoCancelUseCase: PutTodoCancelUseCase,
     val putTodoLikeToggleUseCase: PutTodoLikeToggleUseCase,
-) : BaseViewModel<PlubingTodoPageState>(PlubingTodoPageState()) {
+) : BaseTestViewModel<PlubingTodoPageState>() {
+
+    private val todoListStateFlow: MutableStateFlow<List<TodoTimelineVo>> = MutableStateFlow(emptyList())
+
+    override val uiState: PlubingTodoPageState = PlubingTodoPageState(
+        todoListStateFlow.asStateFlow()
+    )
 
     companion object {
         private const val GOAL_TYPE_POSITION = 0
@@ -81,7 +88,7 @@ class PlubingTodoViewModel @Inject constructor(
     fun onClickTodoLike(timelineId: Int) {
         putTodoLikeToggle(timelineId) {
             val replacedList = getTimelineListItemReplaced(timelineId, it)
-            updateTodoTimelineList(replacedList)
+            updateTodoList(replacedList)
         }
     }
 
@@ -96,7 +103,8 @@ class PlubingTodoViewModel @Inject constructor(
     fun onClickProofComplete(timelineId: Int, todoId: Int, proofFile: File) {
         postUploadImage(proofFile) {
             postTodoProof(todoId, it) {
-                updateTodoProofChange(timelineId, todoId)
+                val proofedList = getTodoListProofChanged(timelineId, todoId)
+                updateTodoList(proofedList)
             }
         }
     }
@@ -108,123 +116,6 @@ class PlubingTodoViewModel @Inject constructor(
                 inspectUiState(it, ::successGetTodoList)
             }
         }
-    }
-
-    private fun successGetTodoList(vo: TodoTimelineListVo) {
-        isLastPage = vo.last
-        val lastDate = uiState.value.todoList.lastOrNull()?.date
-        val groupByDateList = todoGroupByDate(vo.content, lastDate)
-        updateTodoTimelineList(getMergeList(groupByDateList))
-    }
-
-    private fun todoGroupByDate(
-        list: List<TodoTimelineVo>,
-        lastDate: String?
-    ): List<TodoTimelineVo> {
-        return list.groupBy { it.date }.mapValues {
-            val isExistDate = lastDate == it.key
-            val dateItem = TodoTimelineVo(TodoTimelineViewType.DATE, date = it.key)
-            it.value.toMutableList().apply {
-                if (!isExistDate) add(FIRST_IDX, dateItem)
-            }
-        }.flatMap { it.value }
-    }
-
-    private fun getMergeList(list: List<TodoTimelineVo>): List<TodoTimelineVo> {
-        val originList = uiState.value.todoList
-        return if (cursorId == FIRST_CURSOR) list.toMutableList().apply {
-            add(GOAL_TYPE_POSITION, TodoTimelineVo(viewType = TodoTimelineViewType.GOAL))
-        } else originList + list
-    }
-
-    private fun updateTodoTimelineList(list: List<TodoTimelineVo>) {
-        updateUiState { uiState ->
-            uiState.copy(
-                todoList = list
-            )
-        }
-        isNetworkCall = false
-    }
-
-    private fun cursorUpdate() {
-        cursorId = if (uiState.value.todoList.isEmpty()) FIRST_CURSOR
-        else uiState.value.todoList.lastOrNull { it.viewType == TodoTimelineViewType.PLUBING }?.timelineId
-            ?: FIRST_CURSOR
-    }
-
-    private fun completeTodoCheck(timelineId: Int, vo: TodoItemVo) {
-        getTodoComplete(vo.todoId) {
-            val checkChangedVo = vo.copy(isChecked = !vo.isChecked)
-            val rebasedTimelineList = getReplaceItemTodoRebasedList(timelineId, checkChangedVo, true)
-            updateTodoTimelineList(rebasedTimelineList)
-            showProofDialog(timelineId, vo)
-        }
-    }
-
-    private fun cancelTodoCheck(timelineId: Int, vo: TodoItemVo) {
-        putTodoCancel(vo.todoId) {
-            val checkChangedVo = vo.copy(isChecked = !vo.isChecked)
-            val rebasedTimelineList = getReplaceItemTodoRebasedList(timelineId, checkChangedVo, false)
-            updateTodoTimelineList(rebasedTimelineList)
-        }
-    }
-
-    private fun getReplaceItemTodoRebasedList(timelineId: Int, vo: TodoItemVo, isTop: Boolean): List<TodoTimelineVo> {
-        return uiState.value.todoList.toMutableList().apply {
-            val timelinePosition = indexOfFirst { it.timelineId == timelineId }
-            val timelineVo = get(timelinePosition)
-            val rebasedTodoList = getTodoItemListRebaseItem(timelineVo.todoList,vo, isTop)
-            val rebasedTimelineVo = timelineVo.copy(todoList = rebasedTodoList)
-            set(timelinePosition, rebasedTimelineVo)
-        }
-    }
-
-    private fun getTodoItemListRebaseItem(list: List<TodoItemVo>, vo: TodoItemVo, isTop: Boolean): List<TodoItemVo> {
-        return list.toMutableList().apply {
-            val removePosition = indexOfFirst { it.todoId == vo.todoId }
-            removeAt(removePosition)
-            if(isTop) add(FIRST_IDX, vo) else add(vo)
-        }
-    }
-
-    private fun updateTodoProofChange(timelineId: Int, todoId: Int) {
-        updateUiState { uiState ->
-            uiState.copy(
-                todoList = getTodoListProofChanged(timelineId, todoId)
-            )
-        }
-    }
-
-    private fun showProofDialog(timelineId: Int, todoItemVo: TodoItemVo) {
-        val vo = ParseTodoItemVo.mapToParse(todoItemVo)
-        emitEventFlow(PlubingTodoEvent.ShowTodoProofDialog(timelineId, vo))
-    }
-
-    private fun getTodoListProofChanged(timelineId: Int, todoId: Int): List<TodoTimelineVo> {
-        return uiState.value.todoList.map {
-            val todoItemList = if (it.timelineId == timelineId) getTodoItemListProofChanged(it.todoList, todoId) else it.todoList
-            it.copy(todoList = todoItemList)
-        }
-    }
-
-    private fun getTodoItemListProofChanged(list: List<TodoItemVo>, todoId: Int): List<TodoItemVo> {
-        return list.map {
-            val isProofed = if (it.todoId == todoId) !it.isProof else it.isProof
-            it.copy(isProof = isProofed)
-        }
-    }
-    private fun getTimelineListItemReplaced(timelineId: Int, timelineVo: TodoTimelineVo): List<TodoTimelineVo> {
-        return uiState.value.todoList.map {
-            if(it.timelineId == timelineId) timelineVo else it.copy()
-        }
-    }
-
-    fun goToTodoReport(todoTimelineVo: TodoTimelineVo) {
-
-    }
-
-    private fun goToTodoPlanner(date:String) {
-        emitEventFlow(PlubingTodoEvent.GoToPlannerTodo(date))
     }
 
     private fun postUploadImage(imageFile: File, onSuccess: (String) -> Unit) {
@@ -277,6 +168,116 @@ class PlubingTodoViewModel @Inject constructor(
             putTodoLikeToggleUseCase(request).collect { state ->
                 inspectUiState(state, onSuccess)
             }
+        }
+    }
+
+    private fun successGetTodoList(vo: TodoTimelineListVo) {
+        isLastPage = vo.last
+        val lastDate = todoListStateFlow.value.lastOrNull()?.date
+        val groupByDateList = todoGroupByDate(vo.content, lastDate)
+        updateTodoList(getMergeList(groupByDateList))
+        isNetworkCall = false
+    }
+
+    private fun todoGroupByDate(
+        list: List<TodoTimelineVo>,
+        lastDate: String?
+    ): List<TodoTimelineVo> {
+        return list.groupBy { it.date }.mapValues {
+            val isExistDate = lastDate == it.key
+            val dateItem = TodoTimelineVo(TodoTimelineViewType.DATE, date = it.key)
+            it.value.toMutableList().apply {
+                if (!isExistDate) add(FIRST_IDX, dateItem)
+            }
+        }.flatMap { it.value }
+    }
+
+    private fun getMergeList(list: List<TodoTimelineVo>): List<TodoTimelineVo> {
+        val originList = todoListStateFlow.value
+        return if (cursorId == FIRST_CURSOR) list.toMutableList().apply {
+            add(GOAL_TYPE_POSITION, TodoTimelineVo(viewType = TodoTimelineViewType.GOAL))
+        } else originList + list
+    }
+
+    private fun cursorUpdate() {
+        cursorId = if (todoListStateFlow.value.isEmpty()) FIRST_CURSOR
+        else todoListStateFlow.value.lastOrNull { it.viewType == TodoTimelineViewType.PLUBING }?.timelineId ?: FIRST_CURSOR
+    }
+
+    private fun completeTodoCheck(timelineId: Int, vo: TodoItemVo) {
+        getTodoComplete(vo.todoId) {
+            val checkChangedVo = vo.copy(isChecked = !vo.isChecked)
+            val rebasedTimelineList = getReplaceItemTodoRebasedList(timelineId, checkChangedVo, true)
+            updateTodoList(rebasedTimelineList)
+            showProofDialog(timelineId, vo)
+        }
+    }
+
+    private fun cancelTodoCheck(timelineId: Int, vo: TodoItemVo) {
+        putTodoCancel(vo.todoId) {
+            val checkChangedVo = vo.copy(isChecked = !vo.isChecked)
+            val rebasedTimelineList = getReplaceItemTodoRebasedList(timelineId, checkChangedVo, false)
+            updateTodoList(rebasedTimelineList)
+        }
+    }
+
+    private fun getReplaceItemTodoRebasedList(timelineId: Int, vo: TodoItemVo, isTop: Boolean): List<TodoTimelineVo> {
+        return todoListStateFlow.value.toMutableList().apply {
+            val timelinePosition = indexOfFirst { it.timelineId == timelineId }
+            val timelineVo = get(timelinePosition)
+            val rebasedTodoList = getTodoItemListRebaseItem(timelineVo.todoList,vo, isTop)
+            val rebasedTimelineVo = timelineVo.copy(todoList = rebasedTodoList)
+            set(timelinePosition, rebasedTimelineVo)
+        }
+    }
+
+    private fun getTodoItemListRebaseItem(list: List<TodoItemVo>, vo: TodoItemVo, isTop: Boolean): List<TodoItemVo> {
+        return list.toMutableList().apply {
+            val removePosition = indexOfFirst { it.todoId == vo.todoId }
+            removeAt(removePosition)
+            if(isTop) add(FIRST_IDX, vo) else add(vo)
+        }
+    }
+
+    private fun showProofDialog(timelineId: Int, todoItemVo: TodoItemVo) {
+        val vo = ParseTodoItemVo.mapToParse(todoItemVo)
+        emitEventFlow(PlubingTodoEvent.ShowTodoProofDialog(timelineId, vo))
+    }
+
+    private fun getTodoListProofChanged(timelineId: Int, todoId: Int): List<TodoTimelineVo> {
+        return todoListStateFlow.value.toMutableList().apply {
+            val timelinePosition = indexOfFirst { it.timelineId == timelineId }
+            val timelineVo = get(timelinePosition)
+            val proofChangedList = getTodoItemListProofChanged(timelineVo.todoList, todoId)
+            val proofChangedTimelineVo = timelineVo.copy(todoList = proofChangedList)
+            set(timelinePosition, proofChangedTimelineVo)
+        }
+    }
+
+    private fun getTodoItemListProofChanged(list: List<TodoItemVo>, todoId: Int): List<TodoItemVo> {
+        return list.map {
+            val isProofed = if (it.todoId == todoId) !it.isProof else it.isProof
+            it.copy(isProof = isProofed)
+        }
+    }
+
+    private fun getTimelineListItemReplaced(timelineId: Int, timelineVo: TodoTimelineVo): List<TodoTimelineVo> {
+        return todoListStateFlow.value.map {
+            if(it.timelineId == timelineId) timelineVo else it.copy()
+        }
+    }
+
+    private fun goToTodoPlanner(date:String) {
+        emitEventFlow(PlubingTodoEvent.GoToPlannerTodo(date))
+    }
+
+    private fun goToTodoReport(todoTimelineVo: TodoTimelineVo) {
+
+    }
+
+    private fun updateTodoList(todoList: List<TodoTimelineVo>) {
+        viewModelScope.launch {
+            todoListStateFlow.update { todoList }
         }
     }
 }

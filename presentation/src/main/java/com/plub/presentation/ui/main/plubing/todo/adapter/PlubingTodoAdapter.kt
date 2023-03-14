@@ -32,15 +32,6 @@ class PlubingTodoAdapter(
         }
     }
 
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
-        if (payloads.isNotEmpty()) {
-            when (holder) {
-                is PlubingTodoTimelineViewHolder -> holder.updateList(currentList[position], payloads.first())
-            }
-        } else super.onBindViewHolder(holder, position, payloads)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (TodoTimelineViewType.indexOf(viewType)) {
             TodoTimelineViewType.PLUBING -> {
@@ -71,8 +62,4 @@ class PlubingTodoDiffCallback : DiffUtil.ItemCallback<TodoTimelineVo>() {
 
     override fun areContentsTheSame(oldItem: TodoTimelineVo, newItem: TodoTimelineVo): Boolean =
         oldItem == newItem
-
-    override fun getChangePayload(oldItem: TodoTimelineVo, newItem: TodoTimelineVo): Any? {
-        return if (oldItem.todoList != newItem.todoList) newItem.todoList else null
-    }
 }
