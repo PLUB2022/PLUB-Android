@@ -50,7 +50,7 @@ class MyPageSettingViewModel @Inject constructor(
     fun onTextChangedAfter() {
         val nickname = uiState.value.nickname
         if(nickname == PlubUser.info.nickname){
-            handleNicknameCheckSuccess(true)
+            handleNicknameCheckError(NicknameError.EmptyNickname(""))
         }else{
             fetchNicknameCheck(nickname)
         }
@@ -148,6 +148,7 @@ class MyPageSettingViewModel @Inject constructor(
         updateUiState { uiState ->
             uiState.copy(
                 nicknameIsActive = isActiveNickname,
+                nicknameIsChanged = uiState.nickname != uiState.originNickname,
                 nicknameDescription = resourceProvider.getString(nicknameDescriptionRes)
             )
         }
@@ -197,4 +198,13 @@ class MyPageSettingViewModel @Inject constructor(
             setSpan(ForegroundColorSpan(introduceCountColor),0,introduceLength.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
     }
+
+    fun saveChangedNickName(){
+        
+    }
+
+    fun saveChangedOnlyIntro() {
+
+    }
+
 }

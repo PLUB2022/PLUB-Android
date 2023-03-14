@@ -11,9 +11,9 @@ data class MyPageSettingState(
     val originIntroduce : String = "",
     val introduceCount : SpannableString = SpannableString(""),
     val nicknameDescription:String = "",
-    val nicknameIsActive:Boolean? = true,
+    val nicknameIsActive:Boolean? = null,
+    val nicknameIsChanged :Boolean = false
 ) : PageState {
     val isSaveButtonEnable = introduce.isNotEmpty() && nickname.isNotEmpty() && (introduce != originIntroduce)
             && (nicknameIsActive == true)
-    val nicknameIsChanged = (nickname != originNickname)
 }
