@@ -27,7 +27,7 @@ class ReportDetailViewModel @Inject constructor(
         )
         updateUiState { uiState ->
             uiState.copy(
-                reportList = arrayList.filter { uiState.nowText != it.reportTitle }
+                reportList = arrayList.filter { type != it.reportType }
             )
         }
     }

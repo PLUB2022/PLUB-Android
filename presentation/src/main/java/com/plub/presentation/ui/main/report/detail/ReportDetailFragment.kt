@@ -1,10 +1,8 @@
 package com.plub.presentation.ui.main.report.detail
 
 import android.view.View
-import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentReportDetailBinding
@@ -39,7 +37,6 @@ class ReportDetailFragment : BaseFragment<FragmentReportDetailBinding, ReportDet
 
             recyclerViewReportItem.apply {
                 layoutManager = LinearLayoutManager(context)
-                addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
                 adapter = reportItemAdapter
             }
 

@@ -71,6 +71,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:textColor="@color/black"
                 android:textSize="14sp"
+                android:text="@{vm.uiState.nowText}"
                 android:layout_marginStart="16dp"
                 tools:text="비속어 / 폭언 / 비하 / 음란성 내용"
                 android:layout_width="wrap_content"
