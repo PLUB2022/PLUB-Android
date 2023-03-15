@@ -11,8 +11,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor() : BaseViewModel<PageState.Default>(PageState.Default) {
 
-    fun onSelectedBottomNavigationMenu(item: MenuItem) {
-        val idx = getBottomMenuIndex(item.itemId)
+    fun onSelectedBottomNavigationMenu(fragmentId: Int) {
+        val idx = getBottomMenuIndex(fragmentId)
         idx?.let {
             emitEventFlow(MainEvent.ShowBottomNavigationBadge(it))
         }
