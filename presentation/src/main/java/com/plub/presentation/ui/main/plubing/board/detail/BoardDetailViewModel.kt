@@ -25,6 +25,7 @@ import com.plub.presentation.util.PlubingInfo
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -58,14 +59,14 @@ class BoardDetailViewModel @Inject constructor(
     private val commentListStateFlow: MutableStateFlow<List<BoardCommentVo>> = MutableStateFlow(emptyList())
 
     override val uiState: BoardDetailPageState = BoardDetailPageState(
-        plubingNameStateFlow,
-        profileImageStateFlow,
-        isEditCommentModeStateFlow,
-        isReplyWritingModeStateFlow,
-        replyWritingTextStateFlow,
-        boardVoStateFlow,
+        plubingNameStateFlow.asStateFlow(),
+        profileImageStateFlow.asStateFlow(),
+        isEditCommentModeStateFlow.asStateFlow(),
+        isReplyWritingModeStateFlow.asStateFlow(),
+        replyWritingTextStateFlow.asStateFlow(),
+        boardVoStateFlow.asStateFlow(),
         commentTextStateFlow,
-        commentListStateFlow
+        commentListStateFlow.asStateFlow()
     )
 
     private var plubingId = PlubingInfo.info.plubingId

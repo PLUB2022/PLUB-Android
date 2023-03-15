@@ -13,6 +13,7 @@ import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,8 +29,8 @@ class BoardPinViewModel @Inject constructor(
     private val pinListStateFlow: MutableStateFlow<List<PlubingBoardVo>> = MutableStateFlow(emptyList())
 
     override val uiState: BoardPinPageState = BoardPinPageState(
-        plubingNameStateFlow,
-        pinListStateFlow
+        plubingNameStateFlow.asStateFlow(),
+        pinListStateFlow.asStateFlow()
     )
 
     private var plubingId = PlubingInfo.info.plubingId

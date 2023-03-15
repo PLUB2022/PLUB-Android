@@ -1,8 +1,6 @@
 package com.plub.presentation.ui.main.home.search
 
-import android.content.Context
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,14 +11,13 @@ import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSearchType
 import com.plub.domain.model.enums.PlubSortType
 import com.plub.presentation.R
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentSearchingBinding
 import com.plub.presentation.databinding.IncludeTabSearchResultBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
-import com.plub.presentation.ui.main.home.categoryGathering.CategoryGatheringFragmentDirections
 import com.plub.presentation.ui.main.home.search.adapter.RecentSearchAdapter
 import com.plub.presentation.util.hideKeyboard
 import com.plub.presentation.util.px
@@ -28,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchingFragment : BaseFragment<FragmentSearchingBinding, SearchingPageState, SearchingViewModel>(
+class SearchingFragment : BaseTestFragment<FragmentSearchingBinding, SearchingPageState, SearchingViewModel>(
     FragmentSearchingBinding::inflate
 ) {
 
@@ -123,10 +120,20 @@ class SearchingFragment : BaseFragment<FragmentSearchingBinding, SearchingPageSt
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    recentListAdapter.submitList(it.recentSearchList)
-                    searchListAdapter.submitList(it.searchList)
-                    setSortTypeText(it.sortType)
+                viewModel.uiState.searchList.collect {
+                    searchListAdapter.submitList(it)
+                }
+            }
+
+            launch {
+                viewModel.uiState.recentSearchList.collect {
+                    recentListAdapter.submitList(it)
+                }
+            }
+
+            launch {
+                viewModel.uiState.sortType.collect {
+                    setSortTypeText(it)
                 }
             }
 
