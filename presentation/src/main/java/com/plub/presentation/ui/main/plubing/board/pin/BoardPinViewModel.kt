@@ -119,12 +119,6 @@ class BoardPinViewModel @Inject constructor(
         updatePinList(newList)
     }
 
-    private fun updatePlubingName(name: String) {
-        viewModelScope.launch {
-            plubingNameStateFlow.update { name }
-        }
-    }
-
     private fun updatePinList(list: List<PlubingBoardVo>) {
         viewModelScope.launch {
             pinListStateFlow.update { list }

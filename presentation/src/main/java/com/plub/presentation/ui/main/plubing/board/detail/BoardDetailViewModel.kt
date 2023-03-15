@@ -19,12 +19,13 @@ import com.plub.domain.usecase.PostBoardCommentCreateUseCase
 import com.plub.domain.usecase.PutBoardChangePinUseCase
 import com.plub.domain.usecase.PutBoardCommentEditUseCase
 import com.plub.presentation.R
-import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.ImageUtil
+import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.util.PlubUser
 import com.plub.presentation.util.PlubingInfo
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -32,7 +33,6 @@ import kotlin.properties.Delegates
 @HiltViewModel
 class BoardDetailViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
-    val imageUtil: ImageUtil,
     val getBoardDetailUseCase: GetBoardDetailUseCase,
     val putBoardChangePinUseCase: PutBoardChangePinUseCase,
     val deleteBoardUseCase: DeleteBoardUseCase,
@@ -40,13 +40,33 @@ class BoardDetailViewModel @Inject constructor(
     val postBoardCommentCreateUseCase: PostBoardCommentCreateUseCase,
     val deleteBoardCommentUseCase: DeleteBoardCommentUseCase,
     val putBoardCommentEditUseCase: PutBoardCommentEditUseCase
-) : BaseViewModel<BoardDetailPageState>(BoardDetailPageState()) {
+) : BaseTestViewModel<BoardDetailPageState>() {
 
     companion object {
+        private const val SCROLL_TOP = 0
         private const val FIRST_CURSOR = 0
         private const val DETAIL_INFO_POSITION = 0
-        private const val DETAIL_INFO_SIZE = 1
     }
+
+    private val plubingNameStateFlow: MutableStateFlow<String> = MutableStateFlow(PlubingInfo.info.name)
+    private val profileImageStateFlow: MutableStateFlow<String> = MutableStateFlow(PlubUser.info.profileImage)
+    private val isEditCommentModeStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val isReplyWritingModeStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val replyWritingTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val boardVoStateFlow: MutableStateFlow<PlubingBoardVo> = MutableStateFlow(PlubingBoardVo())
+    private val commentTextStateFlow:MutableStateFlow<String> = MutableStateFlow("")
+    private val commentListStateFlow: MutableStateFlow<List<BoardCommentVo>> = MutableStateFlow(emptyList())
+
+    override val uiState: BoardDetailPageState = BoardDetailPageState(
+        plubingNameStateFlow,
+        profileImageStateFlow,
+        isEditCommentModeStateFlow,
+        isReplyWritingModeStateFlow,
+        replyWritingTextStateFlow,
+        boardVoStateFlow,
+        commentTextStateFlow,
+        commentListStateFlow
+    )
 
     private var plubingId = PlubingInfo.info.plubingId
     private var feedId by Delegates.notNull<Int>()
@@ -61,11 +81,6 @@ class BoardDetailViewModel @Inject constructor(
 
     fun initArgs(feedId: Int) {
         this.feedId = feedId
-        updateUiState { uiState ->
-            uiState.copy(
-                plubingName = PlubingInfo.info.name
-            )
-        }
     }
 
     fun onCompleteBoardEdit() {
@@ -135,57 +150,20 @@ class BoardDetailViewModel @Inject constructor(
     }
 
     fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onFetchBoardComments()
+        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onGetNextBoardComments()
     }
 
-    fun onFetchBoardDetail() {
-        fetchBoardDetail()
+    fun onGetBoardDetail() {
+        if(boardVoStateFlow.value != PlubingBoardVo()) return
+        getBoardDetail()
     }
 
-    fun onFetchBoardComments() {
+    fun onGetBoardComments() {
+        if(commentListStateFlow.value.isNotEmpty()) return
         isNetworkCall = true
-        cursorUpdate()
-        fetchBoardComments()
-    }
-
-    private fun fetchBoardDetail() {
-        val request = BoardRequestVo(plubingId, feedId)
-        viewModelScope.launch {
-            getBoardDetailUseCase(request).collect {
-                inspectUiState(it, ::onSuccessFetchBoardDetail)
-            }
-        }
-    }
-
-    private fun onSuccessFetchBoardDetail(vo: PlubingBoardVo) {
-        updateUiState { uiState ->
-            uiState.copy(
-                boardVo = vo,
-                profileImage = PlubUser.info.profileImage,
-            )
-        }
-
-        emitEventFlow(BoardDetailEvent.NotifyBoardDetailInfoNotify)
-    }
-
-    private fun fetchBoardComments() {
-        val request = GetBoardCommentsRequestVo(plubingId, feedId, cursorId)
-        viewModelScope.launch {
-            getBoardCommentsUseCase(request).collect {
-                inspectUiState(it, ::onSuccessFetchCommentList)
-            }
-        }
-    }
-
-    private fun onSuccessFetchCommentList(vo: BoardCommentListVo) {
-        updateCommentList(getMergeList(vo.content))
-        isLastPage = vo.last
-        isNetworkCall = false
-    }
-
-    private fun getMergeList(list: List<BoardCommentVo>): List<BoardCommentVo> {
-        val originList = uiState.value.commentList
-        return if (cursorId == FIRST_CURSOR) detailInfoAddedList(list) else originList + list
+        isLastPage = false
+        cursorId = FIRST_CURSOR
+        getBoardComments()
     }
 
     private fun sendComment(comment: String) {
@@ -197,30 +175,22 @@ class BoardDetailViewModel @Inject constructor(
         }
     }
 
-    private fun sendCommentSuccess(vo: BoardCommentVo) {
-        replyInputModeCancel()
-        commentClear()
-        updateAddCommentList(vo)
-    }
-
-    private fun refresh() {
-        isNetworkCall = true
-        isLastPage = false
-        cursorId = FIRST_CURSOR
-        fetchBoardComments()
-        fetchBoardDetail()
-    }
-
-    private fun detailInfoAddedList(list: List<BoardCommentVo>):List<BoardCommentVo> {
-        return list.toMutableList().apply {
-            add(DETAIL_INFO_POSITION, BoardCommentVo())
+    private fun getBoardComments() {
+        val request = GetBoardCommentsRequestVo(plubingId, feedId, cursorId)
+        viewModelScope.launch {
+            getBoardCommentsUseCase(request).collect {
+                inspectUiState(it, ::onSuccessFetchCommentList)
+            }
         }
     }
 
-    private fun getCommentPosition(id:Int):Int {
-        return uiState.value.commentList.indexOfFirst {
-            it.commentId == id
-        } + DETAIL_INFO_SIZE
+    private fun getBoardDetail() {
+        val request = BoardRequestVo(plubingId, feedId)
+        viewModelScope.launch {
+            getBoardDetailUseCase(request).collect {
+                inspectUiState(it, ::onSuccessGetBoardDetail)
+            }
+        }
     }
 
     private fun boardChangeClip() {
@@ -228,7 +198,7 @@ class BoardDetailViewModel @Inject constructor(
             val request = BoardRequestVo(plubingId, feedId)
             putBoardChangePinUseCase(request).collect {
                 inspectUiState(it, {
-                    fetchBoardDetail()
+                    getBoardDetail()
                 })
             }
         }
@@ -265,6 +235,49 @@ class BoardDetailViewModel @Inject constructor(
         }
     }
 
+    private fun onGetNextBoardComments() {
+        isNetworkCall = true
+        cursorUpdate()
+        getBoardComments()
+    }
+
+    private fun onSuccessFetchCommentList(vo: BoardCommentListVo) {
+        updateCommentList(getMergeList(vo.content))
+        isLastPage = vo.last
+        isNetworkCall = false
+    }
+
+    private fun getMergeList(list: List<BoardCommentVo>): List<BoardCommentVo> {
+        val originList = commentListStateFlow.value
+        return if (cursorId == FIRST_CURSOR) detailInfoAddedList(list) else originList + list
+    }
+
+    private fun sendCommentSuccess(vo: BoardCommentVo) {
+        replyInputModeCancel()
+        commentClear()
+        updateAddCommentList(vo)
+    }
+
+    private fun onSuccessGetBoardDetail(vo: PlubingBoardVo) {
+        updateBoardVo(vo)
+        emitEventFlow(BoardDetailEvent.NotifyBoardDetailInfoNotify)
+    }
+
+    private fun refresh() {
+        scrollToPosition = SCROLL_TOP
+        isLastPage = false
+        cursorId = FIRST_CURSOR
+        isNetworkCall = true
+        getBoardDetail()
+        getBoardComments()
+    }
+
+    private fun detailInfoAddedList(list: List<BoardCommentVo>):List<BoardCommentVo> {
+        return list.toMutableList().apply {
+            add(DETAIL_INFO_POSITION, BoardCommentVo())
+        }
+    }
+
     private fun sendCommentEditSuccess(vo:BoardCommentVo) {
         commentEditingInputModeCancel()
         commentClear()
@@ -272,81 +285,51 @@ class BoardDetailViewModel @Inject constructor(
     }
 
     private fun updateDeletedCommentList(commentId: Int) {
-        val deletedList = uiState.value.commentList.filterNot { it.commentId == commentId }
+        val deletedList = commentListStateFlow.value.filterNot { it.commentId == commentId }
         updateCommentList(deletedList)
-    }
-
-    private fun updateCommentList(commentList:List<BoardCommentVo>) {
-        updateUiState { uiState ->
-            uiState.copy(
-                commentList = commentList
-            )
-        }
     }
 
     private fun replyInputMode(commentId: Int, nickname: String) {
         editCommentId = null
         replyCommentId = commentId
         emitEventFlow(BoardDetailEvent.ShowKeyboard)
-        updateUiState { uiState ->
-            uiState.copy(
-                replyWritingText = resourceProvider.getString(
-                    R.string.plubing_board_detail_reply_writing,
-                    nickname
-                ),
-                replyWritingVisibility = true,
-                editCommentVisibility = false,
-            )
-        }
+        val text = resourceProvider.getString(R.string.plubing_board_detail_reply_writing, nickname)
+        updateReplyWritingText(text)
+        updateIsReplyWritingMode(true)
+        updateIsEditCommentMode(false)
     }
 
     private fun replyInputModeCancel() {
         replyCommentId = null
-        updateUiState { uiState ->
-            uiState.copy(
-                replyWritingVisibility = false
-            )
-        }
+        updateIsReplyWritingMode(false)
     }
 
     private fun commentEditingInputMode(commentText: String, commentId: Int) {
         replyCommentId = null
         editCommentId = commentId
         emitEventFlow(BoardDetailEvent.ShowKeyboard)
-        updateUiState { uiState ->
-            uiState.copy(
-                commentText = commentText,
-                editCommentVisibility = true,
-                replyWritingVisibility = false
-            )
-        }
+        updateCommentText(commentText)
+        updateIsReplyWritingMode(false)
+        updateIsEditCommentMode(true)
     }
 
     private fun commentEditingInputModeCancel() {
         editCommentId = null
-        updateUiState { uiState ->
-            uiState.copy(
-                editCommentVisibility = false
-            )
-        }
+        updateIsEditCommentMode(false)
     }
 
     private fun commentClear() {
-        updateUiState { uiState ->
-            uiState.copy(
-                commentText = ""
-            )
-        }
+        updateCommentText("")
         emitEventFlow(BoardDetailEvent.HideKeyboard)
     }
 
     private fun cursorUpdate() {
-        cursorId = if (uiState.value.commentList.isEmpty()) FIRST_CURSOR
-        else uiState.value.commentList.drop(DETAIL_INFO_POSITION).lastOrNull()?.commentId ?: FIRST_CURSOR
+        cursorId = if (commentListStateFlow.value.isEmpty()) FIRST_CURSOR
+        else commentListStateFlow.value.drop(DETAIL_INFO_POSITION).lastOrNull()?.commentId ?: FIRST_CURSOR
     }
 
     private fun updateEditCommentList(vo: BoardCommentVo) {
-        val newList = uiState.value.commentList.toMutableList()
+        val newList = commentListStateFlow.value.toMutableList()
         val idx = newList.indexOfFirst { it.commentId == vo.commentId }
         newList[idx] = vo
         scrollToPosition = idx
@@ -354,7 +337,7 @@ class BoardDetailViewModel @Inject constructor(
     }
 
     private fun updateAddCommentList(vo: BoardCommentVo) {
-        val newList = uiState.value.commentList.toMutableList()
+        val newList = commentListStateFlow.value.toMutableList()
         val targetIdx = if (vo.commentType == PlubingCommentType.REPLY) {
             newList.indexOfLast { it.groupId == vo.groupId }
         } else newList.lastIndex
@@ -363,5 +346,39 @@ class BoardDetailViewModel @Inject constructor(
         newList.add(idx, vo)
         scrollToPosition = idx
         updateCommentList(newList)
+    }
+
+    private fun updateIsEditCommentMode(isEditMode: Boolean) {
+        viewModelScope.launch {
+            isEditCommentModeStateFlow.update { isEditMode }
+        }
+    }
+    private fun updateIsReplyWritingMode(isReplyWriteMode: Boolean) {
+        viewModelScope.launch {
+            isReplyWritingModeStateFlow.update { isReplyWriteMode }
+        }
+    }
+    private fun updateReplyWritingText(text: String) {
+        viewModelScope.launch {
+            replyWritingTextStateFlow.update { text }
+        }
+    }
+
+    private fun updateBoardVo(vo: PlubingBoardVo) {
+        viewModelScope.launch {
+            boardVoStateFlow.update { vo }
+        }
+    }
+
+    private fun updateCommentText(text: String) {
+        viewModelScope.launch {
+            commentTextStateFlow.update { text }
+        }
+    }
+
+    private fun updateCommentList(list: List<BoardCommentVo>) {
+        viewModelScope.launch {
+            commentListStateFlow.update { list }
+        }
     }
 }
