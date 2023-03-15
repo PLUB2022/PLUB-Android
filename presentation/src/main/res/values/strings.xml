@@ -290,4 +290,11 @@
     <string name="apply_dialog_explain">정성스럽게 작성하신 답변을 \n모임 호스트에게 전달했어요.</string>
     <string name="apply_dialog_extra_explain">호스트가 수락하면 함께 활동할 수 있습니다.\n알림으로 알려드릴게요!</string>
 
+    <string name="report_title">게시글 신고하기</string>
+    <string name="report_sub_title">신고 사유가 무엇일까요?</string>
+    <string name="report_bad_word">🤬 비속어 / 폭언 / 비하 / 음란성 내용</string>
+    <string name="report_conflict_lier">🤥 갈등 조장 및 허위사실 유포</string>
+    <string name="report_ad_offer_religion">🤯 도배 / 광고성 내용 / 종교 권유</string>
+    <string name="report_etc">☹️ 그 외 기타사유</string>
+
 </resources>
