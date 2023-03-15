@@ -79,7 +79,7 @@
                 android:layout_marginTop="56dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:text="🤬 비속어 / 폭언 / 비하 / 음란성 내용"
+                tools:text="비속어 / 폭언 / 비하 / 음란성 내용"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

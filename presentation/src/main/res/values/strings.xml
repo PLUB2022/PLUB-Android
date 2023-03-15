@@ -292,10 +292,6 @@
 
     <string name="report_title">게시글 신고하기</string>
     <string name="report_sub_title">신고 사유가 무엇일까요?</string>
-    <string name="report_bad_word">🤬 비속어 / 폭언 / 비하 / 음란성 내용</string>
-    <string name="report_conflict_lier">🤥 갈등 조장 및 허위사실 유포</string>
-    <string name="report_ad_offer_religion">🤯 도배 / 광고성 내용 / 종교 권유</string>
-    <string name="report_etc">☹️ 그 외 기타사유</string>
     <string name="report_detail">신고 사유</string>
     <string name="report_detail_hint">자세한 신고사유 적어주세요</string>
     <string name="report_button">신고하기</string>
