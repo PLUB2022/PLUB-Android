@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.report.detail.ReportDetailViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,8 +53,8 @@
             app:layout_constraintStart_toStartOf="@id/text_view_title"
             app:layout_constraintTop_toBottomOf="@id/text_view_title" />
 
-        <Spinner
-            android:id="@+id/spinner_report"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_spinner"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginHorizontal="16dp"
@@ -55,16 +63,29 @@
             android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_sub_title" />
+            app:layout_constraintTop_toBottomOf="@id/text_view_sub_title" >
 
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="7dp"
-            android:src="@drawable/ic_arrow_under"
-            app:layout_constraintBottom_toBottomOf="@id/spinner_report"
-            app:layout_constraintEnd_toEndOf="@id/spinner_report"
-            app:layout_constraintTop_toTopOf="@id/spinner_report" />
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_marginStart="16dp"
+                tools:text="비속어 / 폭언 / 비하 / 음란성 내용"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="7dp"
+                android:src="@drawable/ic_arrow_under"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/text_view_report_detail"
@@ -76,7 +97,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinner_report" />
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_spinner" />
         
         <EditText
             android:layout_marginTop="8dp"
@@ -91,7 +112,16 @@
             app:layout_constraintTop_toBottomOf="@id/text_view_report_detail"
             android:layout_width="0dp"
             android:layout_height="46dp"/>
-        
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_report_item"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_spinner"
+            android:layout_marginHorizontal="16dp"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
         <Button
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

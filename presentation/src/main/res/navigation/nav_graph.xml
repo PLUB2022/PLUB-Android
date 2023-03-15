@@ -263,7 +263,7 @@
         android:id="@+id/reportFragment"
         android:name="com.plub.presentation.ui.main.report.ReportFragment"
         android:label="ReportFragment"
-        tools:layout="@layout/fragment_report" >
+        tools:layout="@layout/fragment_report">
 
         <action
             android:id="@+id/action_report_to_detail"
@@ -272,9 +272,9 @@
 
     <fragment
         android:id="@+id/reportDetailFragment"
-        android:name="com.plub.presentation.ui.main.report.ReportFragment"
+        android:name="com.plub.presentation.ui.main.report.detail.ReportDetailFragment"
         android:label="ReportDetailFragment"
-        tools:layout="@layout/fragment_report_detail" >
+        tools:layout="@layout/fragment_report_detail">
 
         <argument
             android:name="type"

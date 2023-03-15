@@ -15,9 +15,9 @@ class ReportViewModel @Inject constructor(
             uiState.copy(
                 reportList = arrayListOf(
                     ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", 0),
-                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", 0),
-                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", 0),
-                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", 0)
+                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", 1),
+                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", 2),
+                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", 3)
                 )
             )
         }
