@@ -8,10 +8,12 @@ import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.usecase.DeleteBoardUseCase
 import com.plub.domain.usecase.GetBoardPinsUseCase
 import com.plub.domain.usecase.PutBoardChangePinUseCase
-import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,11 +22,19 @@ class BoardPinViewModel @Inject constructor(
     val putBoardChangePinUseCase: PutBoardChangePinUseCase,
     val deleteBoardUseCase: DeleteBoardUseCase,
     val getBoardPinsUseCase: GetBoardPinsUseCase,
-) : BaseViewModel<BoardPinPageState>(BoardPinPageState()) {
+) : BaseTestViewModel<BoardPinPageState>() {
+
+    private val plubingNameStateFlow: MutableStateFlow<String> = MutableStateFlow(PlubingInfo.info.name)
+    private val pinListStateFlow: MutableStateFlow<List<PlubingBoardVo>> = MutableStateFlow(emptyList())
+
+    override val uiState: BoardPinPageState = BoardPinPageState(
+        plubingNameStateFlow,
+        pinListStateFlow
+    )
 
     private var plubingId = PlubingInfo.info.plubingId
 
-    private var scrollToPosition:Int? = null
+    private var scrollToPosition: Int? = null
 
     fun onCompleteBoardEdit(vo: ParsePlubingBoardVo) {
         val domainVo = ParsePlubingBoardVo.mapToDomain(vo)
@@ -62,23 +72,16 @@ class BoardPinViewModel @Inject constructor(
         emitEventFlow(BoardPinEvent.ShowMenuBottomSheetDialog(feedId, menuType))
     }
 
-    fun onFetchPinList() {
+    fun onGetPinList() {
+        if(pinListStateFlow.value.isNotEmpty()) return
+        getPinList()
+    }
+
+    private fun getPinList() {
         viewModelScope.launch {
-            fetchPinList()
-        }
-    }
-
-    private suspend fun fetchPinList() {
-        getBoardPinsUseCase(plubingId).collect {
-            inspectUiState(it, ::onSuccessFetchClipBoardList)
-        }
-    }
-
-    private fun onSuccessFetchClipBoardList(list: List<PlubingBoardVo>) {
-        updateUiState { uiState ->
-            uiState.copy(
-                pinList = list
-            )
+            getBoardPinsUseCase(plubingId).collect {
+                inspectUiState(it, ::updatePinList)
+            }
         }
     }
 
@@ -105,22 +108,26 @@ class BoardPinViewModel @Inject constructor(
     }
 
     private fun updateDeletedFeedList(feedId: Int) {
-        val deletedList = uiState.value.pinList.filterNot { it.feedId == feedId }
+        val deletedList = pinListStateFlow.value.filterNot { it.feedId == feedId }
         updatePinList(deletedList)
     }
 
     private fun updateEditFeedList(vo: PlubingBoardVo) {
-        val newList = uiState.value.pinList.toMutableList()
+        val newList = pinListStateFlow.value.toMutableList()
         val idx = newList.indexOfFirst { it.feedId == vo.feedId }
         newList[idx] = vo
         updatePinList(newList)
     }
 
-    private fun updatePinList(list:List<PlubingBoardVo>) {
-        updateUiState { uiState ->
-            uiState.copy(
-                pinList = list
-            )
+    private fun updatePlubingName(name: String) {
+        viewModelScope.launch {
+            plubingNameStateFlow.update { name }
+        }
+    }
+
+    private fun updatePinList(list: List<PlubingBoardVo>) {
+        viewModelScope.launch {
+            pinListStateFlow.update { list }
         }
     }
 }
