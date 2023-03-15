@@ -1,17 +1,12 @@
 package com.plub.presentation.ui.main.home.profile
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.enums.MyPageGatheringMyType
 import com.plub.domain.model.enums.MyPageGatheringStateType
-import com.plub.domain.model.vo.myPage.MyPageGatheringDetailVo
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.domain.usecase.GetMyGatheringUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -47,7 +42,7 @@ class MyPageViewModel @Inject constructor(
                     inspectUiState(it, ::handleGetMyGatheringSuccess)
                 }
 
-                getMyGatheringUseCase(MyPageGatheringStateType.WAIT).collect {
+                getMyGatheringUseCase(MyPageGatheringStateType.WAITING).collect {
                     inspectUiState(it, ::handleGetMyGatheringSuccess)
                 }
 
@@ -75,7 +70,7 @@ class MyPageViewModel @Inject constructor(
             MyPageGatheringStateType.RECRUITING -> {
                 emitEventFlow(MyPageEvent.GoToOtherApplication(plubbingId))
             }
-            MyPageGatheringStateType.WAIT -> {
+            MyPageGatheringStateType.WAITING -> {
                 emitEventFlow(MyPageEvent.GoToMyApplication(plubbingId))
             }
             MyPageGatheringStateType.ACTIVE -> {}

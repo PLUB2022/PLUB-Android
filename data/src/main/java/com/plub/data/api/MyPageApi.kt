@@ -1,6 +1,7 @@
 package com.plub.data.api
 
 import com.plub.data.base.ApiResponse
+import com.plub.data.dto.myPage.MyApplicationResponse
 import com.plub.data.dto.myPage.MyGatheringResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -16,5 +17,5 @@ interface MyPageApi {
     @GET(Endpoints.PLUBBING.MY_PAGE.BROWSE_MY_APPLICATION)
     suspend fun getMyApplication(
         @Path("plubbingId") plubbingId: Int
-    ): Response<ApiResponse<MyGatheringResponse>>
+    ): Response<ApiResponse<MyApplicationResponse>>
 }
