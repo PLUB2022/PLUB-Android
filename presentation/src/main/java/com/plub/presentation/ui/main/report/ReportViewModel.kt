@@ -22,4 +22,8 @@ class ReportViewModel @Inject constructor(
             )
         }
     }
+
+    fun goToReportDetailPage(type : Int){
+        emitEventFlow(ReportEvent.GoToReport(type))
+    }
 }
