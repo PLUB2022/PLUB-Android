@@ -57,12 +57,8 @@ class MainActivity :
 
         showBadge(BottomNavigationItemType.MAIN.idx)
 
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            viewModel.onSelectedBottomNavigationMenu(it)
-            return@setOnItemSelectedListener true
-        }
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            viewModel.onSelectedBottomNavigationMenu(destination.id)
             viewModel.onDestinationChanged(destination.id)
         }
     }
