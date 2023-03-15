@@ -64,6 +64,7 @@ class PlubingMainViewModel @Inject constructor(
     }
 
     fun onFetchPlubingMainInfo() {
+        if(memberListStateFlow.value.isNotEmpty()) return
         viewModelScope.launch {
             fetchPlubingMainUseCase(plubingId).collect {
                 inspectUiState(it, ::onSuccessPlubingMainInfo)

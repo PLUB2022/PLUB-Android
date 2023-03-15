@@ -20,6 +20,7 @@ import com.plub.domain.usecase.PutTodoCompleteUseCase
 import com.plub.domain.usecase.PutTodoLikeToggleUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParseTodoItemVo
+import com.plub.presentation.ui.main.plubing.board.PlubingBoardViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -61,13 +62,15 @@ class PlubingTodoViewModel @Inject constructor(
     }
 
     fun onGetTodoList() {
+        if(todoListStateFlow.value.isNotEmpty()) return
         isNetworkCall = true
-        cursorUpdate()
+        isLastPage = false
+        cursorId = FIRST_CURSOR
         getTodoList()
     }
 
     fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onGetTodoList()
+        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onGetNextTodoList()
     }
 
     fun onClickTodoCheck(timelineId: Int, vo: TodoItemVo) {
@@ -107,6 +110,12 @@ class PlubingTodoViewModel @Inject constructor(
                 updateTodoList(proofedList)
             }
         }
+    }
+
+    private fun onGetNextTodoList() {
+        isNetworkCall = true
+        cursorUpdate()
+        getTodoList()
     }
 
     private fun getTodoList() {

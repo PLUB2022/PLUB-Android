@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.canhub.cropper.CropImageContract
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubingFeedType
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentBoardWriteBinding
 import com.plub.presentation.ui.common.decoration.HorizontalSpaceDecoration
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BoardWriteFragment :
-    BaseFragment<FragmentBoardWriteBinding, BoardWritePageState, BoardWriteViewModel>(
+    BaseTestFragment<FragmentBoardWriteBinding, BoardWritePageState, BoardWriteViewModel>(
         FragmentBoardWriteBinding::inflate
     ) {
 
@@ -86,8 +86,8 @@ class BoardWriteFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    feedTypeAdapter.submitList(it.feedTypeList)
+                viewModel.uiState.feedTypeList.collect {
+                    feedTypeAdapter.submitList(it)
                 }
             }
 
@@ -116,7 +116,7 @@ class BoardWriteFragment :
                 findNavController().popBackStack()
             }
             is BoardWriteEvent.CompleteCreate -> {
-                setNavigationResult(KEY_RESULT_CREATE_COMPLETE, Unit)
+                setNavigationResult(KEY_RESULT_CREATE_COMPLETE, "")
                 findNavController().popBackStack()
             }
         }

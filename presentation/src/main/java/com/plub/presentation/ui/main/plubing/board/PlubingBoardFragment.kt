@@ -81,8 +81,8 @@ class PlubingBoardFragment :
             }
         }
         viewModel.initPlubingId(plubingId)
-        viewModel.onFetchBoardList()
-        viewModel.onFetchClipBoardList()
+        viewModel.onGetClipBoardList()
+        viewModel.onGetBoardList()
     }
 
     override fun initStates() {
@@ -108,7 +108,7 @@ class PlubingBoardFragment :
             viewModel.onCompleteBoardEdit(vo)
         }
 
-        getNavigationResult(BoardWriteFragment.KEY_RESULT_CREATE_COMPLETE) { _:Unit ->
+        getNavigationResult(BoardWriteFragment.KEY_RESULT_CREATE_COMPLETE) { _:String ->
             viewModel.onCompleteBoardCreate()
         }
     }
