@@ -160,6 +160,7 @@ class ArchiveUploadViewModel @Inject constructor(
 
     private fun addList(vo : ArchiveUploadVo){
         val originList = uiState.value.archiveUploadVoList.toMutableList()
+        originList.removeLast()
         originList.add(vo)
         val imageCount = originList.size - 2
         val last = arrayListOf(ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_ADD_VIEW))
