@@ -28,6 +28,10 @@ class ArchiveUploadViewModel @Inject constructor(
     companion object{
         const val UPLOAD_TYPE = 0
         const val EDIT_TYPE = 1
+
+        const val MAX_IMAGE = 10
+
+        const val DELETE_IMAGE = "DELETE SUCCESS"
     }
 
     private var editText : String = ""
@@ -113,7 +117,9 @@ class ArchiveUploadViewModel @Inject constructor(
     fun deleteList(position : Int, image : String){
         val request = DeleteFileRequestVo(UploadFileType.ARCHIVE, image)
         viewModelScope.launch {
-            PlubLogger.logD(deleteFileUseCase(request))
+            if(deleteFileUseCase(request) == DELETE_IMAGE){
+                onDeleteSuccess(position)
+            }
         }
     }
 
@@ -149,10 +155,11 @@ class ArchiveUploadViewModel @Inject constructor(
     }
 
     private fun addList(vo : ArchiveUploadVo){
-        val originList = mutableListOf<ArchiveUploadVo>()
-        originList.addAll(uiState.value.archiveUploadVoList)
+        val originList = uiState.value.archiveUploadVoList.toMutableList()
         originList.add(vo)
-        updateListState(originList)
+        val imageCount = originList.size - 2
+        val last = arrayListOf(ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_ADD_VIEW))
+        if(imageCount < MAX_IMAGE) updateListState(originList + last) else updateListState(originList)
     }
 
     fun showBottomSheet(){

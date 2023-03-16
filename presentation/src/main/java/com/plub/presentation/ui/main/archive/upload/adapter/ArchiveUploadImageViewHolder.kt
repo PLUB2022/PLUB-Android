@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.archive.ArchiveUploadVo
 import com.plub.presentation.databinding.IncludeItemArchiveImageBinding
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 
 class ArchiveUploadImageViewHolder(
     private val binding: IncludeItemArchiveImageBinding,
@@ -14,7 +15,7 @@ class ArchiveUploadImageViewHolder(
     private var image: String? = null
 
     init {
-        binding.imageViewDelete.setOnClickListener {
+        binding.imageViewDelete.onThrottleClick {
             image?.let { listener.onClickDelete(myPosition, it) }
         }
 

@@ -91,7 +91,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
             android:enabled="@{vm.uiState.enableButton}"
-            android:onClick="@{()->vm.updateArchive()}"
+            app:onThrottleClick="@{()->vm.updateArchive()}"
             android:text="@string/archive_complete"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             android:textSize="14sp"

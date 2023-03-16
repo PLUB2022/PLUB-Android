@@ -6,6 +6,7 @@ import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemArchiveBinding
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 
 class ArchiveViewHolder(
     private val binding: IncludeItemArchiveBinding,
@@ -15,11 +16,11 @@ class ArchiveViewHolder(
     private var vo: ArchiveContentResponseVo = ArchiveContentResponseVo()
 
     init {
-        binding.constraintLayoutCard.setOnClickListener {
+        binding.constraintLayoutCard.onThrottleClick {
             listener.onCardClick(vo.archiveId)
         }
 
-        binding.imageBtnDot.setOnClickListener {
+        binding.imageBtnDot.onThrottleClick {
             listener.onDotsClick(vo.accessType, vo.archiveId)
         }
     }
@@ -29,14 +30,13 @@ class ArchiveViewHolder(
         binding.apply {
             val imageList = arrayListOf(imageViewArchiveFirst, imageViewArchiveSecond, imageViewArchiveThird)
             for (position in 0 until item.images.size) {
-                GlideUtil.loadImage(root.context, vo.images[position], imageList[position])
                 imageList[position].apply {
+                    GlideUtil.loadImage(root.context, vo.images[position], this)
                     clipToOutline = true
                     isVisible = true
                 }
             }
-            val imageCount = item.images.size.toString()
-            textViewImageCount.text = imageCount
+            textViewImageCount.text = item.images.size.toString()
             textViewTimeLine.text = root.context.getString(R.string.archive_sequence_date, item.sequence, item.createdAt)
             textViewArchiveTitle.text = item.title
         }

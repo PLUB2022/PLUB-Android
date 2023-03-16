@@ -32,8 +32,6 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
 
         const val UPLOAD_TYPE = 0
         const val EDIT_TYPE = 1
-
-        const val MAX_IMAGE = 10
     }
 
     private val archiveUploadFragmentArgs : ArchiveUploadFragmentArgs by navArgs()
@@ -71,10 +69,9 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
                     override fun getSpanSize(position: Int): Int {
                         val archiveType = ArchiveItemViewType.valueOf(archiveUploadAdapter.getItemViewType(position))
                         return when (archiveType) {
-                            ArchiveItemViewType.EDIT_VIEW -> ITEM_SPAN_COUNT_TWO
-                            ArchiveItemViewType.IMAGE_TEXT_VIEW -> ITEM_SPAN_COUNT_TWO
                             ArchiveItemViewType.IMAGE_VIEW -> ITEM_SPAN_COUNT_ONE
                             ArchiveItemViewType.IMAGE_ADD_VIEW -> ITEM_SPAN_COUNT_ONE
+                            else -> { ITEM_SPAN_COUNT_TWO }
                         }
                     }
                 }
@@ -100,7 +97,7 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
         repeatOnStarted(viewLifecycleOwner){
             launch {
                 viewModel.uiState.collect{
-                    subList(it)
+                    archiveUploadAdapter.submitList(it.archiveUploadVoList)
                 }
             }
 
@@ -109,16 +106,6 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
                     inspectEventFlow(it as ArchiveUploadEvent)
                 }
             }
-        }
-    }
-
-    private fun subList(vo : ArchiveUploadPageState){
-        if(vo.imageCount < MAX_IMAGE){
-            val last = arrayListOf(ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_ADD_VIEW))
-            archiveUploadAdapter.submitList(vo.archiveUploadVoList + last)
-        }
-        else{
-            archiveUploadAdapter.submitList(vo.archiveUploadVoList)
         }
     }
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.archive.ArchiveDetailResponseVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeDialogDetailArchiveBinding
+import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 
 class ArchiveDetailDialogFragment(
@@ -29,11 +30,7 @@ class ArchiveDetailDialogFragment(
         ArchiveViewPagerAdapter()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return binding.root
     }
@@ -46,7 +43,7 @@ class ArchiveDetailDialogFragment(
 
     private fun initView() {
         binding.apply {
-            imageButtonCancel.setOnClickListener {
+            imageButtonCancel.onThrottleClick {
                 dismiss()
             }
             initRecycler()

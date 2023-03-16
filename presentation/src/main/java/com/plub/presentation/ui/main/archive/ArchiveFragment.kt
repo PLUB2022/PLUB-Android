@@ -26,6 +26,9 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
     companion object {
         const val UPLOAD_TYPE = 0
         const val EDIT_TYPE = 1
+
+        const val EMPTY_ARCHIVE_ID = 0
+        const val EMPTY_IMAGE = ""
     }
 
     private val archiveAdapter: ArchiveAdapter by lazy {
@@ -69,7 +72,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-                    subListArchive(it.archiveList)
+                    archiveAdapter.submitList(it.archiveList)
                 }
             }
 
@@ -79,10 +82,6 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
                 }
             }
         }
-    }
-
-    private fun subListArchive(list: List<ArchiveContentResponseVo>) {
-        archiveAdapter.submitList(list)
     }
 
     private fun inspectEventFlow(event: ArchiveEvent) {
@@ -152,7 +151,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
         val action = ArchiveFragmentDirections.actionArchiveToUpdate(
             type = UPLOAD_TYPE,
             plubbingId = archiveFragmentArgs.plubbingId,
-            archiveId = 0,
+            archiveId = EMPTY_ARCHIVE_ID,
             image = imageUri,
             title = title
         )
@@ -164,7 +163,7 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
             type = EDIT_TYPE,
             plubbingId = archiveFragmentArgs.plubbingId,
             archiveId = archiveId,
-            image = "",
+            image = EMPTY_IMAGE,
             title = title
         )
         findNavController().navigate(action)

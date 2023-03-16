@@ -23,7 +23,7 @@ class ArchiveViewModel @Inject constructor(
 )  :BaseViewModel<ArchivePageState>(ArchivePageState()) {
 
     companion object{
-        const val FIRST_CURSOR = Int.MAX_VALUE
+        const val FIRST_CURSOR = 0
     }
     private var title : String = ""
     private var cursorId : Int = FIRST_CURSOR
@@ -120,13 +120,17 @@ class ArchiveViewModel @Inject constructor(
 
     fun deleteArchive(archiveId : Int){
         val originList = uiState.value.archiveList
-        val mergedList = originList.toMutableList()
+        val mutableOriginList = originList.toMutableList()
         originList.forEach {
-            if(it.archiveId == archiveId) mergedList.remove(it)
+            if(it.archiveId == archiveId) mutableOriginList.remove(it)
         }
+        updateArchiveList(originList)
+    }
+
+    private fun updateArchiveList(list : List<ArchiveContentResponseVo>){
         updateUiState { uiState ->
             uiState.copy(
-                archiveList = mergedList
+                archiveList = list
             )
         }
     }

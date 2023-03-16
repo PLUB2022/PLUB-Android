@@ -18,11 +18,16 @@ class ArchiveDotsMenuBottomSheetViewModel @Inject constructor(
     private val deleteArchiveUseCase: DeleteArchiveUseCase
 ) : BaseViewModel<ArchiveDotsMenuBottomSheetState>(ArchiveDotsMenuBottomSheetState()) {
 
-    private var plubbingId : Int = 0
-    private var archiveId : Int = 1
+    private var plubbingId: Int = 0
+    private var archiveId: Int = 0
 
-    fun setMenu(archiveAccessType : ArchiveAccessType){
-        when(archiveAccessType){
+    fun setId(pId: Int, arcId: Int) {
+        plubbingId = pId
+        archiveId = arcId
+    }
+
+    fun setMenu(archiveAccessType: ArchiveAccessType) {
+        when (archiveAccessType) {
             ArchiveAccessType.HOST -> {
                 updateHostStateUpdate()
             }
@@ -35,15 +40,15 @@ class ArchiveDotsMenuBottomSheetViewModel @Inject constructor(
         }
     }
 
-    fun onClickEvent(archiveMenuType : ArchiveMenuType){
-        when(archiveMenuType){
+    fun onClickEvent(archiveMenuType: ArchiveMenuType) {
+        when (archiveMenuType) {
             ArchiveMenuType.EDIT -> emitEventFlow(ArchiveDotsMenuBottomSheetEvent.EditArchive)
             ArchiveMenuType.REPORT -> emitEventFlow(ArchiveDotsMenuBottomSheetEvent.GoToReport)
             ArchiveMenuType.DELETE -> deleteArchive()
         }
     }
 
-    private fun updateHostStateUpdate(){
+    private fun updateHostStateUpdate() {
         updateUiState { uiState ->
             uiState.copy(
                 typeList = arrayListOf(
@@ -54,7 +59,7 @@ class ArchiveDotsMenuBottomSheetViewModel @Inject constructor(
         }
     }
 
-    private fun updateNormalStateUpdate(){
+    private fun updateNormalStateUpdate() {
         updateUiState { uiState ->
             uiState.copy(
                 typeList = arrayListOf(
@@ -64,7 +69,7 @@ class ArchiveDotsMenuBottomSheetViewModel @Inject constructor(
         }
     }
 
-    private fun updateAuthorStateUpdate(){
+    private fun updateAuthorStateUpdate() {
         updateUiState { uiState ->
             uiState.copy(
                 typeList = arrayListOf(
@@ -75,21 +80,16 @@ class ArchiveDotsMenuBottomSheetViewModel @Inject constructor(
         }
     }
 
-    fun setId(pId : Int, arcId : Int){
-        plubbingId = pId
-        archiveId = arcId
-    }
-
-    private fun deleteArchive(){
+    private fun deleteArchive() {
         val request = DetailArchiveRequestVo(plubbingId, archiveId)
         viewModelScope.launch {
-            deleteArchiveUseCase(request).collect{state->
-                inspectUiState(state, ::handleSuccessDelete)
+            deleteArchiveUseCase(request).collect { state ->
+                inspectUiState(state, { handleSuccessDelete() })
             }
         }
     }
 
-    private fun handleSuccessDelete(vo : ArchiveContentResponseVo){
+    private fun handleSuccessDelete() {
         emitEventFlow(ArchiveDotsMenuBottomSheetEvent.DeleteArchive)
     }
 }
