@@ -248,9 +248,11 @@
         tools:layout="@layout/fragment_noti" />
     <fragment
         android:id="@+id/menu_navigation_profile"
-        android:name="com.plub.presentation.ui.main.home.profile.ProfileFragment"
-        android:label="menu_navigation_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:name="com.plub.presentation.ui.main.home.profile.MyPageFragment"
+        android:label="menu_navigation_myPage"
+        tools:layout="@layout/fragment_my_page">
+
+    </fragment>
     <fragment
         android:id="@+id/modifyGatheringFragment"
         android:name="com.plub.presentation.ui.main.gathering.modifyGathering.ModifyGatheringFragment"
