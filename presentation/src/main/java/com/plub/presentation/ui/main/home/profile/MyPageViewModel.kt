@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.profile
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.MyPageGatheringMyType
 import com.plub.domain.model.enums.MyPageGatheringStateType
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.domain.usecase.GetMyGatheringUseCase
