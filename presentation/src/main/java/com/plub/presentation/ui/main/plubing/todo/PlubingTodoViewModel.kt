@@ -88,6 +88,10 @@ class PlubingTodoViewModel @Inject constructor(
         emitEventFlow(PlubingTodoEvent.ShowMenuBottomSheetDialog(vo, menuType))
     }
 
+    fun onClickTimeline(timelineId: Int) {
+        emitEventFlow(PlubingTodoEvent.GoToDetailTodo(timelineId))
+    }
+
     fun onClickTodoLike(timelineId: Int) {
         putTodoLikeToggle(timelineId) {
             val replacedList = getTimelineListItemReplaced(timelineId, it)
@@ -149,7 +153,7 @@ class PlubingTodoViewModel @Inject constructor(
         }
     }
 
-    private fun getTodoComplete(todoId: Int, onSuccess: () -> Unit) {
+    private fun putTodoComplete(todoId: Int, onSuccess: () -> Unit) {
         val request = TodoRequestVo(plubingId, todoId = todoId)
         viewModelScope.launch {
             putTodoCompleteUseCase(request).collect { state ->
@@ -214,7 +218,7 @@ class PlubingTodoViewModel @Inject constructor(
     }
 
     private fun completeTodoCheck(timelineId: Int, vo: TodoItemVo) {
-        getTodoComplete(vo.todoId) {
+        putTodoComplete(vo.todoId) {
             val checkChangedVo = vo.copy(isChecked = !vo.isChecked)
             val rebasedTimelineList = getReplaceItemTodoRebasedList(timelineId, checkChangedVo, true)
             updateTodoList(rebasedTimelineList)

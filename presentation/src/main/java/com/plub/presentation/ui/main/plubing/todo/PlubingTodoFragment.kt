@@ -42,6 +42,7 @@ class PlubingTodoFragment : BaseTestFragment<FragmentPlubingTodoBinding, Plubing
         PlubingTodoAdapter(object : PlubingTodoAdapter.Delegate {
 
             override fun onClickTimeline(timelineId: Int) {
+                viewModel.onClickTimeline(timelineId)
             }
 
             override fun onClickTodoChecked(timelineId:Int, vo: TodoItemVo) {
@@ -106,6 +107,7 @@ class PlubingTodoFragment : BaseTestFragment<FragmentPlubingTodoBinding, Plubing
             is PlubingTodoEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.todoTimelineVo, event.menuType)
             is PlubingTodoEvent.ShowTodoProofDialog -> showTodoProofDialog(event.timelineId, event.parseTodoItemVo)
             is PlubingTodoEvent.GoToPlannerTodo -> goToPlanner(event.date)
+            is PlubingTodoEvent.GoToDetailTodo -> goToDetail(event.timelineId)
         }
     }
 
@@ -127,6 +129,11 @@ class PlubingTodoFragment : BaseTestFragment<FragmentPlubingTodoBinding, Plubing
 
     private fun goToPlanner(date:String) {
         val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingTodoPlanner(date)
+        findNavController().navigate(action)
+    }
+
+    private fun goToDetail(timelineId: Int) {
+        val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingTodoDetail(timelineId)
         findNavController().navigate(action)
     }
 }

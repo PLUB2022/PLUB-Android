@@ -202,6 +202,10 @@
         <action
             android:id="@+id/action_plubing_main_to_plubing_todo_planner"
             app:destination="@id/todoPlannerFragment" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_plubing_todo_detail"
+            app:destination="@id/todoDetailFragment" />
     </fragment>
 
     <fragment
@@ -260,6 +264,21 @@
             android:name="todoDate"
             android:defaultValue=""
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/todoDetailFragment"
+        android:name="com.plub.presentation.ui.main.plubing.todo.detail.TodoDetailFragment"
+        android:label="fragment_todo_detail"
+        tools:layout="@layout/fragment_todo_detail">
+
+        <action
+            android:id="@+id/action_todo_detail_to_todo_planner"
+            app:destination="@id/todoPlannerFragment" />
+
+        <argument
+            android:name="timelineId"
+            app:argType="integer" />
     </fragment>
 
     <fragment

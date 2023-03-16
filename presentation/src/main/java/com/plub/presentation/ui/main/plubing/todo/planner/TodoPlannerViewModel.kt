@@ -252,7 +252,7 @@ class TodoPlannerViewModel @Inject constructor(
         }
     }
 
-    private fun getTodoComplete(todoId: Int, onSuccess: () -> Unit) {
+    private fun putTodoComplete(todoId: Int, onSuccess: () -> Unit) {
         val request = TodoRequestVo(plubingId, todoId = todoId)
         viewModelScope.launch {
             putTodoCompleteUseCase(request).collect { state ->
@@ -344,7 +344,7 @@ class TodoPlannerViewModel @Inject constructor(
     }
 
     private fun completeTodoCheck(vo: TodoItemVo) {
-        getTodoComplete(vo.todoId) {
+        putTodoComplete(vo.todoId) {
             checkChangeRebaseUpdate(vo, true)
             showProofDialog(vo)
         }
