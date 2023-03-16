@@ -27,6 +27,11 @@ class MainActivity :
     override val viewModel: MainViewModel by viewModels()
     private lateinit var navController: NavController
 
+    private val destinationChangedListener = NavController.OnDestinationChangedListener { _, destination, _ ->
+        viewModel.onSelectedBottomNavigationMenu(destination.id)
+        viewModel.onDestinationChanged(destination.id)
+    }
+
     override fun initView() {
         binding.apply {
             vm = viewModel
@@ -46,6 +51,18 @@ class MainActivity :
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        navController.addOnDestinationChangedListener(destinationChangedListener)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        navController.removeOnDestinationChangedListener(destinationChangedListener)
+    }
+
     private fun initNavigation() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view_main_host) as NavHostFragment
         navController = navHostFragment.navController
@@ -56,11 +73,6 @@ class MainActivity :
         }
 
         showBadge(BottomNavigationItemType.MAIN.idx)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            viewModel.onSelectedBottomNavigationMenu(destination.id)
-            viewModel.onDestinationChanged(destination.id)
-        }
     }
 
     private fun inspectEventFlow(event: MainEvent) {
