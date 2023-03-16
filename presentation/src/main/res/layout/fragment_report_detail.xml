@@ -59,6 +59,7 @@
             android:layout_height="48dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
+            app:onThrottleClick="@{()->vm.onClickSpinner()}"
             android:background="@drawable/bg_rectangle_filled_f6f6fe_radius_10_border_5f5ff9"
             android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
@@ -118,6 +119,7 @@
             android:id="@+id/recycler_view_report_item"
             app:layout_constraintTop_toBottomOf="@id/constraint_layout_spinner"
             android:layout_marginHorizontal="16dp"
+            android:background="@color/white"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

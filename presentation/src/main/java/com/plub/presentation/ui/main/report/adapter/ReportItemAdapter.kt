@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.report.ReportItemVo
-import com.plub.presentation.databinding.IncludeItemMemberBinding
 import com.plub.presentation.databinding.IncludeItemReportContentBinding
-import com.plub.presentation.ui.main.plubing.adapter.PlubingMemberViewHolder
 
 class ReportItemAdapter(
     private val listener: Delegate,

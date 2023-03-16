@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.main.report
 
+import com.plub.domain.model.enums.ReportBackgroundType
 import com.plub.domain.model.vo.report.ReportItemVo
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,10 +15,10 @@ class ReportViewModel @Inject constructor(
         updateUiState { uiState ->
             uiState.copy(
                 reportList = arrayListOf(
-                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", 0),
-                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", 1),
-                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", 2),
-                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", 3)
+                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", ReportBackgroundType.BUTTON,0),
+                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", ReportBackgroundType.BUTTON,1),
+                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", ReportBackgroundType.BUTTON,2),
+                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", ReportBackgroundType.BUTTON,3)
                 )
             )
         }

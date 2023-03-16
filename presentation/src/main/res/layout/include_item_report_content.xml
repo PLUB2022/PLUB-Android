@@ -9,10 +9,11 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="47dp"
-            android:background="@drawable/bg_rectangle_filled_white_radius_10_border_f2f3f4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
