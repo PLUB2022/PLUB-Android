@@ -11,8 +11,16 @@ class ReportDetailViewModel @Inject constructor(
 ) : BaseViewModel<ReportDetailState>(ReportDetailState()) {
 
     private var isExpand : Boolean = false
-    fun getReportList(type : Int) {
 
+    //TODO 서버에서 가져오기
+    val arrayList = arrayListOf(
+        ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용0번쨰", ReportBackgroundType.SPINNER,0),
+        ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용1번째", ReportBackgroundType.SPINNER,1),
+        ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용2번째", ReportBackgroundType.SPINNER,2),
+        ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용3번째", ReportBackgroundType.SPINNER,3)
+    )
+
+    fun getReportList(type : Int) {
         val string = when(type){
             0 -> "비속어 / 폭언 / 비하 / 음란성 내용0번쨰"
             1 -> "비속어 / 폭언 / 비하 / 음란성 내용1번쨰"
@@ -20,25 +28,10 @@ class ReportDetailViewModel @Inject constructor(
             3 -> "비속어 / 폭언 / 비하 / 음란성 내용3번쨰"
             else -> {""}
         }
-        updateNowReportType(string)
-        //TODO 서버에서 가져오기
-        val arrayList = arrayListOf(
-            ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용0번쨰", ReportBackgroundType.SPINNER,0),
-            ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용1번째", ReportBackgroundType.SPINNER,1),
-            ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용2번째", ReportBackgroundType.SPINNER,2),
-            ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용3번째", ReportBackgroundType.SPINNER,3)
-        )
         updateUiState { uiState ->
             uiState.copy(
+                nowText = string,
                 reportList = arrayList.filter { type != it.reportType }
-            )
-        }
-    }
-
-    fun updateNowReportType(string : String){
-        updateUiState { uiState ->
-            uiState.copy(
-                nowText = string
             )
         }
     }
