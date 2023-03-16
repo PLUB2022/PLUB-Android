@@ -1,16 +1,12 @@
 package com.plub.presentation.ui.main.home.profile
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.enums.MyPageGatheringMyType
 import com.plub.domain.model.enums.MyPageGatheringStateType
-import com.plub.domain.model.vo.myPage.MyPageGatheringDetailVo
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.domain.usecase.GetMyGatheringUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,28 +15,47 @@ class MyPageViewModel @Inject constructor(
     val getMyGatheringUseCase: GetMyGatheringUseCase,
 ) : BaseViewModel<MyPageState>(MyPageState()) {
 
-    var isExpandText: Boolean = false
-    val myPageGatheringVoList = mutableListOf<MyPageGatheringVo>()
+    companion object{
+        const val MAX_LENGTH = 15
+    }
+
+    private var isExpandText: Boolean = false
+    private var isFirstInit : Boolean = true
+    private val myPageGatheringVoList = mutableListOf<MyPageGatheringVo>()
+
+    fun setMyInfo(){
+
+        updateUiState { uiState ->
+            uiState.copy(
+                myName = PlubUser.info.nickname,
+                myIntro = PlubUser.info.introduce,
+                profileImage = PlubUser.info.profileImage,
+                isReadMore = PlubUser.info.introduce.length > MAX_LENGTH
+            )
+        }
+    }
 
     fun getMyPageData() {
-        myPageGatheringVoList.clear()
-        viewModelScope.launch {
-            getMyGatheringUseCase(MyPageGatheringStateType.RECRUITING).collect {
-                inspectUiState(it, ::handleGetMyGatheringSuccess)
-            }
+        if(isFirstInit) {
+            viewModelScope.launch {
+                getMyGatheringUseCase(MyPageGatheringStateType.RECRUITING).collect {
+                    inspectUiState(it, ::handleGetMyGatheringSuccess)
+                }
 
-            getMyGatheringUseCase(MyPageGatheringStateType.WAIT).collect {
-                inspectUiState(it, ::handleGetMyGatheringSuccess)
-            }
+                getMyGatheringUseCase(MyPageGatheringStateType.WAITING).collect {
+                    inspectUiState(it, ::handleGetMyGatheringSuccess)
+                }
 
-            getMyGatheringUseCase(MyPageGatheringStateType.ACTIVE).collect {
-                inspectUiState(it, ::handleGetMyGatheringSuccess)
-            }
+                getMyGatheringUseCase(MyPageGatheringStateType.ACTIVE).collect {
+                    inspectUiState(it, ::handleGetMyGatheringSuccess)
+                }
 
-            getMyGatheringUseCase(MyPageGatheringStateType.END).collect {
-                inspectUiState(it, ::handleGetMyGatheringSuccess)
+                getMyGatheringUseCase(MyPageGatheringStateType.END).collect {
+                    inspectUiState(it, ::handleGetMyGatheringSuccess)
+                }
+                updateMyGathering(myPageGatheringVoList)
             }
-            updateMyGathering(myPageGatheringVoList)
+            isFirstInit = false
         }
     }
 
@@ -55,7 +70,7 @@ class MyPageViewModel @Inject constructor(
             MyPageGatheringStateType.RECRUITING -> {
                 emitEventFlow(MyPageEvent.GoToOtherApplication(plubbingId))
             }
-            MyPageGatheringStateType.WAIT -> {
+            MyPageGatheringStateType.WAITING -> {
                 emitEventFlow(MyPageEvent.GoToMyApplication(plubbingId))
             }
             MyPageGatheringStateType.ACTIVE -> {

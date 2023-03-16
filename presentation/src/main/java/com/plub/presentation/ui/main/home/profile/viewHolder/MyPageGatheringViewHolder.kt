@@ -9,6 +9,7 @@ import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemMyGatheringDetailBinding
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageParentGatheringAdapter
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 
 class MyPageGatheringViewHolder(
     private val binding: IncludeItemMyGatheringDetailBinding,
@@ -18,7 +19,7 @@ class MyPageGatheringViewHolder(
     var myPageGatheringDetailVo : MyPageGatheringDetailVo? = null
 
     init {
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             myPageGatheringDetailVo?.let { listener.onClickGathering(it.gatheringParentType, it.gatheringType, it.plubbingId) }
         }
     }

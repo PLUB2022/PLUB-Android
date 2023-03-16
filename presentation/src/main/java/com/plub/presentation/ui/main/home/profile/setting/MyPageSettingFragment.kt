@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.DialogMenuType
@@ -13,6 +14,7 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageSettingBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
+import com.plub.presentation.ui.main.home.profile.setting.dialog.MyPageSettingConfirmDialogFragment
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.IntentUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,23 +43,25 @@ class MyPageSettingFragment :
     private fun showBottomSheetDialogSelectImage() {
         SelectMenuBottomSheetDialog.newInstance(DialogMenuType.IMAGE_HAS_DEFAULT) {
             viewModel.onClickImageMenuItemType(it)
-        }.show(parentFragmentManager,"")
+        }.show(parentFragmentManager, "")
     }
 
     private fun setAlbumLauncher() {
-        albumLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if(result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
-            result.data?.data?.let {
-                viewModel.onSelectImageFromAlbum(it)
+        albumLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+                result.data?.data?.let {
+                    viewModel.onSelectImageFromAlbum(it)
+                }
             }
-        }
     }
 
     private fun setCameraLauncher() {
-        cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if(result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
-            viewModel.onTakeImageFromCamera()
-        }
+        cameraLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+                viewModel.onTakeImageFromCamera()
+            }
     }
 
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->
@@ -80,22 +84,26 @@ class MyPageSettingFragment :
             }
 
             launch {
-                viewModel.eventFlow.collect{
+                viewModel.eventFlow.collect {
                     inspectEventFlow(it as MyPageSettingEvent)
                 }
             }
         }
     }
 
-    private fun setProfileImage(image : String){
+    private fun setProfileImage(image: String?) {
         binding.apply {
-            GlideUtil.loadImage(root.context, image, imageViewProfile)
+            if (image == "" || image == null) imageViewProfile.setImageResource(R.drawable.iv_default_profile) else GlideUtil.loadImage(
+                root.context,
+                image,
+                imageViewProfile
+            )
             imageViewProfile.clipToOutline = true
         }
     }
 
     private fun inspectEventFlow(event: MyPageSettingEvent) {
-        when(event) {
+        when (event) {
             is MyPageSettingEvent.GoToAlbum -> {
                 val intent = IntentUtil.getSingleImageIntent()
                 albumLauncher.launch(intent)
@@ -106,6 +114,10 @@ class MyPageSettingFragment :
             }
             is MyPageSettingEvent.ShowSelectImageBottomSheetDialog -> showBottomSheetDialogSelectImage()
             is MyPageSettingEvent.CropImageAndOptimize -> startCropImage(event.cropImageContractOptions)
+            is MyPageSettingEvent.ShowDialog -> {
+                showConfirmDialog()
+            }
+            is MyPageSettingEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 
@@ -140,5 +152,14 @@ class MyPageSettingFragment :
                 }
             }
         }
+    }
+
+    private fun showConfirmDialog() {
+        MyPageSettingConfirmDialogFragment(object : MyPageSettingConfirmDialogFragment.Delegate {
+            override fun onYesButtonClick() {
+                viewModel.updateMyInfo()
+            }
+
+        }).show(childFragmentManager, "")
     }
 }

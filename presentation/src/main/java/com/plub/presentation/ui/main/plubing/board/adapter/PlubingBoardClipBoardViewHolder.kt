@@ -11,6 +11,7 @@ import com.plub.presentation.databinding.IncludeItemBoardClipBoardBinding
 import com.plub.presentation.databinding.IncludeItemClipBoardImageBinding
 import com.plub.presentation.databinding.IncludeItemClipBoardTextBinding
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 
 class PlubingBoardClipBoardViewHolder(
@@ -27,7 +28,7 @@ class PlubingBoardClipBoardViewHolder(
     private var vo: PlubingBoardVo? = null
 
     init {
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             listener.onClickClipBoard()
         }
     }

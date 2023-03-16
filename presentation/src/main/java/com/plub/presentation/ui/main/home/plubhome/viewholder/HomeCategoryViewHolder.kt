@@ -5,6 +5,7 @@ import com.plub.domain.model.vo.home.categoryResponseVo.CategoriesDataResponseVo
 import com.plub.presentation.databinding.IncludeItemCategoryBinding
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 
 class HomeCategoryViewHolder (
     private val binding : IncludeItemCategoryBinding,
@@ -14,7 +15,7 @@ class HomeCategoryViewHolder (
     private var itemVo : CategoriesDataResponseVo? = null
 
     init {
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             itemVo?.let { listener.onCategoryClick(it.id, it.name) }
         }
     }

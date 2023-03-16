@@ -10,7 +10,7 @@ import com.plub.presentation.databinding.IncludeItemMyGatheringBinding
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageGatheringAdapter
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageParentGatheringAdapter
-import com.plub.presentation.util.animation.ArrowToggleAnimation
+import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 
 class MyPageParentGatheringViewHolder(
@@ -35,9 +35,8 @@ class MyPageParentGatheringViewHolder(
                 addItemDecoration(VerticalSpaceDecoration(VERTICAL_SPACE.px))
                 adapter = detailAdapter
             }
-            imageViewArrow.setOnClickListener {
+            imageViewArrow.onThrottleClick {
                 myPageGatheringVo?.let {
-                    //ArrowToggleAnimation.toggleArrow(imageViewArrow, it.isExpand)
                     listener.onClickCardExpand(it.gatheringType)
                 }
             }
@@ -49,7 +48,7 @@ class MyPageParentGatheringViewHolder(
         binding.apply {
             when(item.gatheringType){
                 MyPageGatheringStateType.RECRUITING -> {textViewGatheringType.text = root.context.getString(R.string.my_page_recruiting_gathering)}
-                MyPageGatheringStateType.WAIT  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_waiting_gathering)}
+                MyPageGatheringStateType.WAITING  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_waiting_gathering)}
                 MyPageGatheringStateType.ACTIVE  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_active_gathering)}
                 MyPageGatheringStateType.END  -> {textViewGatheringType.text = root.context.getString(R.string.my_page_end_gathering)}
                 else -> {}

@@ -290,7 +290,6 @@
     <string name="apply_dialog_explain">정성스럽게 작성하신 답변을 \n모임 호스트에게 전달했어요.</string>
     <string name="apply_dialog_extra_explain">호스트가 수락하면 함께 활동할 수 있습니다.\n알림으로 알려드릴게요!</string>
 
-
     <string name="my_page_read_more">더보기</string>
     <string name="my_page_close">접기</string>
     <string name="my_page_recruiting_gathering">모집 중인 모임</string>
@@ -310,6 +309,9 @@
     <string name="my_page_complete_answer">%s 답변 작성완료</string>
 
     <string name="my_page_setting_profile_image">프로필 사진</string>
+    <string name="my_page_setting_change_yes">네, 할게요</string>
+    <string name="my_page_setting_question_change_nickname">닉네임을 변경할까요?</string>
+    <string name="my_page_setting_introduce_about_changing_nickname">닉네임 변경은 1회만 가능해요.\n 지금 변경한 닉네임은 탈퇴 시까지 사용됩니다</string>
     <string name="my_page_my_todo">My To-Do</string>
     <string name="my_page_my_post">My 게시글</string>
     <string name="my_page_see_all">전체보기</string>

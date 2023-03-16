@@ -9,18 +9,21 @@ import com.canhub.cropper.CropImageView
 import com.plub.domain.error.NicknameError
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.UploadFileType
+import com.plub.domain.model.vo.account.MyInfoResponseVo
+import com.plub.domain.model.vo.account.UpdateMyInfoRequestVo
+import com.plub.domain.model.vo.media.ChangeFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.model.vo.signUp.profile.NicknameCheckRequestVo
 import com.plub.domain.usecase.GetNicknameCheckUseCase
+import com.plub.domain.usecase.PostChangeFileUseCase
+import com.plub.domain.usecase.PostUpdateMyInfoUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.ImageUtil
-import com.plub.presentation.util.PermissionManager
-import com.plub.presentation.util.PlubUser
-import com.plub.presentation.util.ResourceProvider
+import com.plub.presentation.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -30,7 +33,9 @@ class MyPageSettingViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
     val imageUtil: ImageUtil,
     val getNicknameCheckUseCase: GetNicknameCheckUseCase,
-    val postUploadFileUseCase: PostUploadFileUseCase
+    val postUploadFileUseCase: PostUploadFileUseCase,
+    val postChangeFileUseCase: PostChangeFileUseCase,
+    val postUpdateMyInfoUseCase: PostUpdateMyInfoUseCase
 ) : BaseViewModel<MyPageSettingState>(MyPageSettingState()) {
 
     private var isNetworkCall:Boolean = false
@@ -40,8 +45,11 @@ class MyPageSettingViewModel @Inject constructor(
         updateUiState { ui ->
             ui.copy(
                 profileImage = PlubUser.info.profileImage,
+                originProfile = PlubUser.info.profileImage,
                 nickname = PlubUser.info.nickname,
+                originNickname = PlubUser.info.nickname,
                 introduce = PlubUser.info.introduce,
+                originIntroduce = PlubUser.info.introduce,
                 introduceCount = getIntroduceCountSpannableString(PlubUser.info.introduce.length.toString())
             )
         }
@@ -51,7 +59,7 @@ class MyPageSettingViewModel @Inject constructor(
     fun onTextChangedAfter() {
         val nickname = uiState.value.nickname
         if(nickname == PlubUser.info.nickname){
-            handleNicknameCheckSuccess(true)
+            handleNicknameCheckError(NicknameError.EmptyNickname(""))
         }else{
             fetchNicknameCheck(nickname)
         }
@@ -126,7 +134,11 @@ class MyPageSettingViewModel @Inject constructor(
     }
 
     private fun defaultImage() {
-
+        updateUiState { uiState ->
+            uiState.copy(
+                profileImage = null
+            )
+        }
     }
 
     private fun handleNicknameCheckSuccess(isAvailableNickname: Boolean) {
@@ -148,8 +160,8 @@ class MyPageSettingViewModel @Inject constructor(
     private fun updateNicknameState(isActiveNickname: Boolean?, nicknameDescriptionRes: Int) {
         updateUiState { uiState ->
             uiState.copy(
-                isSaveButtonEnable = isSaveButtonEnable(isActiveNickname),
                 nicknameIsActive = isActiveNickname,
+                nicknameIsChanged = uiState.nickname != uiState.originNickname,
                 nicknameDescription = resourceProvider.getString(nicknameDescriptionRes)
             )
         }
@@ -157,8 +169,16 @@ class MyPageSettingViewModel @Inject constructor(
 
     private fun uploadProfileFile(file: File) {
         viewModelScope.launch {
-            postUploadFileUseCase(UploadFileRequestVo(UploadFileType.PROFILE, file)).collect{
-                inspectUiState(it, ::handleUploadImageSuccess)
+            if(uiState.value.profileImage == "" || uiState.value.profileImage == null){
+                postUploadFileUseCase(UploadFileRequestVo(UploadFileType.PROFILE, file)).collect{
+                    inspectUiState(it, ::handleUploadImageSuccess)
+                }
+            }
+            else{
+                postChangeFileUseCase(ChangeFileRequestVo(UploadFileType.PROFILE,
+                    uiState.value.profileImage!!, file)).collect{
+                    inspectUiState(it, ::handleUploadImageSuccess)
+                }
             }
         }
     }
@@ -179,19 +199,14 @@ class MyPageSettingViewModel @Inject constructor(
         }
     }
 
-    private fun isSaveButtonEnable(isActiveNickname:Boolean?): Boolean {
-        return isActiveNickname == true && !isNetworkCall
-    }
-
     fun onIntroChangedAfter() {
         val introduce: String = uiState.value.introduce
-        updateIntroduceState(introduce, introduce.isNotEmpty())
+        updateIntroduceState(introduce)
     }
 
-    private fun updateIntroduceState(introduce:String, isSaveButtonEnable : Boolean) {
+    private fun updateIntroduceState(introduce:String) {
         updateUiState { uiState ->
             uiState.copy(
-                isSaveButtonEnable = isSaveButtonEnable,
                 introduceCount = getIntroduceCountSpannableString(introduce.length.toString())
             )
         }
@@ -204,4 +219,35 @@ class MyPageSettingViewModel @Inject constructor(
             setSpan(ForegroundColorSpan(introduceCountColor),0,introduceLength.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
     }
+
+    fun saveChangedNickName(){
+        emitEventFlow(MyPageSettingEvent.ShowDialog)
+    }
+
+    fun saveChangedOnlyIntro() {
+        updateMyInfo()
+    }
+
+    fun onClickBackButton(){
+        emitEventFlow(MyPageSettingEvent.GoToBack)
+    }
+
+    fun updateMyInfo(){
+        val request = UpdateMyInfoRequestVo(
+            nickname = uiState.value.nickname,
+            introduce = uiState.value.introduce,
+            profileImageUrl = uiState.value.profileImage
+        )
+        viewModelScope.launch {
+            postUpdateMyInfoUseCase(request).collect{
+                inspectUiState(it , ::handleUpdateMyInfoSuccess)
+            }
+        }
+    }
+
+    private fun handleUpdateMyInfoSuccess(vo : MyInfoResponseVo){
+        PlubUser.updateInfo(vo)
+        emitEventFlow(MyPageSettingEvent.GoToBack)
+    }
+
 }

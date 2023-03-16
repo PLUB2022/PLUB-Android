@@ -10,6 +10,7 @@ import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageDetailApplicationAnswerAdapter
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageDetailPageAdapter
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 
 class MyPageDetailOtherApplicantsViewHolder(
@@ -31,21 +32,17 @@ class MyPageDetailOtherApplicantsViewHolder(
     init {
         binding.apply {
             initRecycler()
-            imageViewArrow.setOnClickListener {
-                if(isExpand){
-                    constraintLayoutRecycler.visibility = View.GONE
-                }
-                else{
-                    constraintLayoutRecycler.visibility = View.VISIBLE
-                }
+            imageViewArrow.onThrottleClick {
+                constraintLayoutRecycler.visibility = if(isExpand) View.GONE else View.VISIBLE
+                isExpand = !isExpand
                 isExpand = !isExpand
             }
 
-            buttonApprove.setOnClickListener {
+            buttonApprove.onThrottleClick {
                 vo?.let { listener.onClickApproveButton(it.accountId) }
             }
 
-            buttonReject.setOnClickListener {
+            buttonReject.onThrottleClick {
                 vo?.let { listener.onClickRejectButton(it.accountId) }
             }
         }

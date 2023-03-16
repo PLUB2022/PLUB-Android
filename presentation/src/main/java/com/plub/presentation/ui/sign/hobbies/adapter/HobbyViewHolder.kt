@@ -8,6 +8,7 @@ import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemHobbyBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 
 class HobbyViewHolder(
@@ -25,7 +26,7 @@ class HobbyViewHolder(
     private val listAdapter = SubHobbiesAdapter(listener)
 
     init {
-        binding.imageViewExpand.setOnClickListener {
+        binding.imageViewExpand.onThrottleClick {
             vo?.let {
                 listener.onClickExpand(it.id)
             }

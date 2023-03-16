@@ -7,6 +7,7 @@ import com.plub.presentation.databinding.IncludeItemPlubCardGridBinding
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.TimeFormatter
+import com.plub.presentation.util.onThrottleClick
 
 class PlubCardGridViewHolder(
     private val binding: IncludeItemPlubCardGridBinding,
@@ -16,13 +17,13 @@ class PlubCardGridViewHolder(
     private var vo: PlubCardVo? = null
 
     init {
-        binding.imageViewBookmark.setOnClickListener {
+        binding.imageViewBookmark.onThrottleClick {
             vo?.let {
                 listener.onClickBookmark(it.id)
             }
         }
 
-        binding.root.setOnClickListener {
+        binding.root.onThrottleClick {
             vo?.let {
                 listener.onClickPlubCard(it.id, it.isHost)
             }

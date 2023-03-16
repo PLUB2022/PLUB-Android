@@ -18,6 +18,7 @@ object Endpoints {
         private const val ACCOUNT_URL = "/api/accounts"
         const val NICKNAME_CHECK = "$ACCOUNT_URL/check/nickname/{nickname}"
         const val FETCH_MY_INFO = "$ACCOUNT_URL/me"
+        const val UPDATE_PROFILE = "$FETCH_MY_INFO/profile"
         const val REGIST_INTEREST = "$ACCOUNT_URL/interest"
         const val BROWSE_INTEREST = "$ACCOUNT_URL/interest"
     }
@@ -72,6 +73,7 @@ object Endpoints {
 
         object MY_PAGE{
             const val BROWSE_MY_GATHERING = "$PLUBBING_URL/all/my"
+            const val BROWSE_MY_APPLICATION = "$PLUBBING_URL/{plubbingId}/recruit/applicants/me"
             const val BROWSE_MY_POST = "$PLUBBING_URL/{plubbingId}/feeds/my"
             const val BROWSE_MY_TODO = "$PLUBBING_URL/{plubbingId}/timeline/my"
         }
