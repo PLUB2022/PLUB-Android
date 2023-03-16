@@ -45,6 +45,8 @@ class TodoPlannerFragment :
             override fun onClickTodoMenu(todoItemVo: TodoItemVo) {
                 viewModel.onClickTodoMenu(todoItemVo)
             }
+
+            override fun onClickTodoContent() {}
         })
     }
 

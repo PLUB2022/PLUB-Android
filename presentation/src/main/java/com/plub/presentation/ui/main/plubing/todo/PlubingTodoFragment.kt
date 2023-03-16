@@ -41,6 +41,9 @@ class PlubingTodoFragment : BaseTestFragment<FragmentPlubingTodoBinding, Plubing
     private val todoListAdapter: PlubingTodoAdapter by lazy {
         PlubingTodoAdapter(object : PlubingTodoAdapter.Delegate {
 
+            override fun onClickTimeline(timelineId: Int) {
+            }
+
             override fun onClickTodoChecked(timelineId:Int, vo: TodoItemVo) {
                 viewModel.onClickTodoCheck(timelineId, vo)
             }

@@ -25,6 +25,12 @@ class PlubingTodoTimelineViewHolder(
                 }
             }
 
+            override fun onClickTodoContent() {
+                vo?.let {
+                    listener.onClickTimeline(it.timelineId)
+                }
+            }
+
             override fun onClickTodoMenu(todoItemVo: TodoItemVo) {}
         })
 
@@ -33,6 +39,12 @@ class PlubingTodoTimelineViewHolder(
             recyclerViewTodo.apply {
                 adapter = todoItemAdapter
                 layoutManager = LinearLayoutManager(root.context)
+            }
+
+            constraintLayoutTodoList.onThrottleClick {
+                vo?.let {
+                    listener.onClickTimeline(it.timelineId)
+                }
             }
 
             imageViewMenu.onThrottleClick {
@@ -52,7 +64,7 @@ class PlubingTodoTimelineViewHolder(
     fun bind(item: TodoTimelineVo) {
         vo = item
         binding.apply {
-            val likeIcon = if(item.isLike) R.drawable.ic_heart_no_padding else R.drawable.ic_heart_no_padding
+            val likeIcon = if(item.isLike) R.drawable.ic_heart_no_padding else R.drawable.ic_empty_heart
             imageViewLikeIcon.setImageResource(likeIcon)
             textViewLikeCount.text = item.totalLikes.toString()
             todoItemAdapter.submitList(item.todoList)
