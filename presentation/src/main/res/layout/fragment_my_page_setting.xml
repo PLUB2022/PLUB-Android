@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.home.profile.setting.MyPageSettingViewModel" />
+            type="com.plub.presentation.ui.main.profile.setting.MyPageSettingViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
