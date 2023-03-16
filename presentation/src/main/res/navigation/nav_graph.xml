@@ -279,5 +279,24 @@
         <argument
             android:name="type"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/action_report_detail_to_complete"
+            app:destination="@id/reportCompleteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/reportCompleteFragment"
+        android:name="com.plub.presentation.ui.main.report.complete.ReportCompleteFragment"
+        android:label="ReportCompleteFragment"
+        tools:layout="@layout/fragment_report_complete">
+
+        <argument
+            android:name="type"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_report_complete_to_home"
+            app:destination="@id/menu_navigation_main" />
     </fragment>
 </navigation>
