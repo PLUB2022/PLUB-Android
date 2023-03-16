@@ -34,7 +34,17 @@ class ArchiveViewModel @Inject constructor(
     fun setTitleAndPlubbingId(name : String , id : Int){
         title = name
         plubbingId = id
+        refresh()
         cursorUpdate()
+    }
+
+    private fun refresh(){
+        updateUiState { uiState ->
+            uiState.copy(
+                title = title,
+                archiveList = emptyList(),
+            )
+        }
     }
 
     fun fetchArchivePage(){
