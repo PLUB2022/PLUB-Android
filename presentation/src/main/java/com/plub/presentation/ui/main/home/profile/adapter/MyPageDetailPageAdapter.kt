@@ -27,7 +27,7 @@ class MyPageDetailPageAdapter(private val listener : ApplicantsDelegate): ListAd
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MyPageDetailTopViewHolder -> holder.bind(currentList[position].title)
+            is MyPageDetailTopViewHolder -> holder.bind(currentList[position].title, false)
             is MyPageDetailMyApplicationsTextViewHolder -> holder.bind()
             is MyPageDetailOtherApplicationTextViewHolder -> holder.bind()
             is MyPageDetailOtherApplicantsViewHolder -> holder.bind(currentList[position].application)

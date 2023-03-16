@@ -252,19 +252,6 @@
         android:label="menu_navigation_myPage"
         tools:layout="@layout/fragment_my_page">
 
-    </fragment>
-    <fragment
-        android:id="@+id/modifyGatheringFragment"
-        android:name="com.plub.presentation.ui.main.gathering.modifyGathering.ModifyGatheringFragment"
-        android:label="ModifyGatheringFragment"
-        tools:layout="@layout/fragment_modify_gathering" />
-
-    <fragment
-        android:id="@+id/myPageFragment"
-        android:name="com.plub.presentation.ui.main.home.profile.MyPageFragment"
-        android:label="MyPageFragment"
-        tools:layout="@layout/fragment_my_page">
-
         <action
             android:id="@+id/my_page_to_recruiting_gathering"
             app:destination="@id/myPageRecruitingGatheringFragment" />
@@ -281,6 +268,18 @@
             android:id="@+id/my_page_to_setting"
             app:destination="@id/myPageSettingFragment" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/modifyGatheringFragment"
+        android:name="com.plub.presentation.ui.main.gathering.modifyGathering.ModifyGatheringFragment"
+        android:label="ModifyGatheringFragment"
+        tools:layout="@layout/fragment_modify_gathering" />
+
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.plub.presentation.ui.main.home.profile.MyPageFragment"
+        android:label="MyPageFragment"
+        tools:layout="@layout/fragment_my_page">
     </fragment>
 
     <fragment

@@ -19,9 +19,9 @@ class MyPageDetailTopViewHolder(
     init {
     }
 
-    fun bind(item: MyPageDetailTitleVo) {
+    fun bind(item: MyPageDetailTitleVo, visible : Boolean) {
         binding.apply {
-            constraintLayoutGatheringStateBox.visibility = View.VISIBLE
+            constraintLayoutGatheringStateBox.visibility = if(visible) View.VISIBLE else View.GONE
             when(item.viewType){
                 MyPageGatheringMyType.HOST -> {
                     constraintLayoutGatheringStateBox.setBackgroundResource(R.color.color_e4e4e4)

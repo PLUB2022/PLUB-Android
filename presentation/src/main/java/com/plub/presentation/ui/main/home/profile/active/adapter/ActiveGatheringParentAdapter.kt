@@ -23,7 +23,7 @@ class ActiveGatheringParentAdapter(private val listener : ActiveGatheringDelegat
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MyPageDetailTopViewHolder -> holder.bind(currentList[position].title)
+            is MyPageDetailTopViewHolder -> holder.bind(currentList[position].title, true)
             is MyPageDetailMyTodoViewHolder -> holder.bind()
             is MyPageDetailMyPostViewHolder -> holder.bind(currentList[position].postList)
         }
