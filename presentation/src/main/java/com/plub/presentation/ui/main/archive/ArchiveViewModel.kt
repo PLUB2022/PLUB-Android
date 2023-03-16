@@ -34,13 +34,13 @@ class ArchiveViewModel @Inject constructor(
     fun setTitleAndPlubbingId(name : String , id : Int){
         title = name
         plubbingId = id
+        cursorUpdate()
     }
 
     fun fetchArchivePage(){
         val request = BrowseAllArchiveRequestVo(plubbingId, cursorId)
         viewModelScope.launch {
-            cursorId = FIRST_CURSOR
-            if(!isLastPage) getAllArchiveUseCase(request).collect{ state ->
+            getAllArchiveUseCase(request).collect{ state ->
                 inspectUiState(state, ::handleSuccessFetchArchives)
             }
         }
