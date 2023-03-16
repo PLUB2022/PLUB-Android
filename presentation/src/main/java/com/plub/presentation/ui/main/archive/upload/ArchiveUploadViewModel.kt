@@ -44,9 +44,14 @@ class ArchiveUploadViewModel @Inject constructor(
         plubbingId = pId
         plubTitle = title
         pageType = UPLOAD_TYPE
-        val firstImageList = arrayListOf(ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_VIEW, image = imageUri))
-        val mergeList = getFirstMergedList()
-        updateListState(mergeList + firstImageList)
+        updateListState(getFirstMergedList() + getFirstImageList(imageUri))
+    }
+
+    private fun getFirstImageList(imageUri:String) : List<ArchiveUploadVo>{
+        return arrayListOf(
+            ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_VIEW, image = imageUri),
+            ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_ADD_VIEW)
+        )
     }
 
     private fun getFirstMergedList() : List<ArchiveUploadVo>{
