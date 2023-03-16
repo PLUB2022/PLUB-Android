@@ -23,7 +23,7 @@ class ArchiveViewModel @Inject constructor(
 )  :BaseViewModel<ArchivePageState>(ArchivePageState()) {
 
     companion object{
-        const val FIRST_CURSOR = Int.MAX_VALUE
+        const val FIRST_CURSOR = 0
     }
     private var title : String = ""
     private var cursorId : Int = FIRST_CURSOR
