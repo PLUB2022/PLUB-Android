@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentReportDetailBinding
 import com.plub.presentation.ui.main.report.adapter.ReportItemAdapter
@@ -65,6 +66,8 @@ class ReportDetailFragment : BaseFragment<FragmentReportDetailBinding, ReportDet
         when(event){
             ReportDetailEvent.GoneSpinner -> binding.recyclerViewReportItem.visibility = View.GONE
             ReportDetailEvent.ShowSpinner -> binding.recyclerViewReportItem.visibility = View.VISIBLE
+            ReportDetailEvent.BorderBlack -> binding.editTextReportContent.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8_border_black)
+            ReportDetailEvent.BorderDefault -> binding.editTextReportContent.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_10_border_f2f3f4)
         }
     }
 

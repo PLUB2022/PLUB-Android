@@ -102,16 +102,17 @@
             app:layout_constraintTop_toBottomOf="@id/constraint_layout_spinner" />
         
         <EditText
+            android:id="@+id/edit_text_report_content"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="16dp"
             android:hint="@string/report_detail_hint"
             android:paddingStart="8dp"
+            android:afterTextChanged="@{() -> vm.onTextChangedAfter()}"
             android:textColorHint="@color/color_c4c4c4"
             android:textSize="14sp"
             android:text="@={vm.uiState.reportContent}"
-            android:afterTextChanged="@{() -> vm.onTextChangedAfter()}"
             android:background="@drawable/bg_rectangle_filled_white_radius_10_border_f2f3f4"
             app:layout_constraintTop_toBottomOf="@id/text_view_report_detail"
             android:layout_width="0dp"

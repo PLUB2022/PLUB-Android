@@ -43,7 +43,8 @@ class ReportDetailViewModel @Inject constructor(
     }
 
     fun onTextChangedAfter(){
-        
+        if(uiState.value.reportContent.isNotEmpty()) emitEventFlow(ReportDetailEvent.BorderBlack)
+        else emitEventFlow(ReportDetailEvent.BorderDefault)
     }
 
 }

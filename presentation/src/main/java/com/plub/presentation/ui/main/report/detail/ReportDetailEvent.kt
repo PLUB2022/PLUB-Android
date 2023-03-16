@@ -5,4 +5,6 @@ import com.plub.presentation.ui.Event
 sealed class ReportDetailEvent : Event{
     object ShowSpinner : ReportDetailEvent()
     object GoneSpinner : ReportDetailEvent()
+    object BorderBlack : ReportDetailEvent()
+    object BorderDefault : ReportDetailEvent()
 }
