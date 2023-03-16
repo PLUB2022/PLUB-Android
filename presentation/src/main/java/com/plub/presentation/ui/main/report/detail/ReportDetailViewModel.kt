@@ -43,8 +43,26 @@ class ReportDetailViewModel @Inject constructor(
     }
 
     fun onTextChangedAfter(){
-        if(uiState.value.reportContent.isNotEmpty()) emitEventFlow(ReportDetailEvent.BorderBlack)
-        else emitEventFlow(ReportDetailEvent.BorderDefault)
+        if(uiState.value.reportContent.isNotEmpty()) {
+            emitEventFlow(ReportDetailEvent.BorderBlack)
+            updateButtonState(true)
+        }
+        else {
+            emitEventFlow(ReportDetailEvent.BorderDefault)
+            updateButtonState(false)
+        }
+    }
+
+    fun goToComplete(){
+        emitEventFlow(ReportDetailEvent.GoToComplete(uiState.value.nowText))
+    }
+
+    private fun updateButtonState(enable : Boolean){
+        updateUiState { uiState->
+            uiState.copy(
+                isButtonEnable = enable
+            )
+        }
     }
 
 }

@@ -6,5 +6,6 @@ import com.plub.presentation.ui.PageState
 data class ReportDetailState(
     val reportList : List<ReportItemVo> = emptyList(),
     val nowText : String = "",
-    var reportContent : String =""
+    var reportContent : String ="",
+    val isButtonEnable : Boolean = false
 ) : PageState

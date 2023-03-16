@@ -2,6 +2,7 @@ package com.plub.presentation.ui.main.report.detail
 
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,11 +65,17 @@ class ReportDetailFragment : BaseFragment<FragmentReportDetailBinding, ReportDet
 
     private fun inspectEvent(event: ReportDetailEvent){
         when(event){
-            ReportDetailEvent.GoneSpinner -> binding.recyclerViewReportItem.visibility = View.GONE
-            ReportDetailEvent.ShowSpinner -> binding.recyclerViewReportItem.visibility = View.VISIBLE
-            ReportDetailEvent.BorderBlack -> binding.editTextReportContent.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8_border_black)
-            ReportDetailEvent.BorderDefault -> binding.editTextReportContent.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_10_border_f2f3f4)
+            is ReportDetailEvent.GoneSpinner -> binding.recyclerViewReportItem.visibility = View.GONE
+            is ReportDetailEvent.ShowSpinner -> binding.recyclerViewReportItem.visibility = View.VISIBLE
+            is ReportDetailEvent.BorderBlack -> binding.editTextReportContent.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8_border_black)
+            is ReportDetailEvent.BorderDefault -> binding.editTextReportContent.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_10_border_f2f3f4)
+            is ReportDetailEvent.GoToComplete -> {goToComplete(event.nowText)}
         }
+    }
+
+    private fun goToComplete(nowText : String){
+        val action = ReportDetailFragmentDirections.actionReportDetailToComplete(nowText)
+        findNavController().navigate(action)
     }
 
 }
