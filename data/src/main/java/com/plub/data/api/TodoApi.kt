@@ -91,4 +91,10 @@ interface TodoApi {
         @Path(PATH_PLUBING_ID) plubbingId: Int,
         @Path(PATH_TIMELINE_ID) timelineId: Int
     ): Response<ApiResponse<TodoTimelineResponse>>
+
+    @GET(Endpoints.PLUBBING.TODO.TODO_DETAIL)
+    suspend fun getTodoDetail(
+        @Path(PATH_PLUBING_ID) plubbingId: Int,
+        @Path(PATH_TIMELINE_ID) timelineId: Int
+    ): Response<ApiResponse<TodoTimelineResponse>>
 }

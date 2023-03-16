@@ -72,4 +72,10 @@ class PlubingTodoRepositoryImpl @Inject constructor(private val todoApi: TodoApi
     override suspend fun putTodoLikeToggle(request: TodoRequestVo): Flow<UiState<TodoTimelineVo>> {
         return apiLaunch(todoApi.putLikeToggleTodo(request.plubbingId, request.timelineId), TodoTimelineResponseMapper)
     }
+
+    override suspend fun getTodoDetail(request: TodoRequestVo): Flow<UiState<TodoTimelineVo>> {
+        return apiLaunch(todoApi.getTodoDetail(request.plubbingId, request.timelineId), TodoTimelineResponseMapper.apply {
+            setViewType(TodoItemViewType.DETAIL)
+        })
+    }
 }
