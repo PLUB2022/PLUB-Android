@@ -42,4 +42,8 @@ class ReportDetailViewModel @Inject constructor(
         isExpand = !isExpand
     }
 
+    fun onTextChangedAfter(){
+        
+    }
+
 }
