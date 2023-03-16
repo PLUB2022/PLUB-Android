@@ -14,6 +14,6 @@ data class SearchingPageState(
     val searchList: StateFlow<List<PlubCardVo>>,
     val cardType: StateFlow<PlubCardType>,
     val sortType: StateFlow<PlubSortType>,
-    val isSearchTextEmpty: StateFlow<Boolean>,
+    val isSearchedTextEmpty: StateFlow<Boolean>,
     val searchText: MutableStateFlow<String>,
 ) : PageState

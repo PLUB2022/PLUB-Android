@@ -45,7 +45,7 @@ class SearchingViewModel @Inject constructor(
     private val searchListStateFlow: MutableStateFlow<List<PlubCardVo>> = MutableStateFlow(emptyList())
     private val cardTypeStateFlow: MutableStateFlow<PlubCardType> = MutableStateFlow(PlubCardType.LIST)
     private val sortTypeStateFlow: MutableStateFlow<PlubSortType> = MutableStateFlow(PlubSortType.POPULAR)
-    private val isSearchTextEmptyStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(true)
+    private val isSearchedTextEmptyStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(true)
     private var searchTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
 
     override val uiState: SearchingPageState = SearchingPageState(
@@ -54,7 +54,7 @@ class SearchingViewModel @Inject constructor(
         searchListStateFlow.asStateFlow(),
         cardTypeStateFlow.asStateFlow(),
         sortTypeStateFlow.asStateFlow(),
-        isSearchTextEmptyStateFlow.asStateFlow(),
+        isSearchedTextEmptyStateFlow.asStateFlow(),
         searchTextStateFlow
     )
 
@@ -99,6 +99,7 @@ class SearchingViewModel @Inject constructor(
 
     fun onSearchPlubRecruit(keyword: String) {
         updateSearchText(keyword)
+        updateIsSearchedTextEmpty(keyword.isEmpty())
         insertRecentSearch(keyword) {
             page = FIRST_PAGE
             searchedKeyword = keyword
@@ -148,9 +149,7 @@ class SearchingViewModel @Inject constructor(
         val searchText = searchTextStateFlow.value
         if (searchText.isEmpty()) {
             updateIsRecentSearchMode(true)
-            updateIsSearchTextEmpty(true)
-        } else {
-            updateIsSearchTextEmpty(false)
+            updateIsSearchedTextEmpty(true)
         }
     }
 
@@ -289,9 +288,9 @@ class SearchingViewModel @Inject constructor(
         }
     }
 
-    private fun updateIsSearchTextEmpty(isEmpty: Boolean) {
+    private fun updateIsSearchedTextEmpty(isEmpty: Boolean) {
         viewModelScope.launch {
-            isSearchTextEmptyStateFlow.update { isEmpty }
+            isSearchedTextEmptyStateFlow.update { isEmpty }
         }
     }
 
