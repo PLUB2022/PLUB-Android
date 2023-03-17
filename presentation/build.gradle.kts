@@ -53,6 +53,7 @@ dependencies {
     implementation(AndroidX.PAGING3_RUNTIME)
     implementation(AndroidX.PAGING3_COMMON_KTX)
 
+    implementation(Libraries.CALENDAR_VIEW)
     implementation(Libraries.COIL)
     implementation(Libraries.TIMBER)
     implementation(Libraries.LOTTIE)

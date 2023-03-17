@@ -74,5 +74,19 @@ object Endpoints {
             const val COMMENT_DELETE = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
             const val COMMENT_EDIT = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
         }
+
+        object TODO {
+            const val TIMELINES = "$PLUBBING_ID_URL/timeline"
+            const val PROOF = "$PLUBBING_ID_URL/todolist/{todolistId}/proof"
+            const val COMPLETE = "$PLUBBING_ID_URL/todolist/{todolistId}/complete"
+            const val CANCEL = "$PLUBBING_ID_URL/todolist/{todolistId}/cancel"
+            const val TODO_DAYS_IN_MONTH = "$PLUBBING_ID_URL/timeline/year/{year}/month/{month}"
+            const val MY_TODO_IN_DAY = "$PLUBBING_ID_URL/timeline/{todoDate}"
+            const val TODO_CREATE = "$PLUBBING_ID_URL/todolist"
+            const val TODO_EDIT = "$PLUBBING_ID_URL/todolist/{todoId}"
+            const val TODO_DELETE = "$PLUBBING_ID_URL/todolist/{todoId}"
+            const val TODO_LIKE_TOGGLE = "$PLUBBING_ID_URL/timeline/{timelineId}/like"
+            const val TODO_DETAIL = "$PLUBBING_ID_URL/timeline/{timelineId}/todolist"
+        }
     }
 }

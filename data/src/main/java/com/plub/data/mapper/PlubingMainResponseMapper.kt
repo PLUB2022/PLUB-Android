@@ -10,6 +10,7 @@ object PlubingMainResponseMapper : Mapper.ResponseMapper<PlubingMainResponse, Pl
             PlubingMainVo(
                 plubingId = plubbingId,
                 name = name,
+                goal = goal,
                 mainImage = mainImage,
                 days = days,
                 time = time,

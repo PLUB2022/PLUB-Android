@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.vo.board.PlubingBoardVo
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentPlubingBoardBinding
 import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PlubingBoardFragment :
-    BaseFragment<FragmentPlubingBoardBinding, PlubingBoardPageState, PlubingBoardViewModel>(
+    BaseTestFragment<FragmentPlubingBoardBinding, PlubingBoardPageState, PlubingBoardViewModel>(
         FragmentPlubingBoardBinding::inflate
     ) {
 
@@ -54,7 +54,7 @@ class PlubingBoardFragment :
             }
 
             override val clipBoardList: List<PlubingBoardVo>
-                get() = viewModel.uiState.value.clipBoardList
+                get() = viewModel.uiState.clipBoardList.value
         })
     }
 
@@ -81,8 +81,8 @@ class PlubingBoardFragment :
             }
         }
         viewModel.initPlubingId(plubingId)
-        viewModel.onFetchBoardList()
-        viewModel.onFetchClipBoardList()
+        viewModel.onGetClipBoardList()
+        viewModel.onGetBoardList()
     }
 
     override fun initStates() {
@@ -90,8 +90,8 @@ class PlubingBoardFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    boardListAdapter.submitList(it.boardList) {
+                viewModel.uiState.boardList.collect {
+                    boardListAdapter.submitList(it) {
                         viewModel.onBoardUpdated()
                     }
                 }
@@ -108,7 +108,7 @@ class PlubingBoardFragment :
             viewModel.onCompleteBoardEdit(vo)
         }
 
-        getNavigationResult(BoardWriteFragment.KEY_RESULT_CREATE_COMPLETE) { _:Unit ->
+        getNavigationResult(BoardWriteFragment.KEY_RESULT_CREATE_COMPLETE) { _:String ->
             viewModel.onCompleteBoardCreate()
         }
     }

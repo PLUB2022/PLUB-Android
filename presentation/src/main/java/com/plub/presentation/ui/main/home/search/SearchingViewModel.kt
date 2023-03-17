@@ -17,9 +17,12 @@ import com.plub.domain.usecase.FetchRecentSearchUseCase
 import com.plub.domain.usecase.GetSearchPlubRecruitUseCase
 import com.plub.domain.usecase.InsertRecentSearchUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
-import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.main.home.categoryGathering.CategoryGatheringEvent
+import com.plub.presentation.base.BaseTestViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,11 +34,29 @@ class SearchingViewModel @Inject constructor(
     val fetchRecentSearchUseCase: FetchRecentSearchUseCase,
     val deleteRecentSearchUseCase: DeleteRecentSearchUseCase,
     val deleteAllRecentSearchUseCase: DeleteAllRecentSearchUseCase,
-) : BaseViewModel<SearchingPageState>(SearchingPageState()) {
+) : BaseTestViewModel<SearchingPageState>() {
 
     companion object {
         private const val FIRST_PAGE = 0
     }
+
+    private val isRecentSearchModeStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(true)
+    private val recentSearchListStateFlow: MutableStateFlow<List<RecentSearchVo>> = MutableStateFlow(emptyList())
+    private val searchListStateFlow: MutableStateFlow<List<PlubCardVo>> = MutableStateFlow(emptyList())
+    private val cardTypeStateFlow: MutableStateFlow<PlubCardType> = MutableStateFlow(PlubCardType.LIST)
+    private val sortTypeStateFlow: MutableStateFlow<PlubSortType> = MutableStateFlow(PlubSortType.POPULAR)
+    private val isSearchedTextEmptyStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(true)
+    private var searchTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+
+    override val uiState: SearchingPageState = SearchingPageState(
+        isRecentSearchModeStateFlow.asStateFlow(),
+        recentSearchListStateFlow.asStateFlow(),
+        searchListStateFlow.asStateFlow(),
+        cardTypeStateFlow.asStateFlow(),
+        sortTypeStateFlow.asStateFlow(),
+        isSearchedTextEmptyStateFlow.asStateFlow(),
+        searchTextStateFlow
+    )
 
     private var searchType: PlubSearchType = PlubSearchType.TITLE
     private var searchedKeyword: String = ""
@@ -78,41 +99,28 @@ class SearchingViewModel @Inject constructor(
 
     fun onSearchPlubRecruit(keyword: String) {
         updateSearchText(keyword)
-        viewModelScope.launch {
-            insertRecentSearch(keyword) {
-                viewModelScope.launch {
-                    page = FIRST_PAGE
-                    searchedKeyword = keyword
-                    fetchSearchPlubRecruit(uiState.value.sortType)
-                }
-            }
+        updateIsSearchedTextEmpty(keyword.isEmpty())
+        insertRecentSearch(keyword) {
+            page = FIRST_PAGE
+            searchedKeyword = keyword
+            getSearchPlubRecruit(sortTypeStateFlow.value)
         }
     }
 
     fun onTabSelected(tabPosition: Int) {
-        viewModelScope.launch {
-            page = FIRST_PAGE
-            searchType = PlubSearchType.valueOf(tabPosition)
-            fetchSearchPlubRecruit(uiState.value.sortType)
-        }
+        page = FIRST_PAGE
+        searchType = PlubSearchType.valueOf(tabPosition)
+        getSearchPlubRecruit(sortTypeStateFlow.value)
     }
 
     fun onClickCardType(cardType: PlubCardType) {
-        viewModelScope.launch {
-            page = FIRST_PAGE
-            updateUiState { uiState ->
-                uiState.copy(
-                    cardType = cardType
-                )
-            }
-            fetchSearchPlubRecruit(uiState.value.sortType)
-        }
+        page = FIRST_PAGE
+        updateCardType(cardType)
+        getSearchPlubRecruit(sortTypeStateFlow.value)
     }
 
     fun onClickBookmark(id: Int) {
-        viewModelScope.launch {
-            postBookmark(id)
-        }
+        postBookmark(id)
     }
 
     fun onClickSortType(sortType: PlubSortType) {
@@ -133,44 +141,41 @@ class SearchingViewModel @Inject constructor(
                 else -> PlubSortType.NEW
             }
             updateSortType(sortType)
-            fetchSearchPlubRecruit(sortType)
+            getSearchPlubRecruit(sortType)
         }
     }
 
     fun onSearchTextChanged() {
-        val searchText = uiState.value.searchText
+        val searchText = searchTextStateFlow.value
         if (searchText.isEmpty()) {
-            updateRecentSearchVisibility(true)
-            updateIsSearchTextEmpty(true)
-        } else {
-            updateIsSearchTextEmpty(false)
+            updateIsRecentSearchMode(true)
+            updateIsSearchedTextEmpty(true)
         }
     }
 
     fun onClickDeleteSearch() {
-        updateUiState { uiState ->
-            uiState.copy(
-                searchText = ""
-            )
-        }
+        updateSearchText("")
         emitEventFlow(SearchingEvent.HideKeyboard)
     }
 
-    private fun updateRecentSearchList(list: List<RecentSearchVo>) {
-        updateUiState { uiState ->
-            uiState.copy(
-                recentSearchList = list,
-            )
-        }
+    fun onClickBack() {
+        emitEventFlow(SearchingEvent.GoToBack)
     }
 
-    private suspend fun fetchSearchPlubRecruit(sortType: PlubSortType) {
+    fun goToDetailRecruitment(id: Int, isHost: Boolean) {
+        val event = if(isHost) SearchingEvent.GoToHostRecruit(id) else SearchingEvent.GoToRecruit(id)
+        emitEventFlow(event)
+    }
+
+    private fun getSearchPlubRecruit(sortType: PlubSortType) {
         val request = SearchPlubRecruitRequestVo(searchType, searchedKeyword, sortType, page)
-        searchPlubRecruitUseCase(request).collect {
-            inspectUiState(it, ::searchSuccess) { _, individual ->
-                clear()
-                updateRecentSearchVisibility(false)
-                handleSearchError(individual as SearchError)
+        viewModelScope.launch {
+            searchPlubRecruitUseCase(request).collect {
+                inspectUiState(it, ::searchSuccess) { _, individual ->
+                    clear()
+                    updateIsRecentSearchMode(false)
+                    handleSearchError(individual as SearchError)
+                }
             }
         }
     }
@@ -181,12 +186,8 @@ class SearchingViewModel @Inject constructor(
 
         val mappedList = mapToCardType(vo.content)
         val mergedList = getMergeList(mappedList)
-        updateUiState { ui ->
-            ui.copy(
-                searchList = mergedList,
-                isRecentSearchVisibility = false,
-            )
-        }
+        updateSearchList(mergedList)
+        updateIsRecentSearchMode(false)
         page++
     }
 
@@ -198,13 +199,13 @@ class SearchingViewModel @Inject constructor(
     private fun mapToCardType(list: List<PlubCardVo>): List<PlubCardVo> {
         return list.map {
             it.copy(
-                viewType = uiState.value.cardType
+                viewType = cardTypeStateFlow.value
             )
         }
     }
 
     private fun getMergeList(list: List<PlubCardVo>): List<PlubCardVo> {
-        val originList = uiState.value.searchList
+        val originList = searchListStateFlow.value
         val mappedList = mapToCardType(list)
         return if (originList.isEmpty() || page == FIRST_PAGE) mappedList else originList + mappedList
     }
@@ -219,23 +220,27 @@ class SearchingViewModel @Inject constructor(
         }
     }
 
-    private suspend fun insertRecentSearch(text: String, insertSuccess: () -> Unit) {
+    private fun insertRecentSearch(text: String, insertSuccess: () -> Unit) {
         val request = RecentSearchVo(search = text, saveTime = System.currentTimeMillis())
-        insertRecentSearchUseCase(request).collect {
-            inspectUiState(it, {
-                insertSuccess.invoke()
-            })
+        viewModelScope.launch {
+            insertRecentSearchUseCase(request).collect {
+                inspectUiState(it, {
+                    insertSuccess.invoke()
+                })
+            }
         }
     }
 
-    private suspend fun postBookmark(id: Int) {
-        postBookmarkPlubRecruitUseCase(id).collect {
-            inspectUiState(it, ::postBookmarkSuccess)
+    private fun postBookmark(id: Int) {
+        viewModelScope.launch {
+            postBookmarkPlubRecruitUseCase(id).collect {
+                inspectUiState(it, ::postBookmarkSuccess)
+            }
         }
     }
 
     private fun postBookmarkSuccess(vo: PlubBookmarkResponseVo) {
-        val list = uiState.value.searchList
+        val list = searchListStateFlow.value
         val newList = list.map {
             val bookmark = if (it.id == vo.id) vo.isBookmarked else it.isBookmarked
             it.copy(
@@ -245,60 +250,50 @@ class SearchingViewModel @Inject constructor(
         updateSearchList(newList)
     }
 
-    private fun updateSearchList(list: List<PlubCardVo>) {
-        updateUiState { uiState ->
-            uiState.copy(
-                searchList = list
-            )
-        }
-    }
-
-    private fun updateSortType(sortType: PlubSortType) {
-        updateUiState { uiState ->
-            uiState.copy(
-                sortType = sortType
-            )
-        }
-    }
-
-    private fun updateRecentSearchVisibility(visibility: Boolean) {
-        updateUiState { ui ->
-            ui.copy(
-                isRecentSearchVisibility = visibility
-            )
-        }
-    }
-
-    private fun updateIsSearchTextEmpty(visibility: Boolean) {
-        updateUiState { ui ->
-            ui.copy(
-                searchTextIsEmpty = visibility,
-            )
-        }
-    }
-
-    private fun updateSearchText(text: String) {
-        updateUiState { ui ->
-            ui.copy(
-                searchText = text
-            )
-        }
-    }
-
     private fun clear() {
         emitEventFlow(SearchingEvent.ClearFocus)
         emitEventFlow(SearchingEvent.HideKeyboard)
     }
 
-    fun onClickBack(){
-        emitEventFlow(SearchingEvent.GoToBack)
+    private fun updateIsRecentSearchMode(isRecentSearchMode: Boolean) {
+        viewModelScope.launch {
+            isRecentSearchModeStateFlow.update { isRecentSearchMode }
+        }
     }
 
-    fun goToDetailRecruitment(id: Int, isHost: Boolean){
-        if (isHost) {
-            emitEventFlow(SearchingEvent.GoToHostRecruit(id))
-        } else {
-            emitEventFlow(SearchingEvent.GoToRecruit(id))
+    private fun updateRecentSearchList(list: List<RecentSearchVo>) {
+        viewModelScope.launch {
+            recentSearchListStateFlow.update { list }
+        }
+    }
+
+    private fun updateSearchList(list: List<PlubCardVo>) {
+        viewModelScope.launch {
+            searchListStateFlow.update { list }
+        }
+    }
+
+    private fun updateCardType(type: PlubCardType) {
+        viewModelScope.launch {
+            cardTypeStateFlow.update { type }
+        }
+    }
+
+    private fun updateSortType(type: PlubSortType) {
+        viewModelScope.launch {
+            sortTypeStateFlow.update { type }
+        }
+    }
+
+    private fun updateIsSearchedTextEmpty(isEmpty: Boolean) {
+        viewModelScope.launch {
+            isSearchedTextEmptyStateFlow.update { isEmpty }
+        }
+    }
+
+    private fun updateSearchText(text: String) {
+        viewModelScope.launch {
+            searchTextStateFlow.update { text }
         }
     }
 }

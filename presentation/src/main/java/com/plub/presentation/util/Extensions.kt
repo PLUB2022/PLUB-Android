@@ -1,5 +1,6 @@
 package com.plub.presentation.util
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Build
@@ -11,6 +12,7 @@ import android.text.Html
 import android.text.Spanned
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -136,4 +138,15 @@ fun <T> Fragment.getNavigationResult(key: String = "result", singleCall : Boolea
 
 fun <T>Fragment.setNavigationResult(key: String = "result", result: T) {
     findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
+}
+
+fun EditText.showKeyboard() {
+    requestFocus()
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+}
+
+fun EditText.hideKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(this.windowToken, 0)
 }
