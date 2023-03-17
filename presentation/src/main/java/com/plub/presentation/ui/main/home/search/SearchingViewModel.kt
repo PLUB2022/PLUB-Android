@@ -158,6 +158,15 @@ class SearchingViewModel @Inject constructor(
         emitEventFlow(SearchingEvent.HideKeyboard)
     }
 
+    fun onClickBack() {
+        emitEventFlow(SearchingEvent.GoToBack)
+    }
+
+    fun goToDetailRecruitment(id: Int, isHost: Boolean) {
+        val event = if(isHost) SearchingEvent.GoToHostRecruit(id) else SearchingEvent.GoToRecruit(id)
+        emitEventFlow(event)
+    }
+
     private fun getSearchPlubRecruit(sortType: PlubSortType) {
         val request = SearchPlubRecruitRequestVo(searchType, searchedKeyword, sortType, page)
         viewModelScope.launch {
@@ -244,18 +253,6 @@ class SearchingViewModel @Inject constructor(
     private fun clear() {
         emitEventFlow(SearchingEvent.ClearFocus)
         emitEventFlow(SearchingEvent.HideKeyboard)
-    }
-
-    fun onClickBack() {
-        emitEventFlow(SearchingEvent.GoToBack)
-    }
-
-    fun goToDetailRecruitment(id: Int, isHost: Boolean) {
-        if (isHost) {
-            emitEventFlow(SearchingEvent.GoToHostRecruit(id))
-        } else {
-            emitEventFlow(SearchingEvent.GoToRecruit(id))
-        }
     }
 
     private fun updateIsRecentSearchMode(isRecentSearchMode: Boolean) {
