@@ -100,12 +100,13 @@ object TimeFormatter {
         }
     }
 
-    fun getEpochMilliFromyyyyDashmmDashddFormat(yyyyDashmmDashddFormat: String): Long {
+    fun getEpochMilliFromDateTime(yyyyDashmmDashddFormat: String, HHcolonmm: String): Long {
         val (year, month, day) = yyyyDashmmDashddFormat.split(SPLIT_OF_DATE).map { it.toIntOrNull() ?: 0 }
-        return LocalDate.of(year, month, day).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
+        val (hour, minute) = getIntHourIntMin(HHcolonmm)
+        return LocalDate.of(year, month, day).atTime(hour, minute).atZone(ZoneOffset.UTC).toInstant().toEpochMilli()
     }
 
     fun getCurrentEpochMilli(): Long {
-        return LocalDate.now().atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
+        return LocalDate.now().atTime(LocalTime.now()).atZone(ZoneOffset.UTC).toInstant().toEpochMilli()
     }
 }

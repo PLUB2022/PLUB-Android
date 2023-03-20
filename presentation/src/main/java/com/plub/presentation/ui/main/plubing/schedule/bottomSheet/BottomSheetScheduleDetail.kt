@@ -50,6 +50,34 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
         ExpandProfileAdapter()
     }
 
+    private val bottomSheetCallback = object: BottomSheetBehavior.BottomSheetCallback() {
+        override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            binding.buttonNo.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topMargin = (slideOffset * (binding.bottomSheetScheduleDetail.height - bottomSheetPeekHeight.px)).toInt() + BUTTON_PADDING.px
+            }
+        }
+
+        override fun onStateChanged(bottomSheet: View, newState: Int) {
+
+            when (newState) {
+                STATE_EXPANDED -> {
+                    setLayoutExpanded()
+                }
+
+                STATE_COLLAPSED -> {
+                    setLayoutCollapsed()
+                }
+
+                STATE_DRAGGING -> {
+                    setLayoutDragging()
+                }
+            }
+
+        }
+    }
+
+    private var bottomSheetPeekHeight: Int = 0
+
     companion object {
         private const val SCHEDULE_VO = "SCHEDULE_VO"
         private const val PROFILE_FOLD_WIDTH = 44
@@ -58,8 +86,9 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
         private const val ITEM_SPAN_SIZE = 1
         private const val PROFILE_FOLD_ITEM_SPACE = 4
         private const val PROFILE_EXPAND_ITEM_SPACE = 6
-        private const val PEEK_HEIGHT = 250
+        private const val FULL_PEEK_HEIGHT = 250
         private const val BUTTON_PADDING = 16
+        private const val BUTTON_HEIGHT = 46
 
 
         fun newInstance(
@@ -89,44 +118,23 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    private var behavior: BottomSheetBehavior<View>? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        bottomSheetPeekHeight = if(TimeFormatter.getCurrentEpochMilli() > TimeFormatter.getEpochMilliFromDateTime(scheduleVo.startedAt, scheduleVo.startTime)) FULL_PEEK_HEIGHT - BUTTON_HEIGHT - BUTTON_PADDING else FULL_PEEK_HEIGHT
 
         val bottomSheet =
             dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
                 ?: return
-        val behavior = BottomSheetBehavior.from<View>(bottomSheet)
-        behavior.peekHeight = PEEK_HEIGHT.px
-        behavior.isHideable = true
-        behavior.isDraggable = false
-        behavior.state = STATE_COLLAPSED
 
-        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                binding.buttonNo.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                    topMargin = (slideOffset * (binding.bottomSheetScheduleDetail.height - PEEK_HEIGHT.px)).toInt() + BUTTON_PADDING.px
-                }
-            }
-
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-
-                when (newState) {
-                    STATE_EXPANDED -> {
-                        setLayoutExpanded()
-                    }
-
-                    STATE_COLLAPSED -> {
-                        setLayoutCollapsed()
-                    }
-
-                    STATE_DRAGGING -> {
-                        setLayoutDragging()
-                    }
-                }
-
-            }
-        })
+        behavior = BottomSheetBehavior.from<View>(bottomSheet).apply {
+            peekHeight = bottomSheetPeekHeight.px
+            isHideable = true
+            isDraggable = false
+            state = STATE_COLLAPSED
+        }
 
         binding.apply {
             textViewTitle.text = scheduleVo.title
@@ -135,8 +143,11 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
             textViewTime.text = getTextViewTime(scheduleVo)
             setLocation(textViewLocation, imageViewLocation, scheduleVo)
 
-            setRecyclerViewAttendFold(behavior)
-            setRecyclerViewAttendExpand(behavior)
+            behavior?.let {
+                setRecyclerViewAttendFold(it)
+                setRecyclerViewAttendExpand(it)
+            }
+
 
             buttonYes.onThrottleClick {
                 okButtonClickEvent?.let { it(scheduleVo.calendarId) }
@@ -148,6 +159,16 @@ class BottomSheetScheduleDetail : BottomSheetDialogFragment() {
                 dismiss()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        behavior?.addBottomSheetCallback(bottomSheetCallback)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        behavior?.removeBottomSheetCallback(bottomSheetCallback)
     }
 
     private fun setRecyclerViewAttendExpand(behavior: BottomSheetBehavior<View>) {

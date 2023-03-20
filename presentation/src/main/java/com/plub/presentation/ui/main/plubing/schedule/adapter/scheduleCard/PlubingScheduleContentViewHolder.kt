@@ -60,7 +60,7 @@ class PlubingScheduleContentViewHolder(
             textViewDate.text = getTextViewDate(currentItem)
             textViewTime.text = getTextViewTime(currentItem)
             setLocation(textViewLocation, imageViewLocation, currentItem)
-            setTextColor(currentItem.startedAt)
+            setTextColor(currentItem.startedAt, currentItem.startTime)
             viewDivider1.visibility = if (position == 1) View.INVISIBLE else View.VISIBLE
         }
 
@@ -122,9 +122,9 @@ class PlubingScheduleContentViewHolder(
         }
     }
 
-    private fun setTextColor(startDate: String) {
-        val (color, imageResource) = if (TimeFormatter.getEpochMilliFromyyyyDashmmDashddFormat(
-                startDate
+    private fun setTextColor(startDate: String, startTime: String) {
+        val (color, imageResource) = if (TimeFormatter.getEpochMilliFromDateTime(
+                startDate, startTime
             ) < TimeFormatter.getCurrentEpochMilli()
         )
             listOf(
