@@ -49,25 +49,25 @@ class PlubingAddOrEditScheduleFragment : BaseFragment<
     private fun inspectEventFlow(event: PlubingAddOrEditScheduleEvent) {
         when(event) {
             is PlubingAddOrEditScheduleEvent.ShowStartDatePickerEventOrEdit -> {
-                val startDate = viewModel.uiState.value.startDate
+                val startDate = viewModel.uiState.value.startScheduleDate
                 startDate.apply {
                     showDatePickerDialog(this) { year, month, day ->  event.onClickOk(year, month + 1, day) }
                 }
             }
             is PlubingAddOrEditScheduleEvent.ShowEndDatePickerEventOrEdit -> {
-                val endDate = viewModel.uiState.value.endDate
+                val endDate = viewModel.uiState.value.endScheduleDate
                 endDate.apply {
                     showDatePickerDialog(this) { year, month, day ->  event.onClickOk(year, month + 1, day) }
                 }
             }
             is PlubingAddOrEditScheduleEvent.ShowStartTimePickerEventOrEdit -> {
-                val startTime = viewModel.uiState.value.startTime
+                val startTime = viewModel.uiState.value.startScheduleTime
                 startTime.apply {
                     showTimePickerDialog(this) { hour, min -> event.onClickOk(hour, min)  }
                 }
             }
             is PlubingAddOrEditScheduleEvent.ShowEndTimePickerEventOrEdit -> {
-                val endTime = viewModel.uiState.value.endTime
+                val endTime = viewModel.uiState.value.endScheduleTime
                 endTime.apply {
                     showTimePickerDialog(this) { hour, min -> event.onClickOk(hour, min)  }
                 }
@@ -87,29 +87,29 @@ class PlubingAddOrEditScheduleFragment : BaseFragment<
         }
     }
 
-    private fun showTimePickerDialog(initTime: Time, onSuccess: (hour: Int, min: Int) -> Unit) {
+    private fun showTimePickerDialog(initScheduleTime: ScheduleTime, onSuccess: (hour: Int, min: Int) -> Unit) {
         val timePickerDialog = TimePickerDialog(requireActivity(),
                 { _, hour, min ->
                     onSuccess(hour, min)
                 },
-            initTime.hour,
-            initTime.minute,
+            initScheduleTime.hour,
+            initScheduleTime.minute,
                 false
             )
         timePickerDialog.show()
     }
 
     private fun showDatePickerDialog(
-        initDate: Date,
+        initScheduleDate: ScheduleDate,
         onSuccess: (year: Int, month: Int, day: Int) -> Unit
     ) {
         val datePickerDialog = DatePickerDialog(requireContext(), R.style.PlubDatePickerStyle,
             { _, y, m, d ->
                 onSuccess(y, m, d)
             },
-            initDate.year,
-            initDate.month - 1,
-            initDate.day,
+            initScheduleDate.year,
+            initScheduleDate.month - 1,
+            initScheduleDate.day,
         )
         datePickerDialog.show()
     }

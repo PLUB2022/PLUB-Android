@@ -67,6 +67,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
                 adapter = homeAdapter
             }
         }
+        //TODO REMOVE
+        val action = HomeFragmentDirections.actionPlubingMainToSchedule(38, "123")
+        findNavController().navigate(action)
         viewModel.fetchHomePageData()
     }
 

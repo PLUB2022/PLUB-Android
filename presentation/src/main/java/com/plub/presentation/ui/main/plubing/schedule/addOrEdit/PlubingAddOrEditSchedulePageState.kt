@@ -13,10 +13,10 @@ data class PlubingAddOrEditSchedulePageState(
     val calendarId: Int = -1,
     val scheduleTitle: String = "",
     val isAllDay: Boolean = false,
-    val startDate: Date = Date(),
-    val startTime: Time = Time(),
-    val endDate: Date = Date(),
-    val endTime: Time = Time(),
+    val startScheduleDate: ScheduleDate = ScheduleDate(),
+    val startScheduleTime: ScheduleTime = ScheduleTime(),
+    val endScheduleDate: ScheduleDate = ScheduleDate(),
+    val endScheduleTime: ScheduleTime = ScheduleTime(),
     val location: KakaoLocationInfoDocumentVo = KakaoLocationInfoDocumentVo(),
     val alarm: DialogCheckboxItemType = DialogCheckboxItemType.ALARM_NONE,
     val memo: String = "",
@@ -25,22 +25,22 @@ data class PlubingAddOrEditSchedulePageState(
     val isNextButtonEnabled = scheduleTitle.isNotEmpty()
     val startTimeInMills: Long
         get() {
-        val (year, month, day) = startDate
-        val (hour, minute) = startTime
+        val (year, month, day) = startScheduleDate
+        val (hour, minute) = startScheduleTime
         val localDate = LocalDateTime.of(year, month, day, hour, minute)
         return localDate.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
     }
 
     val endTimeInMills: Long
         get() {
-            val (year, month, day) = endDate
-            val (hour, minute) = endTime
+            val (year, month, day) = endScheduleDate
+            val (hour, minute) = endScheduleTime
             val localDate = LocalDateTime.of(year, month, day, hour, minute)
             return localDate.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
         }
 }
 
-data class Date(
+data class ScheduleDate(
     val year: Int = Calendar.getInstance().get(Calendar.YEAR),
     val month: Int = Calendar.getInstance().get(Calendar.MONTH) + 1,
     val day: Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
@@ -49,7 +49,7 @@ data class Date(
     val text = TimeFormatter.getyyyydotMMdotddE(year, month, day)
 }
 
-data class Time(
+data class ScheduleTime(
     val hour: Int = Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
     val minute: Int = Calendar.getInstance().get(Calendar.MINUTE)
 ) {

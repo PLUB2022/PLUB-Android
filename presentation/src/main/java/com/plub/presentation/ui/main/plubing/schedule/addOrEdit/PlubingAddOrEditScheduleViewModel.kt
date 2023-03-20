@@ -37,10 +37,10 @@ class PlubingAddOrEditScheduleViewModel @Inject constructor(
                     calendarId = it.calendarId,
                     scheduleTitle = it.title,
                     isAllDay = it.isAllDay,
-                    startDate = Date(TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(it.startedAt)),
-                    startTime = Time(TimeFormatter.getIntHourIntMin(it.startTime)),
-                    endDate = Date(TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(it.endedAt)),
-                    endTime = Time(TimeFormatter.getIntHourIntMin(it.endTime)),
+                    startScheduleDate = ScheduleDate(TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(it.startedAt)),
+                    startScheduleTime = ScheduleTime(TimeFormatter.getIntHourIntMin(it.startTime)),
+                    endScheduleDate = ScheduleDate(TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(it.endedAt)),
+                    endScheduleTime = ScheduleTime(TimeFormatter.getIntHourIntMin(it.endTime)),
                     location = KakaoLocationInfoDocumentVo(
                         placeName = it.placeName,
                         addressName = it.address,
@@ -93,12 +93,12 @@ class PlubingAddOrEditScheduleViewModel @Inject constructor(
     }
 
     private fun updateStartDateAndEmitShowStartTimePickerEvent(year: Int, month: Int, day: Int) {
-        val startDate = Date(
+        val startScheduleDate = ScheduleDate(
             year, month, day
         )
 
         updateUiState { uiState ->
-            uiState.copy(startDate = startDate)
+            uiState.copy(startScheduleDate = startScheduleDate)
         }
 
         emitEventFlow(
@@ -109,32 +109,32 @@ class PlubingAddOrEditScheduleViewModel @Inject constructor(
     }
 
     private fun updateStartTime(hour: Int, minute: Int) {
-        val startTime = Time(
+        val startScheduleTime = ScheduleTime(
             hour, minute
         )
 
         if (uiState.value.startTimeInMills > uiState.value.endTimeInMills) {
             updateUiState { uiState ->
                 uiState.copy(
-                    endDate = uiState.startDate,
-                    startTime = startTime,
-                    endTime = startTime
+                    endScheduleDate = uiState.startScheduleDate,
+                    startScheduleTime = startScheduleTime,
+                    endScheduleTime = startScheduleTime
                 )
             }
         } else {
             updateUiState { uiState ->
-                uiState.copy(startTime = startTime)
+                uiState.copy(startScheduleTime = startScheduleTime)
             }
         }
     }
 
     private fun updateEndDateAndEmitShowEndTimePickerEvent(year: Int, month: Int, day: Int) {
-        val endDate = Date(
+        val endScheduleDate = ScheduleDate(
             year, month, day
         )
 
         updateUiState { uiState ->
-            uiState.copy(endDate = endDate)
+            uiState.copy(endScheduleDate = endScheduleDate)
         }
 
         emitEventFlow(
@@ -146,21 +146,21 @@ class PlubingAddOrEditScheduleViewModel @Inject constructor(
 
 
     private fun updateEndTime(hour: Int, minute: Int) {
-        val endTime = Time(
+        val endScheduleTime = ScheduleTime(
             hour, minute
         )
 
         if (uiState.value.startTimeInMills > uiState.value.endTimeInMills) {
             updateUiState { uiState ->
                 uiState.copy(
-                    startDate = uiState.endDate,
-                    startTime = endTime,
-                    endTime = endTime
+                    startScheduleDate = uiState.endScheduleDate,
+                    startScheduleTime = endScheduleTime,
+                    endScheduleTime = endScheduleTime
                 )
             }
         } else {
             updateUiState { uiState ->
-                uiState.copy(endTime = endTime)
+                uiState.copy(endScheduleTime = endScheduleTime)
             }
         }
     }
@@ -218,10 +218,10 @@ class PlubingAddOrEditScheduleViewModel @Inject constructor(
                 title = scheduleTitle,
                 memo = memo,
                 isAllDay = isAllDay,
-                startedAt = TimeFormatter.getyyyydashMMdashdd(startDate.year, startDate.month, startDate.day),
-                endedAt = TimeFormatter.getyyyydashMMdashdd(endDate.year, endDate.month, endDate.day),
-                startTime = if(isAllDay) null else TimeFormatter.getHHcolonmm(startTime.hour, startTime.minute),
-                endTime = if(isAllDay) null else TimeFormatter.getHHcolonmm(endTime.hour, endTime.minute),
+                startedAt = TimeFormatter.getyyyydashMMdashdd(startScheduleDate.year, startScheduleDate.month, startScheduleDate.day),
+                endedAt = TimeFormatter.getyyyydashMMdashdd(endScheduleDate.year, endScheduleDate.month, endScheduleDate.day),
+                startTime = if(isAllDay) null else TimeFormatter.getHHcolonmm(startScheduleTime.hour, startScheduleTime.minute),
+                endTime = if(isAllDay) null else TimeFormatter.getHHcolonmm(endScheduleTime.hour, endScheduleTime.minute),
                 address = location.addressName,
                 roadAddress = location.roadAddressName,
                 placeName = location.placeName,
@@ -238,10 +238,10 @@ class PlubingAddOrEditScheduleViewModel @Inject constructor(
                 title = scheduleTitle,
                 memo = memo,
                 isAllDay = isAllDay,
-                startedAt = TimeFormatter.getyyyydashMMdashdd(startDate.year, startDate.month, startDate.day),
-                endedAt = TimeFormatter.getyyyydashMMdashdd(endDate.year, endDate.month, endDate.day),
-                startTime = if(isAllDay) null else TimeFormatter.getHHcolonmm(startTime.hour, startTime.minute),
-                endTime = if(isAllDay) null else TimeFormatter.getHHcolonmm(endTime.hour, endTime.minute),
+                startedAt = TimeFormatter.getyyyydashMMdashdd(startScheduleDate.year, startScheduleDate.month, startScheduleDate.day),
+                endedAt = TimeFormatter.getyyyydashMMdashdd(endScheduleDate.year, endScheduleDate.month, endScheduleDate.day),
+                startTime = if(isAllDay) null else TimeFormatter.getHHcolonmm(startScheduleTime.hour, startScheduleTime.minute),
+                endTime = if(isAllDay) null else TimeFormatter.getHHcolonmm(endScheduleTime.hour, endScheduleTime.minute),
                 address = location.addressName,
                 roadAddress = location.roadAddressName,
                 placeName = location.placeName,
