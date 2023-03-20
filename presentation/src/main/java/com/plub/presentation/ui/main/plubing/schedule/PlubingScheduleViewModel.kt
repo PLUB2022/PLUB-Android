@@ -33,6 +33,10 @@ class PlubingScheduleViewModel @Inject constructor(
     private val deleteScheduleUseCase: DeleteScheduleUseCase
 ) : BaseViewModel<PlubingSchedulePageState>(PlubingSchedulePageState()) {
 
+    companion object {
+        private const val FIRST_IDX = 0
+    }
+
     fun updatePlubbingId(plubbingId: Int) {
         updateUiState { uiState ->
             uiState.copy(
@@ -69,48 +73,27 @@ class PlubingScheduleViewModel @Inject constructor(
 
     private suspend fun processScheduleVoList(items: List<ScheduleVo>, isLast: Boolean): List<ScheduleVo> {
         if (items.isEmpty()) return emptyList()
-        val processedScheduleVoList = mutableListOf<ScheduleVo>()
 
         val lastContent =
             uiState.value.scheduleList.findLast { it.viewType == ScheduleCardType.CONTENT }
 
-        /**
-         * 기존 Schedule의 마지막 아이템이 존재하고, 새롭게 추가될 Schedule의 시작 년도보다 느리다면
-         * RecyclerView에 새롭게 추가될 Schedule의 시작 년도를 표시해줘야한다.
-         */
-        lastContent?.let { prevSchedule ->
-            compareStartDateAndAddYearType(processedScheduleVoList, prevSchedule, items[0])
-        } ?: addYearToScheduleVoList(processedScheduleVoList, items[0].startedAt)
+        val lastYear = lastContent?.let {
+            TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(it.startedAt)
+        } ?: -1
 
-        /**
-         * 새롭게 추가될 Schedule 중에서 년도가 바뀌는 부분이 있다면
-         * RecyclerView에 년도가 바뀜을 나타내는 Ui를 추가해야한다.
-         */
-        items.asFlow().collectIndexed { index, schedule ->
-            if(index > 0) compareStartDateAndAddYearType(processedScheduleVoList, items[index - 1], schedule)
-            processedScheduleVoList.add(schedule)
+        return items.groupBy { item -> TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(item.startedAt) }
+            .mapValues {
+                val isExistDate = lastYear == it.key
+                val yearItem = ScheduleVo(
+                    viewType = ScheduleCardType.YEAR,
+                    startedAt = it.value[FIRST_IDX].startedAt
+                )
+                it.value.toMutableList().apply {
+                    if (!isExistDate) add(FIRST_IDX, yearItem)
+                }
+            }.flatMap { it.value }.toMutableList().apply {
+            if (!isLast) add(ScheduleVo(viewType = ScheduleCardType.LOADING))
         }
-
-        if (!isLast) processedScheduleVoList.add(ScheduleVo(viewType = ScheduleCardType.LOADING))
-
-        return processedScheduleVoList
-    }
-
-    private fun compareStartDateAndAddYearType(items: MutableList<ScheduleVo>, firstSchedule: ScheduleVo, secondSchedule: ScheduleVo) {
-        val firstScheduleYear =
-            TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(firstSchedule.startedAt)
-        val secondScheduleYear =
-            TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(secondSchedule.startedAt)
-
-        if (secondScheduleYear != firstScheduleYear) addYearToScheduleVoList(items, secondSchedule.startedAt)
-    }
-    private fun addYearToScheduleVoList(items: MutableList<ScheduleVo>, startedAt: String) {
-        items.add(
-            ScheduleVo(
-                viewType = ScheduleCardType.YEAR,
-                startedAt = startedAt
-            )
-        )
     }
 
     private suspend fun mergeScheduleList(items: List<ScheduleVo>): List<ScheduleVo> {
