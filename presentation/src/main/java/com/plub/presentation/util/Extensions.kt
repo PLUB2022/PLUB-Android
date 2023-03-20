@@ -1,5 +1,6 @@
 package com.plub.presentation.util
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Build
@@ -13,6 +14,7 @@ import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AlphaAnimation
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -185,4 +187,15 @@ fun View.setInVisibleWithAnimation() {
     invisibleAnimation.duration = animationDuration
     visibility = View.INVISIBLE
     animation = invisibleAnimation
+}
+
+fun EditText.showKeyboard() {
+    requestFocus()
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+}
+
+fun EditText.hideKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(this.windowToken, 0)
 }

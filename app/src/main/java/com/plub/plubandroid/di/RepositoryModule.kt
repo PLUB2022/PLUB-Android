@@ -109,4 +109,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesApplicantsRepository(repositoryImpl: ApplicantsRepositoryImpl): ApplicantsRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesPlubingTodoRepository(repositoryImpl: PlubingTodoRepositoryImpl): PlubingTodoRepository
 }

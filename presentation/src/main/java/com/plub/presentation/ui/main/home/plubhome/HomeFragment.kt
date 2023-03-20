@@ -13,6 +13,7 @@ import com.plub.presentation.databinding.FragmentHomeBinding
 import com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
 import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
+import com.plub.presentation.util.onThrottleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -65,11 +66,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
                     }
                 }))
                 adapter = homeAdapter
+
+                imageViewPlubLogo.onThrottleClick {
+                    val plubingId = 1
+                    val action = HomeFragmentDirections.actionMainToPlubingMain(plubingId)
+                    findNavController().navigate(action)
+                }
             }
         }
-        //TODO REMOVE
-        val action = HomeFragmentDirections.actionPlubingMainToSchedule(38, "123")
-        findNavController().navigate(action)
         viewModel.fetchHomePageData()
     }
 

@@ -10,7 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.enums.PlubingMainPageType
 import com.plub.presentation.R
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentPlubingMainBinding
 import com.plub.presentation.databinding.IncludeTabPlubingMainBinding
 import com.plub.presentation.ui.main.plubing.adapter.FragmentPlubingMainPagerAdapter
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PlubingMainFragment :
-    BaseFragment<FragmentPlubingMainBinding, PlubingMainPageState, PlubingMainViewModel>(
+    BaseTestFragment<FragmentPlubingMainBinding, PlubingMainPageState, PlubingMainViewModel>(
         FragmentPlubingMainBinding::inflate
     ) {
 
@@ -91,8 +91,8 @@ class PlubingMainFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    memberListAdapter.submitList(it.memberList)
+                viewModel.uiState.memberList.collect {
+                    memberListAdapter.submitList(it)
                 }
             }
 
@@ -111,8 +111,9 @@ class PlubingMainFragment :
                 findNavController().navigate(action)
             }
 
-            is PlubingMainEvent.GoToWriteTodo -> {
-
+            is PlubingMainEvent.GoToPlannerTodo -> {
+                val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingTodoPlanner()
+                findNavController().navigate(action)
             }
         }
     }
