@@ -50,7 +50,7 @@ data class Date(
 }
 
 data class Time(
-    val hour: Int = Calendar.getInstance().get(Calendar.HOUR),
+    val hour: Int = Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
     val minute: Int = Calendar.getInstance().get(Calendar.MINUTE)
 ) {
     constructor(list: List<Int>) : this(list[0], list[1])
