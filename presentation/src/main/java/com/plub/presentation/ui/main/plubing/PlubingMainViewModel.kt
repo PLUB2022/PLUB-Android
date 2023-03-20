@@ -88,6 +88,10 @@ class PlubingMainViewModel @Inject constructor(
 
     }
 
+    fun onClickNotice() {
+        emitEventFlow(PlubingMainEvent.GoToNotice)
+    }
+
     private fun onSuccessPlubingMainInfo(mainVo: PlubingMainVo) {
         PlubingInfo.updateInfo(mainVo)
         mainVo.run {

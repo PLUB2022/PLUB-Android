@@ -45,23 +45,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/image_view_menu_expanded"
+            android:id="@+id/image_view_archive_expanded"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginTop="11dp"
             android:layout_marginEnd="7dp"
-            android:src="@drawable/ic_menu_white"
+            android:src="@drawable/ic_archive_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/image_view_archive_expanded"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="2dp"
-            android:src="@drawable/ic_archive_white"
-            app:layout_constraintEnd_toStartOf="@+id/image_view_menu_expanded"
-            app:layout_constraintTop_toTopOf="@id/image_view_menu_expanded" />
 
         <ImageView
             android:id="@+id/image_view_notice_expanded"
@@ -70,7 +61,8 @@
             android:layout_marginEnd="2dp"
             android:src="@drawable/ic_notice_white"
             app:layout_constraintEnd_toStartOf="@+id/image_view_archive_expanded"
-            app:layout_constraintTop_toTopOf="@id/image_view_menu_expanded" />
+            app:layout_constraintTop_toTopOf="@id/image_view_archive_expanded"
+            app:onThrottleClick="@{() -> vm.onClickNotice()}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_members"
