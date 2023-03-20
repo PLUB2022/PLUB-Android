@@ -19,29 +19,7 @@ object EntireScheduleResponseMapper :
                     totalElements = calendarList.totalElements,
                     last = calendarList.last,
                     content = this.calendarList.content.map {
-                        ScheduleVo(
-                            calendarId = it.calendarId,
-                            title = it.title,
-                            memo = it.memo,
-                            startedAt = it.startedAt,
-                            endedAt = it.endedAt,
-                            startTime = it.startTime,
-                            endTime = it.endTime,
-                            isAllDay = it.isAllDay,
-                            isEditable = it.isEditable,
-                            address = it.address,
-                            roadAddress = it.roadAddress,
-                            placeName = it.placeName,
-                            alarmType = it.alarmType,
-                            calendarAttendList = CalendarAttendListVo(it.calendarAttendList.calendarAttendResponseList.map { calendar ->
-                                CalendarAttendVo(
-                                    calendarAttendId = calendar.calendarAttendId,
-                                    nickname = calendar.nickname,
-                                    profileImage = calendar.profileImage,
-                                    AttendStatus = calendar.AttendStatus
-                                )
-                            })
-                        )
+                        ScheduleMapper.mapDtoToModel(it)
                     }
                 )
             )
