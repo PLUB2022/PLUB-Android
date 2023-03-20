@@ -36,6 +36,8 @@ data class Schedule(
     val endTime: String = "",
     @SerializedName("isAllDay")
     val isAllDay: Boolean = false,
+    @SerializedName("isEditable")
+    val isEditable: Boolean = false,
     @SerializedName("address")
     val address: String = "",
     @SerializedName("roadAddress")

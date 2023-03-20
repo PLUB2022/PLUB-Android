@@ -28,6 +28,7 @@ object EntireScheduleResponseMapper :
                             startTime = it.startTime,
                             endTime = it.endTime,
                             isAllDay = it.isAllDay,
+                            isEditable = it.isEditable,
                             address = it.address,
                             roadAddress = it.roadAddress,
                             placeName = it.placeName,

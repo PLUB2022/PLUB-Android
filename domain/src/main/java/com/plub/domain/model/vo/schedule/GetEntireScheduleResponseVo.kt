@@ -25,6 +25,7 @@ data class ScheduleVo(
     val startTime: String = "",
     val endTime: String = "",
     val isAllDay: Boolean = false,
+    val isEditable: Boolean = false,
     val address: String = "",
     val roadAddress: String = "",
     val placeName: String = "",

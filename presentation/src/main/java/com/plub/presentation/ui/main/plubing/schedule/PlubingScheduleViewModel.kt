@@ -134,6 +134,7 @@ class PlubingScheduleViewModel @Inject constructor(
     }
 
     fun emitShowBottomSheetDialogEditOrDeleteScheduleEvent(scheduleVo: ScheduleVo) {
+        if(!scheduleVo.isEditable) return
         emitEventFlow(
             PlubingScheduleEvent.ShowBottomSheetDialogEditOrDeleteSchedule(scheduleVo)
         )
