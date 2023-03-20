@@ -60,7 +60,7 @@ class PlubingScheduleContentViewHolder(
             textViewDate.text = getTextViewDate(currentItem)
             textViewTime.text = getTextViewTime(currentItem)
             setLocation(textViewLocation, imageViewLocation, currentItem)
-            setTextColor(currentItem.startedAt, currentItem.startTime)
+            setColor(currentItem.startedAt, currentItem.startTime)
             viewDivider1.visibility = if (position == 1) View.INVISIBLE else View.VISIBLE
         }
 
@@ -122,33 +122,48 @@ class PlubingScheduleContentViewHolder(
         }
     }
 
-    private fun setTextColor(startDate: String, startTime: String) {
-        val (color, imageResource) = if (TimeFormatter.getEpochMilliFromDateTime(
-                startDate, startTime
-            ) < TimeFormatter.getCurrentEpochMilli()
-        )
-            listOf(
-                R.color.color_8c8c8c,
-                R.drawable.ic_schedule_oval_inactive
-            ) else listOf(R.color.color_363636, R.drawable.ic_schedule_oval_active)
+    private fun setColor(startDate: String, startTime: String) {
+        val (color, imageResource) = getColorAndImageResourceByCurrentTime(startDate, startTime)
 
         binding.apply {
-            listOf(
-                textViewDate,
-                textViewMonth,
-                textViewTitle,
-                textViewTime,
-                textViewLocation
-            ).forEach {
-                it.setTextColor(root.context.getColor(color))
-            }
-
-            listOf(imageViewClock, imageViewLocation).forEach {
-                it.setColorFilter(root.context.getColor(color))
-            }
-
+            setTextColor(color)
+            setImageTint(color)
             imageViewOval.setImageResource(imageResource)
         }
 
     }
+
+    private fun LayoutRecyclerPlubingScheduleContentBinding.setImageTint(
+        color: Int
+    ) {
+        listOf(imageViewClock, imageViewLocation).forEach {
+            it.setColorFilter(root.context.getColor(color))
+        }
+    }
+
+    private fun LayoutRecyclerPlubingScheduleContentBinding.setTextColor(
+        color: Int
+    ) {
+        listOf(
+            textViewDate,
+            textViewMonth,
+            textViewTitle,
+            textViewTime,
+            textViewLocation
+        ).forEach {
+            it.setTextColor(root.context.getColor(color))
+        }
+    }
+
+    private fun getColorAndImageResourceByCurrentTime(
+        startDate: String,
+        startTime: String
+    ) = if (TimeFormatter.getEpochMilliFromDateTime(
+            startDate, startTime
+        ) < TimeFormatter.getCurrentEpochMilli()
+    )
+        listOf(
+            R.color.color_8c8c8c,
+            R.drawable.ic_schedule_oval_inactive
+        ) else listOf(R.color.color_363636, R.drawable.ic_schedule_oval_active)
 }
