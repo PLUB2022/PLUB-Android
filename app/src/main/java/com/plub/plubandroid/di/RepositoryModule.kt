@@ -83,4 +83,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesPlubingTodoRepository(repositoryImpl: PlubingTodoRepositoryImpl): PlubingTodoRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesNoticeRepository(repositoryImpl: NoticeRepositoryImpl): NoticeRepository
 }

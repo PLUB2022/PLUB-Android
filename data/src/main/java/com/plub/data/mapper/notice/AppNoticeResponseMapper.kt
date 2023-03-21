@@ -1,0 +1,20 @@
+package com.plub.data.mapper.notice
+
+import com.plub.data.base.Mapper
+import com.plub.data.dto.notice.AppNoticeResponse
+import com.plub.domain.model.vo.notice.NoticeVo
+
+object AppNoticeResponseMapper : Mapper.ResponseMapper<AppNoticeResponse, NoticeVo> {
+
+    override fun mapDtoToModel(type: AppNoticeResponse?): NoticeVo {
+        return type?.run {
+            NoticeVo(
+                noticeId = announcementId,
+                title = title,
+                content = content,
+                createAt = createAt,
+                isHost = false,
+            )
+        }?: NoticeVo()
+    }
+}

@@ -116,4 +116,10 @@ object ApiModule {
     fun provideTodoApi(@AuthRetrofit retrofit: Retrofit): TodoApi {
         return retrofit.create(TodoApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideNoticeApi(@AuthRetrofit retrofit: Retrofit): NoticeApi {
+        return retrofit.create(NoticeApi::class.java)
+    }
 }
