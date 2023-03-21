@@ -37,22 +37,17 @@ class HomeFragmentViewModel @Inject constructor(
     fun fetchHomePageData() =
         viewModelScope.launch {
             pageNumber = FIRST_PAGE
-            val jobCategories: Job = launch {
-                getCategoriesUseCase(Unit).collect { state ->
-                    inspectUiState(state, ::handleGetCategoriesSuccess)
-                }
+            getCategoriesUseCase(Unit).collect { state ->
+                inspectUiState(state, ::handleGetCategoriesSuccess)
             }
 
-            val jobMyInterest: Job = launch {
-                getMyInterestUseCase(Unit).collect { state ->
-                    inspectUiState(state, ::handleGetMyInterestSuccess)
-                }
+            getMyInterestUseCase(Unit).collect { state ->
+                inspectUiState(state, ::handleGetMyInterestSuccess)
             }
-            joinAll(jobCategories, jobMyInterest)
-            getRecommendationGatheringUsecase(pageNumber)
-                .collect { state ->
-                    inspectUiState(state, ::handleGetRecommendGatheringSuccess)
-                }
+
+            getRecommendationGatheringUsecase(pageNumber).collect { state ->
+                inspectUiState(state, ::handleGetRecommendGatheringSuccess)
+            }
         }
 
     private fun handleGetCategoriesSuccess(data: CategoryListDataResponseVo) {
