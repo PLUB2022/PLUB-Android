@@ -73,20 +73,18 @@ class PlubingScheduleViewModel @Inject constructor(
         val lastContent =
             uiState.value.scheduleList.findLast { it.viewType == ScheduleCardType.CONTENT }
 
-        val lastYear = lastContent?.let {
-            TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(it.startedAt)
-        } ?: -1
+        val lastYear = lastContent?.startedYear ?: -1
 
         return processScheduleVoList(items, lastYear, isLast)
     }
 
     private fun processScheduleVoList(items: List<ScheduleVo>, lastYear: Int, isLast: Boolean): List<ScheduleVo> {
-        return items.groupBy { item -> TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(item.startedAt) }
+        return items.groupBy { it.startedYear }
             .mapValues {
                 val isExistDate = lastYear == it.key
                 val yearItem = ScheduleVo(
                     viewType = ScheduleCardType.YEAR,
-                    startedAt = it.value[FIRST_IDX].startedAt
+                    startedYear = it.value[FIRST_IDX].startedYear
                 )
                 it.value.toMutableList().apply {
                     if (!isExistDate) add(FIRST_IDX, yearItem)

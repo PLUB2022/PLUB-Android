@@ -9,12 +9,12 @@ class PlubingScheduleYearViewHolder(
     private val binding: LayoutRecyclerPlubingScheduleYearBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(year: String) {
+    fun bind(year: Int) {
 
         binding.apply {
             textViewYear.text = binding.root.context.getString(
                 R.string.word_birth_year,
-                TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(year).toString()
+                year.toString()
             )
         }
     }

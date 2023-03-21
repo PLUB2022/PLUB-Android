@@ -20,7 +20,7 @@ class PlubingScheduleAdapter(
         when (holder) {
             is PlubingScheduleContentViewHolder -> holder.bind(currentList, currentList[position], position)
             is PlubingScheduleLoadingViewHolder -> { }
-            is PlubingScheduleYearViewHolder -> holder.bind(currentList[position].startedAt)
+            is PlubingScheduleYearViewHolder -> holder.bind(currentList[position].startedYear)
         }
     }
 
