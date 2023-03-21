@@ -2,15 +2,13 @@ package com.plub.data.repository
 
 import com.plub.data.api.RecruitApi
 import com.plub.data.base.BaseRepository
-import com.plub.data.dto.modifyGathering.ModifyQuestionRequest
-import com.plub.data.dto.modifyGathering.ModifyRecruitRequest
 import com.plub.data.mapper.CreateGatheringResponseMapper
 import com.plub.data.mapper.ModifyQuestionRequestMapper
-import com.plub.data.mapper.applicantsrecruitmapper.ApplicantsRecruitRequestMapper
-import com.plub.data.mapper.applicantsrecruitmapper.ApplicantsRecruitResponseMapper
-import com.plub.data.mapper.applyrecruitmapper.QuestionsRecruitMapper
-import com.plub.data.mapper.recruitdetailmapper.RecruitDetailResponseMapper
-import com.plub.data.mapper.recruitdetailmapper.host.HostRecruitEndMapper
+import com.plub.data.mapper.applicantsRecruitMapper.ApplicantsRecruitRequestMapper
+import com.plub.data.mapper.applicantsRecruitMapper.ApplicantsRecruitResponseMapper
+import com.plub.data.mapper.applyRecruitMapper.QuestionsRecruitMapper
+import com.plub.data.mapper.recruitDetailMapper.RecruitDetailResponseMapper
+import com.plub.data.mapper.recruitDetailMapper.host.HostRecruitEndMapper
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo

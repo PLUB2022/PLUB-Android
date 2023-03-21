@@ -1,4 +1,4 @@
-package com.plub.data.mapper.recruitdetailmapper.host
+package com.plub.data.mapper.recruitDetailMapper.host
 
 import com.plub.data.base.Mapper
 import com.plub.data.dto.recruitDetail.host.AccountDataResponse

@@ -1,4 +1,4 @@
-package com.plub.data.mapper.applicantsrecruitmapper
+package com.plub.data.mapper.applicantsRecruitMapper
 
 import com.plub.data.base.Mapper
 import com.plub.data.dto.applicantsRecruit.ApplicantsRecruitRequest

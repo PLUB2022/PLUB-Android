@@ -2,8 +2,8 @@ package com.plub.data.repository
 
 import com.plub.data.api.RecruitApi
 import com.plub.data.base.BaseRepository
-import com.plub.data.mapper.applicantsrecruitmapper.replymapper.ReplyApplicantsRecruitMapper
-import com.plub.data.mapper.recruitdetailmapper.host.HostSeeApplicantsMapper
+import com.plub.data.mapper.applicantsRecruitMapper.replyMapper.ReplyApplicantsRecruitMapper
+import com.plub.data.mapper.recruitDetailMapper.host.HostSeeApplicantsMapper
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.home.applicantsrecruitvo.replyvo.ReplyApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applicantsrecruitvo.replyvo.ReplyApplicantsRecruitResponseVo
