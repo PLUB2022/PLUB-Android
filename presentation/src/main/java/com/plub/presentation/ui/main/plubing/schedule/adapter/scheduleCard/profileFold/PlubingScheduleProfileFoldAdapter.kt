@@ -48,10 +48,10 @@ class PlubingScheduleProfileDiffCallBack :
     override fun areItemsTheSame(
         oldItem: String,
         newItem: String
-    ): Boolean = false
+    ): Boolean = oldItem == newItem
 
     override fun areContentsTheSame(
         oldItem: String,
         newItem: String
-    ): Boolean = false
+    ): Boolean = oldItem == newItem
 }
