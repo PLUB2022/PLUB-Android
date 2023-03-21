@@ -11,10 +11,17 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/color_faf9fe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_faf9fe">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_todo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="12dp"
+            android:clipToPadding="false"
+            android:paddingTop="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

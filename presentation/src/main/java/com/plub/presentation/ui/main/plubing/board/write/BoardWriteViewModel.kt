@@ -11,10 +11,10 @@ import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.enums.PlubingFeedType
 import com.plub.domain.model.enums.UploadFileType
-import com.plub.domain.model.vo.board.BoardRequestVo
-import com.plub.domain.model.vo.board.BoardEditRequestVo
-import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.board.BoardCreateRequestVo
+import com.plub.domain.model.vo.board.BoardEditRequestVo
+import com.plub.domain.model.vo.board.BoardRequestVo
+import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.board.WriteBoardFeedTypeVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.usecase.GetBoardDetailUseCase
@@ -22,13 +22,16 @@ import com.plub.domain.usecase.PostBoardCreateUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.domain.usecase.PutBoardEditUseCase
 import com.plub.presentation.R
-import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.util.ImageUtil
 import com.plub.presentation.util.PermissionManager
 import com.plub.presentation.util.PlubingInfo
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -42,11 +45,35 @@ class BoardWriteViewModel @Inject constructor(
     val putBoardEditUseCase: PutBoardEditUseCase,
     val resourceProvider: ResourceProvider,
     val imageUtil: ImageUtil,
-) : BaseViewModel<BoardWritePageState>(BoardWritePageState()) {
+) : BaseTestViewModel<BoardWritePageState>() {
 
     companion object {
         private const val MAX_LENGTH_CONTENT = 300
     }
+
+    private val feedTypeListStateFlow: MutableStateFlow<List<WriteBoardFeedTypeVo>> = MutableStateFlow(emptyList())
+    private val selectedFeedTypeStateFlow: MutableStateFlow<PlubingFeedType> = MutableStateFlow(PlubingFeedType.IMAGE)
+    private val imageFileStateFlow: MutableStateFlow<File?> = MutableStateFlow(null)
+    private val plubingNameStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val titleStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val contentStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val contentCountStateFlow: MutableStateFlow<SpannableString> = MutableStateFlow(SpannableString(""))
+    private val contentMaxLengthStateFlow: MutableStateFlow<Int> = MutableStateFlow(MAX_LENGTH_CONTENT)
+    private val isPostButtonEnableStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val editImageUrlStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+
+    override val uiState: BoardWritePageState = BoardWritePageState(
+        feedTypeListStateFlow.asStateFlow(),
+        selectedFeedTypeStateFlow.asStateFlow(),
+        imageFileStateFlow.asStateFlow(),
+        plubingNameStateFlow.asStateFlow(),
+        titleStateFlow,
+        contentStateFlow,
+        contentCountStateFlow.asStateFlow(),
+        contentMaxLengthStateFlow.asStateFlow(),
+        isPostButtonEnableStateFlow.asStateFlow(),
+        editImageUrlStateFlow.asStateFlow(),
+    )
 
     private lateinit var writeType:PlubingBoardWriteType
     private val plubingId = PlubingInfo.info.plubingId
@@ -57,45 +84,29 @@ class BoardWriteViewModel @Inject constructor(
     fun initArgs(args: BoardWriteFragmentArgs) {
         writeType = args.writeType
         feedId = args.feedId
-        updateUiState { uiState ->
-            uiState.copy(
-                plubingName = PlubingInfo.info.name,
-                contentMaxLength = MAX_LENGTH_CONTENT
-            )
-        }
+        updatePlubingName(PlubingInfo.info.name)
     }
 
     fun initEditInfo() {
         if(writeType != PlubingBoardWriteType.EDIT) return
 
         fetchBoardInfo {
-            updateUiState { uiState ->
-                uiState.copy(
-                    title = it.title,
-                    content = it.content,
-                    editImageUrl = it.feedImage
-                )
-            }
+            updateTitle(it.title)
+            updateContent(it.content)
+            updateEditImageUrl(it.feedImage)
             onClickFeedType(it.feedType)
         }
     }
 
     fun onClickFeedType(feedType: PlubingFeedType) {
-        updateUiState { uiState ->
-            uiState.copy(
-                feedTypeList = getFeedTypeList(feedType),
-                selectedFeedType = feedType,
-                isPostButtonEnable = isPostButtonEnable(_feedType = feedType)
-            )
-        }
+        updateFeedTypeList(getFeedTypeList(feedType))
+        updateSelectedFeedType(feedType)
+        updateIsPostButtonEnable(isPostButtonEnable())
     }
 
     fun fetchFeedTypeList() {
-        updateUiState { uiState ->
-            uiState.copy(
-                feedTypeList = getFeedTypeList(uiState.selectedFeedType)
-            )
-        }
+        val feedTypeList = getFeedTypeList(selectedFeedTypeStateFlow.value)
+        updateFeedTypeList(feedTypeList)
     }
 
     fun onClickFeedImage() {
@@ -105,20 +116,13 @@ class BoardWriteViewModel @Inject constructor(
     }
 
     fun onContentTextChanged(text: Editable) {
-        updateUiState { uiState ->
-            uiState.copy(
-                contentCount = getContentCountSpannableString(uiState.content.length),
-                isPostButtonEnable = isPostButtonEnable(_content = text.toString())
-            )
-        }
+        val contentCount = getContentCountSpannableString(contentStateFlow.value.length)
+        updateContentCount(contentCount)
+        updateIsPostButtonEnable(isPostButtonEnable())
     }
 
     fun onTitleTextChanged(text: Editable) {
-        updateUiState { uiState ->
-            uiState.copy(
-                isPostButtonEnable = isPostButtonEnable(_title = text.toString())
-            )
-        }
+        updateIsPostButtonEnable(isPostButtonEnable())
     }
 
     fun onClickImageMenuItemType(type: DialogMenuItemType) {
@@ -149,6 +153,8 @@ class BoardWriteViewModel @Inject constructor(
             result.uriContent?.let { uri ->
                 val file = imageUtil.uriToOptimizeImageFile(uri)
                 updateImageFile(file)
+                updateEditImageUrl("")
+                updateIsPostButtonEnable(isPostButtonEnable())
             }
         }
     }
@@ -180,18 +186,12 @@ class BoardWriteViewModel @Inject constructor(
         }
     }
 
-    private fun isPostButtonEnable(
-        _feedType: PlubingFeedType? = null,
-        _title: String? = null,
-        _content: String? = null,
-        _imageFile: File? = null,
-        _editImageUrl: String? = null,
-    ): Boolean {
-        val feedType = _feedType ?: uiState.value.selectedFeedType
-        val title = _title ?: uiState.value.title
-        val content = _content ?: uiState.value.content
-        val imageFile = _imageFile ?: uiState.value.imageFile
-        val editImageUrl = _editImageUrl ?: uiState.value.editImageUrl
+    private fun isPostButtonEnable(): Boolean {
+        val feedType = selectedFeedTypeStateFlow.value
+        val title = titleStateFlow.value
+        val content = contentStateFlow.value
+        val imageFile = imageFileStateFlow.value
+        val editImageUrl = editImageUrlStateFlow.value
         val imageIsExist = imageFile != null || editImageUrl.isNotEmpty()
         return when (feedType) {
             PlubingFeedType.TEXT -> title.isNotEmpty() && content.isNotEmpty()
@@ -206,16 +206,6 @@ class BoardWriteViewModel @Inject constructor(
                 imageUtil.getCropImageOptions(uri)
             )
         )
-    }
-
-    private fun updateImageFile(file: File?) {
-        updateUiState { uiState ->
-            uiState.copy(
-                imageFile = file,
-                editImageUrl = "",
-                isPostButtonEnable = isPostButtonEnable(_imageFile = file)
-            )
-        }
     }
 
     private fun createFeed() {
@@ -238,17 +228,26 @@ class BoardWriteViewModel @Inject constructor(
     private fun uploadImage(onSuccess: (String) -> Unit) {
         when {
             !isImageFeedType() -> onSuccess("")
-            hasEditImageUrl() -> onSuccess(uiState.value.editImageUrl)
+            hasEditImageUrl() -> onSuccess(editImageUrlStateFlow.value)
             else -> {
-                uiState.value.imageFile?.let {
+                imageFileStateFlow.value?.let {
                     postUploadImage(it, onSuccess)
                 }?: onSuccess("")
             }
         }
     }
 
+    private fun isImageFeedType():Boolean {
+        return selectedFeedTypeStateFlow.value != PlubingFeedType.TEXT
+    }
+
+    private fun hasEditImageUrl():Boolean {
+        val isEditType = writeType == PlubingBoardWriteType.EDIT
+        return isEditType && editImageUrlStateFlow.value.isNotEmpty()
+    }
+
     private fun postUploadImage(imageFile: File, onSuccess: (String) -> Unit) {
-        val fileRequest = UploadFileRequestVo(UploadFileType.PLUBBING_MAIN, imageFile)
+        val fileRequest = UploadFileRequestVo(UploadFileType.PLUBING_BOARD, imageFile)
         viewModelScope.launch {
             postUploadFileUseCase(fileRequest).collect { state ->
                 inspectUiState(state, { vo ->
@@ -258,19 +257,10 @@ class BoardWriteViewModel @Inject constructor(
         }
     }
 
-    private fun isImageFeedType():Boolean {
-        return uiState.value.selectedFeedType != PlubingFeedType.TEXT
-    }
-
-    private fun hasEditImageUrl():Boolean {
-        val isEditType = writeType == PlubingBoardWriteType.EDIT
-        return isEditType && uiState.value.editImageUrl.isNotEmpty()
-    }
-
     private fun postUploadFeed(imageUrl: String, onSuccess: () -> Unit) {
         viewModelScope.launch {
-            val request = uiState.value.run {
-                BoardCreateRequestVo(plubingId, selectedFeedType, title, content, imageUrl)
+            val request = uiState.run {
+                BoardCreateRequestVo(plubingId, selectedFeedType.value, title.value, content.value, imageUrl)
             }
             postBoardCreateUseCase(request).collect {
                 inspectUiState(it, {
@@ -282,13 +272,11 @@ class BoardWriteViewModel @Inject constructor(
 
     private fun putEditFeed(imageUrl: String, onSuccess: (PlubingBoardVo) -> Unit) {
         viewModelScope.launch {
-            val request = uiState.value.run {
-                BoardEditRequestVo(plubingId, feedId, selectedFeedType, title, content, imageUrl)
+            val request = uiState.run {
+                BoardEditRequestVo(plubingId, feedId, selectedFeedType.value, title.value, content.value, imageUrl)
             }
             putBoardEditUseCase(request).collect {
-                inspectUiState(it, { vo ->
-                    onSuccess(vo)
-                })
+                inspectUiState(it,onSuccess)
             }
         }
     }
@@ -299,6 +287,60 @@ class BoardWriteViewModel @Inject constructor(
             getBoardDetailUseCase(request).collect {
                 inspectUiState(it, onSuccess)
             }
+        }
+    }
+
+    private fun updateFeedTypeList(list: List<WriteBoardFeedTypeVo>) {
+        viewModelScope.launch {
+            feedTypeListStateFlow.update { list }
+        }
+    }
+
+    private fun updateSelectedFeedType(type: PlubingFeedType) {
+        viewModelScope.launch {
+            selectedFeedTypeStateFlow.update { type }
+        }
+    }
+
+    private fun updateImageFile(file: File?) {
+        viewModelScope.launch {
+            imageFileStateFlow.update { file }
+        }
+    }
+
+    private fun updatePlubingName(name: String) {
+        viewModelScope.launch {
+            plubingNameStateFlow.update { name }
+        }
+    }
+
+    private fun updateTitle(title: String) {
+        viewModelScope.launch {
+            titleStateFlow.update { title }
+        }
+    }
+
+    private fun updateContent(content: String) {
+        viewModelScope.launch {
+            contentStateFlow.update { content }
+        }
+    }
+
+    private fun updateContentCount(contentCount: SpannableString) {
+        viewModelScope.launch {
+            contentCountStateFlow.update { contentCount }
+        }
+    }
+
+    private fun updateIsPostButtonEnable(isEnable: Boolean) {
+        viewModelScope.launch {
+            isPostButtonEnableStateFlow.update { isEnable }
+        }
+    }
+
+    private fun updateEditImageUrl(imageUrl: String) {
+        viewModelScope.launch {
+            editImageUrlStateFlow.update { imageUrl }
         }
     }
 }

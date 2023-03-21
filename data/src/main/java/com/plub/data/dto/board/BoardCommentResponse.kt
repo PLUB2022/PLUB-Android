@@ -24,6 +24,6 @@ data class BoardCommentResponse(
     val parentCommentId: Int? = -1,
     @SerializedName("parentCommentNickname")
     val parentCommentNickname: String? = "",
-    @SerializedName("groupId")
+    @SerializedName("commentGroupId")
     val groupId: Int = -1,
 ) : DataDto

@@ -21,7 +21,7 @@ data class PlubingBoardResponse(
     @SerializedName("feedImage")
     val feedImage: String? = "",
     @SerializedName("profileImage")
-    val profileImage: String = "",
+    val profileImage: String? = "",
     @SerializedName("nickname")
     val nickname: String = "",
     @SerializedName("plubbingId")
