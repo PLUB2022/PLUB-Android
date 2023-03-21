@@ -18,6 +18,7 @@ import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 class RecruitingGatheringViewModel @Inject constructor(
@@ -27,7 +28,8 @@ class RecruitingGatheringViewModel @Inject constructor(
     val fetchPlubingMainUseCase: FetchPlubingMainUseCase
 ) : BaseViewModel<MyPageApplicantsGatheringState>(MyPageApplicantsGatheringState()) {
 
-    var plubbingId: Int = 0
+    var plubbingId: Int by Delegates.notNull()
+
     fun getPageDetail(id: Int) {
         this.plubbingId = id
         viewModelScope.launch {
@@ -93,13 +95,10 @@ class RecruitingGatheringViewModel @Inject constructor(
     }
 
     private fun getApplicantsList(list : List<AccountsVo>): List<MyPageDetailVo>{
-        val detailList = mutableListOf<MyPageDetailVo>()
-        list.forEach {
-            detailList.add(
-                MyPageDetailVo(
-                    viewType = MyPageDetailViewType.OTHER_APPLICATION,
-                    application = it
-                )
+        val detailList = list.map {
+            MyPageDetailVo(
+                viewType = MyPageDetailViewType.OTHER_APPLICATION,
+                application = it
             )
         }
         return detailList

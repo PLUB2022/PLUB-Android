@@ -37,13 +37,13 @@ class HomeFragmentViewModel @Inject constructor(
     fun fetchHomePageData() =
         viewModelScope.launch {
             pageNumber = FIRST_PAGE
-            val jobCategories : Job = launch {
+            val jobCategories: Job = launch {
                 getCategoriesUseCase(Unit).collect { state ->
                     inspectUiState(state, ::handleGetCategoriesSuccess)
                 }
             }
 
-            val jobMyInterest : Job = launch {
+            val jobMyInterest: Job = launch {
                 getMyInterestUseCase(Unit).collect { state ->
                     inspectUiState(state, ::handleGetMyInterestSuccess)
                 }
@@ -69,13 +69,13 @@ class HomeFragmentViewModel @Inject constructor(
         return getTitleViewList() + getCategoryViewList(data.categories)
     }
 
-    private fun getTitleViewList() : List<HomePlubListVo>{
+    private fun getTitleViewList(): List<HomePlubListVo> {
         return arrayListOf(
             HomePlubListVo(viewType = HomeViewType.TITLE_VIEW)
         )
     }
 
-    private fun getCategoryViewList(list : List<CategoriesDataResponseVo>) : List<HomePlubListVo>{
+    private fun getCategoryViewList(list: List<CategoriesDataResponseVo>): List<HomePlubListVo> {
         return arrayListOf(
             HomePlubListVo(
                 viewType = HomeViewType.CATEGORY_VIEW,
@@ -92,7 +92,9 @@ class HomeFragmentViewModel @Inject constructor(
         hasMoreCards = (pageNumber != data.totalPages)
         updateUiState { ui ->
             ui.copy(
-                homePlubList = if(hasMoreCards) addRecommendGatheringList(data) else addRecommendGatheringList(data),
+                homePlubList = if (hasMoreCards) addRecommendGatheringList(data) else addRecommendGatheringList(
+                    data
+                ),
                 isVisible = true
             )
         }
@@ -111,7 +113,7 @@ class HomeFragmentViewModel @Inject constructor(
         return originList + mergedList
     }
 
-    private fun addFirstViewList(list : MutableList<HomePlubListVo>){
+    private fun addFirstViewList(list: MutableList<HomePlubListVo>) {
         if (pageNumber == FIRST_PAGE) {
             list.add(getRecommendTitleVo())
             if (!hasInterest) {
@@ -120,15 +122,15 @@ class HomeFragmentViewModel @Inject constructor(
         }
     }
 
-    private fun getRecommendTitleVo() : HomePlubListVo{
+    private fun getRecommendTitleVo(): HomePlubListVo {
         return HomePlubListVo(viewType = HomeViewType.RECOMMEND_TITLE_VIEW)
     }
 
-    private fun getRegisterHobbiesVo() : HomePlubListVo{
+    private fun getRegisterHobbiesVo(): HomePlubListVo {
         return HomePlubListVo(viewType = HomeViewType.REGISTER_HOBBIES_VIEW)
     }
 
-    private fun getGatheringsVo(data : PlubCardVo) : HomePlubListVo{
+    private fun getGatheringsVo(data: PlubCardVo): HomePlubListVo {
         return HomePlubListVo(
             viewType = HomeViewType.RECOMMEND_GATHERING_VIEW,
             recommendGathering = data
@@ -193,11 +195,11 @@ class HomeFragmentViewModel @Inject constructor(
         emitEventFlow(HomeEvent.GoToCategoryGathering(categoryId, categoryName))
     }
 
-    fun goToRecruitment(plubbingId: Int){
+    fun goToRecruitment(plubbingId: Int) {
         emitEventFlow(HomeEvent.GoToRecruitment(plubbingId))
     }
 
-    fun goToRegisterInterest(){
+    fun goToRegisterInterest() {
         emitEventFlow(HomeEvent.GoToRegisterInterest)
     }
 

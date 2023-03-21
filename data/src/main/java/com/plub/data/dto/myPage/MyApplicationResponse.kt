@@ -11,5 +11,5 @@ data class MyApplicationResponse(
     @SerializedName("plubbingInfo")
     val plubbingInfo : PlubInfoResponse = PlubInfoResponse(),
     @SerializedName("answers")
-    val answers : List<AnswersDataResponse>
+    val answers : List<AnswersDataResponse> = emptyList()
 ) : DataDto
