@@ -10,8 +10,8 @@ data class PlubingNoticeResponse(
     val title: String = "",
     @SerializedName("content")
     val content: String = "",
-    @SerializedName("createAt")
-    val createAt: String = "",
+    @SerializedName("createdAt")
+    val createdAt: String = "",
     @SerializedName("isHost")
     val isHost: Boolean = false
 ) : DataDto

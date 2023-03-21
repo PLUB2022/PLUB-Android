@@ -13,7 +13,7 @@ object PlubingNoticeResponseMapper : Mapper.ResponseMapper<PlubingNoticeResponse
                 noticeId = noticeId,
                 title = title,
                 content = content,
-                createAt = createAt,
+                createAt = createdAt,
                 isHost = isHost,
             )
         }?: NoticeVo()
