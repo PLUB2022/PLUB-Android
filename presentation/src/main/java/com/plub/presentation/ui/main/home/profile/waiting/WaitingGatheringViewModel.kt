@@ -2,10 +2,10 @@ package com.plub.presentation.ui.main.home.profile.waiting
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.MyPageDetailViewType
-import com.plub.domain.model.vo.home.recruitdetailvo.host.AccountsVo
+import com.plub.domain.model.vo.home.recruitDetailVo.host.AccountsVo
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.myPage.MyPageDetailVo
-import com.plub.domain.model.vo.home.recruitdetailvo.host.AnswersVo
+import com.plub.domain.model.vo.home.recruitDetailVo.host.AnswersVo
 import com.plub.domain.model.vo.myPage.MyPageMyApplicationVo
 import com.plub.domain.usecase.FetchPlubingMainUseCase
 import com.plub.domain.usecase.GetMyApplicationUseCase

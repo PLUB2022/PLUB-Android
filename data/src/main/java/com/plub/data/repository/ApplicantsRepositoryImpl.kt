@@ -5,9 +5,9 @@ import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.applicantsRecruitMapper.replyMapper.ReplyApplicantsRecruitMapper
 import com.plub.data.mapper.recruitDetailMapper.host.HostSeeApplicantsMapper
 import com.plub.domain.UiState
-import com.plub.domain.model.vo.home.applicantsrecruitvo.replyvo.ReplyApplicantsRecruitRequestVo
-import com.plub.domain.model.vo.home.applicantsrecruitvo.replyvo.ReplyApplicantsRecruitResponseVo
-import com.plub.domain.model.vo.home.recruitdetailvo.host.HostApplicantsResponseVo
+import com.plub.domain.model.vo.home.applicantsRecruitVo.replyVo.ReplyApplicantsRecruitRequestVo
+import com.plub.domain.model.vo.home.applicantsRecruitVo.replyVo.ReplyApplicantsRecruitResponseVo
+import com.plub.domain.model.vo.home.recruitDetailVo.host.HostApplicantsResponseVo
 import com.plub.domain.repository.ApplicantsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

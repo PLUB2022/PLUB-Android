@@ -2,19 +2,17 @@ package com.plub.presentation.ui.main.home.profile.recruiting
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.MyPageDetailViewType
-import com.plub.domain.model.vo.home.applicantsrecruitvo.replyvo.ReplyApplicantsRecruitRequestVo
-import com.plub.domain.model.vo.home.applicantsrecruitvo.replyvo.ReplyApplicantsRecruitResponseVo
-import com.plub.domain.model.vo.home.recruitdetailvo.host.AccountsVo
+import com.plub.domain.model.vo.home.applicantsRecruitVo.replyVo.ReplyApplicantsRecruitRequestVo
+import com.plub.domain.model.vo.home.recruitDetailVo.host.AccountsVo
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.myPage.MyPageDetailVo
-import com.plub.domain.model.vo.home.recruitdetailvo.host.HostApplicantsResponseVo
+import com.plub.domain.model.vo.home.recruitDetailVo.host.HostApplicantsResponseVo
 import com.plub.domain.model.vo.plub.PlubingMainVo
 import com.plub.domain.usecase.FetchPlubingMainUseCase
 import com.plub.domain.usecase.GetRecruitApplicantsUseCase
 import com.plub.domain.usecase.PostApprovalApplicantsRecruitUseCase
 import com.plub.domain.usecase.PostRefuseApplicantsRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -1,6 +1,6 @@
 package com.plub.domain.model.vo.myPage
 
-import com.plub.domain.model.vo.home.recruitdetailvo.host.AnswersVo
+import com.plub.domain.model.vo.home.recruitDetailVo.host.AnswersVo
 
 data class MyPageMyApplicationVo(
     val recruitDate : String = "",

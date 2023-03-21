@@ -2,7 +2,7 @@ package com.plub.data.mapper.recruitDetailMapper
 
 import com.plub.data.base.Mapper
 import com.plub.data.dto.recruitDetail.RecruitDetailResponse
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
+import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailResponseVo
 
 object RecruitDetailResponseMapper: Mapper.ResponseMapper<RecruitDetailResponse, RecruitDetailResponseVo> {
     override fun mapDtoToModel(type: RecruitDetailResponse?): RecruitDetailResponseVo {

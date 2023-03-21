@@ -11,10 +11,10 @@ import com.plub.data.mapper.recruitDetailMapper.RecruitDetailResponseMapper
 import com.plub.data.mapper.recruitDetailMapper.host.HostRecruitEndMapper
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
-import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitRequestVo
-import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitResponseVo
+import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitRequestVo
+import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitResponseVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
+import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailResponseVo
 import com.plub.domain.model.vo.modifyGathering.ModifyQuestionRequestVo
 import com.plub.domain.repository.RecruitRepository
 import kotlinx.coroutines.flow.Flow

@@ -2,7 +2,7 @@ package com.plub.data.mapper.recruitDetailMapper.host
 
 import com.plub.data.base.Mapper
 import com.plub.data.dto.recruitDetail.host.AnswersDataResponse
-import com.plub.domain.model.vo.home.recruitdetailvo.host.AnswersVo
+import com.plub.domain.model.vo.home.recruitDetailVo.host.AnswersVo
 
 object HostAnswersMapper : Mapper.ResponseMapper<AnswersDataResponse, AnswersVo> {
     override fun mapDtoToModel(type: AnswersDataResponse?): AnswersVo {

@@ -2,7 +2,7 @@ package com.plub.domain.model.vo.myPage
 
 import com.plub.domain.model.DomainModel
 import com.plub.domain.model.enums.MyPageDetailViewType
-import com.plub.domain.model.vo.home.recruitdetailvo.host.AccountsVo
+import com.plub.domain.model.vo.home.recruitDetailVo.host.AccountsVo
 
 data class MyPageDetailVo(
     val viewType: MyPageDetailViewType = MyPageDetailViewType.EMPTY,
