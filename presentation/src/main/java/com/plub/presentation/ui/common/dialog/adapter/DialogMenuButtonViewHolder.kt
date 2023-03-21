@@ -37,10 +37,12 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.CAMERA_IMAGE -> R.drawable.ic_camera
             DialogMenuItemType.ALBUM_IMAGE -> R.drawable.ic_album
             DialogMenuItemType.DEFAULT_IMAGE -> R.drawable.ic_album
+            DialogMenuItemType.NOTICE_DELETE,
             DialogMenuItemType.TODO_DELETE,
             DialogMenuItemType.BOARD_DELETE,
             DialogMenuItemType.BOARD_COMMENT_DELETE -> R.drawable.ic_delete_red
             DialogMenuItemType.TODO_PLANNER,
+            DialogMenuItemType.NOTICE_EDIT,
             DialogMenuItemType.TODO_EDIT,
             DialogMenuItemType.BOARD_EDIT,
             DialogMenuItemType.BOARD_COMMENT_EDIT -> R.drawable.ic_edit_black
@@ -69,16 +71,19 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.BOARD_RELEASE_CLIP  -> R.string.dialog_menu_board_release_clip
             DialogMenuItemType.BOARD_FIX_OR_RELEASE_CLIP  -> R.string.dialog_menu_board_fix_or_release_clip
             DialogMenuItemType.TODO_PROOF  -> R.string.dialog_menu_todo_proof
-            DialogMenuItemType.TODO_PLANNER  -> R.string.dialog_menu_todo_manage
+            DialogMenuItemType.TODO_PLANNER  -> R.string.dialog_menu_todo_planner
             DialogMenuItemType.TODO_REPORT  -> R.string.dialog_menu_todo_report
             DialogMenuItemType.TODO_DELETE  -> R.string.dialog_menu_todo_delete
             DialogMenuItemType.TODO_EDIT  -> R.string.dialog_menu_todo_edit
+            DialogMenuItemType.NOTICE_DELETE  -> R.string.dialog_menu_notice_delete
+            DialogMenuItemType.NOTICE_EDIT  -> R.string.dialog_menu_notice_edit
             else -> throw IllegalAccessException()
         }
     }
 
     private fun getMenuContentColorRes(menuType: DialogMenuItemType):Int {
         return when(menuType) {
+            DialogMenuItemType.NOTICE_DELETE,
             DialogMenuItemType.TODO_DELETE,
             DialogMenuItemType.BOARD_DELETE,
             DialogMenuItemType.BOARD_COMMENT_DELETE -> R.color.color_f75b2b

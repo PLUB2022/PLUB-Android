@@ -183,6 +183,10 @@ class SelectMenuBottomSheetDialog : BottomSheetDialogFragment() {
                 DialogMenuItemType.TODO_PROOF,
                 DialogMenuItemType.TODO_PLANNER
             )
+            DialogMenuType.PLUBING_NOTICE_HOST_TYPE -> listOf(
+                DialogMenuItemType.NOTICE_DELETE,
+                DialogMenuItemType.NOTICE_EDIT,
+            )
         }
     }
 }
