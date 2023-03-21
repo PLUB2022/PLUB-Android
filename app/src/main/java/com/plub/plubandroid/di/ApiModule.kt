@@ -113,6 +113,12 @@ object ApiModule {
 
     @Singleton
     @Provides
+    fun provideScheduleApi(@AuthRetrofit retrofit: Retrofit): ScheduleApi {
+        return retrofit.create(ScheduleApi::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideTodoApi(@AuthRetrofit retrofit: Retrofit): TodoApi {
         return retrofit.create(TodoApi::class.java)
     }
