@@ -84,7 +84,7 @@ class PlubingScheduleViewModel @Inject constructor(
                 val isExistDate = lastYear == it.key
                 val yearItem = ScheduleVo(
                     viewType = ScheduleCardType.YEAR,
-                    startedYear = it.value[FIRST_IDX].startedYear
+                    startedYear = it.key
                 )
                 it.value.toMutableList().apply {
                     if (!isExistDate) add(FIRST_IDX, yearItem)
