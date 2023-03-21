@@ -10,7 +10,6 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageBinding
 import com.plub.presentation.ui.main.home.profile.adapter.MyPageParentGatheringAdapter
 import com.plub.presentation.util.GlideUtil
-import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -93,12 +92,12 @@ class MyPageFragment :
         when (event) {
             is MyPageEvent.GoToMyApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToWaitingGathering(event.plubbingId))}
             is MyPageEvent.GoToOtherApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToRecruitingGathering(event.plubbingId))}
-            is MyPageEvent.ReadMore -> { openText(event.isExpandText) }
+            is MyPageEvent.ReadMore -> { readMoreIntro(event.isExpandText) }
             is MyPageEvent.GoToSetting -> {findNavController().navigate(MyPageFragmentDirections.myPageToSetting())}
         }
     }
 
-    private fun openText(isExpandText : Boolean){
+    private fun readMoreIntro(isExpandText : Boolean){
         binding.apply {
             if(isExpandText){
                 textViewReadMore.text = getString(R.string.my_page_close)
