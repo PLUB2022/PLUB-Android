@@ -12,12 +12,16 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface GatheringApi {
+    companion object{
+        private const val PATH_PLUBING_ID = "plubbingId"
+    }
+
     @POST(Endpoints.PLUBBING.CREATE)
     suspend fun createGathering(@Body request: CreateGatheringRequest): Response<ApiResponse<CreateGatheringResponse>>
 
     @PUT(Endpoints.PLUBBING.MODIFY_GATHERING.RECRUIT)
     suspend fun modifyRecruit(
-        @Path("plubbingId") plubbingId: Int,
+        @Path(PATH_PLUBING_ID) plubbingId: Int,
         @Body request: ModifyRecruitRequestBody
     ): Response<ApiResponse<CreateGatheringResponse>>
 }
