@@ -15,13 +15,9 @@ import com.plub.domain.usecase.DeleteScheduleUseCase
 import com.plub.domain.usecase.GetEntireScheduleUseCase
 import com.plub.domain.usecase.PutScheduleAttendUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.main.gathering.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndImageEvent
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -59,7 +55,7 @@ class PlubingScheduleViewModel @Inject constructor(
     private fun handleSuccessGetEntireSchedule(response: GetEntireScheduleResponseVo) =
         viewModelScope.launch {
             val processedScheduleList =
-                processScheduleVoList(response.calendarList.content, response.calendarList.last)
+                getProcessedScheduleVoList(response.calendarList.content, response.calendarList.last)
             val mergedScheduleList = mergeScheduleList(processedScheduleList)
 
             updateUiState { uiState ->
@@ -71,7 +67,7 @@ class PlubingScheduleViewModel @Inject constructor(
         }
 
 
-    private suspend fun processScheduleVoList(items: List<ScheduleVo>, isLast: Boolean): List<ScheduleVo> {
+    private fun getProcessedScheduleVoList(items: List<ScheduleVo>, isLast: Boolean): List<ScheduleVo> {
         if (items.isEmpty()) return emptyList()
 
         val lastContent =
@@ -81,6 +77,10 @@ class PlubingScheduleViewModel @Inject constructor(
             TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(it.startedAt)
         } ?: -1
 
+        return processScheduleVoList(items, lastYear, isLast)
+    }
+
+    private fun processScheduleVoList(items: List<ScheduleVo>, lastYear: Int, isLast: Boolean): List<ScheduleVo> {
         return items.groupBy { item -> TimeFormatter.getIntYearFromyyyyDashmmDashddFormat(item.startedAt) }
             .mapValues {
                 val isExistDate = lastYear == it.key
@@ -92,8 +92,8 @@ class PlubingScheduleViewModel @Inject constructor(
                     if (!isExistDate) add(FIRST_IDX, yearItem)
                 }
             }.flatMap { it.value }.toMutableList().apply {
-            if (!isLast) add(ScheduleVo(viewType = ScheduleCardType.LOADING))
-        }
+                if (!isLast) add(ScheduleVo(viewType = ScheduleCardType.LOADING))
+            }
     }
 
     private suspend fun mergeScheduleList(items: List<ScheduleVo>): List<ScheduleVo> {
