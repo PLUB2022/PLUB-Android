@@ -1,17 +1,15 @@
 package com.plub.data.api
 
-import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitRequest
-import com.plub.data.dto.applicantsrecruit.ApplicantsRecruitResponse
-import com.plub.data.dto.applicantsrecruit.reply.ReplyApplicantsRecruitResponse
-import com.plub.data.dto.applyrecruit.QuestionsListResponse
-import com.plub.data.dto.recruitdetail.host.EndRecruitResponse
+import com.plub.data.dto.applicantsRecruit.ApplicantsRecruitRequest
+import com.plub.data.dto.applicantsRecruit.ApplicantsRecruitResponse
+import com.plub.data.dto.applicantsRecruit.reply.ReplyApplicantsRecruitResponse
+import com.plub.data.dto.applyRecruit.QuestionsListResponse
+import com.plub.data.dto.recruitDetail.host.EndRecruitResponse
 import com.plub.data.dto.recruitdetail.host.HostApplicantsListResponse
 import com.plub.data.base.ApiResponse
 import com.plub.data.dto.createGathering.CreateGatheringResponse
-import com.plub.data.dto.modifyGathering.ModifyQuestionRequest
 import com.plub.data.dto.modifyGathering.ModifyQuestionRequestBody
-import com.plub.data.dto.recruitdetail.RecruitDetailResponse
-import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
+import com.plub.data.dto.recruitDetail.RecruitDetailResponse
 import retrofit2.Response
 import retrofit2.http.*
 

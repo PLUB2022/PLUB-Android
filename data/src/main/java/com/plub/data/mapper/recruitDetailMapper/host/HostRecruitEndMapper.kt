@@ -1,7 +1,7 @@
 package com.plub.data.mapper.recruitdetailmapper.host
 
 import com.plub.data.base.Mapper
-import com.plub.data.dto.recruitdetail.host.EndRecruitResponse
+import com.plub.data.dto.recruitDetail.host.EndRecruitResponse
 import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitResponseVo
 
 object HostRecruitEndMapper : Mapper.ResponseMapper<EndRecruitResponse, ApplicantsRecruitResponseVo> {
