@@ -21,6 +21,7 @@ data class ScheduleVo(
     val title: String = "",
     val memo: String = "",
     val startedAt: String = "",
+    val startedYear: Int = -1,
     val endedAt: String = "",
     val startTime: String = "",
     val endTime: String = "",
