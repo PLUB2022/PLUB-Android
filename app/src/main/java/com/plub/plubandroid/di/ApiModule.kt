@@ -9,6 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -121,5 +122,11 @@ object ApiModule {
     @Provides
     fun provideTodoApi(@AuthRetrofit retrofit: Retrofit): TodoApi {
         return retrofit.create(TodoApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNotificationApi(@AuthRetrofit retrofit: Retrofit): NotificationApi {
+        return retrofit.create(NotificationApi::class.java)
     }
 }
