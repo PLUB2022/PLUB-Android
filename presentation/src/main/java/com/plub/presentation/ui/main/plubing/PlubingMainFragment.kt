@@ -7,6 +7,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.plub.domain.model.enums.NoticeType
 import com.plub.domain.model.enums.WriteType
 import com.plub.domain.model.enums.PlubingMainPageType
 import com.plub.presentation.R
@@ -17,7 +18,6 @@ import com.plub.presentation.ui.main.plubing.adapter.FragmentPlubingMainPagerAda
 import com.plub.presentation.ui.main.plubing.adapter.PlubingMemberAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
 
 @AndroidEntryPoint
 class PlubingMainFragment :
@@ -117,6 +117,8 @@ class PlubingMainFragment :
             }
 
             is PlubingMainEvent.GoToNotice -> {
+                val action = PlubingMainFragmentDirections.actionPlubingMainToNotice(NoticeType.PLUBING)
+                findNavController().navigate(action)
             }
         }
     }
