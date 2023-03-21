@@ -6,7 +6,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
-import com.plub.domain.model.enums.PlubingBoardWriteType
+import com.plub.domain.model.enums.WriteType
 import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.base.BaseTestFragment
@@ -140,7 +140,7 @@ class BoardDetailFragment :
     }
 
     private fun goToEditBoard(feedId:Int) {
-        val action = BoardDetailFragmentDirections.actionPlubingBoardDetailToPlubingBoardWrite(feedId = feedId, writeType = PlubingBoardWriteType.EDIT)
+        val action = BoardDetailFragmentDirections.actionPlubingBoardDetailToPlubingBoardWrite(feedId = feedId, writeType = WriteType.EDIT)
         findNavController().navigate(action)
     }
 

@@ -8,7 +8,7 @@ import android.text.style.ForegroundColorSpan
 import androidx.lifecycle.viewModelScope
 import com.canhub.cropper.CropImageView
 import com.plub.domain.model.enums.DialogMenuItemType
-import com.plub.domain.model.enums.PlubingBoardWriteType
+import com.plub.domain.model.enums.WriteType
 import com.plub.domain.model.enums.PlubingFeedType
 import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.board.BoardCreateRequestVo
@@ -54,7 +54,7 @@ class BoardWriteViewModel @Inject constructor(
     private val feedTypeListStateFlow: MutableStateFlow<List<WriteBoardFeedTypeVo>> = MutableStateFlow(emptyList())
     private val selectedFeedTypeStateFlow: MutableStateFlow<PlubingFeedType> = MutableStateFlow(PlubingFeedType.IMAGE)
     private val imageFileStateFlow: MutableStateFlow<File?> = MutableStateFlow(null)
-    private val plubingNameStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val plubingNameStateFlow: MutableStateFlow<String> = MutableStateFlow(PlubingInfo.info.name)
     private val titleStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val contentStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val contentCountStateFlow: MutableStateFlow<SpannableString> = MutableStateFlow(SpannableString(""))
@@ -75,7 +75,7 @@ class BoardWriteViewModel @Inject constructor(
         editImageUrlStateFlow.asStateFlow(),
     )
 
-    private lateinit var writeType:PlubingBoardWriteType
+    private lateinit var writeType:WriteType
     private val plubingId = PlubingInfo.info.plubingId
     private var feedId by Delegates.notNull<Int>()
 
@@ -84,11 +84,10 @@ class BoardWriteViewModel @Inject constructor(
     fun initArgs(args: BoardWriteFragmentArgs) {
         writeType = args.writeType
         feedId = args.feedId
-        updatePlubingName(PlubingInfo.info.name)
     }
 
     fun initEditInfo() {
-        if(writeType != PlubingBoardWriteType.EDIT) return
+        if(writeType != WriteType.EDIT) return
 
         fetchBoardInfo {
             updateTitle(it.title)
@@ -160,7 +159,7 @@ class BoardWriteViewModel @Inject constructor(
     }
 
     fun onClickPostUpload() {
-        if(writeType == PlubingBoardWriteType.CREATE) createFeed() else editFeed()
+        if(writeType == WriteType.CREATE) createFeed() else editFeed()
     }
 
     private fun getFeedTypeList(selectedFeedType: PlubingFeedType): List<WriteBoardFeedTypeVo> {
@@ -242,7 +241,7 @@ class BoardWriteViewModel @Inject constructor(
     }
 
     private fun hasEditImageUrl():Boolean {
-        val isEditType = writeType == PlubingBoardWriteType.EDIT
+        val isEditType = writeType == WriteType.EDIT
         return isEditType && editImageUrlStateFlow.value.isNotEmpty()
     }
 
@@ -305,12 +304,6 @@ class BoardWriteViewModel @Inject constructor(
     private fun updateImageFile(file: File?) {
         viewModelScope.launch {
             imageFileStateFlow.update { file }
-        }
-    }
-
-    private fun updatePlubingName(name: String) {
-        viewModelScope.launch {
-            plubingNameStateFlow.update { name }
         }
     }
 

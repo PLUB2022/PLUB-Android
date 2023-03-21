@@ -1,11 +1,11 @@
 package com.plub.domain.model.enums
 
-enum class PlubingBoardWriteType(val type: String) {
+enum class WriteType(val type: String) {
     CREATE("CREATE"), EDIT("EDIT");
 
     companion object {
-        fun typeOf(value: String): PlubingBoardWriteType {
-            return PlubingBoardWriteType.values().find {
+        fun typeOf(value: String): WriteType {
+            return WriteType.values().find {
                 it.type == value
             } ?: CREATE
         }
