@@ -13,6 +13,8 @@ import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -48,6 +50,14 @@ class HomeFragmentViewModel @Inject constructor(
             getRecommendationGatheringUsecase(pageNumber).collect { state ->
                 inspectUiState(state, ::handleGetRecommendGatheringSuccess)
             }
+//
+//            val categoriesState = async{ getCategoriesUseCase(Unit).first() }
+//            val myHobbiesState = async { getMyInterestUseCase(Unit).first() }
+//            val recommendationGatheringState = async { getRecommendationGatheringUsecase(pageNumber).first() }
+//            inspectUiState(categoriesState.await(), ::handleGetCategoriesSuccess)
+//            inspectUiState(myHobbiesState.await(), ::handleGetMyInterestSuccess)
+//            inspectUiState(recommendationGatheringState.await(), ::handleGetRecommendGatheringSuccess)
+
         }
 
     private fun handleGetCategoriesSuccess(data: CategoryListDataResponseVo) {
