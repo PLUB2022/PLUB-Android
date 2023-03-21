@@ -3,6 +3,7 @@ package com.plub.data.mapper.schedule
 import com.plub.data.base.Mapper
 import com.plub.data.dto.schedule.GetEntireScheduleResponse
 import com.plub.data.dto.schedule.Schedule
+import com.plub.data.util.DateFormatUtil
 import com.plub.domain.model.vo.schedule.CalendarAttendListVo
 import com.plub.domain.model.vo.schedule.CalendarAttendVo
 import com.plub.domain.model.vo.schedule.CalendarListVo
@@ -19,6 +20,7 @@ object ScheduleMapper :
                 title = title,
                 memo = memo,
                 startedAt = startedAt,
+                startedYear = DateFormatUtil.getIntYearFromyyyyDashmmDashddFormat(startedAt),
                 endedAt = endedAt,
                 startTime = startTime,
                 endTime = endTime,
