@@ -38,6 +38,13 @@ object Endpoints {
         const val KEYWORD_URL = "/v2/local/search/keyword"
     }
 
+    object NOTIFICATIONS {
+        private const val NOTIFICATIONS_URL = "/api/notifications"
+        private const val NOTIFICATIONS_ID = "$NOTIFICATIONS_URL/{notificationId}"
+        const val MY = "$NOTIFICATIONS_URL/accounts/me"
+        const val READ = "$NOTIFICATIONS_ID/read"
+    }
+
     object PLUBBING {
         private const val PLUBBING_URL = "/api/plubbings"
         private const val RECRUIT_URL = "$PLUBBING_URL/{plubbingId}/recruit"
