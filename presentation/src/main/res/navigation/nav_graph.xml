@@ -140,7 +140,7 @@
         android:id="@+id/registerHobbiesFragment"
         android:name="com.plub.presentation.ui.main.home.registhobbies.RegisterHobbiesFragment"
         android:label="fragment_register_interest"
-        tools:layout="@layout/fragment_register_hobbies"></fragment>
+        tools:layout="@layout/fragment_register_hobbies"/>
 
     <fragment
         android:id="@+id/createGatheringFragment"
@@ -369,6 +369,10 @@
         <action
             android:id="@+id/action_my_page_active_detail_to_all_my_post"
             app:destination="@id/myPageAllMyPostFragment" />
+
+        <action
+            android:id="@+id/action_my_page_active_detail_to_plubbing_main"
+            app:destination="@id/plubingMainFragment" />
     </fragment>
 
     <fragment

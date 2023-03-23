@@ -70,11 +70,17 @@ class ActiveGatheringFragment :
     private fun inspectEventFlow(event: ActiveGatheringEvent) {
         when (event) {
             is ActiveGatheringEvent.GoToDetailBoard -> goToDetailBoard(event.feedId)
+            is ActiveGatheringEvent.GoToPlubbingMain -> goToPlubbingMain(event.plubbingId)
         }
     }
 
     private fun goToDetailBoard(feedId: Int) {
         val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToPlubingBoardDetail(feedId)
+        findNavController().navigate(action)
+    }
+
+    private fun goToPlubbingMain(plubbingId : Int){
+        val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToPlubbingMain(plubbingId)
         findNavController().navigate(action)
     }
 }

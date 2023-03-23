@@ -120,11 +120,15 @@ class ActiveGatheringViewModel @Inject constructor(
     }
 
     fun getMyToDo(){
-
+        //TODO 투두 리스트 가져오기
     }
 
     fun onClickBoard(feedId: Int) {
         emitEventFlow(ActiveGatheringEvent.GoToDetailBoard(feedId))
+    }
+
+    fun goPlubbingMain(){
+        emitEventFlow(ActiveGatheringEvent.GoToPlubbingMain(plubingId))
     }
 
 }
