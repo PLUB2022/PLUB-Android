@@ -2,8 +2,8 @@ package com.plub.presentation.ui.main.profile.recruiting
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.MyPageDetailViewType
-import com.plub.domain.model.vo.home.applicantsrecruitvo.replyvo.ReplyApplicantsRecruitRequestVo
-import com.plub.domain.model.vo.home.recruitdetailvo.host.AccountsVo
+import com.plub.domain.model.vo.home.applicantsRecruitVo.replyVo.ReplyApplicantsRecruitRequestVo
+import com.plub.domain.model.vo.home.recruitDetailVo.host.AccountsVo
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.domain.model.vo.home.recruitDetailVo.host.HostApplicantsResponseVo
