@@ -1,7 +1,7 @@
 package com.plub.presentation.ui.main.profile.viewHolder.detail
 
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recruitdetailvo.host.AnswersVo
+import com.plub.domain.model.vo.home.recruitDetailVo.host.AnswersVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemApplicationsAnswerBinding
 

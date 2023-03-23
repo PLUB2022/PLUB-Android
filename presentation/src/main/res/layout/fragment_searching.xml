@@ -40,7 +40,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
-            android:background="@{vm.uiState.searchTextIsEmpty ? @drawable/bg_rectangle_filled_e4e4e4_radius_8 : @drawable/bg_rectangle_filled_white_radius_8}"
+            android:background="@{vm.uiState.isSearchedTextEmpty() ? @drawable/bg_rectangle_filled_e4e4e4_radius_8 : @drawable/bg_rectangle_filled_white_radius_8}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_view_back"
             app:layout_constraintTop_toTopOf="parent">
@@ -74,7 +74,7 @@
                 android:layout_height="0dp"
                 app:onThrottleClick="@{() -> vm.onClickDeleteSearch()}"
                 android:src="@drawable/ic_delete_c4c4c4"
-                android:visibility="@{vm.uiState.searchTextIsEmpty ? View.GONE : View.VISIBLE}"
+                android:visibility="@{vm.uiState.isSearchedTextEmpty() ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +85,7 @@
             android:id="@+id/constraint_layout_search"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:visibility="@{vm.uiState.recentSearchVisibility ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.uiState.isSearchedTextEmpty() ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraint_layout_input">
 
@@ -204,7 +204,7 @@
             android:id="@+id/constraint_layout_recent_search"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:visibility="@{vm.uiState.recentSearchVisibility ? View.VISIBLE : View.GONE}"
+            android:visibility="@{vm.uiState.isRecentSearchMode() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraint_layout_input">
 

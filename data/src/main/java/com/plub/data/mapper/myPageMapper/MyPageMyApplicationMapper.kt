@@ -2,11 +2,8 @@ package com.plub.data.mapper.myPageMapper
 
 import com.plub.data.base.Mapper
 import com.plub.data.dto.myPage.MyApplicationResponse
-import com.plub.data.dto.myPage.MyGatheringResponse
-import com.plub.data.mapper.recruitdetailmapper.host.HostAnswersMapper
-import com.plub.domain.model.enums.MyPageGatheringStateType
+import com.plub.data.mapper.recruitDetailMapper.host.HostAnswersMapper
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
-import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.domain.model.vo.myPage.MyPageMyApplicationVo
 
 object MyPageMyApplicationMapper : Mapper.ResponseMapper<MyApplicationResponse, MyPageMyApplicationVo> {

@@ -13,12 +13,17 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface HobbyApi {
+
+    companion object{
+        private const val PATH_CATEGORY_ID = "categoryId"
+    }
+
     @GET(Endpoints.CATEGORY.GET_ALL_CATEGORIES)
     suspend fun allCategories() : Response<ApiResponse<AllHobbiesResponse>>
 
     @GET(Endpoints.CATEGORY.GET_SUB_CATEGORIES)
     suspend fun subCategories(
-        @Path("categoryId") request : Int
+        @Path(PATH_CATEGORY_ID) request : Int
     ) : Response<ApiResponse<SubHobbiesResponse>>
 
     @POST(Endpoints.ACCOUNT.REGIST_INTEREST)

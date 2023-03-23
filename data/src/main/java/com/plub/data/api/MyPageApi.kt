@@ -10,14 +10,19 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MyPageApi {
+    companion object{
+        private const val QUERY_STATUS = "status"
+        private const val PATH_PLUBBING_ID = "plubbingId"
+    }
+
     @GET(Endpoints.PLUBBING.MY_PAGE.BROWSE_MY_GATHERING)
     suspend fun getMyGathering(
-        @Query("status") status: String
+        @Query(QUERY_STATUS) status: String
     ): Response<ApiResponse<MyGatheringResponse>>
 
     @GET(Endpoints.PLUBBING.MY_PAGE.BROWSE_MY_APPLICATION)
     suspend fun getMyApplication(
-        @Path("plubbingId") plubbingId: Int
+        @Path(PATH_PLUBBING_ID) plubbingId: Int
     ): Response<ApiResponse<MyApplicationResponse>>
 
     @GET(Endpoints.PLUBBING.MY_PAGE.BROWSE_MY_TODO)

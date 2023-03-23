@@ -32,6 +32,8 @@ object Versions {
     const val FLEX_BOX = "3.0.0"
 
     /* [ Libraries ] */
+    const val CALENDAR_VIEW = "2.0.1"
+
     const val RETROFIT = "2.9.0"
     const val OKHTTP = "4.10.0"
     const val TIMBER = "5.0.1"

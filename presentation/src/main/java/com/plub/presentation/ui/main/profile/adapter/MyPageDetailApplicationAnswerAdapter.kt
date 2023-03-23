@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recruitdetailvo.host.AnswersVo
+import com.plub.domain.model.vo.home.recruitDetailVo.host.AnswersVo
 import com.plub.presentation.databinding.IncludeItemApplicationsAnswerBinding
 import com.plub.presentation.ui.main.profile.viewHolder.detail.MyPageDetailApplicationAnswerViewHolder
 

@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.plub.domain.model.enums.PlubCardType
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentBookmarkBinding
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BookmarkFragment :
-    BaseFragment<FragmentBookmarkBinding, BookmarkPageState, BookmarkViewModel>(
+    BaseTestFragment<FragmentBookmarkBinding, BookmarkPageState, BookmarkViewModel>(
         FragmentBookmarkBinding::inflate
     ) {
 
@@ -53,7 +53,7 @@ class BookmarkFragment :
             }
         }
 
-        viewModel.onFetchPlubBookmark()
+        viewModel.onGetPlubBookmark()
     }
 
     override fun initStates() {
@@ -61,8 +61,8 @@ class BookmarkFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    listAdapter.submitList(it.bookmarkList)
+                viewModel.uiState.bookmarkList.collect {
+                    listAdapter.submitList(it)
                 }
             }
 

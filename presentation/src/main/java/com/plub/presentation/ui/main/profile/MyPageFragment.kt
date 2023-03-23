@@ -92,13 +92,13 @@ class MyPageFragment :
         when (event) {
             is MyPageEvent.GoToMyApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToWaitingGathering(event.plubbingId))}
             is MyPageEvent.GoToOtherApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToRecruitingGathering(event.plubbingId))}
-            is MyPageEvent.ReadMore -> { openText(event.isExpandText) }
+            is MyPageEvent.ReadMore -> { readMoreIntro(event.isExpandText) }
             is MyPageEvent.GoToSetting -> {findNavController().navigate(MyPageFragmentDirections.myPageToSetting())}
             is MyPageEvent.GoToActiveGathering -> {findNavController().navigate(MyPageFragmentDirections.myPageToActiveGathering(event.gatheringType, event.plubbingId))}
         }
     }
 
-    private fun openText(isExpandText : Boolean){
+    private fun readMoreIntro(isExpandText : Boolean){
         binding.apply {
             if(isExpandText){
                 textViewReadMore.text = getString(R.string.my_page_close)
