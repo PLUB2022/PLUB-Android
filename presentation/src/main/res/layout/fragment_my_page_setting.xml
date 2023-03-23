@@ -58,6 +58,7 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="49dp"
+                android:scaleType="centerCrop"
                 android:background="@drawable/bg_circle_filled_e4e4e4"
                 android:src="@drawable/iv_default_profile"
                 app:layout_constraintEnd_toEndOf="parent"
