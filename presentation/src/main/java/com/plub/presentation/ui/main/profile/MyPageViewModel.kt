@@ -16,15 +16,13 @@ class MyPageViewModel @Inject constructor(
     val getMyGatheringUseCase: GetMyGatheringUseCase,
 ) : BaseViewModel<MyPageState>(MyPageState()) {
 
-    companion object{
+    companion object {
         const val MAX_LENGTH = 15
     }
 
     private var isExpandText: Boolean = false
-    private var isFirstInit : Boolean = true
-    private val myPageGatheringVoList = mutableListOf<MyPageGatheringVo>()
 
-    fun setMyInfo(){
+    fun setMyInfo() {
 
         updateUiState { uiState ->
             uiState.copy(
@@ -36,37 +34,43 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
+    fun refresh(){
+        updateMyGathering(emptyList())
+    }
+
     fun getMyPageData() {
-        if(isFirstInit) {
-            viewModelScope.launch {
-                getMyGatheringUseCase(MyPageGatheringStateType.RECRUITING).collect {
-                    inspectUiState(it, ::handleGetMyGatheringSuccess)
-                }
-
-                getMyGatheringUseCase(MyPageGatheringStateType.WAITING).collect {
-                    inspectUiState(it, ::handleGetMyGatheringSuccess)
-                }
-
-                getMyGatheringUseCase(MyPageGatheringStateType.ACTIVE).collect {
-                    inspectUiState(it, ::handleGetMyGatheringSuccess)
-                }
-
-                getMyGatheringUseCase(MyPageGatheringStateType.END).collect {
-                    inspectUiState(it, ::handleGetMyGatheringSuccess)
-                }
-                updateMyGathering(myPageGatheringVoList)
+        viewModelScope.launch {
+            getMyGatheringUseCase(MyPageGatheringStateType.RECRUITING).collect {
+                inspectUiState(it, ::handleGetMyGatheringSuccess)
             }
-            isFirstInit = false
+
+            getMyGatheringUseCase(MyPageGatheringStateType.WAITING).collect {
+                inspectUiState(it, ::handleGetMyGatheringSuccess)
+            }
+
+            getMyGatheringUseCase(MyPageGatheringStateType.ACTIVE).collect {
+                inspectUiState(it, ::handleGetMyGatheringSuccess)
+            }
+
+            getMyGatheringUseCase(MyPageGatheringStateType.END).collect {
+                inspectUiState(it, ::handleGetMyGatheringSuccess)
+            }
         }
     }
 
     private fun handleGetMyGatheringSuccess(state: MyPageGatheringVo) {
-        if(state.gatheringList.isNotEmpty()){
-            myPageGatheringVoList.add(state)
+        if (state.gatheringList.isNotEmpty()) {
+            val mutableOriginList = uiState.value.myPageGatheringList.toMutableList()
+            mutableOriginList.add(state)
+            updateMyGathering(mutableOriginList)
         }
     }
 
-    fun goToDetail(gatheringType: MyPageGatheringStateType, plubbingId: Int, gatheringMyType: MyPageGatheringMyType) {
+    fun goToDetail(
+        gatheringType: MyPageGatheringStateType,
+        plubbingId: Int,
+        gatheringMyType: MyPageGatheringMyType
+    ) {
         when (gatheringType) {
             MyPageGatheringStateType.RECRUITING -> {
                 emitEventFlow(MyPageEvent.GoToOtherApplication(plubbingId))

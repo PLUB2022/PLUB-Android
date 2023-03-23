@@ -47,6 +47,7 @@ class MyPageFragment :
         binding.apply {
             vm = viewModel
         }
+        viewModel.refresh()
         viewModel.getMyPageData()
         viewModel.setMyInfo()
         initRecycler()
