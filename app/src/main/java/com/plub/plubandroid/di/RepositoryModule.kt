@@ -62,6 +62,14 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
+    abstract fun providesScheduleRepository(scheduleRepositoryImpl: ScheduleRepositoryImpl): ScheduleRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesCategoryListRepository(categoryListResposImpl: CategoryListRepositoryImpl): CategoryListRepository
+
+    @Singleton
+    @Binds
     abstract fun providesRecommendationGatheringRepository(recommendationGatheringResposImpl: RecommendationGatheringRepositoryImpl): RecommendationGatheringRepository
 
     @Singleton

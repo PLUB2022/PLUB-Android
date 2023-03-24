@@ -159,6 +159,10 @@ class SelectMenuBottomSheetDialog : BottomSheetDialogFragment() {
             DialogMenuType.BOARD_COMMENT_COMMON_TYPE -> listOf(
                 DialogMenuItemType.BOARD_COMMENT_REPORT,
             )
+            DialogMenuType.SCHEDULE_TYPE -> listOf(
+                DialogMenuItemType.SCHEDULE_EDIT,
+                DialogMenuItemType.SCHEDULE_DELETE
+            )
 
             DialogMenuType.TODO_DETAIL_COMMON_TYPE,
             DialogMenuType.TODO_LIST_COMMON_TYPE -> listOf(

@@ -39,15 +39,10 @@
             android:id="@+id/action_main_to_my_page"
             app:destination="@id/myPageFragment" />
 
-        <argument
-            android:name="categoryId"
-            app:argType="integer" />
-        <argument
-            android:name="categoryName"
-            app:argType="string" />
-        <argument
-            android:name="plubbingId"
-            app:argType="integer" />
+        <!-- TODO REMOVE -->
+        <action
+            android:id="@+id/action_plubing_main_to_schedule"
+            app:destination="@+id/plubingScheduleFragment" />
     </fragment>
 
     <fragment
@@ -97,8 +92,8 @@
             app:argType="integer" />
         <argument
             android:name="categoryName"
-            android:defaultValue=""
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
 
     <fragment
@@ -131,8 +126,8 @@
         tools:layout="@layout/fragment_apply_plubbing">
         <argument
             android:name="plubbingId"
-            android:defaultValue="0"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
 
@@ -140,7 +135,12 @@
         android:id="@+id/registerHobbiesFragment"
         android:name="com.plub.presentation.ui.main.home.registhobbies.RegisterHobbiesFragment"
         android:label="fragment_register_interest"
-        tools:layout="@layout/fragment_register_hobbies"></fragment>
+        tools:layout="@layout/fragment_register_hobbies">
+
+        <action
+            android:id="@+id/action_main_to_plubing_schedule"
+            app:destination="@id/plubingScheduleFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/createGatheringFragment"
@@ -293,6 +293,51 @@
         android:name="com.plub.presentation.ui.main.gathering.modifyGathering.ModifyGatheringFragment"
         android:label="ModifyGatheringFragment"
         tools:layout="@layout/fragment_modify_gathering" />
+
+    <fragment
+        android:id="@+id/plubingScheduleFragment"
+        android:name="com.plub.presentation.ui.main.plubing.schedule.PlubingScheduleFragment"
+        android:label="PlubingScheduleFragment"
+        tools:layout="@layout/fragment_plubing_schedule">
+
+        <argument
+            android:name="plubingId"
+            app:argType="integer" />
+
+        <argument
+            android:name="plubingName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_plubingSchedule_to_plubingAddSchedule"
+            app:destination="@id/plubingAddScheduleFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/plubingAddScheduleFragment"
+        android:name="com.plub.presentation.ui.main.plubing.schedule.addOrEdit.PlubingAddOrEditScheduleFragment"
+        android:label="PlubingAddScheduleFragment"
+        tools:layout="@layout/fragment_plubing_add_or_edit_schedule" >
+
+        <argument
+            android:name="plubingId"
+            app:argType="integer" />
+
+        <argument
+            android:name="plubingName"
+            app:argType="string" />
+
+        <argument
+            android:name="scheduleVo"
+            app:argType="com.plub.domain.model.vo.schedule.ScheduleVo"
+            android:defaultValue="@null"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_plubingAddSchedule_to_plubingSchedule"
+            app:destination="@+id/plubingScheduleFragment"
+            app:popUpTo="@id/plubingScheduleFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
     <fragment
         android:id="@+id/myPageFragment"

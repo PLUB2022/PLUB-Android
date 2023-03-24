@@ -296,6 +296,12 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun providesGetEntireScheduleUseCase(repository: ScheduleRepository): GetEntireScheduleUseCase {
+        return GetEntireScheduleUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun providesGetMyGatheringUseCase(repository: MyPageRepository): GetMyGatheringUseCase {
         return GetMyGatheringUseCase(repository)
     }
