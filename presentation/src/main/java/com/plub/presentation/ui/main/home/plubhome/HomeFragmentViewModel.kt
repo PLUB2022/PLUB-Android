@@ -9,11 +9,14 @@ import com.plub.domain.model.vo.home.categoryResponseVo.CategoryListDataResponse
 import com.plub.domain.model.vo.home.interestRegisterVo.RegisterInterestResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
+import com.plub.domain.successOrNull
 import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
@@ -39,25 +42,18 @@ class HomeFragmentViewModel @Inject constructor(
     fun fetchHomePageData() =
         viewModelScope.launch {
             pageNumber = FIRST_PAGE
-            getCategoriesUseCase(Unit).collect { state ->
-                inspectUiState(state, ::handleGetCategoriesSuccess)
+            val categoriesState = async{ getCategoriesUseCase(Unit) }
+            val myHobbiesState = async { getMyInterestUseCase(Unit) }
+            val recommendationGatheringState = async { getRecommendationGatheringUsecase(pageNumber) }
+            categoriesState.await().collect{
+                inspectUiState(it, ::handleGetCategoriesSuccess)
             }
-
-            getMyInterestUseCase(Unit).collect { state ->
-                inspectUiState(state, ::handleGetMyInterestSuccess)
+            myHobbiesState.await().collect{
+                inspectUiState(it, ::handleGetMyInterestSuccess)
             }
-
-            getRecommendationGatheringUsecase(pageNumber).collect { state ->
-                inspectUiState(state, ::handleGetRecommendGatheringSuccess)
+            recommendationGatheringState.await().collect{
+                inspectUiState(it, ::handleGetRecommendGatheringSuccess)
             }
-//
-//            val categoriesState = async{ getCategoriesUseCase(Unit).first() }
-//            val myHobbiesState = async { getMyInterestUseCase(Unit).first() }
-//            val recommendationGatheringState = async { getRecommendationGatheringUsecase(pageNumber).first() }
-//            inspectUiState(categoriesState.await(), ::handleGetCategoriesSuccess)
-//            inspectUiState(myHobbiesState.await(), ::handleGetMyInterestSuccess)
-//            inspectUiState(recommendationGatheringState.await(), ::handleGetRecommendGatheringSuccess)
-
         }
 
     private fun handleGetCategoriesSuccess(data: CategoryListDataResponseVo) {
@@ -104,7 +100,6 @@ class HomeFragmentViewModel @Inject constructor(
             )
         }
         isNetworkCall = false
-        pageNumber++
     }
 
     private fun addRecommendGatheringList(it: PlubCardListVo): List<HomePlubListVo> {

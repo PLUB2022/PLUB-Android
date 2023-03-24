@@ -71,6 +71,12 @@ object Endpoints {
             const val COMMENT_EDIT = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
         }
 
+        object SCHEDULE {
+            const val CALENDAR = "$PLUBBING_ID_URL/calendar"
+            const val CALENDAR_ID = "$CALENDAR/{calendarId}"
+            const val ATTEND = "$CALENDAR_ID/attend"
+        }
+
         object TODO {
             const val TIMELINES = "$PLUBBING_ID_URL/timeline"
             const val PROOF = "$PLUBBING_ID_URL/todolist/{todolistId}/proof"
