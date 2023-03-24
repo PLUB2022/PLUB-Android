@@ -9,8 +9,8 @@ import com.plub.domain.model.vo.myPage.MyPageActiveDetailVo
 import com.plub.domain.model.vo.myPage.MyPageActiveRequestVo
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.myPage.MyPageToDoWithTitleVo
-import com.plub.domain.model.vo.plub.PlubingMainVo
-import com.plub.domain.usecase.FetchPlubingMainUseCase
+import com.plub.domain.model.vo.todo.TodoTimelineListVo
+import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.domain.usecase.GetMyPostUseCase
 import com.plub.domain.usecase.GetMyToDoWithTitleUseCase
 import com.plub.presentation.base.BaseViewModel
@@ -21,13 +21,12 @@ import javax.inject.Inject
 @HiltViewModel
 class ActiveGatheringViewModel @Inject constructor(
     private val getMyPostUseCase: GetMyPostUseCase,
-    private val fetchPlubingMainUseCase: FetchPlubingMainUseCase,
     private val getMyToDoWithTitleUseCase: GetMyToDoWithTitleUseCase
 ) : BaseViewModel<ActiveGatheringPageState>(ActiveGatheringPageState()) {
 
     companion object {
         const val FIRST_CURSOR = 0
-        const val MAX_POST_COUNT = 3
+        const val MAX_SHOW_COUNT = 2
     }
 
     private var cursorId: Int = FIRST_CURSOR
@@ -52,7 +51,12 @@ class ActiveGatheringViewModel @Inject constructor(
     }
 
     private fun handleGetMyToDoWithTitleSuccess(vo : MyPageToDoWithTitleVo){
-        val topView = vo.titleVo.copy(
+        updateTopView(vo.titleVo)
+        updateToDoView(vo.todoTimelineListVo)
+    }
+
+    private fun updateTopView(top : MyPageDetailTitleVo){
+        val topView = top.copy(
             viewType = gatheringMyType
         )
         updateDetailList(getMergedTopList(topView))
@@ -67,9 +71,47 @@ class ActiveGatheringViewModel @Inject constructor(
         )
     }
 
+    private fun updateToDoView(todoList : TodoTimelineListVo){
+        val originList = uiState.value.detailList
+        val mergedList = if (todoList.content.size > MAX_SHOW_COUNT) {
+            setListOverToDoMaxCount(todoList.content)
+        } else {
+            setListUnderToDoMaxCount(todoList.content)
+        }
+
+        updateDetailList(originList + mergedList)
+    }
+
+    private fun setListOverToDoMaxCount(list: List<TodoTimelineVo>) : List<MyPageActiveDetailVo> {
+        val contentList = mutableListOf<TodoTimelineVo>()
+        for (index in 0..MAX_SHOW_COUNT) {
+            if (index == MAX_SHOW_COUNT) {
+                break
+            }
+
+            contentList.add(list[index])
+        }
+
+        return arrayListOf(
+            MyPageActiveDetailVo(
+                viewType = MyPageActiveDetailViewType.MY_TODO,
+                todoList = contentList
+            )
+        )
+    }
+
+    private fun setListUnderToDoMaxCount(list: List<TodoTimelineVo>): List<MyPageActiveDetailVo> {
+        return arrayListOf(
+            MyPageActiveDetailVo(
+                viewType = MyPageActiveDetailViewType.MY_TODO,
+                todoList = list
+            )
+        )
+    }
+
     private fun handleGetMyPostSuccess(state: PlubingBoardListVo) {
         val originList = uiState.value.detailList
-        val mergedList = if (state.totalElements > MAX_POST_COUNT) {
+        val mergedList = if (state.totalElements > MAX_SHOW_COUNT) {
             setListOverBoardMaxCount(state.content)
         } else {
             setListUnderBoardMaxCount(state.content)
@@ -80,8 +122,8 @@ class ActiveGatheringViewModel @Inject constructor(
 
     private fun setListOverBoardMaxCount(list: List<PlubingBoardVo>) : List<MyPageActiveDetailVo> {
         val contentList = mutableListOf<PlubingBoardVo>()
-        for (index in 0..MAX_POST_COUNT) {
-            if (index == MAX_POST_COUNT) {
+        for (index in 0..MAX_SHOW_COUNT) {
+            if (index == MAX_SHOW_COUNT) {
                 break
             }
 
@@ -123,6 +165,10 @@ class ActiveGatheringViewModel @Inject constructor(
 
     fun goPlubbingMain(){
         emitEventFlow(ActiveGatheringEvent.GoToPlubbingMain(plubingId))
+    }
+
+    fun goBack(){
+        emitEventFlow(ActiveGatheringEvent.GoToBack)
     }
 
 }

@@ -71,6 +71,7 @@ class ActiveGatheringFragment :
         when (event) {
             is ActiveGatheringEvent.GoToDetailBoard -> goToDetailBoard(event.feedId)
             is ActiveGatheringEvent.GoToPlubbingMain -> goToPlubbingMain(event.plubbingId)
+            is ActiveGatheringEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 
