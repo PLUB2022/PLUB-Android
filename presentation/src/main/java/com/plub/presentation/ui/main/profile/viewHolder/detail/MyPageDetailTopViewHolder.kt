@@ -24,7 +24,7 @@ class MyPageDetailTopViewHolder(
             constraintLayoutGatheringStateBox.visibility = if(visible) View.VISIBLE else View.GONE
             when(item.viewType){
                 MyPageGatheringMyType.HOST -> {
-                    constraintLayoutGatheringStateBox.setBackgroundResource(R.drawable.bg_rectangle_filled_e1e1fa_radius_6)
+                    constraintLayoutGatheringStateBox.setBackgroundResource(R.drawable.bg_rectangle_filled_feefea_radius_6)
                     textViewGatheringState.text = root.context.getString(R.string.my_page_gathering_host)
                     textViewGatheringState.setTextColor(root.context.getColor(R.color.color_f75b2b))
                 }

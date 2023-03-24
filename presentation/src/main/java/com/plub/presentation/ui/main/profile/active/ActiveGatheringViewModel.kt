@@ -8,13 +8,12 @@ import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.myPage.MyPageActiveDetailVo
 import com.plub.domain.model.vo.myPage.MyPageActiveRequestVo
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
+import com.plub.domain.model.vo.myPage.MyPageToDoWithTitleVo
 import com.plub.domain.model.vo.plub.PlubingMainVo
-import com.plub.domain.successOrNull
 import com.plub.domain.usecase.FetchPlubingMainUseCase
 import com.plub.domain.usecase.GetMyPostUseCase
 import com.plub.domain.usecase.GetMyToDoWithTitleUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -42,8 +41,8 @@ class ActiveGatheringViewModel @Inject constructor(
 
     fun setView() {
         viewModelScope.launch {
-            fetchPlubingMainUseCase(plubingId).collect {
-                inspectUiState(it, ::onSuccessPlubingMainInfo)
+            getMyToDoWithTitleUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect{
+                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess)
             }
 
             getMyPostUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect {
@@ -52,20 +51,11 @@ class ActiveGatheringViewModel @Inject constructor(
         }
     }
 
-    private fun onSuccessPlubingMainInfo(mainVo: PlubingMainVo) {
-        val topView = MyPageDetailTitleVo(
-            title = mainVo.name,
-            date = mainVo.days,
-            position = mainVo.placeName,
-            time = mainVo.time,
+    private fun handleGetMyToDoWithTitleSuccess(vo : MyPageToDoWithTitleVo){
+        val topView = vo.titleVo.copy(
             viewType = gatheringMyType
         )
-
-        updateUiState { uiState ->
-            uiState.copy(
-                detailList = getMergedTopList(topView)
-            )
-        }
+        updateDetailList(getMergedTopList(topView))
     }
 
     private fun getMergedTopList(view : MyPageDetailTitleVo) : List<MyPageActiveDetailVo>{
@@ -85,7 +75,7 @@ class ActiveGatheringViewModel @Inject constructor(
             setListUnderBoardMaxCount(state.content)
         }
 
-        updateBoardList(originList + mergedList)
+        updateDetailList(originList + mergedList)
     }
 
     private fun setListOverBoardMaxCount(list: List<PlubingBoardVo>) : List<MyPageActiveDetailVo> {
@@ -115,7 +105,7 @@ class ActiveGatheringViewModel @Inject constructor(
         )
     }
 
-    private fun updateBoardList(list : List<MyPageActiveDetailVo>){
+    private fun updateDetailList(list : List<MyPageActiveDetailVo>){
         updateUiState { uiState ->
             uiState.copy(
                 detailList = list

@@ -41,7 +41,7 @@ class MyPageGatheringViewHolder(
                 constraintLayoutGatheringStateBox.visibility = View.VISIBLE
                 when(item.gatheringType){
                     MyPageGatheringMyType.HOST -> {
-                        constraintLayoutGatheringStateBox.setBackgroundResource(R.color.color_e4e4e4)
+                        constraintLayoutGatheringStateBox.setBackgroundResource(R.drawable.bg_rectangle_filled_feefea_radius_6)
                         textViewGatheringState.text = root.context.getString(R.string.my_page_gathering_host)
                         textViewGatheringState.setTextColor(root.context.getColor(R.color.color_f75b2b))
                     }
