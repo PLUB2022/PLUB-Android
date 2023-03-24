@@ -9,9 +9,12 @@ import com.plub.domain.model.vo.myPage.MyPageActiveDetailVo
 import com.plub.domain.model.vo.myPage.MyPageActiveRequestVo
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.plub.PlubingMainVo
+import com.plub.domain.successOrNull
 import com.plub.domain.usecase.FetchPlubingMainUseCase
 import com.plub.domain.usecase.GetMyPostUseCase
+import com.plub.domain.usecase.GetMyToDoWithTitleUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,6 +23,7 @@ import javax.inject.Inject
 class ActiveGatheringViewModel @Inject constructor(
     private val getMyPostUseCase: GetMyPostUseCase,
     private val fetchPlubingMainUseCase: FetchPlubingMainUseCase,
+    private val getMyToDoWithTitleUseCase: GetMyToDoWithTitleUseCase
 ) : BaseViewModel<ActiveGatheringPageState>(ActiveGatheringPageState()) {
 
     companion object {
@@ -43,7 +47,7 @@ class ActiveGatheringViewModel @Inject constructor(
             }
 
             getMyPostUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect {
-                inspectUiState(it, ::handlegetMyPostSuccess)
+                inspectUiState(it, ::handleGetMyPostSuccess)
             }
         }
     }
@@ -73,7 +77,7 @@ class ActiveGatheringViewModel @Inject constructor(
         )
     }
 
-    private fun handlegetMyPostSuccess(state: PlubingBoardListVo) {
+    private fun handleGetMyPostSuccess(state: PlubingBoardListVo) {
         val originList = uiState.value.detailList
         val mergedList = if (state.totalElements > MAX_POST_COUNT) {
             setListOverBoardMaxCount(state.content)
