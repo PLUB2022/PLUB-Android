@@ -14,12 +14,9 @@ import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,17 +39,21 @@ class HomeFragmentViewModel @Inject constructor(
     fun fetchHomePageData() =
         viewModelScope.launch {
             pageNumber = FIRST_PAGE
-            val categoriesState = async{ getCategoriesUseCase(Unit) }
-            val myHobbiesState = async { getMyInterestUseCase(Unit) }
-            val recommendationGatheringState = async { getRecommendationGatheringUsecase(pageNumber) }
-            categoriesState.await().collect{
-                inspectUiState(it, ::handleGetCategoriesSuccess)
+            val jobCategories: Job = launch {
+                getCategoriesUseCase(Unit).collect { state ->
+                    inspectUiState(state, ::handleGetCategoriesSuccess)
+                }
             }
-            myHobbiesState.await().collect{
-                inspectUiState(it, ::handleGetMyInterestSuccess)
+
+            val jobMyInterest: Job = launch {
+                getMyInterestUseCase(Unit).collect { state ->
+                    inspectUiState(state, ::handleGetMyInterestSuccess)
+                }
             }
-            recommendationGatheringState.await().collect{
-                inspectUiState(it, ::handleGetRecommendGatheringSuccess)
+
+            joinAll(jobCategories, jobMyInterest)
+            getRecommendationGatheringUsecase(pageNumber).collect { state ->
+                inspectUiState(state, ::handleGetRecommendGatheringSuccess)
             }
         }
 
@@ -71,13 +72,13 @@ class HomeFragmentViewModel @Inject constructor(
     }
 
     private fun getTitleViewList(): List<HomePlubListVo> {
-        return arrayListOf(
+        return listOf(
             HomePlubListVo(viewType = HomeViewType.TITLE_VIEW)
         )
     }
 
     private fun getCategoryViewList(list: List<CategoriesDataResponseVo>): List<HomePlubListVo> {
-        return arrayListOf(
+        return listOf(
             HomePlubListVo(
                 viewType = HomeViewType.CATEGORY_VIEW,
                 categoryList = list

@@ -67,7 +67,6 @@ class MyPageFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.collect {
-                    setProfileImage(it.profileImage)
                     gatheringAdapter.submitList(it.myPageGatheringList)
                 }
             }
@@ -77,14 +76,6 @@ class MyPageFragment :
                     inspectEvent(it as MyPageEvent)
                 }
             }
-        }
-    }
-
-    private fun setProfileImage(image: String?){
-        binding.apply {
-            if (image == "" || image == null) imageViewProfile.setImageResource(R.drawable.iv_default_profile)
-            else GlideUtil.loadImage(root.context, image, imageViewProfile)
-            imageViewProfile.clipToOutline = true
         }
     }
 
