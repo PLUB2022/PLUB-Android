@@ -1,12 +1,14 @@
 package com.plub.domain.model.vo.myGathering
 
 import com.plub.domain.model.DomainModel
+import com.plub.domain.model.enums.MyGatheringsViewType
 
 data class MyGatheringsResponseVo(
     val plubbings: List<MyGatheringResponseVo> = emptyList()
 ): DomainModel
 
 data class MyGatheringResponseVo(
+    val viewType: MyGatheringsViewType = MyGatheringsViewType.CONTENT,
     val plubbingId: Int = -1,
     val name: String = "",
     val goal: String = "",
