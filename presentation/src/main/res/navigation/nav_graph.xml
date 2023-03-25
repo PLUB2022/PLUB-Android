@@ -293,7 +293,7 @@
 
     <fragment
         android:id="@+id/menu_navigation_gathering"
-        android:name="com.plub.presentation.ui.main.gathering.MyGatheringFragment"
+        android:name="com.plub.presentation.ui.main.gathering.my.MyGatheringFragment"
         android:label="fragment_gathering"
         tools:layout="@layout/fragment_my_gathering" />
     <fragment
