@@ -293,9 +293,9 @@
 
     <fragment
         android:id="@+id/menu_navigation_gathering"
-        android:name="com.plub.presentation.ui.main.gathering.GatheringFragment"
+        android:name="com.plub.presentation.ui.main.gathering.MyGatheringFragment"
         android:label="fragment_gathering"
-        tools:layout="@layout/fragment_gathering" />
+        tools:layout="@layout/fragment_my_gathering" />
     <fragment
         android:id="@+id/menu_navigation_noti"
         android:name="com.plub.presentation.ui.main.noti.NotiFragment"
