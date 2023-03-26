@@ -322,5 +322,7 @@
     <string name="apply_dialog_extra_explain">호스트가 수락하면 함께 활동할 수 있습니다.\n알림으로 알려드릴게요!</string>
     <string name="bottom_sheet_not_attend">🙅🏻 불참합니다</string>
     <string name="bottom_sheet_attend">🙆🏻 참여합니다!</string>
+    <string name="my_gathering_participate_new_gathering">새로운 모임에\n참여해 보세요!</string>
+    <string name="my_gathering_create_new_gathering">새로운 모임을\n만들어 보세요!</string>
 
 </resources>
