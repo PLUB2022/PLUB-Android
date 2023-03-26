@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.myGathering.MyGatheringResponseVo
-import com.plub.presentation.databinding.LayoutRecyclerMyGatheringBinding
+import com.plub.presentation.databinding.LayoutRecyclerMyGatheringContentBinding
 
 class MyGatheringsAdapter : ListAdapter<MyGatheringResponseVo, MyGatheringsAdapter.MyGatheringsViewHolder>(DiffCallback) {
 
@@ -23,7 +23,7 @@ class MyGatheringsAdapter : ListAdapter<MyGatheringResponseVo, MyGatheringsAdapt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyGatheringsViewHolder {
-        val binding = LayoutRecyclerMyGatheringBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = LayoutRecyclerMyGatheringContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyGatheringsViewHolder(binding)
     }
 
@@ -31,7 +31,7 @@ class MyGatheringsAdapter : ListAdapter<MyGatheringResponseVo, MyGatheringsAdapt
         holder.bind(getItem(position))
     }
 
-    inner class MyGatheringsViewHolder(private val binding: LayoutRecyclerMyGatheringBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MyGatheringsViewHolder(private val binding: LayoutRecyclerMyGatheringContentBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MyGatheringResponseVo) {
 
             binding.executePendingBindings()
