@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.profile.viewHolder.detail.wait
+package com.plub.presentation.ui.main.profile.waiting.viewHolder
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager

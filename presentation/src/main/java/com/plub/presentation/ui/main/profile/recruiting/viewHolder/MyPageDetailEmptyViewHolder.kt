@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.profile.viewHolder.detail.recruiting
+package com.plub.presentation.ui.main.profile.recruiting.viewHolder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.databinding.IncludeItemMyPageNoOtherApplicationsBinding

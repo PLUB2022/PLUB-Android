@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.profile.viewHolder.detail.active
+package com.plub.presentation.ui.main.profile.active.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.databinding.IncludeItemMyPageActiveMyPostBinding
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
-import com.plub.presentation.ui.main.profile.active.adapter.ActiveGatheringParentAdapter
 
 class MyPageDetailMyPostViewHolder(
     private val binding: IncludeItemMyPageActiveMyPostBinding,

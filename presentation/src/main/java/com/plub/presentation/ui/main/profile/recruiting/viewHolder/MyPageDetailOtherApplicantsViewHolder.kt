@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.profile.viewHolder.detail.recruiting
+package com.plub.presentation.ui.main.profile.recruiting.viewHolder
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager

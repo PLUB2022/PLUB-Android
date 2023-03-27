@@ -63,7 +63,7 @@ class ActiveGatheringViewModel @Inject constructor(
     }
 
     private fun getMergedTopList(view : MyPageDetailTitleVo) : List<MyPageActiveDetailVo>{
-        return arrayListOf(
+        return listOf(
             MyPageActiveDetailVo(
                 viewType = MyPageActiveDetailViewType.TOP,
                 title = view
@@ -92,7 +92,7 @@ class ActiveGatheringViewModel @Inject constructor(
             contentList.add(list[index])
         }
 
-        return arrayListOf(
+        return listOf(
             MyPageActiveDetailVo(
                 viewType = MyPageActiveDetailViewType.MY_TODO,
                 todoList = contentList
@@ -101,7 +101,7 @@ class ActiveGatheringViewModel @Inject constructor(
     }
 
     private fun setListUnderToDoMaxCount(list: List<TodoTimelineVo>): List<MyPageActiveDetailVo> {
-        return arrayListOf(
+        return listOf(
             MyPageActiveDetailVo(
                 viewType = MyPageActiveDetailViewType.MY_TODO,
                 todoList = list
@@ -130,7 +130,7 @@ class ActiveGatheringViewModel @Inject constructor(
             contentList.add(list[index])
         }
 
-        return arrayListOf(
+        return listOf(
             MyPageActiveDetailVo(
                 viewType = MyPageActiveDetailViewType.MY_POST,
                 postList = contentList
@@ -139,7 +139,7 @@ class ActiveGatheringViewModel @Inject constructor(
     }
 
     private fun setListUnderBoardMaxCount(list: List<PlubingBoardVo>): List<MyPageActiveDetailVo> {
-        return arrayListOf(
+        return listOf(
             MyPageActiveDetailVo(
                 viewType = MyPageActiveDetailViewType.MY_POST,
                 postList = list
@@ -153,10 +153,6 @@ class ActiveGatheringViewModel @Inject constructor(
                 detailList = list
             )
         }
-    }
-
-    fun getMyToDo(){
-        //TODO 투두 리스트 가져오기
     }
 
     fun onClickBoard(feedId: Int) {

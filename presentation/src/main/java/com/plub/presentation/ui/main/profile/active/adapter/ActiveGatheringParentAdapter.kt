@@ -9,8 +9,6 @@ import com.plub.domain.model.enums.MyPageActiveDetailViewType
 import com.plub.domain.model.vo.myPage.MyPageActiveDetailVo
 import com.plub.presentation.databinding.*
 import com.plub.presentation.ui.main.profile.viewHolder.detail.MyPageDetailTopViewHolder
-import com.plub.presentation.ui.main.profile.viewHolder.detail.active.MyPageDetailMyPostViewHolder
-import com.plub.presentation.ui.main.profile.viewHolder.detail.active.MyPageDetailMyTodoViewHolder
 
 class ActiveGatheringParentAdapter(private val listener : ActiveGatheringDelegate): ListAdapter<MyPageActiveDetailVo, RecyclerView.ViewHolder>(
     MyPageActiveDetailDiffCallback()

@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.profile.viewHolder.detail.wait
+package com.plub.presentation.ui.main.profile.waiting.viewHolder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.databinding.IncludeItemMyPageMyApplicationBinding
