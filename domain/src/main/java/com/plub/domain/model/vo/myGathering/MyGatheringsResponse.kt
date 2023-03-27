@@ -8,7 +8,7 @@ data class MyGatheringsResponseVo(
 ): DomainModel
 
 data class MyGatheringResponseVo(
-    val viewType: MyGatheringsViewType = MyGatheringsViewType.CONTENT,
+    val viewType: MyGatheringsViewType = MyGatheringsViewType.MY_GATHERING_CONTENT,
     val plubbingId: Int = -1,
     val name: String = "",
     val goal: String = "",
