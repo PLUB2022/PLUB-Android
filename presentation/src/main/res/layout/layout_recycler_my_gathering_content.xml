@@ -11,6 +11,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="433dp"
+        android:layout_marginHorizontal="8dp"
         android:paddingBottom="16dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="0dp">
@@ -106,10 +107,9 @@
                 android:id="@+id/view_shadow"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/color_b3_faf9fe"/>
+                android:background="@color/color_b3_faf9fe" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     </androidx.cardview.widget.CardView>

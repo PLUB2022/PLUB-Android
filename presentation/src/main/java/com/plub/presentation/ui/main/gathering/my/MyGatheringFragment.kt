@@ -7,6 +7,7 @@ import com.plub.domain.model.enums.MyGatheringsViewType
 import com.plub.domain.model.vo.myGathering.MyGatheringResponseVo
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyGatheringBinding
+import com.plub.presentation.ui.common.layoutManager.MyGatheringLinearLayoutManager
 import com.plub.presentation.ui.main.gathering.my.adapter.MyGatheringsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,9 +33,7 @@ class MyGatheringFragment :
 
             recyclerView.apply {
                 adapter = recyclerViewAdapter
-                layoutManager = LinearLayoutManager(context).apply {
-                    orientation = LinearLayoutManager.HORIZONTAL
-                }
+                layoutManager = MyGatheringLinearLayoutManager(context)
 
                 val snapHelper = LinearSnapHelper()
                 snapHelper.attachToRecyclerView(this)
