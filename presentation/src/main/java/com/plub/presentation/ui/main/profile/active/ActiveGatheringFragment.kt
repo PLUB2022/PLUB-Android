@@ -6,18 +6,20 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageActiveGatheringBinding
+import com.plub.presentation.parcelableVo.ParseTodoItemVo
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
-import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
+import com.plub.presentation.ui.common.dialog.todo.TodoCheckProofDialog
 import com.plub.presentation.ui.main.profile.active.adapter.ActiveGatheringParentAdapter
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.io.File
 
 @AndroidEntryPoint
 class ActiveGatheringFragment :
-    BaseFragment<FragmentMyPageActiveGatheringBinding, ActiveGatheringPageState, ActiveGatheringViewModel>(
+    BaseTestFragment<FragmentMyPageActiveGatheringBinding, ActiveGatheringPageState, ActiveGatheringViewModel>(
         FragmentMyPageActiveGatheringBinding::inflate
     ) {
 
@@ -38,7 +40,7 @@ class ActiveGatheringFragment :
             }
 
             override fun onClickTodoCheck(timelineId: Int, vo: TodoItemVo) {
-                //TODO("Not yet implemented")
+                viewModel.onClickTodoCheck(timelineId, vo)
             }
 
             override fun onClickTodoMenu(vo: TodoTimelineVo) {
@@ -73,8 +75,8 @@ class ActiveGatheringFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    activeGatheringParentAdapter.submitList(it.detailList)
+                viewModel.uiState.detailList.collect {
+                    activeGatheringParentAdapter.submitList(it)
                 }
             }
 
@@ -92,6 +94,7 @@ class ActiveGatheringFragment :
             is ActiveGatheringEvent.GoToPlubbingMain -> goToPlubbingMain(event.plubbingId)
             is ActiveGatheringEvent.GoToBack -> findNavController().popBackStack()
             is ActiveGatheringEvent.GoToDetailTodo -> goToDetailTodo(event.timelineId)
+            is ActiveGatheringEvent.ShowTodoProofDialog -> showTodoProofDialog(event.timelineId, event.parseTodoItemVo)
         }
     }
 
@@ -108,5 +111,15 @@ class ActiveGatheringFragment :
     private fun goToDetailTodo(timelineId: Int) {
         val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToPlubingTodoDetail(timelineId)
         findNavController().navigate(action)
+    }
+
+    private fun showTodoProofDialog(timelineId: Int, parseTodoItemVo: ParseTodoItemVo) {
+        TodoCheckProofDialog.newInstance(parseTodoItemVo, object: TodoCheckProofDialog.Delegate {
+            override fun onClickComplete(todoId: Int, proofFile: File) {
+                viewModel.onClickProofComplete(timelineId, todoId, proofFile)
+            }
+
+            override fun onClickLateProof(todoId: Int) {}
+        }).show(parentFragmentManager, "")
     }
 }
