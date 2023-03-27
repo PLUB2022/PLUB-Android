@@ -1,44 +1,52 @@
 package com.plub.presentation.ui.main.profile.active.adapter
 
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.databinding.IncludeItemMyPageActiveMyTodoBinding
+import com.plub.presentation.ui.main.plubing.todo.adapter.PlubingTodoAdapter
+import com.plub.presentation.ui.main.plubing.todo.adapter.TodoItemAdapter
 
 class MyPageDetailMyTodoViewHolder(
     private val binding: IncludeItemMyPageActiveMyTodoBinding,
+    private val listener : ActiveGatheringParentAdapter.ActiveGatheringDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
-//    private val boardListAdapter: PlubingBoardAdapter by lazy {
-//        PlubingBoardAdapter(object : PlubingBoardAdapter.Delegate {
-//            override fun onClickClipBoard() {
-//
-//            }
-//
-//            override fun onClickBoard(feedId: Int) {
-//                listener.onClickBoard(feedId)
-//            }
-//
-//            override fun onLongClickBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
-//            }
-//
-//            override val clipBoardList: List<PlubingBoardVo>
-//                get() = emptyList()
-//        })
-//    }
+    private val todoListAdapter: MyPageTodoTimeLineAdapter by lazy {
+        MyPageTodoTimeLineAdapter(object : MyPageTodoTimeLineAdapter.MyPageTodoDelegate {
+
+            override fun onClickTimeline(timelineId: Int) {
+                listener.onClickTimeline(timelineId)
+            }
+
+            override fun onClickTodoChecked(timelineId:Int, vo: TodoItemVo) {
+                listener.onClickTodoCheck(timelineId, vo)
+            }
+
+            override fun onClickTodoMenu(vo: TodoTimelineVo) {
+                listener.onClickTodoMenu(vo)
+            }
+
+            override fun onClickTodoLike(timelineId: Int) {
+                listener.onClickTodoLike(timelineId)
+            }
+        })
+    }
 
     init {
-//        binding.apply {
-//            recyclerViewPostList.apply {
-//                layoutManager = LinearLayoutManager(context)
-//                adapter = boardListAdapter
-//            }
-//        }
+        binding.apply {
+            recyclerViewTodoList.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = todoListAdapter
+            }
+        }
     }
 
     fun bind(item : List<TodoTimelineVo>) {
         if (item.isEmpty()) showEmpty()
-        //boardListAdapter.submitList(item)
+        todoListAdapter.submitList(item)
     }
 
     private fun showEmpty(){

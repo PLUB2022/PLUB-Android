@@ -83,6 +83,7 @@
                 android:layout_height="wrap_content"/>
             
             <ImageView
+                android:id="@+id/image_view_menu_icon"
                 android:src="@drawable/ic_menu_horizontal_black"
                 android:scaleType="center"
                 android:layout_marginTop="10dp"
@@ -93,6 +94,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
             
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_todo_item"
                 app:layout_constraintTop_toBottomOf="@id/text_view_todo_date"
                 android:layout_marginTop="15.5dp"
                 app:layout_constraintStart_toStartOf="parent"

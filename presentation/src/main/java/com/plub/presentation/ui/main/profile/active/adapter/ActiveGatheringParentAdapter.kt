@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.MyPageActiveDetailViewType
 import com.plub.domain.model.vo.myPage.MyPageActiveDetailVo
+import com.plub.domain.model.vo.todo.TodoItemVo
+import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.databinding.*
 import com.plub.presentation.ui.main.profile.viewHolder.detail.MyPageDetailTopViewHolder
 
@@ -16,6 +18,10 @@ class ActiveGatheringParentAdapter(private val listener : ActiveGatheringDelegat
 
     interface ActiveGatheringDelegate{
         fun onClickBoard(feedId: Int)
+        fun onClickTimeline(timelineId: Int)
+        fun onClickTodoCheck(timelineId:Int, vo: TodoItemVo)
+        fun onClickTodoMenu(vo: TodoTimelineVo)
+        fun onClickTodoLike(timelineId: Int)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -34,7 +40,7 @@ class ActiveGatheringParentAdapter(private val listener : ActiveGatheringDelegat
             }
             MyPageActiveDetailViewType.MY_TODO -> {
                 val binding = IncludeItemMyPageActiveMyTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailMyTodoViewHolder(binding)
+                return MyPageDetailMyTodoViewHolder(binding, listener)
             }
             MyPageActiveDetailViewType.MY_POST -> {
                 val binding = IncludeItemMyPageActiveMyPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
