@@ -418,6 +418,10 @@
         <action
             android:id="@+id/action_my_page_active_detail_to_plubbing_main"
             app:destination="@id/plubingMainFragment" />
+
+        <action
+            android:id="@+id/action_my_page_active_detail_to_plubing_todo_detail"
+            app:destination="@id/todoDetailFragment" />
     </fragment>
 
     <fragment

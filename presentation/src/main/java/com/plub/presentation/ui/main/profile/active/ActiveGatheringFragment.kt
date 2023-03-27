@@ -9,6 +9,7 @@ import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageActiveGatheringBinding
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
+import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
 import com.plub.presentation.ui.main.profile.active.adapter.ActiveGatheringParentAdapter
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +34,7 @@ class ActiveGatheringFragment :
             }
 
             override fun onClickTimeline(timelineId: Int) {
-                //TODO("Not yet implemented")
+                viewModel.onClickTimeline(timelineId)
             }
 
             override fun onClickTodoCheck(timelineId: Int, vo: TodoItemVo) {
@@ -90,6 +91,7 @@ class ActiveGatheringFragment :
             is ActiveGatheringEvent.GoToDetailBoard -> goToDetailBoard(event.feedId)
             is ActiveGatheringEvent.GoToPlubbingMain -> goToPlubbingMain(event.plubbingId)
             is ActiveGatheringEvent.GoToBack -> findNavController().popBackStack()
+            is ActiveGatheringEvent.GoToDetailTodo -> goToDetailTodo(event.timelineId)
         }
     }
 
@@ -100,6 +102,11 @@ class ActiveGatheringFragment :
 
     private fun goToPlubbingMain(plubbingId : Int){
         val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToPlubbingMain(plubbingId)
+        findNavController().navigate(action)
+    }
+
+    private fun goToDetailTodo(timelineId: Int) {
+        val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToPlubingTodoDetail(timelineId)
         findNavController().navigate(action)
     }
 }

@@ -14,6 +14,7 @@ import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.domain.usecase.GetMyPostUseCase
 import com.plub.domain.usecase.GetMyToDoWithTitleUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.ui.main.plubing.todo.PlubingTodoEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -167,4 +168,7 @@ class ActiveGatheringViewModel @Inject constructor(
         emitEventFlow(ActiveGatheringEvent.GoToBack)
     }
 
+    fun onClickTimeline(timelineId: Int) {
+        emitEventFlow(ActiveGatheringEvent.GoToDetailTodo(timelineId))
+    }
 }

@@ -6,4 +6,5 @@ sealed class ActiveGatheringEvent : Event{
     object GoToBack : ActiveGatheringEvent()
     data class GoToDetailBoard(val feedId:Int) : ActiveGatheringEvent()
     data class GoToPlubbingMain(val plubbingId : Int) : ActiveGatheringEvent()
+    data class GoToDetailTodo(val timelineId : Int) : ActiveGatheringEvent()
 }
