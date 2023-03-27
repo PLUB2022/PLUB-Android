@@ -168,17 +168,18 @@ class MyPageSettingViewModel @Inject constructor(
 
     private fun uploadProfileFile(file: File) {
         viewModelScope.launch {
-            if(uiState.value.profileImage == "" || uiState.value.profileImage == null){
+            if(uiState.value.profileImage.isNullOrEmpty())
                 postUploadFileUseCase(UploadFileRequestVo(UploadFileType.PROFILE, file)).collect{
                     inspectUiState(it, ::handleUploadImageSuccess)
                 }
-            }
-            else{
-                postChangeFileUseCase(ChangeFileRequestVo(UploadFileType.PROFILE,
-                    uiState.value.profileImage!!, file)).collect{
-                    inspectUiState(it, ::handleUploadImageSuccess)
+            else
+                uiState.value.profileImage?.let{
+                    postChangeFileUseCase(ChangeFileRequestVo(UploadFileType.PROFILE,
+                        it, file)).collect{
+                        inspectUiState(it, ::handleUploadImageSuccess)
+                    }
                 }
-            }
+
         }
     }
 

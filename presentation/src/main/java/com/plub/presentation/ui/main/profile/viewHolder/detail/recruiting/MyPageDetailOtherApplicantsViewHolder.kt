@@ -35,7 +35,6 @@ class MyPageDetailOtherApplicantsViewHolder(
             imageViewArrow.onThrottleClick {
                 constraintLayoutRecycler.visibility = if(isExpand) View.GONE else View.VISIBLE
                 isExpand = !isExpand
-                isExpand = !isExpand
             }
 
             buttonApprove.onThrottleClick {

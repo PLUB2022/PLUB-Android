@@ -59,8 +59,10 @@
                 android:layout_height="120dp"
                 android:layout_marginTop="49dp"
                 android:scaleType="centerCrop"
+                android:clipToOutline="true"
+                app:defaultImage="@{@drawable/iv_default_profile}"
+                app:imageUrl="@{vm.uiState.profileImage}"
                 android:background="@drawable/bg_circle_filled_e4e4e4"
-                android:src="@drawable/iv_default_profile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constraint_layout_top" />
