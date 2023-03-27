@@ -28,7 +28,7 @@ class MyGatheringsAdapter(
                 oldItem: MyGatheringResponseVo,
                 newItem: MyGatheringResponseVo
             ): Boolean {
-                return oldItem.plubbingId == newItem.plubbingId
+                return oldItem.plubbingId == newItem.plubbingId && oldItem.viewType == newItem.viewType
             }
 
             override fun areContentsTheSame(
