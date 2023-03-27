@@ -63,10 +63,14 @@
     <string name="word_middle_slash">%d/%d</string>
     <string name="word_save">저장</string>
     <string name="word_line">|</string>
+    <string name="word_line_space">%s | %s</string>
     <string name="word_location">장소</string>
     <string name="word_alarm">알림</string>
     <string name="word_memo">메모</string>
     <string name="word_middle_hyphen">%s - %s</string>
+    <string name="word_every_week">매주 %s</string>
+    <string name="word_every_week_day">매주 %s요일</string>
+    <string name="word_every_day">매일</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>
