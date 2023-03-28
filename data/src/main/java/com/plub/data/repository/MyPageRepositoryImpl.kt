@@ -2,8 +2,7 @@ package com.plub.data.repository
 
 import com.plub.data.api.MyPageApi
 import com.plub.data.base.BaseRepository
-import com.plub.data.mapper.PlubingBoardListResponseMapper
-import com.plub.data.mapper.PlubingMainResponseMapper
+import com.plub.data.mapper.myPageMapper.MyBoardMapper
 import com.plub.data.mapper.myPageMapper.MyGatheringMapper
 import com.plub.data.mapper.myPageMapper.MyPageMyApplicationMapper
 import com.plub.data.mapper.myPageMapper.MyToDoWithTileMapper
@@ -33,6 +32,6 @@ class MyPageRepositoryImpl @Inject constructor(private val myPageApi: MyPageApi)
     }
 
     override suspend fun getMyPost(request: MyPageActiveRequestVo): Flow<UiState<PlubingBoardListVo>> {
-        return apiLaunch(myPageApi.getMyPost(request.plubbingId, request.cursorId), PlubingBoardListResponseMapper)
+        return apiLaunch(myPageApi.getMyPost(request.plubbingId, request.cursorId), MyBoardMapper)
     }
 }
