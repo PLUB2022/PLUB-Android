@@ -30,6 +30,7 @@ class ActiveGatheringViewModel @Inject constructor(
     private val postUploadFileUseCase: PostUploadFileUseCase,
     private val postTodoProofUseCase: PostTodoProofUseCase,
     private val putTodoCancelUseCase: PutTodoCancelUseCase,
+    private val putTodoLikeToggleUseCase: PutTodoLikeToggleUseCase,
 ) : BaseTestViewModel<ActiveGatheringPageState>() {
 
     private val detailListStateFlow: MutableStateFlow<List<MyPageActiveDetailVo>> = MutableStateFlow(emptyList())
@@ -347,4 +348,31 @@ class ActiveGatheringViewModel @Inject constructor(
         emitEventFlow(ActiveGatheringEvent.GoToPlannerTodo(date))
     }
 
+    fun onClickTodoLike(timelineId: Int) {
+        putTodoLikeToggle(timelineId) {
+            val replacedList = getTimelineListItemReplaced(timelineId, it)
+            updateDetailList(replacedList)
+        }
+    }
+
+    private fun putTodoLikeToggle(timelineId: Int, onSuccess: (TodoTimelineVo) -> Unit) {
+        val request = TodoRequestVo(plubingId, timelineId = timelineId)
+        viewModelScope.launch {
+            putTodoLikeToggleUseCase(request).collect { state ->
+                inspectUiState(state, onSuccess)
+            }
+        }
+    }
+
+    private fun getTimelineListItemReplaced(timelineId: Int, timelineVo: TodoTimelineVo): List<MyPageActiveDetailVo> {
+        return detailListStateFlow.value.toMutableList().apply {
+            val todoListPosition = indexOfFirst { it.viewType == MyPageActiveDetailViewType.MY_TODO }
+            val changedLikeVo = this[todoListPosition].copy(
+                todoList = this[todoListPosition].todoList.map {
+                    if(it.timelineId == timelineId) timelineVo else it.copy()
+                }
+            )
+            set(todoListPosition, changedLikeVo)
+        }
+    }
 }

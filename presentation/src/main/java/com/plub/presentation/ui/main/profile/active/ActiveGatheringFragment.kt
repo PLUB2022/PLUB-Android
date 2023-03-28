@@ -50,7 +50,7 @@ class ActiveGatheringFragment :
             }
 
             override fun onClickTodoLike(timelineId: Int) {
-                //TODO("Not yet implemented")
+                viewModel.onClickTodoLike(timelineId)
             }
         })
     }
