@@ -2,6 +2,7 @@ package com.plub.presentation.ui.main.profile.active.adapter
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.enums.TodoItemViewType
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.R
@@ -66,10 +67,13 @@ class MyPageTodoTimeLineViewHolder(
         vo = item
         binding.apply {
             val likeIcon = if(item.isLike) R.drawable.ic_heart_no_padding else R.drawable.ic_empty_heart
+            val todoList = item.todoList.map {
+                it.copy(viewType = TodoItemViewType.PROFILE)
+            }
             imageViewLikeIcon.setImageResource(likeIcon)
             textViewTodoDate.text = item.date
             textViewLikeCount.text = item.totalLikes.toString()
-            todoItemAdapter.submitList(item.todoList)
+            todoItemAdapter.submitList(todoList)
         }
     }
 }
