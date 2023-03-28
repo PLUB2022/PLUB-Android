@@ -214,13 +214,17 @@ class ActiveGatheringViewModel @Inject constructor(
     private fun getReplaceItemTodoRebasedList(timelineId: Int, vo: TodoItemVo, isTop: Boolean): List<MyPageActiveDetailVo> {
         return detailListStateFlow.value.toMutableList().apply {
             val todoListPosition = indexOfFirst { it.viewType == MyPageActiveDetailViewType.MY_TODO }
-            this[todoListPosition].todoList.toMutableList().apply {
+            val rebasedTodoList = this[todoListPosition].todoList.toMutableList().apply {
                 val timelinePosition = indexOfFirst { it.timelineId == timelineId }
                 val timelineVo = get(timelinePosition)
                 val rebasedTodoList = getTodoItemListRebaseItem(timelineVo.todoList,vo, isTop)
                 val rebasedTimelineVo = timelineVo.copy(todoList = rebasedTodoList)
                 set(timelinePosition, rebasedTimelineVo)
             }
+            val changedTodoList = this[todoListPosition].copy(
+                todoList = rebasedTodoList
+            )
+            set(todoListPosition, changedTodoList)
         }
     }
 
@@ -291,13 +295,17 @@ class ActiveGatheringViewModel @Inject constructor(
     private fun getTodoListProofChanged(timelineId: Int, todoId: Int): List<MyPageActiveDetailVo> {
         return detailListStateFlow.value.toMutableList().apply {
             val todoListPosition = indexOfFirst { it.viewType == MyPageActiveDetailViewType.MY_TODO }
-            this[todoListPosition].todoList.toMutableList().apply {
+            val rebasedProofList = this[todoListPosition].todoList.toMutableList().apply {
                 val timelinePosition = indexOfFirst { it.timelineId == timelineId }
                 val timelineVo = get(timelinePosition)
                 val proofChangedList = getTodoItemListProofChanged(timelineVo.todoList, todoId)
                 val proofChangedTimelineVo = timelineVo.copy(todoList = proofChangedList)
                 this[timelinePosition] = proofChangedTimelineVo
             }
+            val changedProofList = this[todoListPosition].copy(
+                todoList = rebasedProofList
+            )
+            set(todoListPosition, changedProofList)
         }
     }
 
