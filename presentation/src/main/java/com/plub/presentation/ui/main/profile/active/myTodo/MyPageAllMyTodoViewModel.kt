@@ -37,4 +37,8 @@ class MyPageAllMyTodoViewModel @Inject constructor(
         }
     }
 
+    fun goToBack(){
+        emitEventFlow(MyPageAllMyTodoEvent.GoToBack)
+    }
+
 }

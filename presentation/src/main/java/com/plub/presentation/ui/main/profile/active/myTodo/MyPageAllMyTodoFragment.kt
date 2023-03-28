@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.profile.active.myTodo
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
@@ -15,7 +16,6 @@ class MyPageAllMyTodoFragment :
     BaseFragment<FragmentMyPageAllMyTodoBinding, MyPageAllMyTodoState, MyPageAllMyTodoViewModel>(
         FragmentMyPageAllMyTodoBinding::inflate
     ) {
-
 
     override val viewModel: MyPageAllMyTodoViewModel by viewModels()
 
@@ -64,9 +64,15 @@ class MyPageAllMyTodoFragment :
 
             launch {
                 viewModel.eventFlow.collect{
-
+                    inspectEvent(it as MyPageAllMyTodoEvent)
                 }
             }
+        }
+    }
+
+    private fun inspectEvent(event : MyPageAllMyTodoEvent){
+        when(event){
+            is MyPageAllMyTodoEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 }
