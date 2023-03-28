@@ -24,6 +24,8 @@ class ActiveGatheringParentAdapter(private val listener : ActiveGatheringDelegat
         fun onClickTodoLike(timelineId: Int)
         fun onClickEmptyBoard()
         fun onClickEmptyTodo()
+        fun onClickAllMyBoard()
+        fun onClickAllMyTodo()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

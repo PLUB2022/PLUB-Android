@@ -6,6 +6,8 @@ import com.plub.presentation.parcelableVo.ParseTodoItemVo
 import com.plub.presentation.ui.Event
 
 sealed class ActiveGatheringEvent : Event{
+    object GoToAllMyBoard : ActiveGatheringEvent()
+    object GoToAllMyTodo : ActiveGatheringEvent()
     object GoToWriteBoard : ActiveGatheringEvent()
     object GoToBack : ActiveGatheringEvent()
     data class GoToPlannerTodo(val date: String) : ActiveGatheringEvent()

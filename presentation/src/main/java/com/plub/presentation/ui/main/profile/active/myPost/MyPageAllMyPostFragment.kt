@@ -12,6 +12,7 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageAllMyPostBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
+import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -20,8 +21,6 @@ class MyPageAllMyPostFragment :
     BaseFragment<FragmentMyPageAllMyPostBinding, MyPageAllMyPostState, MyPageAllMyPostViewModel>(
         FragmentMyPageAllMyPostBinding::inflate
     ) {
-
-    private val myPageAllMyPostFragmentArgs : MyPageAllMyPostFragmentArgs by navArgs()
 
     private val boardListAdapter: PlubingBoardAdapter by lazy {
         PlubingBoardAdapter(object : PlubingBoardAdapter.Delegate {
@@ -63,7 +62,7 @@ class MyPageAllMyPostFragment :
                 })
             }
         }
-        viewModel.setPlubId(myPageAllMyPostFragmentArgs.plubbingId)
+        viewModel.setPlubId(PlubingInfo.info.plubingId)
         viewModel.onFetchBoardList()
     }
 
@@ -117,8 +116,7 @@ class MyPageAllMyPostFragment :
     }
 
     private fun goToPinBoard() {
-//        val action = PlubingMainFragmentDirections.actionPlubingMainToBoardPin()
-//        findNavController().navigate(action)
+
     }
 
     private fun scrollToPosition(position:Int) {

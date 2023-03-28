@@ -41,6 +41,10 @@ class MyPageDetailMyPostViewHolder(
             constraintLayoutEmptyPost.onThrottleClick {
                 listener.onClickEmptyBoard()
             }
+
+            textViewSeeAll.onThrottleClick {
+                listener.onClickAllMyBoard()
+            }
         }
     }
 

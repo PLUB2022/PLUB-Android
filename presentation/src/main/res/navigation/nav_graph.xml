@@ -438,10 +438,6 @@
         android:label="myPageAllMyGathering"
         tools:layout="@layout/fragment_my_page_all_my_post" >
 
-        <argument
-            android:name="plubbingId"
-            app:argType="integer" />
-
         <action
             android:id="@+id/action_my_page_all_my_post_to_plubing_board_detail"
             app:destination="@id/plubingBoardDetailFragment" />

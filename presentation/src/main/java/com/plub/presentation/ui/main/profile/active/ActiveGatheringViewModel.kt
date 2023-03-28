@@ -379,4 +379,12 @@ class ActiveGatheringViewModel @Inject constructor(
     fun goToWriteBoard(){
         emitEventFlow(ActiveGatheringEvent.GoToWriteBoard)
     }
+
+    fun goToAllMyBoard(){
+        emitEventFlow(ActiveGatheringEvent.GoToAllMyBoard)
+    }
+
+    fun goToAllMyTodo(){
+        emitEventFlow(ActiveGatheringEvent.GoToAllMyTodo)
+    }
 }

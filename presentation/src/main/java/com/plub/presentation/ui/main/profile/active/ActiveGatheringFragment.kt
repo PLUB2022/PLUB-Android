@@ -62,6 +62,14 @@ class ActiveGatheringFragment :
             override fun onClickEmptyTodo() {
                 viewModel.goToTodoPlanner("")
             }
+
+            override fun onClickAllMyBoard() {
+                viewModel.goToAllMyBoard()
+            }
+
+            override fun onClickAllMyTodo() {
+                viewModel.goToAllMyTodo()
+            }
         })
     }
 
@@ -110,6 +118,8 @@ class ActiveGatheringFragment :
             is ActiveGatheringEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.todoTimelineVo, event.menuType)
             is ActiveGatheringEvent.GoToPlannerTodo -> goToPlanner(event.date)
             is ActiveGatheringEvent.GoToWriteBoard -> goToWriteBoard()
+            is ActiveGatheringEvent.GoToAllMyBoard -> goToAllMyBoard()
+            is ActiveGatheringEvent.GoToAllMyTodo -> goToAllMyToDo()
         }
     }
 
@@ -152,5 +162,14 @@ class ActiveGatheringFragment :
     private fun goToWriteBoard(){
         val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToPlubingBoardWrite(writeType = PlubingBoardWriteType.CREATE)
         findNavController().navigate(action)
+    }
+
+    private fun goToAllMyBoard(){
+        val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToAllMyPost()
+        findNavController().navigate(action)
+    }
+
+    private fun goToAllMyToDo(){
+
     }
 }
