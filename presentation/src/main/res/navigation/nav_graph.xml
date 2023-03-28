@@ -422,6 +422,10 @@
         <action
             android:id="@+id/action_my_page_active_detail_to_plubing_todo_detail"
             app:destination="@id/todoDetailFragment" />
+
+        <action
+            android:id="@+id/action_my_page_active_detail_to_plubing_todo_planner"
+            app:destination="@id/todoPlannerFragment" />
     </fragment>
 
     <fragment

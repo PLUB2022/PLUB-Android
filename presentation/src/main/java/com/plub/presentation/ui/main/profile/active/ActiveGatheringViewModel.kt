@@ -1,9 +1,7 @@
 package com.plub.presentation.ui.main.profile.active
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.enums.MyPageActiveDetailViewType
-import com.plub.domain.model.enums.MyPageGatheringMyType
-import com.plub.domain.model.enums.UploadFileType
+import com.plub.domain.model.enums.*
 import com.plub.domain.model.vo.board.PlubingBoardListVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
@@ -15,6 +13,7 @@ import com.plub.domain.model.vo.todo.*
 import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParseTodoItemVo
+import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -68,6 +67,7 @@ class ActiveGatheringViewModel @Inject constructor(
 
     private fun handleGetMyToDoWithTitleSuccess(vo : MyPageToDoWithTitleVo){
         updateTopView(vo.titleVo)
+        updatePlubbingInfo(vo.titleVo)
         updateToDoView(vo.todoTimelineListVo)
     }
 
@@ -83,6 +83,18 @@ class ActiveGatheringViewModel @Inject constructor(
             MyPageActiveDetailVo(
                 viewType = MyPageActiveDetailViewType.TOP,
                 title = view
+            )
+        )
+    }
+
+    private fun updatePlubbingInfo(plubbingVo : MyPageDetailTitleVo){
+        PlubingInfo.updateInfo(
+            PlubingInfo.info.copy(
+                plubingId = plubbingVo.plubbingId,
+                name = plubbingVo.title,
+                placeName = plubbingVo.position,
+                time = plubbingVo.time,
+                days = plubbingVo.date
             )
         )
     }
@@ -315,4 +327,24 @@ class ActiveGatheringViewModel @Inject constructor(
             it.copy(isProof = isProofed)
         }
     }
+
+    fun onClickTodoMenu(vo: TodoTimelineVo) {
+        val menuType = when {
+            vo.isAuthor -> DialogMenuType.TODO_LIST_AUTHOR_TYPE
+            else -> DialogMenuType.TODO_LIST_COMMON_TYPE
+        }
+        emitEventFlow(ActiveGatheringEvent.ShowMenuBottomSheetDialog(vo, menuType))
+    }
+
+    fun onClickMenuItemType(item: DialogMenuItemType, todoTimelineVo: TodoTimelineVo) {
+        when (item) {
+            DialogMenuItemType.TODO_PLANNER -> goToTodoPlanner(todoTimelineVo.date)
+            else -> Unit
+        }
+    }
+
+    private fun goToTodoPlanner(date:String) {
+        emitEventFlow(ActiveGatheringEvent.GoToPlannerTodo(date))
+    }
+
 }
