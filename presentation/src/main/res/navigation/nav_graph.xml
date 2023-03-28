@@ -443,6 +443,14 @@
         android:name="com.plub.presentation.ui.main.profile.active.myTodo.MyPageAllMyTodoFragment"
         android:label="myPageAllMyTodo"
         tools:layout="@layout/fragment_my_page_all_my_todo" >
+
+        <action
+            android:id="@+id/action_my_page_all_my_todo_to_plubing_todo_detail"
+            app:destination="@id/todoDetailFragment" />
+
+        <action
+            android:id="@+id/action_my_page_all_my_todo_to_plubing_todo_planner"
+            app:destination="@id/todoPlannerFragment" />
     </fragment>
 
     <fragment
