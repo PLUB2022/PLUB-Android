@@ -170,6 +170,7 @@ class ActiveGatheringFragment :
     }
 
     private fun goToAllMyToDo(){
-
+        val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToAllMyTodo()
+        findNavController().navigate(action)
     }
 }

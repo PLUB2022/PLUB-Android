@@ -46,6 +46,10 @@ class MyPageDetailMyTodoViewHolder(
             constraintLayoutEmptyTodo.onThrottleClick {
                 listener.onClickEmptyTodo()
             }
+
+            textViewSeeAll.onThrottleClick {
+                listener.onClickAllMyTodo()
+            }
         }
     }
 
