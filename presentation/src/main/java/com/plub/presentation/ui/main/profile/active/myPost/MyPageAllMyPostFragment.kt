@@ -2,7 +2,6 @@ package com.plub.presentation.ui.main.profile.active.myPost
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
@@ -92,6 +91,7 @@ class MyPageAllMyPostFragment :
             is MyPageAllMyPostEvent.GoToReportBoard -> goToReport()
             is MyPageAllMyPostEvent.GoToPinBoard -> goToPinBoard()
             is MyPageAllMyPostEvent.ScrollToPosition -> scrollToPosition(event.position)
+            is MyPageAllMyPostEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 

@@ -172,4 +172,8 @@ class MyPageAllMyPostViewModel @Inject constructor(
         else uiState.value.boardList.lastOrNull()?.feedId ?: FIRST_CURSOR
     }
 
+    fun onClickBack(){
+        emitEventFlow(MyPageAllMyPostEvent.GoToBack)
+    }
+
 }
