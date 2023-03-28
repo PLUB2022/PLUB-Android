@@ -344,7 +344,7 @@ class ActiveGatheringViewModel @Inject constructor(
         }
     }
 
-    private fun goToTodoPlanner(date:String) {
+    fun goToTodoPlanner(date:String) {
         emitEventFlow(ActiveGatheringEvent.GoToPlannerTodo(date))
     }
 
@@ -374,5 +374,9 @@ class ActiveGatheringViewModel @Inject constructor(
             )
             set(todoListPosition, changedLikeVo)
         }
+    }
+
+    fun goToWriteBoard(){
+        emitEventFlow(ActiveGatheringEvent.GoToWriteBoard)
     }
 }

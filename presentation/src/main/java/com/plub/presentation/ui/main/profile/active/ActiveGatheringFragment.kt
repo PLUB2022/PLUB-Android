@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.DialogMenuType
+import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.base.BaseTestFragment
@@ -13,6 +14,7 @@ import com.plub.presentation.parcelableVo.ParseTodoItemVo
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.todo.TodoCheckProofDialog
+import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
 import com.plub.presentation.ui.main.profile.active.adapter.ActiveGatheringParentAdapter
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,6 +53,14 @@ class ActiveGatheringFragment :
 
             override fun onClickTodoLike(timelineId: Int) {
                 viewModel.onClickTodoLike(timelineId)
+            }
+
+            override fun onClickEmptyBoard() {
+                viewModel.goToWriteBoard()
+            }
+
+            override fun onClickEmptyTodo() {
+                viewModel.goToTodoPlanner("")
             }
         })
     }
@@ -99,6 +109,7 @@ class ActiveGatheringFragment :
             is ActiveGatheringEvent.ShowTodoProofDialog -> showTodoProofDialog(event.timelineId, event.parseTodoItemVo)
             is ActiveGatheringEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.todoTimelineVo, event.menuType)
             is ActiveGatheringEvent.GoToPlannerTodo -> goToPlanner(event.date)
+            is ActiveGatheringEvent.GoToWriteBoard -> goToWriteBoard()
         }
     }
 
@@ -135,6 +146,11 @@ class ActiveGatheringFragment :
 
     private fun goToPlanner(date:String) {
         val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToPlubingTodoPlanner(date)
+        findNavController().navigate(action)
+    }
+
+    private fun goToWriteBoard(){
+        val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToPlubingBoardWrite(writeType = PlubingBoardWriteType.CREATE)
         findNavController().navigate(action)
     }
 }

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.databinding.IncludeItemMyPageActiveMyPostBinding
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
+import com.plub.presentation.util.onThrottleClick
 
 class MyPageDetailMyPostViewHolder(
     private val binding: IncludeItemMyPageActiveMyPostBinding,
@@ -35,6 +36,10 @@ class MyPageDetailMyPostViewHolder(
             recyclerViewPostList.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = boardListAdapter
+            }
+
+            constraintLayoutEmptyPost.onThrottleClick {
+                listener.onClickEmptyBoard()
             }
         }
     }

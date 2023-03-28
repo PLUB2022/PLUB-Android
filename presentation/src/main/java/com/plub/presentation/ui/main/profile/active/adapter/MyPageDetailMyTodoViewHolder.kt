@@ -8,6 +8,7 @@ import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.databinding.IncludeItemMyPageActiveMyTodoBinding
 import com.plub.presentation.ui.main.plubing.todo.adapter.PlubingTodoAdapter
 import com.plub.presentation.ui.main.plubing.todo.adapter.TodoItemAdapter
+import com.plub.presentation.util.onThrottleClick
 
 class MyPageDetailMyTodoViewHolder(
     private val binding: IncludeItemMyPageActiveMyTodoBinding,
@@ -40,6 +41,10 @@ class MyPageDetailMyTodoViewHolder(
             recyclerViewTodoList.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = todoListAdapter
+            }
+
+            constraintLayoutEmptyTodo.onThrottleClick {
+                listener.onClickEmptyTodo()
             }
         }
     }
