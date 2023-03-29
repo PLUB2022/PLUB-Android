@@ -40,6 +40,7 @@
     <string name="word_friday">금요일</string>
     <string name="word_saturday">토요일</string>
     <string name="word_sunday">일요일</string>
+    <string name="word_today">오늘</string>
     <string name="word_all_day">요일 무관</string>
     <string name="word_online">온라인</string>
     <string name="word_offline">오프라인</string>

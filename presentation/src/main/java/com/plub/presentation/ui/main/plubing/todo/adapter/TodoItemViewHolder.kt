@@ -7,6 +7,7 @@ import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemTodoBinding
 import com.plub.presentation.util.onThrottleClick
+import org.threeten.bp.LocalDate
 
 class TodoItemViewHolder(
     private val binding: IncludeItemTodoBinding,
@@ -30,7 +31,8 @@ class TodoItemViewHolder(
     fun bind(item: TodoItemVo) {
         vo = item
         binding.apply {
-            val checkRes = if(item.isChecked) R.drawable.ic_checked_12 else R.drawable.ic_unchecked_empty
+            val checkRes = if(LocalDate.now().toString() == item.date) if(item.isChecked) R.drawable.ic_checked_12 else R.drawable.ic_unchecked_empty_c4c4c4
+                            else if(item.isChecked) R.drawable.ic_checked_12 else R.drawable.ic_unchecked_empty
             imageViewCheck.setImageResource(checkRes)
             textViewContent.apply {
                 val textColorRes = if (item.isChecked) R.color.color_8c8c8c else R.color.black
