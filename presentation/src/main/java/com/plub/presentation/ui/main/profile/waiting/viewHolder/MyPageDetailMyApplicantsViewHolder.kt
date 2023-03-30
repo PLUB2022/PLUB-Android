@@ -8,12 +8,14 @@ import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemMyApplicationBinding
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.main.profile.adapter.MyPageDetailApplicationAnswerAdapter
+import com.plub.presentation.ui.main.profile.adapter.MyPageDetailPageAdapter
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 
 class MyPageDetailMyApplicantsViewHolder(
     private val binding: IncludeItemMyApplicationBinding,
+    private val listener : MyPageDetailPageAdapter.ApplicantsDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
     companion object{
@@ -38,15 +40,39 @@ class MyPageDetailMyApplicantsViewHolder(
                 addItemDecoration(VerticalSpaceDecoration(VERTICAL_SPACE.px))
                 adapter = myPageDetailPageAdapter
             }
+
+            buttonCancel.onThrottleClick {
+                listener.onClickCancelButton()
+            }
+
+            buttonOnlyCancel.onThrottleClick {
+                listener.onClickCancelButton()
+            }
+
+            buttonModify.onThrottleClick {
+                listener.onClickModifyButton()
+            }
         }
     }
 
     fun bind(item: AccountsVo) {
         binding.apply {
-            GlideUtil.loadImage(root.context, item.profileImage, imageViewProfile)
+            item.profileImage?.let { GlideUtil.loadImage(root.context, it, imageViewProfile) }
             imageViewProfile.clipToOutline = true
             textViewName.text = item.accountName
             textViewDate.text = root.context.getString(R.string.my_page_complete_answer, item.createdAt)
+
+            if(item.answers.isEmpty()){
+                buttonCancel.visibility = View.GONE
+                buttonModify.visibility = View.GONE
+                buttonOnlyCancel.visibility = View.VISIBLE
+            }
+            else{
+                buttonCancel.visibility = View.VISIBLE
+                buttonModify.visibility = View.VISIBLE
+                buttonOnlyCancel.visibility = View.GONE
+            }
+
             myPageDetailPageAdapter.submitList(item.answers)
         }
     }

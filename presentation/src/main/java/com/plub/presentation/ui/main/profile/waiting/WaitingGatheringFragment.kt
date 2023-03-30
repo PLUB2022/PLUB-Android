@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageWaitingGatheringBinding
 import com.plub.presentation.ui.main.profile.adapter.MyPageDetailPageAdapter
-import com.plub.presentation.ui.main.profile.recruiting.MyPageApplicantsGatheringState
+import com.plub.presentation.ui.main.profile.MyPageApplicantsGatheringState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,6 +26,14 @@ class WaitingGatheringFragment :
 
             override fun onClickRejectButton(accountId: Int) {
 
+            }
+
+            override fun onClickCancelButton() {
+                viewModel.deleteMyApplication(myPageWaitingGatheringFragmentArgs.plubbingId)
+            }
+
+            override fun onClickModifyButton() {
+                TODO("Not yet implemented")
             }
         })
     }

@@ -22,6 +22,8 @@ class MyPageDetailPageAdapter(private val listener : ApplicantsDelegate): ListAd
     interface ApplicantsDelegate{
         fun onClickApproveButton(accountId : Int)
         fun onClickRejectButton(accountId : Int)
+        fun onClickCancelButton()
+        fun onClickModifyButton()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -50,7 +52,7 @@ class MyPageDetailPageAdapter(private val listener : ApplicantsDelegate): ListAd
             }
             MyPageDetailViewType.MY_APPLICATION -> {
                 val binding = IncludeItemMyApplicationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailMyApplicantsViewHolder(binding)
+                return MyPageDetailMyApplicantsViewHolder(binding, listener)
             }
             MyPageDetailViewType.OTHER_APPLICATION -> {
                 val binding = IncludeItemApplicationBinding.inflate(LayoutInflater.from(parent.context), parent, false)

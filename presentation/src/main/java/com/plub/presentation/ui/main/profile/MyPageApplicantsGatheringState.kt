@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.profile.recruiting
+package com.plub.presentation.ui.main.profile
 
 import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.presentation.ui.PageState

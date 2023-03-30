@@ -7,10 +7,11 @@ import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.domain.model.vo.home.recruitDetailVo.host.AnswersVo
 import com.plub.domain.model.vo.myPage.MyPageMyApplicationVo
+import com.plub.domain.usecase.DeleteMyApplicationUseCase
 import com.plub.domain.usecase.FetchPlubingMainUseCase
 import com.plub.domain.usecase.GetMyApplicationUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.main.profile.recruiting.MyPageApplicantsGatheringState
+import com.plub.presentation.ui.main.profile.MyPageApplicantsGatheringState
 import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,8 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WaitingGatheringViewModel @Inject constructor(
-    val fetchPlubingMainUseCase: FetchPlubingMainUseCase,
-    val getMyApplicationUseCase: GetMyApplicationUseCase
+    private val getMyApplicationUseCase: GetMyApplicationUseCase,
+    private val deleteMyApplicationUseCase: DeleteMyApplicationUseCase
 ) :
     BaseViewModel<MyPageApplicantsGatheringState>(
         MyPageApplicantsGatheringState()
@@ -34,11 +35,7 @@ class WaitingGatheringViewModel @Inject constructor(
     }
 
     private fun onSuccessPlubingMainInfo(vo: MyPageMyApplicationVo) {
-        updateUiState { uiState ->
-            uiState.copy(
-                detailList = getTopList(vo.titleVo) + getMyApplicationList(vo.answerList, vo.recruitDate)
-            )
-        }
+        updateDetailList(getTopList(vo.titleVo) + getMyApplicationList(vo.answerList, vo.recruitDate))
     }
 
     private fun getTopList(titleView : MyPageDetailTitleVo) : List<MyPageDetailVo>{
@@ -69,5 +66,32 @@ class WaitingGatheringViewModel @Inject constructor(
 
     fun goToBack(){
         emitEventFlow(WaitingGatheringEvent.GoToBack)
+    }
+
+    fun deleteMyApplication(plubbingId: Int){
+        viewModelScope.launch{
+            deleteMyApplicationUseCase.invoke(plubbingId).collect{
+                inspectUiState(it, { handleSuccessDelete() })
+            }
+        }
+    }
+
+    private fun handleSuccessDelete(){
+        val originList = uiState.value.detailList
+        val mutableOriginList = originList.toMutableList()
+
+        originList.forEach {
+            if(it.viewType == MyPageDetailViewType.MY_APPLICATION) mutableOriginList.remove(it)
+        }
+
+        updateDetailList(mutableOriginList)
+    }
+
+    private fun updateDetailList(list : List<MyPageDetailVo>){
+        updateUiState { uiState ->
+            uiState.copy(
+                detailList = list
+            )
+        }
     }
 }

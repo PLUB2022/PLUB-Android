@@ -6,6 +6,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageRecruitingGatheringBinding
+import com.plub.presentation.ui.main.profile.MyPageApplicantsGatheringState
 import com.plub.presentation.ui.main.profile.adapter.MyPageDetailPageAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -25,6 +26,14 @@ class RecruitingGatheringFragment :
 
             override fun onClickRejectButton(accountId: Int) {
                 viewModel.reject(accountId)
+            }
+
+            override fun onClickCancelButton() {
+
+            }
+
+            override fun onClickModifyButton() {
+
             }
         })
     }

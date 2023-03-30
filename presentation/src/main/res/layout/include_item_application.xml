@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_marginHorizontal="16dp"
         android:paddingBottom="8dp">
 
@@ -13,6 +14,7 @@
             android:id="@+id/constraint_layout_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:background="@drawable/bg_rectangle_filled_white_radius_10"
             app:layout_constraintTop_toTopOf="parent">
 

@@ -3,6 +3,7 @@ package com.plub.data.repository
 import com.plub.data.api.RecruitApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.applicantsRecruitMapper.replyMapper.ReplyApplicantsRecruitMapper
+import com.plub.data.mapper.myPageMapper.MyApplicationDeleteMapper
 import com.plub.data.mapper.recruitDetailMapper.host.HostSeeApplicantsMapper
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.home.applicantsRecruitVo.replyVo.ReplyApplicantsRecruitRequestVo
@@ -23,5 +24,9 @@ class ApplicantsRepositoryImpl @Inject constructor(private val recruitApi: Recru
 
     override suspend fun postRefuseApplicants(requestVo: ReplyApplicantsRecruitRequestVo): Flow<UiState<ReplyApplicantsRecruitResponseVo>> {
         return apiLaunch(recruitApi.refuseApplicants(requestVo.plubbingId,requestVo.accountId), ReplyApplicantsRecruitMapper)
+    }
+
+    override suspend fun deleteMyApplication(request: Int): Flow<UiState<Int>> {
+        return apiLaunch(recruitApi.deleteMyApplication(request), MyApplicationDeleteMapper)
     }
 }

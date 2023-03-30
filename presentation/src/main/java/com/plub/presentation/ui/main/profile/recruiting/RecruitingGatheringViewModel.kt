@@ -13,6 +13,7 @@ import com.plub.domain.usecase.GetRecruitApplicantsUseCase
 import com.plub.domain.usecase.PostApprovalApplicantsRecruitUseCase
 import com.plub.domain.usecase.PostRefuseApplicantsRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.ui.main.profile.MyPageApplicantsGatheringState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
