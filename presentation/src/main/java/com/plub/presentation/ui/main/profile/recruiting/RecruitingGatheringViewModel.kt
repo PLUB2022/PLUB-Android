@@ -133,4 +133,12 @@ class RecruitingGatheringViewModel @Inject constructor(
     fun goToRecruitPage() {
         emitEventFlow(MyPageRecruitingGatheringEvent.GoToRecruit)
     }
+
+    fun showApproveDialog(accountId: Int){
+        emitEventFlow(MyPageRecruitingGatheringEvent.ShowApproveDialog(accountId))
+    }
+
+    fun showRefuseDialog(accountId: Int){
+        emitEventFlow(MyPageRecruitingGatheringEvent.ShowRefuseDialog(accountId))
+    }
 }

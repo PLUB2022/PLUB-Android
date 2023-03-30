@@ -353,4 +353,6 @@
     <string name="my_page_see_all">전체보기</string>
     <string name="my_page_go_add_todo">TO-DO 추가하러 가기</string>
     <string name="my_page_go_add_post">새 게시글 작성하기</string>
+    <string name="my_page_again_approve">해당 지원자를\n받으시겠어요?</string>
+    <string name="my_page_again_refuse">해당 지원자를\n거절하시겠어요?</string>
 </resources>

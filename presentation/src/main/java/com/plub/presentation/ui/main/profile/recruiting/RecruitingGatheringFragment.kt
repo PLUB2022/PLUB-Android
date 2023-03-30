@@ -8,6 +8,9 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageRecruitingGatheringBinding
 import com.plub.presentation.ui.main.profile.MyPageApplicantsGatheringState
 import com.plub.presentation.ui.main.profile.adapter.MyPageDetailPageAdapter
+import com.plub.presentation.ui.main.profile.recruiting.dialog.MyPageRecruitingAgainApproveDialogFragment
+import com.plub.presentation.ui.main.profile.recruiting.dialog.MyPageRecruitingAgainRefuseDialogFragment
+import com.plub.presentation.ui.main.profile.setting.dialog.MyPageSettingConfirmDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -21,11 +24,11 @@ class RecruitingGatheringFragment :
     private val myPageDetailPageAdapter : MyPageDetailPageAdapter by lazy {
         MyPageDetailPageAdapter(object : MyPageDetailPageAdapter.ApplicantsDelegate{
             override fun onClickApproveButton(accountId: Int) {
-                viewModel.approve(accountId)
+                viewModel.showApproveDialog(accountId)
             }
 
             override fun onClickRejectButton(accountId: Int) {
-                viewModel.reject(accountId)
+                viewModel.showRefuseDialog(accountId)
             }
 
             override fun onClickCancelButton() {
@@ -73,11 +76,31 @@ class RecruitingGatheringFragment :
     private fun inspectEvent(event : MyPageRecruitingGatheringEvent){
         when(event){
             is MyPageRecruitingGatheringEvent.GoToRecruit -> goToRecruit()
+            is MyPageRecruitingGatheringEvent.ShowApproveDialog -> showApproveDialog(event.accountId)
+            is MyPageRecruitingGatheringEvent.ShowRefuseDialog -> showRefuseDialog(event.accountId)
         }
     }
 
     private fun goToRecruit(){
         val action = RecruitingGatheringFragmentDirections.myPageRecruitingToRecruitment(recruitingGatheringFragmentArgs.plubbingId)
         findNavController().navigate(action)
+    }
+
+    private fun showApproveDialog(accountId : Int){
+        MyPageRecruitingAgainApproveDialogFragment(object : MyPageRecruitingAgainApproveDialogFragment.Delegate {
+            override fun onYesButtonClick() {
+                viewModel.approve(accountId)
+            }
+
+        }).show(childFragmentManager, "")
+    }
+
+    private fun showRefuseDialog(accountId : Int){
+        MyPageRecruitingAgainRefuseDialogFragment(object : MyPageRecruitingAgainRefuseDialogFragment.Delegate {
+            override fun onRefuseButtonClick() {
+                viewModel.reject(accountId)
+            }
+
+        }).show(childFragmentManager, "")
     }
 }

@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.recruitment.dialog
+package com.plub.presentation.ui.main.profile.recruiting.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -7,17 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.plub.presentation.R
-import com.plub.presentation.databinding.IncludeDialogSuccessRecruitApplyBinding
+import com.plub.presentation.databinding.FragmentMyPageAgainRefuseDialogBinding
 import com.plub.presentation.util.onThrottleClick
 
-class RecruitApplySuccessDialogFragment(private val listener : Delegate) : DialogFragment(){
-    private val binding: IncludeDialogSuccessRecruitApplyBinding by lazy {
-        IncludeDialogSuccessRecruitApplyBinding.inflate(layoutInflater)
+class MyPageRecruitingAgainRefuseDialogFragment(private val listener : Delegate) : DialogFragment(){
+    private val binding: FragmentMyPageAgainRefuseDialogBinding by lazy {
+        FragmentMyPageAgainRefuseDialogBinding.inflate(layoutInflater)
     }
 
     interface Delegate{
-        fun closeButtonClick()
+        fun onRefuseButtonClick()
     }
 
     override fun onCreateView(
@@ -38,12 +37,14 @@ class RecruitApplySuccessDialogFragment(private val listener : Delegate) : Dialo
 
     private fun initView(){
         binding.apply {
-            imageViewClose.onThrottleClick {
-                listener.closeButtonClick()
+            buttonCancel.onThrottleClick {
                 dismiss()
             }
 
-            lottieThumbnail.setAnimation(R.raw.onboarding_dummy_first)
+            buttonRefuse.onThrottleClick {
+                listener.onRefuseButtonClick()
+                dismiss()
+            }
         }
     }
 }
