@@ -58,7 +58,7 @@ class MyPageSettingViewModel @Inject constructor(
     fun onTextChangedAfter() {
         val nickname = uiState.value.nickname
         if(nickname == PlubUser.info.nickname){
-            handleNicknameCheckError(NicknameError.EmptyNickname(""))
+            handleNicknameCheckSuccess(true)
         }else{
             fetchNicknameCheck(nickname)
         }

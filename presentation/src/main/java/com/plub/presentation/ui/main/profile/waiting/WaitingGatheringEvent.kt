@@ -4,4 +4,5 @@ import com.plub.presentation.ui.Event
 
 sealed class WaitingGatheringEvent : Event {
     object GoToBack : WaitingGatheringEvent()
+    object GoToModifyApplication : WaitingGatheringEvent()
 }

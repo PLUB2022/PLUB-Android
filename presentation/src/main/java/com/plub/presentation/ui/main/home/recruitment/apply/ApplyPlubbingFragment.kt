@@ -49,7 +49,8 @@ class ApplyPlubbingFragment :
             vm = viewModel
             initRecycler()
         }
-        viewModel.fetchQuestions(applyPlubbingFragmentArgs.plubbingId)
+
+        viewModel.fetchQuestions(applyPlubbingFragmentArgs.plubbingId, applyPlubbingFragmentArgs.pageType)
     }
 
     private fun initRecycler() {

@@ -94,4 +94,8 @@ class WaitingGatheringViewModel @Inject constructor(
             )
         }
     }
+
+    fun goToModifyApplication(){
+        emitEventFlow(WaitingGatheringEvent.GoToModifyApplication)
+    }
 }

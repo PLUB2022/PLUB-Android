@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.enums.ApplyModifyApplicationType
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageWaitingGatheringBinding
 import com.plub.presentation.ui.main.profile.adapter.MyPageDetailPageAdapter
@@ -33,7 +34,7 @@ class WaitingGatheringFragment :
             }
 
             override fun onClickModifyButton() {
-                TODO("Not yet implemented")
+                viewModel.goToModifyApplication()
             }
         })
     }
@@ -73,6 +74,15 @@ class WaitingGatheringFragment :
     private fun inspectEvent(event : WaitingGatheringEvent){
         when(event){
             is WaitingGatheringEvent.GoToBack -> findNavController().popBackStack()
+            is WaitingGatheringEvent.GoToModifyApplication -> goToApply()
         }
+    }
+
+    private fun goToApply(){
+        val action = WaitingGatheringFragmentDirections.myPageWaitingToApply(
+            plubbingId = myPageWaitingGatheringFragmentArgs.plubbingId,
+            pageType = ApplyModifyApplicationType.MODIFY
+        )
+        findNavController().navigate(action)
     }
 }

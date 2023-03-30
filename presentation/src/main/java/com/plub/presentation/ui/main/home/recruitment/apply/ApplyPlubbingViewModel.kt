@@ -2,23 +2,27 @@ package com.plub.presentation.ui.main.home.recruitment.apply
 
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.ApplyModifyApplicationType
 import com.plub.domain.model.enums.ApplyRecruitQuestionViewType
 import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitAnswerVo
 import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitResponseVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
+import com.plub.domain.usecase.GetMyApplicationUseCase
 import com.plub.domain.usecase.PostApplyRecruitUseCase
 import com.plub.domain.usecase.GetRecruitQuestionUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ApplyPlubbingViewModel @Inject constructor(
-    val getRecruitQuestionUseCase: GetRecruitQuestionUseCase,
-    val postApplyRecruitUseCase: PostApplyRecruitUseCase
+    private val getRecruitQuestionUseCase: GetRecruitQuestionUseCase,
+    private val postApplyRecruitUseCase: PostApplyRecruitUseCase,
+    private val getMyApplicationUseCase: GetMyApplicationUseCase,
 ) : BaseViewModel<ApplyPageState>(ApplyPageState()) {
 
     companion object{
@@ -27,13 +31,28 @@ class ApplyPlubbingViewModel @Inject constructor(
     private var answerList : List<ApplicantsRecruitAnswerVo> = emptyList()
     private var plubbingId : Int = 0
 
-    fun fetchQuestions(id: Int) {
+    fun fetchQuestions(id: Int, pageType : ApplyModifyApplicationType) {
         plubbingId = id
+        when(pageType){
+            ApplyModifyApplicationType.APPLY -> getOnlyQuestion()
+            ApplyModifyApplicationType.MODIFY -> getQuestionWithMyAnswer()
+        }
+    }
+
+    private fun getOnlyQuestion(){
         viewModelScope.launch {
             getRecruitQuestionUseCase(plubbingId).collect { state ->
                 inspectUiState(state, ::successFetchQuestions)
             }
         }
+    }
+
+    private fun getQuestionWithMyAnswer(){
+//        viewModelScope.launch {
+//            getMyApplicationUseCase(plubbingId).collect{
+//                inspectUiState(it, )
+//            }
+//        }
     }
 
     private fun successFetchQuestions(data: QuestionsResponseVo) {
