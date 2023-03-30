@@ -63,6 +63,7 @@ class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubList
 }
 
 class HomeItemDiffCallBack : DiffUtil.ItemCallback<HomePlubListVo>() {
-    override fun areItemsTheSame(oldItem: HomePlubListVo, newItem: HomePlubListVo): Boolean = oldItem.viewType == newItem.viewType
+    override fun areItemsTheSame(oldItem: HomePlubListVo, newItem: HomePlubListVo): Boolean =
+        oldItem.viewType == newItem.viewType && oldItem.recommendGathering.id == newItem.recommendGathering.id
     override fun areContentsTheSame(oldItem: HomePlubListVo, newItem: HomePlubListVo): Boolean = oldItem == newItem
 }

@@ -110,7 +110,6 @@ class CategoryGatheringViewModel @Inject constructor(
 
     private fun successResult(vo: PlubCardListVo) {
         isNetworkCall = false
-        hasMoreCards = (pageNumber != vo.totalPages)
         val mappedList = mapToCardType(vo.content)
         val mergedList = getMergeList(mappedList)
         updateUiState { ui ->

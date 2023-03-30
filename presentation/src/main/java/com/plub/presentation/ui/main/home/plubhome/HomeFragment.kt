@@ -4,21 +4,15 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.enums.HomeViewType
-import com.plub.domain.model.enums.PlubCardType
-import com.plub.domain.model.vo.home.HomePlubListVo
-import com.plub.domain.model.vo.plub.PlubCardVo
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
 import com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
-import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
-import com.plub.presentation.util.onThrottleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragmentViewModel>(
+class HomeFragment : BaseTestFragment<FragmentHomeBinding, HomePageState, HomeFragmentViewModel>(
     FragmentHomeBinding::inflate
 ) {
 
@@ -65,12 +59,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
                     }
                 }))
                 adapter = homeAdapter
-
-                imageViewPlubLogo.onThrottleClick {
-                    val plubingId = 1
-                    val action = HomeFragmentDirections.actionMainToPlubingMain(plubingId)
-                    findNavController().navigate(action)
-                }
             }
         }
         viewModel.fetchHomePageData()
@@ -80,8 +68,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomePageState, HomeFragme
         super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    if(it.isVisible) homeAdapter.submitList(it.homePlubList)
+                viewModel.uiState.homePlubList.collect {
+                    homeAdapter.submitList(it)
                 }
             }
             launch {
