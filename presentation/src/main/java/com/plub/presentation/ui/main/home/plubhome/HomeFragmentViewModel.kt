@@ -68,7 +68,7 @@ class HomeFragmentViewModel @Inject constructor(
         val list = uiState.homePlubList.value
         val newList = list.map {
             val bookmark =
-                if (it.recommendGathering.id == vo.id) vo.isBookmarked else it.recommendGathering.isBookmarked
+                if (it.recommendGathering.id == vo.id && it.viewType == HomeViewType.RECOMMEND_GATHERING_VIEW) vo.isBookmarked else it.recommendGathering.isBookmarked
             it.copy(
                 recommendGathering = it.recommendGathering.copy(isBookmarked = bookmark)
             )
