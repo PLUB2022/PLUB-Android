@@ -9,14 +9,15 @@ import com.plub.domain.model.vo.home.categoryResponseVo.CategoryListDataResponse
 import com.plub.domain.model.vo.home.interestRegisterVo.RegisterInterestResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
-import com.plub.domain.successOrNull
 import com.plub.domain.usecase.*
-import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.base.BaseTestViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,20 +26,68 @@ class HomeFragmentViewModel @Inject constructor(
     val getMyInterestUseCase: GetMyInterestUseCase,
     val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
     val getRecommendationGatheringUsecase: GetRecommendationGatheringUsecase
-) : BaseViewModel<HomePageState>(HomePageState()) {
+) : BaseTestViewModel<HomePageState>() {
 
     companion object {
-        private const val FIRST_PAGE = 1
+        private const val FIRST_CURSOR = 0
     }
 
-    private var pageNumber: Int = FIRST_PAGE
-    private var hasMoreCards: Boolean = true
+    private val homePlubListStateFlow: MutableStateFlow<List<HomePlubListVo>> = MutableStateFlow(emptyList())
+    private var cursorId: Int = FIRST_CURSOR
+    private var categoryList : List<HomePlubListVo> = emptyList()
+    private var noHobbyList : List<HomePlubListVo> = emptyList()
+    private var gatheringList : MutableList<HomePlubListVo> = mutableListOf()
+    private var isLast: Boolean = true
     private var isNetworkCall: Boolean = false
-    private var hasInterest: Boolean = false
 
-    fun fetchHomePageData() =
+    override val uiState: HomePageState = HomePageState(
+        homePlubListStateFlow.asStateFlow()
+    )
+
+    fun goToCategoryChoice(categoryId: Int, categoryName: String) {
+        emitEventFlow(HomeEvent.GoToCategoryGathering(categoryId, categoryName))
+    }
+
+    fun goToRecruitment(plubbingId: Int) {
+        emitEventFlow(HomeEvent.GoToRecruitment(plubbingId))
+    }
+
+    fun goToRegisterInterest() {
+        emitEventFlow(HomeEvent.GoToRegisterInterest)
+    }
+
+    fun clickBookmark(plubbingId: Int) {
         viewModelScope.launch {
-            pageNumber = FIRST_PAGE
+            postBookmarkPlubRecruitUseCase(plubbingId).collect {
+                inspectUiState(it, ::postBookmarkSuccess)
+            }
+        }
+    }
+
+    private fun postBookmarkSuccess(vo: PlubBookmarkResponseVo) {
+        val list = uiState.homePlubList.value
+        val newList = list.map {
+            val bookmark =
+                if (it.recommendGathering.id == vo.id && it.viewType == HomeViewType.RECOMMEND_GATHERING_VIEW) vo.isBookmarked else it.recommendGathering.isBookmarked
+            it.copy(
+                recommendGathering = it.recommendGathering.copy(isBookmarked = bookmark)
+            )
+        }
+
+        updatePlubGatheringList(newList)
+    }
+
+    private fun updatePlubGatheringList(list: List<HomePlubListVo>) {
+        viewModelScope.launch {
+            homePlubListStateFlow.update { list }
+        }
+    }
+
+    fun fetchHomePageData() {
+        viewModelScope.launch {
+            isNetworkCall = true
+            cursorId = FIRST_CURSOR
+            gatheringList.clear()
             val jobCategories: Job = launch {
                 getCategoriesUseCase(Unit).collect { state ->
                     inspectUiState(state, ::handleGetCategoriesSuccess)
@@ -51,20 +100,20 @@ class HomeFragmentViewModel @Inject constructor(
                 }
             }
 
-            joinAll(jobCategories, jobMyInterest)
-            getRecommendationGatheringUsecase(pageNumber).collect { state ->
-                inspectUiState(state, ::handleGetRecommendGatheringSuccess)
+            val jobRecommend: Job = launch {
+                getRecommendationGatheringUsecase(cursorId).collect { state ->
+                    inspectUiState(state, ::handleGetRecommendGatheringSuccess)
+                }
             }
+
+            joinAll(jobCategories, jobMyInterest, jobRecommend)
+            isNetworkCall = false
+            updatePlubGatheringList(categoryList + noHobbyList + gatheringList)
         }
+    }
 
     private fun handleGetCategoriesSuccess(data: CategoryListDataResponseVo) {
-        val categoryList = getMergeCategoryList(data)
-        updateUiState { uiState ->
-            uiState.copy(
-                homePlubList = categoryList,
-                isVisible = false
-            )
-        }
+        categoryList = getMergeCategoryList(data)
     }
 
     private fun getMergeCategoryList(data: CategoryListDataResponseVo): List<HomePlubListVo> {
@@ -82,53 +131,28 @@ class HomeFragmentViewModel @Inject constructor(
             HomePlubListVo(
                 viewType = HomeViewType.CATEGORY_VIEW,
                 categoryList = list
+            ),
+            HomePlubListVo(
+                viewType = HomeViewType.RECOMMEND_TITLE_VIEW
             )
         )
     }
 
     private fun handleGetMyInterestSuccess(data: RegisterInterestResponseVo) {
-        hasInterest = data.subCategories.isNotEmpty()
+        if(data.subCategories.isNotEmpty()){
+            noHobbyList = listOf(
+                HomePlubListVo(
+                viewType = HomeViewType.REGISTER_HOBBIES_VIEW
+            )
+            )
+        }
     }
 
     private fun handleGetRecommendGatheringSuccess(data: PlubCardListVo) {
-        hasMoreCards = (pageNumber != data.totalPages)
-        updateUiState { ui ->
-            ui.copy(
-                homePlubList = if (hasMoreCards) addRecommendGatheringList(data) else addRecommendGatheringList(
-                    data
-                ),
-                isVisible = true
-            )
+        isLast = data.last
+        data.content.forEach { vo ->
+            gatheringList.add(getGatheringsVo(vo))
         }
-        isNetworkCall = false
-    }
-
-    private fun addRecommendGatheringList(it: PlubCardListVo): List<HomePlubListVo> {
-        val originList = uiState.value.homePlubList
-        val mergedList = mutableListOf<HomePlubListVo>()
-        addFirstViewList(mergedList)
-        it.content.forEach { vo ->
-            mergedList.add(getGatheringsVo(vo))
-        }
-
-        return originList + mergedList
-    }
-
-    private fun addFirstViewList(list: MutableList<HomePlubListVo>) {
-        if (pageNumber == FIRST_PAGE) {
-            list.add(getRecommendTitleVo())
-            if (!hasInterest) {
-                list.add(getRegisterHobbiesVo())
-            }
-        }
-    }
-
-    private fun getRecommendTitleVo(): HomePlubListVo {
-        return HomePlubListVo(viewType = HomeViewType.RECOMMEND_TITLE_VIEW)
-    }
-
-    private fun getRegisterHobbiesVo(): HomePlubListVo {
-        return HomePlubListVo(viewType = HomeViewType.REGISTER_HOBBIES_VIEW)
     }
 
     private fun getGatheringsVo(data: PlubCardVo): HomePlubListVo {
@@ -139,7 +163,9 @@ class HomeFragmentViewModel @Inject constructor(
     }
 
     fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (!isNetworkCall && isBottom && isDownScroll && hasMoreCards) {
+        if (!isNetworkCall && isBottom && isDownScroll && !isLast) {
+            isNetworkCall = true
+            cursorUpdate()
             fetchRecommendationGatheringData()
         }
     }
@@ -147,41 +173,21 @@ class HomeFragmentViewModel @Inject constructor(
     private fun fetchRecommendationGatheringData() {
         isNetworkCall = true
         viewModelScope.launch {
-            getRecommendationGatheringUsecase(pageNumber)
+            getRecommendationGatheringUsecase(cursorId)
                 .collect { state ->
-                    inspectUiState(state, ::handleGetRecommendGatheringSuccess)
+                    inspectUiState(state, ::handleGetNextRecommendGatheringSuccess)
                 }
         }
     }
 
-
-    fun clickBookmark(plubbingId: Int) {
-        viewModelScope.launch {
-            postBookmarkPlubRecruitUseCase(plubbingId).collect {
-                inspectUiState(it, ::postBookmarkSuccess)
-            }
-        }
+    private fun handleGetNextRecommendGatheringSuccess(data: PlubCardListVo) {
+        handleGetRecommendGatheringSuccess(data)
+        updatePlubGatheringList(categoryList + noHobbyList + gatheringList)
     }
 
-    private fun postBookmarkSuccess(vo: PlubBookmarkResponseVo) {
-        val list = uiState.value.homePlubList
-        val newList = list.map {
-            val bookmark =
-                if (it.recommendGathering.id == vo.id) vo.isBookmarked else it.recommendGathering.isBookmarked
-            it.copy(
-                recommendGathering = it.recommendGathering.copy(isBookmarked = bookmark)
-            )
-        }
-
-        updatePlubGatheringList(newList)
-    }
-
-    private fun updatePlubGatheringList(list: List<HomePlubListVo>) {
-        updateUiState { uiState ->
-            uiState.copy(
-                homePlubList = list
-            )
-        }
+    private fun cursorUpdate() {
+        cursorId = if (homePlubListStateFlow.value.isEmpty()) FIRST_CURSOR
+        else homePlubListStateFlow.value.lastOrNull { it.viewType == HomeViewType.RECOMMEND_GATHERING_VIEW }?.recommendGathering?.id ?: FIRST_CURSOR
     }
 
     fun goToSearch() {
@@ -191,17 +197,4 @@ class HomeFragmentViewModel @Inject constructor(
     fun goToBookmark() {
         emitEventFlow(HomeEvent.GoToBookMark)
     }
-
-    fun goToCategoryChoice(categoryId: Int, categoryName: String) {
-        emitEventFlow(HomeEvent.GoToCategoryGathering(categoryId, categoryName))
-    }
-
-    fun goToRecruitment(plubbingId: Int) {
-        emitEventFlow(HomeEvent.GoToRecruitment(plubbingId))
-    }
-
-    fun goToRegisterInterest() {
-        emitEventFlow(HomeEvent.GoToRegisterInterest)
-    }
-
 }
