@@ -70,6 +70,7 @@
     <string name="word_middle_hyphen">%s - %s</string>
     <string name="word_no">아니오</string>
     <string name="word_yes">네</string>
+    <string name="word_report">신고하기</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>
@@ -283,7 +284,7 @@
     <string name="apply_plubbing_save_button">저장하기</string>
     <string name="apply_plubbing_question">%d. %s</string>
 
-    <string name="detail_recruitment_see_others">모임 둘러보기</string>
+    <string name="detail_recruitment_see_others">메인으로</string>
     <string name="detail_recruitment_together">같이 할래요!</string>
     <string name="detail_recruit_about_my_gathering">[ %s ] 모임은요...!</string>
     <string name="detail_recruitment_people">모집 인원 %s명</string>
