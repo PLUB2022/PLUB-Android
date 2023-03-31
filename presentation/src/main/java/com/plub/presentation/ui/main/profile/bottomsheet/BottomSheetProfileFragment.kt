@@ -66,7 +66,7 @@ class BottomSheetProfileFragment :
             }
         }
 
-        viewModel.fetchOtherProfile(nickName, accountId)
+        viewModel.fetchOtherProfile(nickName, accountId, plubbingId)
     }
 
     override fun initStates() {

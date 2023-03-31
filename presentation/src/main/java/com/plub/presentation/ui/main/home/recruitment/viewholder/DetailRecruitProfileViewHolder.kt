@@ -38,7 +38,7 @@ class DetailRecruitProfileViewHolder(
                 textViewMoreProfileNumber.text = root.context.getString(R.string.detail_recruitment_profile_county, morePeopleCount)
             }
             else{
-                GlideUtil.loadImage(root.context, item.profileImage, imageViewProfile)
+                item.profileImage?.let { GlideUtil.loadImage(root.context, it, imageViewProfile) }
                 imageViewProfile.clipToOutline = true
             }
         }

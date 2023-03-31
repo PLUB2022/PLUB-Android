@@ -22,7 +22,7 @@ class BottomSheetProfileViewHolder(
 
     fun bind(item: RecruitDetailJoinedAccountsVo) {
         binding.apply {
-            GlideUtil.loadImage(root.context, item.profileImage, imageViewProfile)
+            item.profileImage?.let { GlideUtil.loadImage(root.context, it, imageViewProfile) }
             imageViewProfile.clipToOutline = true
             textViewProfileName.text = item.nickname
             accountId = item.accountId
