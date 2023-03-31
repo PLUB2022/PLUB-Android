@@ -1,11 +1,15 @@
 package com.plub.presentation.ui.main.profile.bottomsheet
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.base.BaseBottomSheetFragment
 import com.plub.presentation.databinding.BottomSheetOtherProfileBinding
+import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
+import com.plub.presentation.ui.main.profile.active.myTodo.MyPageAllMyTodoEvent
 import com.plub.presentation.ui.main.profile.bottomsheet.adapter.OtherProfileAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -35,21 +39,20 @@ class BottomSheetProfileFragment :
     private val otherProfileAdapter : OtherProfileAdapter by lazy {
         OtherProfileAdapter(object : OtherProfileAdapter.TodoDelegate{
             override fun onClickTodoChecked(timelineId: Int, vo: TodoItemVo) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onClickTodoMenu(vo: TodoTimelineVo) {
-                TODO("Not yet implemented")
+                //viewModel.onClickTodoMenu(vo)
             }
 
             override fun onClickTodoLike(timelineId: Int) {
-                TODO("Not yet implemented")
+                //TODO("Not yet implemented")
             }
 
             override fun onClickTimeline(timelineId: Int) {
-                TODO("Not yet implemented")
-            }
 
+            }
         })
     }
 
@@ -78,6 +81,24 @@ class BottomSheetProfileFragment :
                     otherProfileAdapter.submitList(it.dataList)
                 }
             }
+
+            launch {
+                viewModel.eventFlow.collect{
+                    inspectEvent(it as BottomSheetProfileEvent)
+                }
+            }
         }
+    }
+
+    private fun inspectEvent(event : BottomSheetProfileEvent){
+        when(event){
+            is BottomSheetProfileEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.todoTimelineVo, event.menuType)
+        }
+    }
+
+    private fun showMenuBottomSheetDialog(todoTimelineVo: TodoTimelineVo, menuType: DialogMenuType) {
+        SelectMenuBottomSheetDialog.newInstance(menuType) {
+            viewModel.onClickMenuItemType(it, todoTimelineVo)
+        }.show(parentFragmentManager, "")
     }
 }

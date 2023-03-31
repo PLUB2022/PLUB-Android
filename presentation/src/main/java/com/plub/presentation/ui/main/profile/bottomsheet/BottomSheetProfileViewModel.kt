@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.main.profile.bottomsheet
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.DialogMenuItemType
+import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.OtherProfileBottomSheetViewType
 import com.plub.domain.model.vo.account.MyInfoResponseVo
 import com.plub.domain.model.vo.myPage.OtherProfileVo
@@ -10,6 +12,7 @@ import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.domain.usecase.GetOtherProfileUseCase
 import com.plub.domain.usecase.GetOtherTodoUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.ui.main.profile.active.myTodo.MyPageAllMyTodoEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -75,6 +78,40 @@ class BottomSheetProfileViewModel @Inject constructor(
             uiState.copy(
                 dataList = list
             )
+        }
+    }
+
+    fun onClickTodoMenu(vo: TodoTimelineVo) {
+        val menuType = when {
+            vo.isAuthor -> DialogMenuType.TODO_LIST_AUTHOR_TYPE
+            else -> DialogMenuType.TODO_LIST_COMMON_TYPE
+        }
+        emitEventFlow(BottomSheetProfileEvent.ShowMenuBottomSheetDialog(vo, menuType))
+    }
+
+    fun onClickMenuItemType(item: DialogMenuItemType, todoTimelineVo: TodoTimelineVo) {
+        when (item) {
+            DialogMenuItemType.CAMERA_IMAGE -> TODO()
+            DialogMenuItemType.ALBUM_IMAGE -> TODO()
+            DialogMenuItemType.DEFAULT_IMAGE -> TODO()
+            DialogMenuItemType.SORT_TYPE_NEW -> TODO()
+            DialogMenuItemType.SORT_TYPE_POPULAR -> TODO()
+            DialogMenuItemType.BOARD_EDIT -> TODO()
+            DialogMenuItemType.BOARD_DELETE -> TODO()
+            DialogMenuItemType.BOARD_REPORT -> TODO()
+            DialogMenuItemType.BOARD_FIX_CLIP -> TODO()
+            DialogMenuItemType.BOARD_RELEASE_CLIP -> TODO()
+            DialogMenuItemType.BOARD_FIX_OR_RELEASE_CLIP -> TODO()
+            DialogMenuItemType.BOARD_COMMENT_DELETE -> TODO()
+            DialogMenuItemType.BOARD_COMMENT_EDIT -> TODO()
+            DialogMenuItemType.BOARD_COMMENT_REPORT -> TODO()
+            DialogMenuItemType.SCHEDULE_EDIT -> TODO()
+            DialogMenuItemType.SCHEDULE_DELETE -> TODO()
+            DialogMenuItemType.TODO_REPORT -> TODO()
+            DialogMenuItemType.TODO_PLANNER -> TODO()
+            DialogMenuItemType.TODO_PROOF -> TODO()
+            DialogMenuItemType.TODO_DELETE -> TODO()
+            DialogMenuItemType.TODO_EDIT -> TODO()
         }
     }
 }
