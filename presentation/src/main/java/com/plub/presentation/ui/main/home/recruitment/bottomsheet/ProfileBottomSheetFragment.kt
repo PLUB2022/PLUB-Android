@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsVo
+import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.databinding.BottomSheetRecruitSeeMoreProfileBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.util.px

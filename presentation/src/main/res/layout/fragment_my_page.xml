@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.home.profile.MyPageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_faf9fe">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_setting"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/ic_setting"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_top">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/image_view_profile"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="16dp"
+                    android:clipToOutline="true"
+                    app:defaultImage="@{@drawable/iv_default_profile}"
+                    app:imageUrl="@{vm.uiState.profileImage}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/image_view_profile_edit"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="38dp"
+                    app:onThrottleClick="@{()->vm.goToSetting()}"
+                    android:src="@drawable/ic_edit_pencil"
+                    app:layout_constraintStart_toStartOf="@id/image_view_profile"
+                    app:layout_constraintTop_toTopOf="@id/image_view_profile" />
+
+                <TextView
+                    android:id="@+id/text_view_profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginTop="7dp"
+                    android:textColor="@color/black"
+                    android:text="@{vm.uiState.myName}"
+                    android:textSize="28dp"
+                    app:layout_constraintStart_toEndOf="@id/image_view_profile"
+                    app:layout_constraintTop_toTopOf="@id/image_view_profile"
+                    tools:text="조경석" />
+
+                <TextView
+                    android:id="@+id/text_view_profile_explain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="16dp"
+                    android:ellipsize="end"
+                    android:text="@{vm.uiState.myIntro}"
+                    android:maxLines="1"
+                    android:textColor="@color/color_363636"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/image_view_profile"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_profile_name"
+                    tools:text="국회는 법률에 저촉되지 아니하는 범위안에서 의사와 내부규율에 관한 규칙을 제정할 수 있다. 국회는 법률에 저촉되지 아니하는 범위안에서 의사와 내부규율에 관한 규칙을 제정할 수 있다. 국회는 법률에 저촉되지 아니하는 범위안에서 의사와 내부규율에 관한 규칙을 제정할 수 있다." />
+
+                <TextView
+                    android:id="@+id/text_view_read_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    app:onThrottleClick="@{()->vm.readMore()}"
+                    android:text="@string/my_page_read_more"
+                    android:visibility="@{vm.uiState.readMore == true ? View.VISIBLE : View.GONE}"
+                    android:textColor="@color/color_363636"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/text_view_profile_explain"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_profile_explain" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_my_gathering"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_profile_explain" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

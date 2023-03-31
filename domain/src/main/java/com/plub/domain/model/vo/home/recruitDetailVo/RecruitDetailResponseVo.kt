@@ -1,6 +1,7 @@
-package com.plub.domain.model.vo.home.recruitdetailvo
+package com.plub.domain.model.vo.home.recruitDetailVo
 
 import com.plub.domain.model.DomainModel
+import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsVo
 
 data class RecruitDetailResponseVo(
     val recruitTitle : String = "",

@@ -1,8 +1,8 @@
 package com.plub.presentation.ui.main.home.recruitment.hostrecruitment
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.vo.home.applicantsrecruitvo.ApplicantsRecruitResponseVo
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
+import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitResponseVo
+import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailResponseVo
 import com.plub.domain.usecase.GetRecruitApplicantsUseCase
 import com.plub.domain.usecase.PutEndRecruitUseCase
 import com.plub.domain.usecase.GetRecruitDetailUseCase

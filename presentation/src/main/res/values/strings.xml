@@ -323,4 +323,25 @@
     <string name="bottom_sheet_not_attend">🙅🏻 불참합니다</string>
     <string name="bottom_sheet_attend">🙆🏻 참여합니다!</string>
 
+    <string name="my_page_read_more">더보기</string>
+    <string name="my_page_close">접기</string>
+    <string name="my_page_recruiting_gathering">모집 중인 모임</string>
+    <string name="my_page_waiting_gathering">대기 중인 모임</string>
+    <string name="my_page_active_gathering">활동 중인 모임</string>
+    <string name="my_page_end_gathering">종료된 모임</string>
+    <string name="my_page_go_recruit">모집글 바로가기</string>
+    <string name="my_page_my_application">나의 지원서</string>
+    <string name="my_page_other_application">지원자 내역</string>
+    <string name="my_page_no_application">지원가 없습니다!</string>
+    <string name="my_page_gathering_host">호스트</string>
+    <string name="my_page_gathering_guest">게스트</string>
+    <string name="my_page_gathering_end">종료</string>
+    <string name="my_page_reject">거절하기</string>
+    <string name="my_page_approve">받기</string>
+    <string name="my_page_complete_answer">%s 답변 작성완료</string>
+
+    <string name="my_page_setting_profile_image">프로필 사진</string>
+    <string name="my_page_setting_change_yes">네, 할게요</string>
+    <string name="my_page_setting_question_change_nickname">닉네임을 변경할까요?</string>
+    <string name="my_page_setting_introduce_about_changing_nickname">닉네임 변경은 1회만 가능해요.\n 지금 변경한 닉네임은 탈퇴 시까지 사용됩니다</string>
 </resources>
