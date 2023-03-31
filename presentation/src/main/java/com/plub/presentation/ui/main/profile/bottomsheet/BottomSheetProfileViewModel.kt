@@ -114,4 +114,8 @@ class BottomSheetProfileViewModel @Inject constructor(
             DialogMenuItemType.TODO_EDIT -> TODO()
         }
     }
+
+    fun onClickClose(){
+        emitEventFlow(BottomSheetProfileEvent.CloseButtonClick)
+    }
 }

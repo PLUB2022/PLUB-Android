@@ -3,6 +3,8 @@ package com.plub.presentation.ui.main.profile.bottomsheet
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
@@ -59,6 +61,10 @@ class BottomSheetProfileFragment :
     override val viewModel: BottomSheetProfileViewModel by viewModels()
 
     override fun initView() {
+        (dialog as BottomSheetDialog).behavior.apply {
+            state = BottomSheetBehavior.STATE_EXPANDED
+            isDraggable = false
+        }
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
@@ -93,6 +99,7 @@ class BottomSheetProfileFragment :
     private fun inspectEvent(event : BottomSheetProfileEvent){
         when(event){
             is BottomSheetProfileEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.todoTimelineVo, event.menuType)
+            is BottomSheetProfileEvent.CloseButtonClick -> dismiss()
         }
     }
 

@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.databinding.BottomSheetRecruitSeeMoreProfileBinding
@@ -39,6 +41,7 @@ class ProfileBottomSheetFragment(private val profileList : List<RecruitDetailJoi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
         bottomSheetProfileAdapter.submitList(profileList)
 
         binding.recyclerViewAllProfile.apply {
