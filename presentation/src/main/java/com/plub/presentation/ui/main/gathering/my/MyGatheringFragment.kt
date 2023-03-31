@@ -1,15 +1,20 @@
 package com.plub.presentation.ui.main.gathering.my
 
+import android.os.Bundle
+import android.view.View
+import androidx.core.view.children
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
-import com.plub.domain.model.enums.MyGatheringsViewType
-import com.plub.domain.model.vo.myGathering.MyGatheringResponseVo
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyGatheringBinding
-import com.plub.presentation.ui.common.layoutManager.MyGatheringLinearLayoutManager
+import com.plub.presentation.ui.common.custom.MyGatheringLinearLayoutManager
 import com.plub.presentation.ui.main.gathering.my.adapter.MyGatheringsAdapter
+import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 
 @AndroidEntryPoint
@@ -17,8 +22,13 @@ class MyGatheringFragment :
     BaseTestFragment<FragmentMyGatheringBinding, MyGatheringPageState, MyGatheringViewModel>(
         FragmentMyGatheringBinding::inflate
     ) {
+
+    companion object {
+        private val VIEW_PAGER2_PADDING = 30.px
+    }
+
     override val viewModel: MyGatheringViewModel by viewModels()
-    private val recyclerViewAdapter: MyGatheringsAdapter by lazy {
+    private val myGatheringsAdapter: MyGatheringsAdapter by lazy {
         MyGatheringsAdapter(
             onMyGatheringMeatBallClick = { },
             onMyHostingMeatBallClick = { },
@@ -27,25 +37,61 @@ class MyGatheringFragment :
         )
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.getMyParticipatingGatherings()
+    }
+
     override fun initView() {
         binding.apply {
             vm = viewModel
 
-            recyclerView.apply {
-                adapter = recyclerViewAdapter
-                layoutManager = MyGatheringLinearLayoutManager(context)
+            viewPager2.apply {
+                adapter = myGatheringsAdapter
+                ovalDotsIndicator.attachTo(this)
 
-                val snapHelper = LinearSnapHelper()
-                snapHelper.attachToRecyclerView(this)
+                children.forEach { child ->
+                    if(child is RecyclerView) {
+                        child.apply {
+                            setPadding(VIEW_PAGER2_PADDING, 0, VIEW_PAGER2_PADDING, 0)
+                            clipToPadding = false
+                        }
+                        return@forEach
+                    }
+                }
+
+                setPageTransformer { page, position ->
+                    val normalizedPosition = abs(position)
+                    page.findViewById<View>(R.id.view_shadow)?.let { view ->
+                        view.alpha = normalizedPosition
+                    }
+                }
+            }
+            
+            radioButtonMyGathering.setOnCheckedChangeListener { _, isChecked ->
+                viewModel.onClickRadioButtonMyGathering(isChecked)
             }
 
-            recyclerViewAdapter.submitList(
-                listOf(
-                    MyGatheringResponseVo(),
-                    MyGatheringResponseVo(),
-                    MyGatheringResponseVo(viewType = MyGatheringsViewType.PARTICIPATE)
-                )
-            )
+            radioButtonHost.setOnCheckedChangeListener { _, isChecked ->
+                viewModel.onClickRadioButtonHost(isChecked)
+            }
         }
     }
+
+    override fun initStates() {
+        super.initStates()
+
+        repeatOnStarted(viewLifecycleOwner) {
+            launch {
+                viewModel.uiState.myGatherings.collect {
+                    myGatheringsAdapter.submitList(
+                        it.toList()
+                    )
+                    binding.ovalDotsIndicator.setSingleItemIndicatorSize(it)
+                }
+            }
+        }
+    }
+
 }

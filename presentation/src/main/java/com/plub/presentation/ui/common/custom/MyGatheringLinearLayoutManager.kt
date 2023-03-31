@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.common.layoutManager
+package com.plub.presentation.ui.common.custom
 
 import android.content.Context
 import android.view.View
