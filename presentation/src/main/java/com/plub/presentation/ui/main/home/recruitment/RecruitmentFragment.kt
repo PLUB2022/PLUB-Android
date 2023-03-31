@@ -13,6 +13,7 @@ import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.ui.main.home.recruitment.bottomsheet.ProfileBottomSheetFragment
+import com.plub.presentation.ui.main.profile.bottomsheet.BottomSheetProfileFragment
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,8 +31,8 @@ class RecruitmentFragment :
     private val recruitmentFragmentArgs : RecruitmentFragmentArgs by navArgs()
     private val detailRecruitProfileAdapter: DetailRecruitProfileAdapter by lazy {
         DetailRecruitProfileAdapter(object : DetailRecruitProfileAdapter.DetailProfileDelegate {
-            override fun onProfileClick(accountId: Int) {
-                viewModel.goToProfile(accountId)
+            override fun onProfileClick(accountId: Int, nickname : String) {
+                viewModel.goToProfile(accountId, nickname)
             }
 
             override fun onSeeMoreProfileClick() {
@@ -101,7 +102,7 @@ class RecruitmentFragment :
                 goToApplyPlubbingFragment(recruitmentFragmentArgs.plubbingId)
             }
             is RecruitEvent.GoToProfileFragment ->{
-                goToProfile(event.accountId)
+                goToProfile(event.accountId, event.nickname)
             }
             is RecruitEvent.GoToBack -> {
                 findNavController().popBackStack()
@@ -120,8 +121,15 @@ class RecruitmentFragment :
         findNavController().navigate(action)
     }
 
-    private fun goToProfile(accountId: Int) {
-
+    private fun goToProfile(accountId: Int, nickname : String) {
+        val bottomSheetProfileFragment = BottomSheetProfileFragment.newInstance(
+            accountId = accountId,
+            nickName = nickname
+        )
+        bottomSheetProfileFragment.show(
+            parentFragmentManager,
+            bottomSheetProfileFragment.tag
+        )
     }
 
     private fun openProfileBottomSheet(joinedAccountList : List<RecruitDetailJoinedAccountsVo>){

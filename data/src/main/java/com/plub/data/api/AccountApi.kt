@@ -23,7 +23,7 @@ interface AccountApi {
         @Body request : UpdateMyInfoRequestVo
     ) : Response<ApiResponse<MyInfoResponse>>
 
-    @POST(Endpoints.ACCOUNT.FETCH_OTHER_INFO)
+    @GET(Endpoints.ACCOUNT.FETCH_OTHER_INFO)
     suspend fun fetchOtherInfo(
         @Path(PATH_NICKNAME) nickname : String
     ) : Response<ApiResponse<MyInfoResponse>>

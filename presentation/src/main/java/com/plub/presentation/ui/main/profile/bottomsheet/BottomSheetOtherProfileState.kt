@@ -4,5 +4,5 @@ import com.plub.domain.model.vo.myPage.OtherProfileVo
 import com.plub.presentation.ui.PageState
 
 data class BottomSheetOtherProfileState(
-    val dataList : List<OtherProfileVo>
+    val dataList : List<OtherProfileVo> = emptyList()
 ) : PageState

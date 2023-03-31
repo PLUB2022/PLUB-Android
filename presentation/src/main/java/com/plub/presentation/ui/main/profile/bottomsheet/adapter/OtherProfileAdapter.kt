@@ -7,16 +7,27 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.OtherProfileBottomSheetViewType
 import com.plub.domain.model.vo.myPage.OtherProfileVo
+import com.plub.domain.model.vo.todo.TodoItemVo
+import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.databinding.*
+import com.plub.presentation.ui.main.profile.active.adapter.MyPageTodoTimeLineAdapter
+import com.plub.presentation.ui.main.profile.active.adapter.MyPageTodoTimeLineViewHolder
 
-class OtherProfileAdapter: ListAdapter<OtherProfileVo, RecyclerView.ViewHolder>(
+class OtherProfileAdapter(private val listener: TodoDelegate): ListAdapter<OtherProfileVo, RecyclerView.ViewHolder>(
     OtherProfileDiffCallback()
 ) {
+
+    interface TodoDelegate : MyPageTodoTimeLineAdapter.MyPageTodoDelegate {
+        override fun onClickTodoChecked(timelineId: Int, vo: TodoItemVo)
+        override fun onClickTodoMenu(vo: TodoTimelineVo)
+        override fun onClickTodoLike(timelineId: Int)
+        override fun onClickTimeline(timelineId: Int)
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is OtherProfileDataViewHolder -> holder.bind(currentList[position].info)
-            is OtherProfileTodoViewHolder -> holder.bind(currentList[position].todoList)
+            is MyPageTodoTimeLineViewHolder -> holder.bind(currentList[position].todoList)
         }
     }
 
@@ -27,8 +38,8 @@ class OtherProfileAdapter: ListAdapter<OtherProfileVo, RecyclerView.ViewHolder>(
                 OtherProfileDataViewHolder(binding)
             }
             OtherProfileBottomSheetViewType.TODO -> {
-                val binding = IncludeItemOtherProfileTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                OtherProfileTodoViewHolder(binding)
+                val binding = IncludeItemTodoTimelineWithLineBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                MyPageTodoTimeLineViewHolder(binding, listener)
             }
         }
     }

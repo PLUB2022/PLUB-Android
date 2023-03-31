@@ -7,5 +7,5 @@ sealed class RecruitEvent: Event {
     object GoToApplyPlubbingFragment : RecruitEvent()
     object GoToBack : RecruitEvent()
     data class OpenBottomSheet(val joinedAccountsList : List<RecruitDetailJoinedAccountsVo>) : RecruitEvent()
-    data class GoToProfileFragment(val accountId : Int) : RecruitEvent()
+    data class GoToProfileFragment(val accountId : Int, val nickname : String) : RecruitEvent()
 }

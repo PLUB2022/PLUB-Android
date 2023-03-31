@@ -80,8 +80,8 @@ class RecruitmentViewModel @Inject constructor(
         emitEventFlow(RecruitEvent.GoToBack)
     }
 
-    fun goToProfile(accountId : Int){
-        emitEventFlow(RecruitEvent.GoToProfileFragment(accountId))
+    fun goToProfile(accountId : Int, nickname : String){
+        emitEventFlow(RecruitEvent.GoToProfileFragment(accountId, nickname))
     }
 
     fun openBottomSheet(){

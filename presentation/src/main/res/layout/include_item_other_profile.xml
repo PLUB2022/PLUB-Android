@@ -15,6 +15,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="24dp"
             android:clipToOutline="true"
+            android:scaleType="centerCrop"
             android:layout_width="64dp"
             android:layout_height="64dp"/>
 

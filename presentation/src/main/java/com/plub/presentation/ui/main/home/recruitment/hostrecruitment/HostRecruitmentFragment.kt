@@ -30,7 +30,7 @@ class HostRecruitmentFragment :
 
     private val detailRecruitProfileAdapter: DetailRecruitProfileAdapter by lazy {
         DetailRecruitProfileAdapter(object : DetailRecruitProfileAdapter.DetailProfileDelegate {
-            override fun onProfileClick(accountId: Int) {
+            override fun onProfileClick(accountId: Int, nickname : String) {
                 viewModel.goToProfile(accountId)
             }
 
