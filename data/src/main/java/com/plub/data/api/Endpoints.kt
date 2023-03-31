@@ -81,6 +81,7 @@ object Endpoints {
 
         object TODO {
             const val TIMELINES = "$PLUBBING_ID_URL/timeline"
+            const val OTHER_TIMELINES = "$PLUBBING_ID_URL/timeline/accounts/{accountId}"
             const val PROOF = "$PLUBBING_ID_URL/todolist/{todolistId}/proof"
             const val COMPLETE = "$PLUBBING_ID_URL/todolist/{todolistId}/complete"
             const val CANCEL = "$PLUBBING_ID_URL/todolist/{todolistId}/cancel"

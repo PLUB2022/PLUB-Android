@@ -20,6 +20,7 @@ import retrofit2.http.Query
 interface TodoApi {
     companion object {
         private const val PATH_PLUBING_ID = "plubbingId"
+        private const val PATH_ACCOUNT_ID = "accountId"
         private const val PATH_TIMELINE_ID = "timelineId"
         private const val PATH_TODO_LIST_ID = "todolistId"
         private const val PATH_TODO_YEAR = "year"
@@ -32,6 +33,13 @@ interface TodoApi {
     @GET(Endpoints.PLUBBING.TODO.TIMELINES)
     suspend fun getTimelines(
         @Path(PATH_PLUBING_ID) plubbingId: Int,
+        @Query(QUERY_CURSOR_ID) cursorId: Int
+    ): Response<ApiResponse<TodoTimelineListResponse>>
+
+    @GET(Endpoints.PLUBBING.TODO.OTHER_TIMELINES)
+    suspend fun getOtherTimelines(
+        @Path(PATH_PLUBING_ID) plubbingId: Int,
+        @Path(PATH_ACCOUNT_ID) accountId : Int,
         @Query(QUERY_CURSOR_ID) cursorId: Int
     ): Response<ApiResponse<TodoTimelineListResponse>>
 

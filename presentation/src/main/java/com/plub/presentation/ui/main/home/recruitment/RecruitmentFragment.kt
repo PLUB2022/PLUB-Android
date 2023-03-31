@@ -124,7 +124,8 @@ class RecruitmentFragment :
     private fun goToProfile(accountId: Int, nickname : String) {
         val bottomSheetProfileFragment = BottomSheetProfileFragment.newInstance(
             accountId = accountId,
-            nickName = nickname
+            nickName = nickname,
+            plubbingId = recruitmentFragmentArgs.plubbingId
         )
         bottomSheetProfileFragment.show(
             parentFragmentManager,

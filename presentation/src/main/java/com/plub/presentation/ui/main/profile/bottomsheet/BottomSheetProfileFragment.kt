@@ -19,15 +19,18 @@ class BottomSheetProfileFragment :
     companion object {
         fun newInstance(
             nickName: String,
-            accountId : Int
+            accountId : Int,
+            plubbingId : Int
         ) = BottomSheetProfileFragment().apply {
             this.nickName = nickName
             this.accountId = accountId
+            this.plubbingId = plubbingId
         }
     }
 
     private var nickName: String = ""
     private var accountId: Int = -1
+    private var plubbingId: Int = -1
 
     private val otherProfileAdapter : OtherProfileAdapter by lazy {
         OtherProfileAdapter(object : OtherProfileAdapter.TodoDelegate{
