@@ -25,7 +25,7 @@ class ApplyPlubbingFragment :
     }
 
     private val questionsAdapter: QuestionsAdapter by lazy {
-        QuestionsAdapter(object : QuestionsAdapter.QuestionsDegelate {
+        QuestionsAdapter(object : QuestionsAdapter.QuestionsDelegate {
             override fun textChanged(questionId: Int, changedText: String) {
                 viewModel.textChanged(questionId, changedText)
             }

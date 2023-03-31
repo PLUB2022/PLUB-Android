@@ -9,6 +9,8 @@ import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitReques
 import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitResponseVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsDataVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
+import com.plub.domain.model.vo.home.recruitDetailVo.host.AnswersVo
+import com.plub.domain.model.vo.myPage.MyPageMyApplicationVo
 import com.plub.domain.usecase.GetMyApplicationUseCase
 import com.plub.domain.usecase.PostApplyRecruitUseCase
 import com.plub.domain.usecase.GetRecruitQuestionUseCase
@@ -33,6 +35,11 @@ class ApplyPlubbingViewModel @Inject constructor(
 
     fun fetchQuestions(id: Int, pageType : ApplyModifyApplicationType) {
         plubbingId = id
+        updateUiState { uiState ->
+            uiState.copy(
+                pageType = pageType
+            )
+        }
         when(pageType){
             ApplyModifyApplicationType.APPLY -> getOnlyQuestion()
             ApplyModifyApplicationType.MODIFY -> getQuestionWithMyAnswer()
@@ -48,11 +55,44 @@ class ApplyPlubbingViewModel @Inject constructor(
     }
 
     private fun getQuestionWithMyAnswer(){
-//        viewModelScope.launch {
-//            getMyApplicationUseCase(plubbingId).collect{
-//                inspectUiState(it, )
-//            }
-//        }
+        viewModelScope.launch {
+            getMyApplicationUseCase(plubbingId).collect{
+                inspectUiState(it, ::successFetchMyApplication)
+            }
+        }
+    }
+
+    private fun successFetchMyApplication(vo : MyPageMyApplicationVo){
+        setAnswerListWithEditText(vo.answerList)
+        val questionsData = getAnswerMergeList(vo.answerList)
+        updateUiState { ui ->
+            ui.copy(
+                questions = questionsData
+            )
+        }
+    }
+
+    private fun setAnswerListWithEditText(list : List<AnswersVo>){
+        val mergeList = mutableListOf<ApplicantsRecruitAnswerVo>()
+        list.forEach {
+            mergeList.add(ApplicantsRecruitAnswerVo(it.id, it.answer))
+        }
+        answerList = mergeList
+    }
+
+    private fun getAnswerMergeList(data: List<AnswersVo>): List<QuestionsDataVo> {
+        val mergedList: MutableList<QuestionsDataVo> = mutableListOf()
+        mergedList.add(0, QuestionsDataVo(viewType = ApplyRecruitQuestionViewType.FIRST))
+        data.forEach {
+            mergedList.add(
+                QuestionsDataVo(
+                    id = it.id,
+                    question = it.questions,
+                    answer = it.answer
+                )
+            )
+        }
+        return mergedList
     }
 
     private fun successFetchQuestions(data: QuestionsResponseVo) {
@@ -83,12 +123,12 @@ class ApplyPlubbingViewModel @Inject constructor(
     fun applyRecruit() {
         viewModelScope.launch {
             postApplyRecruitUseCase(ApplicantsRecruitRequestVo(plubbingId, answerList)).collect { state ->
-                inspectUiState(state, ::successApply)
+                inspectUiState(state, { successApply() } )
             }
         }
     }
 
-    private fun successApply(data: ApplicantsRecruitResponseVo) {
+    private fun successApply() {
         emitEventFlow(ApplyEvent.ShowSuccessDialog)
     }
 
