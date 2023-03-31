@@ -12,20 +12,20 @@ class BottomSheetProfileViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
 
-    private var accountId: Int? = null
+    private var vo: RecruitDetailJoinedAccountsVo? = null
 
     init {
         binding.imageViewProfile.onThrottleClick {
-            accountId?.let { listener.onProfileClick(it) }
+            vo?.let { listener.onProfileClick(it.accountId, it.nickname) }
         }
     }
 
     fun bind(item: RecruitDetailJoinedAccountsVo) {
+        vo = item
         binding.apply {
             item.profileImage?.let { GlideUtil.loadImage(root.context, it, imageViewProfile) }
             imageViewProfile.clipToOutline = true
             textViewProfileName.text = item.nickname
-            accountId = item.accountId
         }
     }
 }
