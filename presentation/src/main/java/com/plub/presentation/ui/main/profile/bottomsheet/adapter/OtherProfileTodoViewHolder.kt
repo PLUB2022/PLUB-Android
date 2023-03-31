@@ -2,11 +2,12 @@ package com.plub.presentation.ui.main.profile.bottomsheet.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.account.MyInfoResponseVo
-import com.plub.domain.model.vo.myPage.MyPageGatheringVo
+import com.plub.domain.model.vo.todo.TodoTimelineListVo
 import com.plub.presentation.databinding.IncludeItemOtherProfileBinding
+import com.plub.presentation.databinding.IncludeItemOtherProfileTodoBinding
 
-class OtherProfileDataViewHolder(
-    private val binding: IncludeItemOtherProfileBinding,
+class OtherProfileTodoViewHolder(
+    private val binding: IncludeItemOtherProfileTodoBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
 
@@ -17,7 +18,7 @@ class OtherProfileDataViewHolder(
         }
     }
 
-    fun bind(item: MyInfoResponseVo) {
+    fun bind(item: TodoTimelineListVo) {
 
     }
 }

@@ -5,31 +5,44 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recruitDetailVo.host.AnswersVo
-import com.plub.presentation.databinding.IncludeItemApplicationsAnswerBinding
-import com.plub.presentation.ui.main.profile.viewHolder.detail.MyPageDetailApplicationAnswerViewHolder
+import com.plub.domain.model.enums.OtherProfileBottomSheetViewType
+import com.plub.domain.model.vo.myPage.OtherProfileVo
+import com.plub.presentation.databinding.*
 
-class OtherProfileAdapter: ListAdapter<AnswersVo, RecyclerView.ViewHolder>(
+class OtherProfileAdapter: ListAdapter<OtherProfileVo, RecyclerView.ViewHolder>(
     OtherProfileDiffCallback()
 ) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MyPageDetailApplicationAnswerViewHolder -> holder.bind(currentList[position], position)
+            is OtherProfileDataViewHolder -> holder.bind(currentList[position].info)
+            is OtherProfileTodoViewHolder -> holder.bind(currentList[position].todoList)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = IncludeItemApplicationsAnswerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyPageDetailApplicationAnswerViewHolder(binding)
+        return when(OtherProfileBottomSheetViewType.valueOf(viewType)){
+            OtherProfileBottomSheetViewType.PROFILE -> {
+                val binding = IncludeItemOtherProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                OtherProfileDataViewHolder(binding)
+            }
+            OtherProfileBottomSheetViewType.TODO -> {
+                val binding = IncludeItemOtherProfileTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                OtherProfileTodoViewHolder(binding)
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return currentList[position].viewType.type
     }
 
 }
 
-class OtherProfileDiffCallback : DiffUtil.ItemCallback<AnswersVo>() {
-    override fun areItemsTheSame(oldItem: AnswersVo, newItem: AnswersVo): Boolean =
-        oldItem.id == newItem.id
+class OtherProfileDiffCallback : DiffUtil.ItemCallback<OtherProfileVo>() {
+    override fun areItemsTheSame(oldItem: OtherProfileVo, newItem: OtherProfileVo): Boolean =
+        oldItem.viewType == newItem.viewType
 
-    override fun areContentsTheSame(oldItem: AnswersVo, newItem: AnswersVo): Boolean =
+    override fun areContentsTheSame(oldItem: OtherProfileVo, newItem: OtherProfileVo): Boolean =
         oldItem == newItem
 }
