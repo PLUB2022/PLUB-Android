@@ -13,8 +13,7 @@ object MyInfoResponseMapper : Mapper.ResponseMapper<MyInfoResponse, MyInfoRespon
                 socialType = socialType,
                 birthday = birthday,
                 gender = gender,
-                introduce = introduce,
-                profileImage = profileImage
+                introduce = introduce
             )
         } ?: MyInfoResponseVo()
     }

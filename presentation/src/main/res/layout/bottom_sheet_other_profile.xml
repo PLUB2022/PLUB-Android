@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_faf9fe">
+        android:background="@drawable/shape_bottom_sheet">
 
         <TextView
             android:id="@+id/text_view_report"

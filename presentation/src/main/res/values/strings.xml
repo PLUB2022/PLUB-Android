@@ -261,6 +261,7 @@
     <string name="plubing_todo_planner_input_hint">새로운 TO-DO 추가하기</string>
 
     <string name="plubing_todo_detail_title">TO-DO 자세히보기</string>
+    <string name="profile_todo_title">%s님의 플러빙을 구경해요</string>
 
     <string name="modify_gathering_title">모임 정보 수정</string>
     <string name="modify_gathering_tab_recruit">모집글</string>
