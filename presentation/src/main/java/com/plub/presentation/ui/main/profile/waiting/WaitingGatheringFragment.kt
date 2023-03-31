@@ -9,6 +9,8 @@ import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageWaitingGatheringBinding
 import com.plub.presentation.ui.main.profile.adapter.MyPageDetailPageAdapter
 import com.plub.presentation.ui.main.profile.MyPageApplicantsGatheringState
+import com.plub.presentation.ui.main.profile.setting.dialog.MyPageSettingConfirmDialogFragment
+import com.plub.presentation.ui.main.profile.waiting.dialog.MyPageWaitingAgainCancelDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -18,10 +20,10 @@ class WaitingGatheringFragment :
         FragmentMyPageWaitingGatheringBinding::inflate
     ) {
 
-    private val myPageWaitingGatheringFragmentArgs : WaitingGatheringFragmentArgs by navArgs()
+    private val myPageWaitingGatheringFragmentArgs: WaitingGatheringFragmentArgs by navArgs()
 
-    private val myPageDetailPageAdapter : MyPageDetailPageAdapter by lazy {
-        MyPageDetailPageAdapter(object : MyPageDetailPageAdapter.ApplicantsDelegate{
+    private val myPageDetailPageAdapter: MyPageDetailPageAdapter by lazy {
+        MyPageDetailPageAdapter(object : MyPageDetailPageAdapter.ApplicantsDelegate {
             override fun onClickApproveButton(accountId: Int) {
             }
 
@@ -30,7 +32,7 @@ class WaitingGatheringFragment :
             }
 
             override fun onClickCancelButton() {
-                viewModel.deleteMyApplication(myPageWaitingGatheringFragmentArgs.plubbingId)
+                viewModel.showCancelDialog()
             }
 
             override fun onClickModifyButton() {
@@ -64,25 +66,36 @@ class WaitingGatheringFragment :
             }
 
             launch {
-                viewModel.eventFlow.collect{
+                viewModel.eventFlow.collect {
                     inspectEvent(it as WaitingGatheringEvent)
                 }
             }
         }
     }
 
-    private fun inspectEvent(event : WaitingGatheringEvent){
-        when(event){
+    private fun inspectEvent(event: WaitingGatheringEvent) {
+        when (event) {
             is WaitingGatheringEvent.GoToBack -> findNavController().popBackStack()
             is WaitingGatheringEvent.GoToModifyApplication -> goToApply()
+            is WaitingGatheringEvent.ShowCancelDialog -> showCancelDialog()
         }
     }
 
-    private fun goToApply(){
+    private fun goToApply() {
         val action = WaitingGatheringFragmentDirections.myPageWaitingToApply(
             plubbingId = myPageWaitingGatheringFragmentArgs.plubbingId,
             pageType = ApplyModifyApplicationType.MODIFY
         )
         findNavController().navigate(action)
+    }
+
+    private fun showCancelDialog() {
+        MyPageWaitingAgainCancelDialogFragment(object :
+            MyPageWaitingAgainCancelDialogFragment.Delegate {
+            override fun onYesButtonClick() {
+                viewModel.deleteMyApplication(myPageWaitingGatheringFragmentArgs.plubbingId)
+            }
+
+        }).show(childFragmentManager, "")
     }
 }

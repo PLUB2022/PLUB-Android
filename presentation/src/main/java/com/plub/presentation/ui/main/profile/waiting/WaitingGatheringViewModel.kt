@@ -98,4 +98,8 @@ class WaitingGatheringViewModel @Inject constructor(
     fun goToModifyApplication(){
         emitEventFlow(WaitingGatheringEvent.GoToModifyApplication)
     }
+
+    fun showCancelDialog(){
+        emitEventFlow(WaitingGatheringEvent.ShowCancelDialog)
+    }
 }

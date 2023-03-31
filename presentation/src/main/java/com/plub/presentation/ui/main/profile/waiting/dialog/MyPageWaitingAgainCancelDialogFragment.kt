@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.profile.setting.dialog
+package com.plub.presentation.ui.main.profile.waiting.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.plub.presentation.databinding.IncludeItemDialogMyPageAgainQuestionBinding
+import com.plub.presentation.databinding.IncludeItemDialogMyPageCancelBinding
 import com.plub.presentation.util.onThrottleClick
 
-class MyPageSettingConfirmDialogFragment(private val listener : Delegate) : DialogFragment(){
-    private val binding: IncludeItemDialogMyPageAgainQuestionBinding by lazy {
-        IncludeItemDialogMyPageAgainQuestionBinding.inflate(layoutInflater)
+class MyPageWaitingAgainCancelDialogFragment(private val listener : Delegate) : DialogFragment(){
+    private val binding: IncludeItemDialogMyPageCancelBinding by lazy {
+        IncludeItemDialogMyPageCancelBinding.inflate(layoutInflater)
     }
 
     interface Delegate{
@@ -37,11 +37,11 @@ class MyPageSettingConfirmDialogFragment(private val listener : Delegate) : Dial
 
     private fun initView(){
         binding.apply {
-            buttonCancel.onThrottleClick {
+            buttonNo.onThrottleClick {
                 dismiss()
             }
 
-            buttonChangeMyInfo.onThrottleClick {
+            buttonYes.onThrottleClick {
                 listener.onYesButtonClick()
                 dismiss()
             }

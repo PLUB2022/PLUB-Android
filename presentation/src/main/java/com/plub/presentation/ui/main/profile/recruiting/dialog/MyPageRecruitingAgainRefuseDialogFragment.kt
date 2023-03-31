@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.plub.presentation.databinding.FragmentMyPageAgainRefuseDialogBinding
+import com.plub.presentation.databinding.IncludeItemDialogMyPageAgainRefuseBinding
 import com.plub.presentation.util.onThrottleClick
 
 class MyPageRecruitingAgainRefuseDialogFragment(private val listener : Delegate) : DialogFragment(){
-    private val binding: FragmentMyPageAgainRefuseDialogBinding by lazy {
-        FragmentMyPageAgainRefuseDialogBinding.inflate(layoutInflater)
+    private val binding: IncludeItemDialogMyPageAgainRefuseBinding by lazy {
+        IncludeItemDialogMyPageAgainRefuseBinding.inflate(layoutInflater)
     }
 
     interface Delegate{
