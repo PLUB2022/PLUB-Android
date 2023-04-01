@@ -9,6 +9,7 @@ import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGa
 import com.plub.presentation.ui.main.gathering.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryPageState
 
 data class CreateGatheringPageState(
+    val plubbingId: Int = 0,
     val currentPage: Int = 0,
     val selectPlubCategoryPageState: CreateGatheringSelectPlubCategoryPageState = CreateGatheringSelectPlubCategoryPageState(),
     val titleAndNamePageState: CreateGatheringTitleAndNamePageState = CreateGatheringTitleAndNamePageState(),

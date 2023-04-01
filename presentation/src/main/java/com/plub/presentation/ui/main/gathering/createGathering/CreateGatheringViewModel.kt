@@ -13,6 +13,7 @@ import com.plub.domain.model.enums.CreateGatheringPageType.FINISH
 import com.plub.domain.model.enums.OnOfflineType
 import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.createGathering.CreateGatheringRequestVo
+import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.usecase.PostCreateGatheringUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
@@ -56,20 +57,31 @@ class CreateGatheringViewModel @Inject constructor(
     private val _childrenPageStateFlow = MutableStateFlow<PageState>(PageState.Default)
     val childrenPageStateFlow: SharedFlow<PageState> = _childrenPageStateFlow.asStateFlow()
 
+    fun goToHostRecruitment() {
+        emitEventFlow(CreateGatheringEvent.GoToHostRecruitment(uiState.value.plubbingId))
+    }
+
+    fun goToHome() {
+        emitEventFlow(CreateGatheringEvent.GoToHome)
+    }
+
     fun onClickNextButtonInPreViewPage() {
-        uploadPlubbingMainImage {
-            createGathering(it) {
+        uploadPlubbingMainImage { imgUrl ->
+            createGathering(imgUrl) { response ->
+                updateUiState { uiState ->
+                    uiState.copy(plubbingId = response.plubbingId)
+                }
                 goToNextPageAndEmitChildrenPageState()
             }
         }
     }
 
-    private fun createGathering(mainImageUrl: String, onSuccess: () -> Unit) {
+    private fun createGathering(mainImageUrl: String, onSuccess: (data: CreateGatheringResponseVo) -> Unit) {
         viewModelScope.launch {
             val request = getCreateGatheringRequestVo(mainImageUrl)
 
             postCreateGatheringUseCase(request).collect { state ->
-                inspectUiState(state, { onSuccess() })
+                inspectUiState(state, { data -> onSuccess(data) })
             }
         }
     }

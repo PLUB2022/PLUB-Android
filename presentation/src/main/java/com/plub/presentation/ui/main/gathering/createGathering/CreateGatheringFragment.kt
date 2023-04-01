@@ -55,7 +55,17 @@ class CreateGatheringFragment : BaseFragment<FragmentCreateGatheringBinding, Cre
             is CreateGatheringEvent.NavigationPopEvent -> {
                 findNavController().popBackStack()
             }
-            else -> { }
+            is CreateGatheringEvent.GoToHostRecruitment -> {
+                val action = CreateGatheringFragmentDirections.actionCreateGatheringToHostRecruitment(event.plubbingId)
+                findNavController().navigate(action)
+            }
+
+            is CreateGatheringEvent.GoToPrevPage -> { }
+
+            is CreateGatheringEvent.GoToHome -> {
+                //val action = CreateGatheringFragmentDirections.actionCreateGatheringToMeunNavigationMain()
+                //findNavController().navigate(action)
+            }
         }
     }
 }

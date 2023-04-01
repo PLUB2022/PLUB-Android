@@ -46,12 +46,6 @@
             android:name="plubbingId"
             app:argType="integer"
             />
-
-
-        <!-- TODO REMOVE -->
-        <action
-            android:id="@+id/action_plubing_main_to_schedule"
-            app:destination="@+id/plubingScheduleFragment" />
     </fragment>
 
     <fragment
@@ -166,7 +160,19 @@
         android:id="@+id/createGatheringFragment"
         android:name="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringFragment"
         android:label="CreateGatheringFragment"
-        tools:layout="@layout/fragment_create_gathering" />
+        tools:layout="@layout/fragment_create_gathering" >
+
+        <action
+            android:id="@+id/action_create_gathering_to_host_recruitment"
+            app:destination="@id/hostRecruitmentFragment"
+            app:popUpTo="@id/menu_navigation_main" />
+
+        <action
+            android:id="@+id/action_create_gathering_to_meun_navigation_main"
+            app:destination="@id/menu_navigation_main"
+            app:popUpTo="@id/menu_navigation_main" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/searchingFragment"
