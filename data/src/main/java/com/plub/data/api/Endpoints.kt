@@ -2,11 +2,6 @@ package com.plub.data.api
 
 object Endpoints {
 
-    object TEST {
-        private const val TEST_URL = "/api"
-        const val LOGIN_TEST = "$TEST_URL/test"
-    }
-
     object FILE {
         const val FILE_URL = "/api/files"
         const val CHANGE_FILE_URL = "/api/files/change"
@@ -23,6 +18,7 @@ object Endpoints {
         private const val ACCOUNT_URL = "/api/accounts"
         const val NICKNAME_CHECK = "$ACCOUNT_URL/check/nickname/{nickname}"
         const val FETCH_MY_INFO = "$ACCOUNT_URL/me"
+        const val UPDATE_PROFILE = "$FETCH_MY_INFO/profile"
         const val REGIST_INTEREST = "$ACCOUNT_URL/interest"
         const val BROWSE_INTEREST = "$ACCOUNT_URL/interest"
     }
@@ -94,6 +90,11 @@ object Endpoints {
             const val TODO_DELETE = "$PLUBBING_ID_URL/todolist/{todoId}"
             const val TODO_LIKE_TOGGLE = "$PLUBBING_ID_URL/timeline/{timelineId}/like"
             const val TODO_DETAIL = "$PLUBBING_ID_URL/timeline/{timelineId}/todolist"
+        }
+
+        object MY_PAGE{
+            const val BROWSE_MY_GATHERING = "$PLUBBING_URL/all/my"
+            const val BROWSE_MY_APPLICATION = "$PLUBBING_URL/{plubbingId}/recruit/applicants/me"
         }
     }
 }

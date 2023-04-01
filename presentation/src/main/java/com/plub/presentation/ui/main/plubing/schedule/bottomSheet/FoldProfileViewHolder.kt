@@ -1,9 +1,7 @@
 package com.plub.presentation.ui.main.plubing.schedule.bottomSheet
 
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.R
-import com.plub.presentation.databinding.IncludeItemCircleProfileBinding
 import com.plub.presentation.databinding.LayoutRecyclerScheduleDetailFoldProfileBinding
 import com.plub.presentation.util.GlideUtil
 

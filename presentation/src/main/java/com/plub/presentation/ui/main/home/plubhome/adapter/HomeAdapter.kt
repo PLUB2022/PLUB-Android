@@ -10,6 +10,7 @@ import com.plub.domain.model.vo.home.HomePlubListVo
 import com.plub.presentation.databinding.*
 import com.plub.presentation.ui.main.home.plubhome.viewholder.*
 import com.plub.presentation.ui.main.home.progress.LoadingViewHolder
+import com.plub.presentation.util.PlubLogger
 
 class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubListVo, RecyclerView.ViewHolder>(
     HomeItemDiffCallBack()
@@ -63,6 +64,8 @@ class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubList
 }
 
 class HomeItemDiffCallBack : DiffUtil.ItemCallback<HomePlubListVo>() {
-    override fun areItemsTheSame(oldItem: HomePlubListVo, newItem: HomePlubListVo): Boolean = oldItem.viewType == newItem.viewType
-    override fun areContentsTheSame(oldItem: HomePlubListVo, newItem: HomePlubListVo): Boolean = oldItem == newItem
+    override fun areItemsTheSame(oldItem: HomePlubListVo, newItem: HomePlubListVo): Boolean =
+        oldItem.viewType == newItem.viewType && oldItem.recommendGathering.id == newItem.recommendGathering.id
+    override fun areContentsTheSame(oldItem: HomePlubListVo, newItem: HomePlubListVo): Boolean =
+        oldItem == newItem
 }
