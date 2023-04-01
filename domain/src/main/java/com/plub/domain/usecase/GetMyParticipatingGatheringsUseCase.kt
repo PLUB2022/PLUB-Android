@@ -2,7 +2,6 @@ package com.plub.domain.usecase
 
 import com.plub.domain.UiState
 import com.plub.domain.base.UseCase
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailResponseVo
 import com.plub.domain.model.vo.myGathering.MyGatheringsResponseVo
 import com.plub.domain.repository.GatheringRepository
 import com.plub.domain.repository.RecruitRepository
