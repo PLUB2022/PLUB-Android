@@ -356,4 +356,6 @@
             app:popUpTo="@id/plubingScheduleFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+
+    <action android:id="@+id/action_global_plubingMainFragment" app:destination="@id/plubingMainFragment"/>
 </navigation>

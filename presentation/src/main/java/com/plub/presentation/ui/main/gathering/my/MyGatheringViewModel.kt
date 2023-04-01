@@ -23,8 +23,12 @@ class MyGatheringViewModel @Inject constructor(
     private val _myGatherings: MutableStateFlow<List<MyGatheringResponseVo>> = MutableStateFlow(
         emptyList()
     )
+    private val _myHostings: MutableStateFlow<List<MyGatheringResponseVo>> = MutableStateFlow(
+        emptyList()
+    )
     override val uiState: MyGatheringPageState = MyGatheringPageState(
-        myGatherings = _myGatherings.asStateFlow()
+        myGatherings = _myGatherings.asStateFlow(),
+        myHostings = _myHostings.asStateFlow()
     )
 
     fun onClickRadioButtonMyGathering(isChecked: Boolean) {
@@ -32,7 +36,9 @@ class MyGatheringViewModel @Inject constructor(
     }
 
     fun getMyParticipatingGatherings() = viewModelScope.launch {
-        clearMyGatherings()
+        if(uiState.myGatherings.value.isNotEmpty()) return@launch
+
+        clearMyHostings()
 
         getMyParticipatingGatheringsUseCase(Unit).collect { uiState ->
             inspectUiState(uiState, succeedCallback = { data ->
@@ -46,11 +52,13 @@ class MyGatheringViewModel @Inject constructor(
     }
 
     private fun getMyHostingGatherings() = viewModelScope.launch {
+        if(uiState.myHostings.value.isNotEmpty()) return@launch
+
         clearMyGatherings()
 
         getMyHostingGatheringsUseCase(Unit).collect { uiState ->
             inspectUiState(uiState, succeedCallback = { data ->
-                updateMyGatherings(
+                updateMyHostings(
                     data.plubbings.plus(
                         MyGatheringResponseVo(viewType = MyGatheringsViewType.CREATE)
                     )
@@ -69,9 +77,27 @@ class MyGatheringViewModel @Inject constructor(
         }
     }
 
+    private fun clearMyHostings() {
+        _myHostings.update {
+            emptyList()
+        }
+    }
+
     private fun updateMyGatherings(items: List<MyGatheringResponseVo>) {
         _myGatherings.update {
             items
         }
+    }
+
+    private fun updateMyHostings(items: List<MyGatheringResponseVo>) {
+        _myHostings.update {
+            items
+        }
+    }
+
+    fun goToPlubingMain(plubbingId: Int) {
+        emitEventFlow(
+            MyGatheringEvent.GoToPlubingMain(plubbingId)
+        )
     }
 }

@@ -6,5 +6,6 @@ import com.plub.presentation.ui.PageState
 import kotlinx.coroutines.flow.StateFlow
 
 data class MyGatheringPageState(
-    val myGatherings: StateFlow<List<MyGatheringResponseVo>>
+    val myGatherings: StateFlow<List<MyGatheringResponseVo>>,
+    val myHostings: StateFlow<List<MyGatheringResponseVo>>
 ) : PageState

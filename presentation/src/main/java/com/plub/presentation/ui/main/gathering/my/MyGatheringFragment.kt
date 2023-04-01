@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.children
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.plub.presentation.R
@@ -11,8 +12,10 @@ import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyGatheringBinding
 import com.plub.presentation.ui.common.custom.MyGatheringLinearLayoutManager
 import com.plub.presentation.ui.main.gathering.my.adapter.MyGatheringsAdapter
+import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
@@ -24,7 +27,7 @@ class MyGatheringFragment :
     ) {
 
     companion object {
-        private val VIEW_PAGER2_PADDING = 30.px
+        private const val VIEW_PAGER2_PADDING = 30
     }
 
     override val viewModel: MyGatheringViewModel by viewModels()
@@ -32,6 +35,9 @@ class MyGatheringFragment :
         MyGatheringsAdapter(
             onMyGatheringMeatBallClick = { },
             onMyHostingMeatBallClick = { },
+            onContentClick = { plubbingId ->
+                viewModel.goToPlubingMain(plubbingId)
+            },
             onCreateGatheringClick = { },
             onParticipateGatheringClick = { }
         )
@@ -54,7 +60,7 @@ class MyGatheringFragment :
                 children.forEach { child ->
                     if(child is RecyclerView) {
                         child.apply {
-                            setPadding(VIEW_PAGER2_PADDING, 0, VIEW_PAGER2_PADDING, 0)
+                            setPadding(VIEW_PAGER2_PADDING.px, 0, VIEW_PAGER2_PADDING.px, 0)
                             clipToPadding = false
                         }
                         return@forEach
@@ -85,12 +91,29 @@ class MyGatheringFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.myGatherings.collect {
-                    myGatheringsAdapter.submitList(
-                        it.toList()
-                    )
+                    myGatheringsAdapter.submitList(it)
                     binding.ovalDotsIndicator.setSingleItemIndicatorSize(it)
                 }
             }
+
+            launch {
+                viewModel.uiState.myHostings.collect {
+                    myGatheringsAdapter.submitList(it)
+                    binding.ovalDotsIndicator.setSingleItemIndicatorSize(it)
+                }
+            }
+
+            launch {
+                viewModel.eventFlow.collect { event ->
+                    if(event is MyGatheringEvent) inspectEventFlow(event)
+                }
+            }
+        }
+    }
+
+    private fun inspectEventFlow(event: MyGatheringEvent) {
+        when(event) {
+            is MyGatheringEvent.GoToPlubingMain -> { findNavController().navigate(MyGatheringFragmentDirections.actionGlobalPlubingMainFragment(event.plubingId)) }
         }
     }
 

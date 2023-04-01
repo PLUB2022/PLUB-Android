@@ -18,6 +18,7 @@ import com.plub.presentation.util.onThrottleClick
 class MyGatheringsAdapter(
     private val onMyGatheringMeatBallClick: () -> Unit = { },
     private val onMyHostingMeatBallClick: () -> Unit = { },
+    private val onContentClick: (plubbingId: Int) -> Unit = { },
     private val onCreateGatheringClick: () -> Unit = { },
     private val onParticipateGatheringClick: () -> Unit = { },
 ) : ListAdapter<MyGatheringResponseVo, RecyclerView.ViewHolder>(DiffCallback) {
@@ -56,7 +57,7 @@ class MyGatheringsAdapter(
                     parent,
                     false
                 )
-                MyGatheringsViewHolder(binding, onMyGatheringMeatBallClick = onMyGatheringMeatBallClick)
+                MyGatheringsViewHolder(binding, onContentClick = onContentClick, onMyGatheringMeatBallClick = onMyGatheringMeatBallClick)
             }
 
             MyGatheringsViewType.MY_HOSTING_CONTENT -> {
@@ -65,7 +66,7 @@ class MyGatheringsAdapter(
                     parent,
                     false
                 )
-                MyGatheringsViewHolder(binding, onMyHostingMeatBallClick = onMyHostingMeatBallClick)
+                MyGatheringsViewHolder(binding, onContentClick = onContentClick, onMyHostingMeatBallClick = onMyHostingMeatBallClick)
             }
 
             MyGatheringsViewType.PARTICIPATE -> {

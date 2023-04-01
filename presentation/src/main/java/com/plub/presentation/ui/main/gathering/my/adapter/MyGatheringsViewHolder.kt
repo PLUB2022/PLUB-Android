@@ -11,13 +11,21 @@ import com.plub.presentation.util.onThrottleClick
 
 class MyGatheringsViewHolder(
     private val binding: LayoutRecyclerMyGatheringContentBinding,
+    private val onContentClick: (plubbingId: Int) -> Unit = { },
     private val onMyGatheringMeatBallClick: () -> Unit = { },
     private val onMyHostingMeatBallClick: () -> Unit = { },
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private val context = binding.root.context
+    private var plubbingId: Int? = null
 
     init {
+        binding.root.onThrottleClick {
+            plubbingId?.let {
+                onContentClick(it)
+            }
+        }
+
         binding.imageViewMeatBall.onThrottleClick {
             onMyGatheringMeatBallClick()
             onMyHostingMeatBallClick()
@@ -25,6 +33,8 @@ class MyGatheringsViewHolder(
     }
 
     fun bind(item: MyGatheringResponseVo) {
+        plubbingId = item.plubbingId
+
         binding.apply {
             imageViewMain.clipToOutline = true
             GlideUtil.loadImage(binding.root.context, item.mainImage, imageViewMain)
