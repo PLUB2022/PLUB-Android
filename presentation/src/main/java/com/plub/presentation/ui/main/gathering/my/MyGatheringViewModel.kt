@@ -100,4 +100,16 @@ class MyGatheringViewModel @Inject constructor(
             MyGatheringEvent.GoToPlubingMain(plubbingId)
         )
     }
+
+    fun goToCreate() {
+        emitEventFlow(
+            MyGatheringEvent.GoToCreateGathering
+        )
+    }
+    fun goToHome() {
+        emitEventFlow(
+            MyGatheringEvent.GoToPlubingHome
+        )
+    }
+
 }

@@ -287,7 +287,22 @@
         android:id="@+id/menu_navigation_gathering"
         android:name="com.plub.presentation.ui.main.gathering.my.MyGatheringFragment"
         android:label="fragment_gathering"
-        tools:layout="@layout/fragment_my_gathering" />
+        tools:layout="@layout/fragment_my_gathering" >
+
+        <action
+            android:id="@+id/action_my_gathering_to_plubing_main"
+            app:destination="@id/plubingMainFragment" />
+
+        <action
+            android:id="@+id/action_my_gathering_to_plubing_home"
+            app:destination="@id/menu_navigation_main" />
+
+        <action
+            android:id="@+id/action_my_gathering_to_create"
+            app:destination="@id/createGatheringFragment" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/menu_navigation_noti"
         android:name="com.plub.presentation.ui.main.noti.NotiFragment"
@@ -401,6 +416,4 @@
             android:name="plubbingId"
             app:argType="integer" />
     </fragment>
-
-    <action android:id="@+id/action_global_plubingMainFragment" app:destination="@id/plubingMainFragment"/>
 </navigation>

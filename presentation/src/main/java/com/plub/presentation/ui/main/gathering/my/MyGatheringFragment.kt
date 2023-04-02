@@ -38,8 +38,12 @@ class MyGatheringFragment :
             onContentClick = { plubbingId ->
                 viewModel.goToPlubingMain(plubbingId)
             },
-            onCreateGatheringClick = { },
-            onParticipateGatheringClick = { }
+            onCreateGatheringClick = {
+                viewModel.goToCreate()
+            },
+            onParticipateGatheringClick = {
+                viewModel.goToHome()
+            }
         )
     }
 
@@ -58,7 +62,7 @@ class MyGatheringFragment :
                 ovalDotsIndicator.attachTo(this)
 
                 children.forEach { child ->
-                    if(child is RecyclerView) {
+                    if (child is RecyclerView) {
                         child.apply {
                             setPadding(VIEW_PAGER2_PADDING.px, 0, VIEW_PAGER2_PADDING.px, 0)
                             clipToPadding = false
@@ -74,7 +78,7 @@ class MyGatheringFragment :
                     }
                 }
             }
-            
+
             radioButtonMyGathering.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.onClickRadioButtonMyGathering(isChecked)
             }
@@ -105,15 +109,29 @@ class MyGatheringFragment :
 
             launch {
                 viewModel.eventFlow.collect { event ->
-                    if(event is MyGatheringEvent) inspectEventFlow(event)
+                    if (event is MyGatheringEvent) inspectEventFlow(event)
                 }
             }
         }
     }
 
     private fun inspectEventFlow(event: MyGatheringEvent) {
-        when(event) {
-            is MyGatheringEvent.GoToPlubingMain -> { findNavController().navigate(MyGatheringFragmentDirections.actionGlobalPlubingMainFragment(event.plubingId)) }
+        when (event) {
+            is MyGatheringEvent.GoToPlubingMain -> {
+                val action =
+                    MyGatheringFragmentDirections.actionMyGatheringToPlubingMain(event.plubingId)
+                findNavController().navigate(action)
+            }
+
+            MyGatheringEvent.GoToCreateGathering -> {
+                val action = MyGatheringFragmentDirections.actionMyGatheringToCreate()
+                findNavController().navigate(action)
+            }
+
+            MyGatheringEvent.GoToPlubingHome -> {
+                val action = MyGatheringFragmentDirections.actionMyGatheringToPlubingHome()
+                findNavController().navigate(action)
+            }
         }
     }
 
