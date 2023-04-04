@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.gathering.my.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -16,8 +17,8 @@ import com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.Plubi
 import com.plub.presentation.util.onThrottleClick
 
 class MyGatheringsAdapter(
-    private val onMyGatheringMeatBallClick: () -> Unit = { },
-    private val onMyHostingMeatBallClick: () -> Unit = { },
+    private val onMyGatheringMeatBallClick: (view: View, plubbingId: Int) -> Unit = { _, _ -> },
+    private val onMyHostingMeatBallClick: (view: View, plubbingId: Int) -> Unit = { _, _ -> },
     private val onContentClick: (plubbingId: Int) -> Unit = { },
     private val onCreateGatheringClick: () -> Unit = { },
     private val onParticipateGatheringClick: () -> Unit = { },

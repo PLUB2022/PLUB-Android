@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.main.gathering.my.adapter
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.vo.myGathering.MyGatheringResponseVo
@@ -12,8 +13,8 @@ import com.plub.presentation.util.onThrottleClick
 class MyGatheringsViewHolder(
     private val binding: LayoutRecyclerMyGatheringContentBinding,
     private val onContentClick: (plubbingId: Int) -> Unit = { },
-    private val onMyGatheringMeatBallClick: () -> Unit = { },
-    private val onMyHostingMeatBallClick: () -> Unit = { },
+    private val onMyGatheringMeatBallClick: (view: View, plubbingId: Int) -> Unit = { _, _ -> },
+    private val onMyHostingMeatBallClick: (view: View, plubbingId: Int) -> Unit = { _, _ -> },
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private val context = binding.root.context
@@ -26,9 +27,11 @@ class MyGatheringsViewHolder(
             }
         }
 
-        binding.imageViewMeatBall.onThrottleClick {
-            onMyGatheringMeatBallClick()
-            onMyHostingMeatBallClick()
+        binding.imageViewMeatBall.onThrottleClick { view ->
+            plubbingId?.let { id ->
+                onMyGatheringMeatBallClick(view, id)
+                onMyHostingMeatBallClick(view, id)
+            }
         }
     }
 

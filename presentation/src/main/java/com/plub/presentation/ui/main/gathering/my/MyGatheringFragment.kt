@@ -12,6 +12,7 @@ import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyGatheringBinding
 import com.plub.presentation.ui.common.custom.MyGatheringLinearLayoutManager
 import com.plub.presentation.ui.main.gathering.my.adapter.MyGatheringsAdapter
+import com.plub.presentation.util.PowerMenuUtil
 import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,8 +34,22 @@ class MyGatheringFragment :
     override val viewModel: MyGatheringViewModel by viewModels()
     private val myGatheringsAdapter: MyGatheringsAdapter by lazy {
         MyGatheringsAdapter(
-            onMyGatheringMeatBallClick = { },
-            onMyHostingMeatBallClick = { },
+            onMyGatheringMeatBallClick = { view, plubbingId ->
+                PowerMenuUtil.getPlubPowerMenu(
+                    requireContext(),
+                    viewLifecycleOwner
+                ) { _, _ ->
+
+                }.showAsDropDown(view, (-59).px, 0)
+            },
+            onMyHostingMeatBallClick = { view, plubbingId ->
+                PowerMenuUtil.getPlubPowerMenu(
+                    requireContext(),
+                    viewLifecycleOwner
+                ) {
+                        _, _ ->
+                }.showAsDropDown(view, (-59).px, 0)
+            },
             onContentClick = { plubbingId ->
                 viewModel.goToPlubingMain(plubbingId)
             },
