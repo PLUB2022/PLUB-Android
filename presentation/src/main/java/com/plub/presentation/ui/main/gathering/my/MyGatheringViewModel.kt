@@ -24,22 +24,24 @@ class MyGatheringViewModel @Inject constructor(
     private val _myGatherings: MutableStateFlow<List<MyGatheringResponseVo>> = MutableStateFlow(
         emptyList()
     )
-    private val _myHostings: MutableStateFlow<List<MyGatheringResponseVo>> = MutableStateFlow(
-        emptyList()
-    )
+
+    private var prevMyGatheringRadioButtonChecked = true
+    private var prevMyHostRadioButtonChecked = false
+
     override val uiState: MyGatheringPageState = MyGatheringPageState(
         myGatherings = _myGatherings.asStateFlow(),
-        myHostings = _myHostings.asStateFlow()
     )
 
     fun onClickRadioButtonMyGathering(isChecked: Boolean) {
-        if(isChecked) getMyParticipatingGatherings()
+        if(isChecked && !prevMyGatheringRadioButtonChecked) getMyParticipatingGatherings()
+        prevMyGatheringRadioButtonChecked = isChecked
+    }
+
+    fun initData() {
+        if(uiState.myGatherings.value.isEmpty()) getMyParticipatingGatherings()
     }
 
     fun getMyParticipatingGatherings() = viewModelScope.launch {
-        if(uiState.myGatherings.value.isNotEmpty()) return@launch
-
-        clearMyHostings()
 
         getMyParticipatingGatheringsUseCase(Unit).collect { uiState ->
             inspectUiState(uiState, succeedCallback = { data ->
@@ -53,13 +55,11 @@ class MyGatheringViewModel @Inject constructor(
     }
 
     private fun getMyHostingGatherings() = viewModelScope.launch {
-        if(uiState.myHostings.value.isNotEmpty()) return@launch
-
         clearMyGatherings()
 
         getMyHostingGatheringsUseCase(Unit).collect { uiState ->
             inspectUiState(uiState, succeedCallback = { data ->
-                updateMyHostings(
+                updateMyGatherings(
                     data.plubbings.plus(
                         MyGatheringResponseVo(viewType = MyGatheringsViewType.CREATE)
                     )
@@ -69,7 +69,8 @@ class MyGatheringViewModel @Inject constructor(
     }
 
     fun onClickRadioButtonHost(isChecked: Boolean) {
-        if(isChecked) getMyHostingGatherings()
+        if(isChecked && !prevMyHostRadioButtonChecked) getMyHostingGatherings()
+        prevMyHostRadioButtonChecked = isChecked
     }
 
     private fun clearMyGatherings() {
@@ -78,20 +79,8 @@ class MyGatheringViewModel @Inject constructor(
         }
     }
 
-    private fun clearMyHostings() {
-        _myHostings.update {
-            emptyList()
-        }
-    }
-
     private fun updateMyGatherings(items: List<MyGatheringResponseVo>) {
         _myGatherings.update {
-            items
-        }
-    }
-
-    private fun updateMyHostings(items: List<MyGatheringResponseVo>) {
-        _myHostings.update {
             items
         }
     }

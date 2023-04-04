@@ -19,6 +19,7 @@ import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -68,7 +69,7 @@ class MyGatheringFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.getMyParticipatingGatherings()
+        viewModel.initData()
     }
 
     override fun initView() {
@@ -96,14 +97,6 @@ class MyGatheringFragment :
                     }
                 }
             }
-
-            radioButtonMyGathering.setOnCheckedChangeListener { _, isChecked ->
-                viewModel.onClickRadioButtonMyGathering(isChecked)
-            }
-
-            radioButtonHost.setOnCheckedChangeListener { _, isChecked ->
-                viewModel.onClickRadioButtonHost(isChecked)
-            }
         }
     }
 
@@ -112,16 +105,19 @@ class MyGatheringFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.myGatherings.collect {
-                    if(it.isEmpty()) return@collect
-                    myGatheringsAdapter.submitList(it)
-                    binding.ovalDotsIndicator.setSingleItemIndicatorSize(it)
+                viewModel.uiState.isRadioButtonMyGatheringChecked.collectLatest { isChecked ->
+                    viewModel.onClickRadioButtonMyGathering(isChecked)
                 }
             }
 
             launch {
-                viewModel.uiState.myHostings.collect {
-                    if(it.isEmpty()) return@collect
+                viewModel.uiState.isRadioButtonMyHostChecked.collectLatest { isChecked ->
+                    viewModel.onClickRadioButtonHost(isChecked)
+                }
+            }
+
+            launch {
+                viewModel.uiState.myGatherings.collect {
                     myGatheringsAdapter.submitList(it)
                     binding.ovalDotsIndicator.setSingleItemIndicatorSize(it)
                 }
