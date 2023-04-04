@@ -330,6 +330,10 @@
     <string name="bottom_sheet_attend">🙆🏻 참여합니다!</string>
     <string name="my_gathering_participate_new_gathering">새로운 모임에\n참여해 보세요!</string>
     <string name="my_gathering_create_new_gathering">새로운 모임을\n만들어 보세요!</string>
+    <string name="my_gathering_setting">내 모임 설정</string>
+    <string name="my_gathering_quit">모임 나가기</string>
+    <string name="my_gathering_kick_out">강퇴하기</string>
+    <string name="my_gathering_close">모임 종료</string>
 
     <string name="my_page_read_more">더보기</string>
     <string name="my_page_close">접기</string>
