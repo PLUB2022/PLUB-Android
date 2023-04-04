@@ -6,26 +6,25 @@ import com.skydoves.powermenu.CustomPowerMenu
 import com.skydoves.powermenu.OnMenuItemClickListener
 
 object PowerMenuUtil {
+
+    private const val MENU_RADIUS = 10
+    private const val BACKGROUND_ALPHA = 0f
+    private const val MENU_WIDTH = 90
+    private const val MENU_PADDING = 8
+
     fun getPlubPowerMenu(
         context: Context,
         lifecycleOwner: LifecycleOwner,
+        items: List<String>,
         onMenuItemClickListener: OnMenuItemClickListener<String>
     ): CustomPowerMenu<String, PlubPopUpMenuAdapter> {
-        var popupMenu: CustomPowerMenu<String, PlubPopUpMenuAdapter>? = null
-
-        popupMenu = CustomPowerMenu.Builder<String, PlubPopUpMenuAdapter>(context, PlubPopUpMenuAdapter())
-            .addItem("수정")
-            .addItem("삭제")
-            .setMenuRadius(10.px.toFloat())
-            .setBackgroundAlpha(0f)
-            .setWidth(86.px)
-            .setPadding(8.px)
+        return CustomPowerMenu.Builder<String, PlubPopUpMenuAdapter>(context, PlubPopUpMenuAdapter())
+            .addItemList(items)
+            .setMenuRadius(MENU_RADIUS.px.toFloat())
+            .setBackgroundAlpha(BACKGROUND_ALPHA)
+            .setWidth(MENU_WIDTH.px)
+            .setPadding(MENU_PADDING.px)
             .setLifecycleOwner(lifecycleOwner)
-            .setOnBackgroundClickListener {
-                popupMenu?.dismiss()
-            }
             .setOnMenuItemClickListener(onMenuItemClickListener).build()
-
-        return popupMenu
     }
 }
