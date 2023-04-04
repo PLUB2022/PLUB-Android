@@ -41,7 +41,7 @@ class MyGatheringViewModel @Inject constructor(
         if(uiState.myGatherings.value.isEmpty()) getMyParticipatingGatherings()
     }
 
-    fun getMyParticipatingGatherings() = viewModelScope.launch {
+    private fun getMyParticipatingGatherings() = viewModelScope.launch {
 
         getMyParticipatingGatheringsUseCase(Unit).collect { uiState ->
             inspectUiState(uiState, succeedCallback = { data ->
@@ -60,7 +60,9 @@ class MyGatheringViewModel @Inject constructor(
         getMyHostingGatheringsUseCase(Unit).collect { uiState ->
             inspectUiState(uiState, succeedCallback = { data ->
                 updateMyGatherings(
-                    data.plubbings.plus(
+                    data.plubbings.map {
+                        it.copy(viewType = MyGatheringsViewType.MY_HOSTING_CONTENT)
+                    }.plus(
                         MyGatheringResponseVo(viewType = MyGatheringsViewType.CREATE)
                     )
                 )
