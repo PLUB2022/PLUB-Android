@@ -12,11 +12,14 @@ import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyGatheringBinding
 import com.plub.presentation.ui.common.custom.MyGatheringLinearLayoutManager
 import com.plub.presentation.ui.main.gathering.my.adapter.MyGatheringsAdapter
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.PowerMenuUtil
 import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
@@ -110,6 +113,7 @@ class MyGatheringFragment :
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.uiState.myGatherings.collect {
+                    if(it.isEmpty()) return@collect
                     myGatheringsAdapter.submitList(it)
                     binding.ovalDotsIndicator.setSingleItemIndicatorSize(it)
                 }
@@ -117,6 +121,7 @@ class MyGatheringFragment :
 
             launch {
                 viewModel.uiState.myHostings.collect {
+                    if(it.isEmpty()) return@collect
                     myGatheringsAdapter.submitList(it)
                     binding.ovalDotsIndicator.setSingleItemIndicatorSize(it)
                 }
