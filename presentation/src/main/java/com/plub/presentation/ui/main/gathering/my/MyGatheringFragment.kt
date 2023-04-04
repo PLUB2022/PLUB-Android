@@ -6,21 +6,14 @@ import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyGatheringBinding
-import com.plub.presentation.ui.common.custom.MyGatheringLinearLayoutManager
 import com.plub.presentation.ui.main.gathering.my.adapter.MyGatheringsAdapter
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.PowerMenuUtil
-import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
@@ -33,26 +26,17 @@ class MyGatheringFragment :
 
     companion object {
         private const val VIEW_PAGER2_PADDING = 30
+        private const val POWER_MENU_OFFSET = -59
     }
 
     override val viewModel: MyGatheringViewModel by viewModels()
     private val myGatheringsAdapter: MyGatheringsAdapter by lazy {
         MyGatheringsAdapter(
             onMyGatheringMeatBallClick = { view, plubbingId ->
-                PowerMenuUtil.getPlubPowerMenu(
-                    requireContext(),
-                    viewLifecycleOwner
-                ) { _, _ ->
-
-                }.showAsDropDown(view, (-59).px, 0)
+                showGatheringMeatBallPowerMenu(view, plubbingId)
             },
             onMyHostingMeatBallClick = { view, plubbingId ->
-                PowerMenuUtil.getPlubPowerMenu(
-                    requireContext(),
-                    viewLifecycleOwner
-                ) {
-                        _, _ ->
-                }.showAsDropDown(view, (-59).px, 0)
+                showHostingMeatBallPowerMenu(view, plubbingId)
             },
             onContentClick = { plubbingId ->
                 viewModel.goToPlubingMain(plubbingId)
@@ -64,6 +48,35 @@ class MyGatheringFragment :
                 viewModel.goToHome()
             }
         )
+    }
+
+    private fun showGatheringMeatBallPowerMenu(view: View, plubbingId: Int) {
+        val items = listOf(getString(R.string.my_gathering_quit))
+
+        PowerMenuUtil.getPlubPowerMenu(
+            requireContext(),
+            viewLifecycleOwner,
+            items
+        ) { _, _ ->
+
+        }.showAsDropDown(view, POWER_MENU_OFFSET.px, 0)
+    }
+
+    private fun showHostingMeatBallPowerMenu(view: View, plubbingId: Int) {
+        val items = listOf(
+            getString(R.string.my_gathering_setting),
+            getString(R.string.my_gathering_quit),
+            getString(R.string.my_gathering_kick_out),
+            getString(R.string.my_gathering_close)
+        )
+
+        PowerMenuUtil.getPlubPowerMenu(
+            requireContext(),
+            viewLifecycleOwner,
+            items
+        ) { _, _ ->
+
+        }.showAsDropDown(view, POWER_MENU_OFFSET.px, 0)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
