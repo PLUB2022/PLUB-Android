@@ -51,19 +51,19 @@ class MyGatheringFragment :
     }
 
     private fun showGatheringMeatBallPowerMenu(view: View, plubbingId: Int) {
-        val items = listOf(getString(R.string.my_gathering_quit))
+        val gatheringMeatBallItems = listOf(getString(R.string.my_gathering_quit))
 
         PowerMenuUtil.getPlubPowerMenu(
             requireContext(),
             viewLifecycleOwner,
-            items
+            gatheringMeatBallItems
         ) { _, _ ->
 
         }.showAsDropDown(view, POWER_MENU_OFFSET.px, 0)
     }
 
     private fun showHostingMeatBallPowerMenu(view: View, plubbingId: Int) {
-        val items = listOf(
+        val hostingMeatBallItems = listOf(
             getString(R.string.my_gathering_setting),
             getString(R.string.my_gathering_quit),
             getString(R.string.my_gathering_kick_out),
@@ -73,7 +73,7 @@ class MyGatheringFragment :
         PowerMenuUtil.getPlubPowerMenu(
             requireContext(),
             viewLifecycleOwner,
-            items
+            hostingMeatBallItems
         ) { _, _ ->
 
         }.showAsDropDown(view, POWER_MENU_OFFSET.px, 0)
