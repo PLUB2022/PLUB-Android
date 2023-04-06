@@ -4,11 +4,13 @@ package com.plub.presentation.ui.main.home.recruitment
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailResponseVo
+import com.plub.domain.usecase.DeleteMyApplicationUseCase
 import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,6 +18,7 @@ import javax.inject.Inject
 class RecruitmentViewModel @Inject constructor(
     val getRecruitDetailUseCase: GetRecruitDetailUseCase,
     val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
+    val deleteMyApplicationUseCase: DeleteMyApplicationUseCase
 ) : BaseViewModel<DetailRecruitPageState>(DetailRecruitPageState()) {
 
     companion object{
@@ -94,6 +97,10 @@ class RecruitmentViewModel @Inject constructor(
     }
 
     fun cancelApply(){
-
+        viewModelScope.launch {
+            deleteMyApplicationUseCase(plubbingId).collect{
+                inspectUiState(it, { goToBack() })
+            }
+        }
     }
 }
