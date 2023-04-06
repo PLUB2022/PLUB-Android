@@ -197,4 +197,8 @@ class HomeFragmentViewModel @Inject constructor(
     fun goToBookmark() {
         emitEventFlow(HomeEvent.GoToBookMark)
     }
+
+    fun goToCreateGathering(){
+        emitEventFlow(HomeEvent.GoToCreateGathering)
+    }
 }

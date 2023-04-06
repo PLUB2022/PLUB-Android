@@ -361,4 +361,5 @@
     <string name="my_page_again_approve">해당 지원자를\n받으시겠어요?</string>
     <string name="my_page_again_refuse">해당 지원자를\n거절하시겠어요?</string>
     <string name="my_page_again_cancel">이 모임에 참여하고 싶지\n않으신가요?</string>
+    <string name="plub_home_create_gathering">+ 새 모임 만들기</string>
 </resources>

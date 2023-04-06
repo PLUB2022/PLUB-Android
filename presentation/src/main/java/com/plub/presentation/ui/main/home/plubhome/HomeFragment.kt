@@ -97,6 +97,9 @@ class HomeFragment : BaseTestFragment<FragmentHomeBinding, HomePageState, HomeFr
             is HomeEvent.GoToRegisterInterest -> {
                 goToRegisterInterest()
             }
+            is HomeEvent.GoToCreateGathering -> {
+                goToCreateGathering()
+            }
         }
     }
 
@@ -131,6 +134,11 @@ class HomeFragment : BaseTestFragment<FragmentHomeBinding, HomePageState, HomeFr
     private fun goToRecruitmentFragment(plubbingId: Int) {
         val action =
             HomeFragmentDirections.actionMainToRecruitment(plubbingId)
+        findNavController().navigate(action)
+    }
+
+    private fun goToCreateGathering(){
+        val action = HomeFragmentDirections.actionMainToCreateGathering()
         findNavController().navigate(action)
     }
 }
