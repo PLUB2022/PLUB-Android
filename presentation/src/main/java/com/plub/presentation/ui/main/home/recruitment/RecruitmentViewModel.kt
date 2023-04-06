@@ -88,4 +88,7 @@ class RecruitmentViewModel @Inject constructor(
         emitEventFlow(RecruitEvent.OpenBottomSheet(uiState.value.joinedAccounts))
     }
 
+    fun onClickReport(){
+        emitEventFlow(RecruitEvent.GoToReport)
+    }
 }

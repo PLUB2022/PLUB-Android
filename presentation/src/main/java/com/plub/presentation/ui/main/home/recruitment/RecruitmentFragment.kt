@@ -110,6 +110,9 @@ class RecruitmentFragment :
             is RecruitEvent.OpenBottomSheet -> {
                 openProfileBottomSheet(event.joinedAccountsList)
             }
+            is RecruitEvent.GoToReport -> {
+                goToReport()
+            }
         }
     }
 
@@ -136,5 +139,9 @@ class RecruitmentFragment :
     private fun openProfileBottomSheet(joinedAccountList : List<RecruitDetailJoinedAccountsVo>){
         val bottomSheet = ProfileBottomSheetFragment(joinedAccountList)
         bottomSheet.show(childFragmentManager, bottomSheet.tag)
+    }
+
+    private fun goToReport(){
+        //TODO 신고화면 이동
     }
 }

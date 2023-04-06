@@ -32,11 +32,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="12dp"
                 android:background="@color/transparent"
-                app:onThrottleClick="@{()->vm.goToBack()}"
                 android:scaleType="center"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:onThrottleClick="@{()->vm.goToBack()}" />
 
             <ImageView
                 android:id="@+id/image_view_bookmark"
@@ -45,10 +45,10 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="15dp"
                 android:background="@color/transparent"
-                app:onThrottleClick="@{()->vm.clickBookmark()}"
                 android:src="@{vm.uiState.bookmarked == true ? @drawable/ic_bookmark_checked : @drawable/ic_bookmark}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:onThrottleClick="@{()->vm.clickBookmark()}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -66,9 +66,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="21dp"
                     android:layout_marginStart="18dp"
-                    android:textColor="@color/color_363636"
                     android:layout_marginTop="52dp"
                     android:text="@{vm.uiState.plubbingName}"
+                    android:textColor="@color/color_363636"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -79,9 +79,9 @@
                     android:id="@+id/text_view_plubbing_title"
                     android:layout_width="wrap_content"
                     android:layout_height="29dp"
-                    android:textColor="@color/color_363636"
                     android:layout_marginTop="77dp"
                     android:text="@{vm.uiState.recruitTitle}"
+                    android:textColor="@color/color_363636"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="@id/text_view_plubbing_name"
                     app:layout_constraintTop_toTopOf="parent"
@@ -142,8 +142,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
                         android:layout_marginStart="20dp"
-                        android:textColor="@color/color_363636"
                         android:text="@{@string/detail_recruitment_people(vm.uiState.accountNum)}"
+                        android:textColor="@color/color_363636"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -173,8 +173,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
                         android:layout_marginStart="20dp"
-                        android:textColor="@color/color_363636"
                         android:text="@{@string/word_middle_line(vm.uiState.plubbingDays, vm.uiState.plubbingTime)}"
+                        android:textColor="@color/color_363636"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -190,8 +190,8 @@
                     android:layout_marginStart="17.5dp"
                     android:layout_marginTop="240dp"
                     android:layout_marginEnd="14.5dp"
-                    android:scaleType="centerCrop"
                     android:background="@drawable/bg_rectangle_filled_e4e4e4_radius_10"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -202,8 +202,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="21dp"
                     android:layout_marginTop="16dp"
-                    android:textColor="@color/color_363636"
                     android:text="@{@string/detail_recruit_about_my_gathering(vm.uiState.recruitIntroduce)}"
+                    android:textColor="@color/color_363636"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
                     app:layout_constraintTop_toBottomOf="@id/image_view_plubbing_image"
@@ -234,6 +234,18 @@
                     app:layout_constraintStart_toStartOf="@id/image_view_plubbing_image"
                     app:layout_constraintTop_toBottomOf="@id/text_view_plubbing_detail" />
 
+                <TextView
+                    android:id="@+id/text_view_report"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="13dp"
+                    android:text="@string/word_report"
+                    android:textColor="@color/color_8c8c8c"
+                    app:onThrottleClick="@{()->vm.onClickReport()}"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_hobby" />
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -250,8 +262,8 @@
                     android:id="@+id/recycler_view_plubbing_people_profile"
                     android:layout_width="0dp"
                     android:layout_height="34dp"
-                    android:layout_marginTop="54dp"
                     android:layout_marginStart="12dp"
+                    android:layout_marginTop="54dp"
                     android:layout_marginEnd="10.5dp"
                     android:orientation="horizontal"
                     android:overScrollMode="never"
@@ -267,7 +279,6 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="12dp"
                     android:layout_marginBottom="30dp"
-                    app:onThrottleClick="@{()->vm.goToBack()}"
                     android:background="@drawable/bg_rectangle_filled_e4e4e4_radius_10"
                     android:text="@string/detail_recruitment_see_others"
                     android:textColor="@color/color_8c8c8c"
@@ -275,7 +286,8 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@id/button_join"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_people_profile" />
+                    app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_people_profile"
+                    app:onThrottleClick="@{()->vm.goToBack()}" />
 
                 <Button
                     android:id="@+id/button_join"
@@ -285,14 +297,14 @@
                     android:layout_marginEnd="15dp"
                     android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
                     android:enabled="@{!vm.uiState.applied}"
-                    app:onThrottleClick="@{()->vm.goToApplyPlubbing()}"
                     android:text="@{vm.uiState.applied == true ? @string/detail_recruitment_already_apply : @string/detail_recruitment_together}"
                     android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
                     android:textSize="14dp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/button_other"
-                    app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_people_profile" />
+                    app:layout_constraintTop_toBottomOf="@id/recycler_view_plubbing_people_profile"
+                    app:onThrottleClick="@{()->vm.goToApplyPlubbing()}" />
 
                 <View
                     android:layout_width="wrap_content"
