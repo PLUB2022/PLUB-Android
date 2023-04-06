@@ -73,7 +73,8 @@ class RecruitmentViewModel @Inject constructor(
     }
 
     fun goToApplyPlubbing(){
-        emitEventFlow(RecruitEvent.GoToApplyPlubbingFragment)
+        if(uiState.value.isApplied) emitEventFlow(RecruitEvent.CancelApply)
+        else emitEventFlow(RecruitEvent.GoToApplyPlubbingFragment)
     }
 
     fun goToBack(){
@@ -90,5 +91,9 @@ class RecruitmentViewModel @Inject constructor(
 
     fun onClickReport(){
         emitEventFlow(RecruitEvent.GoToReport)
+    }
+
+    fun cancelApply(){
+
     }
 }

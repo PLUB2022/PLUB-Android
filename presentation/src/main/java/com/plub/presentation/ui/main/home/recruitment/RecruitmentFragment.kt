@@ -113,6 +113,9 @@ class RecruitmentFragment :
             is RecruitEvent.GoToReport -> {
                 goToReport()
             }
+            is RecruitEvent.CancelApply -> {
+                showCancelDialog()
+            }
         }
     }
 
@@ -143,5 +146,10 @@ class RecruitmentFragment :
 
     private fun goToReport(){
         //TODO 신고화면 이동
+    }
+
+    private fun showCancelDialog(){
+        //TODO 지원 취소 팝업
+        viewModel.cancelApply()
     }
 }

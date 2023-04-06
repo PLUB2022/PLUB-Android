@@ -289,7 +289,7 @@
     <string name="detail_recruitment_together">같이 할래요!</string>
     <string name="detail_recruit_about_my_gathering">[ %s ] 모임은요...!</string>
     <string name="detail_recruitment_people">모집 인원 %s명</string>
-    <string name="detail_recruitment_already_apply">지원 완료</string>
+    <string name="detail_recruitment_already_apply">지원 취소</string>
     <string name="detail_recruitment_profile_county">+%d</string>
     <string name="detail_recruitment_with_us">With_Us!</string>
 
