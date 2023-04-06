@@ -13,6 +13,7 @@ import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.ui.main.home.recruitment.bottomsheet.ProfileBottomSheetFragment
+import com.plub.presentation.ui.main.home.recruitment.dialog.RecruitApplySuccessDialogFragment
 import com.plub.presentation.ui.main.profile.bottomsheet.BottomSheetProfileFragment
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.px
@@ -47,12 +48,11 @@ class RecruitmentFragment :
     override val viewModel: RecruitmentViewModel by viewModels()
 
     override fun initView() {
-
         binding.apply {
             vm = viewModel
             initRecycler()
-            viewModel.fetchRecruitmentDetail(recruitmentFragmentArgs.plubbingId)
         }
+        viewModel.fetchRecruitmentDetail(recruitmentFragmentArgs.plubbingId)
     }
 
     private fun initRecycler(){
@@ -116,6 +116,9 @@ class RecruitmentFragment :
             is RecruitEvent.CancelApply -> {
                 showCancelDialog()
             }
+            is RecruitEvent.ShowDialog -> {
+                showSuccessDialog()
+            }
         }
     }
 
@@ -151,5 +154,13 @@ class RecruitmentFragment :
     private fun showCancelDialog(){
         //TODO 지원 취소 팝업
         viewModel.cancelApply()
+    }
+
+    private fun showSuccessDialog(){
+        RecruitApplySuccessDialogFragment(object : RecruitApplySuccessDialogFragment.Delegate{
+            override fun closeButtonClick() {
+                initView()
+            }
+        }).show(childFragmentManager, "")
     }
 }
