@@ -1,9 +1,9 @@
-package com.plub.presentation.ui.main.home.profile.setting
+package com.plub.presentation.ui.main.home.profile.edit
 
 import android.text.SpannableString
 import com.plub.presentation.ui.PageState
 
-data class MyPageSettingState(
+data class MyPageEditState(
     val profileImage: String? = "",
     val originProfile : String = "",
     var nickname: String ="",

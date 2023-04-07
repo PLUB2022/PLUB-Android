@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.profile.setting
+package com.plub.presentation.ui.main.home.profile.edit
 
 import android.app.Activity
 import android.content.Intent
@@ -12,24 +12,23 @@ import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
-import com.plub.presentation.databinding.FragmentMyPageSettingBinding
+import com.plub.presentation.databinding.FragmentMyPageEditBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
-import com.plub.presentation.ui.main.home.profile.setting.dialog.MyPageSettingConfirmDialogFragment
-import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.ui.main.home.profile.edit.dialog.MyPageEditConfirmDialogFragment
 import com.plub.presentation.util.IntentUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class MyPageSettingFragment :
-    BaseFragment<FragmentMyPageSettingBinding, MyPageSettingState, MyPageSettingViewModel>(
-        FragmentMyPageSettingBinding::inflate
+class MyPageEditFragment :
+    BaseFragment<FragmentMyPageEditBinding, MyPageEditState, MyPageEditViewModel>(
+        FragmentMyPageEditBinding::inflate
     ) {
 
     private lateinit var albumLauncher: ActivityResultLauncher<Intent>
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
-    override val viewModel: MyPageSettingViewModel by viewModels()
+    override val viewModel: MyPageEditViewModel by viewModels()
 
     override fun initView() {
         binding.apply {
@@ -84,28 +83,28 @@ class MyPageSettingFragment :
 
             launch {
                 viewModel.eventFlow.collect {
-                    inspectEventFlow(it as MyPageSettingEvent)
+                    inspectEventFlow(it as MyPageEditEvent)
                 }
             }
         }
     }
 
-    private fun inspectEventFlow(event: MyPageSettingEvent) {
+    private fun inspectEventFlow(event: MyPageEditEvent) {
         when (event) {
-            is MyPageSettingEvent.GoToAlbum -> {
+            is MyPageEditEvent.GoToAlbum -> {
                 val intent = IntentUtil.getSingleImageIntent()
                 albumLauncher.launch(intent)
             }
-            is MyPageSettingEvent.GoToCamera -> {
+            is MyPageEditEvent.GoToCamera -> {
                 val intent = IntentUtil.getOpenCameraIntent(event.uri)
                 cameraLauncher.launch(intent)
             }
-            is MyPageSettingEvent.ShowSelectImageBottomSheetDialog -> showBottomSheetDialogSelectImage()
-            is MyPageSettingEvent.CropImageAndOptimize -> startCropImage(event.cropImageContractOptions)
-            is MyPageSettingEvent.ShowDialog -> {
+            is MyPageEditEvent.ShowSelectImageBottomSheetDialog -> showBottomSheetDialogSelectImage()
+            is MyPageEditEvent.CropImageAndOptimize -> startCropImage(event.cropImageContractOptions)
+            is MyPageEditEvent.ShowDialog -> {
                 showConfirmDialog()
             }
-            is MyPageSettingEvent.GoToBack -> findNavController().popBackStack()
+            is MyPageEditEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 
@@ -143,7 +142,7 @@ class MyPageSettingFragment :
     }
 
     private fun showConfirmDialog() {
-        MyPageSettingConfirmDialogFragment(object : MyPageSettingConfirmDialogFragment.Delegate {
+        MyPageEditConfirmDialogFragment(object : MyPageEditConfirmDialogFragment.Delegate {
             override fun onYesButtonClick() {
                 viewModel.updateMyInfo()
             }

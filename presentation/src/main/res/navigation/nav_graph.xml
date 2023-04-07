@@ -361,9 +361,9 @@
 
     <fragment
         android:id="@+id/myPageSettingFragment"
-        android:name="com.plub.presentation.ui.main.home.profile.setting.MyPageSettingFragment"
+        android:name="com.plub.presentation.ui.main.home.profile.edit.MyPageEditFragment"
         android:label="MyPageSettingFragment"
-        tools:layout="@layout/fragment_my_page_setting" />
+        tools:layout="@layout/fragment_my_page_edit" />
 
     <fragment
         android:id="@+id/myPageRecruitingGatheringFragment"

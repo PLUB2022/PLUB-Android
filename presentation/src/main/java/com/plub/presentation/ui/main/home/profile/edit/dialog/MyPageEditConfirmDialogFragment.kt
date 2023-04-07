@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.profile.setting.dialog
+package com.plub.presentation.ui.main.home.profile.edit.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment
 import com.plub.presentation.databinding.FragmentMyPageAgainQuestionDialogBinding
 import com.plub.presentation.util.onThrottleClick
 
-class MyPageSettingConfirmDialogFragment(private val listener : Delegate) : DialogFragment(){
+class MyPageEditConfirmDialogFragment(private val listener : Delegate) : DialogFragment(){
     private val binding: FragmentMyPageAgainQuestionDialogBinding by lazy {
         FragmentMyPageAgainQuestionDialogBinding.inflate(layoutInflater)
     }

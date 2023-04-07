@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.profile.setting
+package com.plub.presentation.ui.main.home.profile.edit
 
 import android.net.Uri
 import android.text.Spannable
@@ -23,20 +23,19 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class MyPageSettingViewModel @Inject constructor(
+class MyPageEditViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
     val imageUtil: ImageUtil,
     val getNicknameCheckUseCase: GetNicknameCheckUseCase,
     val postUploadFileUseCase: PostUploadFileUseCase,
     val postChangeFileUseCase: PostChangeFileUseCase,
     val postUpdateMyInfoUseCase: PostUpdateMyInfoUseCase
-) : BaseViewModel<MyPageSettingState>(MyPageSettingState()) {
+) : BaseViewModel<MyPageEditState>(MyPageEditState()) {
 
     private var isNetworkCall:Boolean = false
     private var cameraTempImageUri: Uri? = null
@@ -79,7 +78,7 @@ class MyPageSettingViewModel @Inject constructor(
 
     fun onClickProfileImage() {
         checkPermission {
-            emitEventFlow(MyPageSettingEvent.ShowSelectImageBottomSheetDialog)
+            emitEventFlow(MyPageEditEvent.ShowSelectImageBottomSheetDialog)
         }
     }
 
@@ -87,10 +86,10 @@ class MyPageSettingViewModel @Inject constructor(
         when(type) {
             DialogMenuItemType.CAMERA_IMAGE -> {
                 cameraTempImageUri = imageUtil.getUriFromTempFileInExternalDir().also {
-                    emitEventFlow(MyPageSettingEvent.GoToCamera(it))
+                    emitEventFlow(MyPageEditEvent.GoToCamera(it))
                 }
             }
-            DialogMenuItemType.ALBUM_IMAGE -> emitEventFlow(MyPageSettingEvent.GoToAlbum)
+            DialogMenuItemType.ALBUM_IMAGE -> emitEventFlow(MyPageEditEvent.GoToAlbum)
             else -> defaultImage()
         }
     }
@@ -111,7 +110,7 @@ class MyPageSettingViewModel @Inject constructor(
 
     private fun emitCropImageAndOptimizeEvent(uri: Uri) {
         emitEventFlow(
-            MyPageSettingEvent.CropImageAndOptimize(
+            MyPageEditEvent.CropImageAndOptimize(
                 imageUtil.getCropImageOptions(uri)
             )
         )
@@ -222,7 +221,7 @@ class MyPageSettingViewModel @Inject constructor(
     }
 
     fun saveChangedNickName(){
-        emitEventFlow(MyPageSettingEvent.ShowDialog)
+        emitEventFlow(MyPageEditEvent.ShowDialog)
     }
 
     fun saveChangedOnlyIntro() {
@@ -230,7 +229,7 @@ class MyPageSettingViewModel @Inject constructor(
     }
 
     fun onClickBackButton(){
-        emitEventFlow(MyPageSettingEvent.GoToBack)
+        emitEventFlow(MyPageEditEvent.GoToBack)
     }
 
     fun updateMyInfo(){
@@ -248,7 +247,7 @@ class MyPageSettingViewModel @Inject constructor(
 
     private fun handleUpdateMyInfoSuccess(vo : MyInfoResponseVo){
         PlubUser.updateInfo(vo)
-        emitEventFlow(MyPageSettingEvent.GoToBack)
+        emitEventFlow(MyPageEditEvent.GoToBack)
     }
 
 }
