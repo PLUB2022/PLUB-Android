@@ -344,4 +344,9 @@
     <string name="my_page_setting_change_yes">네, 할게요</string>
     <string name="my_page_setting_question_change_nickname">닉네임을 변경할까요?</string>
     <string name="my_page_setting_introduce_about_changing_nickname">닉네임 변경은 1회만 가능해요.\n 지금 변경한 닉네임은 탈퇴 시까지 사용됩니다</string>
+    <string name="setting_title">설정</string>
+    <string name="setting_plub_title">PLUB 이용</string>
+    <string name="setting_notice">공지사항</string>
+    <string name="setting_email">이메일로 문의하기</string>
+    <string name="setting_question"><![CDATA[F&Q]]></string>
 </resources>
