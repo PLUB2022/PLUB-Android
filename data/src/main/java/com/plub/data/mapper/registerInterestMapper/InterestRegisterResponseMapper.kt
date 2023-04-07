@@ -8,7 +8,6 @@ object InterestRegisterResponseMapper : Mapper.ResponseMapper<RegisterHobbiesRes
     override fun mapDtoToModel(type: RegisterHobbiesResponse?): RegisterInterestResponseVo {
         return type?.run {
             RegisterInterestResponseVo(
-                accountId = this.accountId,
                 subCategories = this.subCategories
             )
         }?: RegisterInterestResponseVo()
