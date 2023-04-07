@@ -2,10 +2,14 @@ package com.plub.data.repository
 
 import com.plub.data.api.RecruitApi
 import com.plub.data.base.BaseRepository
+import com.plub.data.dto.applicantsRecruit.ApplicantsRecruitRequest
+import com.plub.data.mapper.UnitResponseMapper
+import com.plub.data.mapper.applicantsRecruitMapper.ApplicantsRecruitRequestMapper
 import com.plub.data.mapper.applicantsRecruitMapper.replyMapper.ReplyApplicantsRecruitMapper
 import com.plub.data.mapper.myPageMapper.MyApplicationDeleteMapper
 import com.plub.data.mapper.recruitDetailMapper.host.HostSeeApplicantsMapper
 import com.plub.domain.UiState
+import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applicantsRecruitVo.replyVo.ReplyApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applicantsRecruitVo.replyVo.ReplyApplicantsRecruitResponseVo
 import com.plub.domain.model.vo.home.recruitDetailVo.host.HostApplicantsResponseVo
@@ -28,5 +32,10 @@ class ApplicantsRepositoryImpl @Inject constructor(private val recruitApi: Recru
 
     override suspend fun deleteMyApplication(request: Int): Flow<UiState<Int>> {
         return apiLaunch(recruitApi.deleteMyApplication(request), MyApplicationDeleteMapper)
+    }
+
+    override suspend fun modifyMyApplication(request: ApplicantsRecruitRequestVo): Flow<UiState<Unit>> {
+        val requestVo = ApplicantsRecruitRequestMapper.mapModelToDto(request)
+        return apiLaunch(recruitApi.modifyMyApplication(request.plubbingId, requestVo), UnitResponseMapper)
     }
 }

@@ -6,6 +6,8 @@ import com.plub.data.dto.applicantsRecruit.reply.ReplyApplicantsRecruitResponse
 import com.plub.data.dto.applyRecruit.QuestionsListResponse
 import com.plub.data.dto.recruitDetail.host.EndRecruitResponse
 import com.plub.data.base.ApiResponse
+import com.plub.data.base.DataDto
+import com.plub.data.dto.applyRecruit.ModifyApplicationResponse
 import com.plub.data.dto.createGathering.CreateGatheringResponse
 import com.plub.data.dto.modifyGathering.ModifyQuestionRequestBody
 import com.plub.data.dto.myPage.MyApplicationDeleteResponse
@@ -68,4 +70,10 @@ interface RecruitApi {
     suspend fun deleteMyApplication(
         @Path(PATH_PLUBBING_ID) plubbingId : Int
     ) : Response<ApiResponse<MyApplicationDeleteResponse>>
+
+    @PUT(Endpoints.PLUBBING.MODIFY_GATHERING_RECRUIT)
+    suspend fun modifyMyApplication(
+        @Path(PATH_PLUBBING_ID) plubbingId : Int,
+        @Body request : ApplicantsRecruitRequest
+    ) : Response<ApiResponse<DataDto.DTO>>
 }

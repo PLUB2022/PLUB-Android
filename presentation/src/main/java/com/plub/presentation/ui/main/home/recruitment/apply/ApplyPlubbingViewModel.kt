@@ -121,11 +121,22 @@ class ApplyPlubbingViewModel @Inject constructor(
     }
 
     fun applyRecruit() {
+        when(uiState.value.pageType){
+            ApplyModifyApplicationType.APPLY -> applyButton()
+            ApplyModifyApplicationType.MODIFY -> modifyButton()
+        }
+    }
+
+    private fun applyButton(){
         viewModelScope.launch {
             postApplyRecruitUseCase(ApplicantsRecruitRequestVo(plubbingId, answerList)).collect { state ->
                 inspectUiState(state, { successApply() } )
             }
         }
+    }
+
+    private fun modifyButton(){
+
     }
 
     private fun successApply() {
