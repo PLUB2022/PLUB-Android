@@ -55,16 +55,16 @@ class CategoryGatheringViewModel @Inject constructor(
     private var isNetworkCall: Boolean = false
 
 
-    fun updateCategoryName(name : String){
+    fun updateCategoryNameWithId(name : String, id : Int){
         viewModelScope.launch {
             categoryNameStateFlow.update { name }
         }
+        categoryId = id
     }
 
-    fun fetchRecommendationGatheringData(id : Int, body : GatheringFilterState) =
+    fun fetchRecommendationGatheringData(body : GatheringFilterState) =
         viewModelScope.launch {
             cursorId = FIRST_CURSOR
-            categoryId = id
             isNetworkCall = true
             clearCardList()
             val paramsVo = CategoriesGatheringParamsVo(categoryId, uiState.sortType.value.key, cursorId)
@@ -259,5 +259,9 @@ class CategoryGatheringViewModel @Inject constructor(
 
     fun goToFilter() {
         emitEventFlow(CategoryGatheringEvent.GoToFilter)
+    }
+
+    fun fetchRecommendationAllGatheringData(){
+        fetchRecommendationGatheringData(GatheringFilterState())
     }
 }
