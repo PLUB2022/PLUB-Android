@@ -39,4 +39,8 @@ class GatheringRepositoryImpl @Inject constructor(private val gatheringApi: Gath
     override suspend fun changeGatheringStatus(request: Int): Flow<UiState<Unit>> {
         return apiLaunch(gatheringApi.changeGatheringStatus(request), UnitResponseMapper)
     }
+
+    override suspend fun leaveGathering(request: Int): Flow<UiState<Unit>> {
+        return apiLaunch(gatheringApi.leaveGathering(request), UnitResponseMapper)
+    }
 }

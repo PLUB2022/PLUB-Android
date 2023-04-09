@@ -53,7 +53,8 @@ object Endpoints {
         const val PLUBING_MAIN = "$PLUBBING_ID_URL/main"
         const val MODIFY_GATHERING_RECRUIT = RECRUIT_URL
         const val MY = "$PLUBBING_URL/my"
-        const val CHANGE_STATUS = "PLUBBING_ID_URL/status"
+        const val CHANGE_STATUS = "$PLUBBING_ID_URL/status"
+        const val LEAVE = "$PLUBBING_ID_URL/leave"
 
         object BOARD {
             const val FEEDS = "$PLUBBING_ID_URL/feeds"
