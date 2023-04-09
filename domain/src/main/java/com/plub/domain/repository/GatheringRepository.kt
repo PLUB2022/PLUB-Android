@@ -15,4 +15,6 @@ interface GatheringRepository {
     suspend fun getMyParticipatingGatherings(request: Unit): Flow<UiState<MyGatheringsResponseVo>>
 
     suspend fun getMyHostingGatherings(request: Unit): Flow<UiState<MyGatheringsResponseVo>>
+
+    suspend fun changeGatheringStatus(request: Int): Flow<UiState<Unit>>
 }

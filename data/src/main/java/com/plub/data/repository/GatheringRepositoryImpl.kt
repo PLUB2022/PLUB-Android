@@ -5,6 +5,7 @@ import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.CreateGatheringRequestMapper
 import com.plub.data.mapper.CreateGatheringResponseMapper
 import com.plub.data.mapper.ModifyRecruitRequestMapper
+import com.plub.data.mapper.UnitResponseMapper
 import com.plub.data.mapper.myGathering.MyGatheringsMapper
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.createGathering.CreateGatheringRequestVo
@@ -33,5 +34,9 @@ class GatheringRepositoryImpl @Inject constructor(private val gatheringApi: Gath
 
     override suspend fun getMyHostingGatherings(request: Unit): Flow<UiState<MyGatheringsResponseVo>> {
         return apiLaunch(gatheringApi.getMyHostingGatherings(), MyGatheringsMapper)
+    }
+
+    override suspend fun changeGatheringStatus(request: Int): Flow<UiState<Unit>> {
+        return apiLaunch(gatheringApi.changeGatheringStatus(request), UnitResponseMapper)
     }
 }
