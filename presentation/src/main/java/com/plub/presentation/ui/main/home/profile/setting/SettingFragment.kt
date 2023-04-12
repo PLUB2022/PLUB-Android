@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.profile.setting
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentSettingBinding
 import com.plub.presentation.ui.PageState
@@ -33,13 +34,15 @@ class SettingFragment :
 
             launch {
                 viewModel.eventFlow.collect{
-
+                    inspectEvent(it as SettingEvent)
                 }
             }
         }
     }
 
     private fun inspectEvent(event: SettingEvent) {
-
+        when(event){
+            is SettingEvent.GoToBack -> {findNavController().popBackStack()}
+        }
     }
 }

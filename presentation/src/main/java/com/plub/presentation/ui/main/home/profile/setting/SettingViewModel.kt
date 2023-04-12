@@ -8,4 +8,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel @Inject constructor() : BaseViewModel<PageState.Default>(PageState.Default) {
 
+    fun goBack(){
+        emitEventFlow(SettingEvent.GoToBack)
+    }
 }

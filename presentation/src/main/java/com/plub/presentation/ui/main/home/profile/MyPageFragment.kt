@@ -84,7 +84,7 @@ class MyPageFragment :
             is MyPageEvent.GoToOtherApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToRecruitingGathering(event.plubbingId))}
             is MyPageEvent.ReadMore -> { readMoreIntro(event.isExpandText) }
             is MyPageEvent.GoToEdit -> {findNavController().navigate(MyPageFragmentDirections.myPageToEdit())}
-            is MyPageEvent.GoToSetting -> {findNavController().navigate(MyPageFragmentDirections.myPageToSetting())}
+            is MyPageEvent.GoToSetting -> {findNavController().navigate(MyPageFragmentDirections.actionMyPageToSetting())}
         }
     }
 
