@@ -27,6 +27,7 @@
                 android:layout_height="32dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="15dp"
+                app:onThrottleClick="@{()->vm.goToEdit()}"
                 android:src="@drawable/ic_setting"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +61,7 @@
                     android:layout_height="32dp"
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="38dp"
-                    app:onThrottleClick="@{()->vm.goToSetting()}"
+                    app:onThrottleClick="@{()->vm.goToEdit()}"
                     android:src="@drawable/ic_edit_pencil"
                     app:layout_constraintStart_toStartOf="@id/image_view_profile"
                     app:layout_constraintTop_toTopOf="@id/image_view_profile" />

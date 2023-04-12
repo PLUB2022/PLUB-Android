@@ -100,7 +100,11 @@ class MyPageViewModel @Inject constructor(
         emitEventFlow(MyPageEvent.ReadMore(isExpandText))
     }
 
-    fun goToSetting() {
+    fun goToEdit() {
+        emitEventFlow(MyPageEvent.GoToEdit)
+    }
+
+    fun goToSetting(){
         emitEventFlow(MyPageEvent.GoToSetting)
     }
 }
