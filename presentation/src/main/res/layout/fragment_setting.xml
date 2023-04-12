@@ -64,6 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="32dp"
+                    app:vm="@{vm}"
                     app:layout_constraintTop_toBottomOf="@id/text_view_title"
                     layout="@layout/include_item_setting_plub">
                 </include>
@@ -74,6 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="16dp"
+                    app:vm="@{vm}"
                     app:layout_constraintTop_toBottomOf="@id/include_setting_plub"
                     layout="@layout/include_item_setting_account">
                 </include>
@@ -84,6 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="16dp"
+                    app:vm="@{vm}"
                     app:layout_constraintTop_toBottomOf="@id/include_setting_account"
                     layout="@layout/include_item_setting_version">
                 </include>
