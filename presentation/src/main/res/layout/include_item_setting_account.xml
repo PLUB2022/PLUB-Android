@@ -46,12 +46,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             
-            <Switch
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_notification"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginVertical="4dp"
                 android:layout_marginEnd="8dp"
+                android:focusable="false"
+                android:background="@null"
+                app:track="@drawable/selector_switch_track"
+                android:thumb="@drawable/bg_switch_thumb_white"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
