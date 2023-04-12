@@ -11,4 +11,16 @@ class SettingViewModel @Inject constructor() : BaseViewModel<PageState.Default>(
     fun goBack(){
         emitEventFlow(SettingEvent.GoToBack)
     }
+
+    fun onClickNotice(){
+        emitEventFlow(SettingEvent.GoToNotice)
+    }
+
+    fun onClickEmail(){
+        emitEventFlow(SettingEvent.GoToEmail)
+    }
+
+    fun onClickFAQ(){
+        emitEventFlow(SettingEvent.GoToFAQ)
+    }
 }

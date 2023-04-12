@@ -348,7 +348,7 @@
     <string name="setting_plub_title">PLUB 이용</string>
     <string name="setting_notice">공지사항</string>
     <string name="setting_email">이메일로 문의하기</string>
-    <string name="setting_question"><![CDATA[F&Q]]></string>
+    <string name="setting_question">FAQ</string>
     <string name="setting_account_title">계정</string>
     <string name="setting_notification">모임 알림</string>
     <string name="setting_logout">로그아웃</string>

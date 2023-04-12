@@ -32,6 +32,7 @@
             android:id="@+id/constraint_layout_notice"
             app:layout_constraintTop_toBottomOf="@id/text_view_setting_plub_title"
             android:layout_marginTop="18dp"
+            app:onThrottleClick="@{()->vm.onClickNotice()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             
@@ -71,6 +72,7 @@
             android:id="@+id/constraint_layout_email"
             app:layout_constraintTop_toBottomOf="@id/constraint_layout_notice"
             android:layout_marginTop="17dp"
+            app:onThrottleClick="@{()->vm.onClickEmail()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -111,6 +113,7 @@
             app:layout_constraintTop_toBottomOf="@id/constraint_layout_email"
             android:layout_marginTop="17dp"
             android:paddingBottom="10dp"
+            app:onThrottleClick="@{()->vm.onClickFAQ()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

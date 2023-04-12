@@ -43,6 +43,21 @@ class SettingFragment :
     private fun inspectEvent(event: SettingEvent) {
         when(event){
             is SettingEvent.GoToBack -> {findNavController().popBackStack()}
+            is SettingEvent.GoToEmail -> sendToEmail()
+            is SettingEvent.GoToFAQ -> goToFAQ()
+            is SettingEvent.GoToNotice -> goToNotice()
         }
+    }
+
+    private fun sendToEmail(){
+
+    }
+
+    private fun goToFAQ(){
+
+    }
+
+    private fun goToNotice(){
+
     }
 }
