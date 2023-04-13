@@ -2,25 +2,53 @@ package com.plub.presentation.ui.main.home.categoryGathering.filter
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DaysType
+import com.plub.domain.model.enums.PlubingMainPageType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.common.SubHobbyVo
-import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
+import com.plub.domain.model.vo.home.categoriesGatheringVo.FilterVo
+import com.plub.domain.model.vo.plub.PlubingMemberInfoVo
 import com.plub.domain.usecase.GetSubHobbiesUseCase
-import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.base.BaseTestViewModel
+import com.plub.presentation.parcelableVo.ParseCategoryFilterVo
+import com.plub.presentation.ui.main.plubing.PlubingMainPageState
 import com.plub.presentation.util.addOrRemoveElementAfterReturnNewHashSet
 import com.plub.presentation.util.removeElementAfterReturnNewHashSet
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class GatheringFilterViewModel @Inject constructor(
     val getSubHobbiesUseCase: GetSubHobbiesUseCase
-): BaseViewModel<GatheringFilterState>(GatheringFilterState()) {
+): BaseTestViewModel<GatheringFilterState>() {
 
     private var categoryName = ""
     private val selectedList: MutableList<SelectedHobbyVo> = mutableListOf()
+
+
+    private val gatheringDaysStateFlow: MutableStateFlow<HashSet<DaysType>> = MutableStateFlow(hashSetOf())
+    private val categoryNameStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val subHobbiesStateFlow: MutableStateFlow<List<SubHobbyVo>> = MutableStateFlow(emptyList())
+    private val seekBarProgressStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
+    private val seekBarPositionXStateFlow: MutableStateFlow<Float> = MutableStateFlow(0f)
+    private val accountNumStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
+    private val isButtonEnableStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val selectedHobbiesStateFlow: MutableStateFlow<List<SelectedHobbyVo>> = MutableStateFlow(emptyList())
+
+    override val uiState: GatheringFilterState = GatheringFilterState(
+        gatheringDaysStateFlow.asStateFlow(),
+        categoryNameStateFlow.asStateFlow(),
+        subHobbiesStateFlow.asStateFlow(),
+        seekBarProgressStateFlow.asStateFlow(),
+        seekBarPositionXStateFlow.asStateFlow(),
+        accountNumStateFlow.asStateFlow(),
+        isButtonEnableStateFlow.asStateFlow(),
+        selectedHobbiesStateFlow.asStateFlow()
+    )
 
     fun fetchSubHobbies(categoryId : Int, categoryName : String){
         this.categoryName = categoryName
@@ -32,11 +60,9 @@ class GatheringFilterViewModel @Inject constructor(
     }
 
     private fun handleSuccessFetchSubHobbies(vo : List<SubHobbyVo>){
-        updateUiState { uiState ->
-            uiState.copy(
-                categoryName = categoryName,
-                subHobbies = vo
-            )
+        viewModelScope.launch {
+            categoryNameStateFlow.update { categoryName }
+            subHobbiesStateFlow.update { vo }
         }
     }
 
@@ -57,11 +83,8 @@ class GatheringFilterViewModel @Inject constructor(
     }
 
     private fun updateSelectList() {
-        updateUiState { ui ->
-            ui.copy(
-                selectedHobbies = selectedList,
-                isButtonEnable = selectedList.isNotEmpty() && ui.gatheringDays.isNotEmpty()
-            )
+        viewModelScope.launch {
+            selectedHobbiesStateFlow.update { selectedList }
         }
     }
 
@@ -70,22 +93,17 @@ class GatheringFilterViewModel @Inject constructor(
     }
 
     fun onClickCheckBox(element: DaysType): Void? {
-        updateUiState { uiState ->
-            uiState.copy(
-                gatheringDays = uiState.gatheringDays
-                    .addOrRemoveElementAfterReturnNewHashSet(element)
-                    .removeElementAfterReturnNewHashSet(DaysType.ALL),
-                isButtonEnable = uiState.selectedHobbies.isNotEmpty() && uiState.gatheringDays.isNotEmpty()
-            )
+        viewModelScope.launch{
+            gatheringDaysStateFlow.update { uiState.gatheringDays.value
+                .addOrRemoveElementAfterReturnNewHashSet(element)
+                .removeElementAfterReturnNewHashSet(DaysType.ALL) }
         }
         return null
     }
 
     fun onClickAllCheckBox(): Void? {
-        updateUiState { uiState ->
-            uiState.copy(
-                gatheringDays = if (DaysType.ALL in uiState.gatheringDays) hashSetOf() else hashSetOf(DaysType.ALL)
-            )
+        viewModelScope.launch{
+            gatheringDaysStateFlow.update { if (DaysType.ALL in uiState.gatheringDays.value) hashSetOf() else hashSetOf(DaysType.ALL) }
         }
         return null
     }
@@ -97,24 +115,31 @@ class GatheringFilterViewModel @Inject constructor(
         }
 
     private fun updateSeekbarProgress(progress: Int) {
-        updateUiState { uiState ->
-            uiState.copy(
-                seekBarProgress = progress,
-                accountNum = progress + 4
-            )
+        viewModelScope.launch {
+            seekBarProgressStateFlow.update { progress }
+            accountNumStateFlow.update { progress + 4 }
         }
     }
 
     private fun updateSeekbarPositionX(position: Float) {
-        updateUiState { uiState ->
-            uiState.copy(
-                seekBarPositionX = position
-            )
+        viewModelScope.launch {
+            seekBarPositionXStateFlow.update { position }
+        }
+    }
+
+    fun updateButtonState(){
+        viewModelScope.launch {
+            isButtonEnableStateFlow.update { uiState.selectedHobbies.value.isNotEmpty() && uiState.gatheringDays.value.isNotEmpty() }
         }
     }
 
     fun onClickApply(){
-        emitEventFlow(GatheringFilterEvent.GoToCategoryGathering(uiState.value))
+        val vo = FilterVo(
+            gatheringDays = uiState.gatheringDays.value,
+            accountNum =  uiState.accountNum.value,
+            selectedHobbies = uiState.selectedHobbies.value
+        )
+        emitEventFlow(GatheringFilterEvent.GoToCategoryGathering(ParseCategoryFilterVo.mapToParse(vo)))
     }
 
     fun onClickBack(){

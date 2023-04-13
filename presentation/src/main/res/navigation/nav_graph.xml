@@ -74,7 +74,7 @@
             app:argType="string" />
         <argument
             android:name="filter"
-            app:argType="com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState" />
+            app:argType="com.plub.presentation.parcelableVo.ParseCategoryFilterVo" />
     </fragment>
 
     <fragment

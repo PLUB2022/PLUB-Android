@@ -1,24 +1,20 @@
 package com.plub.presentation.ui.main.home.categoryGathering.filter
 
-import android.os.Parcelable
 import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.common.SubHobbyVo
 import com.plub.presentation.ui.PageState
-import kotlinx.parcelize.IgnoredOnParcel
-import kotlinx.parcelize.Parcelize
+import kotlinx.coroutines.flow.StateFlow
 
-@Parcelize
 data class GatheringFilterState(
-    val gatheringDays: HashSet<DaysType> = hashSetOf(),
-    val categoryName : String ="",
-    val subHobbies : List<SubHobbyVo> = emptyList(),
-    val seekBarProgress: Int = 0,
-    val seekBarPositionX: Float = 0.0f,
-    val accountNum : Int = 0,
-    val isButtonEnable : Boolean = false,
-    val selectedHobbies:List<SelectedHobbyVo> = emptyList()
-): PageState, Parcelable {
-    @IgnoredOnParcel
-    val peopleNumber = seekBarProgress + 4
+    val gatheringDays: StateFlow<HashSet<DaysType>>,
+    val categoryName : StateFlow<String>,
+    val subHobbies : StateFlow<List<SubHobbyVo>>,
+    val seekBarProgress: StateFlow<Int>,
+    val seekBarPositionX: StateFlow<Float>,
+    val accountNum : StateFlow<Int>,
+    val isButtonEnable : StateFlow<Boolean>,
+    val selectedHobbies: StateFlow<List<SelectedHobbyVo>>
+): PageState {
+    val peopleNumber = seekBarProgress.value + 4
 }

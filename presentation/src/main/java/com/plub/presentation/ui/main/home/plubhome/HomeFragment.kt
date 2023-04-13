@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
+import com.plub.presentation.parcelableVo.ParseCategoryFilterVo
 import com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -114,7 +115,7 @@ class HomeFragment : BaseTestFragment<FragmentHomeBinding, HomePageState, HomeFr
     }
 
     private fun goToCategoryGathering(categoryId: Int, categoryName: String) {
-        val filter = GatheringFilterState()
+        val filter = ParseCategoryFilterVo()
         val action =
             HomeFragmentDirections.actionMainToCategoryGathering(
                 categoryId = categoryId,
