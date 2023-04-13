@@ -16,13 +16,20 @@ import com.plub.presentation.databinding.IncludeDialogDetailArchiveBinding
 import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 
-class ArchiveDetailDialogFragment(
-    private val detailVo: ArchiveDetailResponseVo
-) : DialogFragment() {
+class ArchiveDetailDialogFragment: DialogFragment() {
     companion object{
         const val MARGIN_HORIZONTAL = 16
         const val MARGIN_NEXT = 8
+
+        fun newInstance(
+            detailVo: ArchiveDetailResponseVo
+        ) = ArchiveDetailDialogFragment().apply {
+            this.detailVo = detailVo
+        }
     }
+
+    private var detailVo : ArchiveDetailResponseVo = ArchiveDetailResponseVo()
+
     private val binding: IncludeDialogDetailArchiveBinding by lazy {
         IncludeDialogDetailArchiveBinding.inflate(layoutInflater)
     }

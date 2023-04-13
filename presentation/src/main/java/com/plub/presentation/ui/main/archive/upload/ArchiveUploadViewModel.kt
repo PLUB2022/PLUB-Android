@@ -1,7 +1,12 @@
 package com.plub.presentation.ui.main.archive.upload
 
+import android.app.Activity
+import android.net.Uri
+import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
+import com.canhub.cropper.CropImageView
 import com.plub.domain.model.enums.ArchiveItemViewType
+import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.archive.*
 import com.plub.domain.model.vo.media.DeleteFileRequestVo
@@ -9,6 +14,8 @@ import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseTestViewModel
+import com.plub.presentation.ui.main.archive.ArchiveEvent
+import com.plub.presentation.util.ImageUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -21,7 +28,8 @@ class ArchiveUploadViewModel @Inject constructor(
     private val getDetailArchiveUseCase: GetDetailArchiveUseCase,
     private val postCreateArchiveUseCase: PostCreateArchiveUseCase,
     private val deleteFileUseCase: DeleteFileUseCase,
-    private val putEditArchiveUseCase: PutEditArchiveUseCase
+    private val putEditArchiveUseCase: PutEditArchiveUseCase,
+    private val imageUtil: ImageUtil
 ) : BaseTestViewModel<ArchiveUploadPageState>() {
 
     companion object{
@@ -39,7 +47,7 @@ class ArchiveUploadViewModel @Inject constructor(
     private var plubTitle : String =""
     private var pageType : Int = UPLOAD_TYPE
 
-
+    private var cameraTempImageUri: Uri? = null
     private val titleStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val enableButtonStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val imageCountStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
@@ -231,5 +239,50 @@ class ArchiveUploadViewModel @Inject constructor(
 
     private fun handleSuccessEditArchive(){
         emitEventFlow(ArchiveUploadEvent.GoToBack)
+    }
+
+    fun onClickImageMenuItemType(type: DialogMenuItemType) {
+        when(type) {
+            DialogMenuItemType.CAMERA_IMAGE -> {
+                cameraTempImageUri = imageUtil.getUriFromTempFileInExternalDir().also {
+                    emitEventFlow(ArchiveUploadEvent.GoToCamera(it))
+                }
+            }
+            DialogMenuItemType.ALBUM_IMAGE -> emitEventFlow(ArchiveUploadEvent.GoToAlbum)
+            else -> {}
+        }
+    }
+
+    fun proceedGatheringImageFromCameraResult(result: ActivityResult) {
+        if (result.resultCode == Activity.RESULT_OK) {
+            cameraTempImageUri?.let { uri ->
+                emitCropImageAndOptimizeEvent(uri)
+            }
+        }
+    }
+
+    private fun emitCropImageAndOptimizeEvent(uri: Uri) {
+        emitEventFlow(
+            ArchiveUploadEvent.CropImageAndOptimize(
+                imageUtil.getCropImageOptions(uri)
+            )
+        )
+    }
+
+    fun proceedGatheringImageFromGalleryResult(result: ActivityResult) {
+        if (result.resultCode == Activity.RESULT_OK) {
+            result.data?.data?.let { uri ->
+                emitCropImageAndOptimizeEvent(uri)
+            }
+        }
+    }
+
+    fun proceedCropImageResult(result: CropImageView.CropResult) {
+        if (result.isSuccessful) {
+            result.uriContent?.let { uri ->
+                val file = imageUtil.uriToOptimizeImageFile(uri)
+                uploadImageFile(file)
+            }
+        }
     }
 }

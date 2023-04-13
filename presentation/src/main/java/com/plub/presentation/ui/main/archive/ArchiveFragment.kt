@@ -1,21 +1,26 @@
 package com.plub.presentation.ui.main.archive
 
+import android.net.Uri
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.ArchiveAccessType
+import com.plub.domain.model.enums.DialogMenuType
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
+import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter
 import com.plub.presentation.ui.main.archive.bottomsheet.dots.ArchiveDotsMenuBottomSheetFragment
-import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetFragment
 import com.plub.presentation.ui.main.archive.dialog.ArchiveDetailDialogFragment
+import com.plub.presentation.util.IntentUtil
 import com.plub.presentation.util.PermissionManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.io.File
 
 @AndroidEntryPoint
 class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageState, ArchiveViewModel>(
@@ -40,6 +45,17 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
                 viewModel.seeBottomSheet(type, archiveId)
             }
         })
+    }
+
+    private val gatheringImageFromCameraResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            viewModel.proceedGatheringImageFromCameraResult(it)
+        }
+
+    private val gatheringImageFromGalleryResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        viewModel.proceedGatheringImageFromGalleryResult(result)
     }
 
     private val archiveFragmentArgs: ArchiveFragmentArgs by navArgs()
@@ -86,7 +102,7 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
     private fun inspectEventFlow(event: ArchiveEvent) {
         when (event) {
             is ArchiveEvent.SeeDetailArchiveDialog -> {
-                ArchiveDetailDialogFragment(event.responseVo).show(
+                ArchiveDetailDialogFragment.newInstance(event.responseVo).show(
                     childFragmentManager,
                     ""
                 )
@@ -109,6 +125,9 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
             is ArchiveEvent.SeeDotsBottomSheet -> {
                 showBottomSheetDots(event.archiveId, event.archiveAccessType)
             }
+            is ArchiveEvent.CropImageAndOptimize -> { startCropImage(event.cropImageContractOptions) }
+            is ArchiveEvent.GoToAlbum -> { getImageFromGallery() }
+            is ArchiveEvent.GoToCamera -> { getImageFromCamera(event.uri) }
         }
     }
 
@@ -119,11 +138,9 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
     }
 
     private fun showBottomSheetDialogSelectImage() {
-        ArchiveBottomSheetFragment(object : ArchiveBottomSheetFragment.ArchiveBottomSheetDelegate {
-            override fun onSuccessGetImage(file: File?) {
-                viewModel.uploadImageFile(file)
-            }
-        }).show(childFragmentManager, "")
+        SelectMenuBottomSheetDialog.newInstance(DialogMenuType.IMAGE) {
+            viewModel.onClickImageMenuItemType(it)
+        }.show(parentFragmentManager, "")
     }
 
     private fun showBottomSheetDots(archiveId : Int, accessType: ArchiveAccessType){
@@ -170,5 +187,23 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
 
     private fun goToReport(archiveId: Int){
 
+    }
+
+    private fun getImageFromCamera(uri: Uri) {
+        val intent = IntentUtil.getOpenCameraIntent(uri)
+        gatheringImageFromCameraResult.launch(intent)
+    }
+
+    private fun getImageFromGallery() {
+        val intent = IntentUtil.getSingleImageIntent()
+        gatheringImageFromGalleryResult.launch(intent)
+    }
+
+    private fun startCropImage(option: CropImageContractOptions) {
+        cropImage.launch(option)
+    }
+
+    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
+        viewModel.proceedCropImageResult(result)
     }
 }
