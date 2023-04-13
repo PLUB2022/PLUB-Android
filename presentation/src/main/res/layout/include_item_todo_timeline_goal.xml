@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage,ContentDescription">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="13dp">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:background="@color/color_e1e1fa"
+            app:layout_constraintBottom_toBottomOf="@+id/text_view_goal"
+            app:layout_constraintEnd_toEndOf="@id/text_view_goal"
+            app:layout_constraintStart_toStartOf="@id/text_view_goal" />
+
+        <TextView
+            android:id="@+id/text_view_goal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:paddingHorizontal="17dp"
+            android:textColor="@color/color_363636"
+            android:textSize="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="“2주에 한 권씩”" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

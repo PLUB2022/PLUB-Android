@@ -159,6 +159,34 @@ class SelectMenuBottomSheetDialog : BottomSheetDialogFragment() {
             DialogMenuType.BOARD_COMMENT_COMMON_TYPE -> listOf(
                 DialogMenuItemType.BOARD_COMMENT_REPORT,
             )
+            DialogMenuType.SCHEDULE_TYPE -> listOf(
+                DialogMenuItemType.SCHEDULE_EDIT,
+                DialogMenuItemType.SCHEDULE_DELETE
+            )
+
+            DialogMenuType.TODO_DETAIL_COMMON_TYPE,
+            DialogMenuType.TODO_LIST_COMMON_TYPE -> listOf(
+                DialogMenuItemType.TODO_REPORT,
+            )
+            DialogMenuType.TODO_DETAIL_AUTHOR_COMMON_TYPE,
+            DialogMenuType.TODO_LIST_AUTHOR_TYPE -> listOf(
+                DialogMenuItemType.TODO_PLANNER
+            )
+            DialogMenuType.TODO_PLANNER_CHECKED_PROOFED_TYPE -> listOf(
+                DialogMenuItemType.TODO_DELETE
+            )
+            DialogMenuType.TODO_PLANNER_CHECKED_NOT_PROOFED_TYPE -> listOf(
+                DialogMenuItemType.TODO_PROOF,
+                DialogMenuItemType.TODO_DELETE
+            )
+            DialogMenuType.TODO_PLANNER_UNCHECKED_TYPE -> listOf(
+                DialogMenuItemType.TODO_EDIT,
+                DialogMenuItemType.TODO_DELETE,
+            )
+            DialogMenuType.TODO_DETAIL_AUTHOR_CHECKED_NOT_PROOFED_TYPE -> listOf(
+                DialogMenuItemType.TODO_PROOF,
+                DialogMenuItemType.TODO_PLANNER
+            )
         }
     }
 }

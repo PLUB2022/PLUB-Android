@@ -65,6 +65,8 @@ class CreateGatheringQuestionViewModel @Inject constructor() :
     }
 
     fun updateQuestion(data: CreateGatheringQuestion, text: String) {
+        if(uiState.value.questions.isEmpty()) return
+
         updateUiState { uiState ->
             val updatedQuestion = uiState.questions.deepCopyAfterUpdateQuestion(data.key, text)
 

@@ -8,6 +8,8 @@ data class PlubingMainResponse(
     val plubbingId: Int = -1,
     @SerializedName("name")
     val name: String = "",
+    @SerializedName("goal")
+    val goal: String = "",
     @SerializedName("time")
     val time: String = "",
     @SerializedName("days")

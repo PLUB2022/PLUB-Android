@@ -62,7 +62,7 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providesCategoryListRepository(categoryListResposImpl: CategoryListRepositoryImpl): CategoryListRepository
+    abstract fun providesScheduleRepository(scheduleRepositoryImpl: ScheduleRepositoryImpl): ScheduleRepository
 
     @Singleton
     @Binds
@@ -70,15 +70,15 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providesReplyApplicantsRepository(repositoryImpl: ReplyApplicantsRecruitRepositoryImpl): ReplyApplicantsRecruitRepository
-
-    @Singleton
-    @Binds
-    abstract fun providesRegisterHobbiesRepository(repositoryImpl: RegisterHobbiesRepositoryImpl): RegisterHobbiesRepository
-
-    @Singleton
-    @Binds
     abstract fun providesApplicantsRepository(repositoryImpl: ApplicantsRepositoryImpl): ApplicantsRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesMyPageRepository(repositoryImpl: MyPageRepositoryImpl): MyPageRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesPlubingTodoRepository(repositoryImpl: PlubingTodoRepositoryImpl): PlubingTodoRepository
 
     @Singleton
     @Binds

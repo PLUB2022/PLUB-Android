@@ -22,7 +22,7 @@ class FragmentPlubingMainPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when (PlubingMainPageType.valueOf(position)) {
             PlubingMainPageType.BOARD -> PlubingBoardFragment.newInstance(plubingId)
-            PlubingMainPageType.TODO_LIST -> PlubingTodoFragment()
+            PlubingMainPageType.TODO_LIST -> PlubingTodoFragment.newInstance(plubingId)
         }
     }
 }

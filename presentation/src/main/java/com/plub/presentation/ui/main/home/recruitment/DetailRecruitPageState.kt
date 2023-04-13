@@ -1,6 +1,6 @@
 package com.plub.presentation.ui.main.home.recruitment
 
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsVo
+import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.ui.PageState
 
 data class DetailRecruitPageState(

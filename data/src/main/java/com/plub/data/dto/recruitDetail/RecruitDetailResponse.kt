@@ -1,8 +1,8 @@
-package com.plub.data.dto.recruitdetail
+package com.plub.data.dto.recruitDetail
 
 import com.google.gson.annotations.SerializedName
 import com.plub.data.base.DataDto
-import com.plub.data.dto.recruitdetail.RecruitDetailJoinedAccountsDataResponse
+import com.plub.data.dto.recruitDetail.RecruitDetailJoinedAccountsDataResponse
 
 data class RecruitDetailResponse(
     @SerializedName("title")
