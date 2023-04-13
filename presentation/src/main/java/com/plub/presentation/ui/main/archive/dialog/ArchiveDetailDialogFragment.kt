@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.children
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.archive.ArchiveDetailResponseVo
@@ -14,6 +15,7 @@ import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeDialogDetailArchiveBinding
 import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
+import java.lang.Math.abs
 
 class ArchiveDetailDialogFragment(
     private val detailVo: ArchiveDetailResponseVo
@@ -56,17 +58,22 @@ class ArchiveDetailDialogFragment(
 
     private fun initRecycler(){
         binding.viewPagerArchiveImage.apply {
+            adapter = archiveViewPagerAdapter
+            children.forEach { child ->
+                if (child is RecyclerView) {
+                    child.apply {
+                        setPadding(MARGIN_HORIZONTAL.px, 0, MARGIN_HORIZONTAL.px, 0)
+                        clipToPadding = false
+                    }
+                    return@forEach
+                }
+            }
             addItemDecoration(object : RecyclerView.ItemDecoration() {
                 override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-                    outRect.right = MARGIN_HORIZONTAL.px
-                    outRect.left = MARGIN_HORIZONTAL.px
+                    outRect.right = MARGIN_NEXT.px
+                    outRect.left = MARGIN_NEXT.px
                 }
             })
-            setPageTransformer { page, position ->
-                page.translationX = -(MARGIN_NEXT.px + MARGIN_HORIZONTAL) * (position)
-            }
-            offscreenPageLimit = 1
-            adapter = archiveViewPagerAdapter
         }
     }
 }

@@ -134,7 +134,7 @@ class ArchiveViewModel @Inject constructor(
         originList.forEach {
             if(it.archiveId == archiveId) mutableOriginList.remove(it)
         }
-        updateArchiveList(originList)
+        updateArchiveList(mutableOriginList)
     }
 
     private fun updateArchiveList(list : List<ArchiveContentResponseVo>){
