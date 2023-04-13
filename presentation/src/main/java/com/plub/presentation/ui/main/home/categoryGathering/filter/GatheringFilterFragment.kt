@@ -35,7 +35,7 @@ class GatheringFilterFragment :
     private val listAdapter: SubHobbiesAdapter by lazy {
         SubHobbiesAdapter(object : HobbiesAdapter.Delegate {
             override val selectedList: List<SelectedHobbyVo>
-                get() = viewModel.uiState.value.hobbiesSelectedVo.hobbies
+                get() = viewModel.uiState.value.selectedHobbies
 
             override fun onClickExpand(hobbyId: Int) {
 

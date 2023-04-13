@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.common.SubHobbyVo
+import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.domain.usecase.GetSubHobbiesUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.PlubLogger
@@ -58,7 +59,8 @@ class GatheringFilterViewModel @Inject constructor(
     private fun updateSelectList() {
         updateUiState { ui ->
             ui.copy(
-                hobbiesSelectedVo = ui.hobbiesSelectedVo.copy(selectedList)
+                selectedHobbies = selectedList,
+                isButtonEnable = selectedList.isNotEmpty() && ui.gatheringDays.isNotEmpty()
             )
         }
     }
@@ -72,7 +74,8 @@ class GatheringFilterViewModel @Inject constructor(
             uiState.copy(
                 gatheringDays = uiState.gatheringDays
                     .addOrRemoveElementAfterReturnNewHashSet(element)
-                    .removeElementAfterReturnNewHashSet(DaysType.ALL)
+                    .removeElementAfterReturnNewHashSet(DaysType.ALL),
+                isButtonEnable = uiState.selectedHobbies.isNotEmpty() && uiState.gatheringDays.isNotEmpty()
             )
         }
         return null
