@@ -12,6 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class ParseCategoryFilterVo(
     val gatheringDays: HashSet<DaysType> = hashSetOf(),
     val accountNum : Int = 0,
+    val isAll : Boolean = false,
     val selectedHobbies:List<SelectedHobbyVo> = emptyList()
 ) : Parcelable {
 
@@ -19,7 +20,7 @@ data class ParseCategoryFilterVo(
         override fun mapToParse(vo: FilterVo): ParseCategoryFilterVo {
             return vo.run {
                 ParseCategoryFilterVo(
-                    gatheringDays, accountNum, selectedHobbies
+                    gatheringDays, accountNum, isAll, selectedHobbies
                 )
             }
         }
@@ -27,7 +28,7 @@ data class ParseCategoryFilterVo(
         override fun mapToDomain(vo: ParseCategoryFilterVo): FilterVo {
             return vo.run {
                 FilterVo(
-                    gatheringDays, accountNum, selectedHobbies
+                    gatheringDays, accountNum, isAll, selectedHobbies
                 )
             }
         }

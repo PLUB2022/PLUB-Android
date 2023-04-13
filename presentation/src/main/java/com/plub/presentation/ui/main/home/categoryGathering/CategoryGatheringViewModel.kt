@@ -92,7 +92,7 @@ class CategoryGatheringViewModel @Inject constructor(
 
     private fun getBodyVo(body : FilterVo) : CategoriesGatheringBodyRequestVo{
         val days = if(body.gatheringDays.isEmpty() || body.gatheringDays.contains(DaysType.ALL)) null else body.gatheringDays.map { it.eng }
-        val subCategoryId = if(body.selectedHobbies.isEmpty()) null else getMergeSelectedHobbyList(body.selectedHobbies)
+        val subCategoryId = if(body.selectedHobbies.isEmpty() || body.isAll) null else getMergeSelectedHobbyList(body.selectedHobbies)
         val accountNum = if(body.accountNum == 0) null else body.accountNum
 
         return CategoriesGatheringBodyRequestVo(

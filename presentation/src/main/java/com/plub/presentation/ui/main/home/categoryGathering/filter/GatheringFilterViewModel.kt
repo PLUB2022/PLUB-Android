@@ -2,20 +2,19 @@ package com.plub.presentation.ui.main.home.categoryGathering.filter
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DaysType
-import com.plub.domain.model.enums.PlubingMainPageType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.common.SubHobbyVo
 import com.plub.domain.model.vo.home.categoriesGatheringVo.FilterVo
-import com.plub.domain.model.vo.plub.PlubingMemberInfoVo
 import com.plub.domain.usecase.GetSubHobbiesUseCase
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParseCategoryFilterVo
-import com.plub.presentation.ui.main.plubing.PlubingMainPageState
+import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.util.ResourceProvider
 import com.plub.presentation.util.addOrRemoveElementAfterReturnNewHashSet
 import com.plub.presentation.util.removeElementAfterReturnNewHashSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -23,14 +22,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GatheringFilterViewModel @Inject constructor(
-    val getSubHobbiesUseCase: GetSubHobbiesUseCase
+    val getSubHobbiesUseCase: GetSubHobbiesUseCase,
+    val resourceProvider: ResourceProvider
 ): BaseTestViewModel<GatheringFilterState>() {
 
     companion object{
         const val MIN_ACCOUNT_NUM = 4
     }
+
     private var categoryName = ""
+    private val allText = resourceProvider.getString(R.string.category_choice_see_all)
     private val selectedList: MutableList<SelectedHobbyVo> = mutableListOf()
+    private val allHobby = SubHobbyVo( 0, name = allText)
 
 
     private val gatheringDaysStateFlow: MutableStateFlow<HashSet<DaysType>> = MutableStateFlow(hashSetOf())
@@ -65,7 +68,7 @@ class GatheringFilterViewModel @Inject constructor(
     private fun handleSuccessFetchSubHobbies(vo : List<SubHobbyVo>){
         viewModelScope.launch {
             categoryNameStateFlow.update { categoryName }
-            subHobbiesStateFlow.update { vo }
+            subHobbiesStateFlow.update {listOf(allHobby) + vo }
         }
     }
 
@@ -74,10 +77,28 @@ class GatheringFilterViewModel @Inject constructor(
     }
 
     private fun addHobby(selectedHobbyVo: SelectedHobbyVo) {
+        updateAllHobby(selectedHobbyVo)
+        notifySubItem(selectedHobbyVo)
         selectedList.add(selectedHobbyVo)
         updateSelectList()
         updateButtonState()
-        notifySubItem(selectedHobbyVo)
+    }
+
+    private fun updateAllHobby(selectedHobbyVo: SelectedHobbyVo){
+        if(selectedHobbyVo.name == allText) {
+            selectedList.forEach {
+                notifySubItem(it)
+            }
+            selectedList.clear()
+        }
+        else{
+            selectedList.forEach{
+                if(it.name == allText){
+                    selectedList.remove(it)
+                    notifySubItem(it)
+                }
+            }
+        }
     }
 
     private fun removeHobby(selectedHobbyVo: SelectedHobbyVo) {
@@ -133,17 +154,20 @@ class GatheringFilterViewModel @Inject constructor(
     }
 
     fun updateButtonState(){
-        val flag = selectedList.isNotEmpty() && uiState.gatheringDays.value.isNotEmpty()
         viewModelScope.launch {
-            isButtonEnableStateFlow.update { flag }
+            isButtonEnableStateFlow.update { selectedList.isNotEmpty() && uiState.gatheringDays.value.isNotEmpty() }
         }
     }
 
     fun onClickApply(){
+        val isAllList = selectedList.find {
+            it.name == allText
+        }
         val vo = FilterVo(
             gatheringDays = uiState.gatheringDays.value,
             accountNum =  uiState.accountNum.value,
-            selectedHobbies = uiState.selectedHobbies.value
+            selectedHobbies = uiState.selectedHobbies.value,
+            isAll = selectedList.contains(isAllList)
         )
         emitEventFlow(GatheringFilterEvent.GoToCategoryGathering(ParseCategoryFilterVo.mapToParse(vo)))
     }

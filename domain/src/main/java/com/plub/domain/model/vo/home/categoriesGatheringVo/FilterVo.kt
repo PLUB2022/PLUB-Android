@@ -7,5 +7,6 @@ import com.plub.domain.model.vo.common.SelectedHobbyVo
 data class FilterVo(
     val gatheringDays: HashSet<DaysType> = hashSetOf(),
     val accountNum : Int = 0,
+    val isAll : Boolean = false,
     val selectedHobbies:List<SelectedHobbyVo> = emptyList()
 ) : DomainModel
