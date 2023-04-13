@@ -74,7 +74,6 @@ class GatheringFilterFragment :
             launch {
                 viewModel.uiState.subHobbies.collect {
                     listAdapter.submitList(it)
-                    viewModel.updateButtonState()
                 }
             }
 

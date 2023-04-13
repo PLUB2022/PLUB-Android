@@ -26,6 +26,9 @@ class GatheringFilterViewModel @Inject constructor(
     val getSubHobbiesUseCase: GetSubHobbiesUseCase
 ): BaseTestViewModel<GatheringFilterState>() {
 
+    companion object{
+        const val MIN_ACCOUNT_NUM = 4
+    }
     private var categoryName = ""
     private val selectedList: MutableList<SelectedHobbyVo> = mutableListOf()
 
@@ -35,7 +38,7 @@ class GatheringFilterViewModel @Inject constructor(
     private val subHobbiesStateFlow: MutableStateFlow<List<SubHobbyVo>> = MutableStateFlow(emptyList())
     private val seekBarProgressStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
     private val seekBarPositionXStateFlow: MutableStateFlow<Float> = MutableStateFlow(0f)
-    private val accountNumStateFlow: MutableStateFlow<Int> = MutableStateFlow(0)
+    private val accountNumStateFlow: MutableStateFlow<Int> = MutableStateFlow(MIN_ACCOUNT_NUM)
     private val isButtonEnableStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val selectedHobbiesStateFlow: MutableStateFlow<List<SelectedHobbyVo>> = MutableStateFlow(emptyList())
 
@@ -73,12 +76,14 @@ class GatheringFilterViewModel @Inject constructor(
     private fun addHobby(selectedHobbyVo: SelectedHobbyVo) {
         selectedList.add(selectedHobbyVo)
         updateSelectList()
+        updateButtonState()
         notifySubItem(selectedHobbyVo)
     }
 
     private fun removeHobby(selectedHobbyVo: SelectedHobbyVo) {
         selectedList.remove(selectedHobbyVo)
         updateSelectList()
+        updateButtonState()
         notifySubItem(selectedHobbyVo)
     }
 
@@ -128,8 +133,9 @@ class GatheringFilterViewModel @Inject constructor(
     }
 
     fun updateButtonState(){
+        val flag = selectedList.isNotEmpty() && uiState.gatheringDays.value.isNotEmpty()
         viewModelScope.launch {
-            isButtonEnableStateFlow.update { uiState.selectedHobbies.value.isNotEmpty() && uiState.gatheringDays.value.isNotEmpty() }
+            isButtonEnableStateFlow.update { flag }
         }
     }
 
