@@ -113,13 +113,14 @@ class ArchiveUploadViewModel @Inject constructor(
     private fun handleSuccessGetDetailArchive(vo : ArchiveDetailResponseVo){
         val mergeList = getMergedList(vo.title)
         val initList = mutableListOf<ArchiveUploadVo>()
+        val last = arrayListOf(ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_ADD_VIEW))
         for(imageContent in vo.images){
             initList.add(ArchiveUploadVo(
                 viewType = ArchiveItemViewType.IMAGE_VIEW,
                 image = imageContent
             ))
         }
-        updateListState(mergeList + initList)
+        updateListState(mergeList + initList + last)
     }
 
     private fun getMergedList(title : String) : List<ArchiveUploadVo>{

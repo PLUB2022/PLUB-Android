@@ -5,7 +5,7 @@ object Endpoints {
     object FILE {
         const val FILE_URL = "/api/files"
         const val CHANGE_FILE_URL = "$FILE_URL/change"
-        const val DELETE_FILE = "$FILE_URL{type}"
+        const val DELETE_FILE = "$FILE_URL/{type}"
     }
 
     object AUTH {
