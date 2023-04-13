@@ -9,8 +9,13 @@ import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.usecase.GetAllArchiveUseCase
 import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
+import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -20,7 +25,7 @@ class ArchiveViewModel @Inject constructor(
     val postUploadFileUseCase: PostUploadFileUseCase,
     val getAllArchiveUseCase: GetAllArchiveUseCase,
     val getDetailArchiveUseCase: GetDetailArchiveUseCase
-)  :BaseViewModel<ArchivePageState>(ArchivePageState()) {
+)  :BaseTestViewModel<ArchivePageState>() {
 
     companion object{
         const val FIRST_CURSOR = 0
@@ -31,6 +36,14 @@ class ArchiveViewModel @Inject constructor(
     private var plubbingId : Int = -1
     private var isLastPage : Boolean = false
 
+    private val titleStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val archiveListStateFlow : MutableStateFlow<List<ArchiveContentResponseVo>> = MutableStateFlow(emptyList())
+
+    override val uiState: ArchivePageState = ArchivePageState(
+        titleStateFlow.asStateFlow(),
+        archiveListStateFlow.asStateFlow()
+    )
+
     fun setTitleAndPlubbingId(name : String , id : Int){
         title = name
         plubbingId = id
@@ -39,11 +52,9 @@ class ArchiveViewModel @Inject constructor(
     }
 
     private fun refresh(){
-        updateUiState { uiState ->
-            uiState.copy(
-                title = title,
-                archiveList = emptyList(),
-            )
+        viewModelScope.launch {
+            titleStateFlow.update { title }
+            archiveListStateFlow.update { emptyList() }
         }
     }
 
@@ -60,16 +71,14 @@ class ArchiveViewModel @Inject constructor(
         isNetworkCall = false
         isLastPage = vo.last
 
-        updateUiState { uiState ->
-            uiState.copy(
-                title = title,
-                archiveList = getMergeList(vo.content),
-            )
+        viewModelScope.launch {
+            titleStateFlow.update { title }
+            archiveListStateFlow.update { getMergeList(vo.content) }
         }
     }
 
     private fun getMergeList(list : List<ArchiveContentResponseVo>) : List<ArchiveContentResponseVo>{
-        val originList = uiState.value.archiveList
+        val originList = uiState.archiveList.value
         return if(originList.isEmpty() || cursorId == FIRST_CURSOR) list else originList + list
     }
 
@@ -84,8 +93,8 @@ class ArchiveViewModel @Inject constructor(
     }
 
     private fun cursorUpdate() {
-        cursorId = if (uiState.value.archiveList.isEmpty()) FIRST_CURSOR
-        else uiState.value.archiveList.lastOrNull()?.archiveId ?: FIRST_CURSOR
+        cursorId = if (uiState.archiveList.value.isEmpty()) FIRST_CURSOR
+        else uiState.archiveList.value.lastOrNull()?.archiveId ?: FIRST_CURSOR
     }
 
     fun seeDetailDialog(id : Int){
@@ -129,7 +138,7 @@ class ArchiveViewModel @Inject constructor(
     }
 
     fun deleteArchive(archiveId : Int){
-        val originList = uiState.value.archiveList
+        val originList = uiState.archiveList.value
         val mutableOriginList = originList.toMutableList()
         originList.forEach {
             if(it.archiveId == archiveId) mutableOriginList.remove(it)
@@ -138,10 +147,8 @@ class ArchiveViewModel @Inject constructor(
     }
 
     private fun updateArchiveList(list : List<ArchiveContentResponseVo>){
-        updateUiState { uiState ->
-            uiState.copy(
-                archiveList = list
-            )
+        viewModelScope.launch {
+            archiveListStateFlow.update { list }
         }
     }
 

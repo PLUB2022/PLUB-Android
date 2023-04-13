@@ -2,11 +2,12 @@ package com.plub.presentation.ui.main.archive.upload
 
 import com.plub.domain.model.vo.archive.ArchiveUploadVo
 import com.plub.presentation.ui.PageState
+import kotlinx.coroutines.flow.StateFlow
 
 data class ArchiveUploadPageState(
-    val title : String = "",
-    val enableButton : Boolean = false,
-    val imageCount : Int = 0,
-    val pageType : Int = 0,
-    val archiveUploadVoList: List<ArchiveUploadVo> = emptyList()
+    val title : StateFlow<String>,
+    val enableButton : StateFlow<Boolean>,
+    val imageCount : StateFlow<Int>,
+    val pageType : StateFlow<Int>,
+    val archiveUploadVoList: StateFlow<List<ArchiveUploadVo>>
 ) : PageState

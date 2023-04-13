@@ -8,9 +8,10 @@ import com.plub.domain.model.vo.media.DeleteFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.usecase.*
+import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -22,7 +23,7 @@ class ArchiveUploadViewModel @Inject constructor(
     private val postCreateArchiveUseCase: PostCreateArchiveUseCase,
     private val deleteFileUseCase: DeleteFileUseCase,
     private val putEditArchiveUseCase: PutEditArchiveUseCase
-) : BaseViewModel<ArchiveUploadPageState>(ArchiveUploadPageState()) {
+) : BaseTestViewModel<ArchiveUploadPageState>() {
 
     companion object{
         const val UPLOAD_TYPE = 0
@@ -38,6 +39,21 @@ class ArchiveUploadViewModel @Inject constructor(
     private var archiveId : Int = 0
     private var plubTitle : String =""
     private var pageType : Int = UPLOAD_TYPE
+
+
+    private val titleStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val enableButtonStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val imageCountStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
+    private val pageTypeStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
+    private val archiveUploadVoListStateFlow : MutableStateFlow<List<ArchiveUploadVo>> = MutableStateFlow(emptyList())
+
+    override val uiState: ArchiveUploadPageState = ArchiveUploadPageState(
+        titleStateFlow.asStateFlow(),
+        enableButtonStateFlow.asStateFlow(),
+        imageCountStateFlow.asStateFlow(),
+        pageTypeStateFlow.asStateFlow(),
+        archiveUploadVoListStateFlow.asStateFlow(),
+    )
 
     fun initPageWithFirstImage(imageUri : String, title : String, pId: Int){
         plubbingId = pId
@@ -64,24 +80,20 @@ class ArchiveUploadViewModel @Inject constructor(
         val imageCount = stateList.size - 2
         val isDataNotEmpty = (imageCount > 0 && editText.isNotEmpty())
         updateButtonState()
-        updateUiState { uiState ->
-            uiState.copy(
-                archiveUploadVoList = stateList,
-                imageCount = imageCount,
-                title = plubTitle,
-                pageType = pageType,
-                enableButton = isDataNotEmpty
-            )
+        viewModelScope.launch {
+            archiveUploadVoListStateFlow.update { stateList }
+            imageCountStateFlow.update { imageCount }
+            titleStateFlow.update { plubTitle }
+            pageTypeStateFlow.update { pageType }
+            enableButtonStateFlow.update { isDataNotEmpty }
         }
     }
 
     private fun updateButtonState(){
-        val isDataNotEmpty = ((uiState.value.imageCount > 0) && editText.isNotEmpty())
-        if (isDataNotEmpty != uiState.value.enableButton){
-            updateUiState { uiState ->
-                uiState.copy(
-                    enableButton = isDataNotEmpty
-                )
+        val isDataNotEmpty = ((uiState.imageCount.value > 0) && editText.isNotEmpty())
+        if (isDataNotEmpty != uiState.enableButton.value){
+            viewModelScope.launch{
+                enableButtonStateFlow.update { isDataNotEmpty }
             }
         }
     }
@@ -128,7 +140,7 @@ class ArchiveUploadViewModel @Inject constructor(
     }
 
     private fun onDeleteSuccess(position : Int){
-        val originList = uiState.value.archiveUploadVoList
+        val originList = uiState.archiveUploadVoList.value
         val mergeList = mutableListOf<ArchiveUploadVo>()
         mergeList.addAll(originList)
         mergeList.removeAt(position)
@@ -159,7 +171,7 @@ class ArchiveUploadViewModel @Inject constructor(
     }
 
     private fun addList(vo : ArchiveUploadVo){
-        val originList = uiState.value.archiveUploadVoList.toMutableList()
+        val originList = uiState.archiveUploadVoList.value.toMutableList()
         originList.removeLast()
         originList.add(vo)
         val imageCount = originList.size - 2
@@ -172,7 +184,7 @@ class ArchiveUploadViewModel @Inject constructor(
     }
 
     fun updateArchive(){
-        when(uiState.value.pageType){
+        when(uiState.pageType.value){
             UPLOAD_TYPE ->{
                 uploadArchive()
             }
@@ -193,7 +205,7 @@ class ArchiveUploadViewModel @Inject constructor(
     }
 
     private fun getImageList() : List<String>{
-        val archiveList = uiState.value.archiveUploadVoList
+        val archiveList = uiState.archiveUploadVoList.value
         val mergeImageList = mutableListOf<String>()
         for(content in archiveList){
             if(content.viewType == ArchiveItemViewType.IMAGE_VIEW){

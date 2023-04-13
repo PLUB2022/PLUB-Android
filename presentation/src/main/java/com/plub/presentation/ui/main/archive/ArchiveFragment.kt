@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
 import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
 import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter
 import com.plub.presentation.ui.main.archive.bottomsheet.dots.ArchiveDotsMenuBottomSheetFragment
@@ -19,7 +20,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
-class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, ArchiveViewModel>(
+class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageState, ArchiveViewModel>(
     FragmentArchiveBinding::inflate
 ) {
 
@@ -71,8 +72,8 @@ class ArchiveFragment : BaseFragment<FragmentArchiveBinding, ArchivePageState, A
     override fun initStates() {
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    archiveAdapter.submitList(it.archiveList)
+                viewModel.uiState.archiveList.collect {
+                    archiveAdapter.submitList(it)
                 }
             }
 

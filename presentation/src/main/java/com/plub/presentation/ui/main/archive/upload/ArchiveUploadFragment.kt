@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import com.plub.domain.model.enums.ArchiveItemViewType
 import com.plub.domain.model.vo.archive.ArchiveUploadVo
 import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentArchiveUpdateBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetFragment
@@ -19,7 +20,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
-class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, ArchiveUploadPageState, ArchiveUploadViewModel>(
+class ArchiveUploadFragment : BaseTestFragment<FragmentArchiveUpdateBinding, ArchiveUploadPageState, ArchiveUploadViewModel>(
     FragmentArchiveUpdateBinding::inflate
 ) {
 
@@ -96,8 +97,8 @@ class ArchiveUploadFragment : BaseFragment<FragmentArchiveUpdateBinding, Archive
     override fun initStates() {
         repeatOnStarted(viewLifecycleOwner){
             launch {
-                viewModel.uiState.collect{
-                    archiveUploadAdapter.submitList(it.archiveUploadVoList)
+                viewModel.uiState.archiveUploadVoList.collect{
+                    archiveUploadAdapter.submitList(it)
                 }
             }
 
