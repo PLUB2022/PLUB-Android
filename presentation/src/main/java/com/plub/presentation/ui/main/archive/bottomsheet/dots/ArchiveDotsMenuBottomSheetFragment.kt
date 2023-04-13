@@ -6,11 +6,7 @@ import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.enums.ArchiveMenuType
 import com.plub.presentation.base.BaseBottomSheetFragment
 import com.plub.presentation.databinding.BottomSheetArchiveDotsMenuBinding
-import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
-
 import com.plub.presentation.ui.main.archive.bottomsheet.dots.adapter.ArchiveDotsMenuAdapter
-import com.plub.presentation.ui.main.archive.upload.adapter.ArchiveUploadAdapter
-import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

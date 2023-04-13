@@ -15,7 +15,6 @@ import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeDialogDetailArchiveBinding
 import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
-import java.lang.Math.abs
 
 class ArchiveDetailDialogFragment(
     private val detailVo: ArchiveDetailResponseVo

@@ -6,14 +6,11 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import com.plub.domain.model.enums.ArchiveItemViewType
-import com.plub.domain.model.vo.archive.ArchiveUploadVo
-import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentArchiveUpdateBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.main.archive.bottomsheet.upload.ArchiveBottomSheetFragment
 import com.plub.presentation.ui.main.archive.upload.adapter.ArchiveUploadAdapter
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

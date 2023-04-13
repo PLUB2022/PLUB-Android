@@ -9,7 +9,6 @@ import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -224,12 +223,12 @@ class ArchiveUploadViewModel @Inject constructor(
         val request = EditArchiveRequestVo(plubbingId, archiveId, ArchiveContentRequestVo(editText, mergeList))
         viewModelScope.launch {
             putEditArchiveUseCase(request).collect{ state->
-                inspectUiState(state, ::handleSuccessEditArchive)
+                inspectUiState(state, { handleSuccessEditArchive() })
             }
         }
     }
 
-    private fun handleSuccessEditArchive(vo : ArchiveContentResponseVo){
+    private fun handleSuccessEditArchive(){
         emitEventFlow(ArchiveUploadEvent.GoToBack)
     }
 }

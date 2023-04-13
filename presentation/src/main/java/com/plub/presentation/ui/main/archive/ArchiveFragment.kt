@@ -6,8 +6,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.ArchiveAccessType
-import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
-import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
 import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter

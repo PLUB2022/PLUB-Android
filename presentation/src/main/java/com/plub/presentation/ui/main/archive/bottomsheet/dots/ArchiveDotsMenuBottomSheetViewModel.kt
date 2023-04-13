@@ -3,12 +3,9 @@ package com.plub.presentation.ui.main.archive.bottomsheet.dots
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.enums.ArchiveMenuType
-import com.plub.domain.model.vo.archive.ArchiveContentResponseVo
-import com.plub.domain.model.vo.archive.ArchiveIdResponseVo
 import com.plub.domain.model.vo.archive.DetailArchiveRequestVo
 import com.plub.domain.usecase.DeleteArchiveUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
