@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyGatheringBinding
+import com.plub.presentation.ui.common.dialog.CommonDialog
 import com.plub.presentation.ui.main.gathering.my.adapter.MyGatheringsAdapter
 import com.plub.presentation.util.PowerMenuUtil
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.math.abs
 
 
@@ -23,6 +25,9 @@ class MyGatheringFragment :
     BaseTestFragment<FragmentMyGatheringBinding, MyGatheringPageState, MyGatheringViewModel>(
         FragmentMyGatheringBinding::inflate
     ) {
+
+    @Inject
+    lateinit var commonDialog: CommonDialog
 
     companion object {
         private const val VIEW_PAGER2_PADDING = 30
@@ -74,9 +79,35 @@ class MyGatheringFragment :
             requireContext(),
             viewLifecycleOwner,
             hostingMeatBallItems
-        ) { _, _ ->
+        ) { _, item ->
+            when(item) {
+                getString(R.string.my_gathering_setting) -> {
 
+                }
+                getString(R.string.my_gathering_quit) -> {
+                    showGatheringLeaveDialog(plubbingId)
+                }
+                getString(R.string.my_gathering_kick_out) -> {
+
+                }
+                getString(R.string.my_gathering_close) -> {
+
+                }
+            }
         }.showAsDropDown(view, POWER_MENU_OFFSET.px, 0)
+    }
+
+    private fun showGatheringLeaveDialog(plubbingId: Int) {
+        commonDialog
+            .setTitle("모임에서 나가기 하시겠어요?")
+            .setPositiveButton("네, 할게요") {
+                viewModel.leaveGathering(plubbingId)
+                commonDialog.dismiss()
+            }
+            .setNegativeButton("취소") {
+                commonDialog.dismiss()
+            }
+            .show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
