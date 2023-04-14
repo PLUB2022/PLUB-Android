@@ -46,18 +46,6 @@
         <action
             android:id="@+id/action_main_to_archive"
             app:destination="@id/archiveFragment" />
-        <argument
-            android:name="categoryId"
-            app:argType="integer"
-            />
-        <argument
-            android:name="categoryName"
-            app:argType="string"
-            />
-        <argument
-            android:name="plubbingId"
-            app:argType="integer"
-            />
     </fragment>
 
     <fragment

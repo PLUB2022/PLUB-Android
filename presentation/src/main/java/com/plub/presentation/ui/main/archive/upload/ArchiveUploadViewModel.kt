@@ -94,7 +94,6 @@ class ArchiveUploadViewModel @Inject constructor(
         val isDataNotEmpty = (imageCount > 0 && editText.isNotEmpty())
         val subTitle = if(pageType == UPLOAD_TYPE) R.string.archive_upload_title
                         else R.string.archive_edit_title
-        updateButtonState()
         viewModelScope.launch {
             archiveUploadVoListStateFlow.update { stateList }
             imageCountStateFlow.update { imageCount }
@@ -131,10 +130,10 @@ class ArchiveUploadViewModel @Inject constructor(
         val mergeList = getMergedList(vo.title)
         val initList = mutableListOf<ArchiveUploadVo>()
         val last = arrayListOf(ArchiveUploadVo(viewType = ArchiveItemViewType.IMAGE_ADD_VIEW))
-        for(imageContent in vo.images){
+        vo.images.forEach {
             initList.add(ArchiveUploadVo(
                 viewType = ArchiveItemViewType.IMAGE_VIEW,
-                image = imageContent
+                image = it
             ))
         }
         updateListState(mergeList + initList + last)
@@ -157,9 +156,7 @@ class ArchiveUploadViewModel @Inject constructor(
     }
 
     private fun onDeleteSuccess(position : Int){
-        val originList = uiState.archiveUploadVoList.value
-        val mergeList = mutableListOf<ArchiveUploadVo>()
-        mergeList.addAll(originList)
+        val mergeList = uiState.archiveUploadVoList.value.toMutableList()
         mergeList.removeAt(position)
         updateListState(mergeList)
     }
@@ -169,7 +166,7 @@ class ArchiveUploadViewModel @Inject constructor(
         updateButtonState()
     }
 
-    fun uploadImageFile(file : File?){
+    private fun uploadImageFile(file : File?){
         val request = file?.let { UploadFileRequestVo(UploadFileType.PLUBBING_MAIN, it) }
         viewModelScope.launch {
             if (request != null) {

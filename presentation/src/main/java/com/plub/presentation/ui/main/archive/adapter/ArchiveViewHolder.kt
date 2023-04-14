@@ -32,7 +32,6 @@ class ArchiveViewHolder(
             for (position in 0 until item.images.size) {
                 imageList[position].apply {
                     GlideUtil.loadImage(root.context, vo.images[position], this)
-                    clipToOutline = true
                     isVisible = true
                 }
             }

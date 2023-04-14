@@ -15,7 +15,6 @@ class ArchiveViewPagerViewHolder(
     fun bind(item: String) {
         binding.apply {
             GlideUtil.loadImage(root.context, item, imageViewArchive)
-            imageViewArchive.clipToOutline = true
         }
     }
 }

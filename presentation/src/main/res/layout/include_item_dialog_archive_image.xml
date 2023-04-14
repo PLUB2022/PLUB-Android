@@ -13,6 +13,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/bg_rectangle_filled_c4c4c4_radius_10"
             android:scaleType="centerCrop"
+            android:clipToOutline="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,7 +63,7 @@ class ArchiveViewModel @Inject constructor(
         }
     }
 
-    fun fetchArchivePage(){
+    private fun fetchArchivePage(){
         val request = BrowseAllArchiveRequestVo(plubbingId, cursorId)
         viewModelScope.launch {
             getAllArchiveUseCase(request).collect{ state ->
@@ -102,8 +102,8 @@ class ArchiveViewModel @Inject constructor(
         else uiState.archiveList.value.lastOrNull()?.archiveId ?: FIRST_CURSOR
     }
 
-    fun seeDetailDialog(id : Int){
-        val request = DetailArchiveRequestVo(plubbingId, id)
+    fun seeDetailDialog(archiveId : Int){
+        val request = DetailArchiveRequestVo(plubbingId, archiveId)
         viewModelScope.launch {
             getDetailArchiveUseCase(request).collect{ state ->
                 inspectUiState(state, ::handleSuccessFetchDetailArchive)
@@ -154,7 +154,7 @@ class ArchiveViewModel @Inject constructor(
     }
 
     fun goToEdit(archiveId : Int){
-        emitEventFlow(ArchiveEvent.GoToEdit(title, archiveId))
+        emitEventFlow(ArchiveEvent.GoToEdit(archiveId))
     }
 
     fun goToReport(archiveId: Int){
@@ -180,9 +180,8 @@ class ArchiveViewModel @Inject constructor(
     }
 
     private fun handleSuccessDelete(archiveId: Int) {
-        val originList = uiState.archiveList.value
-        val mutableOriginList = originList.toMutableList()
-        originList.forEach {
+        val mutableOriginList = uiState.archiveList.value.toMutableList()
+        mutableOriginList.forEach {
             if(it.archiveId == archiveId) mutableOriginList.remove(it)
         }
         updateArchiveList(mutableOriginList)
