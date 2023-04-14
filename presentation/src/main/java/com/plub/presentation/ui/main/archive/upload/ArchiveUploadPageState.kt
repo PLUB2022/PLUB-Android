@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 data class ArchiveUploadPageState(
     val title : StateFlow<String>,
+    val typeTitle : StateFlow<String>,
     val enableButton : StateFlow<Boolean>,
     val imageCount : StateFlow<Int>,
     val pageType : StateFlow<Int>,

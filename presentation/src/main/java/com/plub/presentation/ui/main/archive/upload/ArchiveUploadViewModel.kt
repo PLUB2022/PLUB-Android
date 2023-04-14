@@ -13,9 +13,11 @@ import com.plub.domain.model.vo.media.DeleteFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.usecase.*
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.ui.main.archive.ArchiveEvent
 import com.plub.presentation.util.ImageUtil
+import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -29,6 +31,7 @@ class ArchiveUploadViewModel @Inject constructor(
     private val postCreateArchiveUseCase: PostCreateArchiveUseCase,
     private val deleteFileUseCase: DeleteFileUseCase,
     private val putEditArchiveUseCase: PutEditArchiveUseCase,
+    private val resourceProvider: ResourceProvider,
     private val imageUtil: ImageUtil
 ) : BaseTestViewModel<ArchiveUploadPageState>() {
 
@@ -49,6 +52,7 @@ class ArchiveUploadViewModel @Inject constructor(
 
     private var cameraTempImageUri: Uri? = null
     private val titleStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val typeTitleStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val enableButtonStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val imageCountStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
     private val pageTypeStateFlow : MutableStateFlow<Int> = MutableStateFlow(0)
@@ -56,6 +60,7 @@ class ArchiveUploadViewModel @Inject constructor(
 
     override val uiState: ArchiveUploadPageState = ArchiveUploadPageState(
         titleStateFlow.asStateFlow(),
+        typeTitleStateFlow.asStateFlow(),
         enableButtonStateFlow.asStateFlow(),
         imageCountStateFlow.asStateFlow(),
         pageTypeStateFlow.asStateFlow(),
@@ -86,11 +91,14 @@ class ArchiveUploadViewModel @Inject constructor(
     private fun updateListState(stateList : List<ArchiveUploadVo>){
         val imageCount = stateList.size - 2
         val isDataNotEmpty = (imageCount > 0 && editText.isNotEmpty())
+        val subTitle = if(pageType == UPLOAD_TYPE) R.string.archive_upload_title
+                        else R.string.archive_edit_title
         updateButtonState()
         viewModelScope.launch {
             archiveUploadVoListStateFlow.update { stateList }
             imageCountStateFlow.update { imageCount }
             titleStateFlow.update { plubTitle }
+            typeTitleStateFlow.update { resourceProvider.getString(subTitle) }
             pageTypeStateFlow.update { pageType }
             enableButtonStateFlow.update { isDataNotEmpty }
         }
@@ -284,5 +292,9 @@ class ArchiveUploadViewModel @Inject constructor(
                 uploadImageFile(file)
             }
         }
+    }
+
+    fun goToBack(){
+        emitEventFlow(ArchiveUploadEvent.GoToBack)
     }
 }

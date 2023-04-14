@@ -187,6 +187,17 @@ class SelectMenuBottomSheetDialog : BottomSheetDialogFragment() {
                 DialogMenuItemType.TODO_PROOF,
                 DialogMenuItemType.TODO_PLANNER
             )
+            DialogMenuType.ARCHIVE_HOST_TYPE -> listOf(
+                DialogMenuItemType.ARCHIVE_REPORT,
+                DialogMenuItemType.ARCHIVE_DELETE
+            )
+            DialogMenuType.ARCHIVE_AUTHOR_TYPE -> listOf(
+                DialogMenuItemType.ARCHIVE_EDIT,
+                DialogMenuItemType.ARCHIVE_DELETE
+            )
+            DialogMenuType.ARCHIVE_NORMAL_TYPE -> listOf(
+                DialogMenuItemType.ARCHIVE_REPORT
+            )
         }
     }
 }

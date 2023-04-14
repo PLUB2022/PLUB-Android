@@ -11,6 +11,7 @@ import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.archive.*
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
+import com.plub.domain.usecase.DeleteArchiveUseCase
 import com.plub.domain.usecase.GetAllArchiveUseCase
 import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
@@ -29,6 +30,7 @@ class ArchiveViewModel @Inject constructor(
     val postUploadFileUseCase: PostUploadFileUseCase,
     val getAllArchiveUseCase: GetAllArchiveUseCase,
     val getDetailArchiveUseCase: GetDetailArchiveUseCase,
+    val deleteArchiveUseCase: DeleteArchiveUseCase,
     val imageUtil: ImageUtil
 )  :BaseTestViewModel<ArchivePageState>() {
 
@@ -140,17 +142,13 @@ class ArchiveViewModel @Inject constructor(
     }
 
     fun seeBottomSheet(type : ArchiveAccessType, id : Int){
-        emitEventFlow(ArchiveEvent.SeeDotsBottomSheet(id, type))
+        when(type){
+            ArchiveAccessType.HOST -> emitEventFlow(ArchiveEvent.SeeDotsHostBottomSheet(id))
+            ArchiveAccessType.NORMAL -> emitEventFlow(ArchiveEvent.SeeDotsNormalBottomSheet(id))
+            ArchiveAccessType.AUTHOR -> emitEventFlow(ArchiveEvent.SeeDotsAuthorBottomSheet(id))
+        }
     }
 
-    fun deleteArchive(archiveId : Int){
-        val originList = uiState.archiveList.value
-        val mutableOriginList = originList.toMutableList()
-        originList.forEach {
-            if(it.archiveId == archiveId) mutableOriginList.remove(it)
-        }
-        updateArchiveList(mutableOriginList)
-    }
 
     private fun updateArchiveList(list : List<ArchiveContentResponseVo>){
         viewModelScope.launch {
@@ -164,6 +162,33 @@ class ArchiveViewModel @Inject constructor(
 
     fun goToReport(archiveId: Int){
         emitEventFlow(ArchiveEvent.GoToReport(archiveId))
+    }
+
+    fun onClickDotsMenuItemType(type : DialogMenuItemType, archiveId: Int){
+        when(type){
+            DialogMenuItemType.ARCHIVE_DELETE -> { deleteArchive(archiveId) }
+            DialogMenuItemType.ARCHIVE_REPORT -> { goToReport(archiveId) }
+            DialogMenuItemType.ARCHIVE_EDIT -> { goToEdit(archiveId) }
+            else -> {}
+        }
+    }
+
+    private fun deleteArchive(archiveId: Int) {
+        val request = DetailArchiveRequestVo(plubbingId, archiveId)
+        viewModelScope.launch {
+            deleteArchiveUseCase(request).collect { state ->
+                inspectUiState(state, { handleSuccessDelete(archiveId) })
+            }
+        }
+    }
+
+    private fun handleSuccessDelete(archiveId: Int) {
+        val originList = uiState.archiveList.value
+        val mutableOriginList = originList.toMutableList()
+        originList.forEach {
+            if(it.archiveId == archiveId) mutableOriginList.remove(it)
+        }
+        updateArchiveList(mutableOriginList)
     }
 
     fun onClickImageMenuItemType(type: DialogMenuItemType) {

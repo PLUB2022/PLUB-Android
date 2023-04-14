@@ -38,17 +38,20 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.ALBUM_IMAGE -> R.drawable.ic_album
             DialogMenuItemType.DEFAULT_IMAGE -> R.drawable.ic_album
 
+            DialogMenuItemType.ARCHIVE_DELETE,
             DialogMenuItemType.SCHEDULE_DELETE,
             DialogMenuItemType.TODO_DELETE,
             DialogMenuItemType.BOARD_DELETE,
             DialogMenuItemType.BOARD_COMMENT_DELETE -> R.drawable.ic_delete_red
 
+            DialogMenuItemType.ARCHIVE_EDIT,
             DialogMenuItemType.SCHEDULE_EDIT,
             DialogMenuItemType.TODO_PLANNER,
             DialogMenuItemType.TODO_EDIT,
             DialogMenuItemType.BOARD_EDIT,
             DialogMenuItemType.BOARD_COMMENT_EDIT -> R.drawable.ic_edit_black
 
+            DialogMenuItemType.ARCHIVE_REPORT,
             DialogMenuItemType.TODO_REPORT,
             DialogMenuItemType.BOARD_REPORT,
             DialogMenuItemType.BOARD_COMMENT_REPORT -> R.drawable.ic_report_blue
@@ -56,6 +59,7 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.BOARD_FIX_CLIP,
             DialogMenuItemType.BOARD_RELEASE_CLIP,
             DialogMenuItemType.BOARD_FIX_OR_RELEASE_CLIP -> R.drawable.ic_clipboard_black
+
             else -> throw IllegalAccessException()
         }
     }
@@ -81,15 +85,20 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.TODO_REPORT  -> R.string.dialog_menu_todo_report
             DialogMenuItemType.TODO_DELETE  -> R.string.dialog_menu_todo_delete
             DialogMenuItemType.TODO_EDIT  -> R.string.dialog_menu_todo_edit
+            DialogMenuItemType.ARCHIVE_EDIT -> R.string.dialog_menu_archive_edit
+            DialogMenuItemType.ARCHIVE_REPORT -> R.string.dialog_menu_archive_report
+            DialogMenuItemType.ARCHIVE_DELETE -> R.string.dialog_menu_archive_delete
             else -> throw IllegalAccessException()
         }
     }
 
     private fun getMenuContentColorRes(menuType: DialogMenuItemType):Int {
         return when(menuType) {
+            DialogMenuItemType.ARCHIVE_DELETE,
             DialogMenuItemType.TODO_DELETE,
             DialogMenuItemType.BOARD_DELETE,
             DialogMenuItemType.BOARD_COMMENT_DELETE -> R.color.color_f75b2b
+
             else -> R.color.color_363636
         }
     }

@@ -15,7 +15,6 @@ import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter
-import com.plub.presentation.ui.main.archive.bottomsheet.dots.ArchiveDotsMenuBottomSheetFragment
 import com.plub.presentation.ui.main.archive.dialog.ArchiveDetailDialogFragment
 import com.plub.presentation.util.IntentUtil
 import com.plub.presentation.util.PermissionManager
@@ -122,12 +121,12 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
             is ArchiveEvent.GoToEdit -> {
                 goToArchiveEdit(event.title, event.archiveId)
             }
-            is ArchiveEvent.SeeDotsBottomSheet -> {
-                showBottomSheetDots(event.archiveId, event.archiveAccessType)
-            }
             is ArchiveEvent.CropImageAndOptimize -> { startCropImage(event.cropImageContractOptions) }
             is ArchiveEvent.GoToAlbum -> { getImageFromGallery() }
             is ArchiveEvent.GoToCamera -> { getImageFromCamera(event.uri) }
+            is ArchiveEvent.SeeDotsAuthorBottomSheet -> {showBottomSheetDialogSelectDots(DialogMenuType.ARCHIVE_AUTHOR_TYPE, event.archiveId)}
+            is ArchiveEvent.SeeDotsHostBottomSheet -> {showBottomSheetDialogSelectDots(DialogMenuType.ARCHIVE_HOST_TYPE, event.archiveId)}
+            is ArchiveEvent.SeeDotsNormalBottomSheet -> {showBottomSheetDialogSelectDots(DialogMenuType.ARCHIVE_NORMAL_TYPE, event.archiveId)}
         }
     }
 
@@ -137,30 +136,16 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
         }
     }
 
+    private fun showBottomSheetDialogSelectDots(type : DialogMenuType, archiveId : Int) {
+        SelectMenuBottomSheetDialog.newInstance(type) {
+            viewModel.onClickDotsMenuItemType(it, archiveId)
+        }.show(parentFragmentManager, "")
+    }
+
     private fun showBottomSheetDialogSelectImage() {
         SelectMenuBottomSheetDialog.newInstance(DialogMenuType.IMAGE) {
             viewModel.onClickImageMenuItemType(it)
         }.show(parentFragmentManager, "")
-    }
-
-    private fun showBottomSheetDots(archiveId : Int, accessType: ArchiveAccessType){
-        ArchiveDotsMenuBottomSheetFragment(
-            archiveFragmentArgs.plubbingId,
-            archiveId,
-            accessType,
-            object : ArchiveDotsMenuBottomSheetFragment.ArchiveDotsDelegate{
-                override fun onDelete() {
-                    viewModel.deleteArchive(archiveId)
-                }
-
-                override fun onClickEdit() {
-                    viewModel.goToEdit(archiveId)
-                }
-
-                override fun onClickReport() {
-                    viewModel.goToReport(archiveId)
-                }
-            }).show(childFragmentManager,"")
     }
 
     private fun goToArchiveUpload(imageUri: String, title : String) {
