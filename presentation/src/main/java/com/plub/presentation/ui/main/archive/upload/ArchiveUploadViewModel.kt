@@ -17,6 +17,7 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.ui.main.archive.ArchiveEvent
 import com.plub.presentation.util.ImageUtil
+import com.plub.presentation.util.PlubingInfo
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -67,9 +68,9 @@ class ArchiveUploadViewModel @Inject constructor(
         archiveUploadVoListStateFlow.asStateFlow(),
     )
 
-    fun initPageWithFirstImage(imageUri : String, title : String, pId: Int){
-        plubbingId = pId
-        plubTitle = title
+    fun initPageWithFirstImage(imageUri : String){
+        plubbingId = PlubingInfo.info.plubingId
+        plubTitle = PlubingInfo.info.name
         pageType = UPLOAD_TYPE
         updateListState(getFirstMergedList() + getFirstImageList(imageUri))
     }
@@ -113,9 +114,9 @@ class ArchiveUploadViewModel @Inject constructor(
         }
     }
 
-    fun initPage(pId : Int, arcId : Int, title : String){
-        plubTitle = title
-        plubbingId = pId
+    fun initPage(arcId : Int){
+        plubTitle = PlubingInfo.info.name
+        plubbingId = PlubingInfo.info.plubingId
         archiveId = arcId
         pageType = EDIT_TYPE
         val request = DetailArchiveRequestVo(plubbingId, archiveId)

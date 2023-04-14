@@ -62,7 +62,7 @@ class HomeFragment : BaseTestFragment<FragmentHomeBinding, HomePageState, HomeFr
             }
 
             imageViewPlubLogo.setOnClickListener {
-                findNavController().navigate(HomeFragmentDirections.actionMainToArchive("무슨타이틀이지", 40))
+                findNavController().navigate(HomeFragmentDirections.actionMainToArchive())
             }
         }
         viewModel.fetchHomePageData()

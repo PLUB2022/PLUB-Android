@@ -98,11 +98,11 @@ class ArchiveUploadFragment : BaseTestFragment<FragmentArchiveUpdateBinding, Arc
     private fun initUploadView(){
         when(archiveUploadFragmentArgs.type){
             UPLOAD_TYPE -> {
-                viewModel.initPageWithFirstImage(archiveUploadFragmentArgs.image, archiveUploadFragmentArgs.title, archiveUploadFragmentArgs.plubbingId)
+                viewModel.initPageWithFirstImage(archiveUploadFragmentArgs.image)
             }
 
             EDIT_TYPE -> {
-                viewModel.initPage(archiveUploadFragmentArgs.plubbingId, archiveUploadFragmentArgs.archiveId, archiveUploadFragmentArgs.title)
+                viewModel.initPage(archiveUploadFragmentArgs.archiveId)
             }
         }
     }

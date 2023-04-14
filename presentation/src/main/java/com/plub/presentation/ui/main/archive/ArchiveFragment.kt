@@ -18,6 +18,7 @@ import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter
 import com.plub.presentation.ui.main.archive.dialog.ArchiveDetailDialogFragment
 import com.plub.presentation.util.IntentUtil
 import com.plub.presentation.util.PermissionManager
+import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -57,7 +58,6 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
         viewModel.proceedGatheringImageFromGalleryResult(result)
     }
 
-    private val archiveFragmentArgs: ArchiveFragmentArgs by navArgs()
     override val viewModel: ArchiveViewModel by viewModels()
     override fun initView() {
         binding.apply {
@@ -78,7 +78,7 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
                 })
             }
         }
-        viewModel.setTitleAndPlubbingId(archiveFragmentArgs.title, archiveFragmentArgs.plubbingId)
+        viewModel.refresh()
         viewModel.onFetchArchiveList()
     }
 
@@ -113,13 +113,13 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
                 clickBottomSheet()
             }
             is ArchiveEvent.GoToArchiveUpload -> {
-                goToArchiveUpload(event.fileUri, event.title)
+                goToArchiveUpload(event.fileUri)
             }
             is ArchiveEvent.GoToReport -> {
                 goToReport(event.archiveId)
             }
             is ArchiveEvent.GoToEdit -> {
-                goToArchiveEdit(event.title, event.archiveId)
+                goToArchiveEdit(event.archiveId)
             }
             is ArchiveEvent.CropImageAndOptimize -> { startCropImage(event.cropImageContractOptions) }
             is ArchiveEvent.GoToAlbum -> { getImageFromGallery() }
@@ -148,24 +148,20 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
         }.show(parentFragmentManager, "")
     }
 
-    private fun goToArchiveUpload(imageUri: String, title : String) {
+    private fun goToArchiveUpload(imageUri: String) {
         val action = ArchiveFragmentDirections.actionArchiveToUpdate(
             type = UPLOAD_TYPE,
-            plubbingId = archiveFragmentArgs.plubbingId,
             archiveId = EMPTY_ARCHIVE_ID,
-            image = imageUri,
-            title = title
+            image = imageUri
         )
         findNavController().navigate(action)
     }
 
-    private fun goToArchiveEdit(title : String, archiveId: Int) {
+    private fun goToArchiveEdit(archiveId: Int) {
         val action = ArchiveFragmentDirections.actionArchiveToUpdate(
             type = EDIT_TYPE,
-            plubbingId = archiveFragmentArgs.plubbingId,
             archiveId = archiveId,
-            image = EMPTY_IMAGE,
-            title = title
+            image = EMPTY_IMAGE
         )
         findNavController().navigate(action)
     }

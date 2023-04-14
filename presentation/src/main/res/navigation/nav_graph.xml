@@ -410,12 +410,6 @@
         android:name="com.plub.presentation.ui.main.archive.ArchiveFragment"
         android:label="fragment_archive"
         tools:layout="@layout/fragment_archive">
-        <argument
-            android:name="title"
-            app:argType="string" />
-        <argument
-            android:name="plubbingId"
-            app:argType="integer"/>
         <action
             android:id="@+id/action_archive_to_update"
             app:destination="@id/archiveUpdateFragment" />
@@ -430,16 +424,10 @@
             android:name="type"
             app:argType="integer"/>
         <argument
-            android:name="plubbingId"
-            app:argType="integer"/>
-        <argument
             android:name="archiveId"
             app:argType="integer"/>
         <argument
             android:name="image"
             app:argType="string"/>
-        <argument
-            android:name="title"
-            app:argType="string" />
     </fragment>
 </navigation>

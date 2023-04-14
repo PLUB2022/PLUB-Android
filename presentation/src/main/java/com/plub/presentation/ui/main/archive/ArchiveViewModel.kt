@@ -17,6 +17,7 @@ import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.util.ImageUtil
+import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -52,14 +53,10 @@ class ArchiveViewModel @Inject constructor(
         archiveListStateFlow.asStateFlow()
     )
 
-    fun setTitleAndPlubbingId(name : String , id : Int){
-        title = name
-        plubbingId = id
-        refresh()
-        cursorUpdate()
-    }
-
-    private fun refresh(){
+    fun refresh(){
+        title = PlubingInfo.info.name
+        plubbingId = PlubingInfo.info.plubingId
+        cursorId = 0
         viewModelScope.launch {
             titleStateFlow.update { title }
             archiveListStateFlow.update { emptyList() }
