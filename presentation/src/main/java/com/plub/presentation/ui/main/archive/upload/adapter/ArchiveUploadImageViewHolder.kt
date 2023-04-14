@@ -11,18 +11,16 @@ class ArchiveUploadImageViewHolder(
     private val listener: ArchiveUploadAdapter.ArchiveUploadDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private var myPosition: Int = 0
     private var image: String? = null
 
     init {
         binding.imageViewDelete.onThrottleClick {
-            image?.let { listener.onClickDelete(myPosition, it) }
+            image?.let { listener.onClickDelete(it) }
         }
 
     }
 
-    fun bind(item: ArchiveUploadVo, position: Int) {
-        myPosition = position
+    fun bind(item: ArchiveUploadVo) {
         image = item.image
         binding.apply {
             GlideUtil.loadImage(root.context, item.image, imageViewArchive)

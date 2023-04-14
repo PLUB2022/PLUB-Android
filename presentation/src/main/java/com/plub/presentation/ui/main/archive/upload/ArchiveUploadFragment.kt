@@ -53,8 +53,8 @@ class ArchiveUploadFragment : BaseTestFragment<FragmentArchiveUpdateBinding, Arc
 
     private val archiveUploadAdapter : ArchiveUploadAdapter by lazy {
         ArchiveUploadAdapter(object : ArchiveUploadAdapter.ArchiveUploadDelegate{
-            override fun onClickDelete(position: Int, image : String) {
-                viewModel.deleteList(position, image)
+            override fun onClickDelete(image : String) {
+                viewModel.deleteList(image)
             }
 
             override fun addImage() {

@@ -17,7 +17,7 @@ class ArchiveUploadAdapter(private val listener: ArchiveUploadDelegate) : ListAd
 ) {
 
     interface ArchiveUploadDelegate {
-        fun onClickDelete(position : Int, image : String)
+        fun onClickDelete(image : String)
         fun addImage()
         fun onChangedText(text : String)
     }
@@ -26,7 +26,7 @@ class ArchiveUploadAdapter(private val listener: ArchiveUploadDelegate) : ListAd
         when (holder) {
             is ArchiveUploadEditViewHolder -> holder.bind(currentList[position])
             is ArchiveUploadImageTextViewHolder -> holder.bind()
-            is ArchiveUploadImageViewHolder -> holder.bind(currentList[position], position)
+            is ArchiveUploadImageViewHolder -> holder.bind(currentList[position])
             is ArchiveUploadAddImageViewHolder -> holder.bind()
         }
     }
@@ -58,6 +58,7 @@ class ArchiveUploadAdapter(private val listener: ArchiveUploadDelegate) : ListAd
 }
 
 class ArchiveUploadDiffCallback : DiffUtil.ItemCallback<ArchiveUploadVo>() {
-    override fun areItemsTheSame(oldItem: ArchiveUploadVo, newItem: ArchiveUploadVo): Boolean = oldItem.viewType == newItem.viewType
+    override fun areItemsTheSame(oldItem: ArchiveUploadVo, newItem: ArchiveUploadVo): Boolean =
+        oldItem.viewType == newItem.viewType && oldItem.image == newItem.image
     override fun areContentsTheSame(oldItem: ArchiveUploadVo, newItem: ArchiveUploadVo): Boolean = oldItem == newItem
 }

@@ -147,18 +147,17 @@ class ArchiveUploadViewModel @Inject constructor(
         )
     }
 
-    fun deleteList(position: Int, image: String) {
+    fun deleteList(image: String) {
         val request = DeleteFileRequestVo(UploadFileType.ARCHIVE, image)
         viewModelScope.launch {
             deleteFileUseCase(request).collect {
-                inspectUiState(it, { onDeleteSuccess(position) })
+                inspectUiState(it, { onDeleteSuccess(image) })
             }
         }
     }
 
-    private fun onDeleteSuccess(position: Int) {
-        val mergeList = uiState.archiveUploadVoList.value.toMutableList()
-        mergeList.removeAt(position)
+    private fun onDeleteSuccess(imageUri: String) {
+        val mergeList = uiState.archiveUploadVoList.value.filter { it.image != imageUri }
         updateListState(mergeList)
     }
 
