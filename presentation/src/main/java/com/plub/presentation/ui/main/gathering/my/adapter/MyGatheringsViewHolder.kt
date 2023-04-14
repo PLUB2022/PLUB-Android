@@ -9,6 +9,7 @@ import com.plub.presentation.databinding.LayoutRecyclerMyGatheringContentBinding
 import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.TimeFormatter
 import com.plub.presentation.util.onThrottleClick
+import com.plub.presentation.util.setTopCorner
 
 class MyGatheringsViewHolder(
     private val binding: LayoutRecyclerMyGatheringContentBinding,
@@ -16,6 +17,10 @@ class MyGatheringsViewHolder(
     private val onMyGatheringMeatBallClick: (view: View, plubbingId: Int) -> Unit = { _, _ -> },
     private val onMyHostingMeatBallClick: (view: View, plubbingId: Int) -> Unit = { _, _ -> },
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    companion object {
+        private const val RADIUS = 30
+    }
 
     private val context = binding.root.context
     private var plubbingId: Int? = null
@@ -39,8 +44,8 @@ class MyGatheringsViewHolder(
         plubbingId = item.plubbingId
 
         binding.apply {
-            imageViewMain.clipToOutline = true
             GlideUtil.loadImage(binding.root.context, item.mainImage, imageViewMain)
+            imageViewMain.setTopCorner(RADIUS)
             textViewGoal.text = item.goal
             textViewTitle.text = item.name
             textViewTime.text = context.getString(R.string.word_line_space, getDayText(item.days), TimeFormatter.get_ah_colon_mm(item.time))

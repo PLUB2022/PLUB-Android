@@ -25,15 +25,13 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_rectangle_empty_5f5ff9_radius_30">
 
-
-                <!-- TODO clipToOutline true -->
                 <ImageView
                     android:id="@+id/image_view_main"
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
                     android:layout_margin="1dp"
-                    android:scaleType="centerCrop"
                     android:background="@drawable/shape_top_radius_30"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -108,7 +106,8 @@
                 android:id="@+id/view_shadow"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/color_b3_faf9fe" />
+                android:background="@color/color_b3_faf9fe"
+                tools:visibility="gone" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
