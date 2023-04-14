@@ -25,6 +25,7 @@ object PowerMenuUtil {
             .setWidth(MENU_WIDTH.px)
             .setPadding(MENU_PADDING.px)
             .setLifecycleOwner(lifecycleOwner)
+            .setAutoDismiss(true)
             .setOnMenuItemClickListener(onMenuItemClickListener).build()
     }
 }
