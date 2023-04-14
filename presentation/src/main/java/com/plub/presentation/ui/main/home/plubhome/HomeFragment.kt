@@ -60,10 +60,6 @@ class HomeFragment : BaseTestFragment<FragmentHomeBinding, HomePageState, HomeFr
                 }))
                 adapter = homeAdapter
             }
-
-            imageViewPlubLogo.setOnClickListener {
-                findNavController().navigate(HomeFragmentDirections.actionMainToArchive())
-            }
         }
         viewModel.fetchHomePageData()
     }

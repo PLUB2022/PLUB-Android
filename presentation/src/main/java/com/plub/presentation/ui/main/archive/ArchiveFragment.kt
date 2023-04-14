@@ -19,6 +19,7 @@ import com.plub.presentation.ui.main.archive.dialog.ArchiveDetailDialogFragment
 import com.plub.presentation.util.IntentUtil
 import com.plub.presentation.util.PermissionManager
 import com.plub.presentation.util.PlubingInfo
+import com.plub.presentation.util.infiniteScrolls
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -65,17 +66,7 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
             recyclerViewArchive.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = archiveAdapter
-
-                addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        val lastVisiblePosition =
-                            (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                        val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
-                        val isDownScroll = dy > 0
-                        viewModel.onScrollChanged(isBottom, isDownScroll)
-                    }
-                })
+                infiniteScrolls { viewModel.onScrollChanged() }
             }
         }
         viewModel.refresh()

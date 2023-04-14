@@ -12,34 +12,39 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ArchiveApi {
+    companion object{
+        const val PATH_PLUBBING_ID = "plubbingId"
+        const val QUERY_CURSOR_ID = "cursorId"
+        const val PATH_ARCHIVE_ID = "archiveId"
+    }
     @POST(Endpoints.PLUBBING.CREATE_ARCHIVE)
     suspend fun createArchive(
-        @Path("plubbingId") plubbingId : Int,
+        @Path(PATH_PLUBBING_ID) plubbingId : Int,
         @Body request: ArchiveUpdateRequest
     ): Response<ApiResponse<ArchiveUpdateResponse>>
 
     @GET(Endpoints.PLUBBING.FETCH_ALL_ARCHIVES)
     suspend fun fetchAllArchives(
-        @Path("plubbingId") plubbingId : Int,
-        @Query("cursorId") cursorId : Int
+        @Path(PATH_PLUBBING_ID) plubbingId : Int,
+        @Query(QUERY_CURSOR_ID) cursorId : Int
     ): Response<ApiResponse<ArchiveResponse>>
 
     @GET(Endpoints.PLUBBING.FETCH_DETAIL_ARCHIVE)
     suspend fun fetchDetailArchives(
-        @Path("plubbingId") plubbingId : Int,
-        @Path("archiveId") archiveId : Int
+        @Path(PATH_PLUBBING_ID) plubbingId : Int,
+        @Path(PATH_ARCHIVE_ID) archiveId : Int
     ): Response<ApiResponse<ArchiveDetailResponse>>
 
     @PUT(Endpoints.PLUBBING.EDIT_ARCHIVE)
     suspend fun editArchive(
-        @Path("plubbingId") plubbingId : Int,
-        @Path("archiveId") archiveId : Int,
+        @Path(PATH_PLUBBING_ID) plubbingId : Int,
+        @Path(PATH_ARCHIVE_ID) archiveId : Int,
         @Body request: ArchiveUpdateRequest
     ): Response<ApiResponse<ArchiveContentResponse>>
 
     @DELETE(Endpoints.PLUBBING.DELETE_ARCHIVE)
     suspend fun deleteArchive(
-        @Path("plubbingId") plubbingId : Int,
-        @Path("archiveId") archiveId : Int
+        @Path(PATH_PLUBBING_ID) plubbingId : Int,
+        @Path(PATH_ARCHIVE_ID) archiveId : Int
     ): Response<ApiResponse<ArchiveContentResponse>>
 }

@@ -7,4 +7,4 @@ data class ArchiveDetailResponseVo(
     val sequence: Int = -1,
     val createdAt : String = "",
     val title : String = ""
-) : DomainModel
+) : DomainModel, java.io.Serializable

@@ -2,7 +2,7 @@ package com.plub.data.api
 
 import com.plub.data.dto.media.UploadFilesResponse
 import com.plub.data.base.ApiResponse
-import com.plub.data.dto.media.DeleteFileResponse
+import com.plub.data.base.DataDto
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -14,5 +14,5 @@ interface MediaRequireAuthApi {
     suspend fun changeFile(@Part type: MultipartBody.Part, @Part toDeleteUrls: MultipartBody.Part, @Part files: MultipartBody.Part): Response<ApiResponse<UploadFilesResponse>>
 
     @DELETE(Endpoints.FILE.DELETE_FILE)
-    suspend fun deleteFile(@Path("type") type: String, @Query("fileUrl") fileUrl : String) : DeleteFileResponse
+    suspend fun deleteFile(@Path("type") type: String, @Query("fileUrl") fileUrl : String) : Response<ApiResponse<DataDto.DTO>>
 }

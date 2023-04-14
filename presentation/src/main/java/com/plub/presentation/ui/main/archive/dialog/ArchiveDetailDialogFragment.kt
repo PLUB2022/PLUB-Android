@@ -10,25 +10,33 @@ import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.enums.DialogCheckboxItemType
 import com.plub.domain.model.vo.archive.ArchiveDetailResponseVo
 import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeDialogDetailArchiveBinding
+import com.plub.presentation.ui.common.dialog.SelectCheckboxBottomSheetDialog
 import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
+import com.plub.presentation.util.serializable
 
 class ArchiveDetailDialogFragment: DialogFragment() {
     companion object{
         const val MARGIN_HORIZONTAL = 16
         const val MARGIN_NEXT = 8
+        const val KEY_VO_TYPE = "KEY_VO_TYPE"
 
         fun newInstance(
             detailVo: ArchiveDetailResponseVo
         ) = ArchiveDetailDialogFragment().apply {
-            this.detailVo = detailVo
+            arguments = Bundle().apply {
+               putSerializable(KEY_VO_TYPE, detailVo)
+            }
         }
     }
 
-    private var detailVo : ArchiveDetailResponseVo = ArchiveDetailResponseVo()
+    private val detailVo : ArchiveDetailResponseVo by lazy {
+        arguments?.serializable(KEY_VO_TYPE) ?: ArchiveDetailResponseVo()
+    }
 
     private val binding: IncludeDialogDetailArchiveBinding by lazy {
         IncludeDialogDetailArchiveBinding.inflate(layoutInflater)

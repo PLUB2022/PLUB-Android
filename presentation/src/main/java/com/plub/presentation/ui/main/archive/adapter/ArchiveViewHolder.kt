@@ -20,7 +20,7 @@ class ArchiveViewHolder(
             listener.onCardClick(vo.archiveId)
         }
 
-        binding.imageBtnDot.onThrottleClick {
+        binding.imageViewDot.onThrottleClick {
             listener.onDotsClick(vo.accessType, vo.archiveId)
         }
     }

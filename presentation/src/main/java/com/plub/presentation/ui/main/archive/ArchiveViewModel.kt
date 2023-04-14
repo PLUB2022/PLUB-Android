@@ -17,6 +17,7 @@ import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.util.ImageUtil
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,46 +34,48 @@ class ArchiveViewModel @Inject constructor(
     val getDetailArchiveUseCase: GetDetailArchiveUseCase,
     val deleteArchiveUseCase: DeleteArchiveUseCase,
     val imageUtil: ImageUtil
-)  :BaseTestViewModel<ArchivePageState>() {
+) : BaseTestViewModel<ArchivePageState>() {
 
-    companion object{
+    companion object {
         const val FIRST_CURSOR = 0
     }
-    private var title : String = ""
-    private var cursorId : Int = FIRST_CURSOR
-    private var isNetworkCall : Boolean = false
-    private var plubbingId : Int = -1
-    private var isLastPage : Boolean = false
+
+    private var title: String = ""
+    private var cursorId: Int = FIRST_CURSOR
+    private var isNetworkCall: Boolean = false
+    private var plubbingId: Int = -1
+    private var isLastPage: Boolean = false
     private var cameraTempImageUri: Uri? = null
 
-    private val titleStateFlow : MutableStateFlow<String> = MutableStateFlow("")
-    private val archiveListStateFlow : MutableStateFlow<List<ArchiveContentResponseVo>> = MutableStateFlow(emptyList())
+    private val titleStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val archiveListStateFlow: MutableStateFlow<List<ArchiveContentResponseVo>> =
+        MutableStateFlow(emptyList())
 
     override val uiState: ArchivePageState = ArchivePageState(
-        titleStateFlow.asStateFlow(),
-        archiveListStateFlow.asStateFlow()
+        title = titleStateFlow.asStateFlow(),
+        archiveList = archiveListStateFlow.asStateFlow()
     )
 
-    fun refresh(){
+    fun refresh() {
         title = PlubingInfo.info.name
         plubbingId = PlubingInfo.info.plubingId
-        cursorId = 0
+        cursorId = FIRST_CURSOR
         viewModelScope.launch {
             titleStateFlow.update { title }
             archiveListStateFlow.update { emptyList() }
         }
     }
 
-    private fun fetchArchivePage(){
+    private fun fetchArchivePage() {
         val request = BrowseAllArchiveRequestVo(plubbingId, cursorId)
         viewModelScope.launch {
-            getAllArchiveUseCase(request).collect{ state ->
+            getAllArchiveUseCase(request).collect { state ->
                 inspectUiState(state, ::handleSuccessFetchArchives)
             }
         }
     }
 
-    private fun handleSuccessFetchArchives(vo : ArchiveCardResponseVo){
+    private fun handleSuccessFetchArchives(vo: ArchiveCardResponseVo) {
         isNetworkCall = false
         isLastPage = vo.last
 
@@ -82,13 +85,13 @@ class ArchiveViewModel @Inject constructor(
         }
     }
 
-    private fun getMergeList(list : List<ArchiveContentResponseVo>) : List<ArchiveContentResponseVo>{
+    private fun getMergeList(list: List<ArchiveContentResponseVo>): List<ArchiveContentResponseVo> {
         val originList = uiState.archiveList.value
-        return if(originList.isEmpty() || cursorId == FIRST_CURSOR) list else originList + list
+        return if (originList.isEmpty() || cursorId == FIRST_CURSOR) list else originList + list
     }
 
-    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onFetchArchiveList()
+    fun onScrollChanged() {
+        if (!isLastPage && !isNetworkCall) onFetchArchiveList()
     }
 
     fun onFetchArchiveList() {
@@ -102,44 +105,42 @@ class ArchiveViewModel @Inject constructor(
         else uiState.archiveList.value.lastOrNull()?.archiveId ?: FIRST_CURSOR
     }
 
-    fun seeDetailDialog(archiveId : Int){
+    fun seeDetailDialog(archiveId: Int) {
         val request = DetailArchiveRequestVo(plubbingId, archiveId)
         viewModelScope.launch {
-            getDetailArchiveUseCase(request).collect{ state ->
+            getDetailArchiveUseCase(request).collect { state ->
                 inspectUiState(state, ::handleSuccessFetchDetailArchive)
             }
         }
     }
 
-    private fun handleSuccessFetchDetailArchive(vo : ArchiveDetailResponseVo){
+    private fun handleSuccessFetchDetailArchive(vo: ArchiveDetailResponseVo) {
         emitEventFlow(ArchiveEvent.SeeDetailArchiveDialog(vo))
     }
 
-    fun onClickBack(){
+    fun onClickBack() {
         emitEventFlow(ArchiveEvent.GoToBack)
     }
 
-    fun onClickUploadBottomSheet(){
+    fun onClickUploadBottomSheet() {
         emitEventFlow(ArchiveEvent.ClickUploadBottomSheet)
     }
 
-    private fun uploadImageFile(file : File?){
-        val request = file?.let { UploadFileRequestVo(UploadFileType.ARCHIVE, it) }
+    private fun uploadImageFile(file: File?) {
+        val request = file?.let { UploadFileRequestVo(UploadFileType.ARCHIVE, it) } ?: return
         viewModelScope.launch {
-            if (request != null) {
-                postUploadFileUseCase(request).collect{ state ->
-                    inspectUiState(state, ::handleSuccessUploadImage)
-                }
+            postUploadFileUseCase(request).collect { state ->
+                inspectUiState(state, ::handleSuccessUploadImage)
             }
         }
     }
 
-    private fun handleSuccessUploadImage(vo : UploadFileResponseVo){
+    private fun handleSuccessUploadImage(vo: UploadFileResponseVo) {
         emitEventFlow(ArchiveEvent.GoToArchiveUpload(vo.fileUrl, title))
     }
 
-    fun seeBottomSheet(type : ArchiveAccessType, id : Int){
-        when(type){
+    fun seeBottomSheet(type: ArchiveAccessType, id: Int) {
+        when (type) {
             ArchiveAccessType.HOST -> emitEventFlow(ArchiveEvent.SeeDotsHostBottomSheet(id))
             ArchiveAccessType.NORMAL -> emitEventFlow(ArchiveEvent.SeeDotsNormalBottomSheet(id))
             ArchiveAccessType.AUTHOR -> emitEventFlow(ArchiveEvent.SeeDotsAuthorBottomSheet(id))
@@ -147,25 +148,31 @@ class ArchiveViewModel @Inject constructor(
     }
 
 
-    private fun updateArchiveList(list : List<ArchiveContentResponseVo>){
+    private fun updateArchiveList(list: List<ArchiveContentResponseVo>) {
         viewModelScope.launch {
             archiveListStateFlow.update { list }
         }
     }
 
-    fun goToEdit(archiveId : Int){
+    fun goToEdit(archiveId: Int) {
         emitEventFlow(ArchiveEvent.GoToEdit(archiveId))
     }
 
-    fun goToReport(archiveId: Int){
+    fun goToReport(archiveId: Int) {
         emitEventFlow(ArchiveEvent.GoToReport(archiveId))
     }
 
-    fun onClickDotsMenuItemType(type : DialogMenuItemType, archiveId: Int){
-        when(type){
-            DialogMenuItemType.ARCHIVE_DELETE -> { deleteArchive(archiveId) }
-            DialogMenuItemType.ARCHIVE_REPORT -> { goToReport(archiveId) }
-            DialogMenuItemType.ARCHIVE_EDIT -> { goToEdit(archiveId) }
+    fun onClickDotsMenuItemType(type: DialogMenuItemType, archiveId: Int) {
+        when (type) {
+            DialogMenuItemType.ARCHIVE_DELETE -> {
+                deleteArchive(archiveId)
+            }
+            DialogMenuItemType.ARCHIVE_REPORT -> {
+                goToReport(archiveId)
+            }
+            DialogMenuItemType.ARCHIVE_EDIT -> {
+                goToEdit(archiveId)
+            }
             else -> {}
         }
     }
@@ -180,15 +187,12 @@ class ArchiveViewModel @Inject constructor(
     }
 
     private fun handleSuccessDelete(archiveId: Int) {
-        val mutableOriginList = uiState.archiveList.value.toMutableList()
-        mutableOriginList.forEach {
-            if(it.archiveId == archiveId) mutableOriginList.remove(it)
-        }
-        updateArchiveList(mutableOriginList)
+        val mergedOriginList = uiState.archiveList.value.filter { it.archiveId != archiveId }
+        updateArchiveList(mergedOriginList)
     }
 
     fun onClickImageMenuItemType(type: DialogMenuItemType) {
-        when(type) {
+        when (type) {
             DialogMenuItemType.CAMERA_IMAGE -> {
                 cameraTempImageUri = imageUtil.getUriFromTempFileInExternalDir().also {
                     emitEventFlow(ArchiveEvent.GoToCamera(it))
@@ -210,8 +214,8 @@ class ArchiveViewModel @Inject constructor(
     private fun emitCropImageAndOptimizeEvent(uri: Uri) {
         emitEventFlow(
             ArchiveEvent.CropImageAndOptimize(
-            imageUtil.getCropImageOptions(uri)
-        )
+                imageUtil.getCropImageOptions(uri)
+            )
         )
     }
 
