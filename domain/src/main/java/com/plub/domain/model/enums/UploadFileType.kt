@@ -5,4 +5,5 @@ enum class UploadFileType(val type:String) {
     PLUBBING_MAIN("plubbing-main"),
     PLUBING_BOARD("feed"),
     PLUBING_TODO("todo"),
+    ARCHIVE("archive")
 }
