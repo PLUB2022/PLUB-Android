@@ -99,12 +99,12 @@ class MyGatheringFragment :
 
     private fun showGatheringLeaveDialog(plubbingId: Int) {
         commonDialog
-            .setTitle("모임에서 나가기 하시겠어요?")
-            .setPositiveButton("네, 할게요") {
+            .setTitle(R.string.modal_quit_gathering)
+            .setPositiveButton(R.string.modal_yes_i_do) {
                 viewModel.leaveGathering(plubbingId)
                 commonDialog.dismiss()
             }
-            .setNegativeButton("취소") {
+            .setNegativeButton(R.string.modal_cancel) {
                 commonDialog.dismiss()
             }
             .show()
