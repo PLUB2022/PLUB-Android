@@ -91,7 +91,7 @@ class MyGatheringFragment :
 
                 }
                 getString(R.string.my_gathering_close) -> {
-
+                    showGatheringQuitDialog(plubbingId)
                 }
             }
         }.showAsDropDown(view, POWER_MENU_OFFSET.px, 0)
@@ -102,6 +102,19 @@ class MyGatheringFragment :
             .setTitle(R.string.modal_quit_gathering)
             .setPositiveButton(R.string.modal_yes_i_do) {
                 viewModel.leaveGathering(plubbingId)
+                commonDialog.dismiss()
+            }
+            .setNegativeButton(R.string.modal_cancel) {
+                commonDialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showGatheringQuitDialog(plubbingId: Int) {
+        commonDialog
+            .setTitle(R.string.modal_close_gathering)
+            .setPositiveButton(R.string.modal_yes_i_do) {
+                viewModel.closeGathering(plubbingId)
                 commonDialog.dismiss()
             }
             .setNegativeButton(R.string.modal_cancel) {

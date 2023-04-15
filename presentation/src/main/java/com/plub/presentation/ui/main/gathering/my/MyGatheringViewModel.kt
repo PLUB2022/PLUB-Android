@@ -6,6 +6,7 @@ import com.plub.domain.model.vo.myGathering.MyGatheringResponseVo
 import com.plub.domain.model.vo.myGathering.MyGatheringsResponseVo
 import com.plub.domain.usecase.GetMyHostingGatheringsUseCase
 import com.plub.domain.usecase.GetMyParticipatingGatheringsUseCase
+import com.plub.domain.usecase.PutGatheringStatusUseCase
 import com.plub.domain.usecase.PutLeaveGatheringUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.util.PlubLogger
@@ -21,7 +22,8 @@ import javax.inject.Inject
 class MyGatheringViewModel @Inject constructor(
     private val getMyParticipatingGatheringsUseCase: GetMyParticipatingGatheringsUseCase,
     private val getMyHostingGatheringsUseCase: GetMyHostingGatheringsUseCase,
-    private val putLeaveGatheringUseCase: PutLeaveGatheringUseCase
+    private val putLeaveGatheringUseCase: PutLeaveGatheringUseCase,
+    private val putGatheringStatusUseCase: PutGatheringStatusUseCase
 ) : BaseTestViewModel<MyGatheringPageState>() {
 
     private val _myGatherings: MutableStateFlow<List<MyGatheringResponseVo>> = MutableStateFlow(
@@ -34,6 +36,14 @@ class MyGatheringViewModel @Inject constructor(
     override val uiState: MyGatheringPageState = MyGatheringPageState(
         myGatherings = _myGatherings.asStateFlow(),
     )
+
+    fun closeGathering(plubbingId: Int) {
+        viewModelScope.launch {
+            putGatheringStatusUseCase(plubbingId).collect { uiState ->
+                inspectUiState(uiState, succeedCallback = { removeMyGatherings(plubbingId) })
+            }
+        }
+    }
 
     fun leaveGathering(plubbingId: Int) {
         viewModelScope.launch {
