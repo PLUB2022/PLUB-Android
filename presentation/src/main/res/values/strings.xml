@@ -209,6 +209,9 @@
     <string name="dialog_menu_todo_delete">TO-DO 삭제</string>
     <string name="dialog_menu_todo_edit">TO-DO 수정</string>
     <string name="dialog_menu_todo_proof">사진/글 추가</string>
+    <string name="dialog_menu_archive_delete">아카이브 삭제</string>
+    <string name="dialog_menu_archive_report">게시물 신고</string>
+    <string name="dialog_menu_archive_edit">아카이브 수정</string>
 
     <string name="dialog_todo_proof_default_text">내가 이룬것을 사진으로 자랑해보세요!</string>
     <string name="dialog_todo_proof_button_late_proof">나중에 할게요!</string>
@@ -351,6 +354,7 @@
     <string name="my_page_setting_change_yes">네, 할게요</string>
     <string name="my_page_setting_question_change_nickname">닉네임을 변경할까요?</string>
     <string name="my_page_setting_introduce_about_changing_nickname">닉네임 변경은 1회만 가능해요.\n 지금 변경한 닉네임은 탈퇴 시까지 사용됩니다</string>
+
     <string name="my_page_my_todo">My To-Do</string>
     <string name="my_page_my_post">My 게시글</string>
     <string name="my_page_see_all">전체보기</string>
@@ -359,4 +363,16 @@
     <string name="my_page_again_approve">해당 지원자를\n받으시겠어요?</string>
     <string name="my_page_again_refuse">해당 지원자를\n거절하시겠어요?</string>
     <string name="my_page_again_cancel">이 모임에 참여하고 싶지\n않으신가요?</string>
+
+    <string name="archive_gathering">모임 아카이브</string>
+    <string name="archive_upload">업로드</string>
+    <string name="archive_upload_title">아카이브 업로드</string>
+    <string name="archive_edit_title">아카이브 수정</string>
+    <string name="archive_sequence_date">%d번째 기록 | %s</string>
+    <string name="archive_dialog_sequence">%d번째 기록</string>
+    <string name="archive_complete">완료</string>
+    <string name="archive_edit_text_title">제목</string>
+    <string name="archive_update_please_enter_title">제목을 입력해주세요</string>
+    <string name="archive_update_photo">사진</string>
+    <string name="archive_add_image">사진 추가</string>
 </resources>

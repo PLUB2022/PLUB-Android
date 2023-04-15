@@ -308,6 +308,42 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun providesPostCreateArchiveUseCase(repository: ArchiveRepository): PostCreateArchiveUseCase {
+        return PostCreateArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetAllArchiveUseCase(repository: ArchiveRepository): GetAllArchiveUseCase {
+        return GetAllArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetDetailArchiveUseCase(repository: ArchiveRepository): GetDetailArchiveUseCase {
+        return GetDetailArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutEditArchiveUseCase(repository: ArchiveRepository): PutEditArchiveUseCase {
+        return PutEditArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesDeleteArchiveUseCase(repository: ArchiveRepository): DeleteArchiveUseCase {
+        return DeleteArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesDeleteFileUseCase(repository: MediaRepository): DeleteFileUseCase {
+        return DeleteFileUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun providesGetMyPostUseCase(repository: MyPageRepository): GetMyPostUseCase {
         return GetMyPostUseCase(repository)
     }

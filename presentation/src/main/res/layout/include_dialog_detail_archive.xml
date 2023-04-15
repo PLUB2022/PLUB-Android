@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="312dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_20"
+            android:layout_height="440dp">
+
+            <ImageView
+                android:id="@+id/image_button_cancel"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="7dp"
+                android:src="@drawable/ic_cancel_8c8c8c"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager_archive_image"
+                android:clipToPadding="false"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_marginTop="50dp"
+                android:clipChildren="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_sequence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/archive_dialog_sequence"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_pager_archive_image" />
+
+            <TextView
+                android:id="@+id/text_view_create_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="25dp"
+                android:textColor="@color/color_c4c4c4"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/text_view_sequence"
+                app:layout_constraintTop_toBottomOf="@id/view_pager_archive_image"
+                tools:text="2022.03.25" />
+
+            <TextView
+                android:id="@+id/text_view_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_sequence"
+                tools:text="드디어 찍었다, 그마!" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+</layout>

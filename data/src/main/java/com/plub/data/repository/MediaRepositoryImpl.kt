@@ -3,10 +3,12 @@ package com.plub.data.repository
 import com.plub.data.api.MediaApi
 import com.plub.data.api.MediaRequireAuthApi
 import com.plub.data.base.BaseRepository
+import com.plub.data.mapper.UnitResponseMapper
 import com.plub.data.mapper.UploadFileResponseMapper
 import com.plub.data.util.FormDataUtil
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.media.ChangeFileRequestVo
+import com.plub.domain.model.vo.media.DeleteFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.media.UploadFileResponseVo
 import com.plub.domain.repository.MediaRepository
@@ -29,6 +31,10 @@ class MediaRepositoryImpl @Inject constructor(
         val typeBody = FormDataUtil.getBody(KEY_TYPE, request.type.type)
         val fileBody = FormDataUtil.getImageBody(KEY_FILES, request.file)
         return apiLaunch(mediaApi.uploadFile(typeBody, fileBody), UploadFileResponseMapper)
+    }
+
+    override suspend fun deleteFile(request: DeleteFileRequestVo): Flow<UiState<Unit>> {
+        return apiLaunch(mediaRequireAuthApi.deleteFile(request.type.type, request.file), UnitResponseMapper)
     }
 
     override suspend fun changeFile(request: ChangeFileRequestVo): Flow<UiState<UploadFileResponseVo>> {

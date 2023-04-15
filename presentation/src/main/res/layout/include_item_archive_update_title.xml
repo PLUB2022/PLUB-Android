@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_view_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/archive_edit_text_title"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/edit_text_title"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_rectangle_filled_white_radius_8"
+            android:hint="@string/archive_update_please_enter_title"
+            android:textColorHint="@color/color_8c8c8c"
+            android:textColor="@color/color_363636"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="8dp"
+            android:maxLength="12"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
