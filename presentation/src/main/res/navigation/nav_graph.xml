@@ -95,8 +95,8 @@
             app:argType="integer" />
         <argument
             android:name="categoryName"
-            app:argType="string"
-            android:defaultValue="" />
+            android:defaultValue=""
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -129,8 +129,8 @@
         tools:layout="@layout/fragment_apply_plubbing">
         <argument
             android:name="plubbingId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 
 
@@ -149,7 +149,7 @@
         android:id="@+id/createGatheringFragment"
         android:name="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringFragment"
         android:label="CreateGatheringFragment"
-        tools:layout="@layout/fragment_create_gathering" >
+        tools:layout="@layout/fragment_create_gathering">
 
         <action
             android:id="@+id/action_create_gathering_to_host_recruitment"
@@ -211,6 +211,10 @@
         <action
             android:id="@+id/action_plubing_main_to_plubing_todo_detail"
             app:destination="@id/todoDetailFragment" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_schedule"
+            app:destination="@id/plubingScheduleFragment" />
     </fragment>
 
     <fragment
@@ -290,7 +294,7 @@
         android:id="@+id/menu_navigation_gathering"
         android:name="com.plub.presentation.ui.main.gathering.my.MyGatheringFragment"
         android:label="fragment_gathering"
-        tools:layout="@layout/fragment_my_gathering" >
+        tools:layout="@layout/fragment_my_gathering">
 
         <action
             android:id="@+id/action_my_gathering_to_plubing_main"
@@ -346,7 +350,7 @@
         android:id="@+id/plubingAddScheduleFragment"
         android:name="com.plub.presentation.ui.main.plubing.schedule.addOrEdit.PlubingAddOrEditScheduleFragment"
         android:label="PlubingAddScheduleFragment"
-        tools:layout="@layout/fragment_plubing_add_or_edit_schedule" >
+        tools:layout="@layout/fragment_plubing_add_or_edit_schedule">
 
         <argument
             android:name="plubingId"
@@ -358,15 +362,15 @@
 
         <argument
             android:name="scheduleVo"
-            app:argType="com.plub.domain.model.vo.schedule.ScheduleVo"
             android:defaultValue="@null"
+            app:argType="com.plub.domain.model.vo.schedule.ScheduleVo"
             app:nullable="true" />
 
         <action
             android:id="@+id/action_plubingAddSchedule_to_plubingSchedule"
             app:destination="@+id/plubingScheduleFragment"
             app:popUpTo="@id/plubingScheduleFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -399,7 +403,7 @@
         android:id="@+id/myPageRecruitingGatheringFragment"
         android:name="com.plub.presentation.ui.main.home.profile.recruiting.RecruitingGatheringFragment"
         android:label="RecruitingFragment"
-        tools:layout="@layout/fragment_my_page_recruiting_gathering" >
+        tools:layout="@layout/fragment_my_page_recruiting_gathering">
         <argument
             android:name="plubbingId"
             app:argType="integer" />
@@ -414,7 +418,7 @@
         android:id="@+id/myPageWaitingGatheringFragment"
         android:name="com.plub.presentation.ui.main.home.profile.waiting.WaitingGatheringFragment"
         android:label="WaitingFragment"
-        tools:layout="@layout/fragment_my_page_waiting_gathering" >
+        tools:layout="@layout/fragment_my_page_waiting_gathering">
         <argument
             android:name="plubbingId"
             app:argType="integer" />
@@ -437,12 +441,12 @@
         tools:layout="@layout/fragment_archive_update">
         <argument
             android:name="type"
-            app:argType="integer"/>
+            app:argType="integer" />
         <argument
             android:name="archiveId"
-            app:argType="integer"/>
+            app:argType="integer" />
         <argument
             android:name="image"
-            app:argType="string"/>
+            app:argType="string" />
     </fragment>
 </navigation>
