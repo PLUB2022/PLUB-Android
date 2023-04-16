@@ -102,7 +102,7 @@ class ArchiveViewModel @Inject constructor(
 
     private fun cursorUpdate() {
         cursorId = if (uiState.archiveList.value.isEmpty()) FIRST_CURSOR
-        else uiState.archiveList.value.lastOrNull()?.archiveId ?: FIRST_CURSOR
+        else uiState.archiveList.value.lastOrNull()?.sequence ?: FIRST_CURSOR
     }
 
     fun seeDetailDialog(archiveId: Int) {
