@@ -101,6 +101,9 @@
         <action
             android:id="@+id/action_recruitment_to_applyPlubbing"
             app:destination="@id/applyPlubbingFragment" />
+        <action
+            android:id="@+id/action_recruitment_to_modifyGathering"
+            app:destination="@id/modifyGatheringFragment" />
         <argument
             android:name="plubbingId"
             app:argType="integer" />

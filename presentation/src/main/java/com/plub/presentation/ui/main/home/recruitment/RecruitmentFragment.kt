@@ -8,21 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.plub.domain.model.enums.ApplyModifyApplicationType
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsVo
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.ui.main.home.recruitment.bottomsheet.ProfileBottomSheetFragment
 import com.plub.presentation.ui.main.home.recruitment.dialog.RecruitApplySuccessDialogFragment
 import com.plub.presentation.ui.main.profile.bottomsheet.BottomSheetProfileFragment
-import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RecruitmentFragment :
-    BaseFragment<FragmentDetailRecruitmentPlubingBinding, RecruitmentPageState, RecruitmentViewModel>(
+    BaseTestFragment<FragmentDetailRecruitmentPlubingBinding, RecruitmentPageState, RecruitmentViewModel>(
         FragmentDetailRecruitmentPlubingBinding::inflate
     ) {
 
@@ -71,8 +70,13 @@ class RecruitmentFragment :
     override fun initStates() {
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    initDetailPage(it)
+                viewModel.uiState.joinedAccounts.collect {
+                    initProfileAdapter(it)
+                }
+            }
+            launch {
+                viewModel.uiState.categories.collect{
+                    detailRecruitCategoryAdapter.submitList(it)
                 }
             }
 
@@ -84,15 +88,12 @@ class RecruitmentFragment :
         }
     }
 
-    private fun initDetailPage(data: RecruitmentPageState) {
+    private fun initProfileAdapter(list: List<RecruitDetailJoinedAccountsVo>) {
         binding.apply {
             val maxProfile = recyclerViewPlubbingPeopleProfile.width / PROFILE_WIDTH.px
             constraintLayoutTop.bringToFront()
-            GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
-            imageViewPlubbingImage.clipToOutline = true
-            detailRecruitCategoryAdapter.submitList(data.categories)
             detailRecruitProfileAdapter.setMaxProfile(maxProfile)
-            detailRecruitProfileAdapter.submitList(data.joinedAccounts)
+            detailRecruitProfileAdapter.submitList(list)
         }
     }
 
@@ -120,7 +121,7 @@ class RecruitmentFragment :
                 showSuccessDialog()
             }
             is RecruitEvent.GoToEditFragment -> {
-
+                goToModifyGathering()
             }
             is RecruitEvent.GoToSeeApplicants -> {
 
@@ -168,5 +169,10 @@ class RecruitmentFragment :
                 initView()
             }
         }).show(childFragmentManager, "")
+    }
+
+    private fun goToModifyGathering(){
+        val action = RecruitmentFragmentDirections.actionRecruitmentToModifyGathering()
+        findNavController().navigate(action)
     }
 }

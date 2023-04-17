@@ -206,6 +206,8 @@
                     android:layout_marginStart="17.5dp"
                     android:layout_marginTop="240dp"
                     android:layout_marginEnd="14.5dp"
+                    android:clipToOutline="true"
+                    app:imageUrl="@{vm.uiState.plubbingMainImage}"
                     android:background="@drawable/bg_rectangle_filled_e4e4e4_radius_10"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
