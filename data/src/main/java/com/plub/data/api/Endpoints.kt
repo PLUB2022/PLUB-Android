@@ -4,7 +4,8 @@ object Endpoints {
 
     object FILE {
         const val FILE_URL = "/api/files"
-        const val CHANGE_FILE_URL = "/api/files/change"
+        const val CHANGE_FILE_URL = "$FILE_URL/change"
+        const val DELETE_FILE = "$FILE_URL/{type}"
     }
 
     object AUTH {
@@ -39,6 +40,13 @@ object Endpoints {
         private const val PLUBBING_URL = "/api/plubbings"
         private const val RECRUIT_URL = "$PLUBBING_URL/{plubbingId}/recruit"
         private const val PLUBBING_ID_URL = "$PLUBBING_URL/{plubbingId}"
+        private const val ARCHIVE_URL = "$PLUBBING_URL/{plubbingId}/archives"
+        private const val ARCHIVE_DETAIL_URL = "$ARCHIVE_URL/{archiveId}"
+        const val CREATE_ARCHIVE = ARCHIVE_URL
+        const val FETCH_ALL_ARCHIVES = ARCHIVE_URL
+        const val FETCH_DETAIL_ARCHIVE = ARCHIVE_DETAIL_URL
+        const val EDIT_ARCHIVE = ARCHIVE_DETAIL_URL
+        const val DELETE_ARCHIVE = ARCHIVE_DETAIL_URL
         const val CREATE = PLUBBING_URL
         const val RECRUIT = "$PLUBBING_URL/recruit"
         const val BOOKMARK = "$RECRUIT_URL/bookmarks"
