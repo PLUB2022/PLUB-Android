@@ -8,9 +8,9 @@ import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailResponseVo
 import com.plub.domain.usecase.*
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +21,8 @@ class RecruitmentViewModel @Inject constructor(
     val deleteMyApplicationUseCase: DeleteMyApplicationUseCase,
     val getRecruitQuestionUseCase: GetRecruitQuestionUseCase,
     val postApplyRecruitUseCase: PostApplyRecruitUseCase,
-) : BaseViewModel<DetailRecruitPageState>(DetailRecruitPageState()) {
+    val putEndRecruitUseCase: PutEndRecruitUseCase
+) : BaseViewModel<RecruitmentPageState>(RecruitmentPageState()) {
 
     companion object{
         const val SEPARATOR_OF_DAY = ", "
@@ -55,6 +56,7 @@ class RecruitmentViewModel @Inject constructor(
                 plubbingTime = time,
                 isBookmarked = data.isBookmarked,
                 isApplied = data.isApplied,
+                isHost = data.isHost,
                 joinedAccounts = data.joinedAccounts
 
             )
@@ -130,5 +132,25 @@ class RecruitmentViewModel @Inject constructor(
                 inspectUiState(it, { goToBack() })
             }
         }
+    }
+
+    fun goToEditPage(){
+        emitEventFlow(RecruitEvent.GoToEditFragment)
+    }
+
+    fun seeApplicants(){
+        emitEventFlow(RecruitEvent.GoToSeeApplicants)
+    }
+
+    fun endRecruit(){
+        viewModelScope.launch {
+            putEndRecruitUseCase(plubbingId).collect{ state ->
+                inspectUiState(state, {handleSuccessEndRecruit()})
+            }
+        }
+    }
+
+    private fun handleSuccessEndRecruit(){
+        emitEventFlow(RecruitEvent.GoToBack)
     }
 }

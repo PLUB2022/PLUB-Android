@@ -60,9 +60,6 @@
             android:id="@+id/action_category_gathering_to_create_gathering"
             app:destination="@id/createGatheringFragment" />
         <action
-            android:id="@+id/action_category_gathering_to_host_recruitment"
-            app:destination="@id/hostRecruitmentFragment" />
-        <action
             android:id="@+id/action_category_gathering_to_filter"
             app:destination="@id/categoryGatheringFilterFragment" />
         <argument
@@ -110,16 +107,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/hostRecruitmentFragment"
-        android:name="com.plub.presentation.ui.main.home.recruitment.hostrecruitment.HostRecruitmentFragment"
-        android:label="fragment_recruitment_detail_host"
-        tools:layout="@layout/fragment_host_detail_recruitment_plubbing">
-        <argument
-            android:name="plubbingId"
-            app:argType="integer" />
-    </fragment>
-
-    <fragment
         android:id="@+id/applyPlubbingFragment"
         android:name="com.plub.presentation.ui.main.home.recruitment.apply.ApplyPlubbingFragment"
         android:label="fragment_apply_plubbing"
@@ -159,9 +146,6 @@
         <action
             android:id="@+id/action_searching_to_recruitment"
             app:destination="@id/recruitmentFragment" />
-        <action
-            android:id="@+id/action_searching_to_host_recruitment"
-            app:destination="@id/hostRecruitmentFragment" />
     </fragment>
 
     <fragment

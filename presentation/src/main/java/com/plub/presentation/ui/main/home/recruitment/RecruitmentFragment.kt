@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RecruitmentFragment :
-    BaseFragment<FragmentDetailRecruitmentPlubingBinding, DetailRecruitPageState, RecruitmentViewModel>(
+    BaseFragment<FragmentDetailRecruitmentPlubingBinding, RecruitmentPageState, RecruitmentViewModel>(
         FragmentDetailRecruitmentPlubingBinding::inflate
     ) {
 
@@ -84,7 +84,7 @@ class RecruitmentFragment :
         }
     }
 
-    private fun initDetailPage(data: DetailRecruitPageState) {
+    private fun initDetailPage(data: RecruitmentPageState) {
         binding.apply {
             val maxProfile = recyclerViewPlubbingPeopleProfile.width / PROFILE_WIDTH.px
             constraintLayoutTop.bringToFront()
@@ -118,6 +118,12 @@ class RecruitmentFragment :
             }
             is RecruitEvent.ShowDialog -> {
                 showSuccessDialog()
+            }
+            is RecruitEvent.GoToEditFragment -> {
+
+            }
+            is RecruitEvent.GoToSeeApplicants -> {
+
             }
         }
     }
