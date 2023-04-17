@@ -162,6 +162,10 @@ class SelectMenuBottomSheetDialog : BottomSheetDialogFragment() {
             DialogMenuType.BOARD_COMMENT_COMMON_TYPE -> listOf(
                 DialogMenuItemType.BOARD_COMMENT_REPORT,
             )
+            DialogMenuType.SCHEDULE_TYPE -> listOf(
+                DialogMenuItemType.SCHEDULE_EDIT,
+                DialogMenuItemType.SCHEDULE_DELETE
+            )
 
             DialogMenuType.TODO_DETAIL_COMMON_TYPE,
             DialogMenuType.TODO_LIST_COMMON_TYPE -> listOf(
@@ -185,6 +189,17 @@ class SelectMenuBottomSheetDialog : BottomSheetDialogFragment() {
             DialogMenuType.TODO_DETAIL_AUTHOR_CHECKED_NOT_PROOFED_TYPE -> listOf(
                 DialogMenuItemType.TODO_PROOF,
                 DialogMenuItemType.TODO_PLANNER
+            )
+            DialogMenuType.ARCHIVE_HOST_TYPE -> listOf(
+                DialogMenuItemType.ARCHIVE_REPORT,
+                DialogMenuItemType.ARCHIVE_DELETE
+            )
+            DialogMenuType.ARCHIVE_AUTHOR_TYPE -> listOf(
+                DialogMenuItemType.ARCHIVE_EDIT,
+                DialogMenuItemType.ARCHIVE_DELETE
+            )
+            DialogMenuType.ARCHIVE_NORMAL_TYPE -> listOf(
+                DialogMenuItemType.ARCHIVE_REPORT
             )
             DialogMenuType.PLUBING_NOTICE_HOST_TYPE -> listOf(
                 DialogMenuItemType.NOTICE_DELETE,

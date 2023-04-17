@@ -7,10 +7,10 @@ data class KakaoLocationInfoVo(
 ): DomainModel
 
 data class KakaoLocationInfoDocumentVo(
-    val placeName: String,
-    val placePositionX: String,
-    val placePositionY: String,
-    val addressName: String,
-    val roadAddressName: String,
-    val documentTotalCount: Int
+    val placeName: String = "",
+    val placePositionX: String = "",
+    val placePositionY: String = "",
+    val addressName: String = "",
+    val roadAddressName: String = "",
+    val documentTotalCount: Int = -1
 )

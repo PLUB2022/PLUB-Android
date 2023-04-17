@@ -11,7 +11,7 @@ import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.enums.PlubSortType
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.presentation.R
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentCategoryGatheringBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CategoryGatheringFragment :
-    BaseFragment<FragmentCategoryGatheringBinding, CategoryGatheringState, CategoryGatheringViewModel>(
+    BaseTestFragment<FragmentCategoryGatheringBinding, CategoryGatheringState, CategoryGatheringViewModel>(
         FragmentCategoryGatheringBinding::inflate
     ) {
     private val gatheringListAdapter: PlubCardAdapter by lazy {
@@ -84,12 +84,15 @@ class CategoryGatheringFragment :
         super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    subListGatheringList(it.cardList)
-                    setSortTypeText(it.sortType)
+                viewModel.uiState.cardList.collect {
+                    subListGatheringList(it)
                 }
             }
-
+            launch {
+                viewModel.uiState.sortType.collect{
+                    setSortTypeText(it)
+                }
+            }
             launch {
                 viewModel.eventFlow.collect {
                     inspectEventFlow(it as CategoryGatheringEvent)

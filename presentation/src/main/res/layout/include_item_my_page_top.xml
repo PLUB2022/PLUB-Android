@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_faf9fe">
+
+        <TextView
+            android:id="@+id/text_view_gathering_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:textSize="28sp"
+            android:textColor="@color/color_363636"
+            tools:text="당장 들어와"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/image_view_calendar"
+            app:layout_constraintStart_toStartOf="@id/text_view_gathering_name"
+            app:layout_constraintTop_toBottomOf="@id/text_view_gathering_name"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_date_363636"
+            android:layout_width="16dp"
+            android:layout_height="16dp"/>
+        
+        <TextView
+            android:id="@+id/text_view_date"
+            app:layout_constraintStart_toEndOf="@id/image_view_calendar"
+            app:layout_constraintTop_toTopOf="@id/image_view_calendar"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_calendar"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            tools:text="월,화,수,목,금,토 | 오후 5시 30분"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/image_view_position"
+            app:layout_constraintStart_toStartOf="@id/text_view_gathering_name"
+            app:layout_constraintTop_toBottomOf="@id/image_view_calendar"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_location_black"
+            android:layout_width="16dp"
+            android:layout_height="16dp"/>
+
+        <TextView
+            android:id="@+id/text_view_position"
+            app:layout_constraintStart_toEndOf="@id/image_view_position"
+            app:layout_constraintTop_toTopOf="@id/image_view_position"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_position"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            tools:text="경기도 의정부시 동일로 474번길"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

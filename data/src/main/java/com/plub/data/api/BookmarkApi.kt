@@ -7,8 +7,12 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface BookmarkApi {
+    companion object {
+        private const val PATH_PLUBING_ID = "plubbingId"
+    }
+
     @POST(Endpoints.PLUBBING.BOOKMARK)
-    suspend fun plubBookmark(@Path("plubbingId") plubbingId:Int): Response<ApiResponse<PlubBookmarkResponse>>
+    suspend fun plubBookmark(@Path(PATH_PLUBING_ID) plubbingId:Int): Response<ApiResponse<PlubBookmarkResponse>>
 
     @GET(Endpoints.PLUBBING.BOOKMARK_ME)
     suspend fun getMyPlubBookmarks(): Response<ApiResponse<PlubCardListResponse>>

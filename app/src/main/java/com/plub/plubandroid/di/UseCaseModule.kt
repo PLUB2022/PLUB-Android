@@ -225,7 +225,7 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesGetCategoriesUseCase(repository: CategoryListRepository): GetCategoriesUseCase  {
+    fun providesGetCategoriesUseCase(repository: HobbyRepository): GetCategoriesUseCase  {
         return GetCategoriesUseCase(repository)
     }
 
@@ -249,7 +249,7 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesPostApprovalApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): PostApprovalApplicantsRecruitUseCase {
+    fun providesPostApprovalApplicantsRecruitUseCase(repository: ApplicantsRepository): PostApprovalApplicantsRecruitUseCase {
         return PostApprovalApplicantsRecruitUseCase(repository)
     }
 
@@ -261,7 +261,7 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesPostRegisterHobbiesUseCase(repository: RegisterHobbiesRepository): PostRegisterHobbiesUseCase {
+    fun providesPostRegisterHobbiesUseCase(repository: HobbyRepository): PostRegisterHobbiesUseCase {
         return PostRegisterHobbiesUseCase(repository)
     }
     @Singleton
@@ -284,13 +284,61 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesPostRefuseApplicantsRecruitUseCase(repository: ReplyApplicantsRecruitRepository): PostRefuseApplicantsRecruitUseCase {
+    fun providesPostRefuseApplicantsRecruitUseCase(repository: ApplicantsRepository): PostRefuseApplicantsRecruitUseCase {
         return PostRefuseApplicantsRecruitUseCase(repository)
     }
 
     @Singleton
     @Provides
-    fun providesGetMyInterestUseCase(repository: RegisterHobbiesRepository): GetMyInterestUseCase {
+    fun providesGetMyInterestUseCase(repository: HobbyRepository): GetMyInterestUseCase {
         return GetMyInterestUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetEntireScheduleUseCase(repository: ScheduleRepository): GetEntireScheduleUseCase {
+        return GetEntireScheduleUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetMyGatheringUseCase(repository: MyPageRepository): GetMyGatheringUseCase {
+        return GetMyGatheringUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostCreateArchiveUseCase(repository: ArchiveRepository): PostCreateArchiveUseCase {
+        return PostCreateArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetAllArchiveUseCase(repository: ArchiveRepository): GetAllArchiveUseCase {
+        return GetAllArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetDetailArchiveUseCase(repository: ArchiveRepository): GetDetailArchiveUseCase {
+        return GetDetailArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutEditArchiveUseCase(repository: ArchiveRepository): PutEditArchiveUseCase {
+        return PutEditArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesDeleteArchiveUseCase(repository: ArchiveRepository): DeleteArchiveUseCase {
+        return DeleteArchiveUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesDeleteFileUseCase(repository: MediaRepository): DeleteFileUseCase {
+        return DeleteFileUseCase(repository)
     }
 }

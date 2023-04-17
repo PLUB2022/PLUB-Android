@@ -2,14 +2,10 @@ package com.plub.data.api
 
 object Endpoints {
 
-    object TEST {
-        private const val TEST_URL = "/api"
-        const val LOGIN_TEST = "$TEST_URL/test"
-    }
-
     object FILE {
         const val FILE_URL = "/api/files"
-        const val CHANGE_FILE_URL = "/api/files/change"
+        const val CHANGE_FILE_URL = "$FILE_URL/change"
+        const val DELETE_FILE = "$FILE_URL/{type}"
     }
 
     object AUTH {
@@ -23,6 +19,7 @@ object Endpoints {
         private const val ACCOUNT_URL = "/api/accounts"
         const val NICKNAME_CHECK = "$ACCOUNT_URL/check/nickname/{nickname}"
         const val FETCH_MY_INFO = "$ACCOUNT_URL/me"
+        const val UPDATE_PROFILE = "$FETCH_MY_INFO/profile"
         const val REGIST_INTEREST = "$ACCOUNT_URL/interest"
         const val BROWSE_INTEREST = "$ACCOUNT_URL/interest"
     }
@@ -47,6 +44,13 @@ object Endpoints {
         private const val PLUBBING_URL = "/api/plubbings"
         private const val RECRUIT_URL = "$PLUBBING_URL/{plubbingId}/recruit"
         private const val PLUBBING_ID_URL = "$PLUBBING_URL/{plubbingId}"
+        private const val ARCHIVE_URL = "$PLUBBING_URL/{plubbingId}/archives"
+        private const val ARCHIVE_DETAIL_URL = "$ARCHIVE_URL/{archiveId}"
+        const val CREATE_ARCHIVE = ARCHIVE_URL
+        const val FETCH_ALL_ARCHIVES = ARCHIVE_URL
+        const val FETCH_DETAIL_ARCHIVE = ARCHIVE_DETAIL_URL
+        const val EDIT_ARCHIVE = ARCHIVE_DETAIL_URL
+        const val DELETE_ARCHIVE = ARCHIVE_DETAIL_URL
         const val CREATE = PLUBBING_URL
         const val RECRUIT = "$PLUBBING_URL/recruit"
         const val BOOKMARK = "$RECRUIT_URL/bookmarks"
@@ -80,6 +84,12 @@ object Endpoints {
             const val COMMENT_EDIT = "$PLUBBING_ID_URL/feeds/{feedId}/comments/{commentId}"
         }
 
+        object SCHEDULE {
+            const val CALENDAR = "$PLUBBING_ID_URL/calendar"
+            const val CALENDAR_ID = "$CALENDAR/{calendarId}"
+            const val ATTEND = "$CALENDAR_ID/attend"
+        }
+
         object TODO {
             const val TIMELINES = "$PLUBBING_ID_URL/timeline"
             const val PROOF = "$PLUBBING_ID_URL/todolist/{todolistId}/proof"
@@ -103,6 +113,11 @@ object Endpoints {
             const val COMMENT_CREATE = "$PLUBBING_ID_URL/notices/{noticeId}/comment"
             const val COMMENT_DELETE = "$PLUBBING_ID_URL/notices/comment/{commentId}"
             const val COMMENT_EDIT = "$PLUBBING_ID_URL/notices/comment/{commentId}"
+        }
+
+        object MY_PAGE{
+            const val BROWSE_MY_GATHERING = "$PLUBBING_URL/all/my"
+            const val BROWSE_MY_APPLICATION = "$PLUBBING_URL/{plubbingId}/recruit/applicants/me"
         }
     }
 }

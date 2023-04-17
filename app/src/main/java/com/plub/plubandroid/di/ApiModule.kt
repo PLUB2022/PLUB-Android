@@ -83,14 +83,8 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideHomeBrowseApi(@AuthRetrofit retrofit: Retrofit): HomeBrowseApi {
-        return retrofit.create(HomeBrowseApi::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun provideInterestHobbiesApi(@AuthRetrofit retrofit: Retrofit): InterestHobbiesApi {
-        return retrofit.create(InterestHobbiesApi::class.java)
+    fun provideHomeApi(@AuthRetrofit retrofit: Retrofit): HomeApi {
+        return retrofit.create(HomeApi::class.java)
     }
 
     @Singleton
@@ -113,6 +107,12 @@ object ApiModule {
 
     @Singleton
     @Provides
+    fun provideScheduleApi(@AuthRetrofit retrofit: Retrofit): ScheduleApi {
+        return retrofit.create(ScheduleApi::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideTodoApi(@AuthRetrofit retrofit: Retrofit): TodoApi {
         return retrofit.create(TodoApi::class.java)
     }
@@ -121,5 +121,17 @@ object ApiModule {
     @Provides
     fun provideNoticeApi(@AuthRetrofit retrofit: Retrofit): NoticeApi {
         return retrofit.create(NoticeApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMyPageApi(@AuthRetrofit retrofit: Retrofit): MyPageApi {
+        return retrofit.create(MyPageApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideArchiveApi(@AuthRetrofit retrofit: Retrofit): ArchiveApi {
+        return retrofit.create(ArchiveApi::class.java)
     }
 }
