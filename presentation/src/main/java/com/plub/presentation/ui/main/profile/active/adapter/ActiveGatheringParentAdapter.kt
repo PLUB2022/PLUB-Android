@@ -60,7 +60,8 @@ class ActiveGatheringParentAdapter(private val listener : ActiveGatheringDelegat
 
 class MyPageActiveDetailDiffCallback : DiffUtil.ItemCallback<MyPageActiveDetailVo>() {
     override fun areItemsTheSame(oldItem: MyPageActiveDetailVo, newItem: MyPageActiveDetailVo): Boolean =
-        oldItem.viewType == newItem.viewType
+        oldItem.viewType == newItem.viewType && oldItem.todoList == newItem.todoList &&
+                oldItem.postList == newItem.postList && oldItem.title == newItem.title
 
     override fun areContentsTheSame(oldItem: MyPageActiveDetailVo, newItem: MyPageActiveDetailVo): Boolean =
         oldItem == newItem

@@ -5,20 +5,24 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.ApplyModifyApplicationType
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentMyPageWaitingGatheringBinding
+import com.plub.presentation.ui.common.dialog.CommonDialog
 import com.plub.presentation.ui.main.profile.adapter.MyPageDetailPageAdapter
 import com.plub.presentation.ui.main.profile.MyPageApplicantsGatheringState
-import com.plub.presentation.ui.main.profile.setting.dialog.MyPageSettingConfirmDialogFragment
-import com.plub.presentation.ui.main.profile.waiting.dialog.MyPageWaitingAgainCancelDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class WaitingGatheringFragment :
     BaseFragment<FragmentMyPageWaitingGatheringBinding, MyPageApplicantsGatheringState, WaitingGatheringViewModel>(
         FragmentMyPageWaitingGatheringBinding::inflate
     ) {
+
+    @Inject
+    lateinit var commonDialog: CommonDialog
 
     private val myPageWaitingGatheringFragmentArgs: WaitingGatheringFragmentArgs by navArgs()
 
@@ -90,12 +94,15 @@ class WaitingGatheringFragment :
     }
 
     private fun showCancelDialog() {
-        MyPageWaitingAgainCancelDialogFragment(object :
-            MyPageWaitingAgainCancelDialogFragment.Delegate {
-            override fun onYesButtonClick() {
+        commonDialog
+            .setTitle(R.string.my_page_again_cancel)
+            .setPositiveButton(R.string.word_yes) {
                 viewModel.deleteMyApplication(myPageWaitingGatheringFragmentArgs.plubbingId)
+                commonDialog.dismiss()
             }
-
-        }).show(childFragmentManager, "")
+            .setNegativeButton(R.string.word_no) {
+                commonDialog.dismiss()
+            }
+            .show()
     }
 }

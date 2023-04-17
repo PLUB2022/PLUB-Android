@@ -27,10 +27,6 @@ class ActiveGatheringFragment :
         FragmentMyPageActiveGatheringBinding::inflate
     ) {
 
-    companion object{
-        const val VERTICAL_SPACE = 24
-    }
-
     private val activeGatheringFragmentArgs : ActiveGatheringFragmentArgs by navArgs()
 
     private val activeGatheringParentAdapter: ActiveGatheringParentAdapter by lazy {
@@ -81,7 +77,6 @@ class ActiveGatheringFragment :
 
             recyclerViewMyPageContent.apply {
                 layoutManager = LinearLayoutManager(context)
-                addItemDecoration(VerticalSpaceDecoration(VERTICAL_SPACE.px))
                 adapter = activeGatheringParentAdapter
             }
 
