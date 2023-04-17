@@ -11,6 +11,6 @@ interface ApplicantsRepository {
     suspend fun seeApplicants(request: Int) : Flow<UiState<HostApplicantsResponseVo>>
     suspend fun postApprovalApplicants(requestVo : ReplyApplicantsRecruitRequestVo) : Flow<UiState<ReplyApplicantsRecruitResponseVo>>
     suspend fun postRefuseApplicants(requestVo : ReplyApplicantsRecruitRequestVo) : Flow<UiState<ReplyApplicantsRecruitResponseVo>>
-    suspend fun deleteMyApplication(request : Int) : Flow<UiState<Int>>
+    suspend fun deleteMyApplication(request : Int) : Flow<UiState<Unit>>
     suspend fun modifyMyApplication(request: ApplicantsRecruitRequestVo) : Flow<UiState<Unit>>
 }

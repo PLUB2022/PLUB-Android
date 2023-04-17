@@ -25,6 +25,7 @@ class WaitingGatheringViewModel @Inject constructor(
     private val deleteMyApplicationUseCase: DeleteMyApplicationUseCase
 ) : BaseTestViewModel<MyPageApplicantsGatheringState>() {
 
+    private var plubbingId : Int = 0
     private val detailListStateFlow : MutableStateFlow<List<MyPageDetailVo>> = MutableStateFlow(
         emptyList()
     )
@@ -33,7 +34,8 @@ class WaitingGatheringViewModel @Inject constructor(
         detailList = detailListStateFlow.asStateFlow()
     )
 
-    fun getPageDetail(plubbingId : Int) {
+    fun getPageDetail(id : Int) {
+        this.plubbingId = id
         viewModelScope.launch {
             getMyApplicationUseCase(plubbingId).collect{
                 inspectUiState(it, ::onSuccessPlubingMainInfo)
@@ -75,7 +77,7 @@ class WaitingGatheringViewModel @Inject constructor(
         emitEventFlow(WaitingGatheringEvent.GoToBack)
     }
 
-    fun deleteMyApplication(plubbingId: Int){
+    fun deleteMyApplication(){
         viewModelScope.launch{
             deleteMyApplicationUseCase.invoke(plubbingId).collect{
                 inspectUiState(it, { handleSuccessDelete() })

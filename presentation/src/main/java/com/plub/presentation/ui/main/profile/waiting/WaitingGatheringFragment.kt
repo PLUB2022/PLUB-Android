@@ -97,7 +97,7 @@ class WaitingGatheringFragment :
         commonDialog
             .setTitle(R.string.my_page_again_cancel)
             .setPositiveButton(R.string.word_yes) {
-                viewModel.deleteMyApplication(myPageWaitingGatheringFragmentArgs.plubbingId)
+                viewModel.deleteMyApplication()
                 commonDialog.dismiss()
             }
             .setNegativeButton(R.string.word_no) {

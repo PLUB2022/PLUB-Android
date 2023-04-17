@@ -30,7 +30,6 @@ class MyPageAllMyPostViewModel @Inject constructor(
 
     companion object {
         private const val FIRST_CURSOR = 0
-        private const val SCROLL_TOP = 0
     }
 
     private val boardListStateFlow: MutableStateFlow<List<PlubingBoardVo>> = MutableStateFlow(
@@ -45,7 +44,6 @@ class MyPageAllMyPostViewModel @Inject constructor(
     private var isNetworkCall: Boolean = false
     private var isLastPage: Boolean = false
     private var cursorId: Int = FIRST_CURSOR
-    private var scrollToPosition:Int? = null
 
     fun setPlubId(plubingId: Int) {
         this.plubingId = plubingId
@@ -95,12 +93,11 @@ class MyPageAllMyPostViewModel @Inject constructor(
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
-        scrollToPosition = SCROLL_TOP
         fetchPlubingBoardList()
     }
 
-    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onFetchBoardList()
+    fun onScrollChanged() {
+        if (!isLastPage && !isNetworkCall) onFetchBoardList()
     }
 
     private fun fetchPlubingBoardList() {

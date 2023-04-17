@@ -12,6 +12,7 @@ import com.plub.presentation.databinding.FragmentMyPageAllMyPostBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
 import com.plub.presentation.util.PlubingInfo
+import com.plub.presentation.util.infiniteScrolls
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -48,17 +49,7 @@ class MyPageAllMyPostFragment :
             recyclerViewPostList.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = boardListAdapter
-
-                addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        val lastVisiblePosition =
-                            (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                        val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
-                        val isDownScroll = dy > 0
-                        viewModel.onScrollChanged(isBottom, isDownScroll)
-                    }
-                })
+                infiniteScrolls { viewModel.onScrollChanged() }
             }
         }
         viewModel.setPlubId(PlubingInfo.info.plubingId)

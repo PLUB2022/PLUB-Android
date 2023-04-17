@@ -261,7 +261,7 @@ class MyPageAllMyTodoViewModel @Inject constructor(
     }
 
 
-    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onFetchTodoList()
+    fun onScrollChanged() {
+        if (!isLastPage && !isNetworkCall) onFetchTodoList()
     }
 }

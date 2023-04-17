@@ -41,7 +41,7 @@ class ActiveGatheringViewModel @Inject constructor(
 
     companion object {
         const val FIRST_CURSOR = 0
-        const val FIRST_IDX = 0
+        const val FIRST_INDEX = 0
         const val MAX_SHOW_COUNT = 2
     }
 
@@ -105,7 +105,7 @@ class ActiveGatheringViewModel @Inject constructor(
         val mergedList = if (todoList.content.size > MAX_SHOW_COUNT) {
             setListOverToDoMaxCount(todoList.content)
         } else {
-            setListUnderToDoMaxCount(todoList.content)
+            getToDoList(todoList.content)
         }
 
         updateDetailList(originList + mergedList)
@@ -121,15 +121,10 @@ class ActiveGatheringViewModel @Inject constructor(
             contentList.add(list[index])
         }
 
-        return listOf(
-            MyPageActiveDetailVo(
-                viewType = MyPageActiveDetailViewType.MY_TODO,
-                todoList = contentList
-            )
-        )
+        return getToDoList(contentList)
     }
 
-    private fun setListUnderToDoMaxCount(list: List<TodoTimelineVo>): List<MyPageActiveDetailVo> {
+    private fun getToDoList(list : List<TodoTimelineVo>): List<MyPageActiveDetailVo>{
         return listOf(
             MyPageActiveDetailVo(
                 viewType = MyPageActiveDetailViewType.MY_TODO,
@@ -143,7 +138,7 @@ class ActiveGatheringViewModel @Inject constructor(
         val mergedList = if (state.totalElements > MAX_SHOW_COUNT) {
             setListOverBoardMaxCount(state.content)
         } else {
-            setListUnderBoardMaxCount(state.content)
+            getMyActiveList(state.content)
         }
 
         updateDetailList(originList + mergedList)
@@ -159,15 +154,10 @@ class ActiveGatheringViewModel @Inject constructor(
             contentList.add(list[index])
         }
 
-        return listOf(
-            MyPageActiveDetailVo(
-                viewType = MyPageActiveDetailViewType.MY_POST,
-                postList = contentList
-            )
-        )
+        return getMyActiveList(contentList)
     }
 
-    private fun setListUnderBoardMaxCount(list: List<PlubingBoardVo>): List<MyPageActiveDetailVo> {
+    private fun getMyActiveList(list: List<PlubingBoardVo>): List<MyPageActiveDetailVo> {
         return listOf(
             MyPageActiveDetailVo(
                 viewType = MyPageActiveDetailViewType.MY_POST,
@@ -245,7 +235,7 @@ class ActiveGatheringViewModel @Inject constructor(
         return list.toMutableList().apply {
             val removePosition = indexOfFirst { it.todoId == vo.todoId }
             removeAt(removePosition)
-            if(isTop) add(FIRST_IDX, vo) else add(vo)
+            if(isTop) add(FIRST_INDEX, vo) else add(vo)
         }
     }
 
