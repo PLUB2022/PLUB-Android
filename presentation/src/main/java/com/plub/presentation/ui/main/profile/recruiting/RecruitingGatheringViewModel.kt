@@ -141,4 +141,8 @@ class RecruitingGatheringViewModel @Inject constructor(
     fun showRefuseDialog(accountId: Int){
         emitEventFlow(MyPageRecruitingGatheringEvent.ShowRefuseDialog(accountId))
     }
+
+    fun goToBack(){
+        emitEventFlow(MyPageRecruitingGatheringEvent.GoToBack)
+    }
 }

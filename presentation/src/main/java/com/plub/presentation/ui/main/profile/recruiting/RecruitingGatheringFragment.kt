@@ -81,6 +81,7 @@ class RecruitingGatheringFragment :
             is MyPageRecruitingGatheringEvent.GoToRecruit -> goToRecruit()
             is MyPageRecruitingGatheringEvent.ShowApproveDialog -> showApproveDialog(event.accountId)
             is MyPageRecruitingGatheringEvent.ShowRefuseDialog -> showRefuseDialog(event.accountId)
+            is MyPageRecruitingGatheringEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 
