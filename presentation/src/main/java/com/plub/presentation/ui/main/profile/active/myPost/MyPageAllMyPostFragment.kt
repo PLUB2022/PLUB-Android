@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.vo.board.PlubingBoardVo
-import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageAllMyPostBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
@@ -91,7 +90,6 @@ class MyPageAllMyPostFragment :
             is MyPageAllMyPostEvent.GoToEditBoard -> goToEditBoard(event.feedId)
             is MyPageAllMyPostEvent.GoToReportBoard -> goToReport()
             is MyPageAllMyPostEvent.GoToPinBoard -> goToPinBoard()
-            is MyPageAllMyPostEvent.ScrollToPosition -> scrollToPosition(event.position)
             is MyPageAllMyPostEvent.GoToBack -> findNavController().popBackStack()
         }
     }

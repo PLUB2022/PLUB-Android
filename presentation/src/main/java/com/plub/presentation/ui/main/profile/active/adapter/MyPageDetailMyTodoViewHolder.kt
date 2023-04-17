@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.databinding.IncludeItemMyPageActiveMyTodoBinding
-import com.plub.presentation.ui.main.plubing.todo.adapter.PlubingTodoAdapter
-import com.plub.presentation.ui.main.plubing.todo.adapter.TodoItemAdapter
 import com.plub.presentation.util.onThrottleClick
 
 class MyPageDetailMyTodoViewHolder(

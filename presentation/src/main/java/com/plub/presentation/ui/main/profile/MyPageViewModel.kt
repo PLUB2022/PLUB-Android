@@ -6,11 +6,9 @@ import com.plub.domain.model.enums.MyPageGatheringStateType
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.domain.usecase.GetMyGatheringUseCase
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch

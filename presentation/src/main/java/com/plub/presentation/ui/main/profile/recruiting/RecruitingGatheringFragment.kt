@@ -5,7 +5,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.presentation.R
-import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageRecruitingGatheringBinding
 import com.plub.presentation.ui.common.dialog.CommonDialog

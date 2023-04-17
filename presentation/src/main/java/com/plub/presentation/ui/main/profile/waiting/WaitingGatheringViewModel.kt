@@ -6,14 +6,10 @@ import com.plub.domain.model.vo.home.recruitDetailVo.host.AccountsVo
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.domain.model.vo.home.recruitDetailVo.host.AnswersVo
-import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.domain.model.vo.myPage.MyPageMyApplicationVo
 import com.plub.domain.usecase.DeleteMyApplicationUseCase
-import com.plub.domain.usecase.FetchPlubingMainUseCase
 import com.plub.domain.usecase.GetMyApplicationUseCase
-import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.main.profile.MyPageApplicantsGatheringState
 import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel

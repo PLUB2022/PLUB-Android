@@ -12,13 +12,9 @@ import com.plub.domain.usecase.DeleteBoardUseCase
 import com.plub.domain.usecase.GetMyPostUseCase
 import com.plub.domain.usecase.PutBoardChangePinUseCase
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
-import com.plub.presentation.ui.main.plubing.board.PlubingBoardEvent
-import com.plub.presentation.ui.main.plubing.board.PlubingBoardViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -76,13 +72,6 @@ class MyPageAllMyPostViewModel @Inject constructor(
 
     fun onClickBoard(feedId: Int) {
         emitEventFlow(MyPageAllMyPostEvent.GoToDetailBoard(feedId))
-    }
-
-    fun onBoardUpdated() {
-        scrollToPosition?.let {
-            emitEventFlow(MyPageAllMyPostEvent.ScrollToPosition(it))
-            scrollToPosition = null
-        }
     }
 
     fun onLongClickBoard(feedId: Int, isHost: Boolean, isAuthor: Boolean) {
