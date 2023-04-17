@@ -4,6 +4,8 @@ import com.plub.data.dto.createGathering.CreateGatheringRequest
 import com.plub.data.dto.createGathering.CreateGatheringResponse
 import com.plub.data.base.ApiResponse
 import com.plub.data.base.DataDto
+import com.plub.data.dto.account.AccountInfoResponse
+import com.plub.data.dto.account.AccountInfosResponse
 import com.plub.data.dto.modifyGathering.ModifyRecruitRequestBody
 import com.plub.data.dto.myGathering.MyGatheringsResponse
 import retrofit2.Response
@@ -48,4 +50,9 @@ interface GatheringApi {
     suspend fun leaveGathering(
         @Path(PATH_PLUBING_ID) plubbingId: Int
     ): Response<ApiResponse<DataDto.DTO>>
+
+    @GET(Endpoints.PLUBBING.MEMBER)
+    suspend fun getMembers(
+        @Path(PATH_PLUBING_ID) plubbingId: Int
+    ): Response<ApiResponse<AccountInfosResponse>>
 }

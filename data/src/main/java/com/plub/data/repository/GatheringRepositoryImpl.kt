@@ -2,12 +2,14 @@ package com.plub.data.repository
 
 import com.plub.data.api.GatheringApi
 import com.plub.data.base.BaseRepository
+import com.plub.data.mapper.AccountInfosResponseMapper
 import com.plub.data.mapper.CreateGatheringRequestMapper
 import com.plub.data.mapper.CreateGatheringResponseMapper
 import com.plub.data.mapper.ModifyRecruitRequestMapper
 import com.plub.data.mapper.UnitResponseMapper
 import com.plub.data.mapper.myGathering.MyGatheringsMapper
 import com.plub.domain.UiState
+import com.plub.domain.model.vo.account.AccountInfoVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringRequestVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
 import com.plub.domain.model.vo.modifyGathering.ModifyRecruitRequestVo
@@ -42,5 +44,9 @@ class GatheringRepositoryImpl @Inject constructor(private val gatheringApi: Gath
 
     override suspend fun leaveGathering(request: Int): Flow<UiState<Unit>> {
         return apiLaunch(gatheringApi.leaveGathering(request), UnitResponseMapper)
+    }
+
+    override suspend fun getMembers(request: Int): Flow<UiState<List<AccountInfoVo>>> {
+        return apiLaunch(gatheringApi.getMembers(request), AccountInfosResponseMapper)
     }
 }

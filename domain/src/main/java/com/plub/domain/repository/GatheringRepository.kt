@@ -1,6 +1,7 @@
 package com.plub.domain.repository
 
 import com.plub.domain.UiState
+import com.plub.domain.model.vo.account.AccountInfoVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringRequestVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
 import com.plub.domain.model.vo.modifyGathering.ModifyRecruitRequestVo
@@ -19,4 +20,6 @@ interface GatheringRepository {
     suspend fun changeGatheringStatus(request: Int): Flow<UiState<Unit>>
 
     suspend fun leaveGathering(request: Int): Flow<UiState<Unit>>
+
+    suspend fun getMembers(request: Int): Flow<UiState<List<AccountInfoVo>>>
 }
