@@ -50,6 +50,15 @@
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            
+            <ImageView
+                android:src="@drawable/ic_date_8c8c8c"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="21dp"
+                app:onThrottleClick="@{()->vm.goToDefaultPlanner()}"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_todo_list"

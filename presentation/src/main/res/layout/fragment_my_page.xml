@@ -49,6 +49,8 @@
                     android:layout_height="64dp"
                     android:layout_marginStart="16dp"
                     android:clipToOutline="true"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/bg_circle_filled_e4e4e4"
                     app:defaultImage="@{@drawable/iv_default_profile}"
                     app:imageUrl="@{vm.uiState.profileImage}"
                     app:layout_constraintStart_toStartOf="parent"

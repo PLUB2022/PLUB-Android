@@ -230,6 +230,10 @@ class MyPageAllMyTodoViewModel @Inject constructor(
         emitEventFlow(MyPageAllMyTodoEvent.GoToPlannerTodo(date))
     }
 
+    fun goToDefaultPlanner(){
+        emitEventFlow(MyPageAllMyTodoEvent.GoToPlannerTodo(""))
+    }
+
     fun onClickTodoLike(timelineId: Int) {
         putTodoLikeToggle(timelineId) {
             val replacedList = getTimelineListItemReplaced(timelineId, it)
