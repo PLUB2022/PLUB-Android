@@ -63,7 +63,7 @@ class MyGatheringFragment :
             viewLifecycleOwner,
             gatheringMeatBallItems
         ) { _, _ ->
-
+            showGatheringLeaveDialog(plubbingId)
         }.showAsDropDown(view, POWER_MENU_OFFSET.px, 0)
     }
 
