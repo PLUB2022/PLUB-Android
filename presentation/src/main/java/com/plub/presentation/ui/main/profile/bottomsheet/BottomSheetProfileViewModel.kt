@@ -112,6 +112,9 @@ class BottomSheetProfileViewModel @Inject constructor(
             DialogMenuItemType.TODO_PROOF -> TODO()
             DialogMenuItemType.TODO_DELETE -> TODO()
             DialogMenuItemType.TODO_EDIT -> TODO()
+            DialogMenuItemType.ARCHIVE_EDIT -> TODO()
+            DialogMenuItemType.ARCHIVE_DELETE -> TODO()
+            DialogMenuItemType.ARCHIVE_REPORT -> TODO()
         }
     }
 
