@@ -6,6 +6,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageRecruitingGatheringBinding
 import com.plub.presentation.ui.common.dialog.CommonDialog
 import com.plub.presentation.ui.main.profile.MyPageApplicantsGatheringState
@@ -16,7 +17,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RecruitingGatheringFragment :
-    BaseFragment<FragmentMyPageRecruitingGatheringBinding, MyPageApplicantsGatheringState, RecruitingGatheringViewModel>(
+    BaseTestFragment<FragmentMyPageRecruitingGatheringBinding, MyPageApplicantsGatheringState, RecruitingGatheringViewModel>(
         FragmentMyPageRecruitingGatheringBinding::inflate
     ) {
 
@@ -63,8 +64,8 @@ class RecruitingGatheringFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    myPageDetailPageAdapter.submitList(it.detailList)
+                viewModel.uiState.detailList.collect {
+                    myPageDetailPageAdapter.submitList(it)
                 }
             }
 

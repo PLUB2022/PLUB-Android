@@ -12,18 +12,21 @@ import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageSettingBinding
 import com.plub.presentation.ui.common.dialog.CommonDialog
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.util.IntentUtil
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MyPageSettingFragment :
-    BaseFragment<FragmentMyPageSettingBinding, MyPageSettingState, MyPageSettingViewModel>(
+    BaseTestFragment<FragmentMyPageSettingBinding, MyPageSettingState, MyPageSettingViewModel>(
         FragmentMyPageSettingBinding::inflate
     ) {
 
@@ -80,8 +83,26 @@ class MyPageSettingFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    nicknameIsActiveState(it.nicknameIsActive)
+                viewModel.uiState.nicknameIsActive.collect {
+                    nicknameIsActiveState(it)
+                }
+            }
+
+            launch {
+                viewModel.uiState.nickname.collect{
+                    viewModel.updateButtonState()
+                }
+            }
+
+            launch {
+                viewModel.uiState.introduce.collect{
+                    viewModel.updateButtonState()
+                }
+            }
+
+            launch {
+                viewModel.uiState.profileImage.collect{
+                    viewModel.updateButtonState()
                 }
             }
 

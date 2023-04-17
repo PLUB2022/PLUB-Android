@@ -6,17 +6,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.MyPageGatheringMyType
 import com.plub.domain.model.enums.MyPageGatheringStateType
 import com.plub.presentation.R
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageBinding
 import com.plub.presentation.ui.main.profile.adapter.MyPageParentGatheringAdapter
-import com.plub.presentation.util.GlideUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class MyPageFragment :
-    BaseFragment<FragmentMyPageBinding, MyPageState, MyPageViewModel>(
+    BaseTestFragment<FragmentMyPageBinding, MyPageState, MyPageViewModel>(
         FragmentMyPageBinding::inflate
     ) {
 
@@ -67,8 +66,8 @@ class MyPageFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    gatheringAdapter.submitList(it.myPageGatheringList)
+                viewModel.uiState.myPageGatheringList.collect {
+                    gatheringAdapter.submitList(it)
                 }
             }
 

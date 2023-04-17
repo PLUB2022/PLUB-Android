@@ -8,6 +8,7 @@ import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageAllMyPostBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MyPageAllMyPostFragment :
-    BaseFragment<FragmentMyPageAllMyPostBinding, MyPageAllMyPostState, MyPageAllMyPostViewModel>(
+    BaseTestFragment<FragmentMyPageAllMyPostBinding, MyPageAllMyPostState, MyPageAllMyPostViewModel>(
         FragmentMyPageAllMyPostBinding::inflate
     ) {
 
@@ -70,8 +71,8 @@ class MyPageAllMyPostFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    boardListAdapter.submitList(it.boardList)
+                viewModel.uiState.boardList.collect {
+                    boardListAdapter.submitList(it)
                 }
             }
 

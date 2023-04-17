@@ -6,14 +6,20 @@ import com.plub.domain.model.vo.home.recruitDetailVo.host.AccountsVo
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
 import com.plub.domain.model.vo.myPage.MyPageDetailVo
 import com.plub.domain.model.vo.home.recruitDetailVo.host.AnswersVo
+import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.domain.model.vo.myPage.MyPageMyApplicationVo
 import com.plub.domain.usecase.DeleteMyApplicationUseCase
 import com.plub.domain.usecase.FetchPlubingMainUseCase
 import com.plub.domain.usecase.GetMyApplicationUseCase
+import com.plub.presentation.base.BaseTestFragment
+import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.main.profile.MyPageApplicantsGatheringState
 import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,10 +27,15 @@ import javax.inject.Inject
 class WaitingGatheringViewModel @Inject constructor(
     private val getMyApplicationUseCase: GetMyApplicationUseCase,
     private val deleteMyApplicationUseCase: DeleteMyApplicationUseCase
-) :
-    BaseViewModel<MyPageApplicantsGatheringState>(
-        MyPageApplicantsGatheringState()
-    ) {
+) : BaseTestViewModel<MyPageApplicantsGatheringState>() {
+
+    private val detailListStateFlow : MutableStateFlow<List<MyPageDetailVo>> = MutableStateFlow(
+        emptyList()
+    )
+
+    override val uiState: MyPageApplicantsGatheringState = MyPageApplicantsGatheringState(
+        detailList = detailListStateFlow.asStateFlow()
+    )
 
     fun getPageDetail(plubbingId : Int) {
         viewModelScope.launch {
@@ -77,10 +88,8 @@ class WaitingGatheringViewModel @Inject constructor(
     }
 
     private fun handleSuccessDelete(){
-        val originList = uiState.value.detailList
-        val mutableOriginList = originList.toMutableList()
-
-        originList.forEach {
+        val mutableOriginList = uiState.detailList.value.toMutableList()
+        mutableOriginList.forEach {
             if(it.viewType == MyPageDetailViewType.MY_APPLICATION) mutableOriginList.remove(it)
         }
 
@@ -88,10 +97,8 @@ class WaitingGatheringViewModel @Inject constructor(
     }
 
     private fun updateDetailList(list : List<MyPageDetailVo>){
-        updateUiState { uiState ->
-            uiState.copy(
-                detailList = list
-            )
+        viewModelScope.launch {
+            detailListStateFlow.update { list }
         }
     }
 

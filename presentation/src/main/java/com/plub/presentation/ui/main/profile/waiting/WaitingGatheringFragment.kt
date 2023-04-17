@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.ApplyModifyApplicationType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageWaitingGatheringBinding
 import com.plub.presentation.ui.common.dialog.CommonDialog
 import com.plub.presentation.ui.main.profile.adapter.MyPageDetailPageAdapter
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class WaitingGatheringFragment :
-    BaseFragment<FragmentMyPageWaitingGatheringBinding, MyPageApplicantsGatheringState, WaitingGatheringViewModel>(
+    BaseTestFragment<FragmentMyPageWaitingGatheringBinding, MyPageApplicantsGatheringState, WaitingGatheringViewModel>(
         FragmentMyPageWaitingGatheringBinding::inflate
     ) {
 
@@ -64,8 +65,8 @@ class WaitingGatheringFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    myPageDetailPageAdapter.submitList(it.detailList)
+                viewModel.uiState.detailList.collect {
+                    myPageDetailPageAdapter.submitList(it)
                 }
             }
 
