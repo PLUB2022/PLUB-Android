@@ -31,8 +31,7 @@ class TodoItemViewHolder(
     fun bind(item: TodoItemVo) {
         vo = item
         binding.apply {
-            val checkRes = if(LocalDate.now().toString() == item.date) if(item.isChecked) R.drawable.ic_checked_12 else R.drawable.ic_unchecked_empty_c4c4c4
-                            else if(item.isChecked) R.drawable.ic_checked_12 else R.drawable.ic_unchecked_empty
+            val checkRes = if(LocalDate.now().toString() == item.date) getTodayCheckedRes(item.isChecked) else getOtherDayCheckedRes(item.isChecked)
             imageViewCheck.setImageResource(checkRes)
             textViewContent.apply {
                 val textColorRes = if (item.isChecked) R.color.color_8c8c8c else R.color.black
@@ -42,5 +41,13 @@ class TodoItemViewHolder(
                 text = item.content
             }
         }
+    }
+
+    private fun getTodayCheckedRes(isChecked : Boolean) : Int{
+        return if(isChecked) R.drawable.ic_checked_12 else R.drawable.ic_unchecked_empty_c4c4c4
+    }
+
+    private fun getOtherDayCheckedRes(isChecked : Boolean) : Int{
+        return if(isChecked) R.drawable.ic_checked_12 else R.drawable.ic_unchecked_empty
     }
 }

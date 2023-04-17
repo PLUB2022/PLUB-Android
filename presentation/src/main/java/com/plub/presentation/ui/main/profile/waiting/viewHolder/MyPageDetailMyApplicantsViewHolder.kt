@@ -57,7 +57,7 @@ class MyPageDetailMyApplicantsViewHolder(
 
     fun bind(item: AccountsVo) {
         binding.apply {
-            if(item.profileImage == null || item.profileImage == "") imageViewProfile.setImageResource(R.drawable.iv_default_profile)
+            if(item.profileImage.isNullOrEmpty()) imageViewProfile.setImageResource(R.drawable.iv_default_profile)
             else GlideUtil.loadImage(root.context, item.profileImage!!, imageViewProfile)
             textViewName.text = item.accountName
             textViewDate.text = root.context.getString(R.string.my_page_complete_answer, item.createdAt)

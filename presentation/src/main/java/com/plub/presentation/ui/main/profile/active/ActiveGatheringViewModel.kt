@@ -93,7 +93,7 @@ class ActiveGatheringViewModel @Inject constructor(
             PlubingInfo.info.copy(
                 plubingId = plubbingVo.plubbingId,
                 name = plubbingVo.title,
-                placeName = plubbingVo.position,
+                placeName = plubbingVo.placeName,
                 time = plubbingVo.time,
                 days = plubbingVo.date
             )
@@ -113,11 +113,7 @@ class ActiveGatheringViewModel @Inject constructor(
 
     private fun setListOverToDoMaxCount(list: List<TodoTimelineVo>) : List<MyPageActiveDetailVo> {
         val contentList = mutableListOf<TodoTimelineVo>()
-        for (index in 0..MAX_SHOW_COUNT) {
-            if (index == MAX_SHOW_COUNT) {
-                break
-            }
-
+        for (index in 0 until  MAX_SHOW_COUNT) {
             contentList.add(list[index])
         }
 
@@ -146,7 +142,7 @@ class ActiveGatheringViewModel @Inject constructor(
 
     private fun setListOverBoardMaxCount(list: List<PlubingBoardVo>) : List<MyPageActiveDetailVo> {
         val contentList = mutableListOf<PlubingBoardVo>()
-        for (index in 0..MAX_SHOW_COUNT) {
+        for (index in 0 until  MAX_SHOW_COUNT) {
             if (index == MAX_SHOW_COUNT) {
                 break
             }

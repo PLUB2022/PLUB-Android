@@ -41,7 +41,7 @@ class MyPageDetailTopViewHolder(
 
             textViewGatheringName.text = item.title
             textViewDate.text = date
-            textViewPosition.text = item.position
+            textViewPosition.text = item.placeName
         }
     }
 }

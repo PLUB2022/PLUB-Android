@@ -56,7 +56,7 @@ class RecruitingGatheringViewModel @Inject constructor(
         val topView = MyPageDetailTitleVo(
             title = mainVo.name,
             date = mainVo.days,
-            position = mainVo.placeName,
+            placeName = mainVo.placeName,
             time = mainVo.time,
         )
         updateDetailList(getMergedTopList(topView))
