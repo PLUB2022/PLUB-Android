@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.NoticeType
+import com.plub.domain.model.enums.WriteType
 import com.plub.domain.model.vo.notice.NoticeVo
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentNoticeBinding
@@ -94,19 +95,18 @@ class NoticeFragment : BaseTestFragment<FragmentNoticeBinding, NoticePageState, 
         when (event) {
             is NoticeEvent.GoToDetailNotice -> goToDetailNotice(event.noticeType, event.noticeId)
             is NoticeEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.menuType, event.noticeVo)
-            is NoticeEvent.GoToWriteNotice -> goToWriteNotice(event)
+            is NoticeEvent.GoToWriteNotice -> goToWriteNotice(event.writeType, event.vo)
         }
     }
 
     private fun goToDetailNotice(noticeType: NoticeType, noticeId:Int) {
-
+        val action = NoticeFragmentDirections.actionNoticeToNoticeDetail(noticeType, noticeId)
+        findNavController().navigate(action)
     }
 
-    private fun goToWriteNotice(event : NoticeEvent.GoToWriteNotice) {
-        event.run {
-            val action = NoticeFragmentDirections.actionNoticeToNoticeWrite(writeType, vo)
-            findNavController().navigate(action)
-        }
+    private fun goToWriteNotice(writeType: WriteType, vo: ParseNoticeVo?) {
+        val action = NoticeFragmentDirections.actionNoticeToNoticeWrite(writeType, vo)
+        findNavController().navigate(action)
     }
 
     private fun showMenuBottomSheetDialog(menuType: DialogMenuType, noticeVo: NoticeVo) {

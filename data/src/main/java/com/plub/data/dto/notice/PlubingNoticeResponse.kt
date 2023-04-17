@@ -12,6 +12,10 @@ data class PlubingNoticeResponse(
     val content: String = "",
     @SerializedName("createdAt")
     val createdAt: String = "",
+    @SerializedName("likeCount")
+    val likeCount: Int? = -1,
+    @SerializedName("commentCount")
+    val commentCount: Int? = -1,
     @SerializedName("isHost")
     val isHost: Boolean = false
 ) : DataDto

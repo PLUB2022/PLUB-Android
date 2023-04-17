@@ -7,7 +7,9 @@ import com.plub.domain.model.enums.NoticeType
 import com.plub.domain.model.enums.WriteType
 import com.plub.domain.model.vo.notice.GetNoticeListRequestVo
 import com.plub.domain.model.vo.notice.NoticeListVo
+import com.plub.domain.model.vo.notice.NoticeRequestVo
 import com.plub.domain.model.vo.notice.NoticeVo
+import com.plub.domain.usecase.DeleteNoticeUseCase
 import com.plub.domain.usecase.GetNoticeListUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParseNoticeVo
@@ -21,7 +23,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NoticeViewModel @Inject constructor(
-    val getNoticeListUseCase: GetNoticeListUseCase
+    val getNoticeListUseCase: GetNoticeListUseCase,
+    val deleteNoticeUseCase: DeleteNoticeUseCase,
 ) : BaseTestViewModel<NoticePageState>() {
 
     private val noticeListStateFlow: MutableStateFlow<List<NoticeVo>> = MutableStateFlow(emptyList())
@@ -64,9 +67,16 @@ class NoticeViewModel @Inject constructor(
     }
 
     fun onLongClickNotice(noticeVo: NoticeVo) {
-        if(!noticeVo.isHost || noticeType != NoticeType.PLUBING) return
+        if(noticeType != NoticeType.PLUBING) return
 
-        emitEventFlow(NoticeEvent.ShowMenuBottomSheetDialog(DialogMenuType.PLUBING_NOTICE_HOST_TYPE, noticeVo))
+        val menuType = noticeVo.run {
+            when {
+                isHost -> DialogMenuType.PLUBING_NOTICE_HOST_TYPE
+                else -> DialogMenuType.PLUBING_NOTICE_COMMON_TYPE
+            }
+        }
+
+        emitEventFlow(NoticeEvent.ShowMenuBottomSheetDialog(menuType, noticeVo))
     }
 
     fun onClickNoticeCreate() {
@@ -79,6 +89,7 @@ class NoticeViewModel @Inject constructor(
 
     fun onClickMenuItemType(item: DialogMenuItemType, noticeVo: NoticeVo) {
         when (item) {
+            DialogMenuItemType.NOTICE_REPORT -> Unit
             DialogMenuItemType.NOTICE_DELETE -> noticeDelete(noticeVo.noticeId)
             DialogMenuItemType.NOTICE_EDIT -> emitEventFlow(NoticeEvent.GoToWriteNotice(WriteType.EDIT, ParseNoticeVo.mapToParse(noticeVo)))
             else -> Unit
@@ -96,28 +107,16 @@ class NoticeViewModel @Inject constructor(
     }
 
 
-    private fun refresh() {
-        isNetworkCall = true
-        isLastPage = false
-        cursorId = FIRST_CURSOR
-        getNoticeList()
-    }
-
-    private fun getReplacedEditNoticeList(vo: NoticeVo): List<NoticeVo> {
-        return noticeListStateFlow.value.toMutableList().apply {
-            val idx = indexOfFirst { it.noticeId == vo.noticeId }
-            set(idx, vo)
-        }
-    }
-
     private fun noticeDelete(noticeId: Int) {
-
-    }
-
-    private fun onGetNextNoticeList() {
-        isNetworkCall = true
-        cursorUpdate()
-        getNoticeList()
+        viewModelScope.launch {
+            val requestVo = NoticeRequestVo(noticeType = noticeType, plubbingId = plubingId, noticeId = noticeId)
+            deleteNoticeUseCase(requestVo).collect {
+                inspectUiState(it, {
+                    val deletedList = noticeListStateFlow.value.filterNot { it.noticeId == noticeId }
+                    updateNoticeList(deletedList)
+                })
+            }
+        }
     }
 
     private fun getNoticeList() {
@@ -144,6 +143,26 @@ class NoticeViewModel @Inject constructor(
     private fun cursorUpdate() {
         cursorId = if (noticeListStateFlow.value.isEmpty()) FIRST_CURSOR
         else noticeListStateFlow.value.lastOrNull()?.noticeId ?: FIRST_CURSOR
+    }
+
+    private fun refresh() {
+        isNetworkCall = true
+        isLastPage = false
+        cursorId = FIRST_CURSOR
+        getNoticeList()
+    }
+
+    private fun getReplacedEditNoticeList(vo: NoticeVo): List<NoticeVo> {
+        return noticeListStateFlow.value.toMutableList().apply {
+            val idx = indexOfFirst { it.noticeId == vo.noticeId }
+            set(idx, vo)
+        }
+    }
+
+    private fun onGetNextNoticeList() {
+        isNetworkCall = true
+        cursorUpdate()
+        getNoticeList()
     }
 
     private fun updateNoticeList(list: List<NoticeVo>) {

@@ -299,6 +299,26 @@
             android:id="@+id/action_notice_to_notice_write"
             app:destination="@id/noticeWriteFragment" />
 
+        <action
+            android:id="@+id/action_notice_to_notice_detail"
+            app:destination="@id/noticeDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/noticeDetailFragment"
+        android:name="com.plub.presentation.ui.main.plubing.notice.detail.NoticeDetailFragment"
+        android:label="fragment_notice_detail"
+        tools:layout="@layout/fragment_notice_detail">
+
+        <argument
+            android:name="noticeType"
+            app:argType="com.plub.domain.model.enums.NoticeType" />
+
+        <argument
+            android:name="noticeId"
+            app:argType="integer" />
+
     </fragment>
 
 

@@ -46,6 +46,7 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.TODO_EDIT,
             DialogMenuItemType.BOARD_EDIT,
             DialogMenuItemType.BOARD_COMMENT_EDIT -> R.drawable.ic_edit_black
+            DialogMenuItemType.NOTICE_REPORT,
             DialogMenuItemType.TODO_REPORT,
             DialogMenuItemType.BOARD_REPORT,
             DialogMenuItemType.BOARD_COMMENT_REPORT -> R.drawable.ic_report_blue
@@ -77,6 +78,7 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.TODO_EDIT  -> R.string.dialog_menu_todo_edit
             DialogMenuItemType.NOTICE_DELETE  -> R.string.dialog_menu_notice_delete
             DialogMenuItemType.NOTICE_EDIT  -> R.string.dialog_menu_notice_edit
+            DialogMenuItemType.NOTICE_REPORT -> R.string.dialog_menu_notice_report
             else -> throw IllegalAccessException()
         }
     }

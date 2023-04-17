@@ -40,6 +40,7 @@ object Endpoints {
 
     object NOTICE {
         const val NOTICE_URL = "/api/announcements"
+        const val NOTICE_DETAIL = "/api/announcements/{announcementId}"
     }
 
     object PLUBBING {
@@ -96,6 +97,12 @@ object Endpoints {
         object NOTICE {
             const val NOTICE = "$PLUBBING_ID_URL/notices"
             const val NOTICE_EDIT = "$PLUBBING_ID_URL/notices/{noticeId}"
+            const val NOTICE_DETAIL = "$PLUBBING_ID_URL/notices/{noticeId}"
+            const val NOTICE_DELETE = "$PLUBBING_ID_URL/notices/{noticeId}"
+            const val COMMENTS = "$PLUBBING_ID_URL/notices/{noticeId}/comments"
+            const val COMMENT_CREATE = "$PLUBBING_ID_URL/notices/{noticeId}/comment"
+            const val COMMENT_DELETE = "$PLUBBING_ID_URL/notices/comment/{commentId}"
+            const val COMMENT_EDIT = "$PLUBBING_ID_URL/notices/comment/{commentId}"
         }
     }
 }

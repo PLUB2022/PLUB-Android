@@ -1,26 +1,26 @@
-package com.plub.presentation.ui.main.plubing.board.detail
+package com.plub.presentation.ui.main.plubing.notice.detail
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.DialogMenuType
+import com.plub.domain.model.enums.NoticeType
 import com.plub.domain.model.enums.PlubingCommentType
 import com.plub.domain.model.vo.board.BoardCommentListVo
 import com.plub.domain.model.vo.board.BoardCommentVo
-import com.plub.domain.model.vo.board.BoardRequestVo
-import com.plub.domain.model.vo.board.CommentCreateRequestVo
-import com.plub.domain.model.vo.board.CommentEditRequestVo
-import com.plub.domain.model.vo.board.GetBoardCommentsRequestVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
-import com.plub.domain.usecase.DeleteBoardCommentUseCase
-import com.plub.domain.usecase.DeleteBoardUseCase
-import com.plub.domain.usecase.GetBoardCommentsUseCase
-import com.plub.domain.usecase.GetBoardDetailUseCase
-import com.plub.domain.usecase.PostBoardCommentCreateUseCase
-import com.plub.domain.usecase.PutBoardChangePinUseCase
-import com.plub.domain.usecase.PutBoardCommentEditUseCase
+import com.plub.domain.model.vo.notice.GetNoticeCommentsRequestVo
+import com.plub.domain.model.vo.notice.NoticeCommentCreateRequestVo
+import com.plub.domain.model.vo.notice.NoticeCommentEditRequestVo
+import com.plub.domain.model.vo.notice.NoticeRequestVo
+import com.plub.domain.model.vo.notice.NoticeVo
+import com.plub.domain.usecase.DeleteNoticeCommentUseCase
+import com.plub.domain.usecase.DeleteNoticeUseCase
+import com.plub.domain.usecase.GetNoticeCommentsUseCase
+import com.plub.domain.usecase.GetNoticeDetailUseCase
+import com.plub.domain.usecase.PostNoticeCommentCreateUseCase
+import com.plub.domain.usecase.PutNoticeCommentEditUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.ui.main.plubing.notice.detail.NoticeDetailEvent
 import com.plub.presentation.util.PlubUser
 import com.plub.presentation.util.PlubingInfo
 import com.plub.presentation.util.ResourceProvider
@@ -33,16 +33,15 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 
 @HiltViewModel
-class BoardDetailViewModel @Inject constructor(
+class NoticeDetailViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
-    val getBoardDetailUseCase: GetBoardDetailUseCase,
-    val putBoardChangePinUseCase: PutBoardChangePinUseCase,
-    val deleteBoardUseCase: DeleteBoardUseCase,
-    val getBoardCommentsUseCase: GetBoardCommentsUseCase,
-    val postBoardCommentCreateUseCase: PostBoardCommentCreateUseCase,
-    val deleteBoardCommentUseCase: DeleteBoardCommentUseCase,
-    val putBoardCommentEditUseCase: PutBoardCommentEditUseCase
-) : BaseTestViewModel<BoardDetailPageState>() {
+    val getNoticeDetailUseCase: GetNoticeDetailUseCase,
+    val deleteNoticeUseCase: DeleteNoticeUseCase,
+    val getNoticeCommentsUseCase: GetNoticeCommentsUseCase,
+    val postNoticeCommentCreateUseCase: PostNoticeCommentCreateUseCase,
+    val deleteNoticeCommentUseCase: DeleteNoticeCommentUseCase,
+    val putNoticeCommentEditUseCase: PutNoticeCommentEditUseCase
+) : BaseTestViewModel<NoticeDetailPageState>() {
 
     companion object {
         private const val SCROLL_TOP = 0
@@ -55,23 +54,24 @@ class BoardDetailViewModel @Inject constructor(
     private val isEditCommentModeStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val isReplyWritingModeStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val replyWritingTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
-    private val boardVoStateFlow: MutableStateFlow<PlubingBoardVo> = MutableStateFlow(PlubingBoardVo())
-    private val commentTextStateFlow:MutableStateFlow<String> = MutableStateFlow("")
+    private val noticeVoStateFlow: MutableStateFlow<NoticeVo> = MutableStateFlow(NoticeVo())
+    private val commentTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")
     private val commentListStateFlow: MutableStateFlow<List<BoardCommentVo>> = MutableStateFlow(emptyList())
 
-    override val uiState: BoardDetailPageState = BoardDetailPageState(
+    override val uiState: NoticeDetailPageState = NoticeDetailPageState(
         plubingNameStateFlow.asStateFlow(),
         profileImageStateFlow.asStateFlow(),
         isEditCommentModeStateFlow.asStateFlow(),
         isReplyWritingModeStateFlow.asStateFlow(),
         replyWritingTextStateFlow.asStateFlow(),
-        boardVoStateFlow.asStateFlow(),
+        noticeVoStateFlow.asStateFlow(),
         commentTextStateFlow,
         commentListStateFlow.asStateFlow()
     )
 
+    private lateinit var noticeType: NoticeType
     private var plubingId = PlubingInfo.info.plubingId
-    private var feedId by Delegates.notNull<Int>()
+    private var noticeId by Delegates.notNull<Int>()
 
     private var cursorId: Int = FIRST_CURSOR
     private var isLastPage: Boolean = false
@@ -81,15 +81,16 @@ class BoardDetailViewModel @Inject constructor(
     private var replyCommentId: Int? = null
     private var editCommentId: Int? = null
 
-    fun initArgs(feedId: Int) {
-        this.feedId = feedId
+    fun initArgs(noticeId: Int, noticeType: NoticeType) {
+        this.noticeId = noticeId
+        this.noticeType = noticeType
     }
 
-    fun onCompleteBoardEdit() {
+    fun onCompleteNoticeEdit() {
         refresh()
     }
 
-    fun onBoardUpdated() {
+    fun onNoticeUpdated() {
         scrollToPosition?.let {
             emitEventFlow(NoticeDetailEvent.ScrollToPosition(it))
             scrollToPosition = null
@@ -99,23 +100,23 @@ class BoardDetailViewModel @Inject constructor(
     fun onClickMenuItemType(item: DialogMenuItemType, commentVo: BoardCommentVo) {
         val commentId = commentVo.commentId
         when (item) {
-            DialogMenuItemType.BOARD_REPORT -> emitEventFlow(NoticeDetailEvent.GoToReportNotice(plubingId, feedId))
-            DialogMenuItemType.BOARD_EDIT -> emitEventFlow(NoticeDetailEvent.GoToEditNotice(plubingId, feedId))
-            DialogMenuItemType.BOARD_COMMENT_REPORT -> emitEventFlow(NoticeDetailEvent.GoToReportComment(plubingId, feedId, commentId))
-            DialogMenuItemType.BOARD_FIX_OR_RELEASE_CLIP -> boardChangeClip()
-            DialogMenuItemType.BOARD_DELETE -> boardDelete()
+            DialogMenuItemType.NOTICE_REPORT -> emitEventFlow(NoticeDetailEvent.GoToReportNotice(plubingId, noticeId))
+            DialogMenuItemType.NOTICE_EDIT -> emitEventFlow(NoticeDetailEvent.GoToEditNotice(plubingId, noticeId))
+            DialogMenuItemType.NOTICE_DELETE -> noticeDelete()
+            DialogMenuItemType.BOARD_COMMENT_REPORT -> emitEventFlow(NoticeDetailEvent.GoToReportComment(plubingId, noticeId, commentId))
             DialogMenuItemType.BOARD_COMMENT_DELETE -> commentDelete(commentId)
             DialogMenuItemType.BOARD_COMMENT_EDIT -> commentEditingInputMode(commentVo.content,commentId)
             else -> Unit
         }
     }
 
-    fun onClickBoardMenu(vo: PlubingBoardVo) {
+    fun onClickNoticeMenu(vo: NoticeVo) {
+        if(noticeType != NoticeType.PLUBING) return
+
         val menuType = vo.run {
             when {
-                isHost && isAuthor -> DialogMenuType.BOARD_DETAIL_HOST_AND_AUTHOR_TYPE
-                isHost -> DialogMenuType.BOARD_DETAIL_HOST_TYPE
-                else -> DialogMenuType.BOARD_COMMON_TYPE
+                isHost -> DialogMenuType.PLUBING_NOTICE_HOST_TYPE
+                else -> DialogMenuType.PLUBING_NOTICE_COMMON_TYPE
             }
         }
         emitEventFlow(NoticeDetailEvent.ShowMenuBottomSheetDialog(menuType))
@@ -124,9 +125,9 @@ class BoardDetailViewModel @Inject constructor(
     fun onClickCommentMenu(vo: BoardCommentVo) {
         val menuType = vo.run {
             when {
-                isCommentAuthor -> DialogMenuType.BOARD_COMMENT_AUTHOR_TYPE
-                isFeedAuthor -> DialogMenuType.BOARD_COMMENT_FEED_AUTHOR_TYPE
-                else -> DialogMenuType.BOARD_COMMENT_COMMON_TYPE
+                isCommentAuthor -> DialogMenuType.NOTICE_COMMENT_AUTHOR_TYPE
+                isFeedAuthor -> DialogMenuType.NOTICE_COMMENT_NOTICE_AUTHOR_TYPE
+                else -> DialogMenuType.NOTICE_COMMENT_COMMON_TYPE
             }
         }
         emitEventFlow(NoticeDetailEvent.ShowMenuBottomSheetDialog(menuType, vo))
@@ -152,64 +153,53 @@ class BoardDetailViewModel @Inject constructor(
     }
 
     fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onGetNextBoardComments()
+        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onGetNextNoticeComments()
     }
 
-    fun onGetBoardDetail() {
-        if(boardVoStateFlow.value != PlubingBoardVo()) return
-        getBoardDetail()
+    fun onGetNoticeDetail() {
+        if(noticeVoStateFlow.value != NoticeVo()) return
+        getNoticeDetail()
     }
 
-    fun onGetBoardComments() {
+    fun onGetNoticeComments() {
         if(commentListStateFlow.value.isNotEmpty()) return
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
-        getBoardComments()
+        getNoticeComments()
     }
 
     private fun sendComment(comment: String) {
-        val request = CommentCreateRequestVo(plubingId, feedId, comment, replyCommentId)
+        val request = NoticeCommentCreateRequestVo(plubingId, noticeId, comment, replyCommentId)
         viewModelScope.launch {
-            postBoardCommentCreateUseCase(request).collect {
+            postNoticeCommentCreateUseCase(request).collect {
                 inspectUiState(it, ::sendCommentSuccess)
             }
         }
     }
 
-    private fun getBoardComments() {
-        val request = GetBoardCommentsRequestVo(plubingId, feedId, cursorId)
+    private fun getNoticeComments() {
+        val request = GetNoticeCommentsRequestVo(plubingId, noticeId, cursorId)
         viewModelScope.launch {
-            getBoardCommentsUseCase(request).collect {
+            getNoticeCommentsUseCase(request).collect {
                 inspectUiState(it, ::onSuccessFetchCommentList)
             }
         }
     }
 
-    private fun getBoardDetail() {
-        val request = BoardRequestVo(plubingId, feedId)
+    private fun getNoticeDetail() {
+        val request = NoticeRequestVo(noticeType, plubingId, noticeId)
         viewModelScope.launch {
-            getBoardDetailUseCase(request).collect {
-                inspectUiState(it, ::onSuccessGetBoardDetail)
+            getNoticeDetailUseCase(request).collect {
+                inspectUiState(it, ::onSuccessGetNoticeDetail)
             }
         }
     }
 
-    private fun boardChangeClip() {
+    private fun noticeDelete() {
+        val request = NoticeRequestVo(noticeType, plubingId, noticeId)
         viewModelScope.launch {
-            val request = BoardRequestVo(plubingId, feedId)
-            putBoardChangePinUseCase(request).collect {
-                inspectUiState(it, {
-                    getBoardDetail()
-                })
-            }
-        }
-    }
-
-    private fun boardDelete() {
-        viewModelScope.launch {
-            val request = BoardRequestVo(plubingId, feedId)
-            deleteBoardUseCase(request).collect {
+            deleteNoticeUseCase(request).collect {
                 inspectUiState(it, {
                     emitEventFlow(NoticeDetailEvent.Finish)
                 })
@@ -218,9 +208,9 @@ class BoardDetailViewModel @Inject constructor(
     }
 
     private fun commentDelete(commentId:Int) {
+        val request = NoticeRequestVo(noticeType, plubingId, noticeId, commentId)
         viewModelScope.launch {
-            val request = BoardRequestVo(plubingId, feedId, commentId)
-            deleteBoardCommentUseCase(request).collect {
+            deleteNoticeCommentUseCase(request).collect {
                 inspectUiState(it, {
                     updateDeletedCommentList(commentId)
                 })
@@ -229,18 +219,18 @@ class BoardDetailViewModel @Inject constructor(
     }
 
     private fun commentEdit(commentId:Int, comment: String) {
+        val request = NoticeCommentEditRequestVo(plubingId, noticeId, commentId, comment)
         viewModelScope.launch {
-            val request = CommentEditRequestVo(plubingId, feedId, commentId, comment)
-            putBoardCommentEditUseCase(request).collect {
+            putNoticeCommentEditUseCase(request).collect {
                 inspectUiState(it, ::sendCommentEditSuccess)
             }
         }
     }
 
-    private fun onGetNextBoardComments() {
+    private fun onGetNextNoticeComments() {
         isNetworkCall = true
         cursorUpdate()
-        getBoardComments()
+        getNoticeComments()
     }
 
     private fun onSuccessFetchCommentList(vo: BoardCommentListVo) {
@@ -260,8 +250,8 @@ class BoardDetailViewModel @Inject constructor(
         updateAddCommentList(vo)
     }
 
-    private fun onSuccessGetBoardDetail(vo: PlubingBoardVo) {
-        updateBoardVo(vo)
+    private fun onSuccessGetNoticeDetail(vo: NoticeVo) {
+        updateNoticeVo(vo)
         emitEventFlow(NoticeDetailEvent.NotifyBoardDetailInfoNotify)
     }
 
@@ -270,8 +260,8 @@ class BoardDetailViewModel @Inject constructor(
         isLastPage = false
         cursorId = FIRST_CURSOR
         isNetworkCall = true
-        getBoardDetail()
-        getBoardComments()
+        getNoticeDetail()
+        getNoticeComments()
     }
 
     private fun detailInfoAddedList(list: List<BoardCommentVo>):List<BoardCommentVo> {
@@ -280,7 +270,7 @@ class BoardDetailViewModel @Inject constructor(
         }
     }
 
-    private fun sendCommentEditSuccess(vo:BoardCommentVo) {
+    private fun sendCommentEditSuccess(vo: BoardCommentVo) {
         commentEditingInputModeCancel()
         commentClear()
         updateEditCommentList(vo)
@@ -366,9 +356,9 @@ class BoardDetailViewModel @Inject constructor(
         }
     }
 
-    private fun updateBoardVo(vo: PlubingBoardVo) {
+    private fun updateNoticeVo(vo: NoticeVo) {
         viewModelScope.launch {
-            boardVoStateFlow.update { vo }
+            noticeVoStateFlow.update { vo }
         }
     }
 

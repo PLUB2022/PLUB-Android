@@ -13,18 +13,26 @@ data class ParseNoticeVo(
     val title: String = "",
     val content: String = "",
     val createAt: String = "",
-    val isHost: Boolean = false
+    val isHost: Boolean = false,
+    val likeCount: Int = -1,
+    val commentCount: Int = -1,
+    val profileImage: String = "",
+    val nickname: String = "",
 ) : Parcelable {
 
     companion object : ParseModel<ParseNoticeVo, NoticeVo> {
         override fun mapToDomain(vo: ParseNoticeVo): NoticeVo {
             return vo.run {
                 NoticeVo(
-                    noticeId,
-                    title,
-                    content,
-                    createAt,
-                    isHost
+                    noticeId = noticeId,
+                    title = title,
+                    content = content,
+                    createAt = createAt,
+                    isHost = isHost,
+                    likeCount = likeCount,
+                    commentCount = commentCount,
+                    profileImage = profileImage,
+                    nickname = nickname
                 )
             }
         }
