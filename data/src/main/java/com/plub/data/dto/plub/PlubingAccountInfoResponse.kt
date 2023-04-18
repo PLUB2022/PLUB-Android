@@ -8,5 +8,5 @@ data class PlubingAccountInfoResponse(
     @SerializedName("nickname")
     val nickname: String = "",
     @SerializedName("profileImage")
-    val profileImage: String = "",
+    val profileImage: String? = "",
 )

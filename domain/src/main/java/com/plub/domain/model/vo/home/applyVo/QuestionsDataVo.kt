@@ -6,5 +6,6 @@ import com.plub.domain.model.enums.ApplyRecruitQuestionViewType
 data class QuestionsDataVo(
     val id : Int = 0,
     val question : String = "",
+    val answer : String = "",
     val viewType : ApplyRecruitQuestionViewType = ApplyRecruitQuestionViewType.QUESTION,
 ) : DomainModel

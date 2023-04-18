@@ -58,10 +58,11 @@ object Endpoints {
         const val APPLICANTS_RECRUIT = "$RECRUIT_URL/applicants"
         const val APPROVAL_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/approval"
         const val REFUSE_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/refuse"
+        const val CANCEL_APPLICATION = "$APPLICANTS_RECRUIT/me"
         const val RECRUIT_END = "$RECRUIT_URL/end"
         const val RECRUIT_QUESTIONS = "$RECRUIT_URL/questions"
         const val PLUBING_MAIN = "$PLUBBING_ID_URL/main"
-        const val MODIFY_GATHERING_RECRUIT = RECRUIT_URL
+        const val MODIFY_GATHERING_RECRUIT = CANCEL_APPLICATION
 
         object MODIFY_GATHERING {
             const val RECRUIT = RECRUIT_URL
@@ -104,6 +105,8 @@ object Endpoints {
         object MY_PAGE{
             const val BROWSE_MY_GATHERING = "$PLUBBING_URL/all/my"
             const val BROWSE_MY_APPLICATION = "$PLUBBING_URL/{plubbingId}/recruit/applicants/me"
+            const val BROWSE_MY_POST = "$PLUBBING_URL/{plubbingId}/feeds/my"
+            const val BROWSE_MY_TODO = "$PLUBBING_URL/{plubbingId}/timeline/my"
         }
     }
 }

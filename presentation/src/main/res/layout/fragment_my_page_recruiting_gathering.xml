@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.home.profile.recruiting.RecruitingGatheringViewModel" />
+            type="com.plub.presentation.ui.main.profile.recruiting.RecruitingGatheringViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +27,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                app:onThrottleClick="@{()->vm.goToBack()}"
                 android:scaleType="center"
                 android:src="@drawable/ic_back"/>
 

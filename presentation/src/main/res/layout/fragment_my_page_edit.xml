@@ -58,6 +58,7 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="49dp"
+                android:scaleType="centerCrop"
                 android:clipToOutline="true"
                 app:defaultImage="@{@drawable/iv_default_profile}"
                 app:imageUrl="@{vm.uiState.profileImage}"

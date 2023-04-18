@@ -15,7 +15,8 @@ object MyPageMyApplicationMapper : Mapper.ResponseMapper<MyApplicationResponse, 
                     title = plubbingInfo.name,
                     date = plubbingInfo.days,
                     time = plubbingInfo.time,
-                    position = plubbingInfo.address
+                    placeName = plubbingInfo.address,
+                    plubbingId = plubbingInfo.plubbingId
                 ),
                 answerList = answers.map {
                     HostAnswersMapper.mapDtoToModel(it)
