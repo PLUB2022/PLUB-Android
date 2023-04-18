@@ -13,6 +13,7 @@ object Endpoints {
         const val SOCIAL_LOGIN = "$AUTH_URL/login"
         const val SIGN_UP = "$AUTH_URL/signup"
         const val SOCIAL_LOGIN_ADMIN = "$AUTH_URL/login/admin"
+        const val LOGOUT = "$AUTH_URL/logout"
     }
 
     object ACCOUNT {

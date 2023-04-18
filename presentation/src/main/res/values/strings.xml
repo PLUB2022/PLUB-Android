@@ -374,4 +374,6 @@
     <string name="setting_version_title">버전</string>
     <string name="setting_service_argument">서비스 이용 약관</string>
     <string name="setting_personal_info">개인정보 처리 방침</string>
+    <string name="logout_dialog">지금 로그아웃 할까요?</string>
+
 </resources>

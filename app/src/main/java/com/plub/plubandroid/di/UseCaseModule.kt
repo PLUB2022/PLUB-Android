@@ -347,4 +347,10 @@ object UseCaseModule {
     fun providesPutChangePushNotification(repository: AccountRepository): PutChangePushNotificationUseCase {
         return PutChangePushNotificationUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesGetLogoutUseCase(repository: LoginRepository): GetLogoutUseCase {
+        return GetLogoutUseCase(repository)
+    }
 }

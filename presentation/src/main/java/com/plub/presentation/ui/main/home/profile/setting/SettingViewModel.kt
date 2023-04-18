@@ -1,18 +1,21 @@
 package com.plub.presentation.ui.main.home.profile.setting
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.usecase.GetLogoutUseCase
 import com.plub.domain.usecase.PutChangePushNotificationUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
-    private val putChangePushNotificationUseCase: PutChangePushNotificationUseCase
+    private val putChangePushNotificationUseCase: PutChangePushNotificationUseCase,
+    private val getLogoutUseCase: GetLogoutUseCase
 ) : BaseTestViewModel<SettingState>() {
 
     private val isSwitchCheckedStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -37,9 +40,21 @@ class SettingViewModel @Inject constructor(
         emitEventFlow(SettingEvent.GoToFAQ)
     }
 
+    fun showLogoutDialog(){
+        emitEventFlow(SettingEvent.ShowLogoutDialog)
+    }
+
+    fun onClickLogout(){
+        viewModelScope.launch {
+            getLogoutUseCase(Unit).collect{
+                inspectUiState(it, {emitEventFlow(SettingEvent.GoToLogin)})
+            }
+        }
+    }
+
     fun changedSwitchNotify(){
         viewModelScope.launch{
-            putChangePushNotificationUseCase.invoke(!uiState.isSwitchChecked.value).collect{
+            putChangePushNotificationUseCase(!uiState.isSwitchChecked.value).collect{
                 inspectUiState(it, {handleSuccessChangeNotify()})
             }
         }

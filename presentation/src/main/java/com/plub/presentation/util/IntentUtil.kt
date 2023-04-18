@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
 import com.plub.presentation.ui.main.MainActivity
+import com.plub.presentation.ui.sign.SignActivity
 
 object IntentUtil {
     fun getSingleImageIntent(): Intent {
@@ -26,6 +27,10 @@ object IntentUtil {
 
     fun getMainActivityIntent(context:Context): Intent {
         return Intent(context, MainActivity::class.java)
+    }
+
+    fun getSignActivityIntent(context:Context): Intent {
+        return Intent(context, SignActivity::class.java)
     }
 
     fun getFcmPendingIntent(context: Context): PendingIntent {

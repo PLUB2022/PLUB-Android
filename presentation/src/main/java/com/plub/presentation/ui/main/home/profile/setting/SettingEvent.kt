@@ -7,4 +7,6 @@ sealed class SettingEvent : Event {
     object GoToNotice : SettingEvent()
     object GoToEmail : SettingEvent()
     object GoToFAQ : SettingEvent()
+    object GoToLogin : SettingEvent()
+    object ShowLogoutDialog : SettingEvent()
 }
