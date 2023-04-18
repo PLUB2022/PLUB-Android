@@ -8,9 +8,11 @@ import com.plub.domain.usecase.GetMyGatheringUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,6 +41,11 @@ class MyPageViewModel @Inject constructor(
     )
 
     private var isExpandText: Boolean = false
+    private var recruitingList : List<MyPageGatheringVo> = emptyList()
+    private var waitingList : List<MyPageGatheringVo> = emptyList()
+    private var activeList : List<MyPageGatheringVo> = emptyList()
+    private var endList : List<MyPageGatheringVo> = emptyList()
+
 
     fun setMyInfo() {
         viewModelScope.launch {
@@ -55,29 +62,51 @@ class MyPageViewModel @Inject constructor(
 
     fun getMyPageData() {
         viewModelScope.launch {
-            getMyGatheringUseCase(MyPageGatheringStateType.RECRUITING).collect {
-                inspectUiState(it, ::handleGetMyGatheringSuccess)
+            val jobRecruit : Job = launch {
+                getMyGatheringUseCase(MyPageGatheringStateType.RECRUITING).collect {
+                    inspectUiState(it, ::handleGetMyGatheringSuccess)
+                }
             }
 
-            getMyGatheringUseCase(MyPageGatheringStateType.WAITING).collect {
-                inspectUiState(it, ::handleGetMyGatheringSuccess)
+            val jobWait : Job = launch {
+                getMyGatheringUseCase(MyPageGatheringStateType.WAITING).collect {
+                    inspectUiState(it, ::handleGetMyGatheringSuccess)
+                }
             }
 
-            getMyGatheringUseCase(MyPageGatheringStateType.ACTIVE).collect {
-                inspectUiState(it, ::handleGetMyGatheringSuccess)
+            val jobActive : Job = launch {
+                getMyGatheringUseCase(MyPageGatheringStateType.ACTIVE).collect {
+                    inspectUiState(it, ::handleGetMyGatheringSuccess)
+                }
             }
 
-            getMyGatheringUseCase(MyPageGatheringStateType.END).collect {
-                inspectUiState(it, ::handleGetMyGatheringSuccess)
+            val jobEnd : Job = launch {
+                getMyGatheringUseCase(MyPageGatheringStateType.END).collect {
+                    inspectUiState(it, ::handleGetMyGatheringSuccess)
+                }
             }
+
+            joinAll(jobRecruit, jobWait, jobActive, jobEnd)
+            updateMyGathering(recruitingList + waitingList + activeList + endList)
         }
     }
 
     private fun handleGetMyGatheringSuccess(state: MyPageGatheringVo) {
         if (state.gatheringList.isNotEmpty()) {
-            val mutableOriginList = uiState.myPageGatheringList.value.toMutableList()
-            mutableOriginList.add(state)
-            updateMyGathering(mutableOriginList)
+            when(state.gatheringType){
+                MyPageGatheringStateType.ACTIVE -> {
+                    activeList = listOf(state)
+                }
+                MyPageGatheringStateType.END -> {
+                    endList = listOf(state)
+                }
+                MyPageGatheringStateType.WAITING -> {
+                    waitingList = listOf(state)
+                }
+                MyPageGatheringStateType.RECRUITING -> {
+                    recruitingList = listOf(state)
+                }
+            }
         }
     }
 
@@ -97,7 +126,6 @@ class MyPageViewModel @Inject constructor(
                 emitEventFlow(MyPageEvent.GoToActiveGathering(plubbingId, gatheringMyType))
             }
             MyPageGatheringStateType.END -> {}
-            else -> {}
         }
     }
 
