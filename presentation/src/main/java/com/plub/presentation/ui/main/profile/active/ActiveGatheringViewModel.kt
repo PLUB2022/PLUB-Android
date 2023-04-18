@@ -15,9 +15,11 @@ import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParseTodoItemVo
 import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -48,6 +50,9 @@ class ActiveGatheringViewModel @Inject constructor(
     private var cursorId: Int = FIRST_CURSOR
     private var plubingId: Int = 0
     private var gatheringMyType : MyPageGatheringMyType = MyPageGatheringMyType.END
+    private var topList : List<MyPageActiveDetailVo> = emptyList()
+    private var todoList : List<MyPageActiveDetailVo> = emptyList()
+    private var boardList : List<MyPageActiveDetailVo> = emptyList()
 
     fun setPlubIdAndStateType(id: Int, type: MyPageGatheringMyType) {
         plubingId = id
@@ -56,13 +61,19 @@ class ActiveGatheringViewModel @Inject constructor(
 
     fun setView() {
         viewModelScope.launch {
-            getMyToDoWithTitleUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect{
-                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess)
+            val jobMyTodo : Job = launch {
+                getMyToDoWithTitleUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect {
+                    inspectUiState(it, ::handleGetMyToDoWithTitleSuccess)
+                }
             }
 
-            getMyPostUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect {
-                inspectUiState(it, ::handleGetMyPostSuccess)
+            val jobMyPost : Job = launch {
+                getMyPostUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect {
+                    inspectUiState(it, ::handleGetMyPostSuccess)
+                }
             }
+            joinAll(jobMyTodo, jobMyPost)
+            updateDetailList(topList + todoList + boardList)
         }
     }
 
@@ -76,7 +87,7 @@ class ActiveGatheringViewModel @Inject constructor(
         val topView = top.copy(
             viewType = gatheringMyType
         )
-        updateDetailList(getMergedTopList(topView))
+        topList = getMergedTopList(topView)
     }
 
     private fun getMergedTopList(view : MyPageDetailTitleVo) : List<MyPageActiveDetailVo>{
@@ -101,14 +112,8 @@ class ActiveGatheringViewModel @Inject constructor(
     }
 
     private fun updateToDoView(todoList : TodoTimelineListVo){
-        val originList = uiState.detailList.value
-        val mergedList = if (todoList.content.size > MAX_SHOW_COUNT) {
-            setListOverToDoMaxCount(todoList.content)
-        } else {
-            getToDoList(todoList.content)
-        }
-
-        updateDetailList(originList + mergedList)
+        this.todoList = if (todoList.content.size > MAX_SHOW_COUNT) setListOverToDoMaxCount(todoList.content)
+                        else getToDoList(todoList.content)
     }
 
     private fun setListOverToDoMaxCount(list: List<TodoTimelineVo>) : List<MyPageActiveDetailVo> {
@@ -130,23 +135,15 @@ class ActiveGatheringViewModel @Inject constructor(
     }
 
     private fun handleGetMyPostSuccess(state: PlubingBoardListVo) {
-        val originList = uiState.detailList.value
-        val mergedList = if (state.totalElements > MAX_SHOW_COUNT) {
-            setListOverBoardMaxCount(state.content)
-        } else {
-            getMyActiveList(state.content)
-        }
+        boardList = if (state.totalElements > MAX_SHOW_COUNT) setListOverBoardMaxCount(state.content)
+                    else getMyActiveList(state.content)
 
-        updateDetailList(originList + mergedList)
+
     }
 
     private fun setListOverBoardMaxCount(list: List<PlubingBoardVo>) : List<MyPageActiveDetailVo> {
         val contentList = mutableListOf<PlubingBoardVo>()
         for (index in 0 until  MAX_SHOW_COUNT) {
-            if (index == MAX_SHOW_COUNT) {
-                break
-            }
-
             contentList.add(list[index])
         }
 
