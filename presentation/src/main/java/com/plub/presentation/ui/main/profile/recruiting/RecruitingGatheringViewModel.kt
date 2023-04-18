@@ -12,9 +12,12 @@ import com.plub.domain.usecase.FetchPlubingMainUseCase
 import com.plub.domain.usecase.GetRecruitApplicantsUseCase
 import com.plub.domain.usecase.PostApprovalApplicantsRecruitUseCase
 import com.plub.domain.usecase.PostRefuseApplicantsRecruitUseCase
-import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.ui.main.profile.MyPageApplicantsGatheringState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -25,9 +28,16 @@ class RecruitingGatheringViewModel @Inject constructor(
     val postApprovalApplicantsRecruitUseCase: PostApprovalApplicantsRecruitUseCase,
     val postRefuseApplicantsRecruitUseCase: PostRefuseApplicantsRecruitUseCase,
     val fetchPlubingMainUseCase: FetchPlubingMainUseCase
-) : BaseViewModel<MyPageApplicantsGatheringState>(MyPageApplicantsGatheringState()) {
+) : BaseTestViewModel<MyPageApplicantsGatheringState>() {
 
     var plubbingId: Int by Delegates.notNull()
+    private val detailListStateFlow : MutableStateFlow<List<MyPageDetailVo>> = MutableStateFlow(
+        emptyList()
+    )
+
+    override val uiState: MyPageApplicantsGatheringState = MyPageApplicantsGatheringState(
+        detailList = detailListStateFlow.asStateFlow()
+    )
 
     fun getPageDetail(id: Int) {
         this.plubbingId = id
@@ -46,15 +56,10 @@ class RecruitingGatheringViewModel @Inject constructor(
         val topView = MyPageDetailTitleVo(
             title = mainVo.name,
             date = mainVo.days,
-            position = mainVo.placeName,
+            placeName = mainVo.placeName,
             time = mainVo.time,
         )
-
-        updateUiState { uiState ->
-            uiState.copy(
-                detailList = getMergedTopList(topView)
-            )
-        }
+        updateDetailList(getMergedTopList(topView))
     }
 
     private fun getMergedTopList(view: MyPageDetailTitleVo): List<MyPageDetailVo> {
@@ -70,16 +75,14 @@ class RecruitingGatheringViewModel @Inject constructor(
     }
 
     private fun handleGetApplicantsSuccess(state: HostApplicantsResponseVo) {
-        val originList = uiState.value.detailList
+        val originList = uiState.detailList.value
         val mergedList = getMergedList(state.appliedAccounts)
         updateDetailList(originList + mergedList)
     }
 
     private fun updateDetailList(list: List<MyPageDetailVo>) {
-        updateUiState { uiState ->
-            uiState.copy(
-                detailList = list
-            )
+        viewModelScope.launch{
+            detailListStateFlow.update { list }
         }
     }
 
@@ -114,7 +117,7 @@ class RecruitingGatheringViewModel @Inject constructor(
     }
 
     private fun handleReplySuccess(accountId: Int) {
-        val list = uiState.value.detailList.filter {
+        val list = uiState.detailList.value.filter {
             it.application.accountId != accountId
         }
         updateDetailList(list)
@@ -140,5 +143,9 @@ class RecruitingGatheringViewModel @Inject constructor(
 
     fun showRefuseDialog(accountId: Int){
         emitEventFlow(MyPageRecruitingGatheringEvent.ShowRefuseDialog(accountId))
+    }
+
+    fun goToBack(){
+        emitEventFlow(MyPageRecruitingGatheringEvent.GoToBack)
     }
 }

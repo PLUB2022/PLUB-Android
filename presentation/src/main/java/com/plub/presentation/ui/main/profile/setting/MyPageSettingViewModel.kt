@@ -20,9 +20,12 @@ import com.plub.domain.usecase.PostChangeFileUseCase
 import com.plub.domain.usecase.PostUpdateMyInfoUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.R
-import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -35,28 +38,52 @@ class MyPageSettingViewModel @Inject constructor(
     val postUploadFileUseCase: PostUploadFileUseCase,
     val postChangeFileUseCase: PostChangeFileUseCase,
     val postUpdateMyInfoUseCase: PostUpdateMyInfoUseCase
-) : BaseViewModel<MyPageSettingState>(MyPageSettingState()) {
+) : BaseTestViewModel<MyPageSettingState>() {
 
     private var isNetworkCall:Boolean = false
     private var cameraTempImageUri: Uri? = null
 
+    private val profileImageStateFlow: MutableStateFlow<String?> = MutableStateFlow("")
+    private val originProfileStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private var nicknameStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private var introduceStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val originNicknameStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val originIntroduceStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val introduceCountStateFlow : MutableStateFlow<SpannableString> = MutableStateFlow(SpannableString(""))
+    private val nicknameDescriptionStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val nicknameIsActiveStateFlow: MutableStateFlow<Boolean?> = MutableStateFlow(false)
+    private val nicknameIsChangedStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val isSaveButtonEnableStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
+
+    override val uiState: MyPageSettingState = MyPageSettingState(
+        profileImage = profileImageStateFlow.asStateFlow(),
+        originProfile = originProfileStateFlow.asStateFlow(),
+        nickname = nicknameStateFlow,
+        introduce = introduceStateFlow,
+        originNickname = originNicknameStateFlow.asStateFlow(),
+        originIntroduce = originIntroduceStateFlow.asStateFlow(),
+        introduceCount = introduceCountStateFlow.asStateFlow(),
+        nicknameDescription = nicknameDescriptionStateFlow.asStateFlow(),
+        nicknameIsActive = nicknameIsActiveStateFlow.asStateFlow(),
+        nicknameIsChanged = nicknameIsChangedStateFlow.asStateFlow(),
+        isSaveButtonEnable = isSaveButtonEnableStateFlow.asStateFlow()
+    )
+
     fun onInitProfile() {
-        updateUiState { ui ->
-            ui.copy(
-                profileImage = PlubUser.info.profileImage,
-                originProfile = PlubUser.info.profileImage,
-                nickname = PlubUser.info.nickname,
-                originNickname = PlubUser.info.nickname,
-                introduce = PlubUser.info.introduce,
-                originIntroduce = PlubUser.info.introduce,
-                introduceCount = getIntroduceCountSpannableString(PlubUser.info.introduce.length.toString())
-            )
+        viewModelScope.launch {
+            profileImageStateFlow.update { PlubUser.info.profileImage }
+            originProfileStateFlow.update { PlubUser.info.profileImage }
+            nicknameStateFlow.update { PlubUser.info.nickname }
+            originNicknameStateFlow.update { PlubUser.info.nickname }
+            introduceStateFlow.update { PlubUser.info.introduce }
+            originIntroduceStateFlow.update { PlubUser.info.introduce }
+            introduceCountStateFlow.update { getIntroduceCountSpannableString(PlubUser.info.introduce.length.toString()) }
         }
         onTextChangedAfter()
     }
 
     fun onTextChangedAfter() {
-        val nickname = uiState.value.nickname
+        val nickname = uiState.nickname.value
         if(nickname == PlubUser.info.nickname){
             handleNicknameCheckSuccess(true)
         }else{
@@ -133,10 +160,8 @@ class MyPageSettingViewModel @Inject constructor(
     }
 
     private fun defaultImage() {
-        updateUiState { uiState ->
-            uiState.copy(
-                profileImage = null
-            )
+        viewModelScope.launch {
+            profileImageStateFlow.update { null }
         }
     }
 
@@ -157,23 +182,21 @@ class MyPageSettingViewModel @Inject constructor(
     }
 
     private fun updateNicknameState(isActiveNickname: Boolean?, nicknameDescriptionRes: Int) {
-        updateUiState { uiState ->
-            uiState.copy(
-                nicknameIsActive = isActiveNickname,
-                nicknameIsChanged = uiState.nickname != uiState.originNickname,
-                nicknameDescription = resourceProvider.getString(nicknameDescriptionRes)
-            )
+        viewModelScope.launch {
+            nicknameIsActiveStateFlow.update { isActiveNickname }
+            nicknameIsChangedStateFlow.update { uiState.nickname.value != uiState.originNickname.value }
+            nicknameDescriptionStateFlow.update { resourceProvider.getString(nicknameDescriptionRes) }
         }
     }
 
     private fun uploadProfileFile(file: File) {
         viewModelScope.launch {
-            if(uiState.value.profileImage.isNullOrEmpty())
+            if(uiState.profileImage.value.isNullOrEmpty())
                 postUploadFileUseCase(UploadFileRequestVo(UploadFileType.PROFILE, file)).collect{
                     inspectUiState(it, ::handleUploadImageSuccess)
                 }
             else
-                uiState.value.profileImage?.let{
+                uiState.profileImage.value?.let{
                     postChangeFileUseCase(ChangeFileRequestVo(UploadFileType.PROFILE,
                         it, file)).collect{
                         inspectUiState(it, ::handleUploadImageSuccess)
@@ -184,31 +207,25 @@ class MyPageSettingViewModel @Inject constructor(
     }
 
     private fun handleUploadImageSuccess(state : UploadFileResponseVo){
-        updateUiState { uiState ->
-            uiState.copy(
-                profileImage = state.fileUrl
-            )
+        viewModelScope.launch {
+            profileImageStateFlow.update { state.fileUrl }
         }
     }
 
     private fun updateNickname(nickname: String) {
-        updateUiState { uiState ->
-            uiState.copy(
-                nickname = nickname
-            )
+        viewModelScope.launch {
+            nicknameStateFlow.update { nickname }
         }
     }
 
     fun onIntroChangedAfter() {
-        val introduce: String = uiState.value.introduce
+        val introduce: String = uiState.introduce.value
         updateIntroduceState(introduce)
     }
 
     private fun updateIntroduceState(introduce:String) {
-        updateUiState { uiState ->
-            uiState.copy(
-                introduceCount = getIntroduceCountSpannableString(introduce.length.toString())
-            )
+        viewModelScope.launch {
+            introduceCountStateFlow.update { getIntroduceCountSpannableString(introduce.length.toString()) }
         }
     }
 
@@ -234,9 +251,9 @@ class MyPageSettingViewModel @Inject constructor(
 
     fun updateMyInfo(){
         val request = UpdateMyInfoRequestVo(
-            nickname = uiState.value.nickname,
-            introduce = uiState.value.introduce,
-            profileImageUrl = uiState.value.profileImage
+            nickname = uiState.nickname.value,
+            introduce = uiState.introduce.value,
+            profileImageUrl = uiState.profileImage.value
         )
         viewModelScope.launch {
             postUpdateMyInfoUseCase(request).collect{
@@ -248,6 +265,14 @@ class MyPageSettingViewModel @Inject constructor(
     private fun handleUpdateMyInfoSuccess(vo : MyInfoResponseVo){
         PlubUser.updateInfo(vo)
         emitEventFlow(MyPageSettingEvent.GoToBack)
+    }
+
+    fun updateButtonState(){
+        val enable = uiState.introduce.value.isNotEmpty() && uiState.nickname.value.isNotEmpty() &&
+                ((uiState.introduce.value != uiState.originIntroduce.value) || (uiState.nickname.value != uiState.originNickname.value) || (uiState.profileImage.value != uiState.originProfile.value)) && uiState.nicknameIsActive.value == true
+        viewModelScope.launch{
+            isSaveButtonEnableStateFlow.update { enable }
+        }
     }
 
 }

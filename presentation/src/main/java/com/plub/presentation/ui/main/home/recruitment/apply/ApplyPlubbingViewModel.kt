@@ -14,6 +14,7 @@ import com.plub.domain.model.vo.myPage.MyPageMyApplicationVo
 import com.plub.domain.usecase.GetMyApplicationUseCase
 import com.plub.domain.usecase.PostApplyRecruitUseCase
 import com.plub.domain.usecase.GetRecruitQuestionUseCase
+import com.plub.domain.usecase.PutModifyMyApplicationUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -25,10 +26,12 @@ class ApplyPlubbingViewModel @Inject constructor(
     private val getRecruitQuestionUseCase: GetRecruitQuestionUseCase,
     private val postApplyRecruitUseCase: PostApplyRecruitUseCase,
     private val getMyApplicationUseCase: GetMyApplicationUseCase,
+    private val putModifyMyApplicationUseCase: PutModifyMyApplicationUseCase
 ) : BaseViewModel<ApplyPageState>(ApplyPageState()) {
 
     companion object{
         const val EMPTY_TEXT = ""
+        const val FIRST_INDEX = 0
     }
     private var answerList : List<ApplicantsRecruitAnswerVo> = emptyList()
     private var plubbingId : Int = 0
@@ -82,7 +85,7 @@ class ApplyPlubbingViewModel @Inject constructor(
 
     private fun getAnswerMergeList(data: List<AnswersVo>): List<QuestionsDataVo> {
         val mergedList: MutableList<QuestionsDataVo> = mutableListOf()
-        mergedList.add(0, QuestionsDataVo(viewType = ApplyRecruitQuestionViewType.FIRST))
+        mergedList.add(FIRST_INDEX, QuestionsDataVo(viewType = ApplyRecruitQuestionViewType.FIRST))
         data.forEach {
             mergedList.add(
                 QuestionsDataVo(
@@ -121,9 +124,24 @@ class ApplyPlubbingViewModel @Inject constructor(
     }
 
     fun applyRecruit() {
+        when(uiState.value.pageType){
+            ApplyModifyApplicationType.APPLY -> applyButton()
+            ApplyModifyApplicationType.MODIFY -> modifyButton()
+        }
+    }
+
+    private fun applyButton(){
         viewModelScope.launch {
             postApplyRecruitUseCase(ApplicantsRecruitRequestVo(plubbingId, answerList)).collect { state ->
                 inspectUiState(state, { successApply() } )
+            }
+        }
+    }
+
+    private fun modifyButton(){
+        viewModelScope.launch {
+            putModifyMyApplicationUseCase(ApplicantsRecruitRequestVo(plubbingId, answerList)).collect{
+                inspectUiState(it, { backPage() })
             }
         }
     }

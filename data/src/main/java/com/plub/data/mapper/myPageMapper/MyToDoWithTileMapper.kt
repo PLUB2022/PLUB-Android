@@ -15,7 +15,7 @@ object MyToDoWithTileMapper : Mapper.ResponseMapper<MyToDoResponse, MyPageToDoWi
                     title = plubbingInfo.name,
                     date = plubbingInfo.days,
                     time = plubbingInfo.time,
-                    position = plubbingInfo.address,
+                    placeName = plubbingInfo.address,
                     plubbingId = plubbingInfo.plubbingId
                 ),
                 todoTimelineListVo = TodoTimelineListVo(

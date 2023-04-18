@@ -11,21 +11,24 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.presentation.R
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageSettingBinding
+import com.plub.presentation.ui.common.dialog.CommonDialog
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
-import com.plub.presentation.ui.main.profile.setting.dialog.MyPageSettingConfirmDialogFragment
-import com.plub.presentation.util.GlideUtil
 import com.plub.presentation.util.IntentUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MyPageSettingFragment :
-    BaseFragment<FragmentMyPageSettingBinding, MyPageSettingState, MyPageSettingViewModel>(
+    BaseTestFragment<FragmentMyPageSettingBinding, MyPageSettingState, MyPageSettingViewModel>(
         FragmentMyPageSettingBinding::inflate
     ) {
+
+    @Inject
+    lateinit var commonDialog: CommonDialog
 
     private lateinit var albumLauncher: ActivityResultLauncher<Intent>
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
@@ -77,8 +80,26 @@ class MyPageSettingFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    nicknameIsActiveState(it.nicknameIsActive)
+                viewModel.uiState.nicknameIsActive.collect {
+                    nicknameIsActiveState(it)
+                }
+            }
+
+            launch {
+                viewModel.uiState.nickname.collect{
+                    viewModel.updateButtonState()
+                }
+            }
+
+            launch {
+                viewModel.uiState.introduce.collect{
+                    viewModel.updateButtonState()
+                }
+            }
+
+            launch {
+                viewModel.uiState.profileImage.collect{
+                    viewModel.updateButtonState()
                 }
             }
 
@@ -143,11 +164,16 @@ class MyPageSettingFragment :
     }
 
     private fun showConfirmDialog() {
-        MyPageSettingConfirmDialogFragment(object : MyPageSettingConfirmDialogFragment.Delegate {
-            override fun onYesButtonClick() {
+        commonDialog
+            .setTitle(R.string.my_page_setting_question_change_nickname)
+            .setDescription(R.string.my_page_setting_introduce_about_changing_nickname)
+            .setPositiveButton(R.string.my_page_setting_change_yes) {
                 viewModel.updateMyInfo()
+                commonDialog.dismiss()
             }
-
-        }).show(childFragmentManager, "")
+            .setNegativeButton(R.string.word_cancel) {
+                commonDialog.dismiss()
+            }
+            .show()
     }
 }

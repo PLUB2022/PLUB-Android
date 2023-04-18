@@ -230,6 +230,10 @@ class MyPageAllMyTodoViewModel @Inject constructor(
         emitEventFlow(MyPageAllMyTodoEvent.GoToPlannerTodo(date))
     }
 
+    fun goToDefaultPlanner(){
+        emitEventFlow(MyPageAllMyTodoEvent.GoToPlannerTodo(""))
+    }
+
     fun onClickTodoLike(timelineId: Int) {
         putTodoLikeToggle(timelineId) {
             val replacedList = getTimelineListItemReplaced(timelineId, it)
@@ -257,7 +261,7 @@ class MyPageAllMyTodoViewModel @Inject constructor(
     }
 
 
-    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onFetchTodoList()
+    fun onScrollChanged() {
+        if (!isLastPage && !isNetworkCall) onFetchTodoList()
     }
 }

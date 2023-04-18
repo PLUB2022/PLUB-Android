@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class DeleteMyApplicationUseCase @Inject constructor(
     private val applicantsRepository: ApplicantsRepository
-) : UseCase<Int, Flow<UiState<Int>>>() {
-    override suspend operator fun invoke(request: Int): Flow<UiState<Int>> {
+) : UseCase<Int, Flow<UiState<Unit>>>() {
+    override suspend operator fun invoke(request: Int): Flow<UiState<Unit>> {
         return applicantsRepository.deleteMyApplication(request)
     }
 }

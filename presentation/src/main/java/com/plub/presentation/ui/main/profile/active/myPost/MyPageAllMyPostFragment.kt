@@ -7,17 +7,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.vo.board.PlubingBoardVo
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageAllMyPostBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.plubing.board.adapter.PlubingBoardAdapter
 import com.plub.presentation.util.PlubingInfo
+import com.plub.presentation.util.infiniteScrolls
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MyPageAllMyPostFragment :
-    BaseFragment<FragmentMyPageAllMyPostBinding, MyPageAllMyPostState, MyPageAllMyPostViewModel>(
+    BaseTestFragment<FragmentMyPageAllMyPostBinding, MyPageAllMyPostState, MyPageAllMyPostViewModel>(
         FragmentMyPageAllMyPostBinding::inflate
     ) {
 
@@ -48,17 +49,7 @@ class MyPageAllMyPostFragment :
             recyclerViewPostList.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = boardListAdapter
-
-                addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        val lastVisiblePosition =
-                            (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                        val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
-                        val isDownScroll = dy > 0
-                        viewModel.onScrollChanged(isBottom, isDownScroll)
-                    }
-                })
+                infiniteScrolls { viewModel.onScrollChanged() }
             }
         }
         viewModel.setPlubId(PlubingInfo.info.plubingId)
@@ -70,8 +61,8 @@ class MyPageAllMyPostFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    boardListAdapter.submitList(it.boardList)
+                viewModel.uiState.boardList.collect {
+                    boardListAdapter.submitList(it)
                 }
             }
 
@@ -90,7 +81,6 @@ class MyPageAllMyPostFragment :
             is MyPageAllMyPostEvent.GoToEditBoard -> goToEditBoard(event.feedId)
             is MyPageAllMyPostEvent.GoToReportBoard -> goToReport()
             is MyPageAllMyPostEvent.GoToPinBoard -> goToPinBoard()
-            is MyPageAllMyPostEvent.ScrollToPosition -> scrollToPosition(event.position)
             is MyPageAllMyPostEvent.GoToBack -> findNavController().popBackStack()
         }
     }

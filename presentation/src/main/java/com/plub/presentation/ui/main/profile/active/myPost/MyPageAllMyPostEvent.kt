@@ -10,5 +10,4 @@ sealed class MyPageAllMyPostEvent : Event {
     data class GoToDetailBoard(val feedId:Int) : MyPageAllMyPostEvent()
     object GoToPinBoard : MyPageAllMyPostEvent()
     object GoToBack : MyPageAllMyPostEvent()
-    data class ScrollToPosition(val position:Int) : MyPageAllMyPostEvent()
 }

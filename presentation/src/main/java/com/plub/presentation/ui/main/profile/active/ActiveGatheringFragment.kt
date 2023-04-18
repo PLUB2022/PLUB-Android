@@ -11,12 +11,9 @@ import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageActiveGatheringBinding
 import com.plub.presentation.parcelableVo.ParseTodoItemVo
-import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.todo.TodoCheckProofDialog
-import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
 import com.plub.presentation.ui.main.profile.active.adapter.ActiveGatheringParentAdapter
-import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File
@@ -26,10 +23,6 @@ class ActiveGatheringFragment :
     BaseTestFragment<FragmentMyPageActiveGatheringBinding, ActiveGatheringPageState, ActiveGatheringViewModel>(
         FragmentMyPageActiveGatheringBinding::inflate
     ) {
-
-    companion object{
-        const val VERTICAL_SPACE = 24
-    }
 
     private val activeGatheringFragmentArgs : ActiveGatheringFragmentArgs by navArgs()
 
@@ -81,7 +74,6 @@ class ActiveGatheringFragment :
 
             recyclerViewMyPageContent.apply {
                 layoutManager = LinearLayoutManager(context)
-                addItemDecoration(VerticalSpaceDecoration(VERTICAL_SPACE.px))
                 adapter = activeGatheringParentAdapter
             }
 
