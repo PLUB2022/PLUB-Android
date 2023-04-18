@@ -54,9 +54,9 @@ class CommonDialog @Inject constructor(@ActivityContext private val context: Con
         return this
     }
 
-    fun setDescription(message: CharSequence?): CommonDialog {
+    fun setDescription(message: CharSequence): CommonDialog {
         binding.textViewDescription.apply {
-            if(message.isNullOrEmpty()) visibility = View.GONE
+            if(message.isEmpty()) visibility = View.GONE
             else {
                 visibility = View.VISIBLE
                 text = message
