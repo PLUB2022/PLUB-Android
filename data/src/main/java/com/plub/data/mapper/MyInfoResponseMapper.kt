@@ -11,10 +11,11 @@ object MyInfoResponseMapper : Mapper.ResponseMapper<MyInfoResponse, MyInfoRespon
                 email = email,
                 nickname = nickname,
                 socialType = socialType,
-                profileImage = profileImage,
                 birthday = birthday,
                 gender = gender,
-                introduce = introduce
+                introduce = introduce,
+                profileImage = profileImage,
+                isReceivedPushNotification = isReceivedPushNotification
             )
         } ?: MyInfoResponseVo()
     }

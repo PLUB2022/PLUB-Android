@@ -55,7 +55,7 @@
                 android:focusable="false"
                 android:checked="@{vm.uiState.isSwitchChecked()}"
                 android:background="@null"
-                android:onCheckedChanged="@{()->vm.changedSwitchNotify()}"
+                app:onThrottleClick="@{()->vm.changedSwitchNotify()}"
                 app:track="@drawable/selector_switch_track"
                 android:thumb="@drawable/bg_switch_thumb_white"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -31,6 +31,7 @@ class SettingFragment :
         binding.apply {
             vm = viewModel
         }
+
     }
 
     override fun initStates() {

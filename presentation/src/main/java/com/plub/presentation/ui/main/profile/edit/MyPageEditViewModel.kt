@@ -263,7 +263,9 @@ class MyPageEditViewModel @Inject constructor(
     }
 
     private fun handleUpdateMyInfoSuccess(vo : MyInfoResponseVo){
-        PlubUser.updateInfo(vo)
+        PlubUser.updateInfo(vo.copy(
+            isReceivedPushNotification = PlubUser.info.isReceivedPushNotification
+        ))
         emitEventFlow(MyPageEditEvent.GoToBack)
     }
 
