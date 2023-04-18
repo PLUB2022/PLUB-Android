@@ -8,6 +8,7 @@
     <string name="app_name">presentation</string>
     <string name="web_google_client_id">746494448016-j25cuo21ut0ofgbba9h4n6b63502uimi.apps.googleusercontent.com</string>
     <string name="kakao_redirect_url_key">kakao5c988e60cc77ac9ad664f1f37293ee2d</string>
+    <string name="plub_emil">plub2023@gmail.com</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fragment_text_category_name_art">예술</string>
     <string name="fragment_text_category_name_food">음식</string>
@@ -346,6 +347,7 @@
     <string name="my_page_gathering_host">호스트</string>
     <string name="my_page_gathering_guest">게스트</string>
     <string name="my_page_gathering_end">종료</string>
+    <string name="my_page_gathering_exit">탈퇴</string>
     <string name="my_page_reject">거절하기</string>
     <string name="my_page_cancel_application">지원 취소</string>
     <string name="my_page_modify">수정</string>
@@ -365,6 +367,8 @@
     <string name="my_page_again_approve">해당 지원자를\n받으시겠어요?</string>
     <string name="my_page_again_refuse">해당 지원자를\n거절하시겠어요?</string>
     <string name="my_page_again_cancel">이 모임에 참여하고 싶지\n않으신가요?</string>
+    <string name="my_page_empty_text">새로운 모임에 참여해 보세요!</string>
+    <string name="my_page_see_other_gathering">모임 둘러보기</string>
     <string name="plub_home_create_gathering">+ 새 모임 만들기</string>
 
     <string name="archive_gathering">모임 아카이브</string>
@@ -378,6 +382,23 @@
     <string name="archive_update_please_enter_title">제목을 입력해주세요</string>
     <string name="archive_update_photo">사진</string>
     <string name="archive_add_image">사진 추가</string>
-    <string name="my_page_empty_text">새로운 모임에 참여해 보세요!</string>
-    <string name="my_page_see_other_gathering">모임 둘러보기</string>
+
+    <string name="setting_title">설정</string>
+    <string name="setting_plub_title">PLUB 이용</string>
+    <string name="setting_notice">공지사항</string>
+    <string name="setting_email">이메일로 문의하기</string>
+    <string name="setting_question">FAQ</string>
+    <string name="setting_account_title">계정</string>
+    <string name="setting_notification">모임 알림</string>
+    <string name="setting_logout">로그아웃</string>
+    <string name="setting_inactivation">비활성화</string>
+    <string name="setting_withdrawal">탈퇴</string>
+    <string name="setting_version_title">버전</string>
+    <string name="setting_service_argument">서비스 이용 약관</string>
+    <string name="setting_personal_info">개인정보 처리 방침</string>
+    <string name="logout_dialog">지금 로그아웃 할까요?</string>
+    <string name="inactivation_dialog">계정을 비활성화 할까요?</string>
+    <string name="inactivation_dialog_description">계정을 비활성화 하면 모든 모임에서\n자동으로 탈퇴 처리되고,\n다시 로그인 시 비활성화가 해제됩니다.</string>
+    <string name="revoke_dialog">지금 탈퇴 할까요?</string>
+
 </resources>

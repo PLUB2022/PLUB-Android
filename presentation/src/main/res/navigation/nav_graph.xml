@@ -281,6 +281,14 @@
         tools:layout="@layout/fragment_my_page">
 
         <action
+            android:id="@+id/my_page_to_active_gathering"
+            app:destination="@id/myPageActiveGatheringFragment" />
+
+        <action
+            android:id="@+id/my_page_to_home"
+            app:destination="@id/menu_navigation_main" />
+
+        <action
             android:id="@+id/my_page_to_recruiting_gathering"
             app:destination="@id/myPageRecruitingGatheringFragment" />
 
@@ -289,16 +297,12 @@
             app:destination="@id/myPageWaitingGatheringFragment" />
 
         <action
-            android:id="@+id/my_page_to_active_gathering"
-            app:destination="@id/myPageActiveGatheringFragment" />
+            android:id="@+id/my_page_to_edit"
+            app:destination="@id/myPageEditFragment"/>
 
         <action
-            android:id="@+id/my_page_to_setting"
-            app:destination="@id/myPageSettingFragment" />
-
-        <action
-            android:id="@+id/my_page_to_home"
-            app:destination="@id/menu_navigation_main" />
+            android:id="@+id/action_my_page_to_setting"
+            app:destination="@id/settingFragment" />
 
     </fragment>
     <fragment
@@ -357,13 +361,20 @@
         android:name="com.plub.presentation.ui.main.profile.MyPageFragment"
         android:label="MyPageFragment"
         tools:layout="@layout/fragment_my_page">
+
     </fragment>
 
     <fragment
-        android:id="@+id/myPageSettingFragment"
-        android:name="com.plub.presentation.ui.main.profile.setting.MyPageSettingFragment"
+        android:id="@+id/settingFragment"
+        android:name="com.plub.presentation.ui.main.profile.setting.SettingFragment"
+        android:label="SettingFragment"
+        tools:layout="@layout/fragment_setting" />
+
+    <fragment
+        android:id="@+id/myPageEditFragment"
+        android:name="com.plub.presentation.ui.main.profile.edit.MyPageEditFragment"
         android:label="MyPageSettingFragment"
-        tools:layout="@layout/fragment_my_page_setting" />
+        tools:layout="@layout/fragment_my_page_edit" />
 
     <fragment
         android:id="@+id/myPageRecruitingGatheringFragment"

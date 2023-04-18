@@ -158,4 +158,8 @@ class MyPageViewModel @Inject constructor(
     fun goToHome(){
         emitEventFlow(MyPageEvent.GoToHome)
     }
+
+    fun goToEdit(){
+        emitEventFlow(MyPageEvent.GoToEdit)
+    }
 }

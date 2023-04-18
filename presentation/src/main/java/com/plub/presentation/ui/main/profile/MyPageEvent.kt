@@ -7,6 +7,7 @@ sealed class MyPageEvent : Event {
     data class GoToMyApplication(val plubbingId : Int) : MyPageEvent()
     data class GoToOtherApplication(val plubbingId : Int) : MyPageEvent()
     data class GoToActiveGathering(val plubbingId: Int, val gatheringType : MyPageGatheringMyType) : MyPageEvent()
+    object GoToEdit : MyPageEvent()
     object GoToSetting : MyPageEvent()
     object GoToHome : MyPageEvent()
     data class ReadMore(val isExpandText : Boolean) : MyPageEvent()

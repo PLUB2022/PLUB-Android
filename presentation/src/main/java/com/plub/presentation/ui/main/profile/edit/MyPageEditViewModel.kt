@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.profile.setting
+package com.plub.presentation.ui.main.profile.edit
 
 import android.net.Uri
 import android.text.Spannable
@@ -31,14 +31,14 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class MyPageSettingViewModel @Inject constructor(
+class MyPageEditViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
     val imageUtil: ImageUtil,
     val getNicknameCheckUseCase: GetNicknameCheckUseCase,
     val postUploadFileUseCase: PostUploadFileUseCase,
     val postChangeFileUseCase: PostChangeFileUseCase,
     val postUpdateMyInfoUseCase: PostUpdateMyInfoUseCase
-) : BaseTestViewModel<MyPageSettingState>() {
+) : BaseTestViewModel<MyPageEditState>() {
 
     private var isNetworkCall:Boolean = false
     private var cameraTempImageUri: Uri? = null
@@ -55,7 +55,7 @@ class MyPageSettingViewModel @Inject constructor(
     private val nicknameIsChangedStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val isSaveButtonEnableStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
-    override val uiState: MyPageSettingState = MyPageSettingState(
+    override val uiState: MyPageEditState = MyPageEditState(
         profileImage = profileImageStateFlow.asStateFlow(),
         originProfile = originProfileStateFlow.asStateFlow(),
         nickname = nicknameStateFlow,
@@ -105,7 +105,7 @@ class MyPageSettingViewModel @Inject constructor(
 
     fun onClickProfileImage() {
         checkPermission {
-            emitEventFlow(MyPageSettingEvent.ShowSelectImageBottomSheetDialog)
+            emitEventFlow(MyPageEditEvent.ShowSelectImageBottomSheetDialog)
         }
     }
 
@@ -113,10 +113,10 @@ class MyPageSettingViewModel @Inject constructor(
         when(type) {
             DialogMenuItemType.CAMERA_IMAGE -> {
                 cameraTempImageUri = imageUtil.getUriFromTempFileInExternalDir().also {
-                    emitEventFlow(MyPageSettingEvent.GoToCamera(it))
+                    emitEventFlow(MyPageEditEvent.GoToCamera(it))
                 }
             }
-            DialogMenuItemType.ALBUM_IMAGE -> emitEventFlow(MyPageSettingEvent.GoToAlbum)
+            DialogMenuItemType.ALBUM_IMAGE -> emitEventFlow(MyPageEditEvent.GoToAlbum)
             else -> defaultImage()
         }
     }
@@ -137,7 +137,7 @@ class MyPageSettingViewModel @Inject constructor(
 
     private fun emitCropImageAndOptimizeEvent(uri: Uri) {
         emitEventFlow(
-            MyPageSettingEvent.CropImageAndOptimize(
+            MyPageEditEvent.CropImageAndOptimize(
                 imageUtil.getCropImageOptions(uri)
             )
         )
@@ -238,7 +238,7 @@ class MyPageSettingViewModel @Inject constructor(
     }
 
     fun saveChangedNickName(){
-        emitEventFlow(MyPageSettingEvent.ShowDialog)
+        emitEventFlow(MyPageEditEvent.ShowDialog)
     }
 
     fun saveChangedOnlyIntro() {
@@ -246,7 +246,7 @@ class MyPageSettingViewModel @Inject constructor(
     }
 
     fun onClickBackButton(){
-        emitEventFlow(MyPageSettingEvent.GoToBack)
+        emitEventFlow(MyPageEditEvent.GoToBack)
     }
 
     fun updateMyInfo(){
@@ -264,7 +264,7 @@ class MyPageSettingViewModel @Inject constructor(
 
     private fun handleUpdateMyInfoSuccess(vo : MyInfoResponseVo){
         PlubUser.updateInfo(vo)
-        emitEventFlow(MyPageSettingEvent.GoToBack)
+        emitEventFlow(MyPageEditEvent.GoToBack)
     }
 
     fun updateButtonState(){

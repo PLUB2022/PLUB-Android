@@ -13,6 +13,7 @@ object Endpoints {
         const val SOCIAL_LOGIN = "$AUTH_URL/login"
         const val SIGN_UP = "$AUTH_URL/signup"
         const val SOCIAL_LOGIN_ADMIN = "$AUTH_URL/login/admin"
+        const val LOGOUT = "$AUTH_URL/logout"
     }
 
     object ACCOUNT {
@@ -23,6 +24,7 @@ object Endpoints {
         const val UPDATE_PROFILE = "$FETCH_MY_INFO/profile"
         const val REGIST_INTEREST = "$ACCOUNT_URL/interest"
         const val BROWSE_INTEREST = "$ACCOUNT_URL/interest"
+        const val CHANGE_PUSH_NOTIFICATION = FETCH_MY_INFO
     }
 
     object CATEGORY {

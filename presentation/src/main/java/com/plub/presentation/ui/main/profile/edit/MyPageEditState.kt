@@ -1,11 +1,11 @@
-package com.plub.presentation.ui.main.profile.setting
+package com.plub.presentation.ui.main.profile.edit
 
 import android.text.SpannableString
 import com.plub.presentation.ui.PageState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-data class MyPageSettingState(
+data class MyPageEditState(
     val profileImage: StateFlow<String?>,
     val originProfile : StateFlow<String>,
     var nickname: MutableStateFlow<String>,
@@ -14,7 +14,7 @@ data class MyPageSettingState(
     val originIntroduce : StateFlow<String>,
     val introduceCount : StateFlow<SpannableString>,
     val nicknameDescription: StateFlow<String>,
-    val nicknameIsActive:StateFlow<Boolean?>,
-    val nicknameIsChanged :StateFlow<Boolean>,
+    val nicknameIsActive: StateFlow<Boolean?>,
+    val nicknameIsChanged : StateFlow<Boolean>,
     val isSaveButtonEnable : StateFlow<Boolean>
 ) : PageState

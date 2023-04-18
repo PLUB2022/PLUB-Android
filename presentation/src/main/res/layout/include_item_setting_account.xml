@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.profile.setting.SettingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginHorizontal="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rectangle_filled_white_radius_10">
+
+        <TextView
+            android:id="@+id/text_view_setting_account_title"
+            android:layout_marginTop="19dp"
+            android:layout_marginStart="11dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/setting_account_title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_notification"
+            app:layout_constraintTop_toBottomOf="@id/text_view_setting_account_title"
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="12dp"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:text="@string/setting_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_notification"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginVertical="4dp"
+                android:layout_marginEnd="8dp"
+                android:focusable="false"
+                android:checked="@{vm.uiState.isSwitchChecked()}"
+                android:background="@null"
+                android:onCheckedChanged="@{()->vm.changedSwitchNotify()}"
+                app:track="@drawable/selector_switch_track"
+                android:thumb="@drawable/bg_switch_thumb_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_notification"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:background="@color/color_f2f2f2"
+            android:layout_height="1dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_logout"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_notification"
+            android:layout_marginTop="17dp"
+            app:onThrottleClick="@{()->vm.showLogoutDialog()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="12dp"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:text="@string/setting_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/ic_arrow_right"
+                android:scaleType="center"
+                android:layout_width="20dp"
+                android:layout_marginEnd="12dp"
+                android:layout_height="20dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_logout"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:background="@color/color_f2f2f2"
+            android:layout_height="1dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_inactivation"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_logout"
+            android:layout_marginTop="17dp"
+            app:onThrottleClick="@{()->vm.showInactivationDialog()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="12dp"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:text="@string/setting_inactivation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/ic_arrow_right"
+                android:scaleType="center"
+                android:layout_width="20dp"
+                android:layout_marginEnd="12dp"
+                android:layout_height="20dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_inactivation"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:background="@color/color_f2f2f2"
+            android:layout_height="1dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_withdrawal"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_inactivation"
+            android:layout_marginTop="17dp"
+            android:paddingBottom="8dp"
+            app:onThrottleClick="@{()->vm.showRevokeDialog()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="12dp"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:text="@string/setting_withdrawal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginVertical="8dp"
+                android:src="@drawable/ic_arrow_right"
+                android:scaleType="center"
+                android:layout_width="20dp"
+                android:layout_marginEnd="12dp"
+                android:layout_height="20dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

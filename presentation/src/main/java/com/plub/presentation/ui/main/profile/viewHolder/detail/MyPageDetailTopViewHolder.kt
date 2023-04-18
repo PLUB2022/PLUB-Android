@@ -33,7 +33,7 @@ class MyPageDetailTopViewHolder(
                     textViewGatheringState.text = root.context.getString(R.string.my_page_gathering_guest)
                     textViewGatheringState.setTextColor(root.context.getColor(R.color.color_5f5ff9))
                 }
-                MyPageGatheringMyType.END -> {}
+                else -> {}
             }
             val days = item.date.joinToString(SEPARATOR_OF_DAY)
             val time = TimeFormatter.getAmPmHourMin(item.time)
