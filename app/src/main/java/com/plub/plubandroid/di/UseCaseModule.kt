@@ -341,4 +341,10 @@ object UseCaseModule {
     fun providesDeleteFileUseCase(repository: MediaRepository): DeleteFileUseCase {
         return DeleteFileUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesPutChangePushNotification(repository: AccountRepository): PutChangePushNotificationUseCase {
+        return PutChangePushNotificationUseCase(repository)
+    }
 }
