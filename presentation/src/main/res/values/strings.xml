@@ -40,6 +40,7 @@
     <string name="word_friday">금요일</string>
     <string name="word_saturday">토요일</string>
     <string name="word_sunday">일요일</string>
+    <string name="word_today">오늘</string>
     <string name="word_all_day">요일 무관</string>
     <string name="word_online">온라인</string>
     <string name="word_offline">오프라인</string>
@@ -67,6 +68,8 @@
     <string name="word_alarm">알림</string>
     <string name="word_memo">메모</string>
     <string name="word_middle_hyphen">%s - %s</string>
+    <string name="word_no">아니오</string>
+    <string name="word_yes">네</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>
@@ -280,6 +283,7 @@
     <string name="apply_plubbing_title">함께 하기 위한 질문</string>
     <string name="apply_plubbing_descrip">우리와 함께 하는 것에 대한 질문입니다. 상세하게 적어줄 수록 당신의 취미 레벨을 선정하기 쉬워집니다.</string>
     <string name="apply_plubbing_apply_button">지원하기</string>
+    <string name="apply_plubbing_save_button">저장하기</string>
     <string name="apply_plubbing_question">%d. %s</string>
 
     <string name="detail_recruitment_see_others">모임 둘러보기</string>
@@ -333,6 +337,7 @@
     <string name="my_page_active_gathering">활동 중인 모임</string>
     <string name="my_page_end_gathering">종료된 모임</string>
     <string name="my_page_go_recruit">모집글 바로가기</string>
+    <string name="my_page_go_gathering">모임 바로가기</string>
     <string name="my_page_my_application">나의 지원서</string>
     <string name="my_page_other_application">지원자 내역</string>
     <string name="my_page_no_application">지원가 없습니다!</string>
@@ -340,6 +345,8 @@
     <string name="my_page_gathering_guest">게스트</string>
     <string name="my_page_gathering_end">종료</string>
     <string name="my_page_reject">거절하기</string>
+    <string name="my_page_cancel_application">지원 취소</string>
+    <string name="my_page_modify">수정</string>
     <string name="my_page_approve">받기</string>
     <string name="my_page_complete_answer">%s 답변 작성완료</string>
 
@@ -347,6 +354,15 @@
     <string name="my_page_setting_change_yes">네, 할게요</string>
     <string name="my_page_setting_question_change_nickname">닉네임을 변경할까요?</string>
     <string name="my_page_setting_introduce_about_changing_nickname">닉네임 변경은 1회만 가능해요.\n 지금 변경한 닉네임은 탈퇴 시까지 사용됩니다</string>
+
+    <string name="my_page_my_todo">My To-Do</string>
+    <string name="my_page_my_post">My 게시글</string>
+    <string name="my_page_see_all">전체보기</string>
+    <string name="my_page_go_add_todo">TO-DO 추가하러 가기</string>
+    <string name="my_page_go_add_post">새 게시글 작성하기</string>
+    <string name="my_page_again_approve">해당 지원자를\n받으시겠어요?</string>
+    <string name="my_page_again_refuse">해당 지원자를\n거절하시겠어요?</string>
+    <string name="my_page_again_cancel">이 모임에 참여하고 싶지\n않으신가요?</string>
 
     <string name="archive_gathering">모임 아카이브</string>
     <string name="archive_upload">업로드</string>
@@ -359,4 +375,6 @@
     <string name="archive_update_please_enter_title">제목을 입력해주세요</string>
     <string name="archive_update_photo">사진</string>
     <string name="archive_add_image">사진 추가</string>
+    <string name="my_page_empty_text">새로운 모임에 참여해 보세요!</string>
+    <string name="my_page_see_other_gathering">모임 둘러보기</string>
 </resources>

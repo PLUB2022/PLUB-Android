@@ -9,7 +9,7 @@ import com.plub.presentation.ui.main.home.recruitment.apply.adapter.QuestionsAda
 
 class QuestionsViewHolder(
     private val binding: IncludeItemQuestionBinding,
-    private val listener : QuestionsAdapter.QuestionsDegelate
+    private val listener : QuestionsAdapter.QuestionsDelegate
 ) : RecyclerView.ViewHolder(binding.root) {
     private var itemVo : QuestionsDataVo? = null
 
@@ -26,6 +26,8 @@ class QuestionsViewHolder(
         itemVo = item
         binding.apply {
             textViewQuestion.text = root.context.getString(R.string.apply_plubbing_question, number, item.question)
+            editTextAnswer.setText(item.answer)
+            textViewNowText.text = editTextAnswer.text.length.toString()
         }
     }
 

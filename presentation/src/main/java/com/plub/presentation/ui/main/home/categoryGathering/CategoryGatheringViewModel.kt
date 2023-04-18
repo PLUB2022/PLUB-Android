@@ -53,7 +53,6 @@ class CategoryGatheringViewModel @Inject constructor(
     private var cursorId: Int = FIRST_CURSOR
     private var isLast : Boolean = true
     private var isNetworkCall: Boolean = false
-    private val loading = PlubCardVo(viewType = PlubCardType.LOADING)
 
 
     fun updateCategoryName(name : String){
@@ -62,10 +61,12 @@ class CategoryGatheringViewModel @Inject constructor(
         }
     }
 
-    fun fetchRecommendationGatheringData(id: Int, body : GatheringFilterState) =
+    fun fetchRecommendationGatheringData(id : Int, body : GatheringFilterState) =
         viewModelScope.launch {
+            cursorId = FIRST_CURSOR
             categoryId = id
             isNetworkCall = true
+            clearCardList()
             val paramsVo = CategoriesGatheringParamsVo(categoryId, uiState.sortType.value.key, cursorId)
             val bodyVo = getBodyVo(body)
             categoriesGatheringUseCase(
@@ -120,16 +121,25 @@ class CategoryGatheringViewModel @Inject constructor(
             }
         }
 
+    private fun updateCardList(list : List<PlubCardVo>){
+        viewModelScope.launch{
+            cardListStateFlow.update { list }
+            isEmptyViewVisibleStateFlow.update { list.isEmpty() }
+        }
+    }
+
+    private fun clearCardList(){
+        viewModelScope.launch{
+            cardListStateFlow.update { emptyList() }
+        }
+    }
+
     private fun successResult(vo: PlubCardListVo) {
         isNetworkCall = false
         isLast = vo.last
         val mappedList = mapToCardType(vo.content)
         val mergedList = getMergeList(mappedList)
-        viewModelScope.launch{
-            cardListStateFlow.update { mergedList }
-            isEmptyViewVisibleStateFlow.update { mergedList.isEmpty() }
-        }
-        cursorId++
+        updateCardList(mergedList)
     }
 
 
