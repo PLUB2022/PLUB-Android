@@ -53,6 +53,8 @@ class SettingFragment :
             is SettingEvent.GoToNotice -> goToNotice()
             is SettingEvent.GoToLogin -> goToSign()
             is SettingEvent.ShowLogoutDialog -> showLogoutDialog()
+            is SettingEvent.ShowInactivationDialog -> showInactivationDialog()
+            is SettingEvent.ShowRevokeDialog -> showRevokeDialog()
         }
     }
 
@@ -82,6 +84,33 @@ class SettingFragment :
             .setTitle(R.string.logout_dialog)
             .setPositiveButton(R.string.my_page_setting_change_yes) {
                 viewModel.onClickLogout()
+                commonDialog.dismiss()
+            }
+            .setNegativeButton(R.string.word_cancel) {
+                commonDialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showInactivationDialog(){
+        commonDialog
+            .setTitle(R.string.inactivation_dialog)
+            .setDescription(R.string.inactivation_dialog_description)
+            .setPositiveButton(R.string.my_page_setting_change_yes) {
+                viewModel.onClickInactivation()
+                commonDialog.dismiss()
+            }
+            .setNegativeButton(R.string.word_cancel) {
+                commonDialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showRevokeDialog(){
+        commonDialog
+            .setTitle(R.string.revoke_dialog)
+            .setPositiveButton(R.string.my_page_setting_change_yes) {
+                viewModel.onClickRevoke()
                 commonDialog.dismiss()
             }
             .setNegativeButton(R.string.word_cancel) {

@@ -65,4 +65,12 @@ class SettingViewModel @Inject constructor(
             isSwitchCheckedStateFlow.update { !uiState.isSwitchChecked.value }
         }
     }
+
+    fun onClickInactivation(){
+
+    }
+
+    fun onClickRevoke(){
+
+    }
 }

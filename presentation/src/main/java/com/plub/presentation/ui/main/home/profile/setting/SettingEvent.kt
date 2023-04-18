@@ -9,4 +9,6 @@ sealed class SettingEvent : Event {
     object GoToFAQ : SettingEvent()
     object GoToLogin : SettingEvent()
     object ShowLogoutDialog : SettingEvent()
+    object ShowInactivationDialog : SettingEvent()
+    object ShowRevokeDialog : SettingEvent()
 }

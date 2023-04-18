@@ -375,5 +375,8 @@
     <string name="setting_service_argument">서비스 이용 약관</string>
     <string name="setting_personal_info">개인정보 처리 방침</string>
     <string name="logout_dialog">지금 로그아웃 할까요?</string>
+    <string name="inactivation_dialog">계정을 비활성화 할까요?</string>
+    <string name="inactivation_dialog_description">계정을 비활성화 하면 모든 모임에서\n자동으로 탈퇴 처리되고,\n다시 로그인 시 비활성화가 해제됩니다.</string>
+    <string name="revoke_dialog">지금 탈퇴 할까요?</string>
 
 </resources>
