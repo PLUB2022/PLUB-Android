@@ -189,6 +189,10 @@
         <action
             android:id="@+id/action_plubing_main_to_plubing_todo_detail"
             app:destination="@id/todoDetailFragment" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_plubing_archive"
+            app:destination="@id/archiveFragment" />
     </fragment>
 
     <fragment
