@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_plubing_main_to_schedule"
             app:destination="@+id/plubingScheduleFragment" />
+        <action
+            android:id="@+id/action_main_to_archive"
+            app:destination="@id/archiveFragment" />
     </fragment>
 
     <fragment
@@ -398,5 +401,31 @@
         <argument
             android:name="plubbingId"
             app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/archiveFragment"
+        android:name="com.plub.presentation.ui.main.archive.ArchiveFragment"
+        android:label="fragment_archive"
+        tools:layout="@layout/fragment_archive">
+        <action
+            android:id="@+id/action_archive_to_update"
+            app:destination="@id/archiveUpdateFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/archiveUpdateFragment"
+        android:name="com.plub.presentation.ui.main.archive.upload.ArchiveUploadFragment"
+        android:label="fragment_archive_update"
+        tools:layout="@layout/fragment_archive_update">
+        <argument
+            android:name="type"
+            app:argType="integer"/>
+        <argument
+            android:name="archiveId"
+            app:argType="integer"/>
+        <argument
+            android:name="image"
+            app:argType="string"/>
     </fragment>
 </navigation>
