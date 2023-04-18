@@ -109,6 +109,7 @@ class SettingFragment :
     private fun showRevokeDialog(){
         commonDialog
             .setTitle(R.string.revoke_dialog)
+            .setDescription("")
             .setPositiveButton(R.string.my_page_setting_change_yes) {
                 viewModel.onClickRevoke()
                 commonDialog.dismiss()

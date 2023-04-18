@@ -44,6 +44,14 @@ class SettingViewModel @Inject constructor(
         emitEventFlow(SettingEvent.ShowLogoutDialog)
     }
 
+    fun showInactivationDialog(){
+        emitEventFlow(SettingEvent.ShowInactivationDialog)
+    }
+
+    fun showRevokeDialog(){
+        emitEventFlow(SettingEvent.ShowRevokeDialog)
+    }
+
     fun onClickLogout(){
         viewModelScope.launch {
             getLogoutUseCase(Unit).collect{
