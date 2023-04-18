@@ -9,7 +9,6 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageBinding
 import com.plub.presentation.ui.main.profile.adapter.MyPageParentGatheringAdapter
-import com.plub.presentation.ui.main.home.profile.adapter.MyPageParentGatheringAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

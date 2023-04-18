@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.profile.edit
+package com.plub.presentation.ui.main.profile.edit
 
 import android.net.Uri
 import com.canhub.cropper.CropImageContractOptions

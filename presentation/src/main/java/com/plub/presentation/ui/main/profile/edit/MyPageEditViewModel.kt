@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.profile.edit
+package com.plub.presentation.ui.main.profile.edit
 
 import android.net.Uri
 import android.text.Spannable
@@ -23,12 +23,9 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-<<<<<<<< HEAD:presentation/src/main/java/com/plub/presentation/ui/main/home/profile/edit/MyPageEditViewModel.kt
-========
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
->>>>>>>> origin/develop:presentation/src/main/java/com/plub/presentation/ui/main/profile/setting/MyPageSettingViewModel.kt
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -58,7 +55,7 @@ class MyPageEditViewModel @Inject constructor(
     private val nicknameIsChangedStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val isSaveButtonEnableStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
-    override val uiState: MyPageSettingState = MyPageSettingState(
+    override val uiState: MyPageEditState = MyPageEditState(
         profileImage = profileImageStateFlow.asStateFlow(),
         originProfile = originProfileStateFlow.asStateFlow(),
         nickname = nicknameStateFlow,

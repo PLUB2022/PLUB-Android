@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.profile.edit
+package com.plub.presentation.ui.main.profile.edit
 
 import android.app.Activity
 import android.content.Intent
@@ -11,10 +11,10 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.presentation.R
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageEditBinding
+import com.plub.presentation.ui.common.dialog.CommonDialog
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
-import com.plub.presentation.ui.main.home.profile.edit.dialog.MyPageEditConfirmDialogFragment
 import com.plub.presentation.util.IntentUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyPageEditFragment :
-    BaseFragment<FragmentMyPageEditBinding, MyPageEditState, MyPageEditViewModel>(
+    BaseTestFragment<FragmentMyPageEditBinding, MyPageEditState, MyPageEditViewModel>(
         FragmentMyPageEditBinding::inflate) {
 
     @Inject
