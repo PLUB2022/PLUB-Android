@@ -31,13 +31,15 @@ class MyPageViewModel @Inject constructor(
     private val myNameStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val myIntroStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val profileImageStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val isEmptyStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     override val uiState: MyPageState = MyPageState(
         myPageGatheringList = myPageGatheringListStateFlow.asStateFlow(),
         isReadMore = isReadMoreStateFlow.asStateFlow(),
         myName = myNameStateFlow.asStateFlow(),
         myIntro = myIntroStateFlow.asStateFlow(),
-        profileImage = profileImageStateFlow.asStateFlow()
+        profileImage = profileImageStateFlow.asStateFlow(),
+        isEmpty = isEmptyStateFlow.asStateFlow()
     )
 
     private var isExpandText: Boolean = false
@@ -140,6 +142,7 @@ class MyPageViewModel @Inject constructor(
     private fun updateMyGathering(list: List<MyPageGatheringVo>) {
         viewModelScope.launch {
             myPageGatheringListStateFlow.update { list }
+            isEmptyStateFlow.update { list.isEmpty() }
         }
     }
 
@@ -150,5 +153,9 @@ class MyPageViewModel @Inject constructor(
 
     fun goToSetting() {
         emitEventFlow(MyPageEvent.GoToSetting)
+    }
+
+    fun goToHome(){
+        emitEventFlow(MyPageEvent.GoToHome)
     }
 }

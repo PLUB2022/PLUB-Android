@@ -309,6 +309,10 @@
             android:id="@+id/my_page_to_setting"
             app:destination="@id/myPageSettingFragment" />
 
+        <action
+            android:id="@+id/my_page_to_home"
+            app:destination="@id/menu_navigation_main" />
+
     </fragment>
     <fragment
         android:id="@+id/modifyGatheringFragment"

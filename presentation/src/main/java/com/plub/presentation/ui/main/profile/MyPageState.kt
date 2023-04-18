@@ -10,4 +10,5 @@ data class MyPageState(
     val myName : StateFlow<String>,
     val myIntro : StateFlow<String>,
     val profileImage : StateFlow<String>,
+    val isEmpty : StateFlow<Boolean>
 ) : PageState

@@ -375,4 +375,6 @@
     <string name="archive_update_please_enter_title">제목을 입력해주세요</string>
     <string name="archive_update_photo">사진</string>
     <string name="archive_add_image">사진 추가</string>
+    <string name="my_page_empty_text">새로운 모임에 참여해 보세요!</string>
+    <string name="my_page_see_other_gathering">모임 둘러보기</string>
 </resources>
