@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.profile.setting
+package com.plub.presentation.ui.main.profile.setting
 
 import com.plub.presentation.ui.PageState
 import kotlinx.coroutines.flow.StateFlow

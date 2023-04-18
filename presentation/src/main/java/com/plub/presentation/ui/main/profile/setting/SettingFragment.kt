@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.home.profile.setting
+package com.plub.presentation.ui.main.profile.setting
 
 import android.content.Intent
 import android.net.Uri

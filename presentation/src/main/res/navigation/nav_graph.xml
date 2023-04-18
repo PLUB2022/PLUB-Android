@@ -379,7 +379,7 @@
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.plub.presentation.ui.main.home.profile.setting.SettingFragment"
+        android:name="com.plub.presentation.ui.main.profile.setting.SettingFragment"
         android:label="SettingFragment"
         tools:layout="@layout/fragment_setting" />
 
