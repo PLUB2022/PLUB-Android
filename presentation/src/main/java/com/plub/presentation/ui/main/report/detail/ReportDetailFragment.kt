@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.enums.ReportReasonType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentReportDetailBinding
@@ -24,8 +25,8 @@ class ReportDetailFragment : BaseFragment<FragmentReportDetailBinding, ReportDet
 
     private val reportItemAdapter : ReportItemAdapter by lazy {
         ReportItemAdapter(object : ReportItemAdapter.Delegate{
-            override fun onClickReport(type: String) {
-                viewModel.getReportList()
+            override fun onClickReport(type: ReportReasonType) {
+                viewModel.setNowReport(type)
                 viewModel.onClickSpinner()
             }
         })
@@ -42,7 +43,7 @@ class ReportDetailFragment : BaseFragment<FragmentReportDetailBinding, ReportDet
             }
         }
 
-        viewModel.getReportList()
+        viewModel.setNowReport()
     }
 
     override fun initStates() {

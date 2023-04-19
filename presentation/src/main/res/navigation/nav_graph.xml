@@ -521,6 +521,9 @@
         android:label="ReportFragment"
         tools:layout="@layout/fragment_report">
 
+        <argument
+            android:name="type"
+            app:argType="com.plub.domain.model.sealed.ReportType"/>
         <action
             android:id="@+id/action_report_to_detail"
             app:destination="@id/reportDetailFragment" />
@@ -533,8 +536,12 @@
         tools:layout="@layout/fragment_report_detail">
 
         <argument
-            android:name="type"
-            app:argType="integer" />
+            android:name="targetType"
+            app:argType="com.plub.domain.model.sealed.ReportType"/>
+
+        <argument
+            android:name="reasonType"
+            app:argType="com.plub.domain.model.enums.ReportReasonType" />
 
         <action
             android:id="@+id/action_report_detail_to_complete"

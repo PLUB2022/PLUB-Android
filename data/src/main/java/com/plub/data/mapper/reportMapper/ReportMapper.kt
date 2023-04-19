@@ -8,7 +8,7 @@ object ReportMapper: Mapper.ResponseMapper<ReportResponse, ReportVo> {
     override fun mapDtoToModel(type: ReportResponse?): ReportVo {
         return type?.run {
             ReportVo(
-                reportList = data.map {
+                reportList = reportList.map {
                     ReportItemMapper.mapDtoToModel(it)
                 }
             )

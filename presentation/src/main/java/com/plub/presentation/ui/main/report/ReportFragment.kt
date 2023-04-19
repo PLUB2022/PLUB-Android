@@ -2,7 +2,9 @@ package com.plub.presentation.ui.main.report
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.enums.ReportReasonType
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentReportBinding
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
@@ -17,13 +19,16 @@ class ReportFragment : BaseTestFragment<FragmentReportBinding, ReportState, Repo
 ) {
 
     override val viewModel: ReportViewModel by viewModels()
+    companion object{
+        const val VERTICAL_SPACE = 8
+    }
 
+    private val reportFragmentArgs : ReportFragmentArgs by navArgs()
     private val reportItemAdapter : ReportItemAdapter by lazy {
         ReportItemAdapter(object : ReportItemAdapter.Delegate{
-            override fun onClickReport(type: String) {
-                viewModel.goToReportDetailPage()
+            override fun onClickReport(type: ReportReasonType) {
+                viewModel.goToReportDetailPage(type)
             }
-
         })
     }
 
@@ -33,7 +38,7 @@ class ReportFragment : BaseTestFragment<FragmentReportBinding, ReportState, Repo
 
             recyclerViewReportList.apply {
                 layoutManager = LinearLayoutManager(context)
-                addItemDecoration(VerticalSpaceDecoration(8.px))
+                addItemDecoration(VerticalSpaceDecoration(VERTICAL_SPACE.px))
                 adapter = reportItemAdapter
             }
         }
@@ -64,8 +69,11 @@ class ReportFragment : BaseTestFragment<FragmentReportBinding, ReportState, Repo
         }
     }
 
-    private fun goToReportDetail(type : Int){
-        val action = ReportFragmentDirections.actionReportToDetail(type)
+    private fun goToReportDetail(reasonType : ReportReasonType){
+        val action = ReportFragmentDirections.actionReportToDetail(
+            targetType = reportFragmentArgs.type,
+            reasonType = reasonType
+        )
         findNavController().navigate(action)
     }
 }

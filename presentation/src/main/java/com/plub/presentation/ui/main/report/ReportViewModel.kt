@@ -2,6 +2,7 @@ package com.plub.presentation.ui.main.report
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.ReportBackgroundType
+import com.plub.domain.model.enums.ReportReasonType
 import com.plub.domain.model.vo.report.ReportItemVo
 import com.plub.domain.model.vo.report.ReportVo
 import com.plub.domain.usecase.GetReportUseCase
@@ -45,7 +46,7 @@ class ReportViewModel @Inject constructor(
         }
     }
 
-    fun goToReportDetailPage(){
-        emitEventFlow(ReportEvent.GoToReport(0))
+    fun goToReportDetailPage(reasonType : ReportReasonType){
+        emitEventFlow(ReportEvent.GoToReport(reasonType))
     }
 }

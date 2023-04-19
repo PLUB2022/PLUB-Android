@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.enums.ReportReasonType
 import com.plub.domain.model.vo.report.ReportItemVo
 import com.plub.presentation.databinding.IncludeItemReportContentBinding
 
@@ -13,7 +14,7 @@ class ReportItemAdapter(
 ) : ListAdapter<ReportItemVo, RecyclerView.ViewHolder>(ReportItemDiffCallBack()) {
 
     interface Delegate {
-        fun onClickReport(type:String)
+        fun onClickReport(type:ReportReasonType)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
