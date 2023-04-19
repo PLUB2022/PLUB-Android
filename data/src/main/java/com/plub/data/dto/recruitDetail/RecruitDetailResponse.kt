@@ -39,6 +39,8 @@ data class RecruitDetailResponse(
     val curAccountNum : Int = -1,
     @SerializedName("remainAccountNum")
     val remainAccountNum : Int = -1,
+    @SerializedName("isHost")
+    val isHost : Boolean = false,
     @SerializedName("joinedAccounts")
     val joinedAccounts : List<RecruitDetailJoinedAccountsDataResponse> = emptyList()
 ):DataDto

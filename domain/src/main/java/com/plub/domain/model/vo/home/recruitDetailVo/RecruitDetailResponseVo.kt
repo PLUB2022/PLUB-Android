@@ -19,5 +19,6 @@ data class RecruitDetailResponseVo(
     val isBookmarked : Boolean = false,
     val isApplied : Boolean = false,
     val curAccountNum : Int = -1,
+    val isHost : Boolean = false,
     val joinedAccounts : List<RecruitDetailJoinedAccountsVo> = emptyList()
 ) : DomainModel

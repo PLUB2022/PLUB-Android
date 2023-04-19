@@ -30,8 +30,8 @@ class CategoryGatheringFragment :
                 viewModel.clickBookmark(plubbingId)
             }
 
-            override fun onClickPlubCard(id: Int, isHost: Boolean) {
-                viewModel.goToDetailRecruitment(id, isHost)
+            override fun onClickPlubCard(id: Int) {
+                viewModel.goToDetailRecruitment(id)
             }
         })
     }
@@ -46,10 +46,9 @@ class CategoryGatheringFragment :
             initCategoryRecommendRecyclerView()
         }
 
-        viewModel.updateCategoryName(categoryChoiceFragmentArgs.categoryName)
+        viewModel.updateCategoryNameWithId(categoryChoiceFragmentArgs.categoryName, categoryChoiceFragmentArgs.categoryId)
 
         viewModel.fetchRecommendationGatheringData(
-            categoryChoiceFragmentArgs.categoryId,
             categoryChoiceFragmentArgs.filter
         )
     }
@@ -131,10 +130,7 @@ class CategoryGatheringFragment :
             is CategoryGatheringEvent.ScrollTop -> {
                 recyclerScrollToTop()
             }
-            is CategoryGatheringEvent.GoToHostRecruit -> {
-                goToHostRecruitment(event.id)
-            }
-            CategoryGatheringEvent.GoToFilter -> {
+            is CategoryGatheringEvent.GoToFilter -> {
                 goToCategoryGatheringFilter()
             }
         }
@@ -167,13 +163,6 @@ class CategoryGatheringFragment :
             CategoryGatheringFragmentDirections.actionCategoryGatheringToRecruitment(plubbingId)
         findNavController().navigate(action)
     }
-
-    private fun goToHostRecruitment(plubbingId: Int) {
-        val action =
-            CategoryGatheringFragmentDirections.actionCategoryGatheringToHostRecruitment(plubbingId)
-        findNavController().navigate(action)
-    }
-
 
     private fun recyclerScrollToTop() {
         binding.recyclerViewCategoryChoiceList.scrollToPosition(0)

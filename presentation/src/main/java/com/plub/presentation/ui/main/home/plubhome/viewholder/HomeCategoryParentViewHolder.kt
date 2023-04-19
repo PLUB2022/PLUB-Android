@@ -25,16 +25,15 @@ class HomeCategoryParentViewHolder (
     }
 
     init {
-
-    }
-
-
-    fun bind(item: List<CategoriesDataResponseVo>) {
-        homeAdapter.submitList(item)
         binding.recyclerViewCategory.apply {
             layoutManager = GridLayoutManager(context, ITEM_SPAN)
             addItemDecoration(GridSpaceDecoration(ITEM_SPAN, 8.px, VERTICAL_SPACE.px, false))
             adapter = homeAdapter
         }
+    }
+
+
+    fun bind(item: List<CategoriesDataResponseVo>) {
+        homeAdapter.submitList(item)
     }
 }

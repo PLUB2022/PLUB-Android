@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.databinding.BottomSheetRecruitSeeMoreProfileBinding
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
+import com.plub.presentation.ui.main.profile.bottomsheet.BottomSheetProfileFragment
 import com.plub.presentation.util.px
 
 class ProfileBottomSheetFragment(private val profileList : List<RecruitDetailJoinedAccountsVo>) : BottomSheetDialogFragment() {
@@ -22,8 +25,8 @@ class ProfileBottomSheetFragment(private val profileList : List<RecruitDetailJoi
 
     private val bottomSheetProfileAdapter: BottomSheetProfileAdapter by lazy {
         BottomSheetProfileAdapter(object : BottomSheetProfileAdapter.ProfileDelegate {
-            override fun onProfileClick(accountId: Int) {
-                goToProfile(accountId)
+            override fun onProfileClick(accountId: Int, nickname : String) {
+                goToProfile(accountId, nickname)
             }
         })
     }
@@ -38,6 +41,7 @@ class ProfileBottomSheetFragment(private val profileList : List<RecruitDetailJoi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
         bottomSheetProfileAdapter.submitList(profileList)
 
         binding.recyclerViewAllProfile.apply {
@@ -47,7 +51,16 @@ class ProfileBottomSheetFragment(private val profileList : List<RecruitDetailJoi
         }
     }
 
-    private fun goToProfile(accountId : Int){
+    private fun goToProfile(accountId : Int, nickname : String){
+        val bottomSheetProfileFragment = BottomSheetProfileFragment.newInstance(
+            accountId = accountId,
+            nickName = nickname,
+            plubbingId = 1
+        )
+        bottomSheetProfileFragment.show(
+            parentFragmentManager,
+            bottomSheetProfileFragment.tag
+        )
         dismiss()
     }
 }

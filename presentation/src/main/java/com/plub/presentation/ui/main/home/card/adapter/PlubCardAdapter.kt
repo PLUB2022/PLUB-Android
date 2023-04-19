@@ -20,7 +20,7 @@ class PlubCardAdapter(
 
     interface Delegate {
         fun onClickBookmark(id: Int)
-        fun onClickPlubCard(id: Int, isHost : Boolean)
+        fun onClickPlubCard(id: Int)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

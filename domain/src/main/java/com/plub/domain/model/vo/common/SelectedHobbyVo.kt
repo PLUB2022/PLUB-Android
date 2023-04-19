@@ -4,4 +4,4 @@ data class SelectedHobbyVo(
     val parentId:Int,
     val subId:Int,
     val name: String
-)
+) :java.io.Serializable

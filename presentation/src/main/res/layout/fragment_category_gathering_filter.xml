@@ -12,248 +12,262 @@
         <import type="com.plub.domain.model.enums.DaysType" />
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/image_view_back"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="3dp"
-            app:onThrottleClick="@{()->vm.onClickBack()}"
-            android:layout_marginTop="12dp"
-            android:scaleType="center"
-            android:src="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/button_complete"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/text_view_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="@{vm.uiState.categoryName}"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_view_back"
-            tools:text="춤" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/text_view_sub_category_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/category_gathering_filter_sub_category"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_category" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_sub_hobbies"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            android:overScrollMode="never"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_sub_category_title" />
+                <ImageView
+                    android:id="@+id/image_view_back"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="12dp"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:onThrottleClick="@{()->vm.onClickBack()}" />
 
-        <TextView
-            android:id="@+id/text_view_gathering_day_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/category_gathering_filter_day"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recycler_view_sub_hobbies" />
+                <TextView
+                    android:id="@+id/text_view_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@{vm.uiState.categoryName}"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/image_view_back"
+                    tools:text="춤" />
 
-        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_mon"
-            style="@style/create_gathering_day_fixed_text_width_check_box"
-            day="@{DaysType.MON}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="16dp"
-            app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.MON)}"
-            app:layout_constraintEnd_toStartOf="@id/check_box_tue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_gathering_day_title"
-            app:text="@string/word_monday"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
+                <TextView
+                    android:id="@+id/text_view_sub_category_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/category_gathering_filter_sub_category"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_category" />
 
-        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_tue"
-            style="@style/create_gathering_day_fixed_text_width_check_box"
-            day="@{DaysType.TUE}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_marginEnd="12dp"
-            app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.TUE)}"
-            app:layout_constraintEnd_toStartOf="@id/check_box_wed"
-            app:layout_constraintStart_toEndOf="@id/check_box_mon"
-            app:layout_constraintTop_toTopOf="@id/check_box_mon"
-            app:text="@string/word_tuesday"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_sub_hobbies"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:overScrollMode="never"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_sub_category_title" />
 
-        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_wed"
-            style="@style/create_gathering_day_fixed_text_width_check_box"
-            day="@{DaysType.WED}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_marginEnd="12dp"
-            app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.WED)}"
-            app:layout_constraintEnd_toStartOf="@id/check_box_thr"
-            app:layout_constraintStart_toEndOf="@id/check_box_tue"
-            app:layout_constraintTop_toTopOf="@id/check_box_tue"
-            app:text="@string/word_wednesday"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
+                <TextView
+                    android:id="@+id/text_view_gathering_day_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/category_gathering_filter_day"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycler_view_sub_hobbies" />
 
-        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_thr"
-            style="@style/create_gathering_day_fixed_text_width_check_box"
-            day="@{DaysType.THR}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_marginEnd="16dp"
-            app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.THR)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/check_box_wed"
-            app:layout_constraintTop_toTopOf="@id/check_box_wed"
-            app:text="@string/word_thursday"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_mon"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.MON}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/check_box_tue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_gathering_day_title"
+                    app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.MON)}"
+                    app:text="@string/word_monday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
 
-        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_fri"
-            style="@style/create_gathering_day_fixed_text_width_check_box"
-            day="@{DaysType.FRI}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="16dp"
-            app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.FRI)}"
-            app:layout_constraintEnd_toStartOf="@id/check_box_sat"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/check_box_mon"
-            app:text="@string/word_friday"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_tue"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.TUE}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/check_box_wed"
+                    app:layout_constraintStart_toEndOf="@id/check_box_mon"
+                    app:layout_constraintTop_toTopOf="@id/check_box_mon"
+                    app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.TUE)}"
+                    app:text="@string/word_tuesday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
 
-        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_sat"
-            style="@style/create_gathering_day_fixed_text_width_check_box"
-            day="@{DaysType.SAT}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_marginEnd="12dp"
-            app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.SAT)}"
-            app:layout_constraintEnd_toStartOf="@id/check_box_sun"
-            app:layout_constraintStart_toEndOf="@id/check_box_fri"
-            app:layout_constraintTop_toTopOf="@id/check_box_fri"
-            app:text="@string/word_saturday"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_wed"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.WED}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/check_box_thr"
+                    app:layout_constraintStart_toEndOf="@id/check_box_tue"
+                    app:layout_constraintTop_toTopOf="@id/check_box_tue"
+                    app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.WED)}"
+                    app:text="@string/word_wednesday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
 
-        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_sun"
-            style="@style/create_gathering_day_fixed_text_width_check_box"
-            day="@{DaysType.SUN}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            android:layout_marginEnd="12dp"
-            app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.SUN)}"
-            app:layout_constraintEnd_toStartOf="@id/check_box_all"
-            app:layout_constraintStart_toEndOf="@id/check_box_sat"
-            app:layout_constraintTop_toTopOf="@id/check_box_sat"
-            app:text="@string/word_sunday"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_thr"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.THR}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/check_box_wed"
+                    app:layout_constraintTop_toTopOf="@id/check_box_wed"
+                    app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.THR)}"
+                    app:text="@string/word_thursday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
 
-        <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
-            android:id="@+id/check_box_all"
-            style="@style/create_gathering_day_fixed_text_width_check_box"
-            day="@{DaysType.ALL}"
-            dayHashSet="@{vm.uiState.gatheringDays}"
-            app:onThrottleClick="@{() -> vm.onClickAllCheckBox()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toEndOf="@id/check_box_sun"
-            app:layout_constraintTop_toTopOf="@id/check_box_sun"
-            app:text="@string/word_all_day"
-            tools:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
-            tools:layout_height="40dp"
-            tools:layout_width="80dp" />
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_fri"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.FRI}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/check_box_sat"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/check_box_mon"
+                    app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.FRI)}"
+                    app:text="@string/word_friday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
 
-        <TextView
-            android:id="@+id/text_view_people"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/category_gathering_people"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/check_box_all" />
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_sat"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.SAT}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/check_box_sun"
+                    app:layout_constraintStart_toEndOf="@id/check_box_fri"
+                    app:layout_constraintTop_toTopOf="@id/check_box_fri"
+                    app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.SAT)}"
+                    app:text="@string/word_saturday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@{@string/category_gathering_filter_people(vm.uiState.peopleNumber)}"
-            android:textColor="@color/color_5f5ff9"
-            tools:text="4명"
-            app:layout_constraintBottom_toBottomOf="@id/text_view_people"
-            app:layout_constraintStart_toEndOf="@id/text_view_people"
-            app:layout_constraintTop_toTopOf="@id/text_view_people" />
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_sun"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.SUN}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/check_box_all"
+                    app:layout_constraintStart_toEndOf="@id/check_box_sat"
+                    app:layout_constraintTop_toTopOf="@id/check_box_sat"
+                    app:onThrottleClick="@{() -> vm.onClickCheckBox(DaysType.SUN)}"
+                    app:text="@string/word_sunday"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
 
-        <SeekBar
-            android:id="@+id/seek_bar_people"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@null"
-            android:max="16"
-            app:updateSeekBarProgressAndPosition="@{vm.updateSeekbarProgressAndPositionX}"
-            android:progress="@{vm.uiState.seekBarProgress}"
-            android:progressDrawable="@drawable/layout_list_seekbar_2e3c3c43_to_5f5ff9"
-            android:splitTrack="false"
-            android:thumb="@drawable/layer_list_spinner_thumb"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_people"
-            tools:progress="0" />
+                <com.plub.presentation.ui.common.custom.FixedTextWidthCheckBox
+                    android:id="@+id/check_box_all"
+                    style="@style/create_gathering_day_fixed_text_width_check_box"
+                    day="@{DaysType.ALL}"
+                    dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/check_box_sun"
+                    app:layout_constraintTop_toTopOf="@id/check_box_sun"
+                    app:onThrottleClick="@{() -> vm.onClickAllCheckBox()}"
+                    app:text="@string/word_all_day"
+                    tools:background="@drawable/bg_rectangle_empty_8c8c8c_radius_8"
+                    tools:layout_height="40dp"
+                    tools:layout_width="80dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:text="@string/category_gathering_filter_min_people"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/seek_bar_people"
-            app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
+                <TextView
+                    android:id="@+id/text_view_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/category_gathering_people"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/check_box_all" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/category_gathering_filter_max_people"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/seek_bar_people"
-            app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{@string/category_gathering_filter_people(vm.uiState.peopleNumber)}"
+                    android:textColor="@color/color_5f5ff9"
+                    app:layout_constraintBottom_toBottomOf="@id/text_view_people"
+                    app:layout_constraintStart_toEndOf="@id/text_view_people"
+                    app:layout_constraintTop_toTopOf="@id/text_view_people"
+                    tools:text="4명" />
+
+                <SeekBar
+                    android:id="@+id/seek_bar_people"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@null"
+                    android:max="16"
+                    android:progress="@{vm.uiState.seekBarProgress}"
+                    android:progressDrawable="@drawable/layout_list_seekbar_2e3c3c43_to_5f5ff9"
+                    android:splitTrack="false"
+                    android:thumb="@drawable/layer_list_spinner_thumb"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_people"
+                    app:updateSeekBarProgressAndPosition="@{vm.updateSeekbarProgressAndPositionX}"
+                    tools:progress="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="@string/category_gathering_filter_min_people"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/seek_bar_people"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/category_gathering_filter_max_people"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/seek_bar_people"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <Button
             android:id="@+id/button_complete"
@@ -261,14 +275,14 @@
             android:layout_height="46dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="26dp"
-            android:enabled="@{vm.uiState.buttonEnable}"
-            app:onThrottleClick="@{()->vm.onClickApply()}"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:enabled="@{vm.uiState.buttonEnable}"
             android:text="@string/category_gathering_filter_complete"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:onThrottleClick="@{()->vm.onClickApply()}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

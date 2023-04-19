@@ -7,12 +7,14 @@ import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.home.categoriesGatheringVo.CategoriesGatheringBodyRequestVo
 import com.plub.domain.model.vo.home.categoriesGatheringVo.CategoriesGatheringParamsVo
 import com.plub.domain.model.vo.home.categoriesGatheringVo.CategoriesGatheringRequestVo
+import com.plub.domain.model.vo.home.categoriesGatheringVo.FilterVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
+import com.plub.presentation.parcelableVo.ParseCategoryFilterVo
 import com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -55,20 +57,20 @@ class CategoryGatheringViewModel @Inject constructor(
     private var isNetworkCall: Boolean = false
 
 
-    fun updateCategoryName(name : String){
+    fun updateCategoryNameWithId(name : String, id : Int){
         viewModelScope.launch {
             categoryNameStateFlow.update { name }
         }
+        categoryId = id
     }
 
-    fun fetchRecommendationGatheringData(id : Int, body : GatheringFilterState) =
+    fun fetchRecommendationGatheringData(body : ParseCategoryFilterVo) =
         viewModelScope.launch {
             cursorId = FIRST_CURSOR
-            categoryId = id
             isNetworkCall = true
             clearCardList()
             val paramsVo = CategoriesGatheringParamsVo(categoryId, uiState.sortType.value.key, cursorId)
-            val bodyVo = getBodyVo(body)
+            val bodyVo = getBodyVo(ParseCategoryFilterVo.mapToDomain(body))
             categoriesGatheringUseCase(
                 CategoriesGatheringRequestVo(paramsVo, bodyVo)
             ).collect { state ->
@@ -88,9 +90,9 @@ class CategoryGatheringViewModel @Inject constructor(
         }
     }
 
-    private fun getBodyVo(body : GatheringFilterState) : CategoriesGatheringBodyRequestVo{
+    private fun getBodyVo(body : FilterVo) : CategoriesGatheringBodyRequestVo{
         val days = if(body.gatheringDays.isEmpty() || body.gatheringDays.contains(DaysType.ALL)) null else body.gatheringDays.map { it.eng }
-        val subCategoryId = if(body.hobbiesSelectedVo.hobbies.isEmpty()) null else getMergeSelectedHobbyList(body.hobbiesSelectedVo.hobbies)
+        val subCategoryId = if(body.selectedHobbies.isEmpty() || body.isAll) null else getMergeSelectedHobbyList(body.selectedHobbies)
         val accountNum = if(body.accountNum == 0) null else body.accountNum
 
         return CategoriesGatheringBodyRequestVo(
@@ -233,12 +235,8 @@ class CategoryGatheringViewModel @Inject constructor(
         emitEventFlow(CategoryGatheringEvent.ShowSelectSortTypeBottomSheetDialog(menuItemType))
     }
 
-    fun goToDetailRecruitment(id: Int, isHost: Boolean) {
-        if (isHost) {
-            emitEventFlow(CategoryGatheringEvent.GoToHostRecruit(id))
-        } else {
-            emitEventFlow(CategoryGatheringEvent.GoToRecruit(id))
-        }
+    fun goToDetailRecruitment(id: Int) {
+        emitEventFlow(CategoryGatheringEvent.GoToRecruit(id))
     }
 
     fun clickSearch() {
@@ -259,5 +257,9 @@ class CategoryGatheringViewModel @Inject constructor(
 
     fun goToFilter() {
         emitEventFlow(CategoryGatheringEvent.GoToFilter)
+    }
+
+    fun fetchRecommendationAllGatheringData(){
+        fetchRecommendationGatheringData(ParseCategoryFilterVo())
     }
 }
