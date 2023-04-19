@@ -111,4 +111,8 @@ object Endpoints {
             const val BROWSE_MY_TODO = "$PLUBBING_URL/{plubbingId}/timeline/my"
         }
     }
+
+    object REPORT{
+        const val BROWSE_REPORT = "/api/reports"
+    }
 }

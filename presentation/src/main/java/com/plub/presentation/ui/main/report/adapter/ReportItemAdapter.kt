@@ -13,7 +13,7 @@ class ReportItemAdapter(
 ) : ListAdapter<ReportItemVo, RecyclerView.ViewHolder>(ReportItemDiffCallBack()) {
 
     interface Delegate {
-        fun onClickReport(type:Int)
+        fun onClickReport(type:String)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

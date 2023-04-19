@@ -1,30 +1,51 @@
 package com.plub.presentation.ui.main.report
 
+import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.ReportBackgroundType
 import com.plub.domain.model.vo.report.ReportItemVo
-import com.plub.presentation.base.BaseViewModel
+import com.plub.domain.model.vo.report.ReportVo
+import com.plub.domain.usecase.GetReportUseCase
+import com.plub.presentation.base.BaseTestViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ReportViewModel @Inject constructor(
-) : BaseViewModel<ReportState>(ReportState()) {
+    private val getReportUseCase: GetReportUseCase
+) : BaseTestViewModel<ReportState>() {
+
+    private val reportListStateFlow : MutableStateFlow<List<ReportItemVo>> = MutableStateFlow(
+        emptyList()
+    )
+
+    override val uiState : ReportState = ReportState(
+        reportList = reportListStateFlow.asStateFlow()
+    )
 
     fun getReportList(){
-        //TODO 서버에서 가져오기
-        updateUiState { uiState ->
-            uiState.copy(
-                reportList = arrayListOf(
-                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", ReportBackgroundType.BUTTON,0),
-                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", ReportBackgroundType.BUTTON,1),
-                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", ReportBackgroundType.BUTTON,2),
-                    ReportItemVo("비속어 / 폭언 / 비하 / 음란성 내용", ReportBackgroundType.BUTTON,3)
-                )
-            )
+        viewModelScope.launch {
+            getReportUseCase(Unit).collect{
+                inspectUiState(it, ::handleSuccessGetReport)
+            }
         }
     }
 
-    fun goToReportDetailPage(type : Int){
-        emitEventFlow(ReportEvent.GoToReport(type))
+    private fun handleSuccessGetReport(state : ReportVo){
+        val mergedReportList = state.reportList.map {
+            it.copy(
+                reportBackgroundType = ReportBackgroundType.BUTTON
+            )
+        }
+        viewModelScope.launch {
+            reportListStateFlow.update { mergedReportList }
+        }
+    }
+
+    fun goToReportDetailPage(){
+        emitEventFlow(ReportEvent.GoToReport(0))
     }
 }

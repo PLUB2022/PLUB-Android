@@ -24,8 +24,8 @@ class ReportDetailFragment : BaseFragment<FragmentReportDetailBinding, ReportDet
 
     private val reportItemAdapter : ReportItemAdapter by lazy {
         ReportItemAdapter(object : ReportItemAdapter.Delegate{
-            override fun onClickReport(type: Int) {
-                viewModel.getReportList(type)
+            override fun onClickReport(type: String) {
+                viewModel.getReportList()
                 viewModel.onClickSpinner()
             }
         })
@@ -42,7 +42,7 @@ class ReportDetailFragment : BaseFragment<FragmentReportDetailBinding, ReportDet
             }
         }
 
-        viewModel.getReportList(reportDetailFragmentArgs.type)
+        viewModel.getReportList()
     }
 
     override fun initStates() {

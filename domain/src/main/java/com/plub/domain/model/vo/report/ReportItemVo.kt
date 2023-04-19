@@ -6,5 +6,5 @@ import com.plub.domain.model.enums.ReportBackgroundType
 data class ReportItemVo(
     val reportTitle : String = "",
     val reportBackgroundType : ReportBackgroundType = ReportBackgroundType.SPINNER,
-    val reportType : Int = 0
+    val reportType : String = ""
 ) : DomainModel

@@ -128,4 +128,10 @@ object ApiModule {
     fun provideArchiveApi(@AuthRetrofit retrofit: Retrofit): ArchiveApi {
         return retrofit.create(ArchiveApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideReportApi(@AuthRetrofit retrofit: Retrofit): ReportApi {
+        return retrofit.create(ReportApi::class.java)
+    }
 }
