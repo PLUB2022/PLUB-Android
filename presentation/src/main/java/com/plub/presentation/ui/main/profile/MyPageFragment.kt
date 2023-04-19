@@ -84,9 +84,10 @@ class MyPageFragment :
             is MyPageEvent.GoToMyApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToWaitingGathering(event.plubbingId))}
             is MyPageEvent.GoToOtherApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToRecruitingGathering(event.plubbingId))}
             is MyPageEvent.ReadMore -> { readMoreIntro(event.isExpandText) }
-            is MyPageEvent.GoToSetting -> {findNavController().navigate(MyPageFragmentDirections.myPageToSetting())}
             is MyPageEvent.GoToActiveGathering -> {findNavController().navigate(MyPageFragmentDirections.myPageToActiveGathering(event.gatheringType, event.plubbingId))}
             is MyPageEvent.GoToHome -> {findNavController().navigate(MyPageFragmentDirections.myPageToHome())}
+            is MyPageEvent.GoToEdit -> {findNavController().navigate(MyPageFragmentDirections.myPageToEdit())}
+            is MyPageEvent.GoToSetting -> {findNavController().navigate(MyPageFragmentDirections.actionMyPageToSetting())}
         }
     }
 

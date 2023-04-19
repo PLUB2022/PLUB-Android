@@ -55,6 +55,11 @@ class MyPageGatheringViewHolder(
                         textViewGatheringState.text = root.context.getString(R.string.my_page_gathering_end)
                         textViewGatheringState.setTextColor(root.context.getColor(R.color.color_8c8c8c))
                     }
+                    MyPageGatheringMyType.EXIT -> {
+                        constraintLayoutGatheringStateBox.setBackgroundResource(R.drawable.bg_rectangle_filled_f2f3f4_radius_6)
+                        textViewGatheringState.text = root.context.getString(R.string.my_page_gathering_exit)
+                        textViewGatheringState.setTextColor(root.context.getColor(R.color.color_8c8c8c))
+                    }
                 }
             }
         }

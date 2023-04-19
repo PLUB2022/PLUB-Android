@@ -347,4 +347,16 @@ object UseCaseModule {
     fun providesGetMyPostUseCase(repository: MyPageRepository): GetMyPostUseCase {
         return GetMyPostUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesPutChangePushNotification(repository: AccountRepository): PutChangePushNotificationUseCase {
+        return PutChangePushNotificationUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetLogoutUseCase(repository: LoginRepository): GetLogoutUseCase {
+        return GetLogoutUseCase(repository)
+    }
 }

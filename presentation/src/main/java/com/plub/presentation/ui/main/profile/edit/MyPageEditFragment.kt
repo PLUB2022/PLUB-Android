@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.profile.setting
+package com.plub.presentation.ui.main.profile.edit
 
 import android.app.Activity
 import android.content.Intent
@@ -12,7 +12,7 @@ import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
-import com.plub.presentation.databinding.FragmentMyPageSettingBinding
+import com.plub.presentation.databinding.FragmentMyPageEditBinding
 import com.plub.presentation.ui.common.dialog.CommonDialog
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.util.IntentUtil
@@ -22,17 +22,16 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MyPageSettingFragment :
-    BaseTestFragment<FragmentMyPageSettingBinding, MyPageSettingState, MyPageSettingViewModel>(
-        FragmentMyPageSettingBinding::inflate
-    ) {
+class MyPageEditFragment :
+    BaseTestFragment<FragmentMyPageEditBinding, MyPageEditState, MyPageEditViewModel>(
+        FragmentMyPageEditBinding::inflate) {
 
     @Inject
     lateinit var commonDialog: CommonDialog
 
     private lateinit var albumLauncher: ActivityResultLauncher<Intent>
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
-    override val viewModel: MyPageSettingViewModel by viewModels()
+    override val viewModel: MyPageEditViewModel by viewModels()
 
     override fun initView() {
         binding.apply {
@@ -105,28 +104,28 @@ class MyPageSettingFragment :
 
             launch {
                 viewModel.eventFlow.collect {
-                    inspectEventFlow(it as MyPageSettingEvent)
+                    inspectEventFlow(it as MyPageEditEvent)
                 }
             }
         }
     }
 
-    private fun inspectEventFlow(event: MyPageSettingEvent) {
+    private fun inspectEventFlow(event: MyPageEditEvent) {
         when (event) {
-            is MyPageSettingEvent.GoToAlbum -> {
+            is MyPageEditEvent.GoToAlbum -> {
                 val intent = IntentUtil.getSingleImageIntent()
                 albumLauncher.launch(intent)
             }
-            is MyPageSettingEvent.GoToCamera -> {
+            is MyPageEditEvent.GoToCamera -> {
                 val intent = IntentUtil.getOpenCameraIntent(event.uri)
                 cameraLauncher.launch(intent)
             }
-            is MyPageSettingEvent.ShowSelectImageBottomSheetDialog -> showBottomSheetDialogSelectImage()
-            is MyPageSettingEvent.CropImageAndOptimize -> startCropImage(event.cropImageContractOptions)
-            is MyPageSettingEvent.ShowDialog -> {
+            is MyPageEditEvent.ShowSelectImageBottomSheetDialog -> showBottomSheetDialogSelectImage()
+            is MyPageEditEvent.CropImageAndOptimize -> startCropImage(event.cropImageContractOptions)
+            is MyPageEditEvent.ShowDialog -> {
                 showConfirmDialog()
             }
-            is MyPageSettingEvent.GoToBack -> findNavController().popBackStack()
+            is MyPageEditEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 

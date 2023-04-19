@@ -3,6 +3,7 @@ package com.plub.data.repository
 import com.plub.data.api.AccountApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.MyInfoResponseMapper
+import com.plub.data.mapper.UnitResponseMapper
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.account.MyInfoResponseVo
 import com.plub.domain.model.vo.account.UpdateMyInfoRequestVo
@@ -18,5 +19,9 @@ class AccountRepositoryImpl @Inject constructor(private val accountApi: AccountA
 
     override suspend fun updateMyInfo(request : UpdateMyInfoRequestVo): Flow<UiState<MyInfoResponseVo>> {
         return apiLaunch(accountApi.updateMyInfo(request), MyInfoResponseMapper)
+    }
+
+    override suspend fun changePushNotification(request: Boolean): Flow<UiState<Unit>> {
+        return apiLaunch(accountApi.changePushNotify(request), UnitResponseMapper)
     }
 }
