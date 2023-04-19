@@ -114,5 +114,6 @@ object Endpoints {
 
     object REPORT{
         const val BROWSE_REPORT = "/api/reports"
+        const val CREATE_REPORT = BROWSE_REPORT
     }
 }

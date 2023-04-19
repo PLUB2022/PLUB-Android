@@ -43,7 +43,8 @@ class ReportDetailFragment : BaseFragment<FragmentReportDetailBinding, ReportDet
             }
         }
 
-        viewModel.setNowReport()
+        viewModel.setReportTarget(reportDetailFragmentArgs.targetType)
+        viewModel.getReportList(reportDetailFragmentArgs.reasonType)
     }
 
     override fun initStates() {

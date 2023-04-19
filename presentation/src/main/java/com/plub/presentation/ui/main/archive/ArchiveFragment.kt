@@ -11,6 +11,7 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.enums.DialogMenuType
+import com.plub.domain.model.sealed.ReportType
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
@@ -158,7 +159,10 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
     }
 
     private fun goToReport(archiveId: Int){
-
+        val action = ArchiveFragmentDirections.actionArchiveToReport(
+            type = ReportType.ArchiveReport(PlubingInfo.info.plubingId, archiveId)
+        )
+        findNavController().navigate(action)
     }
 
     private fun getImageFromCamera(uri: Uri) {

@@ -497,6 +497,10 @@
         <action
             android:id="@+id/action_archive_to_update"
             app:destination="@id/archiveUpdateFragment" />
+
+        <action
+            android:id="@+id/action_archive_to_report"
+            app:destination="@id/reportFragment" />
     </fragment>
 
     <fragment

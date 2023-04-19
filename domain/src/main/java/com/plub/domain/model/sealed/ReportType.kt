@@ -1,6 +1,8 @@
 package com.plub.domain.model.sealed
 
-sealed class ReportType {
+import java.io.Serializable
+
+sealed class ReportType : Serializable {
     data class RecruitReport(val plubbingId : Int) : ReportType()
     data class AccountReport(val plubbingId: Int, val accountId : Int) : ReportType()
     data class FeedReport(val plubbingId : Int, val feedId : Int) : ReportType()

@@ -135,7 +135,7 @@
             android:layout_marginBottom="24dp"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             android:text="@string/report_button"
-            app:onThrottleClick="@{()->vm.goToComplete()}"
+            app:onThrottleClick="@{()->vm.onClickCreateReport()}"
             android:enabled="@{vm.uiState.buttonEnable}"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
             android:layout_marginHorizontal="16dp"

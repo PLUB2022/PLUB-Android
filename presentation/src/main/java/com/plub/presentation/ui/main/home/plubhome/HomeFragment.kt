@@ -61,10 +61,6 @@ class HomeFragment : BaseTestFragment<FragmentHomeBinding, HomePageState, HomeFr
                 }))
                 adapter = homeAdapter
             }
-            //TODO REMOVE
-//            imageViewPlubLogo.onThrottleClick {
-//                findNavController().navigate(HomeFragmentDirections.todoRemoveGoReport())
-//            }
         }
         viewModel.fetchHomePageData()
     }
