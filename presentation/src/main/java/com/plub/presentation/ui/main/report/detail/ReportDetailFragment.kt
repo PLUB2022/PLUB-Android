@@ -72,6 +72,7 @@ class ReportDetailFragment : BaseFragment<FragmentReportDetailBinding, ReportDet
             is ReportDetailEvent.BorderBlack -> binding.editTextReportContent.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8_border_black)
             is ReportDetailEvent.BorderDefault -> binding.editTextReportContent.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_10_border_f2f3f4)
             is ReportDetailEvent.GoToComplete -> {goToComplete(event.nowText)}
+            is ReportDetailEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 

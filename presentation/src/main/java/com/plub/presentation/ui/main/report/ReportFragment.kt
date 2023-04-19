@@ -66,6 +66,7 @@ class ReportFragment : BaseTestFragment<FragmentReportBinding, ReportState, Repo
     private fun inspectEvent(event: ReportEvent){
         when(event){
             is ReportEvent.GoToReport -> { goToReportDetail(event.type)}
+            is ReportEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 

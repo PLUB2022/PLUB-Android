@@ -49,4 +49,8 @@ class ReportViewModel @Inject constructor(
     fun goToReportDetailPage(reasonType : ReportReasonType){
         emitEventFlow(ReportEvent.GoToReport(reasonType))
     }
+
+    fun goToBack(){
+        emitEventFlow(ReportEvent.GoToBack)
+    }
 }

@@ -11,7 +11,6 @@ import com.plub.domain.usecase.GetReportUseCase
 import com.plub.domain.usecase.PostCreateReportUseCase
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -140,6 +139,10 @@ class ReportDetailViewModel @Inject constructor(
                 isButtonEnable = enable
             )
         }
+    }
+
+    fun goToBack(){
+        emitEventFlow(ReportDetailEvent.GoToBack)
     }
 
 }
