@@ -12,6 +12,7 @@ import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
 import com.plub.presentation.base.BaseBottomSheetFragment
 import com.plub.presentation.databinding.BottomSheetSearchLocationBinding
 import com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.bottomSheet.adapter.KakaoLocationRecyclerViewAdapter
+import com.plub.presentation.util.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -114,8 +115,7 @@ class BottomSheetSearchLocation :
     }
 
     private fun hideKeyboard() {
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.iconEditTextSearchLocation.editText.windowToken, 0)
+        binding.iconEditTextSearchLocation.editText.hideKeyboard()
     }
 
     private fun scrollToTop() {

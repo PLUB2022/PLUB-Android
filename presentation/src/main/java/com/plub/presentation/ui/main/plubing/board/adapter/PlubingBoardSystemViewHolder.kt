@@ -18,6 +18,8 @@ class PlubingBoardSystemViewHolder(
             textViewTitle.text = item.title
             textViewContent.text = item.content.fromHtml()
             textViewDate.text = item.createAt
+            textViewLike.text = item.likeCount.toString()
+            textViewComment.text = item.commentCount.toString()
         }
     }
 }

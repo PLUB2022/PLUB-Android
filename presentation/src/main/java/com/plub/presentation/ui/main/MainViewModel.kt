@@ -10,9 +10,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor() : BaseViewModel<PageState.Default>(PageState.Default) {
+    private val fragmentStatusBarColorWhite = listOf(R.id.plubingAddScheduleFragment)
 
-    fun onSelectedBottomNavigationMenu(item: MenuItem) {
-        val idx = getBottomMenuIndex(item.itemId)
+    fun onSelectedBottomNavigationMenu(fragmentId: Int) {
+        val idx = getBottomMenuIndex(fragmentId)
         idx?.let {
             emitEventFlow(MainEvent.ShowBottomNavigationBadge(it))
         }
@@ -21,6 +22,9 @@ class MainViewModel @Inject constructor() : BaseViewModel<PageState.Default>(Pag
     fun onDestinationChanged(fragmentId: Int) {
         val isBottomNav = isBottomNavigationFragment(fragmentId)
         emitEventFlow(MainEvent.BottomNavigationVisibility(isBottomNav))
+
+        val statusBarColor = getStatusBarColor(fragmentId)
+        emitEventFlow(MainEvent.ChangeStatusBarColor(statusBarColor))
     }
 
     private fun getBottomMenuIndex(fragmentId: Int): Int? {
@@ -47,5 +51,12 @@ class MainViewModel @Inject constructor() : BaseViewModel<PageState.Default>(Pag
 
     private fun isBottomNavigationFragment(fragmentId: Int): Boolean {
         return getBottomMenuIndex(fragmentId) != null
+    }
+
+    private fun getStatusBarColor(fragmentId: Int): Int {
+        return when(fragmentId) {
+            in fragmentStatusBarColorWhite -> { R.color.white }
+            else -> { R.color.color_f5f3f6 }
+        }
     }
 }

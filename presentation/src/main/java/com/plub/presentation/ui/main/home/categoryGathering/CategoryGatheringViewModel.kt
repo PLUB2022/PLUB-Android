@@ -1,10 +1,7 @@
 package com.plub.presentation.ui.main.home.categoryGathering
 
 import androidx.lifecycle.viewModelScope
-import com.plub.domain.model.enums.DaysType
-import com.plub.domain.model.enums.DialogMenuItemType
-import com.plub.domain.model.enums.PlubCardType
-import com.plub.domain.model.enums.PlubSortType
+import com.plub.domain.model.enums.*
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.home.categoriesGatheringVo.CategoriesGatheringBodyRequestVo
@@ -15,10 +12,13 @@ import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.GetCategoriesGatheringUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.R
-import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,32 +27,47 @@ class CategoryGatheringViewModel @Inject constructor(
     val categoriesGatheringUseCase: GetCategoriesGatheringUseCase,
     val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
     val resourceProvider: ResourceProvider
-) : BaseViewModel<CategoryGatheringState>(CategoryGatheringState()) {
+) : BaseTestViewModel<CategoryGatheringState>() {
 
     companion object {
-        private const val FIRST_PAGE = 1
+        private const val FIRST_CURSOR = 0
     }
 
+    private val categoryNameStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val cardListStateFlow: MutableStateFlow<List<PlubCardVo>> = MutableStateFlow(emptyList())
+    private val cardTypeStateFlow: MutableStateFlow<PlubCardType> = MutableStateFlow(PlubCardType.LIST)
+    private val isEmptyViewVisibleStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val sortTypeStateFlow: MutableStateFlow<PlubSortType> = MutableStateFlow(PlubSortType.POPULAR)
+    private val sortTypeNameStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+
+    override val uiState: CategoryGatheringState = CategoryGatheringState(
+        categoryNameStateFlow.asStateFlow(),
+        cardListStateFlow.asStateFlow(),
+        cardTypeStateFlow.asStateFlow(),
+        isEmptyViewVisibleStateFlow.asStateFlow(),
+        sortTypeStateFlow.asStateFlow(),
+        sortTypeNameStateFlow.asStateFlow(),
+    )
+
     private var categoryId: Int = 0
-    private var pageNumber: Int = FIRST_PAGE
-    private var hasMoreCards: Boolean = true
+    private var cursorId: Int = FIRST_CURSOR
+    private var isLast : Boolean = true
     private var isNetworkCall: Boolean = false
-    private val loading = PlubCardVo(viewType = PlubCardType.LOADING)
 
 
     fun updateCategoryName(name : String){
-        updateUiState { uiState->
-            uiState.copy(
-                categoryName = name
-            )
+        viewModelScope.launch {
+            categoryNameStateFlow.update { name }
         }
     }
 
-    fun fetchRecommendationGatheringData(id: Int, body : GatheringFilterState) =
+    fun fetchRecommendationGatheringData(id : Int, body : GatheringFilterState) =
         viewModelScope.launch {
+            cursorId = FIRST_CURSOR
             categoryId = id
             isNetworkCall = true
-            val paramsVo = CategoriesGatheringParamsVo(categoryId, uiState.value.sortType.key, pageNumber)
+            clearCardList()
+            val paramsVo = CategoriesGatheringParamsVo(categoryId, uiState.sortType.value.key, cursorId)
             val bodyVo = getBodyVo(body)
             categoriesGatheringUseCase(
                 CategoriesGatheringRequestVo(paramsVo, bodyVo)
@@ -68,10 +83,8 @@ class CategoryGatheringViewModel @Inject constructor(
             PlubSortType.NEW -> R.string.word_sort_type_new
         }
 
-        updateUiState { uiState ->
-            uiState.copy(
-                sortTypeName = resourceProvider.getString(sortTypeRes)
-            )
+        viewModelScope.launch {
+            sortTypeNameStateFlow.update { resourceProvider.getString(sortTypeRes) }
         }
     }
 
@@ -99,7 +112,7 @@ class CategoryGatheringViewModel @Inject constructor(
     private fun fetchRecommendationGatheringData() =
         viewModelScope.launch {
             isNetworkCall = true
-            val paramsVo = CategoriesGatheringParamsVo(categoryId, uiState.value.sortType.key, pageNumber)
+            val paramsVo = CategoriesGatheringParamsVo(categoryId, uiState.sortType.value.key, cursorId)
             val bodyVo = CategoriesGatheringBodyRequestVo()
             categoriesGatheringUseCase(
                 CategoriesGatheringRequestVo(paramsVo, bodyVo)
@@ -108,36 +121,44 @@ class CategoryGatheringViewModel @Inject constructor(
             }
         }
 
+    private fun updateCardList(list : List<PlubCardVo>){
+        viewModelScope.launch{
+            cardListStateFlow.update { list }
+            isEmptyViewVisibleStateFlow.update { list.isEmpty() }
+        }
+    }
+
+    private fun clearCardList(){
+        viewModelScope.launch{
+            cardListStateFlow.update { emptyList() }
+        }
+    }
+
     private fun successResult(vo: PlubCardListVo) {
         isNetworkCall = false
-        hasMoreCards = (pageNumber != vo.totalPages)
+        isLast = vo.last
         val mappedList = mapToCardType(vo.content)
         val mergedList = getMergeList(mappedList)
-        updateUiState { ui ->
-            ui.copy(
-                cardList = if(hasMoreCards) mergedList + arrayListOf(loading) else mergedList,
-                isEmptyViewVisible = mergedList.isEmpty()
-            )
-        }
-        pageNumber++
+        updateCardList(mergedList)
     }
+
 
     private fun mapToCardType(list: List<PlubCardVo>): List<PlubCardVo> {
         return list.map {
             it.copy(
-                viewType = uiState.value.cardType
+                viewType = uiState.cardType.value
             )
         }
     }
 
     private fun getMergeList(list: List<PlubCardVo>): List<PlubCardVo> {
-        val originList =  uiState.value.cardList
+        val originList =  uiState.cardList.value
         val mappedList = mapToCardType(list)
-        return if (originList.isEmpty() || pageNumber == FIRST_PAGE)  mappedList else originList + mappedList
+        return if (originList.isEmpty() || cursorId == FIRST_CURSOR)  mappedList else originList + mappedList
     }
 
     fun scrollTop() {
-        if (pageNumber == FIRST_PAGE) {
+        if (cursorId == FIRST_CURSOR) {
             emitEventFlow(CategoryGatheringEvent.ScrollTop)
         }
     }
@@ -152,7 +173,7 @@ class CategoryGatheringViewModel @Inject constructor(
     }
 
     private fun postBookmarkSuccess(vo: PlubBookmarkResponseVo) {
-        val list = uiState.value.cardList
+        val list = uiState.cardList.value
         val newList = list.map {
             val bookmark = if (it.id == vo.id) vo.isBookmarked else it.isBookmarked
             it.copy(
@@ -163,21 +184,15 @@ class CategoryGatheringViewModel @Inject constructor(
     }
 
     private fun updateSearchList(list: List<PlubCardVo>) {
-        updateUiState { uiState ->
-            uiState.copy(
-                cardList = list
-            )
+        viewModelScope.launch {
+            cardListStateFlow.update { list }
         }
     }
 
     fun onClickCardType(cardType: PlubCardType) {
-        pageNumber = FIRST_PAGE
+        cursorId = FIRST_CURSOR
         viewModelScope.launch {
-            updateUiState { uiState ->
-                uiState.copy(
-                    cardType = cardType
-                )
-            }
+            cardTypeStateFlow.update { cardType }
             fetchRecommendationGatheringData()
         }
     }
@@ -192,7 +207,7 @@ class CategoryGatheringViewModel @Inject constructor(
 
     fun onClickSortMenuItemType(item: DialogMenuItemType) {
         viewModelScope.launch {
-            pageNumber = FIRST_PAGE
+            cursorId = FIRST_CURSOR
             val sortType = when (item) {
                 DialogMenuItemType.SORT_TYPE_NEW -> PlubSortType.NEW
                 DialogMenuItemType.SORT_TYPE_POPULAR -> PlubSortType.POPULAR
@@ -204,10 +219,8 @@ class CategoryGatheringViewModel @Inject constructor(
     }
 
     private fun updateSortType(sortType: PlubSortType) {
-        updateUiState { uiState ->
-            uiState.copy(
-                sortType = sortType
-            )
+        viewModelScope.launch{
+            sortTypeStateFlow.update { sortType }
         }
     }
 
@@ -233,9 +246,15 @@ class CategoryGatheringViewModel @Inject constructor(
     }
 
     fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (!isNetworkCall && isBottom && isDownScroll && hasMoreCards) {
+        if (!isNetworkCall && isBottom && isDownScroll && !isLast) {
+            cursorUpdate()
             fetchRecommendationGatheringData()
         }
+    }
+
+    private fun cursorUpdate() {
+        cursorId = if (cardListStateFlow.value.isEmpty()) FIRST_CURSOR
+        else cardListStateFlow.value.lastOrNull()?.id ?: FIRST_CURSOR
     }
 
     fun goToFilter() {

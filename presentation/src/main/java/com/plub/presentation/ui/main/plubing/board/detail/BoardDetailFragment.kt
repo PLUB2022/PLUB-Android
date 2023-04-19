@@ -1,7 +1,5 @@
 package com.plub.presentation.ui.main.plubing.board.detail
 
-import android.content.Context
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -11,20 +9,21 @@ import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentBoardDetailBinding
 import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
-import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
 import com.plub.presentation.ui.main.plubing.board.detail.adapter.BoardDetailAdapter
 import com.plub.presentation.ui.main.plubing.board.write.BoardWriteFragment
 import com.plub.presentation.util.getNavigationResult
+import com.plub.presentation.util.hideKeyboard
+import com.plub.presentation.util.showKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BoardDetailFragment :
-    BaseFragment<FragmentBoardDetailBinding, BoardDetailPageState, BoardDetailViewModel>(
+    BaseTestFragment<FragmentBoardDetailBinding, BoardDetailPageState, BoardDetailViewModel>(
         FragmentBoardDetailBinding::inflate
     ) {
 
@@ -47,7 +46,7 @@ class BoardDetailFragment :
             }
 
             override val boardVo: PlubingBoardVo
-                get() = viewModel.uiState.value.boardVo
+                get() = viewModel.uiState.boardVo.value
         })
     }
 
@@ -74,8 +73,8 @@ class BoardDetailFragment :
         }
 
         viewModel.initArgs(boardDetailArgs.feedId)
-        viewModel.onFetchBoardDetail()
-        viewModel.onFetchBoardComments()
+        viewModel.onGetBoardDetail()
+        viewModel.onGetBoardComments()
     }
 
     override fun initStates() {
@@ -83,8 +82,8 @@ class BoardDetailFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    boardDetailAdapter.submitList(it.commentList) {
+                viewModel.uiState.commentList.collect {
+                    boardDetailAdapter.submitList(it) {
                         viewModel.onBoardUpdated()
                     }
                 }
@@ -117,14 +116,13 @@ class BoardDetailFragment :
     }
 
     private fun hideKeyboard() {
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.editTextComment.windowToken, 0)
+        binding.editTextComment.hideKeyboard()
     }
 
     private fun showKeyboard() {
-        binding.editTextComment.requestFocus()
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(binding.editTextComment, 0)
+        binding.root.postDelayed({
+            binding.editTextComment.showKeyboard()
+        },100)
     }
 
     private fun scrollToPosition(position:Int) {

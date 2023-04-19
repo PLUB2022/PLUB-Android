@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="com.plub.domain.model.enums.ApplyModifyApplicationType"/>
+
         <variable
             name="vm"
             type="com.plub.presentation.ui.main.home.recruitment.apply.ApplyPlubbingViewModel" />
@@ -57,7 +59,7 @@
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
             app:onThrottleClick="@{()->vm.applyRecruit()}"
             android:enabled="@{vm.uiState.applyButtonEnable}"
-            android:text="@string/apply_plubbing_apply_button"
+            android:text="@{vm.uiState.pageType == ApplyModifyApplicationType.APPLY ? @string/apply_plubbing_apply_button : @string/apply_plubbing_save_button}"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="32dp"
             app:layout_constraintEnd_toEndOf="parent"

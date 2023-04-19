@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubingBoardWriteType
 import com.plub.domain.model.vo.board.PlubingBoardVo
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentBoardPinBinding
 import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BoardPinFragment :
-    BaseFragment<FragmentBoardPinBinding, BoardPinPageState, BoardPinViewModel>(
+    BaseTestFragment<FragmentBoardPinBinding, BoardPinPageState, BoardPinViewModel>(
         FragmentBoardPinBinding::inflate
     ) {
 
@@ -47,7 +47,7 @@ class BoardPinFragment :
                 adapter = pinListAdapter
             }
         }
-        viewModel.onFetchPinList()
+        viewModel.onGetPinList()
     }
 
     override fun initStates() {
@@ -55,8 +55,8 @@ class BoardPinFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    pinListAdapter.submitList(it.pinList) {
+                viewModel.uiState.pinList.collect {
+                    pinListAdapter.submitList(it) {
                         viewModel.onPinUpdated()
                     }
                 }

@@ -51,6 +51,8 @@ object Google {
 }
 
 object Libraries {
+    const val CALENDAR_VIEW = "com.github.prolificinteractive:material-calendarview:${Versions.CALENDAR_VIEW}"
+
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
     const val RETROFIT_CONVERTER_GSON = "com.squareup.retrofit2:converter-gson:${Versions.RETROFIT}"
     const val OKHTTP = "com.squareup.okhttp3:okhttp:${Versions.OKHTTP}"

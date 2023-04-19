@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.home.categoryResponseVo.CategoriesDataResponseVo
 import com.plub.presentation.databinding.IncludeItemHomeCategoryBinding
+import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeCategoryAdapter
@@ -32,7 +33,7 @@ class HomeCategoryParentViewHolder (
         homeAdapter.submitList(item)
         binding.recyclerViewCategory.apply {
             layoutManager = GridLayoutManager(context, ITEM_SPAN)
-            addItemDecoration(VerticalSpaceDecoration(VERTICAL_SPACE.px))
+            addItemDecoration(GridSpaceDecoration(ITEM_SPAN, 8.px, VERTICAL_SPACE.px, false))
             adapter = homeAdapter
         }
     }

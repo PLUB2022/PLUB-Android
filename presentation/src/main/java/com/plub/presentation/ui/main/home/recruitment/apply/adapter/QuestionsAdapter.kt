@@ -12,12 +12,12 @@ import com.plub.presentation.databinding.IncludeItemQuestionBinding
 import com.plub.presentation.ui.main.home.recruitment.apply.viewholder.QuestionsFirstViewHolder
 import com.plub.presentation.ui.main.home.recruitment.apply.viewholder.QuestionsViewHolder
 
-class QuestionsAdapter(private val listener : QuestionsDegelate) :
+class QuestionsAdapter(private val listener : QuestionsDelegate) :
     ListAdapter<QuestionsDataVo, RecyclerView.ViewHolder>(
         QuestionsDiffCallBack()
     ) {
 
-    interface QuestionsDegelate{
+    interface QuestionsDelegate{
         fun textChanged(questionId : Int, changedText : String)
     }
 
@@ -31,15 +31,15 @@ class QuestionsAdapter(private val listener : QuestionsDegelate) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        when(ApplyRecruitQuestionViewType.valueOf(viewType)){
+        return when(ApplyRecruitQuestionViewType.valueOf(viewType)){
             ApplyRecruitQuestionViewType.FIRST -> {
                 val binding = IncludeItemFirstViewApplyRecruitBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return QuestionsFirstViewHolder(binding)
+                QuestionsFirstViewHolder(binding)
             }
             ApplyRecruitQuestionViewType.QUESTION -> {
                 val binding =
                     IncludeItemQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return QuestionsViewHolder(binding, listener)
+                QuestionsViewHolder(binding, listener)
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.plub.presentation.ui.main.home.recruitment.dialog
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +26,7 @@ class RecruitApplySuccessDialogFragment(private val listener : Delegate) : Dialo
         savedInstanceState: Bundle?
     ): View {
         dialog?.setCancelable(false)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return binding.root
     }
 

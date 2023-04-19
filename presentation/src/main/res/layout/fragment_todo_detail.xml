@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.plubing.todo.detail.TodoDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_faf9fe">
+
+        <ImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:text="@string/plubing_todo_detail_title"
+            android:textColor="@color/color_363636"
+            android:textSize="26dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_back" />
+
+        <com.plub.presentation.ui.common.custom.CircleImageView
+            android:id="@+id/circle_image_view_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:imageUrl="@{vm.uiState.profileImage}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_title"
+            tools:src="@color/black" />
+
+        <TextView
+            android:id="@+id/text_view_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{vm.uiState.nickname}"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_date"
+            app:layout_constraintStart_toEndOf="@+id/circle_image_view_profile"
+            app:layout_constraintTop_toTopOf="@+id/circle_image_view_profile"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="08. 19." />
+
+        <TextView
+            android:id="@+id/text_view_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{vm.uiState.date}"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/circle_image_view_profile"
+            app:layout_constraintStart_toStartOf="@+id/text_view_nickname"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_nickname"
+            tools:text="개나리" />
+
+        <ImageView
+            android:id="@+id/image_view_like_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="4dp"
+            android:paddingHorizontal="3dp"
+            android:paddingVertical="4dp"
+            android:src="@{vm.uiState.isLike() ? @drawable/ic_heart_no_padding : @drawable/ic_empty_heart}"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_like_count"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_like_count"
+            app:layout_constraintTop_toTopOf="@id/text_view_like_count"
+            app:onThrottleClick="@{() -> vm.onClickTodoLike()}"
+            tools:src="@drawable/ic_heart_no_padding" />
+
+        <TextView
+            android:id="@+id/text_view_like_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@{vm.uiState.likeCount}"
+            android:textColor="@color/color_8c8c8c"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/circle_image_view_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/circle_image_view_profile"
+            tools:text="13" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_todo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circle_image_view_profile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

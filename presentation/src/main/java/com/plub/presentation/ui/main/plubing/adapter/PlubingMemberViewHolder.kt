@@ -26,7 +26,10 @@ class PlubingMemberViewHolder(
         vo = item
         binding.apply {
             textViewNickname.text = item.nickname
-            GlideUtil.loadImage(root.context,item.profileImage,imageViewProfile, R.drawable.iv_default_profile)
+            item.profileImage?.let {
+                GlideUtil.loadImage(root.context,
+                    it,imageViewProfile, R.drawable.iv_default_profile)
+            }
         }
     }
 }

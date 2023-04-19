@@ -4,17 +4,19 @@ import android.text.SpannableString
 import com.plub.domain.model.enums.PlubingFeedType
 import com.plub.domain.model.vo.board.WriteBoardFeedTypeVo
 import com.plub.presentation.ui.PageState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import java.io.File
 
 data class BoardWritePageState(
-    val feedTypeList: List<WriteBoardFeedTypeVo> = emptyList(),
-    val selectedFeedType: PlubingFeedType = PlubingFeedType.IMAGE,
-    val imageFile: File? = null,
-    val plubingName: String = "",
-    var title: String = "",
-    var content: String = "",
-    val contentCount: SpannableString = SpannableString(""),
-    val contentMaxLength: Int = 0,
-    val isPostButtonEnable: Boolean = false,
-    val editImageUrl: String = "",
+    val feedTypeList: StateFlow<List<WriteBoardFeedTypeVo>>,
+    val selectedFeedType: StateFlow<PlubingFeedType>,
+    val imageFile: StateFlow<File?>,
+    val plubingName: StateFlow<String>,
+    val title: MutableStateFlow<String>,
+    val content: MutableStateFlow<String>,
+    val contentCount: StateFlow<SpannableString>,
+    val contentMaxLength: StateFlow<Int>,
+    val isPostButtonEnable: StateFlow<Boolean>,
+    val editImageUrl: StateFlow<String>,
 ) : PageState

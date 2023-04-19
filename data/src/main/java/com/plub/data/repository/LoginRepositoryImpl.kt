@@ -5,6 +5,7 @@ import com.plub.data.base.BaseRepository
 import com.plub.data.dto.login.AdminLoginRequest
 import com.plub.data.mapper.SocialLoginRequestMapper
 import com.plub.data.mapper.SocialLoginResponseMapper
+import com.plub.data.mapper.UnitResponseMapper
 import com.plub.domain.UiState
 import com.plub.domain.error.LoginError
 import com.plub.domain.model.vo.login.SocialLoginRequestVo
@@ -30,5 +31,9 @@ class LoginRepositoryImpl @Inject constructor(private val loginApi: LoginApi) : 
         return apiLaunch(loginApi.adminLogin(request), SocialLoginResponseMapper) {
             LoginError.make(it)
         }
+    }
+
+    override suspend fun logout(): Flow<UiState<Unit>> {
+        return apiLaunch(loginApi.logout(), UnitResponseMapper)
     }
 }

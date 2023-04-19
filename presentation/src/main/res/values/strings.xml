@@ -8,6 +8,7 @@
     <string name="app_name">presentation</string>
     <string name="web_google_client_id">746494448016-j25cuo21ut0ofgbba9h4n6b63502uimi.apps.googleusercontent.com</string>
     <string name="kakao_redirect_url_key">kakao5c988e60cc77ac9ad664f1f37293ee2d</string>
+    <string name="plub_emil">plub2023@gmail.com</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fragment_text_category_name_art">예술</string>
     <string name="fragment_text_category_name_food">음식</string>
@@ -40,6 +41,7 @@
     <string name="word_friday">금요일</string>
     <string name="word_saturday">토요일</string>
     <string name="word_sunday">일요일</string>
+    <string name="word_today">오늘</string>
     <string name="word_all_day">요일 무관</string>
     <string name="word_online">온라인</string>
     <string name="word_offline">오프라인</string>
@@ -63,6 +65,12 @@
     <string name="word_middle_slash">%d/%d</string>
     <string name="word_save">저장</string>
     <string name="word_line">|</string>
+    <string name="word_location">장소</string>
+    <string name="word_alarm">알림</string>
+    <string name="word_memo">메모</string>
+    <string name="word_middle_hyphen">%s - %s</string>
+    <string name="word_no">아니오</string>
+    <string name="word_yes">네</string>
 
     <string name="bottom_navigation_main">메인</string>
     <string name="bottom_navigation_gathering">내 모임</string>
@@ -195,6 +203,20 @@
     <string name="dialog_menu_comment_delete">댓글 삭제</string>
     <string name="dialog_menu_comment_edit">댓글 수정</string>
     <string name="dialog_menu_comment_report">댓글 신고</string>
+    <string name="dialog_menu_schedule_delete">일정 삭제</string>
+    <string name="dialog_menu_schedule_edit">일정 수정</string>
+    <string name="dialog_menu_todo_report">신고</string>
+    <string name="dialog_menu_todo_manage">TO-DO 관리</string>
+    <string name="dialog_menu_todo_delete">TO-DO 삭제</string>
+    <string name="dialog_menu_todo_edit">TO-DO 수정</string>
+    <string name="dialog_menu_todo_proof">사진/글 추가</string>
+    <string name="dialog_menu_archive_delete">아카이브 삭제</string>
+    <string name="dialog_menu_archive_report">게시물 신고</string>
+    <string name="dialog_menu_archive_edit">아카이브 수정</string>
+
+    <string name="dialog_todo_proof_default_text">내가 이룬것을 사진으로 자랑해보세요!</string>
+    <string name="dialog_todo_proof_button_late_proof">나중에 할게요!</string>
+    <string name="dialog_todo_proof_button_proof_complete">완료!</string>
 
     <string name="image_descriptor_back_button">뒤로 가기 버튼</string>
     <string name="image_descriptor_shadow">그림자 이미지</string>
@@ -238,14 +260,31 @@
     <string name="plubing_board_detail_author">글쓴이</string>
     <string name="plubing_board_detail_editing_comment">댓글 수정 중</string>
 
+    <string name="plubing_todo_planner_title">내 Planner 관리하기</string>
+    <string name="plubing_todo_planner_input_hint">새로운 TO-DO 추가하기</string>
+
+    <string name="plubing_todo_detail_title">TO-DO 자세히보기</string>
+
     <string name="modify_gathering_title">모임 정보 수정</string>
     <string name="modify_gathering_tab_recruit">모집글</string>
     <string name="modify_gathering_tab_info">모임 정보</string>
     <string name="modify_gathering_tab_guest">게스트 질문</string>
 
+    <string name="plubing_schedule_title">모임일정</string>
+    <string name="plubing_schedule_add">일정 추가하기</string>
+    <string name="plubing_add_schedule_schedule_title_hint">일정 제목을 입력해 주세요.</string>
+    <string name="plubing_add_schedule_date_time">날짜/시간</string>
+    <string name="plubing_add_schedule_all_day">하루 종일</string>
+    <string name="plubing_add_schedule_location">장소를 입력해주세요</string>
+    <string name="plubing_add_schedule_alarm">알림 없음</string>
+    <string name="plubing_add_schedule_memo_hint">메모 내용을 입력해주세요</string>
+    <string name="plubing_add_schedule_add_schedule">일정 등록</string>
+    <string name="plubing_add_schedule_edit_schedule">일정 수정</string>
+
     <string name="apply_plubbing_title">함께 하기 위한 질문</string>
     <string name="apply_plubbing_descrip">우리와 함께 하는 것에 대한 질문입니다. 상세하게 적어줄 수록 당신의 취미 레벨을 선정하기 쉬워집니다.</string>
     <string name="apply_plubbing_apply_button">지원하기</string>
+    <string name="apply_plubbing_save_button">저장하기</string>
     <string name="apply_plubbing_question">%d. %s</string>
 
     <string name="detail_recruitment_see_others">모임 둘러보기</string>
@@ -289,6 +328,75 @@
     <string name="apply_dialog_complete_apply">지원 완료!</string>
     <string name="apply_dialog_explain">정성스럽게 작성하신 답변을 \n모임 호스트에게 전달했어요.</string>
     <string name="apply_dialog_extra_explain">호스트가 수락하면 함께 활동할 수 있습니다.\n알림으로 알려드릴게요!</string>
+    <string name="bottom_sheet_not_attend">🙅🏻 불참합니다</string>
+    <string name="bottom_sheet_attend">🙆🏻 참여합니다!</string>
+
+    <string name="my_page_read_more">더보기</string>
+    <string name="my_page_close">접기</string>
+    <string name="my_page_recruiting_gathering">모집 중인 모임</string>
+    <string name="my_page_waiting_gathering">대기 중인 모임</string>
+    <string name="my_page_active_gathering">활동 중인 모임</string>
+    <string name="my_page_end_gathering">종료된 모임</string>
+    <string name="my_page_go_recruit">모집글 바로가기</string>
+    <string name="my_page_go_gathering">모임 바로가기</string>
+    <string name="my_page_my_application">나의 지원서</string>
+    <string name="my_page_other_application">지원자 내역</string>
+    <string name="my_page_no_application">지원가 없습니다!</string>
+    <string name="my_page_gathering_host">호스트</string>
+    <string name="my_page_gathering_guest">게스트</string>
+    <string name="my_page_gathering_end">종료</string>
+    <string name="my_page_gathering_exit">탈퇴</string>
+    <string name="my_page_reject">거절하기</string>
+    <string name="my_page_cancel_application">지원 취소</string>
+    <string name="my_page_modify">수정</string>
+    <string name="my_page_approve">받기</string>
+    <string name="my_page_complete_answer">%s 답변 작성완료</string>
+
+    <string name="my_page_setting_profile_image">프로필 사진</string>
+    <string name="my_page_setting_change_yes">네, 할게요</string>
+    <string name="my_page_setting_question_change_nickname">닉네임을 변경할까요?</string>
+    <string name="my_page_setting_introduce_about_changing_nickname">닉네임 변경은 1회만 가능해요.\n 지금 변경한 닉네임은 탈퇴 시까지 사용됩니다</string>
+
+    <string name="my_page_my_todo">My To-Do</string>
+    <string name="my_page_my_post">My 게시글</string>
+    <string name="my_page_see_all">전체보기</string>
+    <string name="my_page_go_add_todo">TO-DO 추가하러 가기</string>
+    <string name="my_page_go_add_post">새 게시글 작성하기</string>
+    <string name="my_page_again_approve">해당 지원자를\n받으시겠어요?</string>
+    <string name="my_page_again_refuse">해당 지원자를\n거절하시겠어요?</string>
+    <string name="my_page_again_cancel">이 모임에 참여하고 싶지\n않으신가요?</string>
+    <string name="my_page_empty_text">새로운 모임에 참여해 보세요!</string>
+    <string name="my_page_see_other_gathering">모임 둘러보기</string>
+
+    <string name="archive_gathering">모임 아카이브</string>
+    <string name="archive_upload">업로드</string>
+    <string name="archive_upload_title">아카이브 업로드</string>
+    <string name="archive_edit_title">아카이브 수정</string>
+    <string name="archive_sequence_date">%d번째 기록 | %s</string>
+    <string name="archive_dialog_sequence">%d번째 기록</string>
+    <string name="archive_complete">완료</string>
+    <string name="archive_edit_text_title">제목</string>
+    <string name="archive_update_please_enter_title">제목을 입력해주세요</string>
+    <string name="archive_update_photo">사진</string>
+    <string name="archive_add_image">사진 추가</string>
+
+    <string name="setting_title">설정</string>
+    <string name="setting_plub_title">PLUB 이용</string>
+    <string name="setting_notice">공지사항</string>
+    <string name="setting_email">이메일로 문의하기</string>
+    <string name="setting_question">FAQ</string>
+    <string name="setting_account_title">계정</string>
+    <string name="setting_notification">모임 알림</string>
+    <string name="setting_logout">로그아웃</string>
+    <string name="setting_inactivation">비활성화</string>
+    <string name="setting_withdrawal">탈퇴</string>
+    <string name="setting_version_title">버전</string>
+    <string name="setting_service_argument">서비스 이용 약관</string>
+    <string name="setting_personal_info">개인정보 처리 방침</string>
+    <string name="logout_dialog">지금 로그아웃 할까요?</string>
+    <string name="inactivation_dialog">계정을 비활성화 할까요?</string>
+    <string name="inactivation_dialog_description">계정을 비활성화 하면 모든 모임에서\n자동으로 탈퇴 처리되고,\n다시 로그인 시 비활성화가 해제됩니다.</string>
+    <string name="revoke_dialog">지금 탈퇴 할까요?</string>
 
     <string name="report_title">게시글 신고하기</string>
     <string name="report_sub_title">신고 사유가 무엇일까요?</string>

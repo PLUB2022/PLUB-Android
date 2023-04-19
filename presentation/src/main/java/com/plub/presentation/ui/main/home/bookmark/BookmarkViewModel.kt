@@ -7,8 +7,11 @@ import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.GetMyPlubBookmarksUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
-import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.base.BaseTestViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,42 +19,45 @@ import javax.inject.Inject
 class BookmarkViewModel @Inject constructor(
     val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
     val getMyPlubBookmarksUseCase: GetMyPlubBookmarksUseCase
-) : BaseViewModel<BookmarkPageState>(BookmarkPageState()) {
+) : BaseTestViewModel<BookmarkPageState>() {
 
     companion object {
         private const val FIRST_PAGE = 0
     }
 
+    private val bookmarkListStateFlow:MutableStateFlow<List<PlubCardVo>> = MutableStateFlow(emptyList())
+    private val cardTypeStateFlow:MutableStateFlow<PlubCardType> = MutableStateFlow(PlubCardType.LIST)
+    private val isEmptyViewModeStateFlow:MutableStateFlow<Boolean> = MutableStateFlow(true)
+
+    override val uiState: BookmarkPageState = BookmarkPageState(
+        bookmarkListStateFlow.asStateFlow(),
+        cardTypeStateFlow.asStateFlow(),
+        isEmptyViewModeStateFlow.asStateFlow()
+    )
+
     private var page: Int = FIRST_PAGE
 
     fun onClickCardType(cardType: PlubCardType) {
-        viewModelScope.launch {
-            page = FIRST_PAGE
-            updateUiState { uiState ->
-                uiState.copy(
-                    cardType = cardType
-                )
-            }
-            fetchPlubBookmarks()
-        }
+        page = FIRST_PAGE
+        updateCardType(cardType)
+        getPlubBookmarks()
     }
 
-    fun onFetchPlubBookmark() {
-        viewModelScope.launch {
-            page = FIRST_PAGE
-            fetchPlubBookmarks()
-        }
+    fun onGetPlubBookmark() {
+        if(bookmarkListStateFlow.value.isNotEmpty()) return
+        page = FIRST_PAGE
+        getPlubBookmarks()
     }
 
     fun onClickBookmark(id: Int) {
-        viewModelScope.launch {
-            postBookmark(id)
-        }
+        postBookmark(id)
     }
 
-    private suspend fun fetchPlubBookmarks() {
-        getMyPlubBookmarksUseCase(Unit).collect {
-            inspectUiState(it, ::fetchPlubBookmarksSuccess)
+    private fun getPlubBookmarks() {
+        viewModelScope.launch {
+            getMyPlubBookmarksUseCase(Unit).collect {
+                inspectUiState(it, ::fetchPlubBookmarksSuccess)
+            }
         }
     }
 
@@ -59,12 +65,8 @@ class BookmarkViewModel @Inject constructor(
         newFetchProcess()
         val mappedList = mapToCardType(vo.content)
         val mergedList = getMergeList(mappedList)
-        updateUiState { ui ->
-            ui.copy(
-                bookmarkList = mergedList,
-                isEmptyViewVisible = mergedList.isEmpty()
-            )
-        }
+        updateBookmarkList(mergedList)
+        updateIsEmptyViewMode(mergedList.isEmpty())
         page++
     }
 
@@ -75,44 +77,52 @@ class BookmarkViewModel @Inject constructor(
 
     private fun mapToCardType(list: List<PlubCardVo>): List<PlubCardVo> {
         return list.map {
-            it.copy(
-                viewType = uiState.value.cardType
-            )
+            it.copy(viewType = cardTypeStateFlow.value)
         }
     }
 
     private fun getMergeList(list: List<PlubCardVo>): List<PlubCardVo> {
-        val originList = uiState.value.bookmarkList
+        val originList = bookmarkListStateFlow.value
         val mappedList = mapToCardType(list)
         return if (originList.isEmpty() || page == FIRST_PAGE) mappedList else originList + mappedList
     }
 
-    private suspend fun postBookmark(id: Int) {
-        postBookmarkPlubRecruitUseCase(id).collect {
-            inspectUiState(it, ::postBookmarkSuccess)
+    private fun postBookmark(id: Int) {
+        viewModelScope.launch {
+            postBookmarkPlubRecruitUseCase(id).collect {
+                inspectUiState(it, ::postBookmarkSuccess)
+            }
         }
     }
 
     private fun postBookmarkSuccess(vo: PlubBookmarkResponseVo) {
-        val list = uiState.value.bookmarkList
+        val list = bookmarkListStateFlow.value
         val newList = list.map {
             val bookmark = if (it.id == vo.id) vo.isBookmarked else it.isBookmarked
-            it.copy(
-                isBookmarked = bookmark
-            )
+            it.copy(isBookmarked = bookmark)
         }
         updateBookmarkList(newList)
     }
 
-    private fun updateBookmarkList(list: List<PlubCardVo>) {
-        updateUiState { uiState ->
-            uiState.copy(
-                bookmarkList = list
-            )
+    fun onClickBack(){
+        emitEventFlow(BookmarksEvent.GoToBack)
+    }
+
+    private fun updateBookmarkList(list:List<PlubCardVo>) {
+        viewModelScope.launch {
+            bookmarkListStateFlow.update { list }
         }
     }
 
-    fun onClickBack(){
-        emitEventFlow(BookmarksEvent.GoToBack)
+    private fun updateCardType(type:PlubCardType) {
+        viewModelScope.launch {
+            cardTypeStateFlow.update { type }
+        }
+    }
+
+    private fun updateIsEmptyViewMode(isEmpty:Boolean) {
+        viewModelScope.launch {
+            isEmptyViewModeStateFlow.update { isEmpty }
+        }
     }
 }
