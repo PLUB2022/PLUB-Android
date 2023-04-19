@@ -43,19 +43,30 @@ class CommonDialog @Inject constructor(@ActivityContext private val context: Con
         return this
     }
 
-    fun setDescription(@StringRes messageId: Int): CommonDialog {
+    fun setDescription(@StringRes messageId: Int?): CommonDialog {
         binding.textViewDescription.apply {
-            visibility = View.VISIBLE
-            text = context.getText(messageId)
+            if(messageId == null) visibility = View.GONE
+            else {
+                visibility = View.VISIBLE
+                text = context.getText(messageId)
+            }
         }
         return this
     }
 
     fun setDescription(message: CharSequence): CommonDialog {
         binding.textViewDescription.apply {
-            visibility = View.VISIBLE
-            text = message
+            if(message.isEmpty()) visibility = View.GONE
+            else {
+                visibility = View.VISIBLE
+                text = message
+            }
         }
+        return this
+    }
+
+    fun setGoneDescription(): CommonDialog{
+        binding.textViewDescription.visibility = View.GONE
         return this
     }
 
