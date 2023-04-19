@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.plub.domain.model.enums.ApplyModifyApplicationType
+import com.plub.domain.model.sealed.ReportType
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
@@ -155,7 +156,10 @@ class RecruitmentFragment :
     }
 
     private fun goToReport(){
-        //TODO 신고화면 이동
+        val action = RecruitmentFragmentDirections.actionRecruitmentToReport(
+            ReportType.RecruitReport(plubbingId = recruitmentFragmentArgs.plubbingId)
+        )
+        findNavController().navigate(action)
     }
 
     private fun showCancelDialog(){

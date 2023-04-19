@@ -111,6 +111,9 @@
         <action
             android:id="@+id/action_recruitment_to_modifyGathering"
             app:destination="@id/modifyGatheringFragment" />
+        <action
+            android:id="@+id/action_recruitment_to_report"
+            app:destination="@id/reportFragment" />
         <argument
             android:name="plubbingId"
             app:argType="integer" />
