@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.ReportReasonType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentReportDetailBinding
 import com.plub.presentation.ui.main.report.adapter.ReportItemAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ReportDetailFragment : BaseFragment<FragmentReportDetailBinding, ReportDetailState, ReportDetailViewModel>(
+class ReportDetailFragment : BaseTestFragment<FragmentReportDetailBinding, ReportDetailState, ReportDetailViewModel>(
     FragmentReportDetailBinding::inflate
 ) {
 
@@ -52,8 +53,8 @@ class ReportDetailFragment : BaseFragment<FragmentReportDetailBinding, ReportDet
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect{
-                    reportItemAdapter.submitList(it.reportList)
+                viewModel.uiState.reportList.collect{
+                    reportItemAdapter.submitList(it)
                 }
             }
 

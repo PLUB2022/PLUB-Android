@@ -4,12 +4,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentReportCompleteBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ReportCompleteFragment : BaseFragment<FragmentReportCompleteBinding, ReportCompleteState, ReportCompleteViewModel>(
+class ReportCompleteFragment : BaseTestFragment<FragmentReportCompleteBinding, ReportCompleteState, ReportCompleteViewModel>(
     FragmentReportCompleteBinding::inflate
 ) {
 

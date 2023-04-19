@@ -9,8 +9,13 @@ import com.plub.domain.model.vo.report.ReportItemVo
 import com.plub.domain.model.vo.report.ReportVo
 import com.plub.domain.usecase.GetReportUseCase
 import com.plub.domain.usecase.PostCreateReportUseCase
+import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,7 +23,7 @@ import javax.inject.Inject
 class ReportDetailViewModel @Inject constructor(
     private val getReportUseCase: GetReportUseCase,
     private val postCreateReportUseCase: PostCreateReportUseCase
-) : BaseViewModel<ReportDetailState>(ReportDetailState()) {
+) : BaseTestViewModel<ReportDetailState>() {
 
     private var isExpand : Boolean = false
     private var reportList : List<ReportItemVo> = emptyList()
@@ -26,6 +31,20 @@ class ReportDetailViewModel @Inject constructor(
     private var reportTargetId : Int = 0
     private var reportPlubbingId : Int = 0
     private var reportType : String = ""
+
+    private val reportListStateFlow : MutableStateFlow<List<ReportItemVo>> = MutableStateFlow(
+        emptyList()
+    )
+    private val nowTextStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private var reportContentStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val isButtonEnableStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
+
+    override val uiState: ReportDetailState = ReportDetailState(
+        reportList = reportListStateFlow.asStateFlow(),
+        nowText = nowTextStateFlow.asStateFlow(),
+        reportContent = reportContentStateFlow,
+        isButtonEnable = isButtonEnableStateFlow.asStateFlow()
+    )
 
     fun getReportList(reasonType: ReportReasonType){
         viewModelScope.launch {
@@ -89,11 +108,9 @@ class ReportDetailViewModel @Inject constructor(
             it.reportType == reasonType
         }
         reportType = nowReport?.reportType?.type ?: ""
-        updateUiState { uiState ->
-            uiState.copy(
-                nowText = nowReport?.reportTitle ?: "",
-                reportList = reportList.filter { reasonType != it.reportType }
-            )
+        viewModelScope.launch {
+            nowTextStateFlow.update { nowReport?.reportTitle ?: "" }
+            reportListStateFlow.update { reportList.filter { reasonType != it.reportType } }
         }
     }
 
@@ -104,7 +121,7 @@ class ReportDetailViewModel @Inject constructor(
     }
 
     fun onTextChangedAfter(){
-        if(uiState.value.reportContent.isNotEmpty()) {
+        if(uiState.reportContent.value.isNotEmpty()) {
             emitEventFlow(ReportDetailEvent.BorderBlack)
             updateButtonState(true)
         }
@@ -119,7 +136,7 @@ class ReportDetailViewModel @Inject constructor(
             reportType = reportType,
             reportTarget = reportTarget,
             reportTargetId = reportTargetId,
-            reportReason = uiState.value.reportContent,
+            reportReason = uiState.reportContent.value,
             plubbingId = reportPlubbingId
         )
         viewModelScope.launch {
@@ -130,14 +147,12 @@ class ReportDetailViewModel @Inject constructor(
     }
 
     private fun handleSuccessPostCreateReport(){
-        emitEventFlow(ReportDetailEvent.GoToComplete(uiState.value.nowText))
+        emitEventFlow(ReportDetailEvent.GoToComplete(uiState.nowText.value))
     }
 
     private fun updateButtonState(enable : Boolean){
-        updateUiState { uiState->
-            uiState.copy(
-                isButtonEnable = enable
-            )
+        viewModelScope.launch {
+            isButtonEnableStateFlow.update { enable }
         }
     }
 

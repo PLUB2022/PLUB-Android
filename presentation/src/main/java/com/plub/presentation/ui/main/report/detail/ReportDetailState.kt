@@ -2,10 +2,12 @@ package com.plub.presentation.ui.main.report.detail
 
 import com.plub.domain.model.vo.report.ReportItemVo
 import com.plub.presentation.ui.PageState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 data class ReportDetailState(
-    val reportList : List<ReportItemVo> = emptyList(),
-    val nowText : String = "",
-    var reportContent : String ="",
-    val isButtonEnable : Boolean = false
+    val reportList : StateFlow<List<ReportItemVo>>,
+    val nowText : StateFlow<String>,
+    var reportContent : MutableStateFlow<String>,
+    val isButtonEnable : StateFlow<Boolean>
 ) : PageState
