@@ -14,7 +14,6 @@ import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCateg
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.ui.main.home.recruitment.bottomsheet.ProfileBottomSheetFragment
 import com.plub.presentation.ui.main.home.recruitment.dialog.RecruitApplySuccessDialogFragment
-import com.plub.presentation.ui.main.profile.bottomsheet.BottomSheetProfileFragment
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -138,15 +137,7 @@ class RecruitmentFragment :
     }
 
     private fun goToProfile(accountId: Int, nickname : String) {
-        val bottomSheetProfileFragment = BottomSheetProfileFragment.newInstance(
-            accountId = accountId,
-            nickName = nickname,
-            plubbingId = recruitmentFragmentArgs.plubbingId
-        )
-        bottomSheetProfileFragment.show(
-            parentFragmentManager,
-            bottomSheetProfileFragment.tag
-        )
+
     }
 
     private fun openProfileBottomSheet(joinedAccountList : List<RecruitDetailJoinedAccountsVo>){

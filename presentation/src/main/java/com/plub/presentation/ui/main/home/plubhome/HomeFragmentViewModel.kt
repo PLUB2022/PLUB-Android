@@ -155,7 +155,7 @@ class HomeFragmentViewModel @Inject constructor(
             gatheringList.add(getGatheringsVo(vo))
         }
     }
-    
+
     private fun getEmptyView() : HomePlubListVo{
         return HomePlubListVo(
             viewType = HomeViewType.EMPTY

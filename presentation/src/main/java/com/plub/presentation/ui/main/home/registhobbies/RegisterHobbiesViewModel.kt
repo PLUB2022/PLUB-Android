@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterHobbiesViewModel @Inject constructor(
     val getAllHobbiesUseCase: GetAllHobbiesUseCase,
-    val postRegisterHobbiesUseCase: PostRegisterHobbiesUseCase
+    private val postRegisterHobbiesUseCase: PostRegisterHobbiesUseCase
 ) : BaseViewModel<HobbiesPageState>(HobbiesPageState()) {
     private val selectedList: MutableList<SelectedHobbyVo> = mutableListOf()
 
