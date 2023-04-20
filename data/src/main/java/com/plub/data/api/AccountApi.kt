@@ -36,4 +36,7 @@ interface AccountApi {
     suspend fun fetchOtherInfo(
         @Path(PATH_NICKNAME) nickname : String
     ) : Response<ApiResponse<MyInfoResponse>>
+
+    @GET(Endpoints.AUTH.LOGOUT)
+    suspend fun logout() : Response<ApiResponse<DataDto.DTO>>
 }

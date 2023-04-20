@@ -139,7 +139,7 @@ class HomeFragmentViewModel @Inject constructor(
     }
 
     private fun handleGetMyInterestSuccess(data: RegisterInterestResponseVo) {
-        if(data.subCategories.isNotEmpty()){
+        if(data.subCategories.isEmpty()){
             noHobbyList = listOf(
                 HomePlubListVo(
                 viewType = HomeViewType.REGISTER_HOBBIES_VIEW
