@@ -371,4 +371,10 @@ object UseCaseModule {
     fun providesPostCreateReportUseCase(repository: ReportRepository) : PostCreateReportUseCase{
         return PostCreateReportUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesGetReportDetailUseCase(repository: ReportRepository) : GetReportDetailUseCase{
+        return GetReportDetailUseCase(repository)
+    }
 }

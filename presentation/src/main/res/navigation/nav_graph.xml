@@ -28,27 +28,6 @@
         <action
             android:id="@+id/action_main_to_registerInterest"
             app:destination="@id/registerHobbiesFragment" />
-        <action
-            android:id="@+id/action_main_to_modifyGathering"
-            app:destination="@id/modifyGatheringFragment" />
-        <action
-            android:id="@+id/action_main_to_plubing_main"
-            app:destination="@id/plubingMainFragment" />
-
-        <action
-            android:id="@+id/action_main_to_my_page"
-            app:destination="@id/myPageFragment" />
-
-        <!-- TODO REMOVE -->
-        <action
-            android:id="@+id/action_plubing_main_to_schedule"
-            app:destination="@+id/plubingScheduleFragment" />
-        <action
-            android:id="@+id/action_main_to_archive"
-            app:destination="@id/archiveFragment" />
-        <action
-            android:id="@+id/todo_remove_go_report"
-            app:destination="@id/reportFragment"/>
 
     </fragment>
 
@@ -568,5 +547,16 @@
         <action
             android:id="@+id/action_report_complete_to_home"
             app:destination="@id/menu_navigation_main" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/reportAlarmFragment"
+        android:name="com.plub.presentation.ui.main.report.alarm.ReportAlarmFragment"
+        android:label="ReportAlarmFragment"
+        tools:layout="@layout/fragment_alarm_report">
+
+        <argument
+            android:name="reportId"
+            app:argType="integer" />
     </fragment>
 </navigation>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.report.alarm.ReportAlarmViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_faf9fe">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/color_faf9fe"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_back"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/transparent"
+                android:scaleType="center"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+        <androidx.core.widget.NestedScrollView
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_faf9fe">
+
+                <TextView
+                    android:id="@+id/text_view_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:textSize="20sp"
+                    android:text="@{vm.uiState.title}"
+                    android:textColor="@color/black"
+                    tools:text="[신고] “닉네임”님에 대한 신고가 접수되었습니다. "
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                
+                <TextView
+                    android:id="@+id/text_view_date"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_title"
+                    app:layout_constraintEnd_toEndOf="@id/text_view_title"
+                    android:layout_marginTop="16dp"
+                    android:textSize="12sp"
+                    android:text="@{vm.uiState.date}"
+                    android:textColor="@color/color_c4c4c4"
+                    tools:text="2022.07.03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                
+                <TextView
+                    android:id="@+id/text_view_content"
+                    android:layout_marginTop="59dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:text="@{vm.uiState.content}"
+                    tools:text="모임 이름 에서 신고 사유 를 사유로 신고가 접수되었습니다. 아래 신고 정책을 참고하여 주의 부탁드립니다. 만약 접수된 신고가 허위일 경우, 고객센터에서 문의를 통하여 신고 횟수를 차감하실 수 있습니다.
+
+                신고 정책
+                1회: 경고
+                3회: 한 달 정지
+                6회: 영구 정지
+
+                계정이 영구정지 될 경우 재가입 및 재이용이 불가하므로, 접수된 신고가 허위일 경우 사전에 고객센터로 문의주시고 신고 횟수를 차감하시길 권고드립니다."
+                    app:layout_constraintTop_toBottomOf="@id/text_view_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
