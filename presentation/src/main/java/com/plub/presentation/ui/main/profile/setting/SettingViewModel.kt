@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.usecase.GetLogoutUseCase
 import com.plub.domain.usecase.PutChangePushNotificationUseCase
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -6,7 +6,6 @@ import com.plub.domain.model.enums.MyPageGatheringStateType
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.domain.usecase.GetMyGatheringUseCase
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -51,17 +50,12 @@ class MyPageViewModel @Inject constructor(
 
 
     fun setMyInfo() {
-        PlubLogger.logD(PlubUser.info.profileImage)
         viewModelScope.launch {
             myNameStateFlow.update { PlubUser.info.nickname }
             myIntroStateFlow.update { PlubUser.info.introduce }
             profileImageStateFlow.update { PlubUser.info.profileImage }
             isReadMoreStateFlow.update { PlubUser.info.introduce.length > MAX_LENGTH }
         }
-    }
-
-    fun refresh(){
-        updateMyGathering(emptyList())
     }
 
     fun getMyPageData() {
