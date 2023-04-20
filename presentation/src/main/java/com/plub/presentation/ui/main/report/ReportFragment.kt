@@ -42,6 +42,7 @@ class ReportFragment : BaseTestFragment<FragmentReportBinding, ReportState, Repo
                 adapter = reportItemAdapter
             }
         }
+        viewModel.setTitle(reportFragmentArgs.type)
         viewModel.getReportList()
     }
 

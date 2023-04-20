@@ -5,7 +5,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentAlarmReportBinding
-import com.plub.presentation.ui.main.report.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
