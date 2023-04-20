@@ -150,9 +150,16 @@ class HomeFragmentViewModel @Inject constructor(
 
     private fun handleGetRecommendGatheringSuccess(data: PlubCardListVo) {
         isLast = data.last
-        data.content.forEach { vo ->
+        if(data.content.isEmpty()) gatheringList.add(getEmptyView())
+        else data.content.forEach { vo ->
             gatheringList.add(getGatheringsVo(vo))
         }
+    }
+    
+    private fun getEmptyView() : HomePlubListVo{
+        return HomePlubListVo(
+            viewType = HomeViewType.EMPTY
+        )
     }
 
     private fun getGatheringsVo(data: PlubCardVo): HomePlubListVo {

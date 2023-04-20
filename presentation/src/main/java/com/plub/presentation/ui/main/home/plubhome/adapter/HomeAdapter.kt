@@ -30,6 +30,7 @@ class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubList
             is HomeRecommendTitleViewHolder -> holder.bind()
             is HomeNoInterestViewHolder -> holder.bind()
             is HomeRecommendListViewHolder -> holder.bind(currentList[position].recommendGathering)
+            is HomeEmptyViewHolder -> holder.bind()
         }
     }
 
@@ -54,6 +55,10 @@ class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubList
             HomeViewType.RECOMMEND_GATHERING_VIEW -> {
                 val binding = IncludeItemPlubCardListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 HomeRecommendListViewHolder(binding, listener)
+            }
+            HomeViewType.EMPTY -> {
+                val binding = IncludeEmptyRecommendGatheringBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                HomeEmptyViewHolder(binding)
             }
         }
     }
