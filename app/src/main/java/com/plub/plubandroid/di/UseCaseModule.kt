@@ -341,4 +341,22 @@ object UseCaseModule {
     fun providesDeleteFileUseCase(repository: MediaRepository): DeleteFileUseCase {
         return DeleteFileUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesGetMyPostUseCase(repository: MyPageRepository): GetMyPostUseCase {
+        return GetMyPostUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPutChangePushNotification(repository: AccountRepository): PutChangePushNotificationUseCase {
+        return PutChangePushNotificationUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetLogoutUseCase(repository: LoginRepository): GetLogoutUseCase {
+        return GetLogoutUseCase(repository)
+    }
 }

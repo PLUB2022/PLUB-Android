@@ -8,6 +8,7 @@ object HostAnswersMapper : Mapper.ResponseMapper<AnswersDataResponse, AnswersVo>
     override fun mapDtoToModel(type: AnswersDataResponse?): AnswersVo {
         return type?.run {
             AnswersVo(
+                id = this.questionId,
                 questions = this.question,
                 answer = this.answer)
         }?: AnswersVo()

@@ -13,6 +13,7 @@ object Endpoints {
         const val SOCIAL_LOGIN = "$AUTH_URL/login"
         const val SIGN_UP = "$AUTH_URL/signup"
         const val SOCIAL_LOGIN_ADMIN = "$AUTH_URL/login/admin"
+        const val LOGOUT = "$AUTH_URL/logout"
     }
 
     object ACCOUNT {
@@ -22,6 +23,7 @@ object Endpoints {
         const val UPDATE_PROFILE = "$FETCH_MY_INFO/profile"
         const val REGIST_INTEREST = "$ACCOUNT_URL/interest"
         const val BROWSE_INTEREST = "$ACCOUNT_URL/interest"
+        const val CHANGE_PUSH_NOTIFICATION = FETCH_MY_INFO
     }
 
     object CATEGORY {
@@ -56,10 +58,16 @@ object Endpoints {
         const val APPLICANTS_RECRUIT = "$RECRUIT_URL/applicants"
         const val APPROVAL_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/approval"
         const val REFUSE_APPLICANTS = "$APPLICANTS_RECRUIT/{accountId}/refuse"
+        const val CANCEL_APPLICATION = "$APPLICANTS_RECRUIT/me"
         const val RECRUIT_END = "$RECRUIT_URL/end"
         const val RECRUIT_QUESTIONS = "$RECRUIT_URL/questions"
         const val PLUBING_MAIN = "$PLUBBING_ID_URL/main"
-        const val MODIFY_GATHERING_RECRUIT = RECRUIT_URL
+        const val MODIFY_GATHERING_RECRUIT = CANCEL_APPLICATION
+
+        object MODIFY_GATHERING {
+            const val RECRUIT = RECRUIT_URL
+        }
+
         const val MY = "$PLUBBING_URL/my"
         const val CHANGE_STATUS = "$PLUBBING_ID_URL/status"
         const val LEAVE = "$PLUBBING_ID_URL/leave"
@@ -102,6 +110,8 @@ object Endpoints {
         object MY_PAGE{
             const val BROWSE_MY_GATHERING = "$PLUBBING_URL/all/my"
             const val BROWSE_MY_APPLICATION = "$PLUBBING_URL/{plubbingId}/recruit/applicants/me"
+            const val BROWSE_MY_POST = "$PLUBBING_URL/{plubbingId}/feeds/my"
+            const val BROWSE_MY_TODO = "$PLUBBING_URL/{plubbingId}/timeline/my"
         }
     }
 }
