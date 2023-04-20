@@ -28,7 +28,7 @@ class MyPageGatheringAdapter(private val listener: MyPageParentGatheringAdapter.
 
 class MyPageGatheringDiffCallback : DiffUtil.ItemCallback<MyPageGatheringDetailVo>() {
     override fun areItemsTheSame(oldItem: MyPageGatheringDetailVo, newItem: MyPageGatheringDetailVo): Boolean =
-        oldItem.gatheringType == newItem.gatheringType
+        oldItem.gatheringType == newItem.gatheringType && oldItem.plubbingId == newItem.plubbingId
 
     override fun areContentsTheSame(oldItem: MyPageGatheringDetailVo, newItem: MyPageGatheringDetailVo): Boolean =
         oldItem == newItem

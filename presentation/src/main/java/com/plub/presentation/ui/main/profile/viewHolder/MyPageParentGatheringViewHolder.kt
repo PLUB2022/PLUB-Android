@@ -10,6 +10,7 @@ import com.plub.presentation.databinding.IncludeItemMyGatheringBinding
 import com.plub.presentation.ui.common.decoration.VerticalSpaceDecoration
 import com.plub.presentation.ui.main.profile.adapter.MyPageGatheringAdapter
 import com.plub.presentation.ui.main.profile.adapter.MyPageParentGatheringAdapter
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.onThrottleClick
 import com.plub.presentation.util.px
 
@@ -58,6 +59,8 @@ class MyPageParentGatheringViewHolder(
                     gatheringParentType = item.gatheringType
                 )
             }
+            val expandImageRes = if (item.isExpand) R.drawable.ic_arrow_over else R.drawable.ic_arrow_under
+            imageViewArrow.setImageResource(expandImageRes)
             detailAdapter.submitList(gatheringList)
             recyclerViewGatheringList.visibility = if (item.isExpand) View.VISIBLE else View.GONE
         }

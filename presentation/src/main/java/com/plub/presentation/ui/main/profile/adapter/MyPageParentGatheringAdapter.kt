@@ -35,7 +35,7 @@ class MyPageParentGatheringAdapter(private val listener: MyPageDelegate): ListAd
 
 class MyPageParentGatheringDiffCallback : DiffUtil.ItemCallback<MyPageGatheringVo>() {
     override fun areItemsTheSame(oldItem: MyPageGatheringVo, newItem: MyPageGatheringVo): Boolean =
-        oldItem.gatheringType == newItem.gatheringType
+        oldItem.gatheringType == newItem.gatheringType && oldItem.gatheringList == newItem.gatheringList
 
     override fun areContentsTheSame(oldItem: MyPageGatheringVo, newItem: MyPageGatheringVo): Boolean =
         oldItem == newItem
