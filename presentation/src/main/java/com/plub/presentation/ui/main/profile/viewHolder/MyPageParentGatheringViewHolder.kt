@@ -28,6 +28,7 @@ class MyPageParentGatheringViewHolder(
     }
 
     var myPageGatheringVo : MyPageGatheringVo? = null
+    var isExpand : Boolean = true
 
     init {
         binding.apply {
@@ -37,9 +38,10 @@ class MyPageParentGatheringViewHolder(
                 adapter = detailAdapter
             }
             imageViewArrow.onThrottleClick {
-                myPageGatheringVo?.let {
-                    listener.onClickCardExpand(it.gatheringType)
-                }
+                recyclerViewGatheringList.visibility = if(isExpand) View.VISIBLE else View.GONE
+                val expandImageRes = if (isExpand) R.drawable.ic_arrow_over else R.drawable.ic_arrow_under
+                imageViewArrow.setImageResource(expandImageRes)
+                isExpand = !isExpand
             }
         }
     }
@@ -59,10 +61,7 @@ class MyPageParentGatheringViewHolder(
                     gatheringParentType = item.gatheringType
                 )
             }
-            val expandImageRes = if (item.isExpand) R.drawable.ic_arrow_over else R.drawable.ic_arrow_under
-            imageViewArrow.setImageResource(expandImageRes)
             detailAdapter.submitList(gatheringList)
-            recyclerViewGatheringList.visibility = if (item.isExpand) View.VISIBLE else View.GONE
         }
     }
 }

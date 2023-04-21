@@ -127,14 +127,6 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun onClickExpand(gatheringType: MyPageGatheringStateType) {
-        val gatheringList = uiState.myPageGatheringList.value.map {
-            val expanded = if (it.gatheringType == gatheringType) !it.isExpand else it.isExpand
-            it.copy(isExpand = expanded)
-        }
-        updateMyGathering(gatheringList)
-    }
-
     private fun updateMyGathering(list: List<MyPageGatheringVo>) {
         viewModelScope.launch {
             myPageGatheringListStateFlow.update { list }
