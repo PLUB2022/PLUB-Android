@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.gathering.modifyGathering.recruit
+package com.plub.presentation.ui.main.gathering.modify.recruit
 
 import android.app.Activity
 import android.net.Uri
@@ -18,9 +18,7 @@ import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.domain.usecase.PutModifyRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.ImageUtil
-import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject

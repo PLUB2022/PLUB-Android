@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.gathering.modifyGathering.recruit
+package com.plub.presentation.ui.main.gathering.modify.recruit
 
 import android.net.Uri
 import android.os.Bundle

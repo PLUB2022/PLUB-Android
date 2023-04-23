@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.gathering.modifyGathering
+package com.plub.presentation.ui.main.gathering.modify
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
@@ -7,8 +7,8 @@ import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.domain.usecase.GetRecruitQuestionUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.main.gathering.create.question.CreateGatheringQuestion
-import com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion.ModifyGuestQuestionPageState
-import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitPageState
+import com.plub.presentation.ui.main.gathering.modify.guestQuestion.ModifyGuestQuestionPageState
+import com.plub.presentation.ui.main.gathering.modify.recruit.ModifyRecruitPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

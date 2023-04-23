@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion
+package com.plub.presentation.ui.main.gathering.modify.guestQuestion
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.modifyGathering.ModifyQuestionRequestVo

@@ -1,11 +1,11 @@
-package com.plub.presentation.ui.main.gathering.modifyGathering.adapter
+package com.plub.presentation.ui.main.gathering.modify.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.plub.domain.model.enums.ModifyGatheringPageType
-import com.plub.presentation.ui.main.gathering.modifyGathering.ModifyGatheringPageState
-import com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion.ModifyGuestQuestionFragment
-import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitFragment
+import com.plub.presentation.ui.main.gathering.modify.ModifyGatheringPageState
+import com.plub.presentation.ui.main.gathering.modify.guestQuestion.ModifyGuestQuestionFragment
+import com.plub.presentation.ui.main.gathering.modify.recruit.ModifyRecruitFragment
 
 class FragmentModifyGatheringPagerAdapter(fragment: Fragment, private val pageState: ModifyGatheringPageState): FragmentStateAdapter(fragment) {
 

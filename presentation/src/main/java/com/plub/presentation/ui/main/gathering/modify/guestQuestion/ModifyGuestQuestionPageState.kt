@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion
+package com.plub.presentation.ui.main.gathering.modify.guestQuestion
 
 import android.os.Parcelable
 import com.plub.presentation.ui.PageState

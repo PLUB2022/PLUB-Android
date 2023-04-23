@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.gathering.modifyGathering
+package com.plub.presentation.ui.main.gathering.modify
 
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -8,7 +8,7 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentModifyGatheringBinding
 import com.plub.presentation.databinding.IncludeTabModifyGatheringBinding
-import com.plub.presentation.ui.main.gathering.modifyGathering.adapter.FragmentModifyGatheringPagerAdapter
+import com.plub.presentation.ui.main.gathering.modify.adapter.FragmentModifyGatheringPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

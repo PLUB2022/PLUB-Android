@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.gathering.modifyGathering
+package com.plub.presentation.ui.main.gathering.modify
 
 import com.plub.presentation.ui.Event
 

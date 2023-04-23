@@ -351,7 +351,7 @@
     </fragment>
     <fragment
         android:id="@+id/modifyGatheringFragment"
-        android:name="com.plub.presentation.ui.main.gathering.modifyGathering.ModifyGatheringFragment"
+        android:name="com.plub.presentation.ui.main.gathering.modify.ModifyGatheringFragment"
         android:label="ModifyGatheringFragment"
         tools:layout="@layout/fragment_modify_gathering" />
 

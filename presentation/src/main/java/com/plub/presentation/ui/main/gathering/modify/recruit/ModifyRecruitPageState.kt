@@ -1,6 +1,5 @@
-package com.plub.presentation.ui.main.gathering.modifyGathering.recruit
+package com.plub.presentation.ui.main.gathering.modify.recruit
 
-import android.graphics.Bitmap
 import android.os.Parcelable
 import com.plub.presentation.ui.PageState
 import kotlinx.parcelize.IgnoredOnParcel
