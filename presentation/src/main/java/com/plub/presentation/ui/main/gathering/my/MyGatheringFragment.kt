@@ -88,7 +88,7 @@ class MyGatheringFragment :
                     showGatheringLeaveDialog(plubbingId)
                 }
                 getString(R.string.my_gathering_kick_out) -> {
-
+                    viewModel.goToKickOut(plubbingId)
                 }
                 getString(R.string.my_gathering_close) -> {
                     showGatheringQuitDialog(plubbingId)
@@ -203,6 +203,12 @@ class MyGatheringFragment :
 
             MyGatheringEvent.GoToPlubingHome -> {
                 val action = MyGatheringFragmentDirections.actionMyGatheringToPlubingHome()
+                findNavController().navigate(action)
+            }
+
+            is MyGatheringEvent.GoToKickOut -> {
+                val action =
+                    MyGatheringFragmentDirections.actionMyGatheringToKickOut(event.plubingId)
                 findNavController().navigate(action)
             }
         }

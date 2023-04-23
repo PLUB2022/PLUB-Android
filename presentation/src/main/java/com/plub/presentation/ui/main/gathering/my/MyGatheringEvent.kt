@@ -8,4 +8,6 @@ sealed class MyGatheringEvent : Event {
     object GoToCreateGathering: MyGatheringEvent()
 
     object GoToPlubingHome: MyGatheringEvent()
+
+    data class GoToKickOut(val plubingId: Int): MyGatheringEvent()
 }

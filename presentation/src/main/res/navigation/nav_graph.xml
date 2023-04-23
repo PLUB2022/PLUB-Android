@@ -311,6 +311,10 @@
             android:id="@+id/action_my_gathering_to_create"
             app:destination="@id/createGatheringFragment" />
 
+        <action
+            android:id="@+id/action_my_gathering_to_kick_out"
+            app:destination="@id/kickOutFragment" />
+
     </fragment>
 
     <fragment
@@ -549,5 +553,17 @@
         <argument
             android:name="image"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/kickOutFragment"
+        android:name="com.plub.presentation.ui.main.gathering.my.kickOut.KickOutFragment"
+        android:label="KickOutFragment"
+        tools:layout="@layout/fragment_kick_out">
+
+        <argument
+            android:name="plubingId"
+            app:argType="integer" />
+
     </fragment>
 </navigation>
