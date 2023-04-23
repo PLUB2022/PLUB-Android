@@ -3,7 +3,6 @@ package com.plub.presentation.ui.main.gathering.modifyGathering.recruit
 import android.net.Uri
 import com.canhub.cropper.CropImageContractOptions
 import com.plub.presentation.ui.Event
-import com.plub.presentation.ui.main.gathering.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndImageEvent
 
 sealed class ModifyRecruitEvent : Event {
     object ShowSelectImageBottomSheetDialog: ModifyRecruitEvent()

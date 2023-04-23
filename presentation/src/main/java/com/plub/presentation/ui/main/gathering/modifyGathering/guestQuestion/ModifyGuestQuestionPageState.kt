@@ -2,7 +2,7 @@ package com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion
 
 import android.os.Parcelable
 import com.plub.presentation.ui.PageState
-import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
+import com.plub.presentation.ui.main.gathering.create.question.CreateGatheringQuestion
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 

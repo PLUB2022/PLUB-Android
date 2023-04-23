@@ -1,20 +1,11 @@
 package com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentModifyGuestQuestionBinding
-import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionEvent
-import com.plub.presentation.ui.main.gathering.createGathering.question.adapter.QuestionRecyclerViewAdapter
-import com.plub.presentation.ui.main.gathering.createGathering.question.bottomSheet.BottomSheetDeleteQuestion
-import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitFragment
-import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitPageState
+import com.plub.presentation.ui.main.gathering.create.question.adapter.QuestionRecyclerViewAdapter
+import com.plub.presentation.ui.main.gathering.create.question.bottomSheet.BottomSheetDeleteQuestion
 import com.plub.presentation.util.parcelable
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

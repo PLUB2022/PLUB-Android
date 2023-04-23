@@ -4,13 +4,11 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.modifyGathering.ModifyQuestionRequestVo
 import com.plub.domain.usecase.PutModifyQuestionsUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
-import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionViewModel
-import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.ui.main.gathering.create.question.CreateGatheringQuestion
+import com.plub.presentation.ui.main.gathering.create.question.CreateGatheringQuestionViewModel
 import com.plub.presentation.util.deepCopy
 import com.plub.presentation.util.deepCopyAfterUpdateQuestion
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

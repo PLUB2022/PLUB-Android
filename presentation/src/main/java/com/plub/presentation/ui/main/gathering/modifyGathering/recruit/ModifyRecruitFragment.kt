@@ -2,25 +2,16 @@ package com.plub.presentation.ui.main.gathering.modifyGathering.recruit
 
 import android.net.Uri
 import android.os.Bundle
-import android.os.Parcel
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.DialogMenuType
-import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentModifyRecruitBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
-import com.plub.presentation.ui.main.gathering.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndImageEvent
-import com.plub.presentation.ui.main.gathering.createGathering.question.bottomSheet.BottomSheetDeleteQuestion
 import com.plub.presentation.util.IntentUtil
 import com.plub.presentation.util.PermissionManager
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.parcelable
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

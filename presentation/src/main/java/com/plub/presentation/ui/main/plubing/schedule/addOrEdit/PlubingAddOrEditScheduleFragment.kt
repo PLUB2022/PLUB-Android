@@ -11,7 +11,7 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingAddOrEditScheduleBinding
 import com.plub.presentation.ui.common.dialog.SelectCheckboxBottomSheetDialog
-import com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocation
+import com.plub.presentation.ui.main.gathering.create.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

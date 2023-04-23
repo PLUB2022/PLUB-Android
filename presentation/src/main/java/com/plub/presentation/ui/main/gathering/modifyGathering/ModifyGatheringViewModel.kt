@@ -6,7 +6,7 @@ import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailResponseVo
 import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.domain.usecase.GetRecruitQuestionUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
+import com.plub.presentation.ui.main.gathering.create.question.CreateGatheringQuestion
 import com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion.ModifyGuestQuestionPageState
 import com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitPageState
 import dagger.hilt.android.lifecycle.HiltViewModel

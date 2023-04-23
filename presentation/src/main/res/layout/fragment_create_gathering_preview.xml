@@ -9,11 +9,11 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.preview.CreateGatheringPreviewViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.preview.CreateGatheringPreviewViewModel" />
 
         <variable
             name="parent_vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.CreateGatheringViewModel" />
     </data>
 
     <ScrollView
@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:background="@color/color_f5f3f6"
         android:fillViewport="true"
-        tools:context=".ui.main.gathering.createGathering.preview.CreateGatheringPreviewFragment">
+        tools:context=".ui.main.gathering.create.preview.CreateGatheringPreviewFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

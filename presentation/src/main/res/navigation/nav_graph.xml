@@ -150,7 +150,7 @@
 
     <fragment
         android:id="@+id/createGatheringFragment"
-        android:name="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringFragment"
+        android:name="com.plub.presentation.ui.main.gathering.create.CreateGatheringFragment"
         android:label="CreateGatheringFragment"
         tools:layout="@layout/fragment_create_gathering">
 

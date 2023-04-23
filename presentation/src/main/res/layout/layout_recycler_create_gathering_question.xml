@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion" />
+            type="com.plub.presentation.ui.main.gathering.create.question.CreateGatheringQuestion" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
