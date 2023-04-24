@@ -62,7 +62,7 @@ private class EventFlowImpl<T>(
 
             val slotKey = collector.javaClass.name + slot
 
-            if(isContainKey(slotKey)) {
+            if(isNotContainKey(slotKey)) {
                 if(slotStore.size > MAX_CACHE_EVENT_SIZE) slotStore.removeFirst()
                 slotStore.addLast(Slot(slotKey, EventFlowSlot(slot.value)))
             }
@@ -78,7 +78,7 @@ private class EventFlowImpl<T>(
         flow.emit(EventFlowSlot(value))
     }
 
-    fun isContainKey(findKey: String): Boolean {
+    private fun isNotContainKey(findKey: String): Boolean {
         return slotStore.find { it.key == findKey } == null
     }
 }
