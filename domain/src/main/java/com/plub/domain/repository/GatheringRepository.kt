@@ -5,6 +5,7 @@ import com.plub.domain.model.vo.account.AccountInfoVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringRequestVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
 import com.plub.domain.model.vo.modifyGathering.ModifyRecruitRequestVo
+import com.plub.domain.model.vo.myGathering.KickOutRequestVo
 import com.plub.domain.model.vo.myGathering.MyGatheringsResponseVo
 import kotlinx.coroutines.flow.Flow
 
@@ -22,4 +23,6 @@ interface GatheringRepository {
     suspend fun leaveGathering(request: Int): Flow<UiState<Unit>>
 
     suspend fun getMembers(request: Int): Flow<UiState<List<AccountInfoVo>>>
+
+    suspend fun kickOutMember(request: KickOutRequestVo): Flow<UiState<Unit>>
 }

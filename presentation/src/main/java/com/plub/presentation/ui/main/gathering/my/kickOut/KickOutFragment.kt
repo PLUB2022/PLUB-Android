@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.domain.model.vo.account.AccountInfoVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentKickOutBinding
@@ -32,8 +33,21 @@ class KickOutFragment : BaseTestFragment<FragmentKickOutBinding, KickOutPageStat
 
     private val accountInfoAdapter: AccountInfoAdapter by lazy {
         AccountInfoAdapter {
-
+            showKickOutDialog(it)
         }
+    }
+
+    private fun showKickOutDialog(accountInfo: AccountInfoVo) {
+        commonDialog
+            .setTitle(getString(R.string.modal_kick_out_user, accountInfo.nickname))
+            .setPositiveButton(R.string.modal_yes_i_do) {
+                viewModel.kickOutMember(navArgs.plubingId, accountInfo.userId)
+                commonDialog.dismiss()
+            }
+            .setNegativeButton(R.string.modal_cancel) {
+                commonDialog.dismiss()
+            }
+            .show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

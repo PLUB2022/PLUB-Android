@@ -3,8 +3,10 @@ package com.plub.presentation.ui.main.gathering.my.kickOut
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.MyGatheringsViewType
 import com.plub.domain.model.vo.account.AccountInfoVo
+import com.plub.domain.model.vo.myGathering.KickOutRequestVo
 import com.plub.domain.model.vo.myGathering.MyGatheringResponseVo
 import com.plub.domain.model.vo.myGathering.MyGatheringsResponseVo
+import com.plub.domain.usecase.DeleteKickOutMemberUseCase
 import com.plub.domain.usecase.GetGatheringMembersUseCase
 import com.plub.domain.usecase.GetMyHostingGatheringsUseCase
 import com.plub.domain.usecase.GetMyParticipatingGatheringsUseCase
@@ -22,7 +24,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class KickOutViewModel @Inject constructor(
-    private val getMyGatheringMembersUseCase: GetGatheringMembersUseCase
+    private val getMyGatheringMembersUseCase: GetGatheringMembersUseCase,
+    private val deleteKickOutMemberUseCase: DeleteKickOutMemberUseCase
 ) : BaseTestViewModel<KickOutPageState>() {
 
     private val _members: MutableStateFlow<List<AccountInfoVo>> = MutableStateFlow(
@@ -41,5 +44,18 @@ class KickOutViewModel @Inject constructor(
 
     private fun handleSuccessGetMembers(data: List<AccountInfoVo>) {
         _members.update { data }
+    }
+
+    fun kickOutMember(plubingId: Int, accountId: Int) = viewModelScope.launch {
+        deleteKickOutMemberUseCase(KickOutRequestVo(plubingId, accountId)).collect { uiState ->
+            inspectUiState(uiState, succeedCallback = { handleSuccessKickOutMember(accountId) })
+        }
+    }
+
+    private fun handleSuccessKickOutMember(accountId: Int) {
+        _members.update { members ->
+            val accountInfoVoToRemove = members.find { it.userId == accountId } ?: return
+            members.minus(accountInfoVoToRemove)
+        }
     }
 }

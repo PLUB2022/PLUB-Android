@@ -13,6 +13,7 @@ import com.plub.domain.model.vo.account.AccountInfoVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringRequestVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
 import com.plub.domain.model.vo.modifyGathering.ModifyRecruitRequestVo
+import com.plub.domain.model.vo.myGathering.KickOutRequestVo
 import com.plub.domain.model.vo.myGathering.MyGatheringsResponseVo
 import com.plub.domain.repository.GatheringRepository
 import kotlinx.coroutines.flow.Flow
@@ -48,5 +49,9 @@ class GatheringRepositoryImpl @Inject constructor(private val gatheringApi: Gath
 
     override suspend fun getMembers(request: Int): Flow<UiState<List<AccountInfoVo>>> {
         return apiLaunch(gatheringApi.getMembers(request), AccountInfosResponseMapper)
+    }
+
+    override suspend fun kickOutMember(request: KickOutRequestVo): Flow<UiState<Unit>> {
+        return apiLaunch(gatheringApi.kickOutMember(request.plubbingId, request.accountId), UnitResponseMapper)
     }
 }

@@ -10,6 +10,7 @@ import com.plub.data.dto.modifyGathering.ModifyRecruitRequestBody
 import com.plub.data.dto.myGathering.MyGatheringsResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -19,6 +20,7 @@ import retrofit2.http.Query
 interface GatheringApi {
     companion object{
         private const val PATH_PLUBING_ID = "plubbingId"
+        private const val PATH_ACCOUNT_ID = "accountId"
         private const val IS_HOST = "isHost"
     }
 
@@ -55,4 +57,10 @@ interface GatheringApi {
     suspend fun getMembers(
         @Path(PATH_PLUBING_ID) plubbingId: Int
     ): Response<ApiResponse<AccountInfosResponse>>
+
+    @DELETE(Endpoints.PLUBBING.KICK_OUT)
+    suspend fun kickOutMember(
+        @Path(PATH_PLUBING_ID) plubbingId: Int,
+        @Path(PATH_ACCOUNT_ID) accountId: Int
+    ): Response<ApiResponse<DataDto.DTO>>
 }
