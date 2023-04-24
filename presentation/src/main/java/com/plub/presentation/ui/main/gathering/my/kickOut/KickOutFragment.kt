@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.vo.account.AccountInfoVo
@@ -74,6 +75,14 @@ class KickOutFragment : BaseTestFragment<FragmentKickOutBinding, KickOutPageStat
             launch {
                 viewModel.uiState.members.collect {
                     accountInfoAdapter.submitList(it)
+                }
+            }
+
+            launch {
+                viewModel.eventFlow.collect {
+                    if(it is KickOutEvent.GoToBack) {
+                        findNavController().popBackStack()
+                    }
                 }
             }
         }

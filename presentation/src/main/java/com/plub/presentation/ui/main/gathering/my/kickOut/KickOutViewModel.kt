@@ -58,4 +58,10 @@ class KickOutViewModel @Inject constructor(
             members.minus(accountInfoVoToRemove)
         }
     }
+
+    fun goToBack() {
+        emitEventFlow(
+            KickOutEvent.GoToBack
+        )
+    }
 }
