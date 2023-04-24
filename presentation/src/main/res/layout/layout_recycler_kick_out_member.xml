@@ -50,6 +50,7 @@
                 android:layout_width="56dp"
                 android:layout_height="30dp"
                 android:background="@drawable/bg_rectangle_filled_f2f3f4_radius_8"
+                android:stateListAnimator="@null"
                 android:text="@string/word_kick_out"
                 android:textColor="@color/color_8c8c8c"
                 app:layout_constraintBottom_toBottomOf="parent"
