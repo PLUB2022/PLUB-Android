@@ -16,6 +16,7 @@ import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.plubing.notice.adapter.NoticeAdapter
 import com.plub.presentation.ui.main.plubing.notice.write.NoticeWriteFragment
 import com.plub.presentation.util.getNavigationResult
+import com.plub.presentation.util.infiniteScrolls
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -45,18 +46,10 @@ class NoticeFragment : BaseTestFragment<FragmentNoticeBinding, NoticePageState, 
             vm = viewModel
 
             recyclerViewNotice.apply {
+                infiniteScrolls { viewModel.onScrollChanged() }
                 layoutManager = LinearLayoutManager(context)
                 adapter = noticeAdapter
                 setHasFixedSize(true)
-                addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        val lastVisiblePosition = (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                        val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
-                        val isDownScroll = dy > 0
-                        viewModel.onScrollChanged(isBottom, isDownScroll)
-                    }
-                })
             }
         }
     }

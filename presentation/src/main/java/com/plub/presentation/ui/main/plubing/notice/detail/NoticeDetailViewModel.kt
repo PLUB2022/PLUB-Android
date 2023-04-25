@@ -152,8 +152,8 @@ class NoticeDetailViewModel @Inject constructor(
         if(editCommentId == null) sendComment(comment) else commentEdit(editCommentId, comment)
     }
 
-    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onGetNextNoticeComments()
+    fun onScrollChanged() {
+        if (!isLastPage && !isNetworkCall) onGetNextNoticeComments()
     }
 
     fun onGetNoticeDetail() {

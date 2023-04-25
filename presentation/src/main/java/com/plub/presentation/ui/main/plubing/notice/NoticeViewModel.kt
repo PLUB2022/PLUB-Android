@@ -62,8 +62,8 @@ class NoticeViewModel @Inject constructor(
         getNoticeList()
     }
 
-    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onGetNextNoticeList()
+    fun onScrollChanged() {
+        if (!isLastPage && !isNetworkCall) onGetNextNoticeList()
     }
 
     fun onLongClickNotice(noticeVo: NoticeVo) {
