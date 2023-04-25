@@ -143,7 +143,7 @@ class GatheringFilterViewModel @Inject constructor(
     private fun updateSeekbarProgress(progress: Int) {
         viewModelScope.launch {
             seekBarProgressStateFlow.update { progress }
-            accountNumStateFlow.update { progress + 4 }
+            accountNumStateFlow.update { progress + MIN_ACCOUNT_NUM }
         }
     }
 

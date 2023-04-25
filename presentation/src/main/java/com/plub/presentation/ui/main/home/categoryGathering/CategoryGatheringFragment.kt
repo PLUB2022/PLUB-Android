@@ -46,7 +46,7 @@ class CategoryGatheringFragment :
             initCategoryRecommendRecyclerView()
         }
 
-        viewModel.updateCategoryNameWithId(categoryChoiceFragmentArgs.categoryName, categoryChoiceFragmentArgs.categoryId)
+        viewModel.updateCategoryNameAndId(categoryChoiceFragmentArgs.categoryName, categoryChoiceFragmentArgs.categoryId)
 
         viewModel.fetchRecommendationGatheringData(
             categoryChoiceFragmentArgs.filter
