@@ -9,7 +9,6 @@ object PlubCardListResponseMapper : Mapper.ResponseMapper<PlubCardListResponse, 
     override fun mapDtoToModel(type: PlubCardListResponse?): PlubCardListVo {
         return type?.run {
             PlubCardListVo(
-                totalPages = totalPages,
                 totalElements = totalElements,
                 content = content.map {
                     PlubCardResponseMapper.mapDtoToModel(it)

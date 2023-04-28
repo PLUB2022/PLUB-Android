@@ -14,7 +14,8 @@ object MyInfoResponseMapper : Mapper.ResponseMapper<MyInfoResponse, MyInfoRespon
                 birthday = birthday,
                 gender = gender,
                 introduce = introduce,
-                profileImage = profileImage
+                profileImage = profileImage,
+                isReceivedPushNotification = isReceivedPushNotification
             )
         } ?: MyInfoResponseVo()
     }

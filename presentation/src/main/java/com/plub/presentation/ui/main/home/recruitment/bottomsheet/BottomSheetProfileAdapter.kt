@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.plub.domain.model.vo.home.recruitdetailvo.RecruitDetailJoinedAccountsVo
+import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsVo
 import com.plub.presentation.databinding.IncludeItemCircleProfileDetailBinding
 
 class BottomSheetProfileAdapter(private val listener: ProfileDelegate) :

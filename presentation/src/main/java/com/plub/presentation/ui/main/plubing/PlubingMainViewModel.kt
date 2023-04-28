@@ -84,6 +84,12 @@ class PlubingMainViewModel @Inject constructor(
         }
     }
 
+    fun goToSchedule() {
+        emitEventFlow(
+            PlubingMainEvent.GoToSchedule(plubingId, uiState.plubingName.value)
+        )
+    }
+
     fun onClickProfile(profileId: Int) {
 
     }

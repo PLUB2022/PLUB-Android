@@ -8,10 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
 import com.plub.presentation.R
-import com.plub.presentation.databinding.CustomViewAddSingleImageBinding
 import com.plub.presentation.databinding.CustomViewOvalDotsIndicatorBinding
-import com.plub.presentation.util.GlideUtil
-import java.io.File
 
 class OvalDotsIndicator @JvmOverloads constructor(
     context: Context,
@@ -28,5 +25,9 @@ class OvalDotsIndicator @JvmOverloads constructor(
     fun attachTo(viewpager2: ViewPager2) {
         binding.dotsIndicator.attachTo(viewpager2)
         binding.dotsIndicator2.attachTo(viewpager2)
+    }
+
+    fun <T> setSingleItemIndicatorSize(items: List<T>) {
+        binding.dotsIndicator2.selectedDotColor = if(items.size == 1) context.getColor(R.color.color_5f5ff9) else context.getColor(R.color.transparent)
     }
 }

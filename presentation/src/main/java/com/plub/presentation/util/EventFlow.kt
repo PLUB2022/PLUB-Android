@@ -1,5 +1,6 @@
 package com.plub.presentation.util
 
+import com.plub.presentation.util.EventFlow.Companion.MAX_CACHE_EVENT_SIZE
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -11,6 +12,7 @@ interface EventFlow<out T> : Flow<T> {
     companion object {
 
         const val DEFAULT_REPLAY: Int = 3
+        const val MAX_CACHE_EVENT_SIZE: Int = 20
     }
 }
 
@@ -31,7 +33,7 @@ private class EventFlowImpl<T>(
 
     private val flow: MutableSharedFlow<EventFlowSlot<T>> = MutableSharedFlow(replay = replay)
 
-    private val slotStore: HashMap<String, EventFlowSlot<T>> = hashMapOf()
+    private val slotStore: ArrayDeque<Slot<EventFlowSlot<T>>> = ArrayDeque()
 
     @InternalCoroutinesApi
     override suspend fun collect(collector: FlowCollector<T>) = flow
@@ -60,19 +62,24 @@ private class EventFlowImpl<T>(
 
             val slotKey = collector.javaClass.name + slot
 
-            if(slotStore.containsKey(slotKey).not()) {
-                slotStore[slotKey] = EventFlowSlot(slot.value)
+            if(isNotContainKey(slotKey)) {
+                if(slotStore.size > MAX_CACHE_EVENT_SIZE) slotStore.removeFirst()
+                slotStore.addLast(Slot(slotKey, EventFlowSlot(slot.value)))
             }
 
-            val slotValue = slotStore[slotKey] ?: slot
+            val slotValue = slotStore.find { it.key == slotKey }?.value ?: slot
 
-            if (!slotValue.markConsumed()) {
+            if (slotValue.markConsumed().not()) {
                 collector.emit(slotValue.value)
             }
         }
 
     override suspend fun emit(value: T) {
         flow.emit(EventFlowSlot(value))
+    }
+
+    private fun isNotContainKey(findKey: String): Boolean {
+        return slotStore.find { it.key == findKey } == null
     }
 }
 
@@ -82,3 +89,8 @@ private class EventFlowSlot<T>(val value: T) {
 
     fun markConsumed(): Boolean = consumed.getAndSet(true)
 }
+
+private data class Slot<T>(
+    val key: String,
+    val value: T
+)

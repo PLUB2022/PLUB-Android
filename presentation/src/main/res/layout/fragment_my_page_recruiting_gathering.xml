@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.profile.recruiting.RecruitingGatheringViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_faf9fe">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_top"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="52dp">
+
+            <ImageView
+                android:id="@+id/image_view_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:onThrottleClick="@{()->vm.goToBack()}"
+                android:scaleType="center"
+                android:src="@drawable/ic_back"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_my_page_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            android:layout_marginBottom="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="123dp"
+            android:elevation="14dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:onThrottleClick="@{()->vm.goToRecruitPage()}"
+            android:text="@string/my_page_go_recruit"
+            android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_40"
+            android:layout_height="32dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

@@ -25,7 +25,7 @@ class ApplyPlubbingFragment :
     }
 
     private val questionsAdapter: QuestionsAdapter by lazy {
-        QuestionsAdapter(object : QuestionsAdapter.QuestionsDegelate {
+        QuestionsAdapter(object : QuestionsAdapter.QuestionsDelegate {
             override fun textChanged(questionId: Int, changedText: String) {
                 viewModel.textChanged(questionId, changedText)
             }
@@ -49,7 +49,8 @@ class ApplyPlubbingFragment :
             vm = viewModel
             initRecycler()
         }
-        viewModel.fetchQuestions(applyPlubbingFragmentArgs.plubbingId)
+
+        viewModel.fetchQuestions(applyPlubbingFragmentArgs.plubbingId, applyPlubbingFragmentArgs.pageType)
     }
 
     private fun initRecycler() {
