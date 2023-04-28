@@ -38,6 +38,7 @@ class HomeFragment : BaseTestFragment<FragmentHomeBinding, HomePageState, HomeFr
             }
 
             override fun onClickSetting() {
+                viewModel.goToRegisterInterest()
             }
         })
 

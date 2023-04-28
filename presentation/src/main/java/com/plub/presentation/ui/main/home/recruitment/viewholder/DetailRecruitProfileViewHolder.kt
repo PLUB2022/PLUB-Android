@@ -38,7 +38,7 @@ class DetailRecruitProfileViewHolder(
                 textViewMoreProfileNumber.text = root.context.getString(R.string.detail_recruitment_profile_county, morePeopleCount)
             }
             else{
-                if(item.profileImage == null || item.profileImage == "") imageViewProfile.setImageResource(R.drawable.iv_default_profile)
+                if(item.profileImage.isNullOrEmpty()) imageViewProfile.setImageResource(R.drawable.iv_default_profile)
                 else GlideUtil.loadImage(root.context, item.profileImage!!, imageViewProfile)
                 imageViewProfile.clipToOutline = true
             }

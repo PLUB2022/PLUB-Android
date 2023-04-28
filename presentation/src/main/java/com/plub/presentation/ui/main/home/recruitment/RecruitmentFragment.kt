@@ -9,16 +9,18 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.plub.domain.model.enums.ApplyModifyApplicationType
 import com.plub.domain.model.sealed.ReportType
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsVo
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
+import com.plub.presentation.ui.common.dialog.CommonDialog
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.ui.main.home.recruitment.bottomsheet.ProfileBottomSheetFragment
 import com.plub.presentation.ui.main.home.recruitment.dialog.RecruitApplySuccessDialogFragment
-import com.plub.presentation.ui.main.profile.bottomsheet.BottomSheetProfileFragment
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RecruitmentFragment :
@@ -29,6 +31,9 @@ class RecruitmentFragment :
     companion object{
         private const val PROFILE_WIDTH = 42
     }
+    @Inject
+    lateinit var commonDialog: CommonDialog
+
     private val recruitmentFragmentArgs : RecruitmentFragmentArgs by navArgs()
     private val detailRecruitProfileAdapter: DetailRecruitProfileAdapter by lazy {
         DetailRecruitProfileAdapter(object : DetailRecruitProfileAdapter.DetailProfileDelegate {
@@ -139,15 +144,7 @@ class RecruitmentFragment :
     }
 
     private fun goToProfile(accountId: Int, nickname : String) {
-        val bottomSheetProfileFragment = BottomSheetProfileFragment.newInstance(
-            accountId = accountId,
-            nickName = nickname,
-            plubbingId = recruitmentFragmentArgs.plubbingId
-        )
-        bottomSheetProfileFragment.show(
-            parentFragmentManager,
-            bottomSheetProfileFragment.tag
-        )
+
     }
 
     private fun openProfileBottomSheet(joinedAccountList : List<RecruitDetailJoinedAccountsVo>){
@@ -163,8 +160,17 @@ class RecruitmentFragment :
     }
 
     private fun showCancelDialog(){
-        //TODO 지원 취소 팝업
-        viewModel.cancelApply()
+        commonDialog
+            .setTitle(R.string.my_page_again_cancel)
+            .setGoneDescription()
+            .setPositiveButton(R.string.word_yes){
+                viewModel.cancelApply()
+                commonDialog.dismiss()
+            }
+            .setNegativeButton(R.string.word_no){
+                commonDialog.dismiss()
+            }
+            .show()
     }
 
     private fun showSuccessDialog(){
