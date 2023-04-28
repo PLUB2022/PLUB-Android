@@ -20,6 +20,7 @@ object Endpoints {
         private const val ACCOUNT_URL = "/api/accounts"
         const val NICKNAME_CHECK = "$ACCOUNT_URL/check/nickname/{nickname}"
         const val FETCH_MY_INFO = "$ACCOUNT_URL/me"
+        const val FETCH_OTHER_INFO = "$ACCOUNT_URL/{nickname}"
         const val UPDATE_PROFILE = "$FETCH_MY_INFO/profile"
         const val REGIST_INTEREST = "$ACCOUNT_URL/interest"
         const val BROWSE_INTEREST = "$ACCOUNT_URL/interest"
@@ -90,6 +91,7 @@ object Endpoints {
 
         object TODO {
             const val TIMELINES = "$PLUBBING_ID_URL/timeline"
+            const val OTHER_TIMELINES = "$PLUBBING_ID_URL/timeline/accounts/{accountId}"
             const val PROOF = "$PLUBBING_ID_URL/todolist/{todolistId}/proof"
             const val COMPLETE = "$PLUBBING_ID_URL/todolist/{todolistId}/complete"
             const val CANCEL = "$PLUBBING_ID_URL/todolist/{todolistId}/cancel"

@@ -1,28 +1,24 @@
 package com.plub.presentation.ui.main.home.categoryGathering.filter
 
-import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
-import com.plub.presentation.R
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentCategoryGatheringFilterBinding
+import com.plub.presentation.parcelableVo.ParseCategoryFilterVo
 import com.plub.presentation.ui.common.decoration.GridSpaceDecoration
 import com.plub.presentation.ui.sign.hobbies.adapter.HobbiesAdapter
 import com.plub.presentation.ui.sign.hobbies.adapter.SubHobbiesAdapter
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.px
-import com.tbuonomo.viewpagerdotsindicator.setBackgroundCompat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class GatheringFilterFragment :
-    BaseFragment<FragmentCategoryGatheringFilterBinding, GatheringFilterState, GatheringFilterViewModel>(
+    BaseTestFragment<FragmentCategoryGatheringFilterBinding, GatheringFilterState, GatheringFilterViewModel>(
         FragmentCategoryGatheringFilterBinding::inflate
     ) {
 
@@ -35,7 +31,7 @@ class GatheringFilterFragment :
     private val listAdapter: SubHobbiesAdapter by lazy {
         SubHobbiesAdapter(object : HobbiesAdapter.Delegate {
             override val selectedList: List<SelectedHobbyVo>
-                get() = viewModel.uiState.value.hobbiesSelectedVo.hobbies
+                get() = viewModel.uiState.selectedHobbies.value
 
             override fun onClickExpand(hobbyId: Int) {
 
@@ -76,8 +72,14 @@ class GatheringFilterFragment :
         super.initStates()
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    listAdapter.submitList(it.subHobbies)
+                viewModel.uiState.subHobbies.collect {
+                    listAdapter.submitList(it)
+                }
+            }
+
+            launch {
+                viewModel.uiState.gatheringDays.collect{
+                    viewModel.updateButtonState()
                 }
             }
 
@@ -103,11 +105,11 @@ class GatheringFilterFragment :
         }
     }
 
-    private fun goToCategoryGathering(pageState: GatheringFilterState){
+    private fun goToCategoryGathering(vo: ParseCategoryFilterVo){
         val action = GatheringFilterFragmentDirections.actionFilterToCategoryGathering(
             categoryId = gatheringFilterFragmentArgs.categoryId,
             categoryName = gatheringFilterFragmentArgs.categoryName,
-            filter = pageState
+            filter = vo
         )
         findNavController().navigate(action)
     }

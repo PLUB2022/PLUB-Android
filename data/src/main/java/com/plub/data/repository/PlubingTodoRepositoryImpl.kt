@@ -11,15 +11,7 @@ import com.plub.data.mapper.todo.TodoTimelineResponseMapper
 import com.plub.data.mapper.todo.TodoWriteRequestMapper
 import com.plub.domain.UiState
 import com.plub.domain.model.enums.TodoItemViewType
-import com.plub.domain.model.vo.todo.GetMyTodoListInDayRequestVo
-import com.plub.domain.model.vo.todo.GetTodoDaysRequestVo
-import com.plub.domain.model.vo.todo.TodoGetTimelineRequestVo
-import com.plub.domain.model.vo.todo.TodoItemVo
-import com.plub.domain.model.vo.todo.TodoProofRequestVo
-import com.plub.domain.model.vo.todo.TodoRequestVo
-import com.plub.domain.model.vo.todo.TodoTimelineListVo
-import com.plub.domain.model.vo.todo.TodoTimelineVo
-import com.plub.domain.model.vo.todo.TodoWriteRequestVo
+import com.plub.domain.model.vo.todo.*
 import com.plub.domain.repository.PlubingTodoRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -30,6 +22,10 @@ class PlubingTodoRepositoryImpl @Inject constructor(private val todoApi: TodoApi
         return apiLaunch(todoApi.getTimelines(request.plubbingId, request.cursorId), TodoTimelineListResponseMapper.apply {
             setViewType(request.todoItemViewType)
         })
+    }
+
+    override suspend fun getOtherTimelineList(request: GetOtherTodoRequestVo): Flow<UiState<TodoTimelineListVo>> {
+        return apiLaunch(todoApi.getOtherTimelines(request.plubbingId, request.accountId, request.cursorId), TodoTimelineListResponseMapper)
     }
 
     override suspend fun postTodoProof(request: TodoProofRequestVo): Flow<UiState<Unit>> {

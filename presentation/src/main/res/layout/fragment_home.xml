@@ -9,6 +9,7 @@
             name="vm"
             type="com.plub.presentation.ui.main.home.plubhome.HomeFragmentViewModel" />
     </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,54 +35,69 @@
 
                 <ImageView
                     android:id="@+id/image_view_plub_logo"
+                    android:layout_width="82dp"
+                    android:layout_height="24dp"
                     android:layout_gravity="start"
                     android:layout_marginStart="16dp"
-                    android:layout_width="81.93dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_plub_logo"/>
+                    android:src="@drawable/ic_plub_logo" />
 
 
                 <ImageView
                     android:id="@+id/image_view_bookmark"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="16dp"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    app:onThrottleClick="@{()->vm.goToBookmark()}"
-                    android:layout_marginEnd="15.78dp"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/ic_bookmark"/>
+                    android:src="@drawable/ic_bookmark"
+                    app:onThrottleClick="@{()->vm.goToBookmark()}" />
 
                 <ImageView
                     android:id="@+id/image_view_search"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_gravity="end"
                     android:layout_marginStart="16dp"
-                    android:layout_width="32dp"
-                    app:onThrottleClick="@{()->vm.goToSearch()}"
-                    android:layout_height="32dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/ic_search"/>
+                    android:src="@drawable/ic_search"
+                    app:onThrottleClick="@{()->vm.goToSearch()}" />
 
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_main_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginHorizontal="16dp"
+            android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_height="wrap_content">
 
-
-
+            <Button
+                android:layout_marginBottom="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="123dp"
+                android:elevation="14dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:onThrottleClick="@{()->vm.goToCreateGathering()}"
+                android:text="@string/plub_home_create_gathering"
+                android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_40"
+                android:layout_height="32dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

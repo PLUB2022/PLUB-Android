@@ -7,7 +7,6 @@
     <data>
 
         <import type="android.view.View" />
-
         <import type="com.plub.domain.model.enums.PlubCardType" />
 
         <variable
@@ -70,6 +69,7 @@
                 android:layout_height="21dp"
                 android:layout_marginStart="16dp"
                 android:text="@string/category_choice_see_all"
+                app:onThrottleClick="@{()->vm.fetchRecommendationAllGatheringData()}"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@id/image_view_filter"
                 app:layout_constraintStart_toStartOf="parent"

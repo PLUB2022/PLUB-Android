@@ -16,7 +16,4 @@ interface LoginApi {
 
     @POST(Endpoints.AUTH.SOCIAL_LOGIN_ADMIN)
     suspend fun adminLogin(@Body request: AdminLoginRequest) : Response<ApiResponse<SocialLoginResponse>>
-
-    @GET(Endpoints.AUTH.LOGOUT)
-    suspend fun logout() : Response<ApiResponse<DataDto.DTO>>
 }
