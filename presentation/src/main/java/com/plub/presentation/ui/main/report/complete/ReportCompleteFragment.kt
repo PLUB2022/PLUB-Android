@@ -3,7 +3,6 @@ package com.plub.presentation.ui.main.report.complete
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentReportCompleteBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,12 +38,7 @@ class ReportCompleteFragment : BaseTestFragment<FragmentReportCompleteBinding, R
 
     private fun inspectEvent(event: ReportCompleteEvent){
         when(event){
-            is ReportCompleteEvent.GoHome -> {goToHome()}
+            is ReportCompleteEvent.GoBack -> {findNavController().popBackStack()}
         }
-    }
-
-    private fun goToHome(){
-        val action = ReportCompleteFragmentDirections.actionReportCompleteToHome()
-        findNavController().navigate(action)
     }
 }

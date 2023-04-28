@@ -2,10 +2,8 @@ package com.plub.presentation.ui.main.report.complete
 
 import androidx.lifecycle.viewModelScope
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -27,7 +25,7 @@ class ReportCompleteViewModel @Inject constructor(
         }
     }
 
-    fun onClickHome(){
-        emitEventFlow(ReportCompleteEvent.GoHome)
+    fun onClickComplete(){
+        emitEventFlow(ReportCompleteEvent.GoBack)
     }
 }

@@ -531,7 +531,10 @@
 
         <action
             android:id="@+id/action_report_detail_to_complete"
-            app:destination="@id/reportCompleteFragment" />
+            app:destination="@id/reportCompleteFragment"
+            app:popUpTo="@id/reportFragment"
+            app:popUpToInclusive="true"
+            />
     </fragment>
 
     <fragment
@@ -543,10 +546,6 @@
         <argument
             android:name="type"
             app:argType="string" />
-
-        <action
-            android:id="@+id/action_report_complete_to_home"
-            app:destination="@id/menu_navigation_main" />
     </fragment>
 
     <fragment

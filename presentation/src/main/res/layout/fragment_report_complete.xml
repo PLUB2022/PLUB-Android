@@ -93,9 +93,9 @@
             android:layout_marginBottom="24dp"
             android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
             android:layout_marginHorizontal="16dp"
-            app:onThrottleClick="@{()->vm.onClickHome()}"
+            app:onThrottleClick="@{()->vm.onClickComplete()}"
             android:textColor="@color/white"
-            android:text="@string/go_home"
+            android:text="@string/report_complete"
             android:layout_width="0dp"
             android:layout_height="46dp"/>
 
