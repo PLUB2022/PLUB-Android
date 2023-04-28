@@ -27,10 +27,6 @@ class ReportCompleteViewModel @Inject constructor(
         }
     }
 
-    fun onClickBack(){
-        emitEventFlow(ReportCompleteEvent.GoBack)
-    }
-
     fun onClickHome(){
         emitEventFlow(ReportCompleteEvent.GoHome)
     }

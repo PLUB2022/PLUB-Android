@@ -402,12 +402,6 @@
     <string name="inactivation_dialog_description">계정을 비활성화 하면 모든 모임에서\n자동으로 탈퇴 처리되고,\n다시 로그인 시 비활성화가 해제됩니다.</string>
     <string name="revoke_dialog">지금 탈퇴 할까요?</string>
 
-    <string name="report_account_title">프로필 신고하기</string>
-    <string name="report_recruit_title">모집글 신고하기</string>
-    <string name="report_todo_title">TODO 신고하기</string>
-    <string name="report_archive_title">아카이브 신고하기</string>
-    <string name="report_feed_title">게시글 신고하기</string>
-    <string name="report_comment_title">댓글 신고하기</string>
     <string name="report_sub_title">신고 사유가 무엇일까요?</string>
     <string name="report_detail">신고 사유</string>
     <string name="report_detail_hint">자세한 신고사유 적어주세요</string>
@@ -415,5 +409,6 @@
     <string name="go_home">홈으로</string>
     <string name="report_coplete_text">신고접수가\n완료되었습니다.</string>
     <string name="report_complete_explain_text">신고해 주셔서 감사합니다. 더 나은 서비스를 만들기 위해\n 노력하는 PLUB이 되겠습니다.</string>
+    <string name="report_title">신고하기</string>
 
 </resources>

@@ -20,37 +20,15 @@ import javax.inject.Inject
 @HiltViewModel
 class ReportViewModel @Inject constructor(
     private val getReportUseCase: GetReportUseCase,
-    private val resourceProvider: ResourceProvider
 ) : BaseTestViewModel<ReportState>() {
 
     private val reportListStateFlow : MutableStateFlow<List<ReportItemVo>> = MutableStateFlow(
         emptyList()
     )
-    private val reportTitleStateFlow : MutableStateFlow<String> = MutableStateFlow("")
 
     override val uiState : ReportState = ReportState(
-        reportList = reportListStateFlow.asStateFlow(),
-        reportTitle = reportTitleStateFlow.asStateFlow()
+        reportList = reportListStateFlow.asStateFlow()
     )
-
-    fun setTitle(type : ReportType){
-        val resId = when(type){
-            is ReportType.AccountReport -> R.string.report_account_title
-            is ReportType.ArchiveReport -> R.string.report_archive_title
-            is ReportType.FeedCommentReport -> R.string.report_comment_title
-            is ReportType.FeedReport -> R.string.report_feed_title
-            is ReportType.NoticeCommentReport -> R.string.report_comment_title
-            is ReportType.RecruitReport -> R.string.report_recruit_title
-            is ReportType.TodoReport -> R.string.report_todo_title
-        }
-        updateTitle(resId)
-    }
-
-    private fun updateTitle(resId : Int){
-        viewModelScope.launch {
-            reportTitleStateFlow.update { resourceProvider.getString(resId) }
-        }
-    }
 
     fun getReportList(){
         viewModelScope.launch {

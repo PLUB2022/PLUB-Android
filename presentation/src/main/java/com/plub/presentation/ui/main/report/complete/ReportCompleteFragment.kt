@@ -40,7 +40,6 @@ class ReportCompleteFragment : BaseTestFragment<FragmentReportCompleteBinding, R
     private fun inspectEvent(event: ReportCompleteEvent){
         when(event){
             is ReportCompleteEvent.GoHome -> {goToHome()}
-            is ReportCompleteEvent.GoBack -> {findNavController().popBackStack()}
         }
     }
 
