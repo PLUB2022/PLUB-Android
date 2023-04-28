@@ -6,7 +6,7 @@ import com.plub.domain.model.vo.createGathering.CreateGatheringRequestVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
 import com.plub.domain.model.vo.modifyGathering.ModifyRecruitRequestVo
 import com.plub.domain.model.vo.myGathering.KickOutRequestVo
-import com.plub.domain.model.vo.myGathering.MyGatheringsResponseVo
+import com.plub.domain.model.vo.myGathering.MyGatheringListResponseVo
 import kotlinx.coroutines.flow.Flow
 
 interface GatheringRepository {
@@ -14,9 +14,9 @@ interface GatheringRepository {
 
     suspend fun modifyGathering(request: ModifyRecruitRequestVo): Flow<UiState<CreateGatheringResponseVo>>
 
-    suspend fun getMyParticipatingGatherings(request: Unit): Flow<UiState<MyGatheringsResponseVo>>
+    suspend fun getMyParticipatingGatherings(request: Unit): Flow<UiState<MyGatheringListResponseVo>>
 
-    suspend fun getMyHostingGatherings(request: Unit): Flow<UiState<MyGatheringsResponseVo>>
+    suspend fun getMyHostingGatherings(request: Unit): Flow<UiState<MyGatheringListResponseVo>>
 
     suspend fun changeGatheringStatus(request: Int): Flow<UiState<Unit>>
 

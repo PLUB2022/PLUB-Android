@@ -3,7 +3,7 @@ package com.plub.data.dto.myGathering
 import com.google.gson.annotations.SerializedName
 import com.plub.data.base.DataDto
 
-data class MyGatheringsResponse(
+data class MyGatheringListResponse(
     @SerializedName("plubbings")
     val plubbings: List<MyGatheringResponse> = emptyList()
 ) : DataDto

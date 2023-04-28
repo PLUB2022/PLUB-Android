@@ -4,10 +4,9 @@ import com.plub.data.dto.createGathering.CreateGatheringRequest
 import com.plub.data.dto.createGathering.CreateGatheringResponse
 import com.plub.data.base.ApiResponse
 import com.plub.data.base.DataDto
-import com.plub.data.dto.account.AccountInfoResponse
 import com.plub.data.dto.account.AccountInfosResponse
 import com.plub.data.dto.modifyGathering.ModifyRecruitRequestBody
-import com.plub.data.dto.myGathering.MyGatheringsResponse
+import com.plub.data.dto.myGathering.MyGatheringListResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -36,12 +35,12 @@ interface GatheringApi {
     @GET(Endpoints.PLUBBING.MY)
     suspend fun getMyParticipatingGatherings(
         @Query(IS_HOST) isHost: Boolean = false
-    ): Response<ApiResponse<MyGatheringsResponse>>
+    ): Response<ApiResponse<MyGatheringListResponse>>
 
     @GET(Endpoints.PLUBBING.MY)
     suspend fun getMyHostingGatherings(
         @Query(IS_HOST) isHost: Boolean = true
-    ): Response<ApiResponse<MyGatheringsResponse>>
+    ): Response<ApiResponse<MyGatheringListResponse>>
 
     @PUT(Endpoints.PLUBBING.CHANGE_STATUS)
     suspend fun changeGatheringStatus(

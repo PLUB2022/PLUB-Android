@@ -3,7 +3,7 @@ package com.plub.domain.model.vo.myGathering
 import com.plub.domain.model.DomainModel
 import com.plub.domain.model.enums.MyGatheringsViewType
 
-data class MyGatheringsResponseVo(
+data class MyGatheringListResponseVo(
     val plubbings: List<MyGatheringResponseVo> = emptyList()
 ): DomainModel
 

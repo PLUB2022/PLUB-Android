@@ -7,14 +7,14 @@ import com.plub.data.mapper.CreateGatheringRequestMapper
 import com.plub.data.mapper.CreateGatheringResponseMapper
 import com.plub.data.mapper.ModifyRecruitRequestMapper
 import com.plub.data.mapper.UnitResponseMapper
-import com.plub.data.mapper.myGathering.MyGatheringsMapper
+import com.plub.data.mapper.myGathering.MyGatheringListMapper
 import com.plub.domain.UiState
 import com.plub.domain.model.vo.account.AccountInfoVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringRequestVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
 import com.plub.domain.model.vo.modifyGathering.ModifyRecruitRequestVo
 import com.plub.domain.model.vo.myGathering.KickOutRequestVo
-import com.plub.domain.model.vo.myGathering.MyGatheringsResponseVo
+import com.plub.domain.model.vo.myGathering.MyGatheringListResponseVo
 import com.plub.domain.repository.GatheringRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -31,12 +31,12 @@ class GatheringRepositoryImpl @Inject constructor(private val gatheringApi: Gath
         return apiLaunch(gatheringApi.modifyRecruit(requestDto.plubbingId, requestDto.body), CreateGatheringResponseMapper)
     }
 
-    override suspend fun getMyParticipatingGatherings(request: Unit): Flow<UiState<MyGatheringsResponseVo>> {
-        return apiLaunch(gatheringApi.getMyParticipatingGatherings(), MyGatheringsMapper)
+    override suspend fun getMyParticipatingGatherings(request: Unit): Flow<UiState<MyGatheringListResponseVo>> {
+        return apiLaunch(gatheringApi.getMyParticipatingGatherings(), MyGatheringListMapper)
     }
 
-    override suspend fun getMyHostingGatherings(request: Unit): Flow<UiState<MyGatheringsResponseVo>> {
-        return apiLaunch(gatheringApi.getMyHostingGatherings(), MyGatheringsMapper)
+    override suspend fun getMyHostingGatherings(request: Unit): Flow<UiState<MyGatheringListResponseVo>> {
+        return apiLaunch(gatheringApi.getMyHostingGatherings(), MyGatheringListMapper)
     }
 
     override suspend fun changeGatheringStatus(request: Int): Flow<UiState<Unit>> {
