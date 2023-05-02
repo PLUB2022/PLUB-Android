@@ -125,6 +125,15 @@ class PlubingMainFragment :
                 val action = PlubingMainFragmentDirections.actionPlubingMainToSchedule(event.plubingId, event.plubingName)
                 findNavController().navigate(action)
             }
+
+            is PlubingMainEvent.GoToArchive -> {
+                val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingArchive()
+                findNavController().navigate(action)
+            }
+
+            is PlubingMainEvent.GoToBack -> {
+                findNavController().popBackStack()
+            }
         }
     }
 

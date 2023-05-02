@@ -22,6 +22,7 @@
             android:layout_marginStart="3dp"
             android:layout_marginTop="14dp"
             android:scaleType="center"
+            app:onThrottleClick="@{()->vm.goToBack()}"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,6 +42,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="2dp"
+            app:onThrottleClick="@{()->vm.goToArchive()}"
             android:src="@drawable/ic_archive_black"
             app:layout_constraintEnd_toStartOf="@+id/image_view_menu_collapsed"
             app:layout_constraintTop_toTopOf="@id/image_view_menu_collapsed" />

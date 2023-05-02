@@ -3,21 +3,25 @@ package com.plub.presentation.ui.main.home.registhobbies
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.common.HobbyVo
 import com.plub.domain.model.vo.common.SelectedHobbyVo
+import com.plub.domain.model.vo.common.SubHobbyVo
 import com.plub.domain.model.vo.home.interestRegisterVo.RegisterInterestResponseVo
 import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.domain.usecase.GetAllHobbiesUseCase
+import com.plub.domain.usecase.GetMyInterestUseCase
 import com.plub.domain.usecase.PostRegisterHobbiesUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.sign.hobbies.HobbiesEvent
 import com.plub.presentation.ui.sign.hobbies.HobbiesPageState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterHobbiesViewModel @Inject constructor(
     val getAllHobbiesUseCase: GetAllHobbiesUseCase,
-    val postRegisterHobbiesUseCase: PostRegisterHobbiesUseCase
+    val getMyInterestUseCase: GetMyInterestUseCase,
+    private val postRegisterHobbiesUseCase: PostRegisterHobbiesUseCase
 ) : BaseViewModel<HobbiesPageState>(HobbiesPageState()) {
     private val selectedList: MutableList<SelectedHobbyVo> = mutableListOf()
 
@@ -31,6 +35,7 @@ class RegisterHobbiesViewModel @Inject constructor(
 
     private fun handleGetAllHobbiesSuccess(list: List<HobbyVo>) {
         updateHobbies(list)
+        fetchMyHobbies(list)
     }
 
     private fun updateHobbies(hobbies:List<HobbyVo>) {
@@ -38,6 +43,31 @@ class RegisterHobbiesViewModel @Inject constructor(
             ui.copy(
                 hobbiesVo = hobbies
             )
+        }
+    }
+
+    private fun fetchMyHobbies(list: List<HobbyVo>){
+        viewModelScope.launch {
+            getMyInterestUseCase(Unit).collect{
+                inspectUiState(it, { state -> handleGetMyInterestSuccess(state, list)})
+            }
+        }
+    }
+
+    private fun handleGetMyInterestSuccess(vo : RegisterInterestResponseVo, list: List<HobbyVo>){
+        val subHobbyList = mutableListOf<SubHobbyVo>()
+        vo.subCategories.forEach { subId ->
+            list.forEach { hobbyVo ->
+                hobbyVo.subHobbies.find { it.id == subId }?.let { subHobbyList.add(it) }
+            }
+        }
+
+        subHobbyList.forEach {
+            addHobby(SelectedHobbyVo(
+                parentId = it.parentHobbyId,
+                subId = it.id,
+                name = it.name
+            ))
         }
     }
 
