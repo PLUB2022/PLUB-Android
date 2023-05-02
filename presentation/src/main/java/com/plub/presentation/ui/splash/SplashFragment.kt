@@ -1,20 +1,19 @@
 package com.plub.presentation.ui.splash
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.activity.viewModels
-import com.plub.presentation.base.BaseActivity
-import com.plub.presentation.databinding.ActivitySplashBinding
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.plub.presentation.base.BaseTestFragment
+import com.plub.presentation.databinding.FragmentSplashBinding
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.ui.main.MainActivity
 import com.plub.presentation.ui.sign.SignActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
-class SplashActivity :
-BaseActivity<ActivitySplashBinding, PageState.Default, SplashViewModel>(ActivitySplashBinding::inflate){
+class SplashFragment :
+BaseTestFragment<FragmentSplashBinding, PageState.Default, SplashViewModel>(FragmentSplashBinding::inflate){
 
     override val viewModel: SplashViewModel by viewModels()
 
@@ -22,21 +21,21 @@ BaseActivity<ActivitySplashBinding, PageState.Default, SplashViewModel>(Activity
         viewModel.fetchMyInfo()
     }
 
-    override fun initState() {
-        super.initState()
+    override fun initStates() {
+        super.initStates()
 
-        repeatOnStarted {
+        repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.eventFlow.collect { event ->
                     when(event) {
                         is SplashEvent.GoToMain -> {
-                            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                            finish()
+                            val action = SplashFragmentDirections.actionSplashToMain()
+                            findNavController().navigate(action)
                         }
 
                         is SplashEvent.GoToSignUp -> {
-                            startActivity(Intent(this@SplashActivity, SignActivity::class.java))
-                            finish()
+                            startActivity(Intent(requireActivity(), SignActivity::class.java))
+                            requireActivity().finish()
                         }
                     }
                 }
