@@ -146,7 +146,7 @@
 
         <action
             android:id="@+id/action_create_gathering_to_host_recruitment"
-            app:destination="@id/hostRecruitmentFragment"
+            app:destination="@id/recruitmentFragment"
             app:popUpTo="@id/menu_navigation_main" />
 
         <action
