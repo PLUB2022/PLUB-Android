@@ -18,6 +18,7 @@ import com.plub.domain.usecase.GetSearchPlubRecruitUseCase
 import com.plub.domain.usecase.InsertRecentSearchUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseTestViewModel
+import com.plub.presentation.ui.main.plubing.board.PlubingBoardViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -37,7 +38,7 @@ class SearchingViewModel @Inject constructor(
 ) : BaseTestViewModel<SearchingPageState>() {
 
     companion object {
-        private const val FIRST_PAGE = 0
+        private const val FIRST_CURSOR = 0
     }
 
     private val isRecentSearchModeStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(true)
@@ -60,7 +61,9 @@ class SearchingViewModel @Inject constructor(
 
     private var searchType: PlubSearchType = PlubSearchType.TITLE
     private var searchedKeyword: String = ""
-    private var page: Int = FIRST_PAGE
+    private var isNetworkCall: Boolean = false
+    private var cursorId: Int = FIRST_CURSOR
+    private var isLastPage: Boolean = false
 
     fun onDeleteRecentSearch(search: String) {
         viewModelScope.launch {
@@ -101,20 +104,23 @@ class SearchingViewModel @Inject constructor(
         updateSearchText(keyword)
         updateIsSearchedTextEmpty(keyword.isEmpty())
         insertRecentSearch(keyword) {
-            page = FIRST_PAGE
+            cursorId = FIRST_CURSOR
+            isLastPage = false
             searchedKeyword = keyword
             getSearchPlubRecruit(sortTypeStateFlow.value)
         }
     }
 
     fun onTabSelected(tabPosition: Int) {
-        page = FIRST_PAGE
+        cursorId = FIRST_CURSOR
+        isLastPage = false
         searchType = PlubSearchType.valueOf(tabPosition)
         getSearchPlubRecruit(sortTypeStateFlow.value)
     }
 
     fun onClickCardType(cardType: PlubCardType) {
-        page = FIRST_PAGE
+        cursorId = FIRST_CURSOR
+        isLastPage = false
         updateCardType(cardType)
         getSearchPlubRecruit(sortTypeStateFlow.value)
     }
@@ -134,7 +140,8 @@ class SearchingViewModel @Inject constructor(
 
     fun onClickSortMenuItemType(item: DialogMenuItemType) {
         viewModelScope.launch {
-            page = FIRST_PAGE
+            cursorId = FIRST_CURSOR
+            isLastPage = false
             val sortType = when (item) {
                 DialogMenuItemType.SORT_TYPE_NEW -> PlubSortType.NEW
                 DialogMenuItemType.SORT_TYPE_POPULAR -> PlubSortType.POPULAR
@@ -166,8 +173,23 @@ class SearchingViewModel @Inject constructor(
         emitEventFlow(SearchingEvent.GoToRecruit(id))
     }
 
+    fun onScrollChanged() {
+        if (!isLastPage && !isNetworkCall) onGetNextSearchPlubResult()
+    }
+
+    private fun onGetNextSearchPlubResult() {
+        isNetworkCall = true
+        cursorUpdate()
+        getSearchPlubRecruit(sortTypeStateFlow.value)
+    }
+
+    private fun cursorUpdate() {
+        cursorId = if (searchListStateFlow.value.isEmpty()) FIRST_CURSOR
+        else searchListStateFlow.value.firstOrNull()?.id ?: FIRST_CURSOR
+    }
+
     private fun getSearchPlubRecruit(sortType: PlubSortType) {
-        val request = SearchPlubRecruitRequestVo(searchType, searchedKeyword, sortType, page)
+        val request = SearchPlubRecruitRequestVo(searchType, searchedKeyword, sortType, cursorId)
         viewModelScope.launch {
             searchPlubRecruitUseCase(request).collect {
                 inspectUiState(it, ::searchSuccess) { _, individual ->
@@ -187,12 +209,12 @@ class SearchingViewModel @Inject constructor(
         val mergedList = getMergeList(mappedList)
         updateSearchList(mergedList)
         updateIsRecentSearchMode(false)
-        page++
+        isLastPage = vo.last
+        isNetworkCall = false
     }
 
     private fun newSearchProcess() {
-        if (page != FIRST_PAGE) return
-        emitEventFlow(SearchingEvent.ScrollToTop)
+        if (cursorId == FIRST_CURSOR) emitEventFlow(SearchingEvent.ScrollToTop)
     }
 
     private fun mapToCardType(list: List<PlubCardVo>): List<PlubCardVo> {
@@ -206,7 +228,7 @@ class SearchingViewModel @Inject constructor(
     private fun getMergeList(list: List<PlubCardVo>): List<PlubCardVo> {
         val originList = searchListStateFlow.value
         val mappedList = mapToCardType(list)
-        return if (originList.isEmpty() || page == FIRST_PAGE) mappedList else originList + mappedList
+        return if (originList.isEmpty() || cursorId == FIRST_CURSOR) mappedList else originList + mappedList
     }
 
     private fun handleSearchError(searchError: SearchError) {
@@ -217,6 +239,7 @@ class SearchingViewModel @Inject constructor(
 
             else -> Unit
         }
+        isNetworkCall = false
     }
 
     private fun insertRecentSearch(text: String, insertSuccess: () -> Unit) {

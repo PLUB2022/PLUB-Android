@@ -20,6 +20,7 @@ import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
 import com.plub.presentation.ui.main.home.search.adapter.RecentSearchAdapter
 import com.plub.presentation.util.hideKeyboard
+import com.plub.presentation.util.infiniteScrolls
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -98,6 +99,7 @@ class SearchingFragment : BaseTestFragment<FragmentSearchingBinding, SearchingPa
                         }
                     }
                 }
+                infiniteScrolls { viewModel.onScrollChanged() }
 
                 adapter = searchListAdapter
             }

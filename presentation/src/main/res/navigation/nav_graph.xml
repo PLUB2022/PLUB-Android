@@ -203,6 +203,10 @@
             app:destination="@id/todoDetailFragment" />
 
         <action
+            android:id="@+id/action_plubing_main_to_notice"
+            app:destination="@id/noticeFragment" />
+
+        <action
             android:id="@+id/action_plubing_main_to_schedule"
             app:destination="@id/plubingScheduleFragment" />
 
@@ -219,7 +223,7 @@
 
         <argument
             android:name="writeType"
-            app:argType="com.plub.domain.model.enums.PlubingBoardWriteType" />
+            app:argType="com.plub.domain.model.enums.WriteType" />
 
         <argument
             android:name="feedId"
@@ -282,6 +286,59 @@
         <argument
             android:name="timelineId"
             app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/noticeFragment"
+        android:name="com.plub.presentation.ui.main.plubing.notice.NoticeFragment"
+        android:label="fragment_notice"
+        tools:layout="@layout/fragment_notice">
+
+        <argument
+            android:name="noticeType"
+            app:argType="com.plub.domain.model.enums.NoticeType" />
+
+        <action
+            android:id="@+id/action_notice_to_notice_write"
+            app:destination="@id/noticeWriteFragment" />
+
+        <action
+            android:id="@+id/action_notice_to_notice_detail"
+            app:destination="@id/noticeDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/noticeDetailFragment"
+        android:name="com.plub.presentation.ui.main.plubing.notice.detail.NoticeDetailFragment"
+        android:label="fragment_notice_detail"
+        tools:layout="@layout/fragment_notice_detail">
+
+        <argument
+            android:name="noticeType"
+            app:argType="com.plub.domain.model.enums.NoticeType" />
+
+        <argument
+            android:name="noticeId"
+            app:argType="integer" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/noticeWriteFragment"
+        android:name="com.plub.presentation.ui.main.plubing.notice.write.NoticeWriteFragment"
+        android:label="fragment_notice_write"
+        tools:layout="@layout/fragment_notice_write">
+
+        <argument
+            android:name="writeType"
+            app:argType="com.plub.domain.model.enums.WriteType" />
+
+        <argument
+            android:name="parseNoticeVo"
+            app:nullable="true"
+            app:argType="com.plub.presentation.parcelableVo.ParseNoticeVo" />
     </fragment>
 
     <fragment

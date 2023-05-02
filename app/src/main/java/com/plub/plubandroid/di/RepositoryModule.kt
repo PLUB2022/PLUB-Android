@@ -83,4 +83,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesArchiveRepository(repositoryImpl: ArchiveRepositoryImpl): ArchiveRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesNoticeRepository(repositoryImpl: NoticeRepositoryImpl): NoticeRepository
 }

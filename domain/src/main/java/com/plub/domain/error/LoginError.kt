@@ -2,7 +2,7 @@ package com.plub.domain.error
 
 sealed class LoginError: IndividualError() {
     companion object {
-        private const val NEED_SIGN_UP = 2050
+        private const val NEED_SIGN_UP = 1050
 
         fun make(statusCode: Int): LoginError {
             return when(statusCode) {
