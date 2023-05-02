@@ -3,6 +3,7 @@ package com.plub.presentation.util
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.graphics.Outline
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.text.Spanned
 import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewOutlineProvider
 import android.view.animation.AlphaAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -21,15 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestion
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import com.plub.presentation.ui.main.gathering.create.question.CreateGatheringQuestion
 import java.io.Serializable
 
 val Int.dp: Int
@@ -99,7 +93,10 @@ fun List<CreateGatheringQuestion>.deepCopy(): List<CreateGatheringQuestion> {
     return temp
 }
 
-fun List<CreateGatheringQuestion>.deepCopyAfterUpdateQuestion(key: Int, question: String): List<CreateGatheringQuestion> {
+fun List<CreateGatheringQuestion>.deepCopyAfterUpdateQuestion(
+    key: Int,
+    question: String
+): List<CreateGatheringQuestion> {
     val temp = mutableListOf<CreateGatheringQuestion>()
     forEach {
         temp.add(it.copy())
@@ -132,16 +129,22 @@ inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
     else -> @Suppress("DEPRECATION") getParcelable(key) as? T
 }
 
-fun <T> Fragment.getNavigationResult(key: String = "result", singleCall : Boolean = true , result: (T) -> (Unit)) {
+fun <T> Fragment.getNavigationResult(
+    key: String = "result",
+    singleCall: Boolean = true,
+    result: (T) -> (Unit)
+) {
     findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
         ?.observe(viewLifecycleOwner) {
             result(it)
             //if not removed then when click back without set data it will return previous data
-            if(singleCall) findNavController().currentBackStackEntry?.savedStateHandle?.remove<T>(key)
+            if (singleCall) findNavController().currentBackStackEntry?.savedStateHandle?.remove<T>(
+                key
+            )
         }
 }
 
-fun <T>Fragment.setNavigationResult(key: String = "result", result: T) {
+fun <T> Fragment.setNavigationResult(key: String = "result", result: T) {
     findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
 }
 
@@ -154,7 +157,7 @@ fun RecyclerView.infiniteScrolls(method: () -> Unit) {
             val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
             val isDownScroll = dy > 0
 
-            if(isBottom and isDownScroll)
+            if (isBottom and isDownScroll)
                 method()
         }
     })
@@ -198,4 +201,20 @@ fun EditText.showKeyboard() {
 fun EditText.hideKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(this.windowToken, 0)
+}
+
+fun View.setTopCorner(radius: Int) {
+    outlineProvider = object : ViewOutlineProvider() {
+        override fun getOutline(view: View?, outline: Outline?) {
+            outline?.setRoundRect(
+                0,
+                0,
+                view?.width ?: 0,
+                (view?.height ?: 0) + radius.px,
+                radius.px.toFloat()
+            )
+        }
+    }
+
+    clipToOutline = true
 }

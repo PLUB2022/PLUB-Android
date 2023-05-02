@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocationViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.dayAndOnOfflineAndLocation.bottomSheet.BottomSheetSearchLocationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

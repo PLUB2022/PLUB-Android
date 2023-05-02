@@ -7,14 +7,14 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.CreateGatheringViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_f5f3f6"
-        tools:context=".ui.main.gathering.createGathering.CreateGatheringFragment">
+        tools:context=".ui.main.gathering.create.CreateGatheringFragment">
 
         <ImageView
             android:id="@+id/image_view_back"

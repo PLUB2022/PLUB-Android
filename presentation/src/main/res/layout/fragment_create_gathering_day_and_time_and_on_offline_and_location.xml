@@ -7,11 +7,11 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationViewModel" />
 
         <variable
             name="parent_vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.CreateGatheringViewModel" />
 
         <import type="com.plub.domain.model.enums.DaysType" />
     </data>
@@ -22,7 +22,7 @@
         android:background="@color/color_f5f3f6"
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
-        tools:context=".ui.main.gathering.createGathering.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationFragment">
+        tools:context=".ui.main.gathering.create.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationFragment">
 
         <ScrollView
             android:layout_width="match_parent"

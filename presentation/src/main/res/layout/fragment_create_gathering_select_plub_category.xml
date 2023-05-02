@@ -9,11 +9,11 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.selectPlubCategory.CreateGatheringSelectPlubCategoryViewModel" />
 
         <variable
             name="parent_vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.CreateGatheringViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:background="@color/color_f5f3f6"
         android:paddingHorizontal="16dp"
-        tools:context=".ui.main.gathering.createGathering.selectPlubCategory.CreateGatheringSelectPlubCategoryFragment">
+        tools:context=".ui.main.gathering.create.selectPlubCategory.CreateGatheringSelectPlubCategoryFragment">
 
         <TextView
             android:id="@+id/text_view_title"
