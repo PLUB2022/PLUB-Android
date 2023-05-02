@@ -7,18 +7,18 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.finish.CreateGatheringFinishViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.finish.CreateGatheringFinishViewModel" />
 
         <variable
             name="parent_vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.CreateGatheringViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="16dp"
-        tools:context=".ui.main.gathering.createGathering.finish.CreateGatheringFinishFragment">
+        tools:context=".ui.main.gathering.create.finish.CreateGatheringFinishFragment">
 
         <ImageView
             android:id="@+id/image_view_finish"
@@ -47,6 +47,7 @@
 
         <Button
             android:id="@+id/button_show_my_article"
+            onThrottleClick="@{() -> parent_vm.goToHostRecruitment()}"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginBottom="8dp"
@@ -62,6 +63,7 @@
 
         <Button
             android:id="@+id/button_next"
+            onThrottleClick="@{() -> parent_vm.goToHome()}"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginBottom="26dp"

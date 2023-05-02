@@ -9,8 +9,6 @@ import com.plub.domain.model.vo.schedule.ScheduleVo
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentPlubingScheduleBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
-import com.plub.presentation.ui.main.gathering.createGathering.question.CreateGatheringQuestionEvent
-import com.plub.presentation.ui.main.gathering.createGathering.question.bottomSheet.BottomSheetDeleteQuestion
 import com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.PlubingScheduleAdapter
 import com.plub.presentation.ui.main.plubing.schedule.bottomSheet.BottomSheetScheduleDetail
 import com.plub.presentation.util.infiniteScrolls

@@ -17,7 +17,7 @@ class DetailRecruitProfileAdapter(private val listener: DetailProfileDelegate) :
     private var maxProfile = 0
 
     interface DetailProfileDelegate {
-        fun onProfileClick(accountId: Int)
+        fun onProfileClick(accountId: Int, nickname : String)
         fun onSeeMoreProfileClick()
     }
 

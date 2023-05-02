@@ -6,6 +6,11 @@ import com.plub.presentation.ui.Event
 sealed class RecruitEvent: Event {
     object GoToApplyPlubbingFragment : RecruitEvent()
     object GoToBack : RecruitEvent()
+    object GoToReport : RecruitEvent()
+    object CancelApply : RecruitEvent()
+    object ShowDialog : RecruitEvent()
+    object GoToEditFragment : RecruitEvent()
+    object GoToSeeApplicants : RecruitEvent()
     data class OpenBottomSheet(val joinedAccountsList : List<RecruitDetailJoinedAccountsVo>) : RecruitEvent()
-    data class GoToProfileFragment(val accountId : Int) : RecruitEvent()
+    data class GoToProfileFragment(val accountId : Int, val nickname : String) : RecruitEvent()
 }

@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.gathering.modifyGathering.guestQuestion.ModifyGuestQuestionViewModel" />
+            type="com.plub.presentation.ui.main.gathering.modify.guestQuestion.ModifyGuestQuestionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
         android:background="@color/color_f5f3f6"
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
-        tools:context=".ui.main.gathering.modifyGathering.guestQuestion.ModifyGuestQuestionFragment">
+        tools:context=".ui.main.gathering.modify.guestQuestion.ModifyGuestQuestionFragment">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

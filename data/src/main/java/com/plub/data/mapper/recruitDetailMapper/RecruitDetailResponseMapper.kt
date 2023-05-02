@@ -23,6 +23,7 @@ object RecruitDetailResponseMapper: Mapper.ResponseMapper<RecruitDetailResponse,
                 plubbingTime = this.time,
                 isBookmarked = this.isBookmarked,
                 isApplied = this.isApplied,
+                isHost = this.isHost,
                 joinedAccounts = this.joinedAccounts.map {
                     RecruitDetailJoinedAccountsMapper.mapDtoToModel(it)
                 }

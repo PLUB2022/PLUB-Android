@@ -58,8 +58,8 @@ class SearchingFragment : BaseTestFragment<FragmentSearchingBinding, SearchingPa
                 viewModel.onClickBookmark(id)
             }
 
-            override fun onClickPlubCard(id: Int, isHost: Boolean) {
-                viewModel.goToDetailRecruitment(id, isHost)
+            override fun onClickPlubCard(id: Int) {
+                viewModel.goToDetailRecruitment(id)
             }
         })
     }
@@ -189,7 +189,6 @@ class SearchingFragment : BaseTestFragment<FragmentSearchingBinding, SearchingPa
             is SearchingEvent.ScrollToTop -> scrollToTop()
             is SearchingEvent.ShowSelectSortTypeBottomSheetDialog -> showSelectSortTypeDialog(event.selectedItem)
             is SearchingEvent.GoToBack -> findNavController().popBackStack()
-            is SearchingEvent.GoToHostRecruit -> goToHostRecruitment(event.id)
             is SearchingEvent.GoToRecruit -> goToDetailRecruitment(event.id)
         }
     }
@@ -213,12 +212,6 @@ class SearchingFragment : BaseTestFragment<FragmentSearchingBinding, SearchingPa
     private fun goToDetailRecruitment(plubbingId: Int) {
         val action =
             SearchingFragmentDirections.actionSearchingToRecruitment(plubbingId)
-        findNavController().navigate(action)
-    }
-
-    private fun goToHostRecruitment(plubbingId: Int) {
-        val action =
-            SearchingFragmentDirections.actionSearchingToHostRecruitment(plubbingId)
         findNavController().navigate(action)
     }
 

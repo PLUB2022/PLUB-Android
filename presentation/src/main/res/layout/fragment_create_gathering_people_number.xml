@@ -9,11 +9,11 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.peopleNumber.CreateGatheringPeopleNumberViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.peopleNumber.CreateGatheringPeopleNumberViewModel" />
 
         <variable
             name="parent_vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.CreateGatheringViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
         android:background="@color/color_f5f3f6"
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
-        tools:context=".ui.main.gathering.createGathering.peopleNumber.CreateGatheringPeopleNumberFragment">
+        tools:context=".ui.main.gathering.create.peopleNumber.CreateGatheringPeopleNumberFragment">
 
         <TextView
             android:id="@+id/text_view_title"

@@ -150,13 +150,15 @@ class PlubingAddOrEditScheduleViewModel @Inject constructor(
             hour, minute
         )
 
-        if (uiState.value.startTimeInMills > uiState.value.endTimeInMills) {
-            updateUiState { uiState ->
-                uiState.copy(
-                    startScheduleDate = uiState.endScheduleDate,
-                    startScheduleTime = endScheduleTime,
-                    endScheduleTime = endScheduleTime
-                )
+        val updatedUiState = uiState.value.copy(
+            startScheduleDate = uiState.value.endScheduleDate,
+            startScheduleTime = endScheduleTime,
+            endScheduleTime = endScheduleTime
+        )
+
+        if (uiState.value.startTimeInMills > updatedUiState.endTimeInMills) {
+            updateUiState {
+                updatedUiState
             }
         } else {
             updateUiState { uiState ->

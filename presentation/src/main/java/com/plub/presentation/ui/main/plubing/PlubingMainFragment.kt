@@ -16,6 +16,7 @@ import com.plub.presentation.databinding.FragmentPlubingMainBinding
 import com.plub.presentation.databinding.IncludeTabPlubingMainBinding
 import com.plub.presentation.ui.main.plubing.adapter.FragmentPlubingMainPagerAdapter
 import com.plub.presentation.ui.main.plubing.adapter.PlubingMemberAdapter
+import com.plub.presentation.util.onThrottleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -53,6 +54,10 @@ class PlubingMainFragment :
                     orientation = LinearLayoutManager.HORIZONTAL
                 }
                 adapter = memberListAdapter
+            }
+
+            includeMainTop.textViewDate.onThrottleClick {
+                viewModel.goToSchedule()
             }
 
             appBarLayout.addOnOffsetChangedListener { appBarLayout, _ ->
@@ -119,6 +124,20 @@ class PlubingMainFragment :
             is PlubingMainEvent.GoToNotice -> {
                 val action = PlubingMainFragmentDirections.actionPlubingMainToNotice(NoticeType.PLUBING)
                 findNavController().navigate(action)
+            }
+
+            is PlubingMainEvent.GoToSchedule -> {
+                val action = PlubingMainFragmentDirections.actionPlubingMainToSchedule(event.plubingId, event.plubingName)
+                findNavController().navigate(action)
+            }
+
+            is PlubingMainEvent.GoToArchive -> {
+                val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingArchive()
+                findNavController().navigate(action)
+            }
+
+            is PlubingMainEvent.GoToBack -> {
+                findNavController().popBackStack()
             }
         }
     }

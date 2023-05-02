@@ -15,7 +15,7 @@ class DetailRecruitProfileViewHolder(
 
     private var maxProfile : Int = 0
     private var nowNum : Int = 0
-    private var accountId : Int? = null
+    private var vo : RecruitDetailJoinedAccountsVo? = null
 
     init {
         binding.imageViewProfile.onThrottleClick {
@@ -23,7 +23,7 @@ class DetailRecruitProfileViewHolder(
                 listener.onSeeMoreProfileClick()
             }
             else{
-                accountId?.let { listener.onProfileClick(it) }
+                vo?.let { listener.onProfileClick(it.accountId, it.nickname) }
             }
         }
     }
@@ -31,16 +31,17 @@ class DetailRecruitProfileViewHolder(
     fun bind(item: RecruitDetailJoinedAccountsVo, position: Int, allPeopleCount: Int, maxProfile : Int) {
         this.maxProfile = maxProfile
         nowNum = position + 1
+        vo = item
         val morePeopleCount = allPeopleCount - position
         binding.apply {
             if (nowNum == maxProfile) {
                 textViewMoreProfileNumber.text = root.context.getString(R.string.detail_recruitment_profile_county, morePeopleCount)
             }
             else{
-                GlideUtil.loadImage(root.context, item.profileImage, imageViewProfile)
+                if(item.profileImage.isNullOrEmpty()) imageViewProfile.setImageResource(R.drawable.iv_default_profile)
+                else GlideUtil.loadImage(root.context, item.profileImage!!, imageViewProfile)
                 imageViewProfile.clipToOutline = true
             }
-            accountId = item.accountId
         }
     }
 }

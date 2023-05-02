@@ -25,7 +25,7 @@ class PlubCardGridViewHolder(
 
         binding.root.onThrottleClick {
             vo?.let {
-                listener.onClickPlubCard(it.id, it.isHost)
+                listener.onClickPlubCard(it.id)
             }
         }
     }

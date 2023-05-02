@@ -1,5 +1,6 @@
 package com.plub.data.repository
 
+import com.plub.data.api.AccountApi
 import com.plub.data.api.LoginApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.dto.login.AdminLoginRequest
@@ -14,7 +15,7 @@ import com.plub.domain.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class LoginRepositoryImpl @Inject constructor(private val loginApi: LoginApi) : LoginRepository,
+class LoginRepositoryImpl @Inject constructor(private val loginApi: LoginApi, private val accountApi: AccountApi) : LoginRepository,
     BaseRepository() {
 
     override suspend fun socialLogin(request: SocialLoginRequestVo): Flow<UiState<SocialLoginResponseVo>> {
@@ -34,6 +35,6 @@ class LoginRepositoryImpl @Inject constructor(private val loginApi: LoginApi) : 
     }
 
     override suspend fun logout(): Flow<UiState<Unit>> {
-        return apiLaunch(loginApi.logout(), UnitResponseMapper)
+        return apiLaunch(accountApi.logout(), UnitResponseMapper)
     }
 }

@@ -40,27 +40,27 @@ class MyPageDetailPageAdapter(private val listener : ApplicantsDelegate): ListAd
         return when(MyPageDetailViewType.valueOf(viewType)){
             MyPageDetailViewType.TOP -> {
                 val binding = IncludeItemMyPageTopBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailTopViewHolder(binding)
+                MyPageDetailTopViewHolder(binding)
             }
             MyPageDetailViewType.MY_APPLICANTS_TEXT -> {
                 val binding = IncludeItemMyPageMyApplicationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailMyApplicationsTextViewHolder(binding)
+                MyPageDetailMyApplicationsTextViewHolder(binding)
             }
             MyPageDetailViewType.OTHER_APPLICANTS_TEXT -> {
                 val binding = IncludeItemMyPageOtherApplicationsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailOtherApplicationTextViewHolder(binding)
+                MyPageDetailOtherApplicationTextViewHolder(binding)
             }
             MyPageDetailViewType.MY_APPLICATION -> {
                 val binding = IncludeItemMyApplicationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailMyApplicantsViewHolder(binding, listener)
+                MyPageDetailMyApplicantsViewHolder(binding, listener)
             }
             MyPageDetailViewType.OTHER_APPLICATION -> {
                 val binding = IncludeItemApplicationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailOtherApplicantsViewHolder(binding, listener)
+                MyPageDetailOtherApplicantsViewHolder(binding, listener)
             }
             MyPageDetailViewType.EMPTY -> {
                 val binding = IncludeItemMyPageNoOtherApplicationsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return MyPageDetailEmptyViewHolder(binding)
+                MyPageDetailEmptyViewHolder(binding)
             }
         }
     }

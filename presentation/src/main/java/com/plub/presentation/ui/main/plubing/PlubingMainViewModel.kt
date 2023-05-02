@@ -84,6 +84,12 @@ class PlubingMainViewModel @Inject constructor(
         }
     }
 
+    fun goToSchedule() {
+        emitEventFlow(
+            PlubingMainEvent.GoToSchedule(plubingId, uiState.plubingName.value)
+        )
+    }
+
     fun onClickProfile(profileId: Int) {
 
     }
@@ -148,5 +154,13 @@ class PlubingMainViewModel @Inject constructor(
         viewModelScope.launch {
             memberListStateFlow.update { list }
         }
+    }
+
+    fun goToBack(){
+        emitEventFlow(PlubingMainEvent.GoToBack)
+    }
+
+    fun goToArchive(){
+        emitEventFlow(PlubingMainEvent.GoToArchive)
     }
 }

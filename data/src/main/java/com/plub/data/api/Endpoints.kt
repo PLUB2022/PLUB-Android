@@ -20,6 +20,7 @@ object Endpoints {
         private const val ACCOUNT_URL = "/api/accounts"
         const val NICKNAME_CHECK = "$ACCOUNT_URL/check/nickname/{nickname}"
         const val FETCH_MY_INFO = "$ACCOUNT_URL/me"
+        const val FETCH_OTHER_INFO = "$ACCOUNT_URL/{nickname}"
         const val UPDATE_PROFILE = "$FETCH_MY_INFO/profile"
         const val REGIST_INTEREST = "$ACCOUNT_URL/interest"
         const val BROWSE_INTEREST = "$ACCOUNT_URL/interest"
@@ -68,10 +69,16 @@ object Endpoints {
         const val RECRUIT_QUESTIONS = "$RECRUIT_URL/questions"
         const val PLUBING_MAIN = "$PLUBBING_ID_URL/main"
         const val MODIFY_GATHERING_RECRUIT = CANCEL_APPLICATION
+        const val KICK_OUT = "$PLUBBING_ID_URL/accounts/{accountId}"
 
         object MODIFY_GATHERING {
             const val RECRUIT = RECRUIT_URL
         }
+
+        const val MY = "$PLUBBING_URL/my"
+        const val CHANGE_STATUS = "$PLUBBING_ID_URL/status"
+        const val LEAVE = "$PLUBBING_ID_URL/leave"
+        const val MEMBER = "$PLUBBING_ID_URL/members"
 
         object BOARD {
             const val FEEDS = "$PLUBBING_ID_URL/feeds"
@@ -95,6 +102,7 @@ object Endpoints {
 
         object TODO {
             const val TIMELINES = "$PLUBBING_ID_URL/timeline"
+            const val OTHER_TIMELINES = "$PLUBBING_ID_URL/timeline/accounts/{accountId}"
             const val PROOF = "$PLUBBING_ID_URL/todolist/{todolistId}/proof"
             const val COMPLETE = "$PLUBBING_ID_URL/todolist/{todolistId}/complete"
             const val CANCEL = "$PLUBBING_ID_URL/todolist/{todolistId}/cancel"

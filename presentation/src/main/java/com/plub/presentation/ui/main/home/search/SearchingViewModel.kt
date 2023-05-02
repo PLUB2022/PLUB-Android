@@ -169,9 +169,8 @@ class SearchingViewModel @Inject constructor(
         emitEventFlow(SearchingEvent.GoToBack)
     }
 
-    fun goToDetailRecruitment(id: Int, isHost: Boolean) {
-        val event = if(isHost) SearchingEvent.GoToHostRecruit(id) else SearchingEvent.GoToRecruit(id)
-        emitEventFlow(event)
+    fun goToDetailRecruitment(id: Int) {
+        emitEventFlow(SearchingEvent.GoToRecruit(id))
     }
 
     fun onScrollChanged() {
