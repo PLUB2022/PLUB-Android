@@ -7,7 +7,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
-import com.plub.domain.model.enums.PlubingBoardWriteType
+import com.plub.domain.model.enums.NoticeType
+import com.plub.domain.model.enums.WriteType
 import com.plub.domain.model.enums.PlubingMainPageType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
@@ -18,7 +19,6 @@ import com.plub.presentation.ui.main.plubing.adapter.PlubingMemberAdapter
 import com.plub.presentation.util.onThrottleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
 
 @AndroidEntryPoint
 class PlubingMainFragment :
@@ -112,12 +112,17 @@ class PlubingMainFragment :
     private fun inspectEventFlow(event: PlubingMainEvent) {
         when (event) {
             is PlubingMainEvent.GoToWriteBoard -> {
-                val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingBoardWrite(writeType = PlubingBoardWriteType.CREATE)
+                val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingBoardWrite(writeType = WriteType.CREATE)
                 findNavController().navigate(action)
             }
 
             is PlubingMainEvent.GoToPlannerTodo -> {
                 val action = PlubingMainFragmentDirections.actionPlubingMainToPlubingTodoPlanner()
+                findNavController().navigate(action)
+            }
+
+            is PlubingMainEvent.GoToNotice -> {
+                val action = PlubingMainFragmentDirections.actionPlubingMainToNotice(NoticeType.PLUBING)
                 findNavController().navigate(action)
             }
 

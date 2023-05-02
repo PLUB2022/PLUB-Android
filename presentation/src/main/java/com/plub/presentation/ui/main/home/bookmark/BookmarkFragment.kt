@@ -7,6 +7,7 @@ import com.plub.domain.model.enums.PlubCardType
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentBookmarkBinding
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
+import com.plub.presentation.util.infiniteScrolls
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -48,6 +49,8 @@ class BookmarkFragment :
                         }
                     }
                 }
+
+                infiniteScrolls { viewModel.onScrollChanged() }
 
                 adapter = listAdapter
             }

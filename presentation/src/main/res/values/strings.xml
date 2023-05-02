@@ -220,13 +220,16 @@
     <string name="dialog_menu_schedule_delete">일정 삭제</string>
     <string name="dialog_menu_schedule_edit">일정 수정</string>
     <string name="dialog_menu_todo_report">신고</string>
-    <string name="dialog_menu_todo_manage">TO-DO 관리</string>
+    <string name="dialog_menu_todo_planner">TO-DO 관리</string>
     <string name="dialog_menu_todo_delete">TO-DO 삭제</string>
     <string name="dialog_menu_todo_edit">TO-DO 수정</string>
     <string name="dialog_menu_todo_proof">사진/글 추가</string>
     <string name="dialog_menu_archive_delete">아카이브 삭제</string>
     <string name="dialog_menu_archive_report">게시물 신고</string>
     <string name="dialog_menu_archive_edit">아카이브 수정</string>
+    <string name="dialog_menu_notice_edit">공지 수정</string>
+    <string name="dialog_menu_notice_delete">공지 삭제</string>
+    <string name="dialog_menu_notice_report">공지 신고</string>
 
     <string name="dialog_todo_proof_default_text">내가 이룬것을 사진으로 자랑해보세요!</string>
     <string name="dialog_todo_proof_button_late_proof">나중에 할게요!</string>
@@ -373,6 +376,12 @@
     <string name="my_page_modify">수정</string>
     <string name="my_page_approve">받기</string>
     <string name="my_page_complete_answer">%s 답변 작성완료</string>
+
+    <string name="notice_list_title">공지사항</string>
+    <string name="notice_list_create_notice">새 글 작성</string>
+    <string name="notice_write_title_text">공지 제목</string>
+    <string name="notice_write_content_text">전달할 내용</string>
+    <string name="notice_write_post">공지 등록</string>
 
     <string name="my_page_setting_profile_image">프로필 사진</string>
     <string name="my_page_setting_change_yes">네, 할게요</string>

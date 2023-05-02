@@ -20,6 +20,7 @@ object BoardCommentResponseMapper : Mapper.ResponseMapper<BoardCommentResponse, 
                 createAt = createdAt,
                 isCommentAuthor = isCommentAuthor,
                 isFeedAuthor = isFeedAuthor,
+                isAuthorComment = isAuthorComment,
                 groupId = groupId
             )
         }?: BoardCommentVo()

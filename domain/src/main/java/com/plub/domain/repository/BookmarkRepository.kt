@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface BookmarkRepository {
     suspend fun bookmarkPlubRecruit(id:Int): Flow<UiState<PlubBookmarkResponseVo>>
-    suspend fun getMyPlubBookmarks(): Flow<UiState<PlubCardListVo>>
+    suspend fun getMyPlubBookmarks(id: Int): Flow<UiState<PlubCardListVo>>
 }

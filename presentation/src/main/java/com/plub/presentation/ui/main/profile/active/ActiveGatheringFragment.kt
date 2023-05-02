@@ -5,7 +5,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.DialogMenuType
-import com.plub.domain.model.enums.PlubingBoardWriteType
+import com.plub.domain.model.enums.WriteType
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.base.BaseTestFragment
@@ -152,7 +152,7 @@ class ActiveGatheringFragment :
     }
 
     private fun goToWriteBoard(){
-        val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToPlubingBoardWrite(writeType = PlubingBoardWriteType.CREATE)
+        val action = ActiveGatheringFragmentDirections.actionMyPageActiveDetailToPlubingBoardWrite(writeType = WriteType.CREATE)
         findNavController().navigate(action)
     }
 

@@ -45,6 +45,11 @@ object Endpoints {
         const val READ = "$NOTIFICATIONS_ID/read"
     }
 
+    object NOTICE {
+        const val NOTICE_URL = "/api/announcements"
+        const val NOTICE_DETAIL = "/api/announcements/{announcementId}"
+    }
+
     object PLUBBING {
         private const val PLUBBING_URL = "/api/plubbings"
         private const val RECRUIT_URL = "$PLUBBING_URL/{plubbingId}/recruit"
@@ -115,6 +120,17 @@ object Endpoints {
             const val TODO_DELETE = "$PLUBBING_ID_URL/todolist/{todoId}"
             const val TODO_LIKE_TOGGLE = "$PLUBBING_ID_URL/timeline/{timelineId}/like"
             const val TODO_DETAIL = "$PLUBBING_ID_URL/timeline/{timelineId}/todolist"
+        }
+
+        object NOTICE {
+            const val NOTICE = "$PLUBBING_ID_URL/notices"
+            const val NOTICE_EDIT = "$PLUBBING_ID_URL/notices/{noticeId}"
+            const val NOTICE_DETAIL = "$PLUBBING_ID_URL/notices/{noticeId}"
+            const val NOTICE_DELETE = "$PLUBBING_ID_URL/notices/{noticeId}"
+            const val COMMENTS = "$PLUBBING_ID_URL/notices/{noticeId}/comments"
+            const val COMMENT_CREATE = "$PLUBBING_ID_URL/notices/{noticeId}/comment"
+            const val COMMENT_DELETE = "$PLUBBING_ID_URL/notices/comment/{commentId}"
+            const val COMMENT_EDIT = "$PLUBBING_ID_URL/notices/comment/{commentId}"
         }
 
         object MY_PAGE{
