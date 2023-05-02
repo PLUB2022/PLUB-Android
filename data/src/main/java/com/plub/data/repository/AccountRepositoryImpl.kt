@@ -17,6 +17,10 @@ class AccountRepositoryImpl @Inject constructor(private val accountApi: AccountA
         return apiLaunch(accountApi.fetchMyInfo(), MyInfoResponseMapper)
     }
 
+    override suspend fun fetchOtherInfo(request : String): Flow<UiState<MyInfoResponseVo>> {
+        return apiLaunch(accountApi.fetchOtherInfo(request), MyInfoResponseMapper)
+    }
+
     override suspend fun updateMyInfo(request : UpdateMyInfoRequestVo): Flow<UiState<MyInfoResponseVo>> {
         return apiLaunch(accountApi.updateMyInfo(request), MyInfoResponseMapper)
     }

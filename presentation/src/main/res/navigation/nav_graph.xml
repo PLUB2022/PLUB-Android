@@ -76,9 +76,6 @@
             android:id="@+id/action_category_gathering_to_create_gathering"
             app:destination="@id/createGatheringFragment" />
         <action
-            android:id="@+id/action_category_gathering_to_host_recruitment"
-            app:destination="@id/hostRecruitmentFragment" />
-        <action
             android:id="@+id/action_category_gathering_to_filter"
             app:destination="@id/categoryGatheringFilterFragment" />
         <argument
@@ -90,7 +87,7 @@
             app:argType="string" />
         <argument
             android:name="filter"
-            app:argType="com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState" />
+            app:argType="com.plub.presentation.parcelableVo.ParseCategoryFilterVo" />
     </fragment>
 
     <fragment
@@ -120,16 +117,9 @@
         <action
             android:id="@+id/action_recruitment_to_applyPlubbing"
             app:destination="@id/applyPlubbingFragment" />
-        <argument
-            android:name="plubbingId"
-            app:argType="integer" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/hostRecruitmentFragment"
-        android:name="com.plub.presentation.ui.main.home.recruitment.hostrecruitment.HostRecruitmentFragment"
-        android:label="fragment_recruitment_detail_host"
-        tools:layout="@layout/fragment_host_detail_recruitment_plubbing">
+        <action
+            android:id="@+id/action_recruitment_to_modifyGathering"
+            app:destination="@id/modifyGatheringFragment" />
         <argument
             android:name="plubbingId"
             app:argType="integer" />
@@ -169,7 +159,7 @@
 
         <action
             android:id="@+id/action_create_gathering_to_host_recruitment"
-            app:destination="@id/hostRecruitmentFragment"
+            app:destination="@id/recruitmentFragment"
             app:popUpTo="@id/menu_navigation_main" />
 
         <action
@@ -187,9 +177,6 @@
         <action
             android:id="@+id/action_searching_to_recruitment"
             app:destination="@id/recruitmentFragment" />
-        <action
-            android:id="@+id/action_searching_to_host_recruitment"
-            app:destination="@id/hostRecruitmentFragment" />
     </fragment>
 
     <fragment
@@ -231,6 +218,10 @@
         <action
             android:id="@+id/action_plubing_main_to_schedule"
             app:destination="@id/plubingScheduleFragment" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_plubing_archive"
+            app:destination="@id/archiveFragment" />
     </fragment>
 
     <fragment

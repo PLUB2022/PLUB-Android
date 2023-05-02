@@ -8,30 +8,36 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.plub.domain.model.enums.ApplyModifyApplicationType
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsVo
-import com.plub.presentation.base.BaseFragment
+import com.plub.presentation.R
+import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentDetailRecruitmentPlubingBinding
+import com.plub.presentation.ui.common.dialog.CommonDialog
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitCategoryAdapter
 import com.plub.presentation.ui.main.home.recruitment.adapter.DetailRecruitProfileAdapter
 import com.plub.presentation.ui.main.home.recruitment.bottomsheet.ProfileBottomSheetFragment
-import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.ui.main.home.recruitment.dialog.RecruitApplySuccessDialogFragment
 import com.plub.presentation.util.px
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RecruitmentFragment :
-    BaseFragment<FragmentDetailRecruitmentPlubingBinding, DetailRecruitPageState, RecruitmentViewModel>(
+    BaseTestFragment<FragmentDetailRecruitmentPlubingBinding, RecruitmentPageState, RecruitmentViewModel>(
         FragmentDetailRecruitmentPlubingBinding::inflate
     ) {
 
     companion object{
         private const val PROFILE_WIDTH = 42
     }
+    @Inject
+    lateinit var commonDialog: CommonDialog
+
     private val recruitmentFragmentArgs : RecruitmentFragmentArgs by navArgs()
     private val detailRecruitProfileAdapter: DetailRecruitProfileAdapter by lazy {
         DetailRecruitProfileAdapter(object : DetailRecruitProfileAdapter.DetailProfileDelegate {
-            override fun onProfileClick(accountId: Int) {
-                viewModel.goToProfile(accountId)
+            override fun onProfileClick(accountId: Int, nickname : String) {
+                viewModel.goToProfile(accountId, nickname)
             }
 
             override fun onSeeMoreProfileClick() {
@@ -46,12 +52,11 @@ class RecruitmentFragment :
     override val viewModel: RecruitmentViewModel by viewModels()
 
     override fun initView() {
-
         binding.apply {
             vm = viewModel
             initRecycler()
-            viewModel.fetchRecruitmentDetail(recruitmentFragmentArgs.plubbingId)
         }
+        viewModel.fetchRecruitmentDetail(recruitmentFragmentArgs.plubbingId)
     }
 
     private fun initRecycler(){
@@ -70,8 +75,13 @@ class RecruitmentFragment :
     override fun initStates() {
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.collect {
-                    initDetailPage(it)
+                viewModel.uiState.joinedAccounts.collect {
+                    initProfileAdapter(it)
+                }
+            }
+            launch {
+                viewModel.uiState.categories.collect{
+                    detailRecruitCategoryAdapter.submitList(it)
                 }
             }
 
@@ -83,15 +93,12 @@ class RecruitmentFragment :
         }
     }
 
-    private fun initDetailPage(data: DetailRecruitPageState) {
+    private fun initProfileAdapter(list: List<RecruitDetailJoinedAccountsVo>) {
         binding.apply {
             val maxProfile = recyclerViewPlubbingPeopleProfile.width / PROFILE_WIDTH.px
             constraintLayoutTop.bringToFront()
-            GlideUtil.loadImage(root.context, data.plubbingMainImage, imageViewPlubbingImage)
-            imageViewPlubbingImage.clipToOutline = true
-            detailRecruitCategoryAdapter.submitList(data.categories)
             detailRecruitProfileAdapter.setMaxProfile(maxProfile)
-            detailRecruitProfileAdapter.submitList(data.joinedAccounts)
+            detailRecruitProfileAdapter.submitList(list)
         }
     }
 
@@ -101,13 +108,28 @@ class RecruitmentFragment :
                 goToApplyPlubbingFragment(recruitmentFragmentArgs.plubbingId)
             }
             is RecruitEvent.GoToProfileFragment ->{
-                goToProfile(event.accountId)
+                goToProfile(event.accountId, event.nickname)
             }
             is RecruitEvent.GoToBack -> {
                 findNavController().popBackStack()
             }
             is RecruitEvent.OpenBottomSheet -> {
                 openProfileBottomSheet(event.joinedAccountsList)
+            }
+            is RecruitEvent.GoToReport -> {
+                goToReport()
+            }
+            is RecruitEvent.CancelApply -> {
+                showCancelDialog()
+            }
+            is RecruitEvent.ShowDialog -> {
+                showSuccessDialog()
+            }
+            is RecruitEvent.GoToEditFragment -> {
+                goToModifyGathering()
+            }
+            is RecruitEvent.GoToSeeApplicants -> {
+
             }
         }
     }
@@ -120,12 +142,43 @@ class RecruitmentFragment :
         findNavController().navigate(action)
     }
 
-    private fun goToProfile(accountId: Int) {
+    private fun goToProfile(accountId: Int, nickname : String) {
 
     }
 
     private fun openProfileBottomSheet(joinedAccountList : List<RecruitDetailJoinedAccountsVo>){
         val bottomSheet = ProfileBottomSheetFragment(joinedAccountList)
         bottomSheet.show(childFragmentManager, bottomSheet.tag)
+    }
+
+    private fun goToReport(){
+        //TODO 신고화면 이동
+    }
+
+    private fun showCancelDialog(){
+        commonDialog
+            .setTitle(R.string.my_page_again_cancel)
+            .setGoneDescription()
+            .setPositiveButton(R.string.word_yes){
+                viewModel.cancelApply()
+                commonDialog.dismiss()
+            }
+            .setNegativeButton(R.string.word_no){
+                commonDialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showSuccessDialog(){
+        RecruitApplySuccessDialogFragment(object : RecruitApplySuccessDialogFragment.Delegate{
+            override fun closeButtonClick() {
+                initView()
+            }
+        }).show(childFragmentManager, "")
+    }
+
+    private fun goToModifyGathering(){
+        val action = RecruitmentFragmentDirections.actionRecruitmentToModifyGathering()
+        findNavController().navigate(action)
     }
 }

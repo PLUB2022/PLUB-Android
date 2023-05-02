@@ -14,7 +14,7 @@ class BottomSheetProfileAdapter(private val listener: ProfileDelegate) :
     ) {
 
     interface ProfileDelegate {
-        fun onProfileClick(accountId: Int)
+        fun onProfileClick(accountId: Int, nickname : String)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

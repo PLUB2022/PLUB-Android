@@ -6,4 +6,6 @@ sealed class PlubingMainEvent : Event {
     object GoToWriteBoard : PlubingMainEvent()
     object GoToPlannerTodo : PlubingMainEvent()
     data class GoToSchedule(val plubingId: Int, val plubingName: String) : PlubingMainEvent()
+    object GoToBack : PlubingMainEvent()
+    object GoToArchive : PlubingMainEvent()
 }

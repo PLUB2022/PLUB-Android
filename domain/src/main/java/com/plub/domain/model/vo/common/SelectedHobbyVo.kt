@@ -6,4 +6,4 @@ data class SelectedHobbyVo(
     val parentId:Int,
     val subId:Int,
     val name: String
-): Serializable
+) :Serializable

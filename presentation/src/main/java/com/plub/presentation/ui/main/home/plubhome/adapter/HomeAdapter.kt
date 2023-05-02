@@ -37,11 +37,11 @@ class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubList
         return when(HomeViewType.valueOf(viewType)){
             HomeViewType.TITLE_VIEW -> {
                 val binding = IncludeItemHomeTitleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return HomeTitleViewHolder(binding)
+                HomeTitleViewHolder(binding)
             }
             HomeViewType.CATEGORY_VIEW -> {
                 val binding = IncludeItemHomeCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return HomeCategoryParentViewHolder(binding, listener)
+                HomeCategoryParentViewHolder(binding, listener)
             }
             HomeViewType.RECOMMEND_TITLE_VIEW -> {
                 val binding = IncludeItemHomeRecommendFirstBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -53,7 +53,7 @@ class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubList
             }
             HomeViewType.RECOMMEND_GATHERING_VIEW -> {
                 val binding = IncludeItemPlubCardListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return HomeRecommendListViewHolder(binding, listener)
+                HomeRecommendListViewHolder(binding, listener)
             }
         }
     }

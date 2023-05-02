@@ -151,4 +151,12 @@ class PlubingMainViewModel @Inject constructor(
             memberListStateFlow.update { list }
         }
     }
+
+    fun goToBack(){
+        emitEventFlow(PlubingMainEvent.GoToBack)
+    }
+
+    fun goToArchive(){
+        emitEventFlow(PlubingMainEvent.GoToArchive)
+    }
 }
