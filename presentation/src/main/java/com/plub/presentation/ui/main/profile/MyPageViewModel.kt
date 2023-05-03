@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.profile
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.MyPageGatheringMyType
 import com.plub.domain.model.enums.MyPageGatheringStateType
+import com.plub.domain.model.enums.MyPageViewType
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
 import com.plub.domain.model.vo.myPage.MyPageMyProfileVo
 import com.plub.domain.model.vo.myPage.MyPageVo
