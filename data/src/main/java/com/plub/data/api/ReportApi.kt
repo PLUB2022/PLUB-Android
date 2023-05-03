@@ -3,7 +3,7 @@ package com.plub.data.api
 import com.plub.data.base.ApiResponse
 import com.plub.data.base.DataDto
 import com.plub.data.dto.report.ReportDetailResponse
-import com.plub.data.dto.report.ReportResponse
+import com.plub.data.dto.report.ReportListResponse
 import com.plub.domain.model.vo.report.CreateReportRequestVo
 import retrofit2.Response
 import retrofit2.http.Body
@@ -18,7 +18,7 @@ interface ReportApi {
     }
 
     @GET(Endpoints.REPORT.BROWSE_REPORT)
-    suspend fun browseReport(): Response<ApiResponse<ReportResponse>>
+    suspend fun browseReport(): Response<ApiResponse<ReportListResponse>>
 
     @POST(Endpoints.REPORT.CREATE_REPORT)
     suspend fun createReport(

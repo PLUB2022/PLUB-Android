@@ -8,7 +8,6 @@ import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
 import com.plub.presentation.parcelableVo.ParseCategoryFilterVo
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
-import com.plub.presentation.util.onThrottleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

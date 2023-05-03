@@ -1,11 +1,11 @@
 package com.plub.data.mapper.reportMapper
 
 import com.plub.data.base.Mapper
-import com.plub.data.dto.report.ReportResponse
+import com.plub.data.dto.report.ReportListResponse
 import com.plub.domain.model.vo.report.ReportVo
 
-object ReportMapper: Mapper.ResponseMapper<ReportResponse, ReportVo> {
-    override fun mapDtoToModel(type: ReportResponse?): ReportVo {
+object ReportMapper: Mapper.ResponseMapper<ReportListResponse, ReportVo> {
+    override fun mapDtoToModel(type: ReportListResponse?): ReportVo {
         return type?.run {
             ReportVo(
                 reportList = reportList.map {
