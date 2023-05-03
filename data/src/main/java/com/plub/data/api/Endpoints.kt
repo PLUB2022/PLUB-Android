@@ -38,6 +38,11 @@ object Endpoints {
         const val KEYWORD_URL = "/v2/local/search/keyword"
     }
 
+    object NOTICE {
+        const val NOTICE_URL = "/api/announcements"
+        const val NOTICE_DETAIL = "/api/announcements/{announcementId}"
+    }
+
     object PLUBBING {
         private const val PLUBBING_URL = "/api/plubbings"
         private const val RECRUIT_URL = "$PLUBBING_URL/{plubbingId}/recruit"
@@ -64,10 +69,16 @@ object Endpoints {
         const val RECRUIT_QUESTIONS = "$RECRUIT_URL/questions"
         const val PLUBING_MAIN = "$PLUBBING_ID_URL/main"
         const val MODIFY_GATHERING_RECRUIT = CANCEL_APPLICATION
+        const val KICK_OUT = "$PLUBBING_ID_URL/accounts/{accountId}"
 
         object MODIFY_GATHERING {
             const val RECRUIT = RECRUIT_URL
         }
+
+        const val MY = "$PLUBBING_URL/my"
+        const val CHANGE_STATUS = "$PLUBBING_ID_URL/status"
+        const val LEAVE = "$PLUBBING_ID_URL/leave"
+        const val MEMBER = "$PLUBBING_ID_URL/members"
 
         object BOARD {
             const val FEEDS = "$PLUBBING_ID_URL/feeds"
@@ -102,6 +113,17 @@ object Endpoints {
             const val TODO_DELETE = "$PLUBBING_ID_URL/todolist/{todoId}"
             const val TODO_LIKE_TOGGLE = "$PLUBBING_ID_URL/timeline/{timelineId}/like"
             const val TODO_DETAIL = "$PLUBBING_ID_URL/timeline/{timelineId}/todolist"
+        }
+
+        object NOTICE {
+            const val NOTICE = "$PLUBBING_ID_URL/notices"
+            const val NOTICE_EDIT = "$PLUBBING_ID_URL/notices/{noticeId}"
+            const val NOTICE_DETAIL = "$PLUBBING_ID_URL/notices/{noticeId}"
+            const val NOTICE_DELETE = "$PLUBBING_ID_URL/notices/{noticeId}"
+            const val COMMENTS = "$PLUBBING_ID_URL/notices/{noticeId}/comments"
+            const val COMMENT_CREATE = "$PLUBBING_ID_URL/notices/{noticeId}/comment"
+            const val COMMENT_DELETE = "$PLUBBING_ID_URL/notices/comment/{commentId}"
+            const val COMMENT_EDIT = "$PLUBBING_ID_URL/notices/comment/{commentId}"
         }
 
         object MY_PAGE{

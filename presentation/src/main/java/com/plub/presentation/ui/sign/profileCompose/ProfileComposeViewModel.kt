@@ -10,7 +10,6 @@ import com.plub.domain.model.vo.signUp.profile.ProfileComposeVo
 import com.plub.domain.usecase.GetNicknameCheckUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.main.gathering.createGathering.goalAndIntroduceAndImage.CreateGatheringGoalAndIntroduceAndImageEvent
 import com.plub.presentation.util.ImageUtil
 import com.plub.presentation.util.PermissionManager
 import com.plub.presentation.util.ResourceProvider

@@ -119,6 +119,12 @@ object ApiModule {
 
     @Singleton
     @Provides
+    fun provideNoticeApi(@AuthRetrofit retrofit: Retrofit): NoticeApi {
+        return retrofit.create(NoticeApi::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideMyPageApi(@AuthRetrofit retrofit: Retrofit): MyPageApi {
         return retrofit.create(MyPageApi::class.java)
     }

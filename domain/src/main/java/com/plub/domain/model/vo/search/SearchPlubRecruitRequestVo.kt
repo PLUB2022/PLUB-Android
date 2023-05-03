@@ -8,5 +8,5 @@ data class SearchPlubRecruitRequestVo(
     val type: PlubSearchType,
     val keyword: String,
     val sortType: PlubSortType,
-    val page: Int,
+    val cursorId: Int,
 ) : DomainModel

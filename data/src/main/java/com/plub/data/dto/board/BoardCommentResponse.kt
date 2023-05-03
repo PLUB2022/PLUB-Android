@@ -18,6 +18,8 @@ data class BoardCommentResponse(
     val isCommentAuthor: Boolean = false,
     @SerializedName("isFeedAuthor")
     val isFeedAuthor: Boolean = false,
+    @SerializedName("isAuthorComment")
+    val isAuthorComment: Boolean = false,
     @SerializedName("commentType")
     val commentType: String = "",
     @SerializedName("parentCommentId")

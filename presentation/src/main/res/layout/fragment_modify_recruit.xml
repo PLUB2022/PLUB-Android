@@ -7,14 +7,14 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.gathering.modifyGathering.recruit.ModifyRecruitViewModel" />
+            type="com.plub.presentation.ui.main.gathering.modify.recruit.ModifyRecruitViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="16dp"
-        tools:context=".ui.main.gathering.modifyGathering.recruit.ModifyRecruitFragment">
+        tools:context=".ui.main.gathering.modify.recruit.ModifyRecruitFragment">
 
         <ScrollView
             android:layout_width="match_parent"

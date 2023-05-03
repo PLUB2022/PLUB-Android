@@ -8,6 +8,7 @@ import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.GetMyPlubBookmarksUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseTestViewModel
+import com.plub.presentation.ui.main.plubing.board.PlubingBoardViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,12 +23,16 @@ class BookmarkViewModel @Inject constructor(
 ) : BaseTestViewModel<BookmarkPageState>() {
 
     companion object {
-        private const val FIRST_PAGE = 0
+        private const val FIRST_CURSOR = 0
     }
 
     private val bookmarkListStateFlow:MutableStateFlow<List<PlubCardVo>> = MutableStateFlow(emptyList())
     private val cardTypeStateFlow:MutableStateFlow<PlubCardType> = MutableStateFlow(PlubCardType.LIST)
     private val isEmptyViewModeStateFlow:MutableStateFlow<Boolean> = MutableStateFlow(true)
+
+    private var isNetworkCall: Boolean = false
+    private var isLastPage: Boolean = false
+    private var cursorId: Int = FIRST_CURSOR
 
     override val uiState: BookmarkPageState = BookmarkPageState(
         bookmarkListStateFlow.asStateFlow(),
@@ -35,17 +40,19 @@ class BookmarkViewModel @Inject constructor(
         isEmptyViewModeStateFlow.asStateFlow()
     )
 
-    private var page: Int = FIRST_PAGE
-
     fun onClickCardType(cardType: PlubCardType) {
-        page = FIRST_PAGE
+        cursorId = FIRST_CURSOR
+        isNetworkCall = true
+        isLastPage = false
         updateCardType(cardType)
         getPlubBookmarks()
     }
 
     fun onGetPlubBookmark() {
         if(bookmarkListStateFlow.value.isNotEmpty()) return
-        page = FIRST_PAGE
+        isNetworkCall = true
+        isLastPage = false
+        cursorId = FIRST_CURSOR
         getPlubBookmarks()
     }
 
@@ -53,9 +60,19 @@ class BookmarkViewModel @Inject constructor(
         postBookmark(id)
     }
 
+    fun onScrollChanged() {
+        if (!isLastPage && !isNetworkCall) onGetNextPlubBookmark()
+    }
+
+    private fun onGetNextPlubBookmark() {
+        isNetworkCall = true
+        cursorUpdate()
+        getPlubBookmarks()
+    }
+
     private fun getPlubBookmarks() {
         viewModelScope.launch {
-            getMyPlubBookmarksUseCase(Unit).collect {
+            getMyPlubBookmarksUseCase(cursorId).collect {
                 inspectUiState(it, ::fetchPlubBookmarksSuccess)
             }
         }
@@ -67,12 +84,12 @@ class BookmarkViewModel @Inject constructor(
         val mergedList = getMergeList(mappedList)
         updateBookmarkList(mergedList)
         updateIsEmptyViewMode(mergedList.isEmpty())
-        page++
+        isLastPage = vo.last
+        isNetworkCall = false
     }
 
     private fun newFetchProcess() {
-        if (page == FIRST_PAGE) return
-        emitEventFlow(BookmarksEvent.ScrollToTop)
+        if (cursorId == FIRST_CURSOR) emitEventFlow(BookmarksEvent.ScrollToTop)
     }
 
     private fun mapToCardType(list: List<PlubCardVo>): List<PlubCardVo> {
@@ -84,7 +101,12 @@ class BookmarkViewModel @Inject constructor(
     private fun getMergeList(list: List<PlubCardVo>): List<PlubCardVo> {
         val originList = bookmarkListStateFlow.value
         val mappedList = mapToCardType(list)
-        return if (originList.isEmpty() || page == FIRST_PAGE) mappedList else originList + mappedList
+        return if (originList.isEmpty() || cursorId == FIRST_CURSOR) mappedList else originList + mappedList
+    }
+
+    private fun cursorUpdate() {
+        cursorId = if (bookmarkListStateFlow.value.isEmpty()) FIRST_CURSOR
+        else bookmarkListStateFlow.value.lastOrNull()?.id ?: FIRST_CURSOR
     }
 
     private fun postBookmark(id: Int) {

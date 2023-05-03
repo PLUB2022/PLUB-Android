@@ -9,8 +9,8 @@ import javax.inject.Inject
 
 class GetMyPlubBookmarksUseCase @Inject constructor(
     private val bookmarkRepository: BookmarkRepository
-) : UseCase<Unit, Flow<UiState<PlubCardListVo>>>() {
-    override suspend fun invoke(request: Unit): Flow<UiState<PlubCardListVo>> {
-        return bookmarkRepository.getMyPlubBookmarks()
+) : UseCase<Int, Flow<UiState<PlubCardListVo>>>() {
+    override suspend fun invoke(request: Int): Flow<UiState<PlubCardListVo>> {
+        return bookmarkRepository.getMyPlubBookmarks(request)
     }
 }

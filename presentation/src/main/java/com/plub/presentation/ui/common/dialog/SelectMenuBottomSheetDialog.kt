@@ -148,14 +148,17 @@ class SelectMenuBottomSheetDialog : BottomSheetDialogFragment() {
                 DialogMenuItemType.BOARD_EDIT,
                 DialogMenuItemType.BOARD_DELETE,
             )
+            DialogMenuType.NOTICE_COMMENT_NOTICE_AUTHOR_TYPE,
             DialogMenuType.BOARD_COMMENT_FEED_AUTHOR_TYPE -> listOf(
                 DialogMenuItemType.BOARD_COMMENT_DELETE,
                 DialogMenuItemType.BOARD_COMMENT_REPORT,
             )
+            DialogMenuType.NOTICE_COMMENT_AUTHOR_TYPE,
             DialogMenuType.BOARD_COMMENT_AUTHOR_TYPE -> listOf(
                 DialogMenuItemType.BOARD_COMMENT_DELETE,
                 DialogMenuItemType.BOARD_COMMENT_EDIT,
             )
+            DialogMenuType.NOTICE_COMMENT_COMMON_TYPE,
             DialogMenuType.BOARD_COMMENT_COMMON_TYPE -> listOf(
                 DialogMenuItemType.BOARD_COMMENT_REPORT,
             )
@@ -197,6 +200,13 @@ class SelectMenuBottomSheetDialog : BottomSheetDialogFragment() {
             )
             DialogMenuType.ARCHIVE_NORMAL_TYPE -> listOf(
                 DialogMenuItemType.ARCHIVE_REPORT
+            )
+            DialogMenuType.PLUBING_NOTICE_HOST_TYPE -> listOf(
+                DialogMenuItemType.NOTICE_DELETE,
+                DialogMenuItemType.NOTICE_EDIT,
+            )
+            DialogMenuType.PLUBING_NOTICE_COMMON_TYPE -> listOf(
+                DialogMenuItemType.NOTICE_REPORT,
             )
         }
     }

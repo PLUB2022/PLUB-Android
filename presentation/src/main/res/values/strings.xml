@@ -2,6 +2,13 @@
 
     <string name="notification_channel_name">알람</string>
 
+    <!-- Modal -->
+    <string name="modal_close_gathering">모임을 종료하시겠어요?</string>
+    <string name="modal_quit_gathering">모임에서 나가기\n하시겠어요?</string>
+    <string name="modal_kick_out_user">"%s"님을\n강퇴하시겠어요?</string>
+    <string name="modal_yes_i_do">네, 할게요</string>
+    <string name="modal_cancel">취소</string>
+
     <!-- DataBinding -->
     <string name="int_to_string">%d</string>
 
@@ -65,10 +72,16 @@
     <string name="word_middle_slash">%d/%d</string>
     <string name="word_save">저장</string>
     <string name="word_line">|</string>
+    <string name="word_line_space">%s | %s</string>
     <string name="word_location">장소</string>
     <string name="word_alarm">알림</string>
     <string name="word_memo">메모</string>
     <string name="word_middle_hyphen">%s - %s</string>
+    <string name="word_every_week">매주 %s</string>
+    <string name="word_every_week_day">매주 %s요일</string>
+    <string name="word_every_day">매일</string>
+    <string name="word_my_gathering">내모임</string>
+    <string name="word_host">호스트</string>
     <string name="word_no">아니오</string>
     <string name="word_yes">네</string>
     <string name="word_report">신고하기</string>
@@ -207,13 +220,16 @@
     <string name="dialog_menu_schedule_delete">일정 삭제</string>
     <string name="dialog_menu_schedule_edit">일정 수정</string>
     <string name="dialog_menu_todo_report">신고</string>
-    <string name="dialog_menu_todo_manage">TO-DO 관리</string>
+    <string name="dialog_menu_todo_planner">TO-DO 관리</string>
     <string name="dialog_menu_todo_delete">TO-DO 삭제</string>
     <string name="dialog_menu_todo_edit">TO-DO 수정</string>
     <string name="dialog_menu_todo_proof">사진/글 추가</string>
     <string name="dialog_menu_archive_delete">아카이브 삭제</string>
     <string name="dialog_menu_archive_report">게시물 신고</string>
     <string name="dialog_menu_archive_edit">아카이브 수정</string>
+    <string name="dialog_menu_notice_edit">공지 수정</string>
+    <string name="dialog_menu_notice_delete">공지 삭제</string>
+    <string name="dialog_menu_notice_report">공지 신고</string>
 
     <string name="dialog_todo_proof_default_text">내가 이룬것을 사진으로 자랑해보세요!</string>
     <string name="dialog_todo_proof_button_late_proof">나중에 할게요!</string>
@@ -333,6 +349,12 @@
     <string name="apply_dialog_extra_explain">호스트가 수락하면 함께 활동할 수 있습니다.\n알림으로 알려드릴게요!</string>
     <string name="bottom_sheet_not_attend">🙅🏻 불참합니다</string>
     <string name="bottom_sheet_attend">🙆🏻 참여합니다!</string>
+    <string name="my_gathering_participate_new_gathering">새로운 모임에\n참여해 보세요!</string>
+    <string name="my_gathering_create_new_gathering">새로운 모임을\n만들어 보세요!</string>
+    <string name="my_gathering_setting">내 모임 설정</string>
+    <string name="my_gathering_quit">모임 나가기</string>
+    <string name="my_gathering_kick_out">강퇴하기</string>
+    <string name="my_gathering_close">모임 종료</string>
 
     <string name="my_page_read_more">더보기</string>
     <string name="my_page_close">접기</string>
@@ -354,6 +376,12 @@
     <string name="my_page_modify">수정</string>
     <string name="my_page_approve">받기</string>
     <string name="my_page_complete_answer">%s 답변 작성완료</string>
+
+    <string name="notice_list_title">공지사항</string>
+    <string name="notice_list_create_notice">새 글 작성</string>
+    <string name="notice_write_title_text">공지 제목</string>
+    <string name="notice_write_content_text">전달할 내용</string>
+    <string name="notice_write_post">공지 등록</string>
 
     <string name="my_page_setting_profile_image">프로필 사진</string>
     <string name="my_page_setting_change_yes">네, 할게요</string>
@@ -401,6 +429,8 @@
     <string name="inactivation_dialog">계정을 비활성화 할까요?</string>
     <string name="inactivation_dialog_description">계정을 비활성화 하면 모든 모임에서\n자동으로 탈퇴 처리되고,\n다시 로그인 시 비활성화가 해제됩니다.</string>
     <string name="revoke_dialog">지금 탈퇴 할까요?</string>
+    <string name="kick_out_title">플러버 리스트</string>
+    <string name="word_kick_out">강퇴</string>
 
     <string name="report_sub_title">신고 사유가 무엇일까요?</string>
     <string name="report_detail">신고 사유</string>
