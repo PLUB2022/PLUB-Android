@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.plubing.notice.write.NoticeWriteViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_faf9fe">
+
+        <ImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_plubing_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@{vm.uiState.plubingName}"
+            android:textColor="@color/color_363636"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_view_back"
+            app:layout_constraintTop_toTopOf="@+id/image_view_back"
+            tools:text="요란한 한 줄" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@+id/button_write"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_back">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp">
+
+                <TextView
+                    android:id="@+id/text_view_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:text="@string/notice_write_title_text"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/edit_text_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="8dp"
+                    android:afterTextChanged="@{() -> vm.onTitleTextChanged()}"
+                    android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                    android:hint="@string/plubing_board_write_title_hint"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingHorizontal="8dp"
+                    android:text="@={vm.uiState.title}"
+                    android:textColor="@color/color_363636"
+                    android:textColorHint="@color/color_8c8c8c"
+                    android:textSize="14dp"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_title"
+                    tools:text="aepfofaeokpfkpoafekopfkpeaopokfpfekaopkopfaekpofkopfpfakeopkofekapfekoa" />
+
+                <TextView
+                    android:id="@+id/text_view_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34dp"
+                    android:text="@string/notice_write_content_text"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_text_title" />
+
+                <EditText
+                    android:id="@+id/edit_text_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:afterTextChanged="@{() -> vm.onContentTextChanged()}"
+                    android:background="@drawable/bg_rectangle_filled_white_radius_8"
+                    android:hint="@string/plubing_board_write_content_hint"
+                    android:inputType="textMultiLine"
+                    android:maxLength="@{vm.uiState.contentMaxLength}"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="11dp"
+                    android:text="@={vm.uiState.content}"
+                    android:textColor="@color/color_363636"
+                    android:textColorHint="@color/color_8c8c8c"
+                    android:textSize="14dp"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_content"
+                    tools:text="aepfofaeokpfkpoafekopfkpeaopokfpfekaopkopfaekpofkopfpfakeopkofekapfekoa" />
+
+                <TextView
+                    android:id="@+id/text_view_content_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@{vm.uiState.contentCount}"
+                    android:textColor="@color/color_8c8c8c"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_text_content"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_text_content"
+                    tools:text="150/300" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/view_dim"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:background="@drawable/dim_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_write"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:enabled="@{vm.uiState.postButtonEnable}"
+            android:text="@string/notice_write_post"
+            android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/view_dim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view_dim"
+            app:onThrottleClick="@{() -> vm.onClickPostUpload()}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -75,6 +75,8 @@ object Libraries {
     const val THREE_TEN_ABP = "com.jakewharton.threetenabp:threetenabp:${Versions.THREE_TEN_ABP}"
 
     const val IMAGE_CROPPER = "com.vanniktech:android-image-cropper:${Versions.IMAGE_CROPPER}"
+
+    const val POWER_MENU = "com.github.skydoves:powermenu:${Versions.POWER_MENU}"
 }
 
 object AndroidTest {

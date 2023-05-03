@@ -140,9 +140,21 @@
 
     <fragment
         android:id="@+id/createGatheringFragment"
-        android:name="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringFragment"
+        android:name="com.plub.presentation.ui.main.gathering.create.CreateGatheringFragment"
         android:label="CreateGatheringFragment"
-        tools:layout="@layout/fragment_create_gathering" />
+        tools:layout="@layout/fragment_create_gathering">
+
+        <action
+            android:id="@+id/action_create_gathering_to_host_recruitment"
+            app:destination="@id/recruitmentFragment"
+            app:popUpTo="@id/menu_navigation_main" />
+
+        <action
+            android:id="@+id/action_create_gathering_to_meun_navigation_main"
+            app:destination="@id/menu_navigation_main"
+            app:popUpTo="@id/menu_navigation_main" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/searchingFragment"
@@ -191,6 +203,14 @@
             app:destination="@id/todoDetailFragment" />
 
         <action
+            android:id="@+id/action_plubing_main_to_notice"
+            app:destination="@id/noticeFragment" />
+
+        <action
+            android:id="@+id/action_plubing_main_to_schedule"
+            app:destination="@id/plubingScheduleFragment" />
+
+        <action
             android:id="@+id/action_plubing_main_to_plubing_archive"
             app:destination="@id/archiveFragment" />
     </fragment>
@@ -203,7 +223,7 @@
 
         <argument
             android:name="writeType"
-            app:argType="com.plub.domain.model.enums.PlubingBoardWriteType" />
+            app:argType="com.plub.domain.model.enums.WriteType" />
 
         <argument
             android:name="feedId"
@@ -269,10 +289,82 @@
     </fragment>
 
     <fragment
+        android:id="@+id/noticeFragment"
+        android:name="com.plub.presentation.ui.main.plubing.notice.NoticeFragment"
+        android:label="fragment_notice"
+        tools:layout="@layout/fragment_notice">
+
+        <argument
+            android:name="noticeType"
+            app:argType="com.plub.domain.model.enums.NoticeType" />
+
+        <action
+            android:id="@+id/action_notice_to_notice_write"
+            app:destination="@id/noticeWriteFragment" />
+
+        <action
+            android:id="@+id/action_notice_to_notice_detail"
+            app:destination="@id/noticeDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/noticeDetailFragment"
+        android:name="com.plub.presentation.ui.main.plubing.notice.detail.NoticeDetailFragment"
+        android:label="fragment_notice_detail"
+        tools:layout="@layout/fragment_notice_detail">
+
+        <argument
+            android:name="noticeType"
+            app:argType="com.plub.domain.model.enums.NoticeType" />
+
+        <argument
+            android:name="noticeId"
+            app:argType="integer" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/noticeWriteFragment"
+        android:name="com.plub.presentation.ui.main.plubing.notice.write.NoticeWriteFragment"
+        android:label="fragment_notice_write"
+        tools:layout="@layout/fragment_notice_write">
+
+        <argument
+            android:name="writeType"
+            app:argType="com.plub.domain.model.enums.WriteType" />
+
+        <argument
+            android:name="parseNoticeVo"
+            app:nullable="true"
+            app:argType="com.plub.presentation.parcelableVo.ParseNoticeVo" />
+    </fragment>
+
+    <fragment
         android:id="@+id/menu_navigation_gathering"
-        android:name="com.plub.presentation.ui.main.gathering.GatheringFragment"
+        android:name="com.plub.presentation.ui.main.gathering.my.MyGatheringFragment"
         android:label="fragment_gathering"
-        tools:layout="@layout/fragment_gathering" />
+        tools:layout="@layout/fragment_my_gathering">
+
+        <action
+            android:id="@+id/action_my_gathering_to_plubing_main"
+            app:destination="@id/plubingMainFragment" />
+
+        <action
+            android:id="@+id/action_my_gathering_to_plubing_home"
+            app:destination="@id/menu_navigation_main" />
+
+        <action
+            android:id="@+id/action_my_gathering_to_create"
+            app:destination="@id/createGatheringFragment" />
+
+        <action
+            android:id="@+id/action_my_gathering_to_kick_out"
+            app:destination="@id/kickOutFragment" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/menu_navigation_noti"
         android:name="com.plub.presentation.ui.main.noti.NotiFragment"
@@ -311,7 +403,7 @@
     </fragment>
     <fragment
         android:id="@+id/modifyGatheringFragment"
-        android:name="com.plub.presentation.ui.main.gathering.modifyGathering.ModifyGatheringFragment"
+        android:name="com.plub.presentation.ui.main.gathering.modify.ModifyGatheringFragment"
         android:label="ModifyGatheringFragment"
         tools:layout="@layout/fragment_modify_gathering" />
 
@@ -502,12 +594,24 @@
         tools:layout="@layout/fragment_archive_update">
         <argument
             android:name="type"
-            app:argType="integer"/>
+            app:argType="integer" />
         <argument
             android:name="archiveId"
-            app:argType="integer"/>
+            app:argType="integer" />
         <argument
             android:name="image"
-            app:argType="string"/>
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/kickOutFragment"
+        android:name="com.plub.presentation.ui.main.gathering.my.kickOut.KickOutFragment"
+        android:label="KickOutFragment"
+        tools:layout="@layout/fragment_kick_out">
+
+        <argument
+            android:name="plubingId"
+            app:argType="integer" />
+
     </fragment>
 </navigation>

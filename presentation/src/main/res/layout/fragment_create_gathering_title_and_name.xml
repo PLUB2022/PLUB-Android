@@ -7,11 +7,11 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNameViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.gatheringTitleAndName.CreateGatheringTitleAndNameViewModel" />
 
         <variable
             name="parent_vm"
-            type="com.plub.presentation.ui.main.gathering.createGathering.CreateGatheringViewModel" />
+            type="com.plub.presentation.ui.main.gathering.create.CreateGatheringViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
         android:background="@color/color_f5f3f6"
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
-        tools:context=".ui.main.gathering.createGathering.gatheringTitleAndName.CreateGatheringTitleAndNameFragment">
+        tools:context=".ui.main.gathering.create.gatheringTitleAndName.CreateGatheringTitleAndNameFragment">
 
         <ScrollView
             android:layout_width="match_parent"

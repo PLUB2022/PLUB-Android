@@ -20,6 +20,7 @@ import com.plub.domain.usecase.PutBoardChangePinUseCase
 import com.plub.domain.usecase.PutBoardCommentEditUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
+import com.plub.presentation.ui.main.plubing.notice.detail.NoticeDetailEvent
 import com.plub.presentation.util.PlubUser
 import com.plub.presentation.util.PlubingInfo
 import com.plub.presentation.util.ResourceProvider
@@ -90,7 +91,7 @@ class BoardDetailViewModel @Inject constructor(
 
     fun onBoardUpdated() {
         scrollToPosition?.let {
-            emitEventFlow(BoardDetailEvent.ScrollToPosition(it))
+            emitEventFlow(NoticeDetailEvent.ScrollToPosition(it))
             scrollToPosition = null
         }
     }
@@ -98,9 +99,9 @@ class BoardDetailViewModel @Inject constructor(
     fun onClickMenuItemType(item: DialogMenuItemType, commentVo: BoardCommentVo) {
         val commentId = commentVo.commentId
         when (item) {
-            DialogMenuItemType.BOARD_REPORT -> emitEventFlow(BoardDetailEvent.GoToReportBoard(plubingId, feedId))
-            DialogMenuItemType.BOARD_EDIT -> emitEventFlow(BoardDetailEvent.GoToEditBoard(plubingId, feedId))
-            DialogMenuItemType.BOARD_COMMENT_REPORT -> emitEventFlow(BoardDetailEvent.GoToReportComment(plubingId, feedId, commentId))
+            DialogMenuItemType.BOARD_REPORT -> emitEventFlow(NoticeDetailEvent.GoToReportNotice(plubingId, feedId))
+            DialogMenuItemType.BOARD_EDIT -> emitEventFlow(NoticeDetailEvent.GoToEditNotice(plubingId, feedId))
+            DialogMenuItemType.BOARD_COMMENT_REPORT -> emitEventFlow(NoticeDetailEvent.GoToReportComment(plubingId, feedId, commentId))
             DialogMenuItemType.BOARD_FIX_OR_RELEASE_CLIP -> boardChangeClip()
             DialogMenuItemType.BOARD_DELETE -> boardDelete()
             DialogMenuItemType.BOARD_COMMENT_DELETE -> commentDelete(commentId)
@@ -117,7 +118,7 @@ class BoardDetailViewModel @Inject constructor(
                 else -> DialogMenuType.BOARD_COMMON_TYPE
             }
         }
-        emitEventFlow(BoardDetailEvent.ShowMenuBottomSheetDialog(menuType))
+        emitEventFlow(NoticeDetailEvent.ShowMenuBottomSheetDialog(menuType))
     }
 
     fun onClickCommentMenu(vo: BoardCommentVo) {
@@ -128,7 +129,7 @@ class BoardDetailViewModel @Inject constructor(
                 else -> DialogMenuType.BOARD_COMMENT_COMMON_TYPE
             }
         }
-        emitEventFlow(BoardDetailEvent.ShowMenuBottomSheetDialog(menuType, vo))
+        emitEventFlow(NoticeDetailEvent.ShowMenuBottomSheetDialog(menuType, vo))
     }
 
     fun onClickCommentReply(vo: BoardCommentVo) {
@@ -210,7 +211,7 @@ class BoardDetailViewModel @Inject constructor(
             val request = BoardRequestVo(plubingId, feedId)
             deleteBoardUseCase(request).collect {
                 inspectUiState(it, {
-                    emitEventFlow(BoardDetailEvent.Finish)
+                    emitEventFlow(NoticeDetailEvent.Finish)
                 })
             }
         }
@@ -261,7 +262,7 @@ class BoardDetailViewModel @Inject constructor(
 
     private fun onSuccessGetBoardDetail(vo: PlubingBoardVo) {
         updateBoardVo(vo)
-        emitEventFlow(BoardDetailEvent.NotifyBoardDetailInfoNotify)
+        emitEventFlow(NoticeDetailEvent.NotifyBoardDetailInfoNotify)
     }
 
     private fun refresh() {
@@ -293,7 +294,7 @@ class BoardDetailViewModel @Inject constructor(
     private fun replyInputMode(commentId: Int, nickname: String) {
         editCommentId = null
         replyCommentId = commentId
-        emitEventFlow(BoardDetailEvent.ShowKeyboard)
+        emitEventFlow(NoticeDetailEvent.ShowKeyboard)
         val text = resourceProvider.getString(R.string.plubing_board_detail_reply_writing, nickname)
         updateReplyWritingText(text)
         updateIsReplyWritingMode(true)
@@ -308,7 +309,7 @@ class BoardDetailViewModel @Inject constructor(
     private fun commentEditingInputMode(commentText: String, commentId: Int) {
         replyCommentId = null
         editCommentId = commentId
-        emitEventFlow(BoardDetailEvent.ShowKeyboard)
+        emitEventFlow(NoticeDetailEvent.ShowKeyboard)
         updateCommentText(commentText)
         updateIsReplyWritingMode(false)
         updateIsEditCommentMode(true)
@@ -321,7 +322,7 @@ class BoardDetailViewModel @Inject constructor(
 
     private fun commentClear() {
         updateCommentText("")
-        emitEventFlow(BoardDetailEvent.HideKeyboard)
+        emitEventFlow(NoticeDetailEvent.HideKeyboard)
     }
 
     private fun cursorUpdate() {

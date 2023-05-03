@@ -54,14 +54,15 @@
             android:layout_marginEnd="2dp"
             android:src="@drawable/ic_notice_black"
             app:layout_constraintEnd_toStartOf="@+id/image_view_archive_collapsed"
-            app:layout_constraintTop_toTopOf="@id/image_view_menu_collapsed" />
+            app:layout_constraintTop_toTopOf="@id/image_view_archive_collapsed"
+            app:onThrottleClick="@{() -> vm.onClickNotice()}" />
 
         <TextView
             android:id="@+id/text_view_name_collapsed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_363636"
             android:text="@{vm.uiState.plubingName}"
+            android:textColor="@color/color_363636"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

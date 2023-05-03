@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.DialogMenuType
-import com.plub.domain.model.enums.PlubingBoardWriteType
+import com.plub.domain.model.enums.WriteType
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentBoardPinBinding
@@ -91,7 +91,7 @@ class BoardPinFragment :
     }
 
     private fun goToEditBoard(feedId:Int) {
-        val action = BoardPinFragmentDirections.actionBoardPinToPlubingBoardWrite(feedId = feedId, writeType = PlubingBoardWriteType.EDIT)
+        val action = BoardPinFragmentDirections.actionBoardPinToPlubingBoardWrite(feedId = feedId, writeType = WriteType.EDIT)
         findNavController().navigate(action)
     }
 

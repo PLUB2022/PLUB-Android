@@ -35,7 +35,7 @@
 
                 <ImageView
                     android:id="@+id/image_view_plub_logo"
-                    android:layout_width="81.93dp"
+                    android:layout_width="82dp"
                     android:layout_height="24dp"
                     android:layout_gravity="start"
                     android:layout_marginStart="16dp"
@@ -48,7 +48,7 @@
                     android:layout_height="32dp"
                     android:layout_gravity="end"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="15.78dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_bookmark"
                     app:onThrottleClick="@{()->vm.goToBookmark()}" />

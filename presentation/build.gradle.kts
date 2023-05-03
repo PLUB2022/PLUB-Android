@@ -62,6 +62,7 @@ dependencies {
     implementation(Libraries.TED_PERMISSION)
     implementation(Libraries.THREE_TEN_ABP)
     implementation(Libraries.IMAGE_CROPPER)
+    implementation(Libraries.POWER_MENU)
 
     implementation(Google.MATERIAL)
     implementation(Google.HILT_ANDROID)

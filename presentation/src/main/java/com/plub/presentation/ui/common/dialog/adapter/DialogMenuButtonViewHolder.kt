@@ -40,6 +40,7 @@ class DialogMenuButtonViewHolder(
 
             DialogMenuItemType.ARCHIVE_DELETE,
             DialogMenuItemType.SCHEDULE_DELETE,
+            DialogMenuItemType.NOTICE_DELETE,
             DialogMenuItemType.TODO_DELETE,
             DialogMenuItemType.BOARD_DELETE,
             DialogMenuItemType.BOARD_COMMENT_DELETE -> R.drawable.ic_delete_red
@@ -47,11 +48,13 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.ARCHIVE_EDIT,
             DialogMenuItemType.SCHEDULE_EDIT,
             DialogMenuItemType.TODO_PLANNER,
+            DialogMenuItemType.NOTICE_EDIT,
             DialogMenuItemType.TODO_EDIT,
             DialogMenuItemType.BOARD_EDIT,
             DialogMenuItemType.BOARD_COMMENT_EDIT -> R.drawable.ic_edit_black
 
             DialogMenuItemType.ARCHIVE_REPORT,
+            DialogMenuItemType.NOTICE_REPORT,
             DialogMenuItemType.TODO_REPORT,
             DialogMenuItemType.BOARD_REPORT,
             DialogMenuItemType.BOARD_COMMENT_REPORT -> R.drawable.ic_report_blue
@@ -81,13 +84,16 @@ class DialogMenuButtonViewHolder(
             DialogMenuItemType.SCHEDULE_EDIT -> R.string.dialog_menu_schedule_edit
             DialogMenuItemType.SCHEDULE_DELETE -> R.string.dialog_menu_schedule_delete
             DialogMenuItemType.TODO_PROOF  -> R.string.dialog_menu_todo_proof
-            DialogMenuItemType.TODO_PLANNER  -> R.string.dialog_menu_todo_manage
+            DialogMenuItemType.TODO_PLANNER  -> R.string.dialog_menu_todo_planner
             DialogMenuItemType.TODO_REPORT  -> R.string.dialog_menu_todo_report
             DialogMenuItemType.TODO_DELETE  -> R.string.dialog_menu_todo_delete
             DialogMenuItemType.TODO_EDIT  -> R.string.dialog_menu_todo_edit
             DialogMenuItemType.ARCHIVE_EDIT -> R.string.dialog_menu_archive_edit
             DialogMenuItemType.ARCHIVE_REPORT -> R.string.dialog_menu_archive_report
             DialogMenuItemType.ARCHIVE_DELETE -> R.string.dialog_menu_archive_delete
+            DialogMenuItemType.NOTICE_DELETE  -> R.string.dialog_menu_notice_delete
+            DialogMenuItemType.NOTICE_EDIT  -> R.string.dialog_menu_notice_edit
+            DialogMenuItemType.NOTICE_REPORT -> R.string.dialog_menu_notice_report
             else -> throw IllegalAccessException()
         }
     }
@@ -95,6 +101,7 @@ class DialogMenuButtonViewHolder(
     private fun getMenuContentColorRes(menuType: DialogMenuItemType):Int {
         return when(menuType) {
             DialogMenuItemType.ARCHIVE_DELETE,
+            DialogMenuItemType.NOTICE_DELETE,
             DialogMenuItemType.TODO_DELETE,
             DialogMenuItemType.BOARD_DELETE,
             DialogMenuItemType.BOARD_COMMENT_DELETE -> R.color.color_f75b2b

@@ -51,6 +51,8 @@ object Versions {
 
     const val IMAGE_CROPPER = "4.5.0"
 
+    const val POWER_MENU = "2.2.2"
+
     /* [ AndroidTest ] */
     const val ANDROID_JUNIT = "4.13.2"
     const val ANDROID_JUNIT_EXT = "1.1.5"

@@ -15,7 +15,6 @@ import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParseCategoryFilterVo
-import com.plub.presentation.ui.main.home.categoryGathering.filter.GatheringFilterState
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -57,7 +56,7 @@ class CategoryGatheringViewModel @Inject constructor(
     private var isNetworkCall: Boolean = false
 
 
-    fun updateCategoryNameWithId(name : String, id : Int){
+    fun updateCategoryNameAndId(name : String, id : Int){
         viewModelScope.launch {
             categoryNameStateFlow.update { name }
         }
