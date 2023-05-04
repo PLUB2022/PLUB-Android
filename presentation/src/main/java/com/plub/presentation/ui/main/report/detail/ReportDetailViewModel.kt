@@ -10,10 +10,8 @@ import com.plub.domain.model.vo.report.ReportVo
 import com.plub.domain.usecase.GetReportUseCase
 import com.plub.domain.usecase.PostCreateReportUseCase
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -120,16 +118,16 @@ class ReportDetailViewModel @Inject constructor(
         isExpand = !isExpand
     }
 
-    fun onTextChangedAfter(){
-        if(uiState.reportContent.value.isNotEmpty()) {
-            emitEventFlow(ReportDetailEvent.BorderBlack)
-            updateButtonState(true)
-        }
-        else {
-            emitEventFlow(ReportDetailEvent.BorderDefault)
-            updateButtonState(false)
-        }
-    }
+//    fun onTextChangedAfter(){
+//        if(uiState.reportContent.value.isNotEmpty()) {
+//            emitEventFlow(ReportDetailEvent.BorderBlack)
+//            updateButtonState(true)
+//        }
+//        else {
+//            emitEventFlow(ReportDetailEvent.BorderColorDefault)
+//            updateButtonState(false)
+//        }
+//    }
 
     fun onClickCreateReport(){
         val request = CreateReportRequestVo(

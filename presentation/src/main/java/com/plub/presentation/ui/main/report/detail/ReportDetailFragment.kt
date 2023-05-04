@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.ReportReasonType
 import com.plub.presentation.R
-import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentReportDetailBinding
 import com.plub.presentation.ui.main.report.adapter.ReportItemAdapter
@@ -71,7 +70,7 @@ class ReportDetailFragment : BaseTestFragment<FragmentReportDetailBinding, Repor
             is ReportDetailEvent.GoneSpinner -> binding.recyclerViewReportItem.visibility = View.GONE
             is ReportDetailEvent.ShowSpinner -> binding.recyclerViewReportItem.visibility = View.VISIBLE
             is ReportDetailEvent.BorderBlack -> binding.editTextReportContent.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_8_border_black)
-            is ReportDetailEvent.BorderDefault -> binding.editTextReportContent.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_10_border_f2f3f4)
+            is ReportDetailEvent.BorderColorDefault -> binding.editTextReportContent.setBackgroundResource(R.drawable.bg_rectangle_filled_white_radius_10_border_f2f3f4)
             is ReportDetailEvent.GoToComplete -> {goToComplete(event.nowText)}
             is ReportDetailEvent.GoToBack -> findNavController().popBackStack()
         }

@@ -230,6 +230,10 @@
         <action
             android:id="@+id/action_plubing_board_detail_to_plubing_board_write"
             app:destination="@id/plubingBoardWriteFragment" />
+
+        <action
+            android:id="@+id/action_plubing_board_detail_to_report"
+            app:destination="@id/reportFragment" />
     </fragment>
 
     <fragment

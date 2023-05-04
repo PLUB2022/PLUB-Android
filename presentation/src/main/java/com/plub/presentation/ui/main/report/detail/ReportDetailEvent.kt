@@ -6,7 +6,7 @@ sealed class ReportDetailEvent : Event{
     object ShowSpinner : ReportDetailEvent()
     object GoneSpinner : ReportDetailEvent()
     object BorderBlack : ReportDetailEvent()
-    object BorderDefault : ReportDetailEvent()
+    object BorderColorDefault : ReportDetailEvent()
     object GoToBack : ReportDetailEvent()
     data class GoToComplete(val nowText : String) : ReportDetailEvent()
 }
