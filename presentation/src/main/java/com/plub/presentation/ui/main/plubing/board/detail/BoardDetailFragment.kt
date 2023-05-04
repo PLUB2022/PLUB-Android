@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.WriteType
+import com.plub.domain.model.sealed.ReportType
 import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.notice.NoticeVo
@@ -114,8 +115,8 @@ class BoardDetailFragment :
             is BoardDetailEvent.ShowKeyboard -> showKeyboard()
             is BoardDetailEvent.ScrollToPosition -> scrollToPosition(event.position)
             is BoardDetailEvent.GoToEditBoard -> goToEditBoard(event.feedId)
-            is BoardDetailEvent.GoToReportBoard -> goToReport()
-            is BoardDetailEvent.GoToReportComment -> goToReport()
+            is BoardDetailEvent.GoToReportBoard -> goToFeedReport(event.plubingId, event.feedId)
+            is BoardDetailEvent.GoToReportComment -> goToCommentReport(event.plubingId, event.commentId)
             is BoardDetailEvent.Finish -> finish()
         }
     }
@@ -149,7 +150,19 @@ class BoardDetailFragment :
         findNavController().navigate(action)
     }
 
-    private fun goToReport() {
+    private fun goToFeedReport(plubbingId : Int, feedId : Int) {
+        val action = BoardDetailFragmentDirections.actionPlubingBoardDetailToReport(
+            type = ReportType.FeedReport(
+                plubbingId = plubbingId, feedId = feedId
+            ))
+        findNavController().navigate(action)
+    }
 
+    private fun goToCommentReport(plubbingId : Int, commentId : Int) {
+        val action = BoardDetailFragmentDirections.actionPlubingBoardDetailToReport(
+            type = ReportType.FeedCommentReport(
+                plubbingId = plubbingId, commentId = commentId
+            ))
+        findNavController().navigate(action)
     }
 }
