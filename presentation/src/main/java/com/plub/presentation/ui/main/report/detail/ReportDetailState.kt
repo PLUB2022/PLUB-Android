@@ -9,5 +9,4 @@ data class ReportDetailState(
     val reportList : StateFlow<List<ReportItemVo>>,
     val nowText : StateFlow<String>,
     var reportContent : MutableStateFlow<String>,
-    val isButtonEnable : StateFlow<Boolean>
 ) : PageState

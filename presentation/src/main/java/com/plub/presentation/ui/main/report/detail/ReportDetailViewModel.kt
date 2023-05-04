@@ -35,13 +35,11 @@ class ReportDetailViewModel @Inject constructor(
     )
     private val nowTextStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private var reportContentStateFlow : MutableStateFlow<String> = MutableStateFlow("")
-    private val isButtonEnableStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     override val uiState: ReportDetailState = ReportDetailState(
         reportList = reportListStateFlow.asStateFlow(),
         nowText = nowTextStateFlow.asStateFlow(),
         reportContent = reportContentStateFlow,
-        isButtonEnable = isButtonEnableStateFlow.asStateFlow()
     )
 
     fun getReportList(reasonType: ReportReasonType){
@@ -118,17 +116,6 @@ class ReportDetailViewModel @Inject constructor(
         isExpand = !isExpand
     }
 
-//    fun onTextChangedAfter(){
-//        if(uiState.reportContent.value.isNotEmpty()) {
-//            emitEventFlow(ReportDetailEvent.BorderBlack)
-//            updateButtonState(true)
-//        }
-//        else {
-//            emitEventFlow(ReportDetailEvent.BorderColorDefault)
-//            updateButtonState(false)
-//        }
-//    }
-
     fun onClickCreateReport(){
         val request = CreateReportRequestVo(
             reportType = reportType,
@@ -146,12 +133,6 @@ class ReportDetailViewModel @Inject constructor(
 
     private fun handleSuccessPostCreateReport(){
         emitEventFlow(ReportDetailEvent.GoToComplete(uiState.nowText.value))
-    }
-
-    private fun updateButtonState(enable : Boolean){
-        viewModelScope.launch {
-            isButtonEnableStateFlow.update { enable }
-        }
     }
 
     fun goToBack(){
