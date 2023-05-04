@@ -359,4 +359,22 @@ object UseCaseModule {
     fun providesGetLogoutUseCase(repository: LoginRepository): GetLogoutUseCase {
         return GetLogoutUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun providesGetReportUseCase(repository: ReportRepository) : GetReportUseCase{
+        return GetReportUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPostCreateReportUseCase(repository: ReportRepository) : PostCreateReportUseCase{
+        return PostCreateReportUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetReportDetailUseCase(repository: ReportRepository) : GetReportDetailUseCase{
+        return GetReportDetailUseCase(repository)
+    }
 }
