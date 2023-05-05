@@ -24,4 +24,7 @@ interface NotificationApi {
 
     @GET(Endpoints.NOTIFICATIONS.MY)
     suspend fun getMyNotifications(): Response<ApiResponse<NotificationsResponse>>
+
+    @PUT(Endpoints.NOTIFICATIONS.READ)
+    suspend fun readNotification(@Path(NOTIFICATION_ID) notificationId: Int): Response<ApiResponse<DataDto.DTO>>
 }

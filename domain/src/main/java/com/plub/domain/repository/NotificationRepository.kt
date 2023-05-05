@@ -13,4 +13,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface NotificationRepository {
     suspend fun getMyNotifications(request: Unit): Flow<UiState<NotificationsResponseVo>>
+
+
+    suspend fun readNotification(request: Int): Flow<UiState<Unit>>
 }

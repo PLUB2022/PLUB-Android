@@ -29,4 +29,8 @@ class NotificationRepositoryImpl @Inject constructor(private val notificationApi
     override suspend fun getMyNotifications(request: Unit): Flow<UiState<NotificationsResponseVo>> {
         return apiLaunch(notificationApi.getMyNotifications(), NotificationsResponseMapper)
     }
+
+    override suspend fun readNotification(request: Int): Flow<UiState<Unit>> {
+        return apiLaunch(notificationApi.readNotification(request), UnitResponseMapper)
+    }
 }
