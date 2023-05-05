@@ -2,13 +2,16 @@ package com.plub.presentation.ui.main.noti
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.notification.NotificationResponseVo
+import com.plub.domain.model.vo.notification.NotificationsResponseVo
 import com.plub.domain.usecase.GetMyNotificationsUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.ui.PageState
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,9 +30,15 @@ class NotiViewModel @Inject constructor(
 
     fun initNoti() {
         viewModelScope.launch {
-            getMyNotificationsUseCase(Unit).collect {
-
+            getMyNotificationsUseCase(Unit).collect { uiState ->
+                inspectUiState(uiState, ::handleInitNotiSuccess)
             }
+        }
+    }
+
+    private fun handleInitNotiSuccess(data: NotificationsResponseVo) {
+        notiListStateFlow.update {
+            data.notifications
         }
     }
 }
