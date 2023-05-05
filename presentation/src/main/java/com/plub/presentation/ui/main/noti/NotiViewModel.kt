@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.vo.notification.NotificationResponseVo
 import com.plub.domain.model.vo.notification.NotificationsResponseVo
 import com.plub.domain.usecase.GetMyNotificationsUseCase
+import com.plub.domain.usecase.PutReadNotificationUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.ui.PageState
 import com.plub.presentation.util.PlubLogger
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotiViewModel @Inject constructor(
-    private val getMyNotificationsUseCase: GetMyNotificationsUseCase
+    private val getMyNotificationsUseCase: GetMyNotificationsUseCase,
+    private val putReadNotificationUseCase: PutReadNotificationUseCase
 ): BaseTestViewModel<NotiPageState>() {
 
     private val notiListStateFlow: MutableStateFlow<List<NotificationResponseVo>> = MutableStateFlow(
@@ -39,6 +41,21 @@ class NotiViewModel @Inject constructor(
     private fun handleInitNotiSuccess(data: NotificationsResponseVo) {
         notiListStateFlow.update {
             data.notifications
+        }
+    }
+
+    fun readNotification(notificationId: Int) = viewModelScope.launch {
+        putReadNotificationUseCase(notificationId).collect { uiState ->
+            inspectUiState(uiState, { handleReadNotificationSuccess(notificationId) })
+        }
+    }
+
+    private fun handleReadNotificationSuccess(notificationId: Int) {
+        notiListStateFlow.update { notifications ->
+            notifications.map {
+                if(it.notificationId == notificationId) it.copy(isRead = true)
+                else it
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleLoadingBin
 import com.plub.presentation.databinding.LayoutRecyclerPlubingScheduleYearBinding
 
 class PlubingNotificationAdapter(
+    val onClick: (NotificationResponseVo) -> Unit = { }
 ) : ListAdapter<NotificationResponseVo, RecyclerView.ViewHolder>(NotificationResponseDiffCallback()) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -30,7 +31,7 @@ class PlubingNotificationAdapter(
             parent,
             false
         )
-        return PlubingNotificationViewHolder(binding)
+        return PlubingNotificationViewHolder(binding, onClick)
     }
 }
 
