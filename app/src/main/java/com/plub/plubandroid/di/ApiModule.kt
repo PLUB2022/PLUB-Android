@@ -140,4 +140,10 @@ object ApiModule {
     fun provideNotificationApi(@AuthRetrofit retrofit: Retrofit): NotificationApi {
         return retrofit.create(NotificationApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideReportApi(@AuthRetrofit retrofit: Retrofit): ReportApi {
+        return retrofit.create(ReportApi::class.java)
+    }
 }
