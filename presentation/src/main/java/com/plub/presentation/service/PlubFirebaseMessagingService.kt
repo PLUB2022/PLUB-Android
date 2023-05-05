@@ -9,6 +9,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.plub.presentation.R
 import com.plub.presentation.util.IntentUtil
+import com.plub.presentation.util.NotificationUtil
 
 class PlubFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -56,7 +57,7 @@ class PlubFirebaseMessagingService : FirebaseMessagingService() {
         val type = data[TYPE] ?: ""
         val redirectTargetId = data[REDIRECT_TARGET_ID]?.toIntOrNull() ?: 0
 
-        val pendingIntent = IntentUtil.getFcmPendingIntent(this)
+        val pendingIntent = IntentUtil.getFcmPendingIntent(this, NotificationUtil.getBundleAndDestination(type, redirectTargetId))
 
         val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationCompat.Builder(this, CHANNEL_ID)
