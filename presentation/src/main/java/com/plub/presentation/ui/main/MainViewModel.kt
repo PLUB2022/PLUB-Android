@@ -1,10 +1,12 @@
 package com.plub.presentation.ui.main
 
+import android.content.Intent
 import android.view.MenuItem
 import com.plub.domain.model.enums.BottomNavigationItemType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.PageState
+import com.plub.presentation.util.NavigationBundle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -58,5 +60,18 @@ class MainViewModel @Inject constructor() : BaseViewModel<PageState.Default>(Pag
             in fragmentStatusBarColorWhite -> { R.color.white }
             else -> { R.color.color_f5f3f6 }
         }
+    }
+
+    fun emitPopBackStackEventIfCurrentIdSameDestination(currentId: Int?, destination: Int) {
+        if(currentId == destination)
+            emitEventFlow(MainEvent.PopBackStack)
+    }
+
+    fun emitNavigate(navigationBundle: NavigationBundle) {
+        emitEventFlow(MainEvent.Navigate(navigationBundle))
+    }
+
+    fun emitProcessIntent(intent: Intent?) {
+        emitEventFlow(MainEvent.ProcessIntent(intent))
     }
 }
