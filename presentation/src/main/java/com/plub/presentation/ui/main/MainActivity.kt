@@ -1,11 +1,13 @@
 package com.plub.presentation.ui.main
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.navOptions
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
@@ -14,8 +16,11 @@ import com.plub.presentation.R
 import com.plub.presentation.base.BaseActivity
 import com.plub.presentation.databinding.ActivityMainBinding
 import com.plub.presentation.ui.PageState
+import com.plub.presentation.util.IntentUtil.NAVIGATION_BUNDLE
+import com.plub.presentation.util.NavigationBundle
 import com.plub.presentation.util.ResourceProvider
 import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.util.parcelable
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,6 +38,12 @@ class MainActivity :
     private val destinationChangedListener = NavController.OnDestinationChangedListener { _, destination, _ ->
         viewModel.onSelectedBottomNavigationMenu(destination.id)
         viewModel.onDestinationChanged(destination.id)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        viewModel.emitProcessIntent(intent)
     }
 
     override fun initView() {
@@ -89,7 +100,28 @@ class MainActivity :
             is MainEvent.ChangeStatusBarColor -> {
                 changeStatusBarColor(event.colorId)
             }
+            is MainEvent.Navigate -> navControllerNavigate(event.navigationBundle)
+            MainEvent.PopBackStack -> navControllerPopBackStack()
+            is MainEvent.ProcessIntent -> processIntent(event.intent)
         }
+    }
+
+    private fun processIntent(intent: Intent?) {
+        val navigationBundle = intent?.parcelable<NavigationBundle>(NAVIGATION_BUNDLE) ?: return
+
+        viewModel.emitPopBackStackEventIfCurrentIdSameDestination(navController.currentDestination?.id, navigationBundle.destination)
+        viewModel.emitNavigate(navigationBundle)
+    }
+
+    private fun navControllerPopBackStack() {
+        navController.popBackStack()
+    }
+
+    private fun navControllerNavigate(navigationBundle: NavigationBundle) {
+        navController.navigate(
+            navigationBundle.destination,
+            navigationBundle.bundle
+        )
     }
 
     private fun showBadge(index: Int) {

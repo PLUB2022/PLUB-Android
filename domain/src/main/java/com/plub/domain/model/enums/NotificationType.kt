@@ -1,0 +1,17 @@
+package com.plub.domain.model.enums
+
+enum class NotificationType {
+    REPORTED_ONCE,
+    BAN_ONE_MONTH,
+    BAN_PERMANENTLY,
+    KICK_MEMBER,
+    UNBAN,
+    APPLY_RECRUIT,
+    LEAVE_PLUBBING,
+    APPROVE_RECRUIT,
+    CREATE_FEED_COMMENT,
+    CREATE_FEED_COMMENT_COMMENT,
+    PINNED_FEED,
+    CREATE_NOTICE,
+    CREATE_UPDATE_CALENDAR
+}

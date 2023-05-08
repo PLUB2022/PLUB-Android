@@ -38,6 +38,13 @@ object Endpoints {
         const val KEYWORD_URL = "/v2/local/search/keyword"
     }
 
+    object NOTIFICATIONS {
+        private const val NOTIFICATIONS_URL = "/api/notifications"
+        private const val NOTIFICATIONS_ID = "$NOTIFICATIONS_URL/{notificationId}"
+        const val MY = "$NOTIFICATIONS_URL/accounts/me"
+        const val READ = "$NOTIFICATIONS_ID/read"
+    }
+
     object NOTICE {
         const val NOTICE_URL = "/api/announcements"
         const val NOTICE_DETAIL = "/api/announcements/{announcementId}"
