@@ -6,5 +6,5 @@ import com.plub.domain.model.enums.MyPageGatheringStateType
 data class MyPageGatheringVo(
     val isExpand : Boolean = false,
     val gatheringList : List<MyPageGatheringDetailVo> = emptyList(),
-    val gatheringType : MyPageGatheringStateType = MyPageGatheringStateType.NOTHING
+    val gatheringType : MyPageGatheringStateType = MyPageGatheringStateType.ACTIVE
 ) : DomainModel

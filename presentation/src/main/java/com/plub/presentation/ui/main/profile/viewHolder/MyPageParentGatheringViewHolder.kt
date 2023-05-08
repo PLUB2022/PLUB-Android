@@ -32,6 +32,7 @@ class MyPageParentGatheringViewHolder(
     init {
         binding.apply {
             recyclerViewGatheringList.apply {
+                itemAnimator = null
                 layoutManager = LinearLayoutManager(context)
                 addItemDecoration(VerticalSpaceDecoration(VERTICAL_SPACE.px))
                 adapter = detailAdapter

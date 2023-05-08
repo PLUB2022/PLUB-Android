@@ -62,6 +62,7 @@ class MyPageFragment :
     private fun initRecycler(){
         binding.apply {
             recyclerViewMyGathering.apply {
+                itemAnimator = null
                 layoutManager = LinearLayoutManager(context)
                 adapter = gatheringAdapter
             }
