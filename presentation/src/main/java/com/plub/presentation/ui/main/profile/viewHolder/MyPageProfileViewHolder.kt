@@ -8,6 +8,7 @@ import com.plub.presentation.databinding.IncludeMyPageProfileBinding
 import com.plub.presentation.ui.main.profile.MyPageFragment
 import com.plub.presentation.ui.main.profile.adapter.MyPageParentGatheringAdapter
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.onThrottleClick
 
 class MyPageProfileViewHolder(

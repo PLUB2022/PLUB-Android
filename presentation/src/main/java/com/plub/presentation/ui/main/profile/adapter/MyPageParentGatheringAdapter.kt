@@ -19,6 +19,7 @@ class MyPageParentGatheringAdapter(private val listener: MyPageDelegate): ListAd
 ) {
 
     interface MyPageDelegate{
+        fun onClickCardExpand(gatheringType: MyPageGatheringStateType)
         fun onClickGathering(gatheringParentType : MyPageGatheringStateType, gatheringType : MyPageGatheringMyType, plubbingId : Int)
         fun onClickEdit()
         fun onClickGoToHome()
@@ -56,7 +57,7 @@ class MyPageParentGatheringAdapter(private val listener: MyPageDelegate): ListAd
 
 class MyPageParentGatheringDiffCallback : DiffUtil.ItemCallback<MyPageVo>() {
     override fun areItemsTheSame(oldItem: MyPageVo, newItem: MyPageVo): Boolean =
-        oldItem.myPageType == newItem.myPageType
+        oldItem.myPageType == newItem.myPageType && oldItem.myPageMyProfileVo == newItem.myPageMyProfileVo
 
     override fun areContentsTheSame(oldItem: MyPageVo, newItem: MyPageVo): Boolean =
         oldItem == newItem

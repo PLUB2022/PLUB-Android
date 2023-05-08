@@ -9,6 +9,7 @@ import com.plub.domain.model.vo.myPage.MyPageMyProfileVo
 import com.plub.domain.model.vo.myPage.MyPageVo
 import com.plub.domain.usecase.GetMyGatheringUseCase
 import com.plub.presentation.base.BaseTestViewModel
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -78,7 +79,7 @@ class MyPageViewModel @Inject constructor(
             }
 
             joinAll(jobRecruit, jobWait, jobActive, jobEnd)
-            updateMyGathering(recruitingList + waitingList + activeList + endList)
+            updateMyGathering(myProfileList + recruitingList + waitingList + activeList + endList)
         }
     }
 
@@ -141,10 +142,21 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
+    fun onClickExpand(gatheringType: MyPageGatheringStateType) {
+        val gatheringList = uiState.myPageVo.value.map {
+            val expanded = if (it.myPageGathering.gatheringType == gatheringType) !it.myPageGathering.isExpand else it.myPageGathering.isExpand
+            it.copy(
+                myPageGathering = it.myPageGathering.copy(isExpand = expanded)
+            )
+        }
+        updateMyGathering(gatheringList)
+    }
+
+
     private fun updateMyGathering(list: List<MyPageVo>) {
         viewModelScope.launch {
             if(isEmpty) myPageVoStateFlow.update { myProfileList + listOf(MyPageVo(myPageType = MyPageViewType.EMPTY)) }
-            else myPageVoStateFlow.update { myProfileList + list }
+            else myPageVoStateFlow.update { list }
         }
     }
 

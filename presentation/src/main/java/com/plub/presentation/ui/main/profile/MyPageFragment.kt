@@ -8,6 +8,7 @@ import com.plub.domain.model.enums.MyPageGatheringStateType
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageBinding
 import com.plub.presentation.ui.main.profile.adapter.MyPageParentGatheringAdapter
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -24,6 +25,10 @@ class MyPageFragment :
 
     private val gatheringAdapter : MyPageParentGatheringAdapter by lazy {
         MyPageParentGatheringAdapter(object : MyPageParentGatheringAdapter.MyPageDelegate{
+            override fun onClickCardExpand(gatheringType: MyPageGatheringStateType) {
+                viewModel.onClickExpand(gatheringType)
+            }
+
             override fun onClickGathering(
                 gatheringParentType: MyPageGatheringStateType,
                 gatheringType: MyPageGatheringMyType,
