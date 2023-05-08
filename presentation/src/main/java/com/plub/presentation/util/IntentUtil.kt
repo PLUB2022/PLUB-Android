@@ -5,10 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
+import androidx.navigation.NavDeepLinkBuilder
+import com.plub.presentation.R
 import com.plub.presentation.ui.main.MainActivity
 import com.plub.presentation.ui.sign.SignActivity
 
 object IntentUtil {
+
+    const val NAVIGATION_BUNDLE = "NAVIGATION_BUNDLE"
+
     fun getSingleImageIntent(): Intent {
         val intent = Intent(Intent.ACTION_PICK)
         intent.setDataAndType(
@@ -33,8 +38,9 @@ object IntentUtil {
         return Intent(context, SignActivity::class.java)
     }
 
-    fun getFcmPendingIntent(context: Context): PendingIntent {
+    fun getFcmPendingIntent(context: Context, navigationBundle: NavigationBundle): PendingIntent {
         val intent = getMainActivityIntent(context)
+        intent.putExtra(NAVIGATION_BUNDLE, navigationBundle)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         return PendingIntent.getActivity(
             context,

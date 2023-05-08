@@ -1,60 +1,57 @@
 package com.plub.presentation.ui.main.noti
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.plub.presentation.R
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.plub.presentation.base.BaseTestFragment
+import com.plub.presentation.databinding.FragmentNotiBinding
+import com.plub.presentation.ui.main.MainViewModel
+import com.plub.presentation.ui.main.noti.adapter.PlubingNotificationAdapter
+import com.plub.presentation.util.IntentUtil
+import com.plub.presentation.util.NotificationUtil
+import com.plub.presentation.util.PlubLogger
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+@AndroidEntryPoint
+class NotiFragment : BaseTestFragment<FragmentNotiBinding, NotiPageState, NotiViewModel>(
+    FragmentNotiBinding::inflate
+) {
+    override val viewModel: NotiViewModel by viewModels()
+    private val parentViewModel by activityViewModels<MainViewModel>()
 
-/**
- * A simple [Fragment] subclass.
- * Use the [NotiFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class NotiFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val listAdapter: PlubingNotificationAdapter by lazy {
+        PlubingNotificationAdapter {
+            viewModel.readNotification(it.notificationId)
+            val intent = IntentUtil.getMainActivityIntent(requireContext())
+            intent.putExtra(IntentUtil.NAVIGATION_BUNDLE, NotificationUtil.getBundleAndDestination(it.notificationType, it.redirectTargetId))
+            parentViewModel.emitProcessIntent(intent)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_noti, container, false)
+    override fun initView() {
+        viewModel.initNoti()
+
+        binding.apply {
+            vm = viewModel
+            recyclerViewNotification.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = listAdapter
+            }
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment NotiFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            NotiFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun initStates() {
+        super.initStates()
+
+        repeatOnStarted(viewLifecycleOwner) {
+
+            viewModel.uiState.notiList.onEach {
+                listAdapter.submitList(it)
+            }.launchIn(this)
+        }
     }
 }
