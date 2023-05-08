@@ -6,17 +6,17 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.plub.presentation.R
-import com.plub.presentation.databinding.ToastCompleteBinding
-import com.plub.presentation.databinding.ToastErrorBinding
+import com.plub.presentation.databinding.LayoutToastBinding
 
 object PlubToast {
 
     fun createCompleteToast(context: Context, message: String, length : Int): Toast? {
         val inflater = LayoutInflater.from(context)
-        val binding: ToastCompleteBinding =
-            DataBindingUtil.inflate(inflater, R.layout.toast_complete, null, false)
+        val binding: LayoutToastBinding =
+            DataBindingUtil.inflate(inflater, R.layout.layout_toast, null, false)
 
         binding.textViewMessage.text = message
+        binding.imageViewIcon.setImageResource(R.drawable.ic_circle_check)
 
         return Toast(context).apply {
             setGravity(Gravity.BOTTOM or Gravity.CENTER, 0, 16.px)
@@ -27,10 +27,11 @@ object PlubToast {
 
     fun createErrorToast(context: Context, message: String, length : Int): Toast? {
         val inflater = LayoutInflater.from(context)
-        val binding: ToastErrorBinding =
-            DataBindingUtil.inflate(inflater, R.layout.toast_error, null, false)
+        val binding: LayoutToastBinding =
+            DataBindingUtil.inflate(inflater, R.layout.layout_toast, null, false)
 
         binding.textViewMessage.text = message
+        binding.imageViewIcon.setImageResource(R.drawable.ic_circle_error)
 
         return Toast(context).apply {
             setGravity(Gravity.BOTTOM or Gravity.CENTER, 0, 16.px)

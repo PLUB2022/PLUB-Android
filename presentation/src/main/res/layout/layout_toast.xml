@@ -15,13 +15,12 @@
             android:layout_height="40dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp">
-
+                
             <ImageView
                 android:id="@+id/image_view_icon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/ic_circle_error"
                 android:layout_width="32dp"
                 android:layout_height="32dp"/>
 
@@ -32,7 +31,7 @@
                 app:layout_constraintTop_toTopOf="@id/image_view_icon"
                 app:layout_constraintBottom_toBottomOf="@id/image_view_icon"
                 android:textSize="12sp"
-                tools:text="토스트 실패 메세지입니다."
+                tools:text="토스트 성공 메세지입니다."
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
