@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.plub.domain.model.enums.NoticeType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentSettingBinding
@@ -77,7 +78,8 @@ class SettingFragment :
     }
 
     private fun goToNotice(){
-
+        val action = SettingFragmentDirections.actionSettingToNotice(NoticeType.APP)
+        findNavController().navigate(action)
     }
 
     private fun showLogoutDialog(){
