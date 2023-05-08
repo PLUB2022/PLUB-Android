@@ -9,12 +9,17 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.plub.presentation.R
 import com.plub.presentation.util.IntentUtil
+import com.plub.presentation.util.NotificationUtil
 
 class PlubFirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
 
         const val CHANNEL_ID = "notification_remote_channel"
+        private const val TITLE = "title"
+        private const val BODY = "body"
+        private const val TYPE = "type"
+        private const val REDIRECT_TARGET_ID = "redirectTargetId"
     }
 
     private lateinit var notificationManager: NotificationManager
@@ -27,10 +32,8 @@ class PlubFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
-        //title, body
-
         createNotificationChannel()
-        sendNotification(message.data["title"] ?: "", message.data["body"] ?: "")
+        sendNotification(message.data)
     }
 
     private fun createNotificationChannel() {
@@ -47,8 +50,14 @@ class PlubFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
     }
 
-    private fun sendNotification(title: String, body: String) {
-        val pendingIntent = IntentUtil.getFcmPendingIntent(this)
+    private fun sendNotification(data: Map<String, String>) {
+
+        val title = data[TITLE] ?: ""
+        val body = data[BODY] ?: ""
+        val type = data[TYPE] ?: ""
+        val redirectTargetId = data[REDIRECT_TARGET_ID]?.toIntOrNull() ?: 0
+
+        val pendingIntent = IntentUtil.getFcmPendingIntent(this, NotificationUtil.getBundleAndDestination(type, redirectTargetId))
 
         val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationCompat.Builder(this, CHANNEL_ID)
