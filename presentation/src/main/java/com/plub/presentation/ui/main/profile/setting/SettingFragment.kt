@@ -22,6 +22,9 @@ class SettingFragment :
 
     companion object{
         const val TEXT_MAILTO = "mailto"
+        const val NOTION_SERVICE_POLICIES = "https://www.notion.so/2098cfa15876455085ebcc7de6a2ab27?pvs=4"
+        const val NOTION_PERSONAL_POLICIES = "https://www.notion.so/803896b9686a4acdad1c56cb18eab17a?pvs=4"
+
     }
     @Inject
     lateinit var commonDialog : CommonDialog
@@ -57,6 +60,8 @@ class SettingFragment :
             is SettingEvent.ShowLogoutDialog -> showLogoutDialog()
             is SettingEvent.ShowInactivationDialog -> showInactivationDialog()
             is SettingEvent.ShowRevokeDialog -> showRevokeDialog()
+            is SettingEvent.GoToPersonalPolicesPage -> goToServicePolices()
+            is SettingEvent.GoToServicePolicesPage -> goToPersonalPolices()
         }
     }
 
@@ -121,5 +126,17 @@ class SettingFragment :
                 commonDialog.dismiss()
             }
             .show()
+    }
+
+    private fun goToServicePolices(){
+        startActivity(
+            Intent(Intent.ACTION_VIEW, Uri.parse(NOTION_SERVICE_POLICIES))
+        )
+    }
+
+    private fun goToPersonalPolices(){
+        startActivity(
+            Intent(Intent.ACTION_VIEW, Uri.parse(NOTION_PERSONAL_POLICIES))
+        )
     }
 }

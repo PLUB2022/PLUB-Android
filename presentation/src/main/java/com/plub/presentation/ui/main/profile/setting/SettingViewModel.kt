@@ -84,4 +84,12 @@ class SettingViewModel @Inject constructor(
     fun onClickRevoke(){
 
     }
+
+    fun onClickServicePolices(){
+        emitEventFlow(SettingEvent.GoToServicePolicesPage)
+    }
+
+    fun onClickPersonalPolices(){
+        emitEventFlow(SettingEvent.GoToPersonalPolicesPage)
+    }
 }

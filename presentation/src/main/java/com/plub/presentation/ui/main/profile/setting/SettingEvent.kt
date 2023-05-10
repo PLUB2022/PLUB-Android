@@ -11,4 +11,6 @@ sealed class SettingEvent : Event {
     object ShowLogoutDialog : SettingEvent()
     object ShowInactivationDialog : SettingEvent()
     object ShowRevokeDialog : SettingEvent()
+    object GoToServicePolicesPage : SettingEvent()
+    object GoToPersonalPolicesPage : SettingEvent()
 }
