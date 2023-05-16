@@ -45,4 +45,7 @@ interface AccountApi {
     suspend fun inactive(
         @Query(QUERY_INACTIVE) inactive : Boolean
     ) : Response<ApiResponse<DataDto.DTO>>
+
+    @POST(Endpoints.ACCOUNT.POST_REVOKE)
+    suspend fun revoke() : Response<ApiResponse<DataDto.DTO>>
 }

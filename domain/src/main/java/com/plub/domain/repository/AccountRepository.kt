@@ -12,4 +12,5 @@ interface AccountRepository {
     suspend fun fetchOtherInfo(reqeust : String) : Flow<UiState<MyInfoResponseVo>>
     suspend fun changePushNotification(request : Boolean) : Flow<UiState<Unit>>
     suspend fun inactive(request : Boolean) : Flow<UiState<Unit>>
+    suspend fun revoke() : Flow<UiState<Unit>>
 }

@@ -26,6 +26,7 @@ object Endpoints {
         const val BROWSE_INTEREST = "$ACCOUNT_URL/interest"
         const val CHANGE_PUSH_NOTIFICATION = FETCH_MY_INFO
         const val PUT_INACTIVE = "$ACCOUNT_URL/inactive"
+        const val POST_REVOKE = "$ACCOUNT_URL/revoke"
     }
 
     object CATEGORY {

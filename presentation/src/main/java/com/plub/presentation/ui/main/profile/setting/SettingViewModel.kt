@@ -2,6 +2,7 @@ package com.plub.presentation.ui.main.profile.setting
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.usecase.GetLogoutUseCase
+import com.plub.domain.usecase.PostRevokeUseCase
 import com.plub.domain.usecase.PutChangePushNotificationUseCase
 import com.plub.domain.usecase.PutInactiveUseCase
 import com.plub.presentation.base.BaseTestViewModel
@@ -9,7 +10,6 @@ import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,7 +18,8 @@ import javax.inject.Inject
 class SettingViewModel @Inject constructor(
     private val putChangePushNotificationUseCase: PutChangePushNotificationUseCase,
     private val getLogoutUseCase: GetLogoutUseCase,
-    private val putInactiveUseCase: PutInactiveUseCase
+    private val putInactiveUseCase: PutInactiveUseCase,
+    private val postRevokeUseCase: PostRevokeUseCase
 ) : BaseTestViewModel<SettingState>() {
 
     private val isSwitchCheckedStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(PlubUser.info.isReceivedPushNotification)
@@ -58,9 +59,13 @@ class SettingViewModel @Inject constructor(
     fun onClickLogout(){
         viewModelScope.launch {
             getLogoutUseCase(Unit).collect{
-                inspectUiState(it, {emitEventFlow(SettingEvent.GoToLogin)})
+                inspectUiState(it, {goToLogin()})
             }
         }
+    }
+
+    private fun goToLogin(){
+        emitEventFlow(SettingEvent.GoToLogin)
     }
 
     fun changedSwitchNotify(){
@@ -83,13 +88,17 @@ class SettingViewModel @Inject constructor(
     fun onClickInactivation(){
         viewModelScope.launch {
             putInactiveUseCase(false).collect{
-                inspectUiState(it, {onClickLogout()})
+                inspectUiState(it, {goToLogin()})
             }
         }
     }
 
     fun onClickRevoke(){
-
+        viewModelScope.launch {
+            postRevokeUseCase(Unit).collect{
+                inspectUiState(it, {goToLogin()})
+            }
+        }
     }
 
     fun onClickServicePolices(){
