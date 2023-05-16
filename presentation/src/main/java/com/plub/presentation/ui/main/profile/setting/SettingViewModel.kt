@@ -3,11 +3,13 @@ package com.plub.presentation.ui.main.profile.setting
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.usecase.GetLogoutUseCase
 import com.plub.domain.usecase.PutChangePushNotificationUseCase
+import com.plub.domain.usecase.PutInactiveUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val putChangePushNotificationUseCase: PutChangePushNotificationUseCase,
-    private val getLogoutUseCase: GetLogoutUseCase
+    private val getLogoutUseCase: GetLogoutUseCase,
+    private val putInactiveUseCase: PutInactiveUseCase
 ) : BaseTestViewModel<SettingState>() {
 
     private val isSwitchCheckedStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(PlubUser.info.isReceivedPushNotification)
@@ -62,7 +65,7 @@ class SettingViewModel @Inject constructor(
 
     fun changedSwitchNotify(){
         viewModelScope.launch{
-            putChangePushNotificationUseCase(!uiState.isSwitchChecked.value).collect{
+            putChangePushNotificationUseCase(uiState.isSwitchChecked.value).collect{
                 inspectUiState(it, {handleSuccessChangeNotify()})
             }
         }
@@ -71,14 +74,18 @@ class SettingViewModel @Inject constructor(
     private fun handleSuccessChangeNotify(){
         viewModelScope.launch{
             PlubUser.updateInfo(PlubUser.info.copy(
-                isReceivedPushNotification = !uiState.isSwitchChecked.value
+                isReceivedPushNotification = uiState.isSwitchChecked.value
             ))
-            isSwitchCheckedStateFlow.update { !uiState.isSwitchChecked.value }
+            isSwitchCheckedStateFlow.update { uiState.isSwitchChecked.value }
         }
     }
 
     fun onClickInactivation(){
-
+        viewModelScope.launch {
+            putInactiveUseCase(false).collect{
+                inspectUiState(it, {onClickLogout()})
+            }
+        }
     }
 
     fun onClickRevoke(){
