@@ -3,6 +3,7 @@ package com.plub.data.repository
 import com.plub.data.api.ReportApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.UnitResponseMapper
+import com.plub.data.mapper.report.CreateReportRequestMapper
 import com.plub.data.mapper.report.ReportDetailResponseMapper
 import com.plub.data.mapper.reportMapper.ReportMapper
 import com.plub.domain.UiState
@@ -19,7 +20,8 @@ class ReportRepositoryImpl @Inject constructor(private val reportApi: ReportApi)
     }
 
     override suspend fun createReport(request : CreateReportRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(reportApi.createReport(request), UnitResponseMapper)
+        val requestDTO = CreateReportRequestMapper.mapModelToDto(request)
+        return apiLaunch(reportApi.createReport(requestDTO), UnitResponseMapper)
     }
 
     override suspend fun getReportDetail(request: Int): Flow<UiState<ReportDetailVo>> {

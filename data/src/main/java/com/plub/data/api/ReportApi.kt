@@ -2,6 +2,7 @@ package com.plub.data.api
 
 import com.plub.data.base.ApiResponse
 import com.plub.data.base.DataDto
+import com.plub.data.dto.report.CreateReportRequest
 import com.plub.data.dto.report.ReportDetailResponse
 import com.plub.data.dto.report.ReportListResponse
 import com.plub.domain.model.vo.report.CreateReportRequestVo
@@ -22,7 +23,7 @@ interface ReportApi {
 
     @POST(Endpoints.REPORT.CREATE_REPORT)
     suspend fun createReport(
-        @Body request : CreateReportRequestVo
+        @Body request : CreateReportRequest
     ) : Response<ApiResponse<DataDto.DTO>>
 
     @GET(Endpoints.REPORT.GET_REPORT_DETAIL)
