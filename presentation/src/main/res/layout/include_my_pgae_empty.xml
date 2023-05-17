@@ -2,12 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="vm"
-            type="com.plub.presentation.ui.main.profile.MyPageViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,7 +10,7 @@
             android:id="@+id/image_view_empty"
             android:layout_width="160dp"
             android:layout_height="160dp"
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="205dp"
             android:src="@drawable/img_no_recruit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +34,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            app:onThrottleClick="@{()->vm.goToHome()}"
             android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
             android:text="@string/my_page_see_other_gathering"
             android:textColor="@color/white"

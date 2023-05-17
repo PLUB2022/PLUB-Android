@@ -468,7 +468,12 @@
         android:id="@+id/settingFragment"
         android:name="com.plub.presentation.ui.main.profile.setting.SettingFragment"
         android:label="SettingFragment"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+
+        <action
+            android:id="@+id/action_setting_to_notice"
+            app:destination="@id/noticeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/myPageEditFragment"

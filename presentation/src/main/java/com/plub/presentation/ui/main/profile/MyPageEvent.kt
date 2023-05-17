@@ -10,5 +10,4 @@ sealed class MyPageEvent : Event {
     object GoToEdit : MyPageEvent()
     object GoToSetting : MyPageEvent()
     object GoToHome : MyPageEvent()
-    data class ReadMore(val isExpandText : Boolean) : MyPageEvent()
 }

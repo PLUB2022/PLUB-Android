@@ -28,4 +28,12 @@ class AccountRepositoryImpl @Inject constructor(private val accountApi: AccountA
     override suspend fun changePushNotification(request: Boolean): Flow<UiState<Unit>> {
         return apiLaunch(accountApi.changePushNotify(request), UnitResponseMapper)
     }
+
+    override suspend fun inactive(request: Boolean): Flow<UiState<Unit>> {
+        return apiLaunch(accountApi.inactive(request), UnitResponseMapper)
+    }
+
+    override suspend fun revoke(): Flow<UiState<Unit>> {
+        return apiLaunch(accountApi.revoke(), UnitResponseMapper)
+    }
 }

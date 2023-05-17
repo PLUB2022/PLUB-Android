@@ -5,10 +5,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.MyPageGatheringMyType
 import com.plub.domain.model.enums.MyPageGatheringStateType
-import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentMyPageBinding
 import com.plub.presentation.ui.main.profile.adapter.MyPageParentGatheringAdapter
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -37,6 +37,14 @@ class MyPageFragment :
                 viewModel.goToDetail(gatheringParentType, plubbingId, gatheringType)
             }
 
+            override fun onClickEdit() {
+                viewModel.goToEdit()
+            }
+
+            override fun onClickGoToHome() {
+                viewModel.goToHome()
+            }
+
         })
     }
 
@@ -46,7 +54,6 @@ class MyPageFragment :
         binding.apply {
             vm = viewModel
         }
-        viewModel.refresh()
         viewModel.getMyPageData()
         viewModel.setMyInfo()
         initRecycler()
@@ -55,6 +62,7 @@ class MyPageFragment :
     private fun initRecycler(){
         binding.apply {
             recyclerViewMyGathering.apply {
+                itemAnimator = null
                 layoutManager = LinearLayoutManager(context)
                 adapter = gatheringAdapter
             }
@@ -66,7 +74,7 @@ class MyPageFragment :
 
         repeatOnStarted(viewLifecycleOwner) {
             launch {
-                viewModel.uiState.myPageGatheringList.collect {
+                viewModel.uiState.myPageVo.collect {
                     gatheringAdapter.submitList(it)
                 }
             }
@@ -83,7 +91,6 @@ class MyPageFragment :
         when (event) {
             is MyPageEvent.GoToMyApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToWaitingGathering(event.plubbingId))}
             is MyPageEvent.GoToOtherApplication -> {findNavController().navigate(MyPageFragmentDirections.myPageToRecruitingGathering(event.plubbingId))}
-            is MyPageEvent.ReadMore -> { readMoreIntro(event.isExpandText) }
             is MyPageEvent.GoToActiveGathering -> {findNavController().navigate(MyPageFragmentDirections.myPageToActiveGathering(event.gatheringType, event.plubbingId))}
             is MyPageEvent.GoToHome -> {findNavController().navigate(MyPageFragmentDirections.myPageToHome())}
             is MyPageEvent.GoToEdit -> {findNavController().navigate(MyPageFragmentDirections.myPageToEdit())}
@@ -91,16 +98,4 @@ class MyPageFragment :
         }
     }
 
-    private fun readMoreIntro(isExpandText : Boolean){
-        binding.apply {
-            if(isExpandText){
-                textViewReadMore.text = getString(R.string.my_page_close)
-                textViewProfileExplain.maxLines = Int.MAX_VALUE
-            }
-            else{
-                textViewReadMore.text = getString(R.string.my_page_read_more)
-                textViewProfileExplain.maxLines = LEAST_LINE
-            }
-        }
-    }
 }

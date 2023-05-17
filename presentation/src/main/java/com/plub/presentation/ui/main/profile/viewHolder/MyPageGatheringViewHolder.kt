@@ -9,6 +9,7 @@ import com.plub.presentation.R
 import com.plub.presentation.databinding.IncludeItemMyGatheringDetailBinding
 import com.plub.presentation.ui.main.profile.adapter.MyPageParentGatheringAdapter
 import com.plub.presentation.util.GlideUtil
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.onThrottleClick
 
 class MyPageGatheringViewHolder(
@@ -27,6 +28,7 @@ class MyPageGatheringViewHolder(
     fun bind(item: MyPageGatheringDetailVo) {
         myPageGatheringDetailVo = item
         binding.apply {
+            constraintLayoutGatheringStateBox.visibility = View.GONE
             GlideUtil.loadImage(root.context, item.image, imageViewGatheringIcon)
             textViewGatheringName.text = item.title
             textViewGatheringGoal.text = item.goal

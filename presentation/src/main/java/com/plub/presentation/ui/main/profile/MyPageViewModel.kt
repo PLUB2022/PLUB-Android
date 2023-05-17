@@ -3,9 +3,13 @@ package com.plub.presentation.ui.main.profile
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.MyPageGatheringMyType
 import com.plub.domain.model.enums.MyPageGatheringStateType
+import com.plub.domain.model.enums.MyPageViewType
 import com.plub.domain.model.vo.myPage.MyPageGatheringVo
+import com.plub.domain.model.vo.myPage.MyPageMyProfileVo
+import com.plub.domain.model.vo.myPage.MyPageVo
 import com.plub.domain.usecase.GetMyGatheringUseCase
 import com.plub.presentation.base.BaseTestViewModel
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -21,45 +25,31 @@ class MyPageViewModel @Inject constructor(
     val getMyGatheringUseCase: GetMyGatheringUseCase,
 ) : BaseTestViewModel<MyPageState>() {
 
-    companion object {
-        const val MAX_LENGTH = 15
-    }
-    private val myPageGatheringListStateFlow : MutableStateFlow<List<MyPageGatheringVo>> = MutableStateFlow(
-        emptyList()
-    )
-    private val isReadMoreStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val myNameStateFlow : MutableStateFlow<String> = MutableStateFlow("")
-    private val myIntroStateFlow : MutableStateFlow<String> = MutableStateFlow("")
-    private val profileImageStateFlow : MutableStateFlow<String> = MutableStateFlow("")
-    private val isEmptyStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val myPageVoStateFlow : MutableStateFlow<List<MyPageVo>> = MutableStateFlow(emptyList())
 
     override val uiState: MyPageState = MyPageState(
-        myPageGatheringList = myPageGatheringListStateFlow.asStateFlow(),
-        isReadMore = isReadMoreStateFlow.asStateFlow(),
-        myName = myNameStateFlow.asStateFlow(),
-        myIntro = myIntroStateFlow.asStateFlow(),
-        profileImage = profileImageStateFlow.asStateFlow(),
-        isEmpty = isEmptyStateFlow.asStateFlow()
+        myPageVo = myPageVoStateFlow.asStateFlow()
     )
 
-    private var isExpandText: Boolean = false
-    private var recruitingList : List<MyPageGatheringVo> = emptyList()
-    private var waitingList : List<MyPageGatheringVo> = emptyList()
-    private var activeList : List<MyPageGatheringVo> = emptyList()
-    private var endList : List<MyPageGatheringVo> = emptyList()
+    private var myProfileList : List<MyPageVo> = emptyList()
+    private var recruitingList : List<MyPageVo> = emptyList()
+    private var waitingList : List<MyPageVo> = emptyList()
+    private var activeList : List<MyPageVo> = emptyList()
+    private var endList : List<MyPageVo> = emptyList()
+    private var isEmpty : Boolean = true
 
 
     fun setMyInfo() {
-        viewModelScope.launch {
-            myNameStateFlow.update { PlubUser.info.nickname }
-            myIntroStateFlow.update { PlubUser.info.introduce }
-            profileImageStateFlow.update { PlubUser.info.profileImage }
-            isReadMoreStateFlow.update { PlubUser.info.introduce.length > MAX_LENGTH }
-        }
-    }
-
-    fun refresh(){
-        updateMyGathering(emptyList())
+        myProfileList = listOf(
+            MyPageVo(
+                myPageType = MyPageViewType.PROFILE,
+                myPageMyProfileVo = MyPageMyProfileVo(
+                    myName = PlubUser.info.nickname,
+                    myIntro = PlubUser.info.introduce,
+                    profileImage = PlubUser.info.profileImage
+                )
+            )
+        )
     }
 
     fun getMyPageData() {
@@ -89,24 +79,45 @@ class MyPageViewModel @Inject constructor(
             }
 
             joinAll(jobRecruit, jobWait, jobActive, jobEnd)
-            updateMyGathering(recruitingList + waitingList + activeList + endList)
+            updateMyGathering(myProfileList + recruitingList + waitingList + activeList + endList)
         }
     }
 
     private fun handleGetMyGatheringSuccess(state: MyPageGatheringVo) {
         if (state.gatheringList.isNotEmpty()) {
+            isEmpty = false
             when(state.gatheringType){
                 MyPageGatheringStateType.ACTIVE -> {
-                    activeList = listOf(state)
+                    activeList = listOf(
+                        MyPageVo(
+                            myPageType = MyPageViewType.GATHERING,
+                            myPageGathering = state
+                        )
+                    )
                 }
                 MyPageGatheringStateType.END -> {
-                    endList = listOf(state)
+                    endList = listOf(
+                        MyPageVo(
+                            myPageType = MyPageViewType.GATHERING,
+                            myPageGathering = state
+                        )
+                    )
                 }
                 MyPageGatheringStateType.WAITING -> {
-                    waitingList = listOf(state)
+                    waitingList = listOf(
+                        MyPageVo(
+                            myPageType = MyPageViewType.GATHERING,
+                            myPageGathering = state
+                        )
+                    )
                 }
                 MyPageGatheringStateType.RECRUITING -> {
-                    recruitingList = listOf(state)
+                    recruitingList = listOf(
+                        MyPageVo(
+                            myPageType = MyPageViewType.GATHERING,
+                            myPageGathering = state
+                        )
+                    )
                 }
             }
         }
@@ -132,23 +143,21 @@ class MyPageViewModel @Inject constructor(
     }
 
     fun onClickExpand(gatheringType: MyPageGatheringStateType) {
-        val gatheringList = uiState.myPageGatheringList.value.map {
-            val expanded = if (it.gatheringType == gatheringType) !it.isExpand else it.isExpand
-            it.copy(isExpand = expanded)
+        val gatheringList = uiState.myPageVo.value.map {
+            val expanded = if (it.myPageGathering.gatheringType == gatheringType) !it.myPageGathering.isExpand else it.myPageGathering.isExpand
+            it.copy(
+                myPageGathering = it.myPageGathering.copy(isExpand = expanded)
+            )
         }
         updateMyGathering(gatheringList)
     }
 
-    private fun updateMyGathering(list: List<MyPageGatheringVo>) {
-        viewModelScope.launch {
-            myPageGatheringListStateFlow.update { list }
-            isEmptyStateFlow.update { list.isEmpty() }
-        }
-    }
 
-    fun readMore() {
-        isExpandText = !isExpandText
-        emitEventFlow(MyPageEvent.ReadMore(isExpandText))
+    private fun updateMyGathering(list: List<MyPageVo>) {
+        viewModelScope.launch {
+            if(isEmpty) myPageVoStateFlow.update { myProfileList + listOf(MyPageVo(myPageType = MyPageViewType.EMPTY)) }
+            else myPageVoStateFlow.update { list }
+        }
     }
 
     fun goToSetting() {

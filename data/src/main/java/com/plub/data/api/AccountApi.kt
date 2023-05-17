@@ -17,6 +17,7 @@ interface AccountApi {
     companion object{
         const val QUERY_PUSH_NOTIFICATION = "push-notification"
         const val PATH_NICKNAME = "nickname"
+        const val QUERY_INACTIVE = "inactive"
     }
 
     @GET(Endpoints.ACCOUNT.FETCH_MY_INFO)
@@ -39,4 +40,12 @@ interface AccountApi {
 
     @GET(Endpoints.AUTH.LOGOUT)
     suspend fun logout() : Response<ApiResponse<DataDto.DTO>>
+
+    @PUT(Endpoints.ACCOUNT.PUT_INACTIVE)
+    suspend fun inactive(
+        @Query(QUERY_INACTIVE) inactive : Boolean
+    ) : Response<ApiResponse<DataDto.DTO>>
+
+    @POST(Endpoints.ACCOUNT.POST_REVOKE)
+    suspend fun revoke() : Response<ApiResponse<DataDto.DTO>>
 }

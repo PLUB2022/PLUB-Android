@@ -12,7 +12,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,16 +54,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constraint_layout_top" />
 
-            <ImageView
+            <com.plub.presentation.ui.common.custom.CircleImageView
                 android:id="@+id/image_view_profile"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="49dp"
                 android:scaleType="centerCrop"
-                android:clipToOutline="true"
                 app:defaultImage="@{@drawable/iv_default_profile}"
                 app:imageUrl="@{vm.uiState.profileImage}"
-                android:background="@drawable/bg_circle_filled_e4e4e4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constraint_layout_top" />
@@ -197,16 +196,16 @@
                 android:layout_width="0dp"
                 android:layout_height="46dp"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="86dp"
                 android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
                 android:enabled="@{vm.uiState.saveButtonEnable}"
                 android:text="@string/word_save"
-                app:onThrottleClick="@{()-> vm.uiState.nicknameIsChanged ? vm.saveChangedNickName() : vm.saveChangedOnlyIntro()}"
                 android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
                 android:textSize="14sp"
+                android:layout_marginBottom="26dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_introduce_count" />
+                app:onThrottleClick="@{()-> vm.uiState.nicknameIsChanged ? vm.saveChangedNickName() : vm.saveChangedOnlyIntro()}" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

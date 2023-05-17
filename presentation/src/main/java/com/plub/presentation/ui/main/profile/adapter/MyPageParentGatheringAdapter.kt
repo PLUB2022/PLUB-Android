@@ -7,36 +7,58 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.MyPageGatheringMyType
 import com.plub.domain.model.enums.MyPageGatheringStateType
-import com.plub.domain.model.vo.myPage.MyPageGatheringVo
-import com.plub.presentation.databinding.IncludeItemMyGatheringBinding
+import com.plub.domain.model.enums.MyPageViewType
+import com.plub.domain.model.vo.myPage.MyPageVo
+import com.plub.presentation.databinding.*
+import com.plub.presentation.ui.main.profile.viewHolder.MyPageEmptyViewHolder
 import com.plub.presentation.ui.main.profile.viewHolder.MyPageParentGatheringViewHolder
+import com.plub.presentation.ui.main.profile.viewHolder.MyPageProfileViewHolder
 
-class MyPageParentGatheringAdapter(private val listener: MyPageDelegate): ListAdapter<MyPageGatheringVo, RecyclerView.ViewHolder>(
+class MyPageParentGatheringAdapter(private val listener: MyPageDelegate): ListAdapter<MyPageVo, RecyclerView.ViewHolder>(
     MyPageParentGatheringDiffCallback()
 ) {
 
     interface MyPageDelegate{
         fun onClickCardExpand(gatheringType: MyPageGatheringStateType)
         fun onClickGathering(gatheringParentType : MyPageGatheringStateType, gatheringType : MyPageGatheringMyType, plubbingId : Int)
+        fun onClickEdit()
+        fun onClickGoToHome()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MyPageParentGatheringViewHolder -> holder.bind(currentList[position])
+            is MyPageParentGatheringViewHolder -> holder.bind(currentList[position].myPageGathering)
+            is MyPageProfileViewHolder -> holder.bind(currentList[position].myPageMyProfileVo)
+            is MyPageEmptyViewHolder -> holder.bind()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = IncludeItemMyGatheringBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyPageParentGatheringViewHolder(binding, listener)
+        return when(MyPageViewType.valueOf(viewType)){
+            MyPageViewType.GATHERING -> {
+                val binding = IncludeItemMyGatheringBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                MyPageParentGatheringViewHolder(binding, listener)
+            }
+            MyPageViewType.PROFILE -> {
+                val binding = IncludeMyPageProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                MyPageProfileViewHolder(binding, listener)
+            }
+            MyPageViewType.EMPTY -> {
+                val binding = IncludeMyPgaeEmptyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                MyPageEmptyViewHolder(binding, listener)
+            }
+        }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return currentList[position].myPageType.type
+    }
 }
 
-class MyPageParentGatheringDiffCallback : DiffUtil.ItemCallback<MyPageGatheringVo>() {
-    override fun areItemsTheSame(oldItem: MyPageGatheringVo, newItem: MyPageGatheringVo): Boolean =
-        oldItem.gatheringType == newItem.gatheringType
+class MyPageParentGatheringDiffCallback : DiffUtil.ItemCallback<MyPageVo>() {
+    override fun areItemsTheSame(oldItem: MyPageVo, newItem: MyPageVo): Boolean =
+        oldItem.myPageType == newItem.myPageType && oldItem.myPageMyProfileVo == newItem.myPageMyProfileVo
 
-    override fun areContentsTheSame(oldItem: MyPageGatheringVo, newItem: MyPageGatheringVo): Boolean =
+    override fun areContentsTheSame(oldItem: MyPageVo, newItem: MyPageVo): Boolean =
         oldItem == newItem
 }
