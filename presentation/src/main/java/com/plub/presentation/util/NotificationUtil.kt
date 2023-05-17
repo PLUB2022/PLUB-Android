@@ -12,6 +12,8 @@ import com.plub.presentation.ui.main.plubing.PlubingMainFragmentArgs
 import com.plub.presentation.ui.main.plubing.board.detail.BoardDetailFragmentArgs
 import com.plub.presentation.ui.main.plubing.notice.NoticeFragmentArgs
 import com.plub.presentation.ui.main.plubing.schedule.PlubingScheduleFragmentArgs
+import com.plub.presentation.ui.main.profile.recruiting.RecruitingGatheringFragment
+import com.plub.presentation.ui.main.profile.recruiting.RecruitingGatheringFragmentArgs
 import kotlinx.parcelize.Parcelize
 
 object NotificationUtil {
@@ -23,7 +25,7 @@ object NotificationUtil {
 
                 KICK_MEMBER, UNBAN -> NavigationBundle(destination = R.id.menu_navigation_gathering)
 
-                APPLY_RECRUIT -> NavigationBundle(RecruitmentFragmentArgs(targetId).toBundle(), R.id.recruitmentFragment)
+                APPLY_RECRUIT -> NavigationBundle(RecruitingGatheringFragmentArgs(targetId).toBundle(), R.id.myPageRecruitingGatheringFragment)
 
                 LEAVE_PLUBBING, APPROVE_RECRUIT -> NavigationBundle(PlubingMainFragmentArgs(targetId).toBundle(), R.id.plubingMainFragment)
 
