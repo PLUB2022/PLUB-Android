@@ -40,13 +40,14 @@ class MyPageViewModel @Inject constructor(
 
 
     fun setMyInfo() {
+        val profileImage = if(PlubUser.info.profileImage.isNullOrEmpty()) "" else PlubUser.info.profileImage
         myProfileList = listOf(
             MyPageVo(
                 myPageType = MyPageViewType.PROFILE,
                 myPageMyProfileVo = MyPageMyProfileVo(
                     myName = PlubUser.info.nickname,
                     myIntro = PlubUser.info.introduce,
-                    profileImage = PlubUser.info.profileImage
+                    profileImage = profileImage!!
                 )
             )
         )

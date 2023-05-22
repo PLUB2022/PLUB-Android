@@ -106,6 +106,9 @@
         <action
             android:id="@+id/action_recruitment_to_report"
             app:destination="@id/reportFragment" />
+        <action
+            android:id="@+id/action_recruitment_to_other_profile"
+            app:destination="@id/otherProfileFragment"/>
         <argument
             android:name="plubbingId"
             app:argType="integer" />

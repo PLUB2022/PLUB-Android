@@ -71,6 +71,7 @@
         
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout_host"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="@id/text_view_nickname"
             app:layout_constraintBottom_toBottomOf="@id/text_view_nickname"
             app:layout_constraintStart_toEndOf="@id/text_view_nickname"

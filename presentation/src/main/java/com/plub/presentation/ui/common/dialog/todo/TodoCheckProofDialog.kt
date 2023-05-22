@@ -126,7 +126,10 @@ class TodoCheckProofDialog : DialogFragment() {
             }
             textViewNickname.text = PlubUser.info.nickname
             textViewDate.text = todoItemVo.date
-            GlideUtil.loadImage(requireContext(), PlubUser.info.profileImage, circleImageViewProfile)
+            PlubUser.info.profileImage?.let {
+                GlideUtil.loadImage(requireContext(),
+                    it, circleImageViewProfile)
+            }
         }
     }
 

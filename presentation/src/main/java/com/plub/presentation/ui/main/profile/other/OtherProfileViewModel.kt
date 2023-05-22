@@ -82,11 +82,7 @@ class OtherProfileViewModel @Inject constructor(
     }
 
     fun onClickTodoMenu(vo: TodoTimelineVo) {
-        val menuType = when {
-            vo.isAuthor -> DialogMenuType.TODO_LIST_AUTHOR_TYPE
-            else -> DialogMenuType.TODO_LIST_COMMON_TYPE
-        }
-        emitEventFlow(OtherProfileEvent.ShowMenuBottomSheetDialog(vo, menuType))
+        emitEventFlow(OtherProfileEvent.ShowMenuBottomSheetDialog(vo, DialogMenuType.TODO_LIST_COMMON_TYPE))
     }
 
     fun onClickTodoLike(timelineId: Int) {

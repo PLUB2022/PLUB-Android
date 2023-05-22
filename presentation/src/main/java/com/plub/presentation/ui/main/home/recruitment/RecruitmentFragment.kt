@@ -144,7 +144,12 @@ class RecruitmentFragment :
     }
 
     private fun goToProfile(accountId: Int, nickname : String) {
-
+        val action = RecruitmentFragmentDirections.actionRecruitmentToOtherProfile(
+            plubbingId = recruitmentFragmentArgs.plubbingId,
+            accountId = accountId,
+            nickname = nickname
+        )
+        findNavController().navigate(action)
     }
 
     private fun openProfileBottomSheet(joinedAccountList : List<RecruitDetailJoinedAccountsVo>){

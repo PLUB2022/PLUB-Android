@@ -4,13 +4,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/image_view_empty"
             android:layout_width="160dp"
             android:layout_height="160dp"
-            android:layout_marginTop="205dp"
+            android:layout_marginTop="140dp"
             android:src="@drawable/img_no_recruit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
