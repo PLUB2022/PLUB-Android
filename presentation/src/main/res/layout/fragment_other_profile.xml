@@ -21,6 +21,7 @@
 
             <ImageView
                 android:id="@+id/image_view_back"
+                app:onThrottleClick="@{()->vm.onClickClose()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginStart="3dp"
@@ -35,6 +36,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:text="@string/report_button"
+                app:onThrottleClick="@{()->vm.onClickProfileReport()}"
                 android:textColor="@color/color_5f5ff9"
                 android:textSize="12sp"
                 android:layout_marginEnd="16dp"

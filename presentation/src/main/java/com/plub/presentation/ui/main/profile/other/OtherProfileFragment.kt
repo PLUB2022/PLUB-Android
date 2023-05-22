@@ -5,12 +5,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.DialogMenuType
+import com.plub.domain.model.sealed.ReportType
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentOtherProfileBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
+import com.plub.presentation.ui.main.archive.ArchiveFragmentDirections
 import com.plub.presentation.ui.main.profile.active.adapter.MyPageTodoTimeLineAdapter
+import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -80,6 +83,8 @@ class OtherProfileFragment :
         when(event){
             is OtherProfileEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.todoTimelineVo, event.menuType)
             is OtherProfileEvent.CloseButtonClick -> findNavController().popBackStack()
+            is OtherProfileEvent.GoToProfileReport -> goToProfileReport(event.accountId)
+            is OtherProfileEvent.GoToToDoReport -> goToTodoReport(event.todoId)
         }
     }
 
@@ -87,5 +92,19 @@ class OtherProfileFragment :
         SelectMenuBottomSheetDialog.newInstance(menuType) {
             viewModel.onClickMenuItemType(it, todoTimelineVo)
         }.show(parentFragmentManager, "")
+    }
+
+    private fun goToTodoReport(todoId : Int){
+        val action = OtherProfileFragmentDirections.actionOtherProfileToReport(
+            type = ReportType.TodoReport(otherProfileFragmentArgs.plubbingId, todoId)
+        )
+        findNavController().navigate(action)
+    }
+
+    private fun goToProfileReport(accountId : Int){
+        val action = OtherProfileFragmentDirections.actionOtherProfileToReport(
+            type = ReportType.AccountReport(otherProfileFragmentArgs.plubbingId, accountId)
+        )
+        findNavController().navigate(action)
     }
 }

@@ -44,6 +44,8 @@ class OtherProfileViewModel @Inject constructor(
 
     private var isLast : Boolean = false
     private var cursorId : Int = FIRST_CURSOR
+    private var plubbingId : Int = -1
+    private var accountId : Int = -1
 
     fun fetchOtherProfile(nickName : String){
         viewModelScope.launch {
@@ -54,6 +56,8 @@ class OtherProfileViewModel @Inject constructor(
     }
 
     fun fetchOtherTodo(plubbingId: Int, accountId: Int){
+        this.plubbingId = plubbingId
+        this.accountId = accountId
         viewModelScope.launch {
             val request = GetOtherTodoRequestVo(
                 plubbingId, accountId, cursorId
@@ -93,7 +97,7 @@ class OtherProfileViewModel @Inject constructor(
     }
 
     private fun putTodoLikeToggle(timelineId: Int, onSuccess: (TodoTimelineVo) -> Unit) {
-        val request = TodoRequestVo(PlubingInfo.info.plubingId, timelineId = timelineId)
+        val request = TodoRequestVo(plubbingId, timelineId = timelineId)
         viewModelScope.launch {
             putTodoLikeToggleUseCase(request).collect { state ->
                 inspectUiState(state, onSuccess)
@@ -109,12 +113,16 @@ class OtherProfileViewModel @Inject constructor(
 
     fun onClickMenuItemType(item: DialogMenuItemType, todoTimelineVo: TodoTimelineVo) {
         when (item) {
-            DialogMenuItemType.TODO_REPORT -> TODO()
+            DialogMenuItemType.TODO_REPORT -> emitEventFlow(OtherProfileEvent.GoToToDoReport(todoTimelineVo.timelineId))
             else -> { }
         }
     }
 
     fun onClickClose(){
         emitEventFlow(OtherProfileEvent.CloseButtonClick)
+    }
+
+    fun onClickProfileReport(){
+        emitEventFlow(OtherProfileEvent.GoToProfileReport(accountId))
     }
 }

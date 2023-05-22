@@ -704,5 +704,9 @@
         <argument
             android:name="plubbingId"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/action_other_profile_to_report"
+            app:destination="@id/reportFragment" />
     </fragment>
 </navigation>
