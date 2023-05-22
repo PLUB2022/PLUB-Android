@@ -685,4 +685,21 @@
             android:name="reportId"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/otherProfileFragment"
+        android:name="com.plub.presentation.ui.main.profile.other.OtherProfileFragment"
+        android:label="OtherProfileFragment"
+        tools:layout="@layout/fragment_other_profile">
+
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="accountId"
+            app:argType="integer" />
+        <argument
+            android:name="plubbingId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
