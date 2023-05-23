@@ -12,7 +12,6 @@ import com.plub.domain.usecase.GetOtherProfileUseCase
 import com.plub.domain.usecase.GetOtherTodoUseCase
 import com.plub.domain.usecase.PutTodoLikeToggleUseCase
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -113,7 +112,7 @@ class OtherProfileViewModel @Inject constructor(
 
     fun onClickMenuItemType(item: DialogMenuItemType, todoTimelineVo: TodoTimelineVo) {
         when (item) {
-            DialogMenuItemType.TODO_REPORT -> emitEventFlow(OtherProfileEvent.GoToToDoReport(todoTimelineVo.timelineId))
+            DialogMenuItemType.TODO_REPORT -> emitEventFlow(OtherProfileEvent.GoToDoDetail(todoTimelineVo.timelineId))
             else -> { }
         }
     }

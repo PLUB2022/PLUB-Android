@@ -6,12 +6,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.sealed.ReportType
+import com.plub.domain.model.vo.plub.PlubingMainVo
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentOtherProfileBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
-import com.plub.presentation.ui.main.archive.ArchiveFragmentDirections
 import com.plub.presentation.ui.main.profile.active.adapter.MyPageTodoTimeLineAdapter
 import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,7 +84,7 @@ class OtherProfileFragment :
             is OtherProfileEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.todoTimelineVo, event.menuType)
             is OtherProfileEvent.CloseButtonClick -> findNavController().popBackStack()
             is OtherProfileEvent.GoToProfileReport -> goToProfileReport(event.accountId)
-            is OtherProfileEvent.GoToToDoReport -> goToTodoReport(event.todoId)
+            is OtherProfileEvent.GoToDoDetail -> goToDoDetail(event.timelineId)
         }
     }
 
@@ -94,9 +94,12 @@ class OtherProfileFragment :
         }.show(parentFragmentManager, "")
     }
 
-    private fun goToTodoReport(todoId : Int){
-        val action = OtherProfileFragmentDirections.actionOtherProfileToReport(
-            type = ReportType.TodoReport(otherProfileFragmentArgs.plubbingId, todoId)
+    private fun goToDoDetail(timelineId : Int){
+        PlubingInfo.updateInfo(
+            PlubingMainVo(plubingId = otherProfileFragmentArgs.plubbingId)
+        )
+        val action = OtherProfileFragmentDirections.actionOtherProfileToTodoDetail(
+            timelineId = timelineId
         )
         findNavController().navigate(action)
     }

@@ -707,6 +707,10 @@
 
         <action
             android:id="@+id/action_other_profile_to_report"
-            app:destination="@id/reportFragment" />
+            app:destination="@id/reportFragment" />'
+
+        <action
+            android:id="@+id/action_other_profile_to_todo_detail"
+            app:destination="@id/todoDetailFragment" />
     </fragment>
 </navigation>

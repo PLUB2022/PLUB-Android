@@ -96,7 +96,7 @@ class RecruitmentFragment :
 
     private fun initProfileAdapter(list: List<RecruitDetailJoinedAccountsVo>) {
         binding.apply {
-            val maxProfile = recyclerViewPlubbingPeopleProfile.width / PROFILE_WIDTH.px
+            val maxProfile = resources.displayMetrics.widthPixels / PROFILE_WIDTH.px
             constraintLayoutTop.bringToFront()
             detailRecruitProfileAdapter.setMaxProfile(maxProfile)
             detailRecruitProfileAdapter.submitList(list)

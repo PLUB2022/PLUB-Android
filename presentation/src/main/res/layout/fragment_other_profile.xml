@@ -115,7 +115,7 @@
         <TextView
             android:id="@+id/text_view_todo_title"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/profile_todo_title"
+            android:text="@{@string/profile_todo_title(vm.uiState.profile.nickname)}"
             android:textSize="12sp"
             android:textColor="@color/color_8c8c8c"
             app:layout_constraintTop_toBottomOf="@id/text_view_nickname_description"
