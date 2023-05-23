@@ -5,6 +5,8 @@ import android.net.Uri
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
 import com.canhub.cropper.CropImageView
+import com.plub.domain.error.ImageError
+import com.plub.domain.error.SignUpError
 import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.UploadFileType
@@ -17,7 +19,7 @@ import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.util.ImageUtil
-import com.plub.presentation.util.PlubLogger
+import com.plub.presentation.util.PlubToast
 import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -130,13 +132,23 @@ class ArchiveViewModel @Inject constructor(
         val request = file?.let { UploadFileRequestVo(UploadFileType.ARCHIVE, it) } ?: return
         viewModelScope.launch {
             postUploadFileUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessUploadImage)
+                inspectUiState(state, ::handleSuccessUploadImage) { _, individual ->
+                    handleImageError(individual as ImageError)
+                    isNetworkCall = false
+                }
             }
         }
     }
 
     private fun handleSuccessUploadImage(vo: UploadFileResponseVo) {
         emitEventFlow(ArchiveEvent.GoToArchiveUpload(vo.fileUrl, title))
+    }
+
+    private fun handleImageError(imageError: ImageError){
+        when(imageError){
+            ImageError.Common -> {}
+            ImageError.FailUpload -> emitEventFlow(ArchiveEvent.FailUpload)
+        }
     }
 
     fun seeBottomSheet(type: ArchiveAccessType, id: Int) {

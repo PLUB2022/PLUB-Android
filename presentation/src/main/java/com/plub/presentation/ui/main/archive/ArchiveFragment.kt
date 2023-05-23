@@ -11,16 +11,15 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.enums.DialogMenuType
+import com.plub.domain.model.enums.ToastType
 import com.plub.domain.model.sealed.ReportType
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentArchiveBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.main.archive.adapter.ArchiveAdapter
 import com.plub.presentation.ui.main.archive.dialog.ArchiveDetailDialogFragment
-import com.plub.presentation.util.IntentUtil
-import com.plub.presentation.util.PermissionManager
-import com.plub.presentation.util.PlubingInfo
-import com.plub.presentation.util.infiniteScrolls
+import com.plub.presentation.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -119,6 +118,9 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
             is ArchiveEvent.SeeDotsAuthorBottomSheet -> {showBottomSheetDialogSelectDots(DialogMenuType.ARCHIVE_AUTHOR_TYPE, event.archiveId)}
             is ArchiveEvent.SeeDotsHostBottomSheet -> {showBottomSheetDialogSelectDots(DialogMenuType.ARCHIVE_HOST_TYPE, event.archiveId)}
             is ArchiveEvent.SeeDotsNormalBottomSheet -> {showBottomSheetDialogSelectDots(DialogMenuType.ARCHIVE_NORMAL_TYPE, event.archiveId)}
+            is ArchiveEvent.FailUpload -> {
+                PlubToast.createToast(ToastType.ERROR, binding.root.context, R.string.error_image_upload)
+            }
         }
     }
 

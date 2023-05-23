@@ -10,6 +10,7 @@ sealed class ArchiveEvent : Event{
     object GoToBack : ArchiveEvent()
     object ClickUploadBottomSheet : ArchiveEvent()
     object GoToAlbum : ArchiveEvent()
+    object FailUpload : ArchiveEvent()
     data class SeeDotsHostBottomSheet(val archiveId: Int) : ArchiveEvent()
     data class SeeDotsAuthorBottomSheet(val archiveId: Int)  : ArchiveEvent()
     data class SeeDotsNormalBottomSheet(val archiveId: Int)  : ArchiveEvent()
