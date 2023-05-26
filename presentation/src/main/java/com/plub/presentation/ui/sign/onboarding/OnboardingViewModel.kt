@@ -45,17 +45,17 @@ class OnboardingViewModel @Inject constructor(
     private fun generateOnboardingItemVoList(): List<OnboardingItemVo> {
         return listOf(
             OnboardingItemVo(
-                R.raw.onboarding_dummy_first,
+                R.raw.onboarding_first,
                 getStringResource(R.string.onboarding_title_first),
                 getStringResource(R.string.onboarding_content_first)
             ),
             OnboardingItemVo(
-                R.raw.onboarding_dummy_second,
+                R.raw.onboarding_second,
                 getStringResource(R.string.onboarding_title_second),
                 getStringResource(R.string.onboarding_content_second)
             ),
             OnboardingItemVo(
-                R.raw.onboarding_dummy_third,
+                R.raw.onboarding_third,
                 getStringResource(R.string.onboarding_title_third),
                 getStringResource(R.string.onboarding_content_third)
             ),
