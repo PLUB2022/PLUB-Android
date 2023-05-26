@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.report.detail
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.ReportError
 import com.plub.domain.model.enums.ReportReasonType
 import com.plub.domain.model.enums.ReportTargetType
 import com.plub.domain.model.sealed.ReportType
@@ -45,8 +46,21 @@ class ReportDetailViewModel @Inject constructor(
     fun getReportList(reasonType: ReportReasonType){
         viewModelScope.launch {
             getReportUseCase(Unit).collect{
-                inspectUiState(it, {state -> handleSuccessGetReportList(state, reasonType)})
+                inspectUiState(it, {state -> handleSuccessGetReportList(state, reasonType)}){_, individual ->
+                    handleReportError(individual as ReportError)
+                }
             }
+        }
+    }
+
+    private fun handleReportError(reportError: ReportError){
+        when(reportError){
+            is ReportError.AlreadyRevokeSuspendAccount -> TODO()
+            ReportError.Common -> TODO()
+            is ReportError.DuplicatedReport -> TODO()
+            is ReportError.NotFoundReport -> TODO()
+            is ReportError.NotFoundReportTarget -> TODO()
+            is ReportError.NotFoundSuspendAccount -> TODO()
         }
     }
 
@@ -126,7 +140,9 @@ class ReportDetailViewModel @Inject constructor(
         )
         viewModelScope.launch {
             postCreateReportUseCase(request).collect{
-                inspectUiState(it, {handleSuccessPostCreateReport()})
+                inspectUiState(it, {handleSuccessPostCreateReport()}){_, individual ->
+                    handleReportError(individual as ReportError)
+                }
             }
         }
     }

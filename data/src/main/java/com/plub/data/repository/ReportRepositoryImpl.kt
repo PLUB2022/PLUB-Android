@@ -6,6 +6,7 @@ import com.plub.data.mapper.UnitResponseMapper
 import com.plub.data.mapper.report.ReportDetailResponseMapper
 import com.plub.data.mapper.reportMapper.ReportMapper
 import com.plub.domain.UiState
+import com.plub.domain.error.ReportError
 import com.plub.domain.model.vo.report.CreateReportRequestVo
 import com.plub.domain.model.vo.report.ReportDetailVo
 import com.plub.domain.model.vo.report.ReportVo
@@ -15,14 +16,20 @@ import javax.inject.Inject
 
 class ReportRepositoryImpl @Inject constructor(private val reportApi: ReportApi) : ReportRepository, BaseRepository() {
     override suspend fun browseReport(): Flow<UiState<ReportVo>> {
-        return apiLaunch(reportApi.browseReport(), ReportMapper)
+        return apiLaunch(reportApi.browseReport(), ReportMapper){
+            ReportError.make(it)
+        }
     }
 
     override suspend fun createReport(request : CreateReportRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(reportApi.createReport(request), UnitResponseMapper)
+        return apiLaunch(reportApi.createReport(request), UnitResponseMapper){
+            ReportError.make(it)
+        }
     }
 
     override suspend fun getReportDetail(request: Int): Flow<UiState<ReportDetailVo>> {
-        return apiLaunch(reportApi.getReportDetail(request), ReportDetailResponseMapper)
+        return apiLaunch(reportApi.getReportDetail(request), ReportDetailResponseMapper){
+            ReportError.make(it)
+        }
     }
 }

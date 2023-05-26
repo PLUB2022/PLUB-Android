@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.report.alarm
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.ReportError
 import com.plub.domain.model.vo.report.ReportDetailVo
 import com.plub.domain.usecase.GetReportDetailUseCase
 import com.plub.presentation.base.BaseTestViewModel
@@ -35,8 +36,21 @@ class ReportAlarmViewModel @Inject constructor(
     fun getReportDetail(reportId : Int){
         viewModelScope.launch {
             getReportDetailUseCase(reportId).collect{
-                inspectUiState(it, ::handleSuccessGetReportDetail)
+                inspectUiState(it, ::handleSuccessGetReportDetail){_, individual ->
+                    handleReportError(individual as ReportError)
+                }
             }
+        }
+    }
+
+    private fun handleReportError(reportError: ReportError){
+        when(reportError){
+            is ReportError.AlreadyRevokeSuspendAccount -> TODO()
+            ReportError.Common -> TODO()
+            is ReportError.DuplicatedReport -> TODO()
+            is ReportError.NotFoundReport -> TODO()
+            is ReportError.NotFoundReportTarget -> TODO()
+            is ReportError.NotFoundSuspendAccount -> TODO()
         }
     }
 
