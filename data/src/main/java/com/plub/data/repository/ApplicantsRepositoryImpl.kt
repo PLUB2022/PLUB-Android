@@ -7,6 +7,7 @@ import com.plub.data.mapper.applicantsRecruitMapper.ApplicantsRecruitRequestMapp
 import com.plub.data.mapper.applicantsRecruitMapper.replyMapper.ReplyApplicantsRecruitMapper
 import com.plub.data.mapper.recruitDetailMapper.host.HostSeeApplicantsMapper
 import com.plub.domain.UiState
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applicantsRecruitVo.replyVo.ReplyApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applicantsRecruitVo.replyVo.ReplyApplicantsRecruitResponseVo
@@ -29,11 +30,15 @@ class ApplicantsRepositoryImpl @Inject constructor(private val recruitApi: Recru
     }
 
     override suspend fun deleteMyApplication(request: Int): Flow<UiState<Unit>> {
-        return apiLaunch(recruitApi.deleteMyApplication(request), UnitResponseMapper)
+        return apiLaunch(recruitApi.deleteMyApplication(request), UnitResponseMapper) {
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun modifyMyApplication(request: ApplicantsRecruitRequestVo): Flow<UiState<Unit>> {
         val requestVo = ApplicantsRecruitRequestMapper.mapModelToDto(request)
-        return apiLaunch(recruitApi.modifyMyApplication(request.plubbingId, requestVo), UnitResponseMapper)
+        return apiLaunch(recruitApi.modifyMyApplication(request.plubbingId, requestVo), UnitResponseMapper){
+            GatheringError.make(it)
+        }
     }
 }

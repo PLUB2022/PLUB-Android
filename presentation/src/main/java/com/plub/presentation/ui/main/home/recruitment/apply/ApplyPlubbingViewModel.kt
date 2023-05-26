@@ -2,6 +2,7 @@ package com.plub.presentation.ui.main.home.recruitment.apply
 
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.enums.ApplyModifyApplicationType
 import com.plub.domain.model.enums.ApplyRecruitQuestionViewType
 import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitAnswerVo
@@ -52,8 +53,33 @@ class ApplyPlubbingViewModel @Inject constructor(
     private fun getOnlyQuestion(){
         viewModelScope.launch {
             getRecruitQuestionUseCase(plubbingId).collect { state ->
-                inspectUiState(state, ::successFetchQuestions)
+                inspectUiState(state, ::successFetchQuestions){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
+        }
+    }
+
+    private fun handleGatheringError(gatheringError: GatheringError) {
+        when (gatheringError) {
+            is GatheringError.AlreadyAccepted -> TODO()
+            is GatheringError.AlreadyApplied -> TODO()
+            is GatheringError.AlreadyFinish -> TODO()
+            is GatheringError.AlreadyRecruitDone -> TODO()
+            is GatheringError.AlreadyRejected -> TODO()
+            GatheringError.Common -> TODO()
+            is GatheringError.FullMemberPlubbing -> TODO()
+            is GatheringError.HostCannotApply -> TODO()
+            is GatheringError.LimitMaxPlubbing -> TODO()
+            is GatheringError.LimitPullUp -> TODO()
+            is GatheringError.NotAppliedApplicant -> TODO()
+            is GatheringError.NotFoundPlubbing -> TODO()
+            is GatheringError.NotFoundQuestion -> TODO()
+            is GatheringError.NotFoundRecruit -> TODO()
+            is GatheringError.NotFoundSubCategory -> TODO()
+            is GatheringError.NotHost -> TODO()
+            is GatheringError.NotJoinedPlubbing -> TODO()
+            is GatheringError.NotMemberPlubbing -> TODO()
         }
     }
 
@@ -133,7 +159,9 @@ class ApplyPlubbingViewModel @Inject constructor(
     private fun applyButton(){
         viewModelScope.launch {
             postApplyRecruitUseCase(ApplicantsRecruitRequestVo(plubbingId, answerList)).collect { state ->
-                inspectUiState(state, { successApply() } )
+                inspectUiState(state, { successApply() } ){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
     }
@@ -141,7 +169,9 @@ class ApplyPlubbingViewModel @Inject constructor(
     private fun modifyButton(){
         viewModelScope.launch {
             putModifyMyApplicationUseCase(ApplicantsRecruitRequestVo(plubbingId, answerList)).collect{
-                inspectUiState(it, { backPage() })
+                inspectUiState(it, { backPage() }){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
     }

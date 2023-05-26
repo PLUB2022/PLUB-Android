@@ -10,6 +10,7 @@ import com.plub.data.mapper.applyRecruitMapper.QuestionsRecruitMapper
 import com.plub.data.mapper.recruitDetailMapper.RecruitDetailResponseMapper
 import com.plub.data.mapper.recruitDetailMapper.host.HostRecruitEndMapper
 import com.plub.domain.UiState
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
 import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitResponseVo
@@ -24,20 +25,28 @@ class RecruitDetailRepositoryImpl @Inject constructor(private val recruitApi: Re
     override suspend fun getRecruitDetail(request: Int): Flow<UiState<RecruitDetailResponseVo>> {
         return apiLaunch(
             recruitApi.fetchRecruitDetail(request), RecruitDetailResponseMapper
-        )
+        ) {
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun applyRecruit(request: ApplicantsRecruitRequestVo): Flow<UiState<ApplicantsRecruitResponseVo>> {
         val requestDto = ApplicantsRecruitRequestMapper.mapModelToDto(request)
-        return apiLaunch(recruitApi.applicantsRecruit(request.plubbingId,requestDto), ApplicantsRecruitResponseMapper)
+        return apiLaunch(recruitApi.applicantsRecruit(request.plubbingId,requestDto), ApplicantsRecruitResponseMapper){
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun getQuestions(request: Int): Flow<UiState<QuestionsResponseVo>> {
-        return apiLaunch(recruitApi.getQustions(request), QuestionsRecruitMapper)
+        return apiLaunch(recruitApi.getQustions(request), QuestionsRecruitMapper){
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun endRecruit(request: Int): Flow<UiState<ApplicantsRecruitResponseVo>> {
-        return apiLaunch(recruitApi.endRecruit(request), HostRecruitEndMapper)
+        return apiLaunch(recruitApi.endRecruit(request), HostRecruitEndMapper) {
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun modifyQuestions(request: ModifyQuestionRequestVo) : Flow<UiState<CreateGatheringResponseVo>> {

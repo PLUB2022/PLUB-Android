@@ -2,6 +2,7 @@ package com.plub.presentation.ui.main.home.recruitment
 
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.home.applicantsRecruitVo.ApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
@@ -68,8 +69,33 @@ class RecruitmentViewModel @Inject constructor(
         plubbingId = Id
         viewModelScope.launch {
             getRecruitDetailUseCase(plubbingId).collect{ state ->
-                inspectUiState(state, ::handleSuccessGetRecruitDetail)
+                inspectUiState(state, ::handleSuccessGetRecruitDetail){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
+        }
+    }
+
+    private fun handleGatheringError(gatheringError: GatheringError) {
+        when (gatheringError) {
+            is GatheringError.AlreadyAccepted -> TODO()
+            is GatheringError.AlreadyApplied -> TODO()
+            is GatheringError.AlreadyFinish -> TODO()
+            is GatheringError.AlreadyRecruitDone -> TODO()
+            is GatheringError.AlreadyRejected -> TODO()
+            GatheringError.Common -> TODO()
+            is GatheringError.FullMemberPlubbing -> TODO()
+            is GatheringError.HostCannotApply -> TODO()
+            is GatheringError.LimitMaxPlubbing -> TODO()
+            is GatheringError.LimitPullUp -> TODO()
+            is GatheringError.NotAppliedApplicant -> TODO()
+            is GatheringError.NotFoundPlubbing -> TODO()
+            is GatheringError.NotFoundQuestion -> TODO()
+            is GatheringError.NotFoundRecruit -> TODO()
+            is GatheringError.NotFoundSubCategory -> TODO()
+            is GatheringError.NotHost -> TODO()
+            is GatheringError.NotJoinedPlubbing -> TODO()
+            is GatheringError.NotMemberPlubbing -> TODO()
         }
     }
 
@@ -97,7 +123,9 @@ class RecruitmentViewModel @Inject constructor(
     fun clickBookmark(){
         viewModelScope.launch{
             postBookmarkPlubRecruitUseCase(plubbingId).collect{
-                inspectUiState(it, ::successBookMarkChange)
+                inspectUiState(it, ::successBookMarkChange){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
     }
@@ -116,7 +144,9 @@ class RecruitmentViewModel @Inject constructor(
     private fun getPlubbingQuestion(){
         viewModelScope.launch{
             getRecruitQuestionUseCase(plubbingId).collect{
-                inspectUiState(it, ::onSuccessGetQuestions)
+                inspectUiState(it, ::onSuccessGetQuestions){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
     }
@@ -130,7 +160,9 @@ class RecruitmentViewModel @Inject constructor(
         val request = ApplicantsRecruitRequestVo(plubbingId, emptyList())
         viewModelScope.launch {
             postApplyRecruitUseCase(request).collect{
-                inspectUiState(it, { onSuccessApplyRecruit() })
+                inspectUiState(it, { onSuccessApplyRecruit() }){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
     }
@@ -158,7 +190,9 @@ class RecruitmentViewModel @Inject constructor(
     fun cancelApply(){
         viewModelScope.launch {
             deleteMyApplicationUseCase(plubbingId).collect{
-                inspectUiState(it, { goToBack() })
+                inspectUiState(it, { goToBack() }){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
     }
@@ -174,7 +208,9 @@ class RecruitmentViewModel @Inject constructor(
     fun endRecruit(){
         viewModelScope.launch {
             putEndRecruitUseCase(plubbingId).collect{ state ->
-                inspectUiState(state, {handleSuccessEndRecruit()})
+                inspectUiState(state, {handleSuccessEndRecruit()}){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
     }
