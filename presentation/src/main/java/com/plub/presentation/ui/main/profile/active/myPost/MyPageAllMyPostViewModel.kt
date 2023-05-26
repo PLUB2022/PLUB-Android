@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.profile.active.myPost
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.FeedError
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubingBoardType
@@ -104,8 +105,23 @@ class MyPageAllMyPostViewModel @Inject constructor(
         val requestVo = MyPageActiveRequestVo(plubingId, cursorId)
         viewModelScope.launch {
             getMyPostUseCase(requestVo).collect {
-                inspectUiState(it, ::onSuccessFetchPlubingBoardList)
+                inspectUiState(it, ::onSuccessFetchPlubingBoardList){_, individual ->
+                    handleFeedError(individual as FeedError)
+                }
             }
+        }
+    }
+
+    private fun handleFeedError(feedError: FeedError){
+        when(feedError){
+            is FeedError.CannotDeleteSystemFeed -> TODO()
+            FeedError.Common -> TODO()
+            is FeedError.DeletedComment -> TODO()
+            is FeedError.DeletedFeed -> TODO()
+            is FeedError.MaxFeedPin -> TODO()
+            is FeedError.NotFeedAuthor -> TODO()
+            is FeedError.NotFoundComment -> TODO()
+            is FeedError.NotFoundFeed -> TODO()
         }
     }
 
@@ -130,7 +146,9 @@ class MyPageAllMyPostViewModel @Inject constructor(
             putBoardChangePinUseCase(request).collect {
                 inspectUiState(it, {
                     updateDeletedFeedList(feedId)
-                })
+                }){ _, individual ->
+                    handleFeedError(individual as FeedError)
+                }
             }
         }
     }
@@ -141,7 +159,9 @@ class MyPageAllMyPostViewModel @Inject constructor(
             deleteBoardUseCase(request).collect {
                 inspectUiState(it, {
                     updateDeletedFeedList(feedId)
-                })
+                }){ _, individual ->
+                    handleFeedError(individual as FeedError)
+                }
             }
         }
     }

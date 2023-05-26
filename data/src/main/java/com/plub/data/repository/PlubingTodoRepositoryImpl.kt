@@ -10,6 +10,7 @@ import com.plub.data.mapper.todo.TodoTimelineListResponseMapper
 import com.plub.data.mapper.todo.TodoTimelineResponseMapper
 import com.plub.data.mapper.todo.TodoWriteRequestMapper
 import com.plub.domain.UiState
+import com.plub.domain.error.TodoError
 import com.plub.domain.model.enums.TodoItemViewType
 import com.plub.domain.model.vo.todo.*
 import com.plub.domain.repository.PlubingTodoRepository
@@ -30,15 +31,21 @@ class PlubingTodoRepositoryImpl @Inject constructor(private val todoApi: TodoApi
 
     override suspend fun postTodoProof(request: TodoProofRequestVo): Flow<UiState<Unit>> {
         val proofRequest = TodoProofRequest(request.proofImageUrl)
-        return apiLaunch(todoApi.postTodoProof(request.plubbingId, request.todoListId, proofRequest), UnitResponseMapper)
+        return apiLaunch(todoApi.postTodoProof(request.plubbingId, request.todoListId, proofRequest), UnitResponseMapper){
+            TodoError.make(it)
+        }
     }
 
     override suspend fun putTodoComplete(request: TodoRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(todoApi.putTodoComplete(request.plubbingId, request.todoId), UnitResponseMapper)
+        return apiLaunch(todoApi.putTodoComplete(request.plubbingId, request.todoId), UnitResponseMapper){
+            TodoError.make(it)
+        }
     }
 
     override suspend fun putTodoCancel(request: TodoRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(todoApi.putTodoCancel(request.plubbingId, request.todoId), UnitResponseMapper)
+        return apiLaunch(todoApi.putTodoCancel(request.plubbingId, request.todoId), UnitResponseMapper){
+            TodoError.make(it)
+        }
     }
 
     override suspend fun getTodoDays(request: GetTodoDaysRequestVo): Flow<UiState<List<Int>>> {
@@ -66,7 +73,9 @@ class PlubingTodoRepositoryImpl @Inject constructor(private val todoApi: TodoApi
     }
 
     override suspend fun putTodoLikeToggle(request: TodoRequestVo): Flow<UiState<TodoTimelineVo>> {
-        return apiLaunch(todoApi.putLikeToggleTodo(request.plubbingId, request.timelineId), TodoTimelineResponseMapper)
+        return apiLaunch(todoApi.putLikeToggleTodo(request.plubbingId, request.timelineId), TodoTimelineResponseMapper){
+            TodoError.make(it)
+        }
     }
 
     override suspend fun getTodoDetail(request: TodoRequestVo): Flow<UiState<TodoTimelineVo>> {

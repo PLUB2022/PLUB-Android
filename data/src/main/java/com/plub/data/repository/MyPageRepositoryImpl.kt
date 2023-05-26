@@ -7,6 +7,8 @@ import com.plub.data.mapper.myPageMapper.MyGatheringMapper
 import com.plub.data.mapper.myPageMapper.MyPageMyApplicationMapper
 import com.plub.data.mapper.myPageMapper.MyToDoWithTileMapper
 import com.plub.domain.UiState
+import com.plub.domain.error.FeedError
+import com.plub.domain.error.TodoError
 import com.plub.domain.model.enums.MyPageGatheringStateType
 import com.plub.domain.model.vo.board.PlubingBoardListVo
 import com.plub.domain.model.vo.myPage.MyPageActiveRequestVo
@@ -28,10 +30,14 @@ class MyPageRepositoryImpl @Inject constructor(private val myPageApi: MyPageApi)
     }
 
     override suspend fun getMyToDo(request: MyPageActiveRequestVo): Flow<UiState<MyPageToDoWithTitleVo>> {
-        return apiLaunch(myPageApi.getMyToDo(request.plubbingId, request.cursorId), MyToDoWithTileMapper)
+        return apiLaunch(myPageApi.getMyToDo(request.plubbingId, request.cursorId), MyToDoWithTileMapper){
+            TodoError.make(it)
+        }
     }
 
     override suspend fun getMyPost(request: MyPageActiveRequestVo): Flow<UiState<PlubingBoardListVo>> {
-        return apiLaunch(myPageApi.getMyPost(request.plubbingId, request.cursorId), MyBoardMapper)
+        return apiLaunch(myPageApi.getMyPost(request.plubbingId, request.cursorId), MyBoardMapper){
+            FeedError.make(it)
+        }
     }
 }

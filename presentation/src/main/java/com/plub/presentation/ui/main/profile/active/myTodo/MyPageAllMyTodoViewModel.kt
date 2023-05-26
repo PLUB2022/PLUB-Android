@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.main.profile.active.myTodo
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.ImageError
+import com.plub.domain.error.TodoError
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.UploadFileType
@@ -53,8 +55,29 @@ class MyPageAllMyTodoViewModel @Inject constructor(
         isNetworkCall = true
         viewModelScope.launch {
             getMyToDoWithTitleUseCase(MyPageActiveRequestVo(PlubingInfo.info.plubingId, cursorId)).collect{
-                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess)
+                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess){ _, individual ->
+                    handleTodoError(individual as TodoError)
+                }
             }
+        }
+    }
+
+    private fun handleImageError(imageError: ImageError) {
+        when (imageError) {
+            ImageError.Common -> TODO()
+            ImageError.FailUpload -> TODO()
+        }
+    }
+
+    private fun handleTodoError(todoError: TodoError) {
+        when (todoError) {
+            is TodoError.AlreadyCheckedTodo -> TODO()
+            is TodoError.AlreadyProofTodo -> TODO()
+            TodoError.Common -> TODO()
+            is TodoError.NotCompleteTodo -> TODO()
+            is TodoError.NotFoundTimeline -> TODO()
+            is TodoError.NotFoundTodo -> TODO()
+            is TodoError.TooManyTodo -> TODO()
         }
     }
 
@@ -62,7 +85,9 @@ class MyPageAllMyTodoViewModel @Inject constructor(
         isNetworkCall = true
         viewModelScope.launch {
             getMyToDoWithTitleUseCase(MyPageActiveRequestVo(PlubingInfo.info.plubingId, cursorId)).collect{
-                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess)
+                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess){ _, individual ->
+                    handleTodoError(individual as TodoError)
+                }
             }
         }
     }
@@ -109,7 +134,9 @@ class MyPageAllMyTodoViewModel @Inject constructor(
             putTodoCancelUseCase(request).collect { state ->
                 inspectUiState(state, {
                     onSuccess()
-                })
+                }){ _, individual ->
+                    handleTodoError(individual as TodoError)
+                }
             }
         }
     }
@@ -147,7 +174,9 @@ class MyPageAllMyTodoViewModel @Inject constructor(
             putTodoCompleteUseCase(request).collect { state ->
                 inspectUiState(state, {
                     onSuccess()
-                })
+                }){ _, individual ->
+                    handleTodoError(individual as TodoError)
+                }
             }
         }
     }
@@ -178,7 +207,9 @@ class MyPageAllMyTodoViewModel @Inject constructor(
             postUploadFileUseCase(fileRequest).collect { state ->
                 inspectUiState(state, { vo ->
                     onSuccess(vo.fileUrl)
-                })
+                }){ _, individual ->
+                    handleImageError(individual as ImageError)
+                }
             }
         }
     }
@@ -189,7 +220,9 @@ class MyPageAllMyTodoViewModel @Inject constructor(
             postTodoProofUseCase(request).collect { state ->
                 inspectUiState(state, {
                     onSuccess()
-                })
+                }){ _, individual ->
+                    handleTodoError(individual as TodoError)
+                }
             }
         }
     }
@@ -245,7 +278,9 @@ class MyPageAllMyTodoViewModel @Inject constructor(
         val request = TodoRequestVo(PlubingInfo.info.plubingId, timelineId = timelineId)
         viewModelScope.launch {
             putTodoLikeToggleUseCase(request).collect { state ->
-                inspectUiState(state, onSuccess)
+                inspectUiState(state, onSuccess){ _, individual ->
+                    handleTodoError(individual as TodoError)
+                }
             }
         }
     }

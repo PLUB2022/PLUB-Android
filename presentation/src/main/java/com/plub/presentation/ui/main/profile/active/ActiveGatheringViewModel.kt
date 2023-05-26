@@ -1,6 +1,9 @@
 package com.plub.presentation.ui.main.profile.active
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.FeedError
+import com.plub.domain.error.ImageError
+import com.plub.domain.error.TodoError
 import com.plub.domain.model.enums.*
 import com.plub.domain.model.vo.board.PlubingBoardListVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
@@ -63,17 +66,34 @@ class ActiveGatheringViewModel @Inject constructor(
         viewModelScope.launch {
             val jobMyTodo : Job = launch {
                 getMyToDoWithTitleUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect {
-                    inspectUiState(it, ::handleGetMyToDoWithTitleSuccess)
+                    inspectUiState(it, ::handleGetMyToDoWithTitleSuccess) {_,individual ->
+                        handleTodoError(individual as TodoError)
+                    }
                 }
             }
 
             val jobMyPost : Job = launch {
                 getMyPostUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect {
-                    inspectUiState(it, ::handleGetMyPostSuccess)
+                    inspectUiState(it, ::handleGetMyPostSuccess) {_,individual ->
+                        handleFeedError(individual as FeedError)
+                    }
                 }
             }
             joinAll(jobMyTodo, jobMyPost)
             updateDetailList(topList + todoList + boardList)
+        }
+    }
+
+    private fun handleFeedError(feedError: FeedError){
+        when(feedError){
+            is FeedError.CannotDeleteSystemFeed -> TODO()
+            FeedError.Common -> TODO()
+            is FeedError.DeletedComment -> TODO()
+            is FeedError.DeletedFeed -> TODO()
+            is FeedError.MaxFeedPin -> TODO()
+            is FeedError.NotFeedAuthor -> TODO()
+            is FeedError.NotFoundComment -> TODO()
+            is FeedError.NotFoundFeed -> TODO()
         }
     }
 
@@ -202,7 +222,9 @@ class ActiveGatheringViewModel @Inject constructor(
             putTodoCancelUseCase(request).collect { state ->
                 inspectUiState(state, {
                     onSuccess()
-                })
+                }) { _, individual ->
+                    handleTodoError(individual as TodoError)
+                }
             }
         }
     }
@@ -247,8 +269,22 @@ class ActiveGatheringViewModel @Inject constructor(
             putTodoCompleteUseCase(request).collect { state ->
                 inspectUiState(state, {
                     onSuccess()
-                })
+                }){ _, individual ->
+                    handleTodoError(individual as TodoError)
+                }
             }
+        }
+    }
+
+    private fun handleTodoError(todoError: TodoError) {
+        when (todoError) {
+            is TodoError.AlreadyCheckedTodo -> TODO()
+            is TodoError.AlreadyProofTodo -> TODO()
+            TodoError.Common -> TODO()
+            is TodoError.NotCompleteTodo -> TODO()
+            is TodoError.NotFoundTimeline -> TODO()
+            is TodoError.NotFoundTodo -> TODO()
+            is TodoError.TooManyTodo -> TODO()
         }
     }
 
@@ -272,8 +308,17 @@ class ActiveGatheringViewModel @Inject constructor(
             postUploadFileUseCase(fileRequest).collect { state ->
                 inspectUiState(state, { vo ->
                     onSuccess(vo.fileUrl)
-                })
+                }){_,individual ->
+                    handleImageError(individual as ImageError)
+                }
             }
+        }
+    }
+
+    private fun handleImageError(imageError: ImageError){
+        when(imageError){
+            ImageError.Common -> TODO()
+            ImageError.FailUpload -> TODO()
         }
     }
 
@@ -283,7 +328,9 @@ class ActiveGatheringViewModel @Inject constructor(
             postTodoProofUseCase(request).collect { state ->
                 inspectUiState(state, {
                     onSuccess()
-                })
+                }) {_,individual ->
+                    handleTodoError(individual as TodoError)
+                }
             }
         }
     }
@@ -342,7 +389,9 @@ class ActiveGatheringViewModel @Inject constructor(
         val request = TodoRequestVo(plubingId, timelineId = timelineId)
         viewModelScope.launch {
             putTodoLikeToggleUseCase(request).collect { state ->
-                inspectUiState(state, onSuccess)
+                inspectUiState(state, onSuccess) {_,individual ->
+                    handleTodoError(individual as TodoError)
+                }
             }
         }
     }

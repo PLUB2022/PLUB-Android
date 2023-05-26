@@ -13,6 +13,7 @@ import com.plub.data.mapper.CommentCreateRequestMapper
 import com.plub.data.mapper.CommentEditRequestMapper
 import com.plub.data.mapper.UnitResponseMapper
 import com.plub.domain.UiState
+import com.plub.domain.error.FeedError
 import com.plub.domain.model.vo.board.BoardCommentListVo
 import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.domain.model.vo.board.BoardRequestVo
@@ -39,11 +40,15 @@ class PlubingBoardRepositoryImpl @Inject constructor(private val boardApi: Plubi
     }
 
     override suspend fun feedChangePin(request: BoardRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(boardApi.changePin(request.plubbingId, request.feedId), UnitResponseMapper)
+        return apiLaunch(boardApi.changePin(request.plubbingId, request.feedId), UnitResponseMapper){
+            FeedError.make(it)
+        }
     }
 
     override suspend fun feedDelete(request: BoardRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(boardApi.deleteFeed(request.plubbingId, request.feedId), UnitResponseMapper)
+        return apiLaunch(boardApi.deleteFeed(request.plubbingId, request.feedId), UnitResponseMapper){
+            FeedError.make(it)
+        }
     }
 
     override suspend fun feedCreate(request: BoardCreateRequestVo): Flow<UiState<Unit>> {
