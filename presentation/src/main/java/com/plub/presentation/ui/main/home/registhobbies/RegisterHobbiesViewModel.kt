@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.registhobbies
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.CategoryError
 import com.plub.domain.model.vo.common.HobbyVo
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.common.SubHobbyVo
@@ -28,8 +29,17 @@ class RegisterHobbiesViewModel @Inject constructor(
     fun fetchHobbiesData() {
         viewModelScope.launch {
             getAllHobbiesUseCase(Unit).collect { state ->
-                inspectUiState(state, ::handleGetAllHobbiesSuccess)
+                inspectUiState(state, ::handleGetAllHobbiesSuccess){ _, individual ->
+                    handleCategoryError(individual as CategoryError)
+                }
             }
+        }
+    }
+
+    private fun handleCategoryError(categoryError: CategoryError){
+        when(categoryError){
+            CategoryError.Common -> TODO()
+            is CategoryError.NotFoundCategory -> TODO()
         }
     }
 
@@ -49,7 +59,9 @@ class RegisterHobbiesViewModel @Inject constructor(
     private fun fetchMyHobbies(list: List<HobbyVo>){
         viewModelScope.launch {
             getMyInterestUseCase(Unit).collect{
-                inspectUiState(it, { state -> handleGetMyInterestSuccess(state, list)})
+                inspectUiState(it, { state -> handleGetMyInterestSuccess(state, list)}){ _, individual ->
+                    handleCategoryError(individual as CategoryError)
+                }
             }
         }
     }
