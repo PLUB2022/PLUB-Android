@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
 import com.canhub.cropper.CropImageView
+import com.plub.domain.error.ArchiveError
 import com.plub.domain.error.ImageError
 import com.plub.domain.error.SignUpError
 import com.plub.domain.model.enums.ArchiveAccessType
@@ -72,8 +73,19 @@ class ArchiveViewModel @Inject constructor(
         val request = BrowseAllArchiveRequestVo(plubbingId, cursorId)
         viewModelScope.launch {
             getAllArchiveUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessFetchArchives)
+                inspectUiState(state, ::handleSuccessFetchArchives) { _, individual ->
+                    handleArchiveError(individual as ArchiveError)
+                    isNetworkCall = false
+                }
             }
+        }
+    }
+
+    private fun handleArchiveError(archiveError: ArchiveError){
+        when(archiveError){
+            ArchiveError.Common -> TODO()
+            is ArchiveError.NotArchiveAuthor -> TODO()
+            is ArchiveError.NotFoundArchive -> TODO()
         }
     }
 
@@ -111,7 +123,10 @@ class ArchiveViewModel @Inject constructor(
         val request = DetailArchiveRequestVo(plubbingId, archiveId)
         viewModelScope.launch {
             getDetailArchiveUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessFetchDetailArchive)
+                inspectUiState(state, ::handleSuccessFetchDetailArchive){ _, individual ->
+                    handleArchiveError(individual as ArchiveError)
+                    isNetworkCall = false
+                }
             }
         }
     }
@@ -193,7 +208,10 @@ class ArchiveViewModel @Inject constructor(
         val request = DetailArchiveRequestVo(plubbingId, archiveId)
         viewModelScope.launch {
             deleteArchiveUseCase(request).collect { state ->
-                inspectUiState(state, { handleSuccessDelete(archiveId) })
+                inspectUiState(state, { handleSuccessDelete(archiveId) }){ _, individual ->
+                    handleArchiveError(individual as ArchiveError)
+                    isNetworkCall = false
+                }
             }
         }
     }

@@ -5,6 +5,8 @@ import android.net.Uri
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
 import com.canhub.cropper.CropImageView
+import com.plub.domain.error.ArchiveError
+import com.plub.domain.error.ImageError
 import com.plub.domain.model.enums.ArchiveItemViewType
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.UploadFileType
@@ -120,8 +122,18 @@ class ArchiveUploadViewModel @Inject constructor(
         val request = DetailArchiveRequestVo(plubbingId, archiveId)
         viewModelScope.launch {
             getDetailArchiveUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessGetDetailArchive)
+                inspectUiState(state, ::handleSuccessGetDetailArchive){ _, individual ->
+                    handleArchiveError(individual as ArchiveError)
+                }
             }
+        }
+    }
+
+    private fun handleArchiveError(archiveError: ArchiveError){
+        when(archiveError){
+            ArchiveError.Common -> TODO()
+            is ArchiveError.NotArchiveAuthor -> TODO()
+            is ArchiveError.NotFoundArchive -> TODO()
         }
     }
 
@@ -151,7 +163,9 @@ class ArchiveUploadViewModel @Inject constructor(
         val request = DeleteFileRequestVo(UploadFileType.ARCHIVE, image)
         viewModelScope.launch {
             deleteFileUseCase(request).collect {
-                inspectUiState(it, { onDeleteSuccess(image) })
+                inspectUiState(it, { onDeleteSuccess(image) }){ _, individual ->
+                    handleImageError(individual as ImageError)
+                }
             }
         }
     }
@@ -170,9 +184,18 @@ class ArchiveUploadViewModel @Inject constructor(
         val request = file?.let { UploadFileRequestVo(UploadFileType.PLUBBING_MAIN, it) } ?: return
         viewModelScope.launch {
             postUploadFileUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessUploadImage)
+                inspectUiState(state, ::handleSuccessUploadImage){ _, individual ->
+                    handleImageError(individual as ImageError)
+                }
             }
 
+        }
+    }
+
+    private fun handleImageError(imageError: ImageError){
+        when(imageError){
+            ImageError.Common -> {}
+            ImageError.FailUpload -> emitEventFlow(ArchiveEvent.FailUpload)
         }
     }
 
@@ -217,7 +240,9 @@ class ArchiveUploadViewModel @Inject constructor(
             CreateArchiveRequestVo(plubbingId, ArchiveContentRequestVo(editText, mergeList))
         viewModelScope.launch {
             postCreateArchiveUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessCreateArchive)
+                inspectUiState(state, ::handleSuccessCreateArchive){ _, individual ->
+                    handleArchiveError(individual as ArchiveError)
+                }
             }
         }
     }
@@ -246,7 +271,9 @@ class ArchiveUploadViewModel @Inject constructor(
         )
         viewModelScope.launch {
             putEditArchiveUseCase(request).collect { state ->
-                inspectUiState(state, { handleSuccessEditArchive() })
+                inspectUiState(state, { handleSuccessEditArchive() }){ _, individual ->
+                    handleArchiveError(individual as ArchiveError)
+                }
             }
         }
     }
