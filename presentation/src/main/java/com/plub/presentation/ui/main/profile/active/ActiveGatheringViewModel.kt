@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ActiveGatheringViewModel @Inject constructor(
-    private val getMyPostUseCase: GetMyPostUseCase,
+    private val getMyPostUseCase: GetMyPageUseCase,
     private val getMyToDoWithTitleUseCase: GetMyToDoWithTitleUseCase,
     private val putTodoCompleteUseCase: PutTodoCompleteUseCase,
     private val postUploadFileUseCase: PostUploadFileUseCase,
