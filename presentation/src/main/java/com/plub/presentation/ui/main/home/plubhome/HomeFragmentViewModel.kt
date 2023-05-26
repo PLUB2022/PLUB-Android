@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.main.home.plubhome
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.CategoryError
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.enums.HomeViewType
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.home.HomePlubListVo
@@ -59,10 +61,36 @@ class HomeFragmentViewModel @Inject constructor(
     fun clickBookmark(plubbingId: Int) {
         viewModelScope.launch {
             postBookmarkPlubRecruitUseCase(plubbingId).collect {
-                inspectUiState(it, ::postBookmarkSuccess)
+                inspectUiState(it, ::postBookmarkSuccess){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
     }
+
+    private fun handleGatheringError(gatheringError: GatheringError){
+        when(gatheringError){
+            is GatheringError.AlreadyAccepted -> TODO()
+            is GatheringError.AlreadyApplied -> TODO()
+            is GatheringError.AlreadyFinish -> TODO()
+            is GatheringError.AlreadyRecruitDone -> TODO()
+            is GatheringError.AlreadyRejected -> TODO()
+            GatheringError.Common -> TODO()
+            is GatheringError.FullMemberPlubbing -> TODO()
+            is GatheringError.HostCannotApply -> TODO()
+            is GatheringError.LimitMaxPlubbing -> TODO()
+            is GatheringError.LimitPullUp -> TODO()
+            is GatheringError.NotAppliedApplicant -> TODO()
+            is GatheringError.NotFoundPlubbing -> TODO()
+            is GatheringError.NotFoundQuestion -> TODO()
+            is GatheringError.NotFoundRecruit -> TODO()
+            is GatheringError.NotFoundSubCategory -> TODO()
+            is GatheringError.NotHost -> TODO()
+            is GatheringError.NotJoinedPlubbing -> TODO()
+            is GatheringError.NotMemberPlubbing -> TODO()
+        }
+    }
+
 
     private fun postBookmarkSuccess(vo: PlubBookmarkResponseVo) {
         val list = uiState.homePlubList.value
@@ -90,25 +118,38 @@ class HomeFragmentViewModel @Inject constructor(
             gatheringList.clear()
             val jobCategories: Job = launch {
                 getCategoriesUseCase(Unit).collect { state ->
-                    inspectUiState(state, ::handleGetCategoriesSuccess)
+                    inspectUiState(state, ::handleGetCategoriesSuccess){ _, individual ->
+                        handleCategoryError(individual as CategoryError)
+                    }
                 }
             }
 
             val jobMyInterest: Job = launch {
                 getMyInterestUseCase(Unit).collect { state ->
-                    inspectUiState(state, ::handleGetMyInterestSuccess)
+                    inspectUiState(state, ::handleGetMyInterestSuccess){ _, individual ->
+                        handleCategoryError(individual as CategoryError)
+                    }
                 }
             }
 
             val jobRecommend: Job = launch {
                 getRecommendationGatheringUsecase(cursorId).collect { state ->
-                    inspectUiState(state, ::handleGetRecommendGatheringSuccess)
+                    inspectUiState(state, ::handleGetRecommendGatheringSuccess){ _, individual ->
+                        handleGatheringError(individual as GatheringError)
+                    }
                 }
             }
 
             joinAll(jobCategories, jobMyInterest, jobRecommend)
             isNetworkCall = false
             updatePlubGatheringList(categoryList + noHobbyList + gatheringList)
+        }
+    }
+
+    private fun handleCategoryError(categoryError: CategoryError){
+        when(categoryError){
+            CategoryError.Common -> TODO()
+            is CategoryError.NotFoundCategory -> TODO()
         }
     }
 
@@ -175,7 +216,9 @@ class HomeFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             getRecommendationGatheringUsecase(cursorId)
                 .collect { state ->
-                    inspectUiState(state, ::handleGetNextRecommendGatheringSuccess)
+                    inspectUiState(state, ::handleGetNextRecommendGatheringSuccess){ _, individual ->
+                        handleGatheringError(individual as GatheringError)
+                    }
                 }
         }
     }
