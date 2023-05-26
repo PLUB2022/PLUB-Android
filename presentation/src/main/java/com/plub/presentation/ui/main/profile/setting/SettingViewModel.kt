@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.profile.setting
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.AccountError
 import com.plub.domain.usecase.GetLogoutUseCase
 import com.plub.domain.usecase.PostRevokeUseCase
 import com.plub.domain.usecase.PutChangePushNotificationUseCase
@@ -88,8 +89,26 @@ class SettingViewModel @Inject constructor(
     fun onClickInactivation(){
         viewModelScope.launch {
             putInactiveUseCase(false).collect{
-                inspectUiState(it, {goToLogin()})
+                inspectUiState(it, {goToLogin()}){ _, individual ->
+                    handleAccountError(individual as AccountError)
+                }
             }
+        }
+    }
+
+    private fun handleAccountError(accountError: AccountError) {
+        when (accountError) {
+            is AccountError.AlreadyInactiveAccount -> TODO()
+            AccountError.Common -> TODO()
+            is AccountError.DuplicatedEmail -> TODO()
+            is AccountError.DuplicatedNickname -> TODO()
+            is AccountError.InvalidNickname -> TODO()
+            is AccountError.InvalidSocialType -> TODO()
+            is AccountError.NicknameChangeLimit -> TODO()
+            is AccountError.NotFoundAccount -> TODO()
+            is AccountError.RoleAccess -> TODO()
+            is AccountError.SelfReport -> TODO()
+            is AccountError.SuspendedAccount -> TODO()
         }
     }
 

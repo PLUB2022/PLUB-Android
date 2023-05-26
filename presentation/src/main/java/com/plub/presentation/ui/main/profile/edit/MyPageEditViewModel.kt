@@ -6,6 +6,8 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import androidx.lifecycle.viewModelScope
 import com.canhub.cropper.CropImageView
+import com.plub.domain.error.AccountError
+import com.plub.domain.error.ImageError
 import com.plub.domain.error.NicknameError
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.UploadFileType
@@ -21,6 +23,7 @@ import com.plub.domain.usecase.PostUpdateMyInfoUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
+import com.plub.presentation.ui.main.archive.ArchiveEvent
 import com.plub.presentation.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -193,16 +196,27 @@ class MyPageEditViewModel @Inject constructor(
         viewModelScope.launch {
             if(uiState.profileImage.value.isNullOrEmpty())
                 postUploadFileUseCase(UploadFileRequestVo(UploadFileType.PROFILE, file)).collect{
-                    inspectUiState(it, ::handleUploadImageSuccess)
+                    inspectUiState(it, ::handleUploadImageSuccess){ _, individual ->
+                        handleImageError(individual as ImageError)
+                    }
                 }
             else
                 uiState.profileImage.value?.let{
                     postChangeFileUseCase(ChangeFileRequestVo(UploadFileType.PROFILE,
                         it, file)).collect{
-                        inspectUiState(it, ::handleUploadImageSuccess)
+                        inspectUiState(it, ::handleUploadImageSuccess){ _, individual ->
+                            handleImageError(individual as ImageError)
+                        }
                     }
                 }
 
+        }
+    }
+
+    private fun handleImageError(imageError: ImageError){
+        when(imageError){
+            ImageError.Common -> {}
+            ImageError.FailUpload -> emitEventFlow(ArchiveEvent.FailUpload)
         }
     }
 
@@ -257,8 +271,26 @@ class MyPageEditViewModel @Inject constructor(
         )
         viewModelScope.launch {
             postUpdateMyInfoUseCase(request).collect{
-                inspectUiState(it , ::handleUpdateMyInfoSuccess)
+                inspectUiState(it , ::handleUpdateMyInfoSuccess){ _, individual ->
+                    handleAccountError(individual as AccountError)
+                }
             }
+        }
+    }
+
+    private fun handleAccountError(accountError: AccountError) {
+        when (accountError) {
+            is AccountError.AlreadyInactiveAccount -> TODO()
+            AccountError.Common -> TODO()
+            is AccountError.DuplicatedEmail -> TODO()
+            is AccountError.DuplicatedNickname -> TODO()
+            is AccountError.InvalidNickname -> TODO()
+            is AccountError.InvalidSocialType -> TODO()
+            is AccountError.NicknameChangeLimit -> TODO()
+            is AccountError.NotFoundAccount -> TODO()
+            is AccountError.RoleAccess -> TODO()
+            is AccountError.SelfReport -> TODO()
+            is AccountError.SuspendedAccount -> TODO()
         }
     }
 

@@ -18,15 +18,21 @@ import javax.inject.Inject
 
 class ApplicantsRepositoryImpl @Inject constructor(private val recruitApi: RecruitApi) : ApplicantsRepository, BaseRepository() {
     override suspend fun seeApplicants(request: Int): Flow<UiState<HostApplicantsResponseVo>> {
-        return apiLaunch(recruitApi.seeApplicants(request), HostSeeApplicantsMapper)
+        return apiLaunch(recruitApi.seeApplicants(request), HostSeeApplicantsMapper) {
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun postApprovalApplicants(requestVo: ReplyApplicantsRecruitRequestVo): Flow<UiState<ReplyApplicantsRecruitResponseVo>> {
-        return apiLaunch(recruitApi.approvalApplicants(requestVo.plubbingId,requestVo.accountId), ReplyApplicantsRecruitMapper)
+        return apiLaunch(recruitApi.approvalApplicants(requestVo.plubbingId,requestVo.accountId), ReplyApplicantsRecruitMapper){
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun postRefuseApplicants(requestVo: ReplyApplicantsRecruitRequestVo): Flow<UiState<ReplyApplicantsRecruitResponseVo>> {
-        return apiLaunch(recruitApi.refuseApplicants(requestVo.plubbingId,requestVo.accountId), ReplyApplicantsRecruitMapper)
+        return apiLaunch(recruitApi.refuseApplicants(requestVo.plubbingId,requestVo.accountId), ReplyApplicantsRecruitMapper){
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun deleteMyApplication(request: Int): Flow<UiState<Unit>> {

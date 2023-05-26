@@ -5,6 +5,7 @@ import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.MyInfoResponseMapper
 import com.plub.data.mapper.UnitResponseMapper
 import com.plub.domain.UiState
+import com.plub.domain.error.AccountError
 import com.plub.domain.model.vo.account.MyInfoResponseVo
 import com.plub.domain.model.vo.account.UpdateMyInfoRequestVo
 import com.plub.domain.repository.AccountRepository
@@ -22,7 +23,9 @@ class AccountRepositoryImpl @Inject constructor(private val accountApi: AccountA
     }
 
     override suspend fun updateMyInfo(request : UpdateMyInfoRequestVo): Flow<UiState<MyInfoResponseVo>> {
-        return apiLaunch(accountApi.updateMyInfo(request), MyInfoResponseMapper)
+        return apiLaunch(accountApi.updateMyInfo(request), MyInfoResponseMapper){
+            AccountError.make(it)
+        }
     }
 
     override suspend fun changePushNotification(request: Boolean): Flow<UiState<Unit>> {
@@ -30,7 +33,9 @@ class AccountRepositoryImpl @Inject constructor(private val accountApi: AccountA
     }
 
     override suspend fun inactive(request: Boolean): Flow<UiState<Unit>> {
-        return apiLaunch(accountApi.inactive(request), UnitResponseMapper)
+        return apiLaunch(accountApi.inactive(request), UnitResponseMapper){
+            AccountError.make(it)
+        }
     }
 
     override suspend fun revoke(): Flow<UiState<Unit>> {

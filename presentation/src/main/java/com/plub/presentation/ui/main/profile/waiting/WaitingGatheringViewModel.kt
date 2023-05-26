@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.profile.waiting
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.enums.MyPageDetailViewType
 import com.plub.domain.model.vo.home.recruitDetailVo.host.AccountsVo
 import com.plub.domain.model.vo.myPage.MyPageDetailTitleVo
@@ -80,8 +81,33 @@ class WaitingGatheringViewModel @Inject constructor(
     fun deleteMyApplication(){
         viewModelScope.launch{
             deleteMyApplicationUseCase.invoke(plubbingId).collect{
-                inspectUiState(it, { handleSuccessDelete() })
+                inspectUiState(it, { handleSuccessDelete() }){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
+        }
+    }
+
+    private fun handleGatheringError(gatheringError: GatheringError) {
+        when (gatheringError) {
+            is GatheringError.AlreadyAccepted -> TODO()
+            is GatheringError.AlreadyApplied -> TODO()
+            is GatheringError.AlreadyFinish -> TODO()
+            is GatheringError.AlreadyRecruitDone -> TODO()
+            is GatheringError.AlreadyRejected -> TODO()
+            GatheringError.Common -> TODO()
+            is GatheringError.FullMemberPlubbing -> TODO()
+            is GatheringError.HostCannotApply -> TODO()
+            is GatheringError.LimitMaxPlubbing -> TODO()
+            is GatheringError.LimitPullUp -> TODO()
+            is GatheringError.NotAppliedApplicant -> TODO()
+            is GatheringError.NotFoundPlubbing -> TODO()
+            is GatheringError.NotFoundQuestion -> TODO()
+            is GatheringError.NotFoundRecruit -> TODO()
+            is GatheringError.NotFoundSubCategory -> TODO()
+            is GatheringError.NotHost -> TODO()
+            is GatheringError.NotJoinedPlubbing -> TODO()
+            is GatheringError.NotMemberPlubbing -> TODO()
         }
     }
 

@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.profile.recruiting
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.enums.MyPageDetailViewType
 import com.plub.domain.model.vo.home.applicantsRecruitVo.replyVo.ReplyApplicantsRecruitRequestVo
 import com.plub.domain.model.vo.home.recruitDetailVo.host.AccountsVo
@@ -43,12 +44,39 @@ class RecruitingGatheringViewModel @Inject constructor(
         this.plubbingId = id
         viewModelScope.launch {
             fetchPlubingMainUseCase(plubbingId).collect {
-                inspectUiState(it, ::onSuccessPlubingMainInfo)
+                inspectUiState(it, ::onSuccessPlubingMainInfo){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
 
             getRecruitApplicantsUseCase(plubbingId).collect {
-                inspectUiState(it, ::handleGetApplicantsSuccess)
+                inspectUiState(it, ::handleGetApplicantsSuccess){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
+        }
+    }
+
+    private fun handleGatheringError(gatheringError: GatheringError) {
+        when (gatheringError) {
+            is GatheringError.AlreadyAccepted -> TODO()
+            is GatheringError.AlreadyApplied -> TODO()
+            is GatheringError.AlreadyFinish -> TODO()
+            is GatheringError.AlreadyRecruitDone -> TODO()
+            is GatheringError.AlreadyRejected -> TODO()
+            GatheringError.Common -> TODO()
+            is GatheringError.FullMemberPlubbing -> TODO()
+            is GatheringError.HostCannotApply -> TODO()
+            is GatheringError.LimitMaxPlubbing -> TODO()
+            is GatheringError.LimitPullUp -> TODO()
+            is GatheringError.NotAppliedApplicant -> TODO()
+            is GatheringError.NotFoundPlubbing -> TODO()
+            is GatheringError.NotFoundQuestion -> TODO()
+            is GatheringError.NotFoundRecruit -> TODO()
+            is GatheringError.NotFoundSubCategory -> TODO()
+            is GatheringError.NotHost -> TODO()
+            is GatheringError.NotJoinedPlubbing -> TODO()
+            is GatheringError.NotMemberPlubbing -> TODO()
         }
     }
 
@@ -111,7 +139,9 @@ class RecruitingGatheringViewModel @Inject constructor(
             postApprovalApplicantsRecruitUseCase(
                 ReplyApplicantsRecruitRequestVo(plubbingId, accountId)
             ).collect { state ->
-                inspectUiState(state, succeedCallback = { handleReplySuccess(accountId) })
+                inspectUiState(state, succeedCallback = { handleReplySuccess(accountId) }){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
     }
@@ -128,7 +158,9 @@ class RecruitingGatheringViewModel @Inject constructor(
             postRefuseApplicantsRecruitUseCase(
                 ReplyApplicantsRecruitRequestVo(plubbingId, accountId)
             ).collect { state ->
-                inspectUiState(state, succeedCallback = { handleReplySuccess(accountId) })
+                inspectUiState(state, succeedCallback = { handleReplySuccess(accountId) }){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
     }
