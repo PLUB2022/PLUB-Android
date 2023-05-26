@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.categoryGathering
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.enums.*
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.common.SelectedHobbyVo
@@ -73,9 +74,34 @@ class CategoryGatheringViewModel @Inject constructor(
             categoriesGatheringUseCase(
                 CategoriesGatheringRequestVo(paramsVo, bodyVo)
             ).collect { state ->
-                inspectUiState(state, ::successResult)
+                inspectUiState(state, ::successResult) { _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
+
+    private fun handleGatheringError(gatheringError: GatheringError){
+        when(gatheringError){
+            is GatheringError.AlreadyAccepted -> TODO()
+            is GatheringError.AlreadyApplied -> TODO()
+            is GatheringError.AlreadyFinish -> TODO()
+            is GatheringError.AlreadyRecruitDone -> TODO()
+            is GatheringError.AlreadyRejected -> TODO()
+            GatheringError.Common -> TODO()
+            is GatheringError.FullMemberPlubbing -> TODO()
+            is GatheringError.HostCannotApply -> TODO()
+            is GatheringError.LimitMaxPlubbing -> TODO()
+            is GatheringError.LimitPullUp -> TODO()
+            is GatheringError.NotAppliedApplicant -> TODO()
+            is GatheringError.NotFoundPlubbing -> TODO()
+            is GatheringError.NotFoundQuestion -> TODO()
+            is GatheringError.NotFoundRecruit -> TODO()
+            is GatheringError.NotFoundSubCategory -> TODO()
+            is GatheringError.NotHost -> TODO()
+            is GatheringError.NotJoinedPlubbing -> TODO()
+            is GatheringError.NotMemberPlubbing -> TODO()
+        }
+    }
 
 
     fun updateSortTypeName(sortType : PlubSortType){
@@ -118,7 +144,9 @@ class CategoryGatheringViewModel @Inject constructor(
             categoriesGatheringUseCase(
                 CategoriesGatheringRequestVo(paramsVo, bodyVo)
             ).collect { state ->
-                inspectUiState(state, ::successResult)
+                inspectUiState(state, ::successResult){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
 
@@ -168,7 +196,9 @@ class CategoryGatheringViewModel @Inject constructor(
     fun clickBookmark(plubbingId: Int) {
         viewModelScope.launch {
             postBookmarkPlubRecruitUseCase(plubbingId).collect {
-                inspectUiState(it, ::postBookmarkSuccess)
+                inspectUiState(it, ::postBookmarkSuccess){ _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                }
             }
         }
     }

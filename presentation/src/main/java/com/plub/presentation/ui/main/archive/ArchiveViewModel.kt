@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.canhub.cropper.CropImageView
 import com.plub.domain.error.ArchiveError
 import com.plub.domain.error.ImageError
-import com.plub.domain.error.SignUpError
 import com.plub.domain.model.enums.ArchiveAccessType
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.UploadFileType
@@ -20,7 +19,6 @@ import com.plub.domain.usecase.GetDetailArchiveUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.util.ImageUtil
-import com.plub.presentation.util.PlubToast
 import com.plub.presentation.util.PlubingInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

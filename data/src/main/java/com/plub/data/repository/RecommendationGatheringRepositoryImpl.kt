@@ -5,6 +5,7 @@ import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.PlubCardListResponseMapper
 import com.plub.data.mapper.categoryGatheringMapper.CategoryGatheringBodyRequestMapper
 import com.plub.domain.UiState
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.vo.home.categoriesGatheringVo.CategoriesGatheringBodyRequestVo
 import com.plub.domain.model.vo.home.categoriesGatheringVo.CategoriesGatheringParamsVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
@@ -14,7 +15,9 @@ import javax.inject.Inject
 
 class RecommendationGatheringRepositoryImpl @Inject constructor(private val homeApi: HomeApi) : RecommendationGatheringRepository, BaseRepository() {
     override suspend fun getRecommendationGatheringList(request: Int): Flow<UiState<PlubCardListVo>> {
-        return apiLaunch(homeApi.fetchRecommendationGathering(request), PlubCardListResponseMapper)
+        return apiLaunch(homeApi.fetchRecommendationGathering(request), PlubCardListResponseMapper){
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun getCategoriesGatheringList(request: CategoriesGatheringParamsVo, requestBody: CategoriesGatheringBodyRequestVo): Flow<UiState<PlubCardListVo>> {
@@ -22,6 +25,8 @@ class RecommendationGatheringRepositoryImpl @Inject constructor(private val home
         return apiLaunch(homeApi.fetchCategoriesGathering(
             request.categoryId,
             request.sort,
-            request.pageNumber, body), PlubCardListResponseMapper)
+            request.pageNumber, body), PlubCardListResponseMapper){
+            GatheringError.make(it)
+        }
     }
 }

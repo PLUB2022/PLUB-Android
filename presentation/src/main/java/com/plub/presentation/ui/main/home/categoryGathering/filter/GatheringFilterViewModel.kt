@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.categoryGathering.filter
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.CategoryError
 import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.vo.common.SelectedHobbyVo
 import com.plub.domain.model.vo.common.SubHobbyVo
@@ -9,7 +10,6 @@ import com.plub.domain.usecase.GetSubHobbiesUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParseCategoryFilterVo
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.ResourceProvider
 import com.plub.presentation.util.addOrRemoveElementAfterReturnNewHashSet
 import com.plub.presentation.util.removeElementAfterReturnNewHashSet
@@ -60,8 +60,17 @@ class GatheringFilterViewModel @Inject constructor(
         this.categoryName = categoryName
         viewModelScope.launch {
             getSubHobbiesUseCase(categoryId).collect{
-                inspectUiState(it, ::handleSuccessFetchSubHobbies)
+                inspectUiState(it, ::handleSuccessFetchSubHobbies) { _, individual ->
+                    handleCategoryError(individual as CategoryError)
+                }
             }
+        }
+    }
+
+    private fun handleCategoryError(categoryError: CategoryError){
+        when(categoryError){
+            CategoryError.Common -> TODO()
+            is CategoryError.NotFoundCategory -> TODO()
         }
     }
 

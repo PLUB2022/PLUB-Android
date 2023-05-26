@@ -5,6 +5,7 @@ import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.PlubBookmarkResponseMapper
 import com.plub.data.mapper.PlubCardListResponseMapper
 import com.plub.domain.UiState
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
 import com.plub.domain.repository.BookmarkRepository
@@ -16,10 +17,14 @@ class BookmarkRepositoryImpl @Inject constructor(
 ) : BookmarkRepository, BaseRepository() {
 
     override suspend fun bookmarkPlubRecruit(id:Int): Flow<UiState<PlubBookmarkResponseVo>> {
-        return apiLaunch(bookmarkApi.plubBookmark(id), PlubBookmarkResponseMapper)
+        return apiLaunch(bookmarkApi.plubBookmark(id), PlubBookmarkResponseMapper) {
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun getMyPlubBookmarks(id: Int): Flow<UiState<PlubCardListVo>> {
-        return apiLaunch(bookmarkApi.getMyPlubBookmarks(id), PlubCardListResponseMapper)
+        return apiLaunch(bookmarkApi.getMyPlubBookmarks(id), PlubCardListResponseMapper){
+            GatheringError.make(it)
+        }
     }
 }
