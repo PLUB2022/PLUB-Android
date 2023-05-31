@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.plubing.todo.planner
 import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plub.domain.model.enums.DialogMenuType
@@ -124,6 +125,7 @@ class TodoPlannerFragment :
             }
             is TodoPlannerEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.menuType, event.todoVo)
             is TodoPlannerEvent.ShowTodoProofDialog -> showTodoProofDialog(event.parseTodoItemVo)
+            is TodoPlannerEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 

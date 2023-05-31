@@ -384,4 +384,8 @@ class TodoPlannerViewModel @Inject constructor(
         emitEventFlow(TodoPlannerEvent.ClearTodoEditText)
         emitEventFlow(TodoPlannerEvent.HideKeyboard)
     }
+
+    fun goToBack(){
+        emitEventFlow(TodoPlannerEvent.GoToBack)
+    }
 }
