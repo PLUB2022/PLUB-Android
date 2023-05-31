@@ -84,6 +84,9 @@ class PlubingAddOrEditScheduleFragment : BaseFragment<
                 val action = PlubingAddOrEditScheduleFragmentDirections.actionPlubingAddScheduleToPlubingSchedule(event.plubbingId, args.plubingName)
                 findNavController().navigate(action)
             }
+            is PlubingAddOrEditScheduleEvent.GoToBack -> {
+                findNavController().popBackStack()
+            }
         }
     }
 

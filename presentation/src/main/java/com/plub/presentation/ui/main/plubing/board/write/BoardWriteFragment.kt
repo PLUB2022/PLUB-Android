@@ -119,6 +119,9 @@ class BoardWriteFragment :
                 setNavigationResult(KEY_RESULT_CREATE_COMPLETE, "")
                 findNavController().popBackStack()
             }
+            is BoardWriteEvent.GoToBack -> {
+                findNavController().popBackStack()
+            }
         }
     }
 

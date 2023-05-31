@@ -336,4 +336,8 @@ class BoardWriteViewModel @Inject constructor(
             editImageUrlStateFlow.update { imageUrl }
         }
     }
+
+    fun goToBack(){
+        emitEventFlow(BoardWriteEvent.GoToBack)
+    }
 }

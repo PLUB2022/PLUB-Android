@@ -382,4 +382,8 @@ class BoardDetailViewModel @Inject constructor(
             commentListStateFlow.update { list }
         }
     }
+
+    fun goToBack(){
+        emitEventFlow(BoardDetailEvent.GoToBack)
+    }
 }

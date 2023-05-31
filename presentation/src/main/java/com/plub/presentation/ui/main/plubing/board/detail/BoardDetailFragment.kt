@@ -118,6 +118,7 @@ class BoardDetailFragment :
             is BoardDetailEvent.GoToReportBoard -> goToFeedReport(event.plubingId, event.feedId)
             is BoardDetailEvent.GoToReportComment -> goToCommentReport(event.plubingId, event.commentId)
             is BoardDetailEvent.Finish -> finish()
+            is BoardDetailEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 

@@ -1,10 +1,7 @@
 package com.plub.presentation.ui.main.plubing.todo.planner
 
-import android.content.Context
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +15,6 @@ import com.plub.presentation.ui.common.decoration.CalendarDotDecorator
 import com.plub.presentation.ui.common.decoration.CalendarTodayDecorator
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.todo.TodoCheckProofDialog
-import com.plub.presentation.ui.main.plubing.board.detail.BoardDetailFragmentArgs
 import com.plub.presentation.ui.main.plubing.todo.adapter.TodoItemAdapter
 import com.plub.presentation.util.hideKeyboard
 import com.plub.presentation.util.showKeyboard

@@ -28,24 +28,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/image_view_menu_collapsed"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="7dp"
-            android:src="@drawable/ic_menu_black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
             android:id="@+id/image_view_archive_collapsed"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="2dp"
             app:onThrottleClick="@{()->vm.goToArchive()}"
+            android:layout_marginTop="11dp"
+            app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/ic_archive_black"
-            app:layout_constraintEnd_toStartOf="@+id/image_view_menu_collapsed"
-            app:layout_constraintTop_toTopOf="@id/image_view_menu_collapsed" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
             android:id="@+id/image_view_notice_collapsed"
