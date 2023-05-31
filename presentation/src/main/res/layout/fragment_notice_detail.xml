@@ -43,7 +43,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/image_view_back"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image_view_back"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/image_view_back"
             tools:text="요란한 한 줄" />
 

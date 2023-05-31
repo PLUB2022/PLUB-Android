@@ -378,6 +378,7 @@
     <string name="my_page_complete_answer">%s 답변 작성완료</string>
 
     <string name="notice_list_title">공지사항</string>
+    <string name="notice_title">[%s]</string>
     <string name="notice_list_create_notice">새 글 작성</string>
     <string name="notice_write_title_text">공지 제목</string>
     <string name="notice_write_content_text">전달할 내용</string>
