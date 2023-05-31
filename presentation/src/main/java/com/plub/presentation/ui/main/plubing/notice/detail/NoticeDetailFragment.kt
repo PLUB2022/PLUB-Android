@@ -110,6 +110,7 @@ class NoticeDetailFragment :
             is NoticeDetailEvent.GoToReportNotice -> goToReport()
             is NoticeDetailEvent.GoToReportComment -> goToReport()
             is NoticeDetailEvent.Finish -> finish()
+            is NoticeDetailEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 

@@ -176,4 +176,8 @@ class NoticeViewModel @Inject constructor(
             plubingNameStateFlow.update { name }
         }
     }
+
+    fun goToBack(){
+        emitEventFlow(NoticeEvent.GoToBack)
+    }
 }

@@ -89,6 +89,7 @@ class NoticeFragment : BaseTestFragment<FragmentNoticeBinding, NoticePageState, 
             is NoticeEvent.GoToDetailNotice -> goToDetailNotice(event.noticeType, event.noticeId)
             is NoticeEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.menuType, event.noticeVo)
             is NoticeEvent.GoToWriteNotice -> goToWriteNotice(event.writeType, event.vo)
+            is NoticeEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 

@@ -373,4 +373,8 @@ class NoticeDetailViewModel @Inject constructor(
             commentListStateFlow.update { list }
         }
     }
+
+    fun goToBack(){
+        emitEventFlow(NoticeDetailEvent.GoToBack)
+    }
 }
