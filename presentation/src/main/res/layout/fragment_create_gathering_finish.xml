@@ -20,28 +20,27 @@
         android:paddingHorizontal="16dp"
         tools:context=".ui.main.gathering.create.finish.CreateGatheringFinishFragment">
 
-        <ImageView
-            android:id="@+id/image_view_finish"
-            android:layout_width="262dp"
-            android:layout_height="262dp"
-            android:layout_marginBottom="16dp"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_finish"
+            android:layout_width="360dp"
+            android:layout_height="360dp"
             android:contentDescription="@string/create_gathering_finish_image_descriptor"
-            app:layout_constraintBottom_toTopOf="@id/text_view_description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:background="@color/black" />
+            app:layout_constraintBottom_toTopOf="@id/button_show_my_article"
+            android:layout_marginBottom="157dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/text_view_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="103dp"
             android:text="@string/create_gathering_finish_description"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/button_show_my_article"
+            app:layout_constraintBottom_toBottomOf="@id/lottie_finish"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

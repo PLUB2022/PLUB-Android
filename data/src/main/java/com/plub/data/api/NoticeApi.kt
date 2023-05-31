@@ -26,7 +26,7 @@ interface NoticeApi {
     }
 
     @GET(Endpoints.NOTICE.NOTICE_URL)
-    suspend fun getAppNotice(): Response<ApiResponse<AppNoticeListResponse>>
+    suspend fun getAppNotice(): Response<ApiResponse<AppNoticeDataResponse>>
 
     @GET(Endpoints.NOTICE.NOTICE_DETAIL)
     suspend fun getAppNoticeDetail(

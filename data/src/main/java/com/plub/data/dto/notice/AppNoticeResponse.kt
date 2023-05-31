@@ -10,8 +10,8 @@ data class AppNoticeResponse(
     val title: String = "",
     @SerializedName("content")
     val content: String = "",
-    @SerializedName("createAt")
-    val createAt: String = "",
+    @SerializedName("createdAt")
+    val createdAt: String = "",
     @SerializedName("updatedAt")
     val updatedAt: String = ""
 ) : DataDto

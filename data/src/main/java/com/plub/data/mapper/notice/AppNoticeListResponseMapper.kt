@@ -1,17 +1,17 @@
 package com.plub.data.mapper.notice
 
 import com.plub.data.base.Mapper
-import com.plub.data.dto.notice.AppNoticeListResponse
+import com.plub.data.dto.notice.AppNoticeDataResponse
 import com.plub.domain.model.vo.notice.NoticeListVo
 
-object AppNoticeListResponseMapper : Mapper.ResponseMapper<AppNoticeListResponse, NoticeListVo> {
+object AppNoticeListResponseMapper : Mapper.ResponseMapper<AppNoticeDataResponse, NoticeListVo> {
     private val appNoticeResponseMapper = AppNoticeResponseMapper
 
-    override fun mapDtoToModel(type: AppNoticeListResponse?): NoticeListVo {
+    override fun mapDtoToModel(type: AppNoticeDataResponse?): NoticeListVo {
         return type?.run {
             NoticeListVo(
-                last = last,
-                content = content.map {
+                last = announcementList.last,
+                content = announcementList.content.map {
                     appNoticeResponseMapper.mapDtoToModel(it)
                 }
             )
