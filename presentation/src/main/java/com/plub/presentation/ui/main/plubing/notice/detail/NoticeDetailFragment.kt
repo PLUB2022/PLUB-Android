@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.WriteType
+import com.plub.domain.model.sealed.ReportType
 import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.notice.NoticeVo
@@ -107,8 +108,8 @@ class NoticeDetailFragment :
             is NoticeDetailEvent.ShowKeyboard -> showKeyboard()
             is NoticeDetailEvent.ScrollToPosition -> scrollToPosition(event.position)
             is NoticeDetailEvent.GoToEditNotice -> goToEditBoard(event.noticeId)
-            is NoticeDetailEvent.GoToReportNotice -> goToReport()
-            is NoticeDetailEvent.GoToReportComment -> goToReport()
+            is NoticeDetailEvent.GoToReportNotice -> {}
+            is NoticeDetailEvent.GoToReportComment -> goToReport(event.plubingId, event.commentId)
             is NoticeDetailEvent.Finish -> finish()
             is NoticeDetailEvent.GoToBack -> findNavController().popBackStack()
         }
@@ -144,7 +145,10 @@ class NoticeDetailFragment :
         findNavController().navigate(action)
     }
 
-    private fun goToReport() {
-
+    private fun goToReport(plubbingId : Int, commentId : Int) {
+        val action = BoardDetailFragmentDirections.actionPlubingBoardDetailToReport(
+            type = ReportType.NoticeCommentReport(plubbingId =  plubbingId, commentId = commentId)
+        )
+        findNavController().navigate(action)
     }
 }

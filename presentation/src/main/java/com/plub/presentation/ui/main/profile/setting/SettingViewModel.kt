@@ -95,7 +95,7 @@ class SettingViewModel @Inject constructor(
 
     fun onClickInactivation(){
         viewModelScope.launch {
-            putInactiveUseCase(false).collect{
+            putInactiveUseCase(true).collect{
                 inspectUiState(it, {goToLogin()})
             }
         }
