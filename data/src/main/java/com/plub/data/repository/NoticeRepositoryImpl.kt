@@ -64,7 +64,7 @@ class NoticeRepositoryImpl @Inject constructor(private val noticeApi: NoticeApi)
     }
 
     override suspend fun commentDelete(request: NoticeRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(noticeApi.deleteComment(request.plubbingId, request.noticeId, request.commentId), UnitResponseMapper)
+        return apiLaunch(noticeApi.deleteComment(request.plubbingId, request.commentId), UnitResponseMapper)
     }
 
     override suspend fun commentEdit(request: NoticeCommentEditRequestVo): Flow<UiState<BoardCommentVo>> {

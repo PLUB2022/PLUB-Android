@@ -73,7 +73,6 @@ interface NoticeApi {
     @DELETE(Endpoints.PLUBBING.NOTICE.COMMENT_DELETE)
     suspend fun deleteComment(
         @Path(PATH_PLUBING_ID) plubbingId: Int,
-        @Path(PATH_NOTICE_ID) noticeId: Int,
         @Path(PATH_COMMENT_ID) commentId: Int
     ): Response<ApiResponse<DataDto.DTO>>
 
