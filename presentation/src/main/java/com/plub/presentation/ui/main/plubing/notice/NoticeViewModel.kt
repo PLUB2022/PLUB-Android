@@ -29,8 +29,10 @@ class NoticeViewModel @Inject constructor(
 
     private val noticeListStateFlow: MutableStateFlow<List<NoticeVo>> = MutableStateFlow(emptyList())
     private val plubingNameStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val noticeTypeStateFlow : MutableStateFlow<NoticeType> = MutableStateFlow(NoticeType.APP)
 
     override val uiState: NoticePageState = NoticePageState(
+        noticeTypeStateFlow.asStateFlow(),
         noticeListStateFlow.asStateFlow(),
         plubingNameStateFlow.asStateFlow()
     )
@@ -46,6 +48,9 @@ class NoticeViewModel @Inject constructor(
     private var cursorId: Int = FIRST_CURSOR
 
     fun initArgs(noticeType: NoticeType) {
+        viewModelScope.launch {
+            noticeTypeStateFlow.update { noticeType }
+        }
         this.noticeType = noticeType
     }
 

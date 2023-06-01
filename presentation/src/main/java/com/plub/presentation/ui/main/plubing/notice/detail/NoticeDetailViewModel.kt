@@ -162,7 +162,7 @@ class NoticeDetailViewModel @Inject constructor(
     }
 
     fun onGetNoticeComments() {
-        if(commentListStateFlow.value.isNotEmpty()) return
+        if(commentListStateFlow.value.isNotEmpty() || noticeType == NoticeType.APP) return
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR

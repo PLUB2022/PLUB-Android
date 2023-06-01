@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
+        <import type="com.plub.domain.model.enums.NoticeType" />
         <variable
             name="vm"
             type="com.plub.presentation.ui.main.plubing.notice.NoticeViewModel" />
@@ -35,13 +37,14 @@
             android:ellipsize="end"
             android:gravity="center"
             android:lines="1"
+            android:visibility="@{vm.uiState.noticeType == NoticeType.APP ? View.GONE : View.VISIBLE}"
             android:text="@{vm.uiState.plubingName}"
             android:textColor="@color/color_363636"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/image_view_back"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image_view_back"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/image_view_back"
             tools:text="요란한 한 줄" />
 
@@ -66,6 +69,7 @@
             android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_40"
             android:paddingHorizontal="10dp"
             android:paddingVertical="8dp"
+            android:visibility="@{vm.uiState.noticeType == NoticeType.APP ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_view_title"
             app:onThrottleClick="@{() -> vm.onClickNoticeCreate()}">
