@@ -1,6 +1,5 @@
 package com.plub.data.repository
 
-import android.util.Log
 import com.plub.data.api.NoticeApi
 import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.BoardCommentListResponseMapper
@@ -29,8 +28,7 @@ import javax.inject.Inject
 
 class NoticeRepositoryImpl @Inject constructor(private val noticeApi: NoticeApi) : NoticeRepository, BaseRepository() {
 
-    override suspend fun getAppNoticeList(request: Unit): Flow<UiState<NoticeListVo>> {
-        Log.d("태크", "나 실행")
+    override suspend fun getAppNoticeList(): Flow<UiState<NoticeListVo>> {
         return apiLaunch(noticeApi.getAppNotice(), AppNoticeListResponseMapper)
     }
 
