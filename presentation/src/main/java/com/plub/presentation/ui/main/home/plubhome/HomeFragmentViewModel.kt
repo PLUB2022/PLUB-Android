@@ -153,6 +153,7 @@ class HomeFragmentViewModel @Inject constructor(
         data.content.forEach { vo ->
             gatheringList.add(getGatheringsVo(vo))
         }
+        if(!isLast) gatheringList.add(HomePlubListVo(viewType = HomeViewType.LOADING))
     }
 
     private fun getGatheringsVo(data: PlubCardVo): HomePlubListVo {
@@ -162,9 +163,10 @@ class HomeFragmentViewModel @Inject constructor(
         )
     }
 
-    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (!isNetworkCall && isBottom && isDownScroll && !isLast) {
+    fun onScrollChanged() {
+        if (!isNetworkCall && !isLast) {
             isNetworkCall = true
+            gatheringList.removeLast()
             cursorUpdate()
             fetchRecommendationGatheringData()
         }
@@ -181,6 +183,7 @@ class HomeFragmentViewModel @Inject constructor(
     }
 
     private fun handleGetNextRecommendGatheringSuccess(data: PlubCardListVo) {
+        isNetworkCall = false
         handleGetRecommendGatheringSuccess(data)
         updatePlubGatheringList(categoryList + noHobbyList + gatheringList)
     }

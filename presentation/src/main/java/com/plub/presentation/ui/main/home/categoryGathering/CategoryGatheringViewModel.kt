@@ -139,7 +139,7 @@ class CategoryGatheringViewModel @Inject constructor(
         isNetworkCall = false
         isLast = vo.last
         val mappedList = mapToCardType(vo.content)
-        val mergedList = getMergeList(mappedList)
+        val mergedList = if(!isLast) getMergeList(mappedList) + listOf(PlubCardVo(viewType = PlubCardType.LOADING)) else getMergeList(mappedList)
         updateCardList(mergedList)
     }
 
@@ -153,7 +153,7 @@ class CategoryGatheringViewModel @Inject constructor(
     }
 
     private fun getMergeList(list: List<PlubCardVo>): List<PlubCardVo> {
-        val originList =  uiState.cardList.value
+        val originList =  uiState.cardList.value.filterNot { it.viewType == PlubCardType.LOADING }
         val mappedList = mapToCardType(list)
         return if (originList.isEmpty() || cursorId == FIRST_CURSOR)  mappedList else originList + mappedList
     }
@@ -242,8 +242,8 @@ class CategoryGatheringViewModel @Inject constructor(
         emitEventFlow(CategoryGatheringEvent.GoToSearch)
     }
 
-    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (!isNetworkCall && isBottom && isDownScroll && !isLast) {
+    fun onScrollChanged() {
+        if (!isNetworkCall && !isLast) {
             cursorUpdate()
             fetchRecommendationGatheringData()
         }
@@ -251,7 +251,7 @@ class CategoryGatheringViewModel @Inject constructor(
 
     private fun cursorUpdate() {
         cursorId = if (cardListStateFlow.value.isEmpty()) FIRST_CURSOR
-        else cardListStateFlow.value.lastOrNull()?.id ?: FIRST_CURSOR
+        else cardListStateFlow.value.filterNot { it.viewType == PlubCardType.LOADING }.lastOrNull()?.id ?: FIRST_CURSOR
     }
 
     fun goToFilter() {
