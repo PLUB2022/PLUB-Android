@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
 import com.canhub.cropper.CropImageView
 import com.plub.domain.model.enums.ArchiveAccessType
+import com.plub.domain.model.enums.ArchiveViewType
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.archive.*
@@ -78,15 +79,15 @@ class ArchiveViewModel @Inject constructor(
     private fun handleSuccessFetchArchives(vo: ArchiveCardResponseVo) {
         isNetworkCall = false
         isLastPage = vo.last
-
+        val mergedList = if(!isLastPage) getMergeList(vo.content) + listOf(ArchiveContentResponseVo(viewType = ArchiveViewType.LOADING)) else getMergeList(vo.content)
         viewModelScope.launch {
             titleStateFlow.update { title }
-            archiveListStateFlow.update { getMergeList(vo.content) }
+            archiveListStateFlow.update { mergedList }
         }
     }
 
     private fun getMergeList(list: List<ArchiveContentResponseVo>): List<ArchiveContentResponseVo> {
-        val originList = uiState.archiveList.value
+        val originList = uiState.archiveList.value.filterNot { it.viewType == ArchiveViewType.LOADING }
         return if (originList.isEmpty() || cursorId == FIRST_CURSOR) list else originList + list
     }
 
@@ -102,7 +103,7 @@ class ArchiveViewModel @Inject constructor(
 
     private fun cursorUpdate() {
         cursorId = if (uiState.archiveList.value.isEmpty()) FIRST_CURSOR
-        else uiState.archiveList.value.lastOrNull()?.sequence ?: FIRST_CURSOR
+        else uiState.archiveList.value.filterNot { it.viewType == ArchiveViewType.LOADING }.lastOrNull()?.sequence ?: FIRST_CURSOR
     }
 
     fun seeDetailDialog(archiveId: Int) {
