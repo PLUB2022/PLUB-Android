@@ -442,4 +442,6 @@
     <string name="report_complete_explain_text">신고해 주셔서 감사합니다. 더 나은 서비스를 만들기 위해\n 노력하는 PLUB이 되겠습니다.</string>
     <string name="report_title">신고하기</string>
 
+    <string name="loading_text">로딩중...</string>
+
 </resources>
