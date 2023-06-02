@@ -17,10 +17,12 @@
         android:layout_height="match_parent"
         android:background="@color/color_f5f3f6">
 
-        <ImageView
-            android:id="@+id/image_view_welcome"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_welcome"
             android:layout_width="240dp"
             android:layout_height="240dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             app:layout_constraintBottom_toTopOf="@+id/text_view_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
