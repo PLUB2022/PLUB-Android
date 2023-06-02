@@ -43,15 +43,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
                 movementMethod = LinkMovementMethod.getInstance()
                 highlightColor = Color.TRANSPARENT
             }
-
-            textViewSignUp.onThrottleClick {
-                val action = LoginFragmentDirections.actionLoginToSignUp()
-                findNavController().navigate(action)
-            }
-
-            textViewLoginAdmin.onThrottleClick {
-                viewModel.onAdminLogin()
-            }
         }
     }
 
