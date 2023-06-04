@@ -44,45 +44,9 @@ class ModifyGatheringFragment : BaseFragment
 
             launch {
                 viewModel.eventFlow.collect { event ->
-                    if(event is ModifyGatheringEvent) inspectEventFlow(event)
                 }
             }
 
-        }
-    }
-
-    private fun inspectEventFlow(event: ModifyGatheringEvent) {
-        when(event) {
-            is ModifyGatheringEvent.InitViewPager -> { initViewPager() }
-        }
-    }
-
-    private fun initViewPager() = binding.apply {
-        if(pagerAdapter != null) return@apply
-
-        pagerAdapter = FragmentModifyGatheringPagerAdapter(this@ModifyGatheringFragment, viewModel.uiState.value)
-
-        viewPagerModifyGathering.apply {
-            adapter = pagerAdapter
-            isUserInputEnabled = false
-        }
-
-        TabLayoutMediator(tabLayoutModifyGathering, viewPagerModifyGathering) { tab, position ->
-            tab.customView = getTabView(position)
-        }.attach()
-    }
-
-    private fun getTabView(tabIndex: Int): View {
-        return IncludeTabModifyGatheringBinding.inflate(layoutInflater).apply {
-            textViewTab.text = getTabTitleString(tabIndex)
-        }.root
-    }
-
-    private fun getTabTitleString(tabIndex: Int): String {
-        return when (ModifyGatheringPageType.valueOf(tabIndex)) {
-            ModifyGatheringPageType.RECRUIT -> getString(R.string.modify_gathering_tab_recruit)
-            ModifyGatheringPageType.INFO -> getString(R.string.modify_gathering_tab_info)
-            ModifyGatheringPageType.GUEST_QUESTION -> getString(R.string.modify_gathering_tab_guest)
         }
     }
 }
