@@ -17,13 +17,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="16dp"
         tools:context=".ui.main.gathering.create.finish.CreateGatheringFinishFragment">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_finish"
-            android:layout_width="360dp"
-            android:layout_height="360dp"
+            android:layout_width="match_parent"
+            android:layout_height="380dp"
             android:contentDescription="@string/create_gathering_finish_image_descriptor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/button_show_my_article"
