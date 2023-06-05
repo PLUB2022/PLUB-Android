@@ -4,4 +4,6 @@ import com.plub.presentation.ui.Event
 
 sealed class ModifyGatheringEvent : Event {
     object InitViewPager: ModifyGatheringEvent()
+
+    object GoToBack: ModifyGatheringEvent()
 }

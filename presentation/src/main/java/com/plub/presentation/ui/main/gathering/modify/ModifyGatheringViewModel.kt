@@ -98,4 +98,8 @@ class ModifyGatheringViewModel @Inject constructor(
             isNeedQuestionCheck = data.questions.isNotEmpty()
         )
     }
+
+    fun goToBack() {
+        emitEventFlow(ModifyGatheringEvent.GoToBack)
+    }
 }
