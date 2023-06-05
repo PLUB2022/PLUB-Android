@@ -17,7 +17,7 @@ data class MyInfoResponse(
     @SerializedName("introduce")
     val introduce: String = "",
     @SerializedName("profileImage")
-    val profileImage: String = "",
+    val profileImage: String? = "",
     @SerializedName("isReceivedPushNotification")
     val isReceivedPushNotification : Boolean
 ): DataDto

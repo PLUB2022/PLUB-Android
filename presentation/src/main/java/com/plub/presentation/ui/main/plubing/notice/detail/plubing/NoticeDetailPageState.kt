@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 data class NoticeDetailPageState(
     val plubingName: StateFlow<String>,
-    val profileImage: StateFlow<String>,
+    val profileImage: StateFlow<String?>,
     val editCommentVisibility: StateFlow<Boolean>,
     val replyWritingVisibility: StateFlow<Boolean>,
     val replyWritingText: StateFlow<String>,
