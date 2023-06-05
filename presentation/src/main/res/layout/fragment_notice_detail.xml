@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.plubing.notice.detail.NoticeDetailViewModel" />
+            type="com.plub.presentation.ui.main.plubing.notice.detail.plubing.NoticeDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

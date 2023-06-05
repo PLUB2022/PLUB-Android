@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.main.plubing.notice.detail.app.AppNoticeDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_back"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                app:onThrottleClick="@{()->vm.goToBack()}"
+                android:background="@color/transparent"
+                android:scaleType="center"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_view_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="@{vm.uiState.noticeTitle}"
+            tools:text="공지 제목입니다."
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/constraint_layout_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        
+        <TextView
+            android:id="@+id/text_view_date"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:text="@{vm.uiState.noticeDate}"
+            android:textColor="@color/color_c4c4c4"
+            android:textSize="12sp"
+            tools:text="2022.07.03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/text_view_content"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="@{vm.uiState.noticeContent}"
+            tools:text="국회의원의 수는 법률로 정하되, 200인 이상으로 한다. 국민경제의 발전을 위한 중요정책의 수립에 관하여 대통령의 자문에 응하기 위하여 국민경제자문회의를 둘 수 있다.
+대법원장의 임기는 6년으로 하며, 중임할 수 없다. 대한민국의 영토는 한반도와 그 부속도서로 한다. 국가는 전통문화의 계승·발전과 민족문화의 창달에 노력하여야 한다."
+            app:layout_constraintTop_toBottomOf="@id/text_view_title"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

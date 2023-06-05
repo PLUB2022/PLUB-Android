@@ -94,7 +94,10 @@ class NoticeFragment : BaseTestFragment<FragmentNoticeBinding, NoticePageState, 
     }
 
     private fun goToDetailNotice(noticeType: NoticeType, noticeId:Int) {
-        val action = NoticeFragmentDirections.actionNoticeToNoticeDetail(noticeType, noticeId)
+        val action = when(noticeType){
+            NoticeType.APP -> NoticeFragmentDirections.actionNoticeToAppNoticeDetail(noticeId)
+            NoticeType.PLUBING -> NoticeFragmentDirections.actionNoticeToNoticeDetail(noticeId)
+        }
         findNavController().navigate(action)
     }
 

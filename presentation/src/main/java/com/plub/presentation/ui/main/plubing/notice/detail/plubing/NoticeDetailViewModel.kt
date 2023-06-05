@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.plubing.notice.detail
+package com.plub.presentation.ui.main.plubing.notice.detail.plubing
 
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogMenuItemType
@@ -7,7 +7,6 @@ import com.plub.domain.model.enums.NoticeType
 import com.plub.domain.model.enums.PlubingCommentType
 import com.plub.domain.model.vo.board.BoardCommentListVo
 import com.plub.domain.model.vo.board.BoardCommentVo
-import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.notice.GetNoticeCommentsRequestVo
 import com.plub.domain.model.vo.notice.NoticeCommentCreateRequestVo
 import com.plub.domain.model.vo.notice.NoticeCommentEditRequestVo
@@ -69,7 +68,6 @@ class NoticeDetailViewModel @Inject constructor(
         commentListStateFlow.asStateFlow()
     )
 
-    private lateinit var noticeType: NoticeType
     private var plubingId = PlubingInfo.info.plubingId
     private var noticeId by Delegates.notNull<Int>()
 
@@ -81,9 +79,8 @@ class NoticeDetailViewModel @Inject constructor(
     private var replyCommentId: Int? = null
     private var editCommentId: Int? = null
 
-    fun initArgs(noticeId: Int, noticeType: NoticeType) {
+    fun initArgs(noticeId: Int) {
         this.noticeId = noticeId
-        this.noticeType = noticeType
     }
 
     fun onCompleteNoticeEdit() {
@@ -100,10 +97,26 @@ class NoticeDetailViewModel @Inject constructor(
     fun onClickMenuItemType(item: DialogMenuItemType, commentVo: BoardCommentVo) {
         val commentId = commentVo.commentId
         when (item) {
-            DialogMenuItemType.NOTICE_REPORT -> emitEventFlow(NoticeDetailEvent.GoToReportNotice(plubingId, noticeId))
-            DialogMenuItemType.NOTICE_EDIT -> emitEventFlow(NoticeDetailEvent.GoToEditNotice(plubingId, noticeId))
+            DialogMenuItemType.NOTICE_REPORT -> emitEventFlow(
+                NoticeDetailEvent.GoToReportNotice(
+                    plubingId,
+                    noticeId
+                )
+            )
+            DialogMenuItemType.NOTICE_EDIT -> emitEventFlow(
+                NoticeDetailEvent.GoToEditNotice(
+                    plubingId,
+                    noticeId
+                )
+            )
             DialogMenuItemType.NOTICE_DELETE -> noticeDelete()
-            DialogMenuItemType.BOARD_COMMENT_REPORT -> emitEventFlow(NoticeDetailEvent.GoToReportComment(plubingId, noticeId, commentId))
+            DialogMenuItemType.BOARD_COMMENT_REPORT -> emitEventFlow(
+                NoticeDetailEvent.GoToReportComment(
+                    plubingId,
+                    noticeId,
+                    commentId
+                )
+            )
             DialogMenuItemType.BOARD_COMMENT_DELETE -> commentDelete(commentId)
             DialogMenuItemType.BOARD_COMMENT_EDIT -> commentEditingInputMode(commentVo.content,commentId)
             else -> Unit
@@ -111,8 +124,6 @@ class NoticeDetailViewModel @Inject constructor(
     }
 
     fun onClickNoticeMenu(vo: NoticeVo) {
-        if(noticeType != NoticeType.PLUBING) return
-
         val menuType = vo.run {
             when {
                 isHost -> DialogMenuType.PLUBING_NOTICE_HOST_TYPE
@@ -162,7 +173,7 @@ class NoticeDetailViewModel @Inject constructor(
     }
 
     fun onGetNoticeComments() {
-        if(commentListStateFlow.value.isNotEmpty() || noticeType == NoticeType.APP) return
+        if(commentListStateFlow.value.isNotEmpty()) return
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
@@ -188,7 +199,7 @@ class NoticeDetailViewModel @Inject constructor(
     }
 
     private fun getNoticeDetail() {
-        val request = NoticeRequestVo(noticeType, plubingId, noticeId)
+        val request = NoticeRequestVo(NoticeType.PLUBING, plubingId, noticeId)
         viewModelScope.launch {
             getNoticeDetailUseCase(request).collect {
                 inspectUiState(it, ::onSuccessGetNoticeDetail)
@@ -197,7 +208,7 @@ class NoticeDetailViewModel @Inject constructor(
     }
 
     private fun noticeDelete() {
-        val request = NoticeRequestVo(noticeType, plubingId, noticeId)
+        val request = NoticeRequestVo(NoticeType.PLUBING, plubingId, noticeId)
         viewModelScope.launch {
             deleteNoticeUseCase(request).collect {
                 inspectUiState(it, {
@@ -208,7 +219,7 @@ class NoticeDetailViewModel @Inject constructor(
     }
 
     private fun commentDelete(commentId:Int) {
-        val request = NoticeRequestVo(noticeType, plubingId, noticeId, commentId)
+        val request = NoticeRequestVo(NoticeType.PLUBING, plubingId, noticeId, commentId)
         viewModelScope.launch {
             deleteNoticeCommentUseCase(request).collect {
                 inspectUiState(it, {

@@ -1,10 +1,8 @@
-package com.plub.presentation.ui.main.plubing.notice.detail
+package com.plub.presentation.ui.main.plubing.notice.detail.plubing
 
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.vo.board.BoardCommentVo
-import com.plub.presentation.parcelableVo.ParseNoticeVo
 import com.plub.presentation.ui.Event
-import com.plub.presentation.ui.main.plubing.board.detail.BoardDetailEvent
 
 sealed class NoticeDetailEvent : Event {
     object Finish : NoticeDetailEvent()

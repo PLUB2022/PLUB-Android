@@ -5,7 +5,7 @@ import com.plub.domain.model.enums.NoticeType
 
 data class NoticeRequestVo(
     val noticeType: NoticeType,
-    val plubbingId: Int,
+    val plubbingId: Int = -1,
     val noticeId: Int = -1,
     val commentId: Int = -1,
 ) : DomainModel

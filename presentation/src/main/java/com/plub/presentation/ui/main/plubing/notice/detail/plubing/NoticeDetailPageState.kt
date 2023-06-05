@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.main.plubing.notice.detail
+package com.plub.presentation.ui.main.plubing.notice.detail.plubing
 
 import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
