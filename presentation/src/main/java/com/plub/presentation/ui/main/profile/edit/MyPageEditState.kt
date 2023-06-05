@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 data class MyPageEditState(
     val profileImage: StateFlow<String?>,
-    val originProfile : StateFlow<String>,
+    val originProfile : StateFlow<String?>,
     var nickname: MutableStateFlow<String>,
     var introduce: MutableStateFlow<String>,
     val originNickname : StateFlow<String>,

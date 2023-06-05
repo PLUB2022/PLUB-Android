@@ -14,7 +14,7 @@ object AppNoticeResponseMapper : Mapper.ResponseMapper<AppNoticeResponse, Notice
                 noticeId = announcementId,
                 title = title,
                 content = content,
-                createAt = createAt,
+                createAt = createdAt,
                 isHost = false,
             )
         }?: NoticeVo()

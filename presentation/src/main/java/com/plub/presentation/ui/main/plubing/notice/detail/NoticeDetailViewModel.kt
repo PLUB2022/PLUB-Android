@@ -50,7 +50,7 @@ class NoticeDetailViewModel @Inject constructor(
     }
 
     private val plubingNameStateFlow: MutableStateFlow<String> = MutableStateFlow(PlubingInfo.info.name)
-    private val profileImageStateFlow: MutableStateFlow<String> = MutableStateFlow(PlubUser.info.profileImage)
+    private val profileImageStateFlow: MutableStateFlow<String?> = MutableStateFlow(PlubUser.info.profileImage)
     private val isEditCommentModeStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val isReplyWritingModeStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val replyWritingTextStateFlow: MutableStateFlow<String> = MutableStateFlow("")

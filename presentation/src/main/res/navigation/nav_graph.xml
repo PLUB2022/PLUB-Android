@@ -106,6 +106,9 @@
         <action
             android:id="@+id/action_recruitment_to_report"
             app:destination="@id/reportFragment" />
+        <action
+            android:id="@+id/action_recruitment_to_other_profile"
+            app:destination="@id/otherProfileFragment"/>
         <argument
             android:name="plubbingId"
             app:argType="integer" />
@@ -684,5 +687,30 @@
         <argument
             android:name="reportId"
             app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/otherProfileFragment"
+        android:name="com.plub.presentation.ui.main.profile.other.OtherProfileFragment"
+        android:label="OtherProfileFragment"
+        tools:layout="@layout/fragment_other_profile">
+
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="accountId"
+            app:argType="integer" />
+        <argument
+            android:name="plubbingId"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_other_profile_to_report"
+            app:destination="@id/reportFragment" />'
+
+        <action
+            android:id="@+id/action_other_profile_to_todo_detail"
+            app:destination="@id/todoDetailFragment" />
     </fragment>
 </navigation>

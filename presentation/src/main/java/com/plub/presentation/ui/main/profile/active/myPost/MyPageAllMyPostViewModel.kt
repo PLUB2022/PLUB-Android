@@ -9,7 +9,7 @@ import com.plub.domain.model.vo.board.PlubingBoardListVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.myPage.MyPageActiveRequestVo
 import com.plub.domain.usecase.DeleteBoardUseCase
-import com.plub.domain.usecase.GetMyPostUseCase
+import com.plub.domain.usecase.GetMyPageUseCase
 import com.plub.domain.usecase.PutBoardChangePinUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
@@ -23,7 +23,7 @@ import kotlin.properties.Delegates
 
 @HiltViewModel
 class MyPageAllMyPostViewModel @Inject constructor(
-    private val getMyPostUseCase: GetMyPostUseCase,
+    private val getMyPostUseCase: GetMyPageUseCase,
     private val putBoardChangePinUseCase : PutBoardChangePinUseCase,
     private val deleteBoardUseCase: DeleteBoardUseCase
 ) : BaseTestViewModel<MyPageAllMyPostState>() {
