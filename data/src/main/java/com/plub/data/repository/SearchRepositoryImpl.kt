@@ -64,7 +64,7 @@ class SearchRepositoryImpl @Inject constructor(
 
     override suspend fun searchPlubRecruit(request: SearchPlubRecruitRequestVo): Flow<UiState<PlubCardListVo>> {
         val requestMap = SearchPlubRecruitRequestMapper.mapModelToDto(request)
-        return apiLaunch(searchApi.plubSearch(requestMap), PlubCardListResponseMapper) {
+        return apiLaunch(apiCall = { searchApi.plubSearch(requestMap) }, PlubCardListResponseMapper) {
             SearchError.make(it)
         }
     }

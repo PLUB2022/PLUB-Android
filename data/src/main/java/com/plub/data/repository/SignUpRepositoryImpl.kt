@@ -18,14 +18,14 @@ import javax.inject.Inject
 class SignUpRepositoryImpl @Inject constructor(private val signUpApi: SignUpApi) : SignUpRepository, BaseRepository() {
 
     override suspend fun nicknameCheck(request: String): Flow<UiState<Boolean>> {
-        return apiLaunch(signUpApi.nicknameCheck(request), NicknameResponseMapper) {
+        return apiLaunch(apiCall = { signUpApi.nicknameCheck(request) }, NicknameResponseMapper) {
             NicknameError.make(it)
         }
     }
 
     override suspend fun signUp(request: SignUpRequestVo): Flow<UiState<PlubJwtResponseVo>> {
         val requestDto = SignUpRequestMapper.mapModelToDto(request)
-        return apiLaunch(signUpApi.signUp(requestDto), PlubJwtResponseMapper) {
+        return apiLaunch(apiCall = { signUpApi.signUp(requestDto) }, PlubJwtResponseMapper) {
             SignUpError.make(it)
         }
     }

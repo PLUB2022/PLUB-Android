@@ -19,58 +19,58 @@ import javax.inject.Inject
 class PlubingTodoRepositoryImpl @Inject constructor(private val todoApi: TodoApi) : PlubingTodoRepository, BaseRepository() {
 
     override suspend fun getTimelineList(request: TodoGetTimelineRequestVo): Flow<UiState<TodoTimelineListVo>> {
-        return apiLaunch(todoApi.getTimelines(request.plubbingId, request.cursorId), TodoTimelineListResponseMapper.apply {
+        return apiLaunch(apiCall = { todoApi.getTimelines(request.plubbingId, request.cursorId) }, TodoTimelineListResponseMapper.apply {
             setViewType(request.todoItemViewType)
         })
     }
 
     override suspend fun getOtherTimelineList(request: GetOtherTodoRequestVo): Flow<UiState<TodoTimelineListVo>> {
-        return apiLaunch(todoApi.getOtherTimelines(request.plubbingId, request.accountId, request.cursorId), TodoTimelineListResponseMapper)
+        return apiLaunch(apiCall = { todoApi.getOtherTimelines(request.plubbingId, request.accountId, request.cursorId) }, TodoTimelineListResponseMapper)
     }
 
     override suspend fun postTodoProof(request: TodoProofRequestVo): Flow<UiState<Unit>> {
         val proofRequest = TodoProofRequest(request.proofImageUrl)
-        return apiLaunch(todoApi.postTodoProof(request.plubbingId, request.todoListId, proofRequest), UnitResponseMapper)
+        return apiLaunch(apiCall = { todoApi.postTodoProof(request.plubbingId, request.todoListId, proofRequest) }, UnitResponseMapper)
     }
 
     override suspend fun putTodoComplete(request: TodoRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(todoApi.putTodoComplete(request.plubbingId, request.todoId), UnitResponseMapper)
+        return apiLaunch(apiCall = { todoApi.putTodoComplete(request.plubbingId, request.todoId) }, UnitResponseMapper)
     }
 
     override suspend fun putTodoCancel(request: TodoRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(todoApi.putTodoCancel(request.plubbingId, request.todoId), UnitResponseMapper)
+        return apiLaunch(apiCall = { todoApi.putTodoCancel(request.plubbingId, request.todoId) }, UnitResponseMapper)
     }
 
     override suspend fun getTodoDays(request: GetTodoDaysRequestVo): Flow<UiState<List<Int>>> {
-        return apiLaunch(todoApi.getTodoDays(request.plubbingId, request.year, request.month), GetTodoDaysResponseMapper)
+        return apiLaunch(apiCall = { todoApi.getTodoDays(request.plubbingId, request.year, request.month) }, GetTodoDaysResponseMapper)
     }
 
     override suspend fun getMyTodoListInDay(request: GetMyTodoListInDayRequestVo): Flow<UiState<TodoTimelineVo>> {
-        return apiLaunch(todoApi.getMyTodoListInDay(request.plubbingId, request.date), TodoTimelineResponseMapper.apply {
+        return apiLaunch(apiCall = { todoApi.getMyTodoListInDay(request.plubbingId, request.date) }, TodoTimelineResponseMapper.apply {
             setViewType(TodoItemViewType.PLANNER)
         })
     }
 
     override suspend fun deleteTodo(request: TodoRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(todoApi.deleteTodo(request.plubbingId, request.todoId), UnitResponseMapper)
+        return apiLaunch(apiCall = { todoApi.deleteTodo(request.plubbingId, request.todoId) }, UnitResponseMapper)
     }
 
     override suspend fun putTodoEdit(request: TodoWriteRequestVo): Flow<UiState<TodoItemVo>> {
         val body = TodoWriteRequestMapper.mapModelToDto(request)
-        return apiLaunch(todoApi.putTodoEdit(request.plubbingId, request.todoId, body), TodoItemResponseMapper)
+        return apiLaunch(apiCall = { todoApi.putTodoEdit(request.plubbingId, request.todoId, body) }, TodoItemResponseMapper)
     }
 
     override suspend fun postTodoCreate(request: TodoWriteRequestVo): Flow<UiState<TodoItemVo>> {
         val body = TodoWriteRequestMapper.mapModelToDto(request)
-        return apiLaunch(todoApi.postTodoCreate(request.plubbingId, body), TodoItemResponseMapper)
+        return apiLaunch(apiCall = { todoApi.postTodoCreate(request.plubbingId, body) }, TodoItemResponseMapper)
     }
 
     override suspend fun putTodoLikeToggle(request: TodoRequestVo): Flow<UiState<TodoTimelineVo>> {
-        return apiLaunch(todoApi.putLikeToggleTodo(request.plubbingId, request.timelineId), TodoTimelineResponseMapper)
+        return apiLaunch(apiCall = { todoApi.putLikeToggleTodo(request.plubbingId, request.timelineId) }, TodoTimelineResponseMapper)
     }
 
     override suspend fun getTodoDetail(request: TodoRequestVo): Flow<UiState<TodoTimelineVo>> {
-        return apiLaunch(todoApi.getTodoDetail(request.plubbingId, request.timelineId), TodoTimelineResponseMapper.apply {
+        return apiLaunch(apiCall = { todoApi.getTodoDetail(request.plubbingId, request.timelineId) }, TodoTimelineResponseMapper.apply {
             setViewType(TodoItemViewType.DETAIL)
         })
     }

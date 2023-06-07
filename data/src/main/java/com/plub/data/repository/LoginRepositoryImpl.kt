@@ -20,7 +20,7 @@ class LoginRepositoryImpl @Inject constructor(private val loginApi: LoginApi, pr
 
     override suspend fun socialLogin(request: SocialLoginRequestVo): Flow<UiState<SocialLoginResponseVo>> {
         val requestDto = SocialLoginRequestMapper.mapModelToDto(request)
-        return apiLaunch(loginApi.socialLogin(requestDto), SocialLoginResponseMapper) {
+        return apiLaunch(apiCall = { loginApi.socialLogin(requestDto) }, SocialLoginResponseMapper) {
             LoginError.make(it)
         }
     }
@@ -29,12 +29,12 @@ class LoginRepositoryImpl @Inject constructor(private val loginApi: LoginApi, pr
         val email = "admin1"
         val password = "plubplub2023"
         val request = AdminLoginRequest(email, password)
-        return apiLaunch(loginApi.adminLogin(request), SocialLoginResponseMapper) {
+        return apiLaunch(apiCall = { loginApi.adminLogin(request) }, SocialLoginResponseMapper) {
             LoginError.make(it)
         }
     }
 
     override suspend fun logout(): Flow<UiState<Unit>> {
-        return apiLaunch(accountApi.logout(), UnitResponseMapper)
+        return apiLaunch(apiCall = { accountApi.logout() }, UnitResponseMapper)
     }
 }
