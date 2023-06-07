@@ -2,6 +2,7 @@ package com.plub.presentation.ui.sign.login
 
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.text.method.LinkMovementMethod
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.kakao.sdk.user.UserApiClient
+import com.plub.domain.model.enums.TermsType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentLoginBinding
@@ -124,10 +126,30 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
                 val action = LoginFragmentDirections.actionLoginToSignUp()
                 findNavController().navigate(action)
             }
-            is LoginEvent.GoToTerms -> {}
+            is LoginEvent.GoToTerms -> {goToTerm(event.type)}
             is LoginEvent.SignInGoogle -> signInGoogle()
             is LoginEvent.SignInKakao -> signInKakao()
             is LoginEvent.SignInKakaoEmail -> signInKakaoEmail()
         }
+    }
+
+    private fun goToTerm(type : TermsType){
+        when(type){
+            TermsType.PRIVACY -> goToPersonalPolices()
+            TermsType.SERVICE -> goToServicePolices()
+            else -> {}
+        }
+    }
+
+    private fun goToServicePolices(){
+        startActivity(
+            Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.service_policies)))
+        )
+    }
+
+    private fun goToPersonalPolices(){
+        startActivity(
+            Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.personal_policies)))
+        )
     }
 }

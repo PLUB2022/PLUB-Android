@@ -16,6 +16,9 @@
     <string name="web_google_client_id">746494448016-j25cuo21ut0ofgbba9h4n6b63502uimi.apps.googleusercontent.com</string>
     <string name="kakao_redirect_url_key">kakao5c988e60cc77ac9ad664f1f37293ee2d</string>
     <string name="plub_emil">plub2023@gmail.com</string>
+    <string name="service_policies">https://plub.notion.site/63cdf80be630466d868df43d56b69e15</string>
+    <string name="personal_policies">https://plub.notion.site/83eb3cad087647f6b58fe383d3224af7</string>
+    <string name="faq_site">https://plub.notion.site/FAQ-17ae9dfbfb6d4812ab27537c18f709fc</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fragment_text_category_name_art">예술</string>
     <string name="fragment_text_category_name_food">음식</string>
