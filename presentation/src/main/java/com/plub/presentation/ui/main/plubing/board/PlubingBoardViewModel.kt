@@ -109,18 +109,18 @@ class PlubingBoardViewModel @Inject constructor(
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
-        getPlubingBoardList()
+        getPlubingBoardList(showLoading = true)
     }
 
-    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onGetNextBoardList()
+    fun onScrollChanged() {
+        if (!isLastPage && !isNetworkCall) onGetNextBoardList()
     }
 
-    private fun getPlubingBoardList() {
+    private fun getPlubingBoardList(showLoading : Boolean) {
         val requestVo = GetBoardFeedsRequestVo(cursorId, plubingId)
         viewModelScope.launch {
             getBoardFeedsUseCase(requestVo).collect {
-                inspectUiState(it, ::onSuccessGetPlubingBoardList)
+                inspectUiState(it, ::onSuccessGetPlubingBoardList, needShowLoading = showLoading)
             }
         }
     }
@@ -159,7 +159,7 @@ class PlubingBoardViewModel @Inject constructor(
     private fun onGetNextBoardList() {
         isNetworkCall = true
         cursorUpdate()
-        getPlubingBoardList()
+        getPlubingBoardList(showLoading = false)
     }
 
     private fun refresh() {
@@ -167,7 +167,7 @@ class PlubingBoardViewModel @Inject constructor(
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
-        getPlubingBoardList()
+        getPlubingBoardList(showLoading = true)
     }
 
     private fun onSuccessGetPlubingBoardList(vo: PlubingBoardListVo) {
