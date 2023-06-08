@@ -30,17 +30,17 @@ class MediaRepositoryImpl @Inject constructor(
     override suspend fun uploadFile(request: UploadFileRequestVo): Flow<UiState<UploadFileResponseVo>> {
         val typeBody = FormDataUtil.getBody(KEY_TYPE, request.type.type)
         val fileBody = FormDataUtil.getImageBody(KEY_FILES, request.file)
-        return apiLaunch(mediaApi.uploadFile(typeBody, fileBody), UploadFileResponseMapper)
+        return apiLaunch(apiCall = { mediaApi.uploadFile(typeBody, fileBody) }, UploadFileResponseMapper)
     }
 
     override suspend fun deleteFile(request: DeleteFileRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(mediaRequireAuthApi.deleteFile(request.type.type, request.file), UnitResponseMapper)
+        return apiLaunch(apiCall = { mediaRequireAuthApi.deleteFile(request.type.type, request.file) }, UnitResponseMapper)
     }
 
     override suspend fun changeFile(request: ChangeFileRequestVo): Flow<UiState<UploadFileResponseVo>> {
         val typeBody = FormDataUtil.getBody(KEY_TYPE, request.type.type)
         val toDeleteUrlsBody = FormDataUtil.getBody(TO_DELETE_URLS, request.toDeleteUrls)
         val fileBody = FormDataUtil.getImageBody(KEY_NEW_FILES, request.file)
-        return apiLaunch(mediaRequireAuthApi.changeFile(typeBody, toDeleteUrlsBody, fileBody), UploadFileResponseMapper)
+        return apiLaunch(apiCall = { mediaRequireAuthApi.changeFile(typeBody, toDeleteUrlsBody, fileBody) }, UploadFileResponseMapper)
     }
 }

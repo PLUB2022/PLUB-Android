@@ -16,10 +16,10 @@ class BookmarkRepositoryImpl @Inject constructor(
 ) : BookmarkRepository, BaseRepository() {
 
     override suspend fun bookmarkPlubRecruit(id:Int): Flow<UiState<PlubBookmarkResponseVo>> {
-        return apiLaunch(bookmarkApi.plubBookmark(id), PlubBookmarkResponseMapper)
+        return apiLaunch(apiCall = { bookmarkApi.plubBookmark(id) }, PlubBookmarkResponseMapper)
     }
 
     override suspend fun getMyPlubBookmarks(id: Int): Flow<UiState<PlubCardListVo>> {
-        return apiLaunch(bookmarkApi.getMyPlubBookmarks(id), PlubCardListResponseMapper)
+        return apiLaunch(apiCall = { bookmarkApi.getMyPlubBookmarks(id) }, PlubCardListResponseMapper)
     }
 }

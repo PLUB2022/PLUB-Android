@@ -192,11 +192,11 @@ class SearchingViewModel @Inject constructor(
         val request = SearchPlubRecruitRequestVo(searchType, searchedKeyword, sortType, cursorId)
         viewModelScope.launch {
             searchPlubRecruitUseCase(request).collect {
-                inspectUiState(it, ::searchSuccess) { _, individual ->
+                inspectUiState(it, ::searchSuccess, { _, individual ->
                     clear()
                     updateIsRecentSearchMode(false)
                     handleSearchError(individual as SearchError)
-                }
+                })
             }
         }
     }

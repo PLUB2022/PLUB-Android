@@ -13,7 +13,7 @@ class UiInspector(private val delegate: Delegate) {
         fun handleCommonError(commonError: CommonError)
     }
 
-    fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: (T) -> Unit, individualErrorCallback: ((T?, IndividualError) -> Unit)?) {
+    fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: (T) -> Unit, individualErrorCallback: ((T?, IndividualError) -> Unit)?, needShowLoading: Boolean = true) {
         when(uiState) {
             is UiState.Loading -> showLoading()
             is UiState.Success -> {

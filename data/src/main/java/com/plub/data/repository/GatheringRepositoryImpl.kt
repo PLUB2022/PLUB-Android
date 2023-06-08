@@ -23,35 +23,35 @@ class GatheringRepositoryImpl @Inject constructor(private val gatheringApi: Gath
 
     override suspend fun createGathering(request: CreateGatheringRequestVo): Flow<UiState<CreateGatheringResponseVo>> {
         val requestDto = CreateGatheringRequestMapper.mapModelToDto(request)
-        return apiLaunch(gatheringApi.createGathering(requestDto), CreateGatheringResponseMapper)
+        return apiLaunch(apiCall = { gatheringApi.createGathering(requestDto) }, CreateGatheringResponseMapper)
     }
 
     override suspend fun modifyGathering(request: ModifyRecruitRequestVo): Flow<UiState<CreateGatheringResponseVo>> {
         val requestDto = ModifyRecruitRequestMapper.mapModelToDto(request)
-        return apiLaunch(gatheringApi.modifyRecruit(requestDto.plubbingId, requestDto.body), CreateGatheringResponseMapper)
+        return apiLaunch(apiCall = { gatheringApi.modifyRecruit(requestDto.plubbingId, requestDto.body) }, CreateGatheringResponseMapper)
     }
 
     override suspend fun getMyParticipatingGatherings(request: Unit): Flow<UiState<MyGatheringListResponseVo>> {
-        return apiLaunch(gatheringApi.getMyParticipatingGatherings(), MyGatheringListMapper)
+        return apiLaunch(apiCall = { gatheringApi.getMyParticipatingGatherings() }, MyGatheringListMapper)
     }
 
     override suspend fun getMyHostingGatherings(request: Unit): Flow<UiState<MyGatheringListResponseVo>> {
-        return apiLaunch(gatheringApi.getMyHostingGatherings(), MyGatheringListMapper)
+        return apiLaunch(apiCall = { gatheringApi.getMyHostingGatherings() }, MyGatheringListMapper)
     }
 
     override suspend fun changeGatheringStatus(request: Int): Flow<UiState<Unit>> {
-        return apiLaunch(gatheringApi.changeGatheringStatus(request), UnitResponseMapper)
+        return apiLaunch(apiCall = { gatheringApi.changeGatheringStatus(request) }, UnitResponseMapper)
     }
 
     override suspend fun leaveGathering(request: Int): Flow<UiState<Unit>> {
-        return apiLaunch(gatheringApi.leaveGathering(request), UnitResponseMapper)
+        return apiLaunch(apiCall = { gatheringApi.leaveGathering(request) }, UnitResponseMapper)
     }
 
     override suspend fun getMembers(request: Int): Flow<UiState<List<AccountInfoVo>>> {
-        return apiLaunch(gatheringApi.getMembers(request), AccountInfosResponseMapper)
+        return apiLaunch(apiCall = { gatheringApi.getMembers(request) }, AccountInfosResponseMapper)
     }
 
     override suspend fun kickOutMember(request: KickOutRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(gatheringApi.kickOutMember(request.plubbingId, request.accountId), UnitResponseMapper)
+        return apiLaunch(apiCall = { gatheringApi.kickOutMember(request.plubbingId, request.accountId) }, UnitResponseMapper)
     }
 }
