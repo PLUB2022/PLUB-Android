@@ -111,15 +111,15 @@ class MyPageAllMyPostViewModel @Inject constructor(
 
     private fun onSuccessFetchPlubingBoardList(vo: PlubingBoardListVo) {
         vo.run {
-            val mergedList = getMergeList(content)
-            updateBoardList(mergedList)
             isLastPage = last
+            val mergedList = if(isLastPage) getMergeList(content) else getMergeList(content) + listOf(PlubingBoardVo(viewType = PlubingBoardType.LOADING))
+            updateBoardList(mergedList)
             isNetworkCall = false
         }
     }
 
     private fun getMergeList(list: List<PlubingBoardVo>): List<PlubingBoardVo> {
-        val originList = uiState.boardList.value
+        val originList = uiState.boardList.value.filterNot { it.viewType == PlubingBoardType.LOADING }
         val pinList = originList.filter { it.viewType == PlubingBoardType.CLIP_BOARD }
         return if (cursorId == FIRST_CURSOR) pinList + list else originList + list
     }
@@ -166,7 +166,7 @@ class MyPageAllMyPostViewModel @Inject constructor(
 
     private fun cursorUpdate() {
         cursorId = if (uiState.boardList.value.isEmpty()) FIRST_CURSOR
-        else uiState.boardList.value.lastOrNull()?.feedId ?: FIRST_CURSOR
+        else uiState.boardList.value.filterNot { it.viewType == PlubingBoardType.LOADING }.lastOrNull()?.feedId ?: FIRST_CURSOR
     }
 
     fun onClickBack(){
