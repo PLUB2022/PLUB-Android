@@ -64,7 +64,7 @@ class NoticeViewModel @Inject constructor(
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
-        getNoticeList()
+        getNoticeList(showLoading = true)
     }
 
     fun onScrollChanged() {
@@ -124,37 +124,37 @@ class NoticeViewModel @Inject constructor(
         }
     }
 
-    private fun getNoticeList() {
+    private fun getNoticeList(showLoading : Boolean) {
         viewModelScope.launch {
-            val requestVo = GetNoticeListRequestVo(noticeType = noticeType, plubbingId = plubingId)
+            val requestVo = GetNoticeListRequestVo(noticeType = noticeType, plubbingId = plubingId, cursorId = cursorId)
             getNoticeListUseCase(requestVo).collect {
-                inspectUiState(it, ::successGetNoticeList)
+                inspectUiState(it, ::successGetNoticeList, needShowLoading = showLoading)
             }
         }
     }
 
     private fun successGetNoticeList(vo: NoticeListVo) {
         isLastPage = vo.last
-        val mergedList = getMergeList(vo.content)
+        val mergedList = if(isLastPage) getMergeList(vo.content) else getMergeList(vo.content) + listOf(NoticeVo(noticeType = NoticeType.LOADING))
         updateNoticeList(mergedList)
         isNetworkCall = false
     }
 
     private fun getMergeList(list: List<NoticeVo>): List<NoticeVo> {
-        val originList = noticeListStateFlow.value
+        val originList = noticeListStateFlow.value.filterNot { it.noticeType == NoticeType.LOADING }
         return if (cursorId == FIRST_CURSOR) list else originList + list
     }
 
     private fun cursorUpdate() {
         cursorId = if (noticeListStateFlow.value.isEmpty()) FIRST_CURSOR
-        else noticeListStateFlow.value.lastOrNull()?.noticeId ?: FIRST_CURSOR
+        else noticeListStateFlow.value.filterNot { it.noticeType == NoticeType.LOADING }.lastOrNull()?.noticeId ?: FIRST_CURSOR
     }
 
     private fun refresh() {
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
-        getNoticeList()
+        getNoticeList(showLoading = true)
     }
 
     private fun getReplacedEditNoticeList(vo: NoticeVo): List<NoticeVo> {
@@ -167,7 +167,7 @@ class NoticeViewModel @Inject constructor(
     private fun onGetNextNoticeList() {
         isNetworkCall = true
         cursorUpdate()
-        getNoticeList()
+        getNoticeList(showLoading = false)
     }
 
     private fun updateNoticeList(list: List<NoticeVo>) {

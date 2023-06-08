@@ -14,6 +14,6 @@ class GetNoticeListUseCase @Inject constructor(
 ) : UseCase<GetNoticeListRequestVo, Flow<UiState<NoticeListVo>>>() {
     override suspend operator fun invoke(request: GetNoticeListRequestVo): Flow<UiState<NoticeListVo>> {
         return if(request.noticeType == NoticeType.APP) noticeRepository.getAppNoticeList()
-        else noticeRepository.getPlubingNoticeList(request.plubbingId)
+        else noticeRepository.getPlubingNoticeList(request.plubbingId, request.cursorId)
     }
 }

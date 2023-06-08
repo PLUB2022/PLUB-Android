@@ -36,6 +36,7 @@ interface NoticeApi {
     @GET(Endpoints.PLUBBING.NOTICE.NOTICE)
     suspend fun getPlubingNotice(
         @Path(PATH_PLUBING_ID) plubbingId: Int,
+        @Query(QUERY_CURSOR_ID) cursorId: Int,
     ): Response<ApiResponse<PlubingNoticeListResponse>>
 
     @POST(Endpoints.PLUBBING.NOTICE.NOTICE)

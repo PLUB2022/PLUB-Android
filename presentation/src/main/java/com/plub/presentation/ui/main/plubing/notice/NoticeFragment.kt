@@ -94,11 +94,11 @@ class NoticeFragment : BaseTestFragment<FragmentNoticeBinding, NoticePageState, 
     }
 
     private fun goToDetailNotice(noticeType: NoticeType, noticeId:Int) {
-        val action = when(noticeType){
-            NoticeType.APP -> NoticeFragmentDirections.actionNoticeToAppNoticeDetail(noticeId)
-            NoticeType.PLUBING -> NoticeFragmentDirections.actionNoticeToNoticeDetail(noticeId)
+        when(noticeType){
+            NoticeType.APP -> findNavController().navigate(NoticeFragmentDirections.actionNoticeToAppNoticeDetail(noticeId))
+            NoticeType.PLUBING -> findNavController().navigate(NoticeFragmentDirections.actionNoticeToNoticeDetail(noticeId))
+            NoticeType.LOADING -> {}
         }
-        findNavController().navigate(action)
     }
 
     private fun goToWriteNotice(writeType: WriteType, vo: ParseNoticeVo?) {

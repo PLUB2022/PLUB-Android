@@ -36,8 +36,8 @@ class NoticeRepositoryImpl @Inject constructor(private val noticeApi: NoticeApi)
         return apiLaunch(apiCall = { noticeApi.getAppNoticeDetail(request.noticeId) }, AppNoticeResponseMapper)
     }
 
-    override suspend fun getPlubingNoticeList(request: Int): Flow<UiState<NoticeListVo>> {
-        return apiLaunch(apiCall = { noticeApi.getPlubingNotice(request) }, PlubingNoticeListResponseMapper)
+    override suspend fun getPlubingNoticeList(requestPlubingId: Int, requestCursorId: Int): Flow<UiState<NoticeListVo>> {
+        return apiLaunch(apiCall = { noticeApi.getPlubingNotice(cursorId = requestCursorId, plubbingId = requestPlubingId) }, PlubingNoticeListResponseMapper)
     }
 
     override suspend fun postNoticeCreate(request: PostNoticeWriteRequestVo): Flow<UiState<Unit>> {
