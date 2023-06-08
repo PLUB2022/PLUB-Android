@@ -8,7 +8,6 @@ import com.plub.domain.model.vo.plub.PlubCardVo
 import com.plub.domain.usecase.GetMyPlubBookmarksUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.ui.main.plubing.board.PlubingBoardViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -62,6 +61,10 @@ class BookmarkViewModel @Inject constructor(
 
     fun onScrollChanged() {
         if (!isLastPage && !isNetworkCall) onGetNextPlubBookmark()
+    }
+
+    fun goToDetailRecruitment(id: Int) {
+        emitEventFlow(BookmarksEvent.GoToRecruit(id))
     }
 
     private fun onGetNextPlubBookmark() {

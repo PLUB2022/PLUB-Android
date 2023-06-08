@@ -172,7 +172,12 @@
         android:id="@+id/bookmarkFragment"
         android:name="com.plub.presentation.ui.main.home.bookmark.BookmarkFragment"
         android:label="fragment_bookmark"
-        tools:layout="@layout/fragment_bookmark" />
+        tools:layout="@layout/fragment_bookmark" >
+
+        <action
+            android:id="@+id/action_bookmark_to_recruitment"
+            app:destination="@id/recruitmentFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/plubingMainFragment"
