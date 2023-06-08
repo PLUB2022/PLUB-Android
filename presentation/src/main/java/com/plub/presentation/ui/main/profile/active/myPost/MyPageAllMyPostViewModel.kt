@@ -83,28 +83,28 @@ class MyPageAllMyPostViewModel @Inject constructor(
     }
 
 
-    fun onFetchBoardList() {
+    fun onFetchBoardList(showLoading : Boolean) {
         isNetworkCall = true
         cursorUpdate()
-        fetchPlubingBoardList()
+        fetchPlubingBoardList(showLoading)
     }
 
     private fun refresh() {
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
-        fetchPlubingBoardList()
+        fetchPlubingBoardList(showLoading = true)
     }
 
     fun onScrollChanged() {
-        if (!isLastPage && !isNetworkCall) onFetchBoardList()
+        if (!isLastPage && !isNetworkCall) onFetchBoardList(showLoading = false)
     }
 
-    private fun fetchPlubingBoardList() {
+    private fun fetchPlubingBoardList(showLoading: Boolean) {
         val requestVo = MyPageActiveRequestVo(plubingId, cursorId)
         viewModelScope.launch {
             getMyPostUseCase(requestVo).collect {
-                inspectUiState(it, ::onSuccessFetchPlubingBoardList)
+                inspectUiState(it, ::onSuccessFetchPlubingBoardList, needShowLoading = showLoading)
             }
         }
     }

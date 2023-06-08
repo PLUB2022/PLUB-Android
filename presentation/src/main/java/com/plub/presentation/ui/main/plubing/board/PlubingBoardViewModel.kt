@@ -172,15 +172,15 @@ class PlubingBoardViewModel @Inject constructor(
 
     private fun onSuccessGetPlubingBoardList(vo: PlubingBoardListVo) {
         vo.run {
-            val mergedList = getMergeList(content)
-            updateBoardList(mergedList)
             isLastPage = last
+            val mergedList = if(isLastPage) getMergeList(content) else getMergeList(content) + listOf(PlubingBoardVo(viewType = PlubingBoardType.LOADING))
+            updateBoardList(mergedList)
             isNetworkCall = false
         }
     }
 
     private fun getMergeList(list: List<PlubingBoardVo>): List<PlubingBoardVo> {
-        val originList = boardListStateFlow.value
+        val originList = boardListStateFlow.value.filterNot { it.viewType == PlubingBoardType.LOADING }
         val pinList = originList.filter { it.viewType == PlubingBoardType.CLIP_BOARD }
         return if (cursorId == FIRST_CURSOR) pinList + list else originList + list
     }
@@ -217,7 +217,7 @@ class PlubingBoardViewModel @Inject constructor(
 
     private fun cursorUpdate() {
         cursorId = if (boardListStateFlow.value.isEmpty()) FIRST_CURSOR
-        else boardListStateFlow.value.drop(CLIP_BOARD_POSITION).lastOrNull()?.feedId ?: FIRST_CURSOR
+        else boardListStateFlow.value.drop(CLIP_BOARD_POSITION).filterNot { it.viewType == PlubingBoardType.LOADING }.lastOrNull()?.feedId ?: FIRST_CURSOR
     }
 
     private fun updateBoardList(list: List<PlubingBoardVo>) {

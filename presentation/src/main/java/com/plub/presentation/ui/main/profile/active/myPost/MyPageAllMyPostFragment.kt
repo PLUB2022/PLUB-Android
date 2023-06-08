@@ -52,7 +52,7 @@ class MyPageAllMyPostFragment :
             }
         }
         viewModel.setPlubId(PlubingInfo.info.plubingId)
-        viewModel.onFetchBoardList()
+        viewModel.onFetchBoardList(showLoading = true)
     }
 
     override fun initStates() {
