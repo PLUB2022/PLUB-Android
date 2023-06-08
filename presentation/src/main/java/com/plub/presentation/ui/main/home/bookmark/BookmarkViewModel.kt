@@ -44,7 +44,7 @@ class BookmarkViewModel @Inject constructor(
         isNetworkCall = true
         isLastPage = false
         updateCardType(cardType)
-        getPlubBookmarks()
+        getPlubBookmarks(showLoading = true)
     }
 
     fun onGetPlubBookmark() {
@@ -52,7 +52,7 @@ class BookmarkViewModel @Inject constructor(
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
-        getPlubBookmarks()
+        getPlubBookmarks(showLoading = true)
     }
 
     fun onClickBookmark(id: Int) {
@@ -70,24 +70,24 @@ class BookmarkViewModel @Inject constructor(
     private fun onGetNextPlubBookmark() {
         isNetworkCall = true
         cursorUpdate()
-        getPlubBookmarks()
+        getPlubBookmarks(showLoading = false)
     }
 
-    private fun getPlubBookmarks() {
+    private fun getPlubBookmarks(showLoading : Boolean) {
         viewModelScope.launch {
             getMyPlubBookmarksUseCase(cursorId).collect {
-                inspectUiState(it, ::fetchPlubBookmarksSuccess)
+                inspectUiState(it, ::fetchPlubBookmarksSuccess, needShowLoading = showLoading)
             }
         }
     }
 
     private fun fetchPlubBookmarksSuccess(vo: PlubCardListVo) {
         newFetchProcess()
+        isLastPage = vo.last
         val mappedList = mapToCardType(vo.content)
-        val mergedList = getMergeList(mappedList)
+        val mergedList = if(isLastPage) getMergeList(mappedList) else getMergeList(mappedList) + listOf(PlubCardVo(viewType = PlubCardType.LOADING))
         updateBookmarkList(mergedList)
         updateIsEmptyViewMode(mergedList.isEmpty())
-        isLastPage = vo.last
         isNetworkCall = false
     }
 
@@ -102,14 +102,14 @@ class BookmarkViewModel @Inject constructor(
     }
 
     private fun getMergeList(list: List<PlubCardVo>): List<PlubCardVo> {
-        val originList = bookmarkListStateFlow.value
+        val originList = bookmarkListStateFlow.value.filterNot { it.viewType == PlubCardType.LOADING }
         val mappedList = mapToCardType(list)
         return if (originList.isEmpty() || cursorId == FIRST_CURSOR) mappedList else originList + mappedList
     }
 
     private fun cursorUpdate() {
         cursorId = if (bookmarkListStateFlow.value.isEmpty()) FIRST_CURSOR
-        else bookmarkListStateFlow.value.lastOrNull()?.id ?: FIRST_CURSOR
+        else bookmarkListStateFlow.value.filterNot { it.viewType == PlubCardType.LOADING }.lastOrNull()?.id ?: FIRST_CURSOR
     }
 
     private fun postBookmark(id: Int) {
