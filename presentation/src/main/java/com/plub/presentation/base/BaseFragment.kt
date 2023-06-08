@@ -68,8 +68,6 @@ abstract class BaseFragment<B : ViewDataBinding, STATE: PageState, VM: BaseViewM
                     if(it) loadingTaskCount += 1
                     else if(loadingTaskCount > 0) loadingTaskCount -= 1
 
-                    PlubLogger.logD("BaseTest", "$loadingTaskCount")
-
                     if(loadingTaskCount > 0) progressView?.show()
                     else progressView?.dismiss()
                 }

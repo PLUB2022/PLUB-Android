@@ -68,9 +68,7 @@ abstract class BaseTestFragment<B : ViewDataBinding, STATE: PageState, VM: BaseT
             launch {
                 viewModel.showProgress.collect {
                     if(it) loadingTaskCount += 1
-                    else loadingTaskCount -= 1
-
-                    PlubLogger.logD("BaseTest", "$loadingTaskCount")
+                    else if(loadingTaskCount > 0) loadingTaskCount -= 1
 
                     if(loadingTaskCount > 0) progressView?.show()
                     else progressView?.dismiss()
