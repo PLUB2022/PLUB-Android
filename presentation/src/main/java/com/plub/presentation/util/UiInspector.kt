@@ -15,7 +15,7 @@ class UiInspector(private val delegate: Delegate) {
 
     fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: (T) -> Unit, individualErrorCallback: ((T?, IndividualError) -> Unit)?, needShowLoading: Boolean = true) {
         when(uiState) {
-            is UiState.Loading -> showLoading()
+            is UiState.Loading -> if(needShowLoading) showLoading()
             is UiState.Success -> {
                 succeedCallback.invoke(uiState.data)
                 hideLoading()

@@ -71,7 +71,7 @@ class ArchiveFragment : BaseTestFragment<FragmentArchiveBinding, ArchivePageStat
             }
         }
         viewModel.refresh()
-        viewModel.onFetchArchiveList()
+        viewModel.onFetchArchiveList(showLoading = true)
     }
 
     override fun initStates() {

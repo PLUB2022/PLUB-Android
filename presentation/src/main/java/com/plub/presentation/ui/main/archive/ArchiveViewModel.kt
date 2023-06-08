@@ -67,11 +67,11 @@ class ArchiveViewModel @Inject constructor(
         }
     }
 
-    private fun fetchArchivePage() {
+    private fun fetchArchivePage(showLoading : Boolean) {
         val request = BrowseAllArchiveRequestVo(plubbingId, cursorId)
         viewModelScope.launch {
             getAllArchiveUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessFetchArchives)
+                inspectUiState(state, ::handleSuccessFetchArchives, needShowLoading = showLoading)
             }
         }
     }
@@ -92,13 +92,13 @@ class ArchiveViewModel @Inject constructor(
     }
 
     fun onScrollChanged() {
-        if (!isLastPage && !isNetworkCall) onFetchArchiveList()
+        if (!isLastPage && !isNetworkCall) onFetchArchiveList(showLoading = false)
     }
 
-    fun onFetchArchiveList() {
+    fun onFetchArchiveList(showLoading: Boolean) {
         isNetworkCall = true
         cursorUpdate()
-        fetchArchivePage()
+        fetchArchivePage(showLoading)
     }
 
     private fun cursorUpdate() {

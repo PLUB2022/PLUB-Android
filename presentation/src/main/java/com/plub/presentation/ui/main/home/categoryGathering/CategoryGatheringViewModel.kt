@@ -110,7 +110,7 @@ class CategoryGatheringViewModel @Inject constructor(
         return subCategoryIdList
     }
 
-    private fun fetchRecommendationGatheringData() =
+    private fun fetchRecommendationGatheringData(showLoading : Boolean) =
         viewModelScope.launch {
             isNetworkCall = true
             val paramsVo = CategoriesGatheringParamsVo(categoryId, uiState.sortType.value.key, cursorId)
@@ -118,7 +118,7 @@ class CategoryGatheringViewModel @Inject constructor(
             categoriesGatheringUseCase(
                 CategoriesGatheringRequestVo(paramsVo, bodyVo)
             ).collect { state ->
-                inspectUiState(state, ::successResult)
+                inspectUiState(state, ::successResult, needShowLoading = showLoading)
             }
         }
 
@@ -194,7 +194,7 @@ class CategoryGatheringViewModel @Inject constructor(
         cursorId = FIRST_CURSOR
         viewModelScope.launch {
             cardTypeStateFlow.update { cardType }
-            fetchRecommendationGatheringData()
+            fetchRecommendationGatheringData(showLoading = true)
         }
     }
 
@@ -215,7 +215,7 @@ class CategoryGatheringViewModel @Inject constructor(
                 else -> PlubSortType.POPULAR
             }
             updateSortType(sortType)
-            fetchRecommendationGatheringData()
+            fetchRecommendationGatheringData(showLoading = true)
         }
     }
 
@@ -245,7 +245,7 @@ class CategoryGatheringViewModel @Inject constructor(
     fun onScrollChanged() {
         if (!isNetworkCall && !isLast) {
             cursorUpdate()
-            fetchRecommendationGatheringData()
+            fetchRecommendationGatheringData(showLoading = false)
         }
     }
 
