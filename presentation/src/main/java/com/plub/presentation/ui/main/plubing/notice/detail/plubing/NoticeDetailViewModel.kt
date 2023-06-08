@@ -189,11 +189,11 @@ class NoticeDetailViewModel @Inject constructor(
         }
     }
 
-    private fun getNoticeComments() {
+    private fun getNoticeComments(showLoading : Boolean = true) {
         val request = GetNoticeCommentsRequestVo(plubingId, noticeId, cursorId)
         viewModelScope.launch {
             getNoticeCommentsUseCase(request).collect {
-                inspectUiState(it, ::onSuccessFetchCommentList)
+                inspectUiState(it, ::onSuccessFetchCommentList, needShowLoading = showLoading)
             }
         }
     }
@@ -241,17 +241,18 @@ class NoticeDetailViewModel @Inject constructor(
     private fun onGetNextNoticeComments() {
         isNetworkCall = true
         cursorUpdate()
-        getNoticeComments()
+        getNoticeComments(showLoading = false)
     }
 
     private fun onSuccessFetchCommentList(vo: BoardCommentListVo) {
-        updateCommentList(getMergeList(vo.content))
         isLastPage = vo.last
+        val mergedList = if(isLastPage) getMergeList(vo.content) else getMergeList(vo.content) + listOf(BoardCommentVo(commentType = PlubingCommentType.LOADING))
+        updateCommentList(mergedList)
         isNetworkCall = false
     }
 
     private fun getMergeList(list: List<BoardCommentVo>): List<BoardCommentVo> {
-        val originList = commentListStateFlow.value
+        val originList = commentListStateFlow.value.filterNot { it.commentType == PlubingCommentType.LOADING }
         return if (cursorId == FIRST_CURSOR) detailInfoAddedList(list) else originList + list
     }
 
@@ -328,7 +329,7 @@ class NoticeDetailViewModel @Inject constructor(
 
     private fun cursorUpdate() {
         cursorId = if (commentListStateFlow.value.isEmpty()) FIRST_CURSOR
-        else commentListStateFlow.value.drop(DETAIL_INFO_POSITION).lastOrNull()?.commentId ?: FIRST_CURSOR
+        else commentListStateFlow.value.filterNot { it.commentType == PlubingCommentType.LOADING }.drop(DETAIL_INFO_POSITION).lastOrNull()?.commentId ?: FIRST_CURSOR
     }
 
     private fun updateEditCommentList(vo: BoardCommentVo) {
