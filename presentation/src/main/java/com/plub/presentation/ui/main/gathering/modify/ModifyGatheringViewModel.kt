@@ -34,12 +34,6 @@ class ModifyGatheringViewModel @Inject constructor(
         }
     }
 
-    fun handleUiState(uiState: ModifyGatheringPageState) {
-        if (uiState.modifyGuestQuestionPageState != ModifyGuestQuestionPageState()) {
-            emitEventFlow(ModifyGatheringEvent.InitViewPager)
-        }
-    }
-
     private fun handleGetGatheringInfoSuccess(plubbingId: Int, data: RecruitDetailResponseVo) {
         updateUiState { uiState ->
             uiState.copy(
@@ -101,5 +95,9 @@ class ModifyGatheringViewModel @Inject constructor(
 
     fun goToBack() {
         emitEventFlow(ModifyGatheringEvent.GoToBack)
+    }
+
+    fun goToModifyQuestion() {
+        emitEventFlow(ModifyGatheringEvent.GoToModifyQuestion(uiState.value.modifyGuestQuestionPageState))
     }
 }

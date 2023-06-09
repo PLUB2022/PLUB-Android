@@ -452,5 +452,7 @@
     <string name="fragment_modify_gathering_re_upload">모집글 재업로드 하기</string>
 
     <string name="loading_text">로딩중...</string>
+    <string name="fragment_modify_guest_question_quesiton_list">질문 리스트</string>
+    <string name="fragment_modify_guest_quesiton_gathering_question">모집 질문</string>
 
 </resources>

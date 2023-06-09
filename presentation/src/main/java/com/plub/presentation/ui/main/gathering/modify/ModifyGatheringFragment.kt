@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.main.gathering.modify
 
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -33,15 +34,13 @@ class ModifyGatheringFragment : BaseFragment
         repeatOnStarted(viewLifecycleOwner) {
 
             launch {
-                viewModel.uiState.collect { uiState ->
-                    viewModel.handleUiState(uiState)
-                }
-            }
-
-            launch {
                 viewModel.eventFlow.collect { event ->
                     when(event) {
                         is ModifyGatheringEvent.GoToBack -> findNavController().popBackStack()
+                        is ModifyGatheringEvent.GoToModifyQuestion -> {
+                            val action = ModifyGatheringFragmentDirections.actionModifyGatheringToModifyQuestion(navArgs.plubingId, event.data)
+                            findNavController().navigate(action)
+                        }
                     }
                 }
             }
