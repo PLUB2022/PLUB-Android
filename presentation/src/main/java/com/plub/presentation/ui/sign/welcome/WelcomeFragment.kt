@@ -2,6 +2,7 @@ package com.plub.presentation.ui.sign.welcome
 
 import android.content.Intent
 import androidx.fragment.app.viewModels
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentWelcomeBinding
 import com.plub.presentation.ui.PageState
@@ -19,6 +20,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding, PageState.Default, 
     override fun initView() {
         binding.apply {
             vm = viewModel
+            lottieWelcome.setAnimation(R.raw.welcome_sign_up)
         }
     }
 

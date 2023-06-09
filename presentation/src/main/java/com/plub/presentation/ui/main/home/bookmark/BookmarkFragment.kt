@@ -30,7 +30,7 @@ class BookmarkFragment :
             }
 
             override fun onClickPlubCard(id: Int) {
-
+                viewModel.goToDetailRecruitment(id)
             }
         })
     }
@@ -81,7 +81,14 @@ class BookmarkFragment :
         when(event) {
             is BookmarksEvent.ScrollToTop -> scrollToTop()
             is BookmarksEvent.GoToBack -> findNavController().popBackStack()
+            is BookmarksEvent.GoToRecruit -> goToDetailRecruitment(event.id)
         }
+    }
+
+    private fun goToDetailRecruitment(plubbingId: Int) {
+        val action =
+            BookmarkFragmentDirections.actionBookmarkToRecruitment(plubbingId)
+        findNavController().navigate(action)
     }
 
     private fun scrollToTop() {

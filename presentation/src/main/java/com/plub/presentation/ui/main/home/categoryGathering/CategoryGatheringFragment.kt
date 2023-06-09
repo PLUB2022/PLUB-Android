@@ -4,7 +4,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.PlubCardType
@@ -16,6 +15,7 @@ import com.plub.presentation.databinding.FragmentCategoryGatheringBinding
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.adapter.DialogMenuAdapter
 import com.plub.presentation.ui.main.home.card.adapter.PlubCardAdapter
+import com.plub.presentation.util.infiniteScrolls
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -66,16 +66,7 @@ class CategoryGatheringFragment :
             }
             adapter = gatheringListAdapter
 
-            addOnScrollListener((object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    val lastVisiblePosition =
-                        (layoutManager as GridLayoutManager).findLastCompletelyVisibleItemPosition()
-                    val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
-                    val isDownScroll = dy > 0
-                    viewModel.onScrollChanged(isBottom, isDownScroll)
-                }
-            }))
+            infiniteScrolls { viewModel.onScrollChanged() }
         }
     }
 
@@ -103,7 +94,6 @@ class CategoryGatheringFragment :
 
     private fun subListGatheringList(list: List<PlubCardVo>) {
         gatheringListAdapter.submitList(list)
-        viewModel.scrollTop()
     }
 
     private fun setSortTypeText(sortType: PlubSortType) {

@@ -9,6 +9,7 @@ sealed class BoardDetailEvent : Event {
     object NotifyBoardDetailInfoNotify : BoardDetailEvent()
     object HideKeyboard : BoardDetailEvent()
     object ShowKeyboard : BoardDetailEvent()
+    object GoToBack : BoardDetailEvent()
     data class ShowMenuBottomSheetDialog(val menuType: DialogMenuType, val commentVo: BoardCommentVo = BoardCommentVo()) : BoardDetailEvent()
     data class ScrollToPosition(val position: Int) : BoardDetailEvent()
     data class GoToReportBoard(val plubingId: Int, val feedId: Int) : BoardDetailEvent()

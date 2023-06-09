@@ -55,6 +55,9 @@ class NoticeWriteFragment : BaseTestFragment<FragmentNoticeWriteBinding, NoticeW
                 setNavigationResult(KEY_RESULT_EDIT_COMPLETE, event.notice)
                 findNavController().popBackStack()
             }
+            is NoticeWriteEvent.GoToBack -> {
+                findNavController().popBackStack()
+            }
         }
     }
 }

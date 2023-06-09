@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.main.plubing.notice.detail.NoticeDetailViewModel" />
+            type="com.plub.presentation.ui.main.plubing.notice.detail.plubing.NoticeDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,6 +24,7 @@
             android:layout_marginStart="3dp"
             android:layout_marginTop="12dp"
             android:scaleType="center"
+            app:onThrottleClick="@{()->vm.goToBack()}"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +43,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/image_view_back"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image_view_back"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/image_view_back"
             tools:text="요란한 한 줄" />
 

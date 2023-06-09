@@ -9,10 +9,8 @@ import com.plub.domain.model.enums.TodoItemViewType
 import com.plub.domain.model.enums.TodoTimelineViewType
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
-import com.plub.presentation.databinding.IncludeItemTodoBinding
-import com.plub.presentation.databinding.IncludeItemTodoTimelineBinding
-import com.plub.presentation.databinding.IncludeItemTodoTimelineDateBinding
-import com.plub.presentation.databinding.IncludeItemTodoTimelineGoalBinding
+import com.plub.presentation.databinding.*
+import com.plub.presentation.ui.main.home.progress.LoadingViewHolder
 
 class PlubingTodoAdapter(
     private val listener: Delegate,
@@ -48,6 +46,10 @@ class PlubingTodoAdapter(
             TodoTimelineViewType.GOAL -> {
                 val binding = IncludeItemTodoTimelineGoalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 PlubingTodoTimelineGoalViewHolder(binding)
+            }
+            TodoTimelineViewType.LOADING -> {
+                val binding = IncludeItemProgressBarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                LoadingViewHolder(binding)
             }
         }
     }

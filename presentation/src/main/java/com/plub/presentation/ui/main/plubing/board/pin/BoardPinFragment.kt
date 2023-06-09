@@ -81,6 +81,7 @@ class BoardPinFragment :
             is BoardPinEvent.GoToReportBoard -> goToReport()
             is BoardPinEvent.ScrollToPosition -> scrollToPosition(event.position)
             is BoardPinEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.feedId,event.menuType)
+            is BoardPinEvent.GoToBack -> {findNavController().popBackStack()}
         }
     }
 

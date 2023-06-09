@@ -218,7 +218,7 @@
                 <TextView
                     android:id="@+id/text_view_plubbing_detail_intro"
                     android:layout_width="wrap_content"
-                    android:layout_height="21dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@{@string/detail_recruit_about_my_gathering(vm.uiState.recruitIntroduce)}"
                     android:textColor="@color/color_363636"
@@ -279,11 +279,11 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_plubbing_people_profile"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="34dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="54dp"
-                    android:layout_marginEnd="10.5dp"
+                    android:layout_marginEnd="10dp"
                     android:orientation="horizontal"
                     android:overScrollMode="never"
                     app:layout_constraintEnd_toEndOf="parent"

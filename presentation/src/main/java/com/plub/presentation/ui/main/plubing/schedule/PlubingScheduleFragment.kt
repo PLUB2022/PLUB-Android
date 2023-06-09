@@ -91,6 +91,9 @@ class PlubingScheduleFragment : BaseFragment<
             is PlubingScheduleEvent.ShowBottomSheetDialogEditOrDeleteSchedule -> {
                 showBottomSheetDialogEditOrDeleteSchedule(event.scheduleVo)
             }
+            is PlubingScheduleEvent.GoToBack -> {
+                findNavController().popBackStack()
+            }
         }
     }
 

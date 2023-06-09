@@ -96,7 +96,7 @@ class RecruitmentFragment :
 
     private fun initProfileAdapter(list: List<RecruitDetailJoinedAccountsVo>) {
         binding.apply {
-            val maxProfile = recyclerViewPlubbingPeopleProfile.width / PROFILE_WIDTH.px
+            val maxProfile = resources.displayMetrics.widthPixels / PROFILE_WIDTH.px
             constraintLayoutTop.bringToFront()
             detailRecruitProfileAdapter.setMaxProfile(maxProfile)
             detailRecruitProfileAdapter.submitList(list)
@@ -144,7 +144,12 @@ class RecruitmentFragment :
     }
 
     private fun goToProfile(accountId: Int, nickname : String) {
-
+        val action = RecruitmentFragmentDirections.actionRecruitmentToOtherProfile(
+            plubbingId = recruitmentFragmentArgs.plubbingId,
+            accountId = accountId,
+            nickname = nickname
+        )
+        findNavController().navigate(action)
     }
 
     private fun openProfileBottomSheet(joinedAccountList : List<RecruitDetailJoinedAccountsVo>){

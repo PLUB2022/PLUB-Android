@@ -1,5 +1,6 @@
 package com.plub.presentation.base
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +13,13 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.plub.presentation.ui.PageState
+import com.plub.presentation.ui.common.dialog.ProgressDialog
 import com.plub.presentation.util.CommonProcessor
+import com.plub.presentation.util.PlubLogger
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.concurrent.atomic.AtomicInteger
 
 abstract class BaseTestFragment<B : ViewDataBinding, STATE: PageState, VM: BaseTestViewModel<STATE>>(
     private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> B,
@@ -27,7 +32,15 @@ abstract class BaseTestFragment<B : ViewDataBinding, STATE: PageState, VM: BaseT
         get() = _binding!!
 
     private lateinit var commonProcessor: CommonProcessor
-    private var progressView:ProgressBar? = null
+    private var progressView: ProgressDialog? = null
+
+    private var loadingTaskCount: Int = 0
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        progressView = ProgressDialog(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,17 +61,17 @@ abstract class BaseTestFragment<B : ViewDataBinding, STATE: PageState, VM: BaseT
         initStates()
     }
 
-    protected fun bindProgressBar(progressBar: ProgressBar) {
-        progressView = progressBar
-    }
-
     protected abstract fun initView()
 
     protected open fun initStates() {
         repeatOnStarted(viewLifecycleOwner) {
             launch {
                 viewModel.showProgress.collect {
-                    progressView?.visibility = if(it) View.VISIBLE else View.GONE
+                    if(it) loadingTaskCount += 1
+                    else if(loadingTaskCount > 0) loadingTaskCount -= 1
+
+                    if(loadingTaskCount > 0) progressView?.show()
+                    else progressView?.dismiss()
                 }
             }
 
@@ -78,6 +91,8 @@ abstract class BaseTestFragment<B : ViewDataBinding, STATE: PageState, VM: BaseT
 
     override fun onDestroyView() {
         _binding = null
+        progressView?.dismiss()
+        progressView = null
         super.onDestroyView()
     }
 }

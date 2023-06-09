@@ -251,4 +251,8 @@ class PlubingAddOrEditScheduleViewModel @Inject constructor(
             )
         }
     }
+
+    fun goToBack(){
+        emitEventFlow(PlubingAddOrEditScheduleEvent.GoToBack)
+    }
 }

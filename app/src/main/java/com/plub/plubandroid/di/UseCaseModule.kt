@@ -344,8 +344,8 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun providesGetMyPostUseCase(repository: MyPageRepository): GetMyPostUseCase {
-        return GetMyPostUseCase(repository)
+    fun providesGetMyPostUseCase(repository: MyPageRepository): GetMyPageUseCase {
+        return GetMyPageUseCase(repository)
     }
 
     @Singleton

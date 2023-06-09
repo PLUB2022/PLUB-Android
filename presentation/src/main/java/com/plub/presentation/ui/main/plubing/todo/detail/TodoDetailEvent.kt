@@ -9,4 +9,5 @@ sealed class TodoDetailEvent : Event {
     data class ShowMenuBottomSheetDialog(val menuType: DialogMenuType, val todoVo: TodoItemVo) : TodoDetailEvent()
     data class ShowTodoProofDialog(val parseTodoItemVo: ParseTodoItemVo) : TodoDetailEvent()
     data class GoToPlannerTodo(val date: String) : TodoDetailEvent()
+    object GoToBack : TodoDetailEvent()
 }

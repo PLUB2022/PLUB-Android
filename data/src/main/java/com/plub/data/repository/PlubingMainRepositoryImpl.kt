@@ -12,6 +12,6 @@ import javax.inject.Inject
 class PlubingMainRepositoryImpl @Inject constructor(private val plubingMainApi: PlubingMainApi) : PlubingMainRepository, BaseRepository() {
 
     override suspend fun getPlubingMain(id: Int): Flow<UiState<PlubingMainVo>> {
-        return apiLaunch(plubingMainApi.getPlubingMain(id), PlubingMainResponseMapper)
+        return apiLaunch(apiCall = { plubingMainApi.getPlubingMain(id) }, PlubingMainResponseMapper)
     }
 }
