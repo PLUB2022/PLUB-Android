@@ -100,4 +100,8 @@ class ModifyGatheringViewModel @Inject constructor(
     fun goToModifyQuestion() {
         emitEventFlow(ModifyGatheringEvent.GoToModifyQuestion(uiState.value.modifyGuestQuestionPageState))
     }
+
+    fun goToModifyRecruit() {
+        emitEventFlow(ModifyGatheringEvent.GoToModifyRecruit(uiState.value.modifyRecruitPageState))
+    }
 }

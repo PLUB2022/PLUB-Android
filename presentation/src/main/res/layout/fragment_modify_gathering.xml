@@ -96,6 +96,7 @@
                     tools:layout_editor_absoluteX="16dp" />
 
                 <ImageView
+                    onThrottleClick="@{() -> vm.goToModifyRecruit()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_right"
@@ -105,6 +106,7 @@
 
                 <TextView
                     android:id="@+id/text_view_modify_setting"
+                    onThrottleClick="@{() -> vm.goToModifyRecruit()}"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:layout_marginTop="16dp"

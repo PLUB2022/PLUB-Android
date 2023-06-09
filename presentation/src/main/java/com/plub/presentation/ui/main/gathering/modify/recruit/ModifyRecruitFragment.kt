@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
@@ -56,6 +57,10 @@ class ModifyRecruitFragment : BaseFragment<
 
                         is ModifyRecruitEvent.CropImageAndOptimize -> {
                             startCropImage(it.cropImageContractOptions)
+                        }
+
+                        is ModifyRecruitEvent.GoToBack -> {
+                            findNavController().popBackStack()
                         }
                     }
                 }

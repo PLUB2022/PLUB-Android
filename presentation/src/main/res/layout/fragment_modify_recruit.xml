@@ -29,6 +29,7 @@
 
                 <ImageView
                     android:id="@+id/image_view_back"
+                    onThrottleClick="@{() -> vm.goToBack()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
@@ -254,11 +255,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
-                    app:onThrottleClick="@{() -> vm.onClickAddSingleImageButton()}"
                     app:gatheringImage="@{vm.uiState.tempPlubbingMainBitmap}"
                     app:gatheringImageUrl="@{vm.uiState.plubbingMainImgUrl}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_view_gathering_picture_title"
+                    app:onThrottleClick="@{() -> vm.onClickAddSingleImageButton()}"
                     tools:background="@color/color_5f5ff9"
                     tools:layout_height="100dp"
                     tools:layout_width="match_parent" />
@@ -275,7 +276,6 @@
             android:layout_marginBottom="26dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
             android:enabled="@{vm.uiState.isNextButtonEnabled}"
-            app:onThrottleClick="@{() -> vm.onClickSaveButton()}"
             android:stateListAnimator="@null"
             android:text="@string/word_save"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
@@ -283,7 +283,8 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:onThrottleClick="@{() -> vm.onClickSaveButton()}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

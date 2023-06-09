@@ -41,6 +41,10 @@ class ModifyGatheringFragment : BaseFragment
                             val action = ModifyGatheringFragmentDirections.actionModifyGatheringToModifyQuestion(navArgs.plubingId, event.data)
                             findNavController().navigate(action)
                         }
+                        is ModifyGatheringEvent.GoToModifyRecruit -> {
+                            val action = ModifyGatheringFragmentDirections.actionModifyGatheringToModifyRecruit(navArgs.plubingId, event.data)
+                            findNavController().navigate(action)
+                        }
                     }
                 }
             }
