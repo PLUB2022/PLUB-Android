@@ -447,6 +447,10 @@
             android:id="@+id/action_modifyGathering_to_modifyQuestion"
             app:destination="@id/modifyQuestionFragment" />
 
+        <action
+            android:id="@+id/action_modifyGathering_to_modifyInfo"
+            app:destination="@id/modifyInfoFragment" />
+
     </fragment>
 
     <fragment
@@ -476,6 +480,21 @@
         <argument
             android:name="pageState"
             app:argType="com.plub.presentation.ui.main.gathering.modify.guestQuestion.ModifyGuestQuestionPageState" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/modifyInfoFragment"
+        android:name="com.plub.presentation.ui.main.gathering.modify.info.ModifyInfoFragment"
+        android:label="ModifyRecruitFragment" >
+
+        <argument
+            android:name="plubingId"
+            app:argType="integer" />
+
+        <argument
+            android:name="pageState"
+            app:argType="com.plub.presentation.ui.main.gathering.modify.info.ModifyInfoPageState" />
 
     </fragment>
 

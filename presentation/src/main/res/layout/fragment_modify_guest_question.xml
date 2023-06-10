@@ -43,6 +43,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="64dp"
             android:scrollbars="none"
             app:layout_constraintBottom_toTopOf="@id/button_save"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +58,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="64dp"
                     android:text="@string/fragment_modify_guest_quesiton_gathering_question"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -69,7 +69,7 @@
                     android:id="@+id/radio_group_question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="95dp"
+                    android:layout_marginTop="30dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

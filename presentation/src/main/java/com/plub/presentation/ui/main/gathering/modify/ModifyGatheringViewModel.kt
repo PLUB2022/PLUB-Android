@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.main.gathering.modify
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.enums.DaysType
+import com.plub.domain.model.enums.OnOfflineType
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailResponseVo
 import com.plub.domain.usecase.GetRecruitDetailUseCase
@@ -8,7 +10,9 @@ import com.plub.domain.usecase.GetRecruitQuestionUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.main.gathering.create.question.CreateGatheringQuestion
 import com.plub.presentation.ui.main.gathering.modify.guestQuestion.ModifyGuestQuestionPageState
+import com.plub.presentation.ui.main.gathering.modify.info.ModifyInfoPageState
 import com.plub.presentation.ui.main.gathering.modify.recruit.ModifyRecruitPageState
+import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,7 +41,8 @@ class ModifyGatheringViewModel @Inject constructor(
     private fun handleGetGatheringInfoSuccess(plubbingId: Int, data: RecruitDetailResponseVo) {
         updateUiState { uiState ->
             uiState.copy(
-                modifyRecruitPageState = getRecruitPageState(plubbingId, data)
+                modifyRecruitPageState = getRecruitPageState(plubbingId, data),
+                modifyInfoPageState = getInfoPageState(plubbingId, data)
             )
         }
     }
@@ -53,6 +58,25 @@ class ModifyGatheringViewModel @Inject constructor(
             goal = data.plubbingGoal,
             introduce = data.recruitIntroduce,
             plubbingMainImgUrl = data.plubbingMainImage,
+        )
+    }
+
+    private fun getInfoPageState(
+        plubbingId: Int,
+        data: RecruitDetailResponseVo
+    ): ModifyInfoPageState {
+        return ModifyInfoPageState(
+            plubbingId = plubbingId,
+            gatheringDays = data.plubbingDays.map { DaysType.findByEng(it) }.toHashSet(),
+            gatheringOnOffline = if(data.plubbingDays.isEmpty()) OnOfflineType.ON.value else OnOfflineType.ON.value,
+            address = data.address,
+            roadAdress = data.roadAdress,
+            placeName = data.placeName,
+            gatheringHour = TimeFormatter.getIntHour(data.plubbingTime),
+            gatheringMin = TimeFormatter.getIntMin(data.plubbingTime),
+            gatheringFormattedTime = data.plubbingTime,
+            seekBarProgress = data.curAccountNum,
+            seekBarPositionX = 0.0f
         )
     }
 
@@ -103,5 +127,9 @@ class ModifyGatheringViewModel @Inject constructor(
 
     fun goToModifyRecruit() {
         emitEventFlow(ModifyGatheringEvent.GoToModifyRecruit(uiState.value.modifyRecruitPageState))
+    }
+
+    fun goToModifyInfo() {
+        emitEventFlow(ModifyGatheringEvent.GoToModifyInfo(uiState.value.modifyInfoPageState))
     }
 }

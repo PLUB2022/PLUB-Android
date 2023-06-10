@@ -25,7 +25,7 @@ class ModifyInfoFragment : BaseFragment<
     FragmentModifyInfoBinding::inflate
 ) {
     override val viewModel: ModifyInfoViewModel by viewModels()
-    // private val navArgs: ModifyInfo by navArgs()
+    private val navArgs: ModifyInfoFragmentArgs by navArgs()
 
     override fun initView() {
         binding.apply {
@@ -33,6 +33,10 @@ class ModifyInfoFragment : BaseFragment<
         }
 
         // viewModel.initPageState(navArgs.pageState)
+    }
+
+    fun getSeekBarPositionX(): Float {
+        return (((binding.seekBarPeople.width - (binding.seekBarPeople.paddingStart + binding.seekBarPeople.paddingEnd)) / binding.seekBarPeople.max) * navArgs.pageState.seekBarProgress).toFloat()
     }
 
     override fun initStates() {

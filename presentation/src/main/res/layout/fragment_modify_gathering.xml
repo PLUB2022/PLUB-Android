@@ -68,6 +68,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    onThrottleClick="@{() -> vm.goToModifyInfo()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_right"
@@ -77,6 +78,7 @@
 
                 <TextView
                     android:id="@+id/text_view_my_gathering_setting"
+                    onThrottleClick="@{() -> vm.goToModifyInfo()}"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:layout_marginTop="16dp"

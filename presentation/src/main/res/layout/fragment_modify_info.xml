@@ -45,6 +45,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="65dp"
             android:fillViewport="true"
             android:scrollbars="none"
             app:layout_constraintBottom_toTopOf="@id/button_next"
@@ -59,7 +60,6 @@
                     android:id="@+id/text_view_gathering_day_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="65dp"
                     android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_day_title"
                     android:textColor="@color/color_363636"
                     android:textSize="16sp"
@@ -295,90 +295,90 @@
                         tools:layout_height="40dp" />
                     <!--                    app:iconTextViewSmallTextAndIconAndBackgroundCreateGatheringLocation="@{vm.uiState.gatheringLocationData}"-->
 
-                    <TextView
-                        android:id="@+id/text_view_seekbar_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="48dp"
-                        android:text="@string/create_gathering_people_number_seekbar_title"
-                        android:textColor="@color/color_363636"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/edit_text_gathering_location_value" />
-
-                    <SeekBar
-                        android:id="@+id/seek_bar_people"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="41dp"
-                        android:background="@null"
-                        android:max="16"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        android:progress="@{vm.uiState.seekBarProgress}"
-                        android:progressDrawable="@drawable/layout_list_seekbar_2e3c3c43_to_5f5ff9"
-                        android:splitTrack="false"
-                        android:thumb="@drawable/layer_list_spinner_thumb"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/text_view_seekbar_title"
-                        app:updateSeekBarProgressAndPosition="@{vm.updateSeekbarProgressAndPositionX}"
-                        tools:progress="0" />
-
-                    <TextView
-                        android:id="@+id/text_view_seekbar_min"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/create_gathering_people_number_seekbar_min"
-                        android:textColor="@color/color_363636"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="@id/seek_bar_people"
-                        app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
-
-                    <TextView
-                        android:id="@+id/text_view_seekbar_max"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginEnd="14dp"
-                        android:text="@string/create_gathering_people_number_seekbar_max"
-                        android:textColor="@color/color_363636"
-                        android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="@id/seek_bar_people"
-                        app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:src="@drawable/ic_spinner_mark_arrow"
-                        app:imageViewPositionX="@{vm.uiState.seekBarPositionX}"
-                        app:layout_constraintBottom_toTopOf="@id/seek_bar_people"
-                        app:layout_constraintStart_toStartOf="@id/seek_bar_people" />
-
-                    <TextView
-                        android:id="@+id/text_view_seekbar_mark"
-                        android:layout_width="58dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:paddingVertical="4dp"
-                        android:text="@{@string/word_people_number(vm.uiState.peopleNumber)}"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@id/seek_bar_people"
-                        app:layout_constraintStart_toStartOf="@id/seek_bar_people"
-                        app:textViewPositionX="@{vm.uiState.seekBarPositionX}"
-                        tools:text="4명" />
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/text_view_seekbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/create_gathering_people_number_seekbar_title"
+                    android:textColor="@color/color_363636"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraint_layout_gathering_location" />
+
+                <SeekBar
+                    android:id="@+id/seek_bar_people"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="41dp"
+                    android:background="@null"
+                    android:max="16"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:progress="@{vm.uiState.seekBarProgress}"
+                    android:progressDrawable="@drawable/layout_list_seekbar_2e3c3c43_to_5f5ff9"
+                    android:splitTrack="false"
+                    android:thumb="@drawable/layer_list_spinner_thumb"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_seekbar_title"
+                    app:updateSeekBarProgressAndPosition="@{vm.updateSeekbarProgressAndPositionX}"
+                    tools:progress="0" />
+
+                <TextView
+                    android:id="@+id/text_view_seekbar_min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/create_gathering_people_number_seekbar_min"
+                    android:textColor="@color/color_363636"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/seek_bar_people"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
+
+                <TextView
+                    android:id="@+id/text_view_seekbar_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/create_gathering_people_number_seekbar_max"
+                    android:textColor="@color/color_363636"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/seek_bar_people"
+                    app:layout_constraintTop_toBottomOf="@id/seek_bar_people" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_spinner_mark_arrow"
+                    app:imageViewPositionX="@{vm.uiState.seekBarPositionX}"
+                    app:layout_constraintBottom_toTopOf="@id/seek_bar_people"
+                    app:layout_constraintStart_toStartOf="@id/seek_bar_people" />
+
+                <TextView
+                    android:id="@+id/text_view_seekbar_mark"
+                    android:layout_width="58dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:paddingVertical="4dp"
+                    android:text="@{@string/word_people_number(vm.uiState.peopleNumber)}"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/seek_bar_people"
+                    app:layout_constraintStart_toStartOf="@id/seek_bar_people"
+                    app:textViewPositionX="@{vm.uiState.seekBarPositionX}"
+                    tools:text="4명" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
