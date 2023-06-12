@@ -35,6 +35,8 @@ class LoginRepositoryImpl @Inject constructor(private val loginApi: LoginApi, pr
     }
 
     override suspend fun logout(): Flow<UiState<Unit>> {
-        return apiLaunch(apiCall = { accountApi.logout() }, UnitResponseMapper)
+        return apiLaunch(apiCall = { accountApi.logout() }, UnitResponseMapper){
+            LoginError.make(it)
+        }
     }
 }

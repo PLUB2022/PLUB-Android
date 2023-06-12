@@ -5,6 +5,7 @@ import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.NotificationsResponseMapper
 import com.plub.data.mapper.UnitResponseMapper
 import com.plub.domain.UiState
+import com.plub.domain.error.NotificationError
 import com.plub.domain.model.vo.notification.NotificationsResponseVo
 import com.plub.domain.model.vo.schedule.CalendarAttendVo
 import com.plub.domain.model.vo.schedule.CreateScheduleRequestVo
@@ -21,10 +22,14 @@ import javax.inject.Inject
 class NotificationRepositoryImpl @Inject constructor(private val notificationApi: NotificationApi) : NotificationRepository, BaseRepository() {
 
     override suspend fun getMyNotifications(request: Unit): Flow<UiState<NotificationsResponseVo>> {
-        return apiLaunch(apiCall = { notificationApi.getMyNotifications() }, NotificationsResponseMapper)
+        return apiLaunch(apiCall = { notificationApi.getMyNotifications() }, NotificationsResponseMapper){
+            NotificationError.make(it)
+        }
     }
 
     override suspend fun readNotification(request: Int): Flow<UiState<Unit>> {
-        return apiLaunch(apiCall = { notificationApi.readNotification(request) }, UnitResponseMapper)
+        return apiLaunch(apiCall = { notificationApi.readNotification(request) }, UnitResponseMapper){
+            NotificationError.make(it)
+        }
     }
 }

@@ -22,11 +22,15 @@ class PlubingTodoRepositoryImpl @Inject constructor(private val todoApi: TodoApi
     override suspend fun getTimelineList(request: TodoGetTimelineRequestVo): Flow<UiState<TodoTimelineListVo>> {
         return apiLaunch(apiCall = { todoApi.getTimelines(request.plubbingId, request.cursorId) }, TodoTimelineListResponseMapper.apply {
             setViewType(request.todoItemViewType)
-        })
+        }){
+            TodoError.make(it)
+        }
     }
 
     override suspend fun getOtherTimelineList(request: GetOtherTodoRequestVo): Flow<UiState<TodoTimelineListVo>> {
-        return apiLaunch(apiCall = { todoApi.getOtherTimelines(request.plubbingId, request.accountId, request.cursorId) }, TodoTimelineListResponseMapper)
+        return apiLaunch(apiCall = { todoApi.getOtherTimelines(request.plubbingId, request.accountId, request.cursorId) }, TodoTimelineListResponseMapper){
+            TodoError.make(it)
+        }
     }
 
     override suspend fun postTodoProof(request: TodoProofRequestVo): Flow<UiState<Unit>> {
@@ -49,27 +53,37 @@ class PlubingTodoRepositoryImpl @Inject constructor(private val todoApi: TodoApi
     }
 
     override suspend fun getTodoDays(request: GetTodoDaysRequestVo): Flow<UiState<List<Int>>> {
-        return apiLaunch(apiCall = { todoApi.getTodoDays(request.plubbingId, request.year, request.month) }, GetTodoDaysResponseMapper)
+        return apiLaunch(apiCall = { todoApi.getTodoDays(request.plubbingId, request.year, request.month) }, GetTodoDaysResponseMapper){
+            TodoError.make(it)
+        }
     }
 
     override suspend fun getMyTodoListInDay(request: GetMyTodoListInDayRequestVo): Flow<UiState<TodoTimelineVo>> {
         return apiLaunch(apiCall = { todoApi.getMyTodoListInDay(request.plubbingId, request.date) }, TodoTimelineResponseMapper.apply {
             setViewType(TodoItemViewType.PLANNER)
-        })
+        }){
+            TodoError.make(it)
+        }
     }
 
     override suspend fun deleteTodo(request: TodoRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(apiCall = { todoApi.deleteTodo(request.plubbingId, request.todoId) }, UnitResponseMapper)
+        return apiLaunch(apiCall = { todoApi.deleteTodo(request.plubbingId, request.todoId) }, UnitResponseMapper){
+            TodoError.make(it)
+        }
     }
 
     override suspend fun putTodoEdit(request: TodoWriteRequestVo): Flow<UiState<TodoItemVo>> {
         val body = TodoWriteRequestMapper.mapModelToDto(request)
-        return apiLaunch(apiCall = { todoApi.putTodoEdit(request.plubbingId, request.todoId, body) }, TodoItemResponseMapper)
+        return apiLaunch(apiCall = { todoApi.putTodoEdit(request.plubbingId, request.todoId, body) }, TodoItemResponseMapper){
+            TodoError.make(it)
+        }
     }
 
     override suspend fun postTodoCreate(request: TodoWriteRequestVo): Flow<UiState<TodoItemVo>> {
         val body = TodoWriteRequestMapper.mapModelToDto(request)
-        return apiLaunch(apiCall = { todoApi.postTodoCreate(request.plubbingId, body) }, TodoItemResponseMapper)
+        return apiLaunch(apiCall = { todoApi.postTodoCreate(request.plubbingId, body) }, TodoItemResponseMapper){
+            TodoError.make(it)
+        }
     }
 
     override suspend fun putTodoLikeToggle(request: TodoRequestVo): Flow<UiState<TodoTimelineVo>> {
@@ -81,6 +95,8 @@ class PlubingTodoRepositoryImpl @Inject constructor(private val todoApi: TodoApi
     override suspend fun getTodoDetail(request: TodoRequestVo): Flow<UiState<TodoTimelineVo>> {
         return apiLaunch(apiCall = { todoApi.getTodoDetail(request.plubbingId, request.timelineId) }, TodoTimelineResponseMapper.apply {
             setViewType(TodoItemViewType.DETAIL)
-        })
+        }){
+            TodoError.make(it)
+        }
     }
 }

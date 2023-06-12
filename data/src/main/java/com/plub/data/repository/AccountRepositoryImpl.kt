@@ -15,11 +15,15 @@ import javax.inject.Inject
 class AccountRepositoryImpl @Inject constructor(private val accountApi: AccountApi) : AccountRepository, BaseRepository() {
 
     override suspend fun fetchMyInfo(): Flow<UiState<MyInfoResponseVo>> {
-        return apiLaunch(apiCall = { accountApi.fetchMyInfo() }, MyInfoResponseMapper)
+        return apiLaunch(apiCall = { accountApi.fetchMyInfo() }, MyInfoResponseMapper){
+            AccountError.make(it)
+        }
     }
 
     override suspend fun fetchOtherInfo(request : String): Flow<UiState<MyInfoResponseVo>> {
-        return apiLaunch(apiCall = { accountApi.fetchOtherInfo(request) }, MyInfoResponseMapper)
+        return apiLaunch(apiCall = { accountApi.fetchOtherInfo(request) }, MyInfoResponseMapper){
+            AccountError.make(it)
+        }
     }
 
     override suspend fun updateMyInfo(request : UpdateMyInfoRequestVo): Flow<UiState<MyInfoResponseVo>> {
@@ -29,7 +33,9 @@ class AccountRepositoryImpl @Inject constructor(private val accountApi: AccountA
     }
 
     override suspend fun changePushNotification(request: Boolean): Flow<UiState<Unit>> {
-        return apiLaunch(apiCall = { accountApi.changePushNotify(request) }, UnitResponseMapper)
+        return apiLaunch(apiCall = { accountApi.changePushNotify(request) }, UnitResponseMapper){
+            AccountError.make(it)
+        }
     }
 
     override suspend fun inactive(request: Boolean): Flow<UiState<Unit>> {
@@ -39,6 +45,8 @@ class AccountRepositoryImpl @Inject constructor(private val accountApi: AccountA
     }
 
     override suspend fun revoke(): Flow<UiState<Unit>> {
-        return apiLaunch(apiCall = { accountApi.revoke() }, UnitResponseMapper)
+        return apiLaunch(apiCall = { accountApi.revoke() }, UnitResponseMapper){
+            AccountError.make(it)
+        }
     }
 }

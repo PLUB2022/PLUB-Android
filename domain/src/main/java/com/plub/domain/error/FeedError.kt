@@ -10,6 +10,7 @@ sealed class FeedError: IndividualError() {
         private const val CANNOT_DELETE_SYSTEM_FEED = 8040
         private const val DELETED_COMMENT = 8050
         private const val MAX_FEED_PIN = 8060
+        private const val NOT_COMMENT_AUTHOR = 8070
 
         fun make(code:Int) : FeedError {
             return when(code) {
@@ -20,6 +21,7 @@ sealed class FeedError: IndividualError() {
                 CANNOT_DELETE_SYSTEM_FEED -> CannotDeleteSystemFeed("시스템 피드를 삭제할 수 없음")
                 DELETED_COMMENT -> DeletedComment("이미 삭제된 댓글")
                 MAX_FEED_PIN -> MaxFeedPin("최대 고정 갯수 초과")
+                NOT_COMMENT_AUTHOR -> NotCommentAuthor("댓글 작성자가 아님")
                 else -> Common
             }
         }
@@ -32,5 +34,6 @@ sealed class FeedError: IndividualError() {
     data class CannotDeleteSystemFeed(val msg:String): FeedError()
     data class DeletedComment(val msg:String): FeedError()
     data class MaxFeedPin(val msg:String): FeedError()
+    data class NotCommentAuthor(val msg : String) : FeedError()
     object Common : FeedError()
 }

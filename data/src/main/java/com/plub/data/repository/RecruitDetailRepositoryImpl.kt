@@ -51,6 +51,8 @@ class RecruitDetailRepositoryImpl @Inject constructor(private val recruitApi: Re
 
     override suspend fun modifyQuestions(request: ModifyQuestionRequestVo) : Flow<UiState<CreateGatheringResponseVo>> {
         val requestDto = ModifyQuestionRequestMapper.mapModelToDto(request)
-        return apiLaunch(apiCall = { recruitApi.modifyQuestions(requestDto.plubbingId, requestDto.body) }, CreateGatheringResponseMapper)
+        return apiLaunch(apiCall = { recruitApi.modifyQuestions(requestDto.plubbingId, requestDto.body) }, CreateGatheringResponseMapper){
+            GatheringError.make(it)
+        }
     }
 }

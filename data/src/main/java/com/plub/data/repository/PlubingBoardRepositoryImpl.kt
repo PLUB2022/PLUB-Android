@@ -14,6 +14,7 @@ import com.plub.data.mapper.CommentEditRequestMapper
 import com.plub.data.mapper.UnitResponseMapper
 import com.plub.domain.UiState
 import com.plub.domain.error.FeedError
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.vo.board.BoardCommentListVo
 import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.domain.model.vo.board.BoardRequestVo
@@ -32,11 +33,15 @@ import javax.inject.Inject
 class PlubingBoardRepositoryImpl @Inject constructor(private val boardApi: PlubingBoardApi) : PlubingBoardRepository, BaseRepository() {
 
     override suspend fun feedGetList(request: GetBoardFeedsRequestVo): Flow<UiState<PlubingBoardListVo>> {
-        return apiLaunch(apiCall = { boardApi.getFeeds(request.plubbingId, request.cursorId) }, PlubingBoardListResponseMapper)
+        return apiLaunch(apiCall = { boardApi.getFeeds(request.plubbingId, request.cursorId) }, PlubingBoardListResponseMapper){
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun feedGetPinedList(plubingId: Int): Flow<UiState<List<PlubingBoardVo>>> {
-        return apiLaunch(apiCall = { boardApi.getPins(plubingId) }, PlubingPinListResponseMapper)
+        return apiLaunch(apiCall = { boardApi.getPins(plubingId) }, PlubingPinListResponseMapper){
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun feedChangePin(request: BoardRequestVo): Flow<UiState<Unit>> {
@@ -53,33 +58,47 @@ class PlubingBoardRepositoryImpl @Inject constructor(private val boardApi: Plubi
 
     override suspend fun feedCreate(request: BoardCreateRequestVo): Flow<UiState<Unit>> {
         val body = BoardCreateRequestMapper.mapModelToDto(request)
-        return apiLaunch(apiCall = { boardApi.createFeed(request.plubingId, body) }, UnitResponseMapper)
+        return apiLaunch(apiCall = { boardApi.createFeed(request.plubingId, body) }, UnitResponseMapper){
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun feedDetail(request: BoardRequestVo): Flow<UiState<PlubingBoardVo>> {
-        return apiLaunch(apiCall = { boardApi.detailFeed(request.plubbingId, request.feedId) }, PlubingBoardResponseMapper)
+        return apiLaunch(apiCall = { boardApi.detailFeed(request.plubbingId, request.feedId) }, PlubingBoardResponseMapper){
+            FeedError.make(it)
+        }
     }
 
     override suspend fun feedEdit(request: BoardEditRequestVo): Flow<UiState<PlubingBoardVo>> {
         val body = BoardEditRequestMapper.mapModelToDto(request)
-        return apiLaunch(apiCall = { boardApi.editFeed(request.plubingId, request.feedId, body) }, PlubingBoardResponseMapper)
+        return apiLaunch(apiCall = { boardApi.editFeed(request.plubingId, request.feedId, body) }, PlubingBoardResponseMapper){
+            FeedError.make(it)
+        }
     }
 
     override suspend fun commentGetList(request: GetBoardCommentsRequestVo): Flow<UiState<BoardCommentListVo>> {
-        return apiLaunch(apiCall = { boardApi.getComments(request.plubbingId, request.feedId, request.cursorId) }, BoardCommentListResponseMapper)
+        return apiLaunch(apiCall = { boardApi.getComments(request.plubbingId, request.feedId, request.cursorId) }, BoardCommentListResponseMapper){
+            FeedError.make(it)
+        }
     }
 
     override suspend fun commentCreate(request: CommentCreateRequestVo): Flow<UiState<BoardCommentVo>> {
         val body = CommentCreateRequestMapper.mapModelToDto(request)
-        return apiLaunch(apiCall = { boardApi.createComment(request.plubingId, request.feedId, body) }, BoardCommentResponseMapper)
+        return apiLaunch(apiCall = { boardApi.createComment(request.plubingId, request.feedId, body) }, BoardCommentResponseMapper){
+            FeedError.make(it)
+        }
     }
 
     override suspend fun commentDelete(request: BoardRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(apiCall = { boardApi.deleteComment(request.plubbingId, request.feedId, request.commentId) }, UnitResponseMapper)
+        return apiLaunch(apiCall = { boardApi.deleteComment(request.plubbingId, request.feedId, request.commentId) }, UnitResponseMapper){
+            FeedError.make(it)
+        }
     }
 
     override suspend fun commentEdit(request: CommentEditRequestVo): Flow<UiState<BoardCommentVo>> {
         val body = CommentEditRequestMapper.mapModelToDto(request)
-        return apiLaunch(apiCall = { boardApi.editComment(request.plubingId, request.feedId, request.commentId, body) }, BoardCommentResponseMapper)
+        return apiLaunch(apiCall = { boardApi.editComment(request.plubingId, request.feedId, request.commentId, body) }, BoardCommentResponseMapper){
+            FeedError.make(it)
+        }
     }
 }

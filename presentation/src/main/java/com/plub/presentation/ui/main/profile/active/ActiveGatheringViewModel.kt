@@ -94,6 +94,7 @@ class ActiveGatheringViewModel @Inject constructor(
             is FeedError.NotFeedAuthor -> TODO()
             is FeedError.NotFoundComment -> TODO()
             is FeedError.NotFoundFeed -> TODO()
+            is FeedError.NotCommentAuthor -> TODO()
         }
     }
 

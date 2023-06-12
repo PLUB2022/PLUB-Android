@@ -8,6 +8,7 @@ import com.plub.data.mapper.myPageMapper.MyPageMyApplicationMapper
 import com.plub.data.mapper.myPageMapper.MyToDoWithTileMapper
 import com.plub.domain.UiState
 import com.plub.domain.error.FeedError
+import com.plub.domain.error.GatheringError
 import com.plub.domain.error.TodoError
 import com.plub.domain.model.enums.MyPageGatheringStateType
 import com.plub.domain.model.vo.board.PlubingBoardListVo
@@ -22,11 +23,15 @@ import javax.inject.Inject
 class MyPageRepositoryImpl @Inject constructor(private val myPageApi: MyPageApi) : MyPageRepository, BaseRepository() {
 
     override suspend fun getMyGathering(request: MyPageGatheringStateType): Flow<UiState<MyPageGatheringVo>> {
-        return apiLaunch(apiCall = { myPageApi.getMyGathering(request.type) }, MyGatheringMapper)
+        return apiLaunch(apiCall = { myPageApi.getMyGathering(request.type) }, MyGatheringMapper){
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun getMyApplicationWithPlubInfo(request: Int): Flow<UiState<MyPageMyApplicationVo>> {
-        return apiLaunch(apiCall = { myPageApi.getMyApplication(request) }, MyPageMyApplicationMapper)
+        return apiLaunch(apiCall = { myPageApi.getMyApplication(request) }, MyPageMyApplicationMapper){
+            GatheringError.make(it)
+        }
     }
 
     override suspend fun getMyToDo(request: MyPageActiveRequestVo): Flow<UiState<MyPageToDoWithTitleVo>> {
