@@ -8,6 +8,7 @@ import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentHomeBinding
 import com.plub.presentation.parcelableVo.ParseCategoryFilterVo
 import com.plub.presentation.ui.main.home.plubhome.adapter.HomeAdapter
+import com.plub.presentation.util.infiniteScrolls
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -49,16 +50,7 @@ class HomeFragment : BaseTestFragment<FragmentHomeBinding, HomePageState, HomeFr
             vm = viewModel
             recyclerViewMainPage.apply {
                 layoutManager = LinearLayoutManager(context)
-                addOnScrollListener((object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        val lastVisiblePosition =
-                            (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                        val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
-                        val isDownScroll = dy > 0
-                        viewModel.onScrollChanged(isBottom, isDownScroll)
-                    }
-                }))
+                infiniteScrolls { viewModel.onScrollChanged() }
                 adapter = homeAdapter
             }
         }

@@ -110,9 +110,9 @@ class LoginViewModel @Inject constructor(
             val requestWithFcmToken = request.copy(fcmToken = token)
             viewModelScope.launch {
                 postSocialLoginUseCase(requestWithFcmToken).collect { state ->
-                    inspectUiState(state, ::handleLoginSuccess) { data, individual ->
+                    inspectUiState(state, ::handleLoginSuccess, { data, individual ->
                         handleLoginError(data, individual as LoginError)
-                    }
+                    })
                 }
             }
         }

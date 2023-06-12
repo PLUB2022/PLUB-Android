@@ -89,12 +89,16 @@ class NoticeFragment : BaseTestFragment<FragmentNoticeBinding, NoticePageState, 
             is NoticeEvent.GoToDetailNotice -> goToDetailNotice(event.noticeType, event.noticeId)
             is NoticeEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.menuType, event.noticeVo)
             is NoticeEvent.GoToWriteNotice -> goToWriteNotice(event.writeType, event.vo)
+            is NoticeEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 
     private fun goToDetailNotice(noticeType: NoticeType, noticeId:Int) {
-        val action = NoticeFragmentDirections.actionNoticeToNoticeDetail(noticeType, noticeId)
-        findNavController().navigate(action)
+        when(noticeType){
+            NoticeType.APP -> findNavController().navigate(NoticeFragmentDirections.actionNoticeToAppNoticeDetail(noticeId))
+            NoticeType.PLUBING -> findNavController().navigate(NoticeFragmentDirections.actionNoticeToNoticeDetail(noticeId))
+            NoticeType.LOADING -> {}
+        }
     }
 
     private fun goToWriteNotice(writeType: WriteType, vo: ParseNoticeVo?) {

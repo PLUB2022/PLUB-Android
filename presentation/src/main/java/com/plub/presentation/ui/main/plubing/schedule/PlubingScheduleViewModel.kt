@@ -227,4 +227,8 @@ class PlubingScheduleViewModel @Inject constructor(
             )
         }
     }
+
+    fun goToBack(){
+        emitEventFlow(PlubingScheduleEvent.GoToBack)
+    }
 }

@@ -10,6 +10,7 @@ object MyBoardMapper : Mapper.ResponseMapper<MyBoardResponse, PlubingBoardListVo
         return type?.run {
             PlubingBoardListVo(
                 totalPages = myFeedList.totalPages,
+                totalElements = myFeedList.totalElements,
                 last = myFeedList.last,
                 content = myFeedList.content.map {
                     PlubingBoardResponseMapper.mapDtoToModel(it)

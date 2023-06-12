@@ -16,19 +16,19 @@ import javax.inject.Inject
 
 class ReportRepositoryImpl @Inject constructor(private val reportApi: ReportApi) : ReportRepository, BaseRepository() {
     override suspend fun browseReport(): Flow<UiState<ReportVo>> {
-        return apiLaunch(reportApi.browseReport(), ReportMapper){
+        return apiLaunch(apiCall = { reportApi.browseReport() }, ReportMapper){
             ReportError.make(it)
         }
     }
 
     override suspend fun createReport(request : CreateReportRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(reportApi.createReport(request), UnitResponseMapper){
+        return apiLaunch(apiCall = { reportApi.createReport(request) }, UnitResponseMapper){
             ReportError.make(it)
         }
     }
 
     override suspend fun getReportDetail(request: Int): Flow<UiState<ReportDetailVo>> {
-        return apiLaunch(reportApi.getReportDetail(request), ReportDetailResponseMapper){
+        return apiLaunch(apiCall = { reportApi.getReportDetail(request) }, ReportDetailResponseMapper){
             ReportError.make(it)
         }
     }

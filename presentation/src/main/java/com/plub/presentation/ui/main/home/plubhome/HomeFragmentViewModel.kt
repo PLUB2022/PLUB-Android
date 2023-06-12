@@ -61,9 +61,9 @@ class HomeFragmentViewModel @Inject constructor(
     fun clickBookmark(plubbingId: Int) {
         viewModelScope.launch {
             postBookmarkPlubRecruitUseCase(plubbingId).collect {
-                inspectUiState(it, ::postBookmarkSuccess){ _, individual ->
+                inspectUiState(it, ::postBookmarkSuccess, { _, individual ->
                     handleGatheringError(individual as GatheringError)
-                }
+                })
             }
         }
     }
@@ -118,25 +118,25 @@ class HomeFragmentViewModel @Inject constructor(
             gatheringList.clear()
             val jobCategories: Job = launch {
                 getCategoriesUseCase(Unit).collect { state ->
-                    inspectUiState(state, ::handleGetCategoriesSuccess){ _, individual ->
+                    inspectUiState(state, ::handleGetCategoriesSuccess,{ _, individual ->
                         handleCategoryError(individual as CategoryError)
-                    }
+                    })
                 }
             }
 
             val jobMyInterest: Job = launch {
                 getMyInterestUseCase(Unit).collect { state ->
-                    inspectUiState(state, ::handleGetMyInterestSuccess){ _, individual ->
+                    inspectUiState(state, ::handleGetMyInterestSuccess,{ _, individual ->
                         handleCategoryError(individual as CategoryError)
-                    }
+                    })
                 }
             }
 
             val jobRecommend: Job = launch {
                 getRecommendationGatheringUsecase(cursorId).collect { state ->
-                    inspectUiState(state, ::handleGetRecommendGatheringSuccess){ _, individual ->
+                    inspectUiState(state, ::handleGetRecommendGatheringSuccess,{ _, individual ->
                         handleGatheringError(individual as GatheringError)
-                    }
+                    })
                 }
             }
 
@@ -194,6 +194,7 @@ class HomeFragmentViewModel @Inject constructor(
         data.content.forEach { vo ->
             gatheringList.add(getGatheringsVo(vo))
         }
+        if(!isLast) gatheringList.add(HomePlubListVo(viewType = HomeViewType.LOADING))
     }
 
     private fun getGatheringsVo(data: PlubCardVo): HomePlubListVo {
@@ -203,9 +204,10 @@ class HomeFragmentViewModel @Inject constructor(
         )
     }
 
-    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (!isNetworkCall && isBottom && isDownScroll && !isLast) {
+    fun onScrollChanged() {
+        if (!isNetworkCall && !isLast) {
             isNetworkCall = true
+            gatheringList.removeLast()
             cursorUpdate()
             fetchRecommendationGatheringData()
         }
@@ -216,14 +218,15 @@ class HomeFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             getRecommendationGatheringUsecase(cursorId)
                 .collect { state ->
-                    inspectUiState(state, ::handleGetNextRecommendGatheringSuccess){ _, individual ->
+                    inspectUiState(state, ::handleGetNextRecommendGatheringSuccess, needShowLoading = false,{ _, individual ->
                         handleGatheringError(individual as GatheringError)
-                    }
+                    })
                 }
         }
     }
 
     private fun handleGetNextRecommendGatheringSuccess(data: PlubCardListVo) {
+        isNetworkCall = false
         handleGetRecommendGatheringSuccess(data)
         updatePlubGatheringList(categoryList + noHobbyList + gatheringList)
     }

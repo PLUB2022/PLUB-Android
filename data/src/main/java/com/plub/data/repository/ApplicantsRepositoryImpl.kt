@@ -18,32 +18,32 @@ import javax.inject.Inject
 
 class ApplicantsRepositoryImpl @Inject constructor(private val recruitApi: RecruitApi) : ApplicantsRepository, BaseRepository() {
     override suspend fun seeApplicants(request: Int): Flow<UiState<HostApplicantsResponseVo>> {
-        return apiLaunch(recruitApi.seeApplicants(request), HostSeeApplicantsMapper) {
+        return apiLaunch(apiCall = { recruitApi.seeApplicants(request) }, HostSeeApplicantsMapper){
             GatheringError.make(it)
         }
     }
 
     override suspend fun postApprovalApplicants(requestVo: ReplyApplicantsRecruitRequestVo): Flow<UiState<ReplyApplicantsRecruitResponseVo>> {
-        return apiLaunch(recruitApi.approvalApplicants(requestVo.plubbingId,requestVo.accountId), ReplyApplicantsRecruitMapper){
+        return apiLaunch(apiCall = { recruitApi.approvalApplicants(requestVo.plubbingId,requestVo.accountId) }, ReplyApplicantsRecruitMapper){
             GatheringError.make(it)
         }
     }
 
     override suspend fun postRefuseApplicants(requestVo: ReplyApplicantsRecruitRequestVo): Flow<UiState<ReplyApplicantsRecruitResponseVo>> {
-        return apiLaunch(recruitApi.refuseApplicants(requestVo.plubbingId,requestVo.accountId), ReplyApplicantsRecruitMapper){
+        return apiLaunch(apiCall = { recruitApi.refuseApplicants(requestVo.plubbingId,requestVo.accountId) }, ReplyApplicantsRecruitMapper){
             GatheringError.make(it)
         }
     }
 
     override suspend fun deleteMyApplication(request: Int): Flow<UiState<Unit>> {
-        return apiLaunch(recruitApi.deleteMyApplication(request), UnitResponseMapper) {
+        return apiLaunch(apiCall = { recruitApi.deleteMyApplication(request) }, UnitResponseMapper){
             GatheringError.make(it)
         }
     }
 
     override suspend fun modifyMyApplication(request: ApplicantsRecruitRequestVo): Flow<UiState<Unit>> {
         val requestVo = ApplicantsRecruitRequestMapper.mapModelToDto(request)
-        return apiLaunch(recruitApi.modifyMyApplication(request.plubbingId, requestVo), UnitResponseMapper){
+        return apiLaunch(apiCall = { recruitApi.modifyMyApplication(request.plubbingId, requestVo) }, UnitResponseMapper){
             GatheringError.make(it)
         }
     }

@@ -9,7 +9,9 @@ import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailJoinedAccountsVo
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailResponseVo
 import com.plub.domain.usecase.*
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
+import com.plub.presentation.util.ResourceProvider
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecruitmentViewModel @Inject constructor(
+    val resourceProvider: ResourceProvider,
     val getRecruitDetailUseCase: GetRecruitDetailUseCase,
     val postBookmarkPlubRecruitUseCase: PostBookmarkPlubRecruitUseCase,
     val deleteMyApplicationUseCase: DeleteMyApplicationUseCase,
@@ -110,7 +113,9 @@ class RecruitmentViewModel @Inject constructor(
             plubbingGoalStateFlow.update { data.plubbingGoal }
             plubbingMainImageStateFlow.update { data.plubbingMainImage }
             plubbingDaysStateFlow.update { days }
-            placeNameStateFlow.update { data.placeName }
+            placeNameStateFlow.update {
+                if(data.placeName == "") resourceProvider.getString(R.string.word_online) else data.placeName
+            }
             accountNumStateFlow.update { (data.remainAccountNum + data.curAccountNum).toString() }
             plubbingTimeStateFlow.update { time }
             isBookmarkedStateFlow.update { data.isBookmarked }

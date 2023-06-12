@@ -10,6 +10,7 @@ import com.plub.domain.model.vo.home.HomePlubListVo
 import com.plub.presentation.databinding.*
 import com.plub.presentation.ui.main.home.plubhome.viewholder.*
 import com.plub.presentation.ui.main.home.progress.LoadingViewHolder
+import com.plub.presentation.ui.main.plubing.schedule.adapter.scheduleCard.PlubingScheduleLoadingViewHolder
 import com.plub.presentation.util.PlubLogger
 
 class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubListVo, RecyclerView.ViewHolder>(
@@ -54,6 +55,10 @@ class HomeAdapter(private val listener: HomeDelegate) : ListAdapter<HomePlubList
             HomeViewType.RECOMMEND_GATHERING_VIEW -> {
                 val binding = IncludeItemPlubCardListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 HomeRecommendListViewHolder(binding, listener)
+            }
+            HomeViewType.LOADING -> {
+                val binding = LayoutRecyclerPlubingScheduleLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                PlubingScheduleLoadingViewHolder(binding)
             }
         }
     }

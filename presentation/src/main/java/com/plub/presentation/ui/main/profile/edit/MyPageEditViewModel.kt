@@ -47,7 +47,7 @@ class MyPageEditViewModel @Inject constructor(
     private var cameraTempImageUri: Uri? = null
 
     private val profileImageStateFlow: MutableStateFlow<String?> = MutableStateFlow("")
-    private val originProfileStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val originProfileStateFlow : MutableStateFlow<String?> = MutableStateFlow("")
     private var nicknameStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private var introduceStateFlow : MutableStateFlow<String> = MutableStateFlow("")
     private val originNicknameStateFlow : MutableStateFlow<String> = MutableStateFlow("")
@@ -99,9 +99,9 @@ class MyPageEditViewModel @Inject constructor(
         viewModelScope.launch {
             val request = NicknameCheckRequestVo(nickname, this)
             getNicknameCheckUseCase(request).collect { state ->
-                inspectUiState(state, ::handleNicknameCheckSuccess) { _, individual ->
+                inspectUiState(state, ::handleNicknameCheckSuccess, { _, individual ->
                     handleNicknameCheckError(individual as NicknameError)
-                }
+                })
             }
         }
     }

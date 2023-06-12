@@ -6,11 +6,7 @@ import com.plub.data.dto.board.BoardCommentListResponse
 import com.plub.data.dto.board.BoardCommentResponse
 import com.plub.data.dto.board.CommentCreateRequest
 import com.plub.data.dto.board.CommentEditRequest
-import com.plub.data.dto.notice.AppNoticeListResponse
-import com.plub.data.dto.notice.AppNoticeResponse
-import com.plub.data.dto.notice.NoticeWriteRequest
-import com.plub.data.dto.notice.PlubingNoticeListResponse
-import com.plub.data.dto.notice.PlubingNoticeResponse
+import com.plub.data.dto.notice.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -40,6 +36,7 @@ interface NoticeApi {
     @GET(Endpoints.PLUBBING.NOTICE.NOTICE)
     suspend fun getPlubingNotice(
         @Path(PATH_PLUBING_ID) plubbingId: Int,
+        @Query(QUERY_CURSOR_ID) cursorId: Int,
     ): Response<ApiResponse<PlubingNoticeListResponse>>
 
     @POST(Endpoints.PLUBBING.NOTICE.NOTICE)

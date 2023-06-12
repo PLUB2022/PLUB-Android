@@ -68,7 +68,10 @@ class PlubingTodoTimelineViewHolder(
             imageViewLikeIcon.setImageResource(likeIcon)
             textViewLikeCount.text = item.totalLikes.toString()
             todoItemAdapter.submitList(item.todoList)
-            GlideUtil.loadImage(root.context, PlubUser.info.profileImage, circleImageViewProfile)
+            PlubUser.info.profileImage?.let {
+                GlideUtil.loadImage(root.context,
+                    it, circleImageViewProfile)
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.main.profile.setting
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
+import com.plub.domain.usecase.*
 import com.plub.domain.error.AccountError
 import com.plub.domain.usecase.GetLogoutUseCase
 import com.plub.domain.usecase.PostRevokeUseCase
@@ -11,6 +13,7 @@ import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val putChangePushNotificationUseCase: PutChangePushNotificationUseCase,
+    private val accessTokenAndRefreshTokenUseCase: SavePlubAccessTokenAndRefreshTokenUseCase,
     private val getLogoutUseCase: GetLogoutUseCase,
     private val putInactiveUseCase: PutInactiveUseCase,
     private val postRevokeUseCase: PostRevokeUseCase
@@ -66,7 +70,15 @@ class SettingViewModel @Inject constructor(
     }
 
     private fun goToLogin(){
-        emitEventFlow(SettingEvent.GoToLogin)
+        viewModelScope.launch {
+            val request = SavePlubJwtRequestVo(
+                accessToken = "",
+                refreshToken = ""
+            )
+            accessTokenAndRefreshTokenUseCase(request).collect{
+                if(it) emitEventFlow(SettingEvent.GoToLogin)
+            }
+        }
     }
 
     fun changedSwitchNotify(){
@@ -88,10 +100,10 @@ class SettingViewModel @Inject constructor(
 
     fun onClickInactivation(){
         viewModelScope.launch {
-            putInactiveUseCase(false).collect{
-                inspectUiState(it, {goToLogin()}){ _, individual ->
+            putInactiveUseCase(true).collect{
+                inspectUiState(it, {goToLogin()}, { _, individual ->
                     handleAccountError(individual as AccountError)
-                }
+                })
             }
         }
     }

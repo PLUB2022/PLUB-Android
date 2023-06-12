@@ -66,11 +66,11 @@ class PlubingTodoViewModel @Inject constructor(
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
-        getTodoList()
+        getTodoList(showLoading = true)
     }
 
-    fun onScrollChanged(isBottom: Boolean, isDownScroll: Boolean) {
-        if (isBottom && isDownScroll && !isLastPage && !isNetworkCall) onGetNextTodoList()
+    fun onScrollChanged() {
+        if (!isLastPage && !isNetworkCall) onGetNextTodoList()
     }
 
     fun onClickTodoCheck(timelineId: Int, vo: TodoItemVo) {
@@ -119,14 +119,14 @@ class PlubingTodoViewModel @Inject constructor(
     private fun onGetNextTodoList() {
         isNetworkCall = true
         cursorUpdate()
-        getTodoList()
+        getTodoList(showLoading = false)
     }
 
-    private fun getTodoList() {
+    private fun getTodoList(showLoading : Boolean) {
         viewModelScope.launch {
             val requestVo = TodoGetTimelineRequestVo(plubbingId = plubingId, cursorId = cursorId)
             getTimelineListUseCase(requestVo).collect {
-                inspectUiState(it, ::successGetTodoList)
+                inspectUiState(it, ::successGetTodoList, needShowLoading = showLoading)
             }
         }
     }
@@ -188,7 +188,8 @@ class PlubingTodoViewModel @Inject constructor(
         isLastPage = vo.last
         val lastDate = todoListStateFlow.value.lastOrNull()?.date
         val groupByDateList = todoGroupByDate(vo.content, lastDate)
-        updateTodoList(getMergeList(groupByDateList))
+        val mergedList = if(isLastPage) getMergeList(groupByDateList) else getMergeList(groupByDateList) + listOf(TodoTimelineVo(viewType = TodoTimelineViewType.LOADING))
+        updateTodoList(mergedList)
         isNetworkCall = false
     }
 
@@ -206,7 +207,7 @@ class PlubingTodoViewModel @Inject constructor(
     }
 
     private fun getMergeList(list: List<TodoTimelineVo>): List<TodoTimelineVo> {
-        val originList = todoListStateFlow.value
+        val originList = todoListStateFlow.value.filterNot { it.viewType == TodoTimelineViewType.LOADING }
         return if (cursorId == FIRST_CURSOR) list.toMutableList().apply {
             add(GOAL_TYPE_POSITION, TodoTimelineVo(viewType = TodoTimelineViewType.GOAL))
         } else originList + list
@@ -214,7 +215,7 @@ class PlubingTodoViewModel @Inject constructor(
 
     private fun cursorUpdate() {
         cursorId = if (todoListStateFlow.value.isEmpty()) FIRST_CURSOR
-        else todoListStateFlow.value.lastOrNull { it.viewType == TodoTimelineViewType.PLUBING }?.timelineId ?: FIRST_CURSOR
+        else todoListStateFlow.value.filterNot { it.viewType == TodoTimelineViewType.LOADING }.lastOrNull { it.viewType == TodoTimelineViewType.PLUBING }?.timelineId ?: FIRST_CURSOR
     }
 
     private fun completeTodoCheck(timelineId: Int, vo: TodoItemVo) {

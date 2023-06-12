@@ -40,6 +40,6 @@ class PlubJwtRepositoryImpl @Inject constructor(
 
     override suspend fun reIssueToken(request: PlubJwtReIssueRequestVo): Flow<UiState<PlubJwtResponseVo>> {
         val requestDto = PlubJwtReissueRequestMapper.mapModelToDto(request)
-        return apiLaunch(plubJwtTokenApi.reIssueToken(requestDto),PlubJwtResponseMapper)
+        return apiLaunch(apiCall = { plubJwtTokenApi.reIssueToken(requestDto) },PlubJwtResponseMapper)
     }
 }

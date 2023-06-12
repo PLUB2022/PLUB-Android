@@ -106,6 +106,9 @@
         <action
             android:id="@+id/action_recruitment_to_report"
             app:destination="@id/reportFragment" />
+        <action
+            android:id="@+id/action_recruitment_to_other_profile"
+            app:destination="@id/otherProfileFragment"/>
         <argument
             android:name="plubbingId"
             app:argType="integer" />
@@ -169,7 +172,12 @@
         android:id="@+id/bookmarkFragment"
         android:name="com.plub.presentation.ui.main.home.bookmark.BookmarkFragment"
         android:label="fragment_bookmark"
-        tools:layout="@layout/fragment_bookmark" />
+        tools:layout="@layout/fragment_bookmark" >
+
+        <action
+            android:id="@+id/action_bookmark_to_recruitment"
+            app:destination="@id/recruitmentFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/plubingMainFragment"
@@ -309,23 +317,35 @@
             android:id="@+id/action_notice_to_notice_detail"
             app:destination="@id/noticeDetailFragment" />
 
+        <action
+            android:id="@+id/action_notice_to_app_notice_detail"
+            app:destination="@id/appNoticeDetailFragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/noticeDetailFragment"
-        android:name="com.plub.presentation.ui.main.plubing.notice.detail.NoticeDetailFragment"
+        android:name="com.plub.presentation.ui.main.plubing.notice.detail.plubing.NoticeDetailFragment"
         android:label="fragment_notice_detail"
         tools:layout="@layout/fragment_notice_detail">
-
-        <argument
-            android:name="noticeType"
-            app:argType="com.plub.domain.model.enums.NoticeType" />
 
         <argument
             android:name="noticeId"
             app:argType="integer" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/appNoticeDetailFragment"
+        android:name="com.plub.presentation.ui.main.plubing.notice.detail.app.AppNoticeDetailFragment"
+        android:label="fragment_app_notice_detail"
+        tools:layout="@layout/fragment_app_notice_detail">
+
+        <argument
+            android:name="noticeId"
+            app:argType="integer" />
+    </fragment>
+
 
 
     <fragment
@@ -684,5 +704,30 @@
         <argument
             android:name="reportId"
             app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/otherProfileFragment"
+        android:name="com.plub.presentation.ui.main.profile.other.OtherProfileFragment"
+        android:label="OtherProfileFragment"
+        tools:layout="@layout/fragment_other_profile">
+
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="accountId"
+            app:argType="integer" />
+        <argument
+            android:name="plubbingId"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_other_profile_to_report"
+            app:destination="@id/reportFragment" />'
+
+        <action
+            android:id="@+id/action_other_profile_to_todo_detail"
+            app:destination="@id/todoDetailFragment" />
     </fragment>
 </navigation>

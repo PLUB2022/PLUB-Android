@@ -27,10 +27,10 @@ import javax.inject.Inject
 class NotificationRepositoryImpl @Inject constructor(private val notificationApi: NotificationApi) : NotificationRepository, BaseRepository() {
 
     override suspend fun getMyNotifications(request: Unit): Flow<UiState<NotificationsResponseVo>> {
-        return apiLaunch(notificationApi.getMyNotifications(), NotificationsResponseMapper)
+        return apiLaunch(apiCall = { notificationApi.getMyNotifications() }, NotificationsResponseMapper)
     }
 
     override suspend fun readNotification(request: Int): Flow<UiState<Unit>> {
-        return apiLaunch(notificationApi.readNotification(request), UnitResponseMapper)
+        return apiLaunch(apiCall = { notificationApi.readNotification(request) }, UnitResponseMapper)
     }
 }

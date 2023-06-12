@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.plub.domain.model.enums.TodoTimelineViewType
 import com.plub.domain.model.vo.todo.TodoItemVo
 import com.plub.domain.model.vo.todo.TodoTimelineVo
 import com.plub.presentation.databinding.*
+import com.plub.presentation.ui.main.home.progress.LoadingViewHolder
 
 class MyPageTodoTimeLineAdapter(
     private val listener: MyPageTodoDelegate,
@@ -27,8 +29,20 @@ class MyPageTodoTimeLineAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = IncludeItemTodoTimelineWithLineBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyPageTodoTimeLineViewHolder(binding, listener)
+        return when (TodoTimelineViewType.indexOf(viewType)) {
+            TodoTimelineViewType.LOADING -> {
+                val binding = IncludeItemProgressBarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                LoadingViewHolder(binding)
+            }
+            else -> {
+                val binding = IncludeItemTodoTimelineWithLineBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                MyPageTodoTimeLineViewHolder(binding, listener)
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return currentList[position].viewType.idx
     }
 }
 

@@ -8,7 +8,7 @@ import com.plub.domain.repository.MyPageRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetMyPostUseCase @Inject constructor(
+class GetMyPageUseCase @Inject constructor(
     private val myPageRepository: MyPageRepository
 ) : UseCase<MyPageActiveRequestVo, Flow<UiState<PlubingBoardListVo>>>(){
     override suspend fun invoke(request : MyPageActiveRequestVo): Flow<UiState<PlubingBoardListVo>> {

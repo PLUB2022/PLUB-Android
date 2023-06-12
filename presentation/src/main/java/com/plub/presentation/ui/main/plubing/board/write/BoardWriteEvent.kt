@@ -9,6 +9,7 @@ import com.plub.presentation.ui.Event
 sealed class BoardWriteEvent : Event {
     object ShowSelectImageBottomSheetDialog : BoardWriteEvent()
     object GoToAlbum : BoardWriteEvent()
+    object GoToBack : BoardWriteEvent()
     data class GoToCamera(val uri: Uri) : BoardWriteEvent()
     data class CropImageAndOptimize(val cropImageContractOptions: CropImageContractOptions) : BoardWriteEvent()
     object CompleteCreate : BoardWriteEvent()

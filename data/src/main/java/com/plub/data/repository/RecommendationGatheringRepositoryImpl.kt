@@ -15,14 +15,14 @@ import javax.inject.Inject
 
 class RecommendationGatheringRepositoryImpl @Inject constructor(private val homeApi: HomeApi) : RecommendationGatheringRepository, BaseRepository() {
     override suspend fun getRecommendationGatheringList(request: Int): Flow<UiState<PlubCardListVo>> {
-        return apiLaunch(homeApi.fetchRecommendationGathering(request), PlubCardListResponseMapper){
+        return apiLaunch(apiCall = { homeApi.fetchRecommendationGathering(request) }, PlubCardListResponseMapper){
             GatheringError.make(it)
         }
     }
 
     override suspend fun getCategoriesGatheringList(request: CategoriesGatheringParamsVo, requestBody: CategoriesGatheringBodyRequestVo): Flow<UiState<PlubCardListVo>> {
         val body = CategoryGatheringBodyRequestMapper.mapModelToDto(requestBody)
-        return apiLaunch(homeApi.fetchCategoriesGathering(
+        return apiLaunch(apiCall = { homeApi.fetchCategoriesGathering(
             request.categoryId,
             request.sort,
             request.pageNumber, body), PlubCardListResponseMapper){

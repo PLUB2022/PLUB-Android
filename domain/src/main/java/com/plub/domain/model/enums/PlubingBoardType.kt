@@ -1,7 +1,7 @@
 package com.plub.domain.model.enums
 
 enum class PlubingBoardType(val idx: Int, val type: String) {
-    NORMAL(0, "NORMAL"), PIN(1, "PIN"), SYSTEM(2, "SYSTEM"), CLIP_BOARD(3, "CLIP_BOARD");
+    NORMAL(0, "NORMAL"), PIN(1, "PIN"), SYSTEM(2, "SYSTEM"), CLIP_BOARD(3, "CLIP_BOARD"),LOADING(4, "LOADING");
 
     companion object {
         fun indexOf(value: Int): PlubingBoardType {

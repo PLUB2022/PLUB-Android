@@ -49,6 +49,7 @@ class RegisterHobbiesFragment : BaseFragment<FragmentRegisterHobbiesBinding, Hob
             vm = viewModel
             recyclerViewInterestsCategory.apply {
                 layoutManager = LinearLayoutManager(context)
+                itemAnimator = null
                 adapter = listAdapter
                 addItemDecoration(VerticalSpaceDecoration(ITEM_VERTICAL_SPACE.px))
             }

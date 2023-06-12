@@ -32,54 +32,54 @@ import javax.inject.Inject
 class PlubingBoardRepositoryImpl @Inject constructor(private val boardApi: PlubingBoardApi) : PlubingBoardRepository, BaseRepository() {
 
     override suspend fun feedGetList(request: GetBoardFeedsRequestVo): Flow<UiState<PlubingBoardListVo>> {
-        return apiLaunch(boardApi.getFeeds(request.plubbingId, request.cursorId), PlubingBoardListResponseMapper)
+        return apiLaunch(apiCall = { boardApi.getFeeds(request.plubbingId, request.cursorId) }, PlubingBoardListResponseMapper)
     }
 
     override suspend fun feedGetPinedList(plubingId: Int): Flow<UiState<List<PlubingBoardVo>>> {
-        return apiLaunch(boardApi.getPins(plubingId), PlubingPinListResponseMapper)
+        return apiLaunch(apiCall = { boardApi.getPins(plubingId) }, PlubingPinListResponseMapper)
     }
 
     override suspend fun feedChangePin(request: BoardRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(boardApi.changePin(request.plubbingId, request.feedId), UnitResponseMapper){
+        return apiLaunch(apiCall = { boardApi.changePin(request.plubbingId, request.feedId) }, UnitResponseMapper){
             FeedError.make(it)
         }
     }
 
     override suspend fun feedDelete(request: BoardRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(boardApi.deleteFeed(request.plubbingId, request.feedId), UnitResponseMapper){
+        return apiLaunch(apiCall = { boardApi.deleteFeed(request.plubbingId, request.feedId) }, UnitResponseMapper){
             FeedError.make(it)
         }
     }
 
     override suspend fun feedCreate(request: BoardCreateRequestVo): Flow<UiState<Unit>> {
         val body = BoardCreateRequestMapper.mapModelToDto(request)
-        return apiLaunch(boardApi.createFeed(request.plubingId, body), UnitResponseMapper)
+        return apiLaunch(apiCall = { boardApi.createFeed(request.plubingId, body) }, UnitResponseMapper)
     }
 
     override suspend fun feedDetail(request: BoardRequestVo): Flow<UiState<PlubingBoardVo>> {
-        return apiLaunch(boardApi.detailFeed(request.plubbingId, request.feedId), PlubingBoardResponseMapper)
+        return apiLaunch(apiCall = { boardApi.detailFeed(request.plubbingId, request.feedId) }, PlubingBoardResponseMapper)
     }
 
     override suspend fun feedEdit(request: BoardEditRequestVo): Flow<UiState<PlubingBoardVo>> {
         val body = BoardEditRequestMapper.mapModelToDto(request)
-        return apiLaunch(boardApi.editFeed(request.plubingId, request.feedId, body), PlubingBoardResponseMapper)
+        return apiLaunch(apiCall = { boardApi.editFeed(request.plubingId, request.feedId, body) }, PlubingBoardResponseMapper)
     }
 
     override suspend fun commentGetList(request: GetBoardCommentsRequestVo): Flow<UiState<BoardCommentListVo>> {
-        return apiLaunch(boardApi.getComments(request.plubbingId, request.feedId, request.cursorId), BoardCommentListResponseMapper)
+        return apiLaunch(apiCall = { boardApi.getComments(request.plubbingId, request.feedId, request.cursorId) }, BoardCommentListResponseMapper)
     }
 
     override suspend fun commentCreate(request: CommentCreateRequestVo): Flow<UiState<BoardCommentVo>> {
         val body = CommentCreateRequestMapper.mapModelToDto(request)
-        return apiLaunch(boardApi.createComment(request.plubingId, request.feedId, body), BoardCommentResponseMapper)
+        return apiLaunch(apiCall = { boardApi.createComment(request.plubingId, request.feedId, body) }, BoardCommentResponseMapper)
     }
 
     override suspend fun commentDelete(request: BoardRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(boardApi.deleteComment(request.plubbingId, request.feedId, request.commentId), UnitResponseMapper)
+        return apiLaunch(apiCall = { boardApi.deleteComment(request.plubbingId, request.feedId, request.commentId) }, UnitResponseMapper)
     }
 
     override suspend fun commentEdit(request: CommentEditRequestVo): Flow<UiState<BoardCommentVo>> {
         val body = CommentEditRequestMapper.mapModelToDto(request)
-        return apiLaunch(boardApi.editComment(request.plubingId, request.feedId, request.commentId, body), BoardCommentResponseMapper)
+        return apiLaunch(apiCall = { boardApi.editComment(request.plubingId, request.feedId, request.commentId, body) }, BoardCommentResponseMapper)
     }
 }

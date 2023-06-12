@@ -8,5 +8,6 @@ sealed class BoardPinEvent : Event {
     data class GoToReportBoard(val feedId: Int) : BoardPinEvent()
     data class GoToEditBoard(val feedId: Int) : BoardPinEvent()
     data class GoToDetailBoard(val feedId:Int) : BoardPinEvent()
+    object GoToBack : BoardPinEvent()
     data class ScrollToPosition(val position:Int) : BoardPinEvent()
 }

@@ -19,6 +19,7 @@ import com.plub.presentation.ui.main.plubing.board.detail.adapter.BoardDetailAda
 import com.plub.presentation.ui.main.plubing.board.write.BoardWriteFragment
 import com.plub.presentation.util.getNavigationResult
 import com.plub.presentation.util.hideKeyboard
+import com.plub.presentation.util.infiniteScrolls
 import com.plub.presentation.util.showKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -64,17 +65,7 @@ class BoardDetailFragment :
             recyclerViewBoardDetail.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = boardDetailAdapter
-
-                addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        val lastVisiblePosition =
-                            (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                        val isBottom = lastVisiblePosition + 1 == adapter?.itemCount
-                        val isDownScroll = dy > 0
-                        viewModel.onScrollChanged(isBottom, isDownScroll)
-                    }
-                })
+                infiniteScrolls { viewModel.onScrollChanged() }
             }
         }
 
@@ -118,6 +109,7 @@ class BoardDetailFragment :
             is BoardDetailEvent.GoToReportBoard -> goToFeedReport(event.plubingId, event.feedId)
             is BoardDetailEvent.GoToReportComment -> goToCommentReport(event.plubingId, event.commentId)
             is BoardDetailEvent.Finish -> finish()
+            is BoardDetailEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 

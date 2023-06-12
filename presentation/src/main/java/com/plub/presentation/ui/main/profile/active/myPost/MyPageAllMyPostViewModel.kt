@@ -10,7 +10,7 @@ import com.plub.domain.model.vo.board.PlubingBoardListVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.myPage.MyPageActiveRequestVo
 import com.plub.domain.usecase.DeleteBoardUseCase
-import com.plub.domain.usecase.GetMyPostUseCase
+import com.plub.domain.usecase.GetMyPageUseCase
 import com.plub.domain.usecase.PutBoardChangePinUseCase
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
@@ -24,7 +24,7 @@ import kotlin.properties.Delegates
 
 @HiltViewModel
 class MyPageAllMyPostViewModel @Inject constructor(
-    private val getMyPostUseCase: GetMyPostUseCase,
+    private val getMyPostUseCase: GetMyPageUseCase,
     private val putBoardChangePinUseCase : PutBoardChangePinUseCase,
     private val deleteBoardUseCase: DeleteBoardUseCase
 ) : BaseTestViewModel<MyPageAllMyPostState>() {
@@ -84,30 +84,30 @@ class MyPageAllMyPostViewModel @Inject constructor(
     }
 
 
-    fun onFetchBoardList() {
+    fun onFetchBoardList(showLoading : Boolean) {
         isNetworkCall = true
         cursorUpdate()
-        fetchPlubingBoardList()
+        fetchPlubingBoardList(showLoading)
     }
 
     private fun refresh() {
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
-        fetchPlubingBoardList()
+        fetchPlubingBoardList(showLoading = true)
     }
 
     fun onScrollChanged() {
-        if (!isLastPage && !isNetworkCall) onFetchBoardList()
+        if (!isLastPage && !isNetworkCall) onFetchBoardList(showLoading = false)
     }
 
-    private fun fetchPlubingBoardList() {
+    private fun fetchPlubingBoardList(showLoading: Boolean) {
         val requestVo = MyPageActiveRequestVo(plubingId, cursorId)
         viewModelScope.launch {
             getMyPostUseCase(requestVo).collect {
-                inspectUiState(it, ::onSuccessFetchPlubingBoardList){_, individual ->
+                inspectUiState(it, ::onSuccessFetchPlubingBoardList, needShowLoading = showLoading,{_, individual ->
                     handleFeedError(individual as FeedError)
-                }
+                })
             }
         }
     }
@@ -127,15 +127,15 @@ class MyPageAllMyPostViewModel @Inject constructor(
 
     private fun onSuccessFetchPlubingBoardList(vo: PlubingBoardListVo) {
         vo.run {
-            val mergedList = getMergeList(content)
-            updateBoardList(mergedList)
             isLastPage = last
+            val mergedList = if(isLastPage) getMergeList(content) else getMergeList(content) + listOf(PlubingBoardVo(viewType = PlubingBoardType.LOADING))
+            updateBoardList(mergedList)
             isNetworkCall = false
         }
     }
 
     private fun getMergeList(list: List<PlubingBoardVo>): List<PlubingBoardVo> {
-        val originList = uiState.boardList.value
+        val originList = uiState.boardList.value.filterNot { it.viewType == PlubingBoardType.LOADING }
         val pinList = originList.filter { it.viewType == PlubingBoardType.CLIP_BOARD }
         return if (cursorId == FIRST_CURSOR) pinList + list else originList + list
     }
@@ -146,9 +146,9 @@ class MyPageAllMyPostViewModel @Inject constructor(
             putBoardChangePinUseCase(request).collect {
                 inspectUiState(it, {
                     updateDeletedFeedList(feedId)
-                }){ _, individual ->
+                },{ _, individual ->
                     handleFeedError(individual as FeedError)
-                }
+                })
             }
         }
     }
@@ -159,9 +159,9 @@ class MyPageAllMyPostViewModel @Inject constructor(
             deleteBoardUseCase(request).collect {
                 inspectUiState(it, {
                     updateDeletedFeedList(feedId)
-                }){ _, individual ->
+                },{ _, individual ->
                     handleFeedError(individual as FeedError)
-                }
+                })
             }
         }
     }
@@ -186,7 +186,7 @@ class MyPageAllMyPostViewModel @Inject constructor(
 
     private fun cursorUpdate() {
         cursorId = if (uiState.boardList.value.isEmpty()) FIRST_CURSOR
-        else uiState.boardList.value.lastOrNull()?.feedId ?: FIRST_CURSOR
+        else uiState.boardList.value.filterNot { it.viewType == PlubingBoardType.LOADING }.lastOrNull()?.feedId ?: FIRST_CURSOR
     }
 
     fun onClickBack(){

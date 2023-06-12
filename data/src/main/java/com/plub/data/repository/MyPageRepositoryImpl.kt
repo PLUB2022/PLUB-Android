@@ -22,21 +22,21 @@ import javax.inject.Inject
 class MyPageRepositoryImpl @Inject constructor(private val myPageApi: MyPageApi) : MyPageRepository, BaseRepository() {
 
     override suspend fun getMyGathering(request: MyPageGatheringStateType): Flow<UiState<MyPageGatheringVo>> {
-        return apiLaunch(myPageApi.getMyGathering(request.type), MyGatheringMapper)
+        return apiLaunch(apiCall = { myPageApi.getMyGathering(request.type) }, MyGatheringMapper)
     }
 
     override suspend fun getMyApplicationWithPlubInfo(request: Int): Flow<UiState<MyPageMyApplicationVo>> {
-        return apiLaunch(myPageApi.getMyApplication(request), MyPageMyApplicationMapper)
+        return apiLaunch(apiCall = { myPageApi.getMyApplication(request) }, MyPageMyApplicationMapper)
     }
 
     override suspend fun getMyToDo(request: MyPageActiveRequestVo): Flow<UiState<MyPageToDoWithTitleVo>> {
-        return apiLaunch(myPageApi.getMyToDo(request.plubbingId, request.cursorId), MyToDoWithTileMapper){
+        return apiLaunch(apiCall = { myPageApi.getMyToDo(request.plubbingId, request.cursorId) }, MyToDoWithTileMapper){
             TodoError.make(it)
         }
     }
 
     override suspend fun getMyPost(request: MyPageActiveRequestVo): Flow<UiState<PlubingBoardListVo>> {
-        return apiLaunch(myPageApi.getMyPost(request.plubbingId, request.cursorId), MyBoardMapper){
+        return apiLaunch(apiCall = { myPageApi.getMyPost(request.plubbingId, request.cursorId) }, MyBoardMapper){
             FeedError.make(it)
         }
     }
