@@ -13,20 +13,30 @@ import com.plub.domain.repository.RecommendationGatheringRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RecommendationGatheringRepositoryImpl @Inject constructor(private val homeApi: HomeApi) : RecommendationGatheringRepository, BaseRepository() {
+class RecommendationGatheringRepositoryImpl @Inject constructor(private val homeApi: HomeApi) :
+    RecommendationGatheringRepository, BaseRepository() {
     override suspend fun getRecommendationGatheringList(request: Int): Flow<UiState<PlubCardListVo>> {
-        return apiLaunch(apiCall = { homeApi.fetchRecommendationGathering(request) }, PlubCardListResponseMapper){
+        return apiLaunch(
+            apiCall = { homeApi.fetchRecommendationGathering(request) },
+            PlubCardListResponseMapper
+        ) {
             GatheringError.make(it)
         }
     }
 
-    override suspend fun getCategoriesGatheringList(request: CategoriesGatheringParamsVo, requestBody: CategoriesGatheringBodyRequestVo): Flow<UiState<PlubCardListVo>> {
+    override suspend fun getCategoriesGatheringList(
+        request: CategoriesGatheringParamsVo,
+        requestBody: CategoriesGatheringBodyRequestVo
+    ): Flow<UiState<PlubCardListVo>> {
         val body = CategoryGatheringBodyRequestMapper.mapModelToDto(requestBody)
-        return apiLaunch(apiCall = { homeApi.fetchCategoriesGathering(
-            request.categoryId,
-            request.sort,
-            request.pageNumber, body), PlubCardListResponseMapper){
-            GatheringError.make(it)
-        }
+        return apiLaunch(apiCall = {
+            homeApi.fetchCategoriesGathering(
+                request.categoryId,
+                request.sort,
+                request.pageNumber,
+                body
+            )
+        }, PlubCardListResponseMapper) { GatheringError.make(it) }
     }
 }
+

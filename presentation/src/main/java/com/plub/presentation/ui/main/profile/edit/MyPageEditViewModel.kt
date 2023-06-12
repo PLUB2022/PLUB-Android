@@ -196,17 +196,17 @@ class MyPageEditViewModel @Inject constructor(
         viewModelScope.launch {
             if(uiState.profileImage.value.isNullOrEmpty())
                 postUploadFileUseCase(UploadFileRequestVo(UploadFileType.PROFILE, file)).collect{
-                    inspectUiState(it, ::handleUploadImageSuccess){ _, individual ->
+                    inspectUiState(it, ::handleUploadImageSuccess, individualErrorCallback = { _, individual ->
                         handleImageError(individual as ImageError)
-                    }
+                    })
                 }
             else
                 uiState.profileImage.value?.let{
                     postChangeFileUseCase(ChangeFileRequestVo(UploadFileType.PROFILE,
                         it, file)).collect{
-                        inspectUiState(it, ::handleUploadImageSuccess){ _, individual ->
+                        inspectUiState(it, ::handleUploadImageSuccess, individualErrorCallback = { _, individual ->
                             handleImageError(individual as ImageError)
-                        }
+                        })
                     }
                 }
 
@@ -271,9 +271,9 @@ class MyPageEditViewModel @Inject constructor(
         )
         viewModelScope.launch {
             postUpdateMyInfoUseCase(request).collect{
-                inspectUiState(it , ::handleUpdateMyInfoSuccess){ _, individual ->
+                inspectUiState(it , ::handleUpdateMyInfoSuccess, individualErrorCallback = { _, individual ->
                     handleAccountError(individual as AccountError)
-                }
+                })
             }
         }
     }

@@ -81,9 +81,9 @@ class WaitingGatheringViewModel @Inject constructor(
     fun deleteMyApplication(){
         viewModelScope.launch{
             deleteMyApplicationUseCase.invoke(plubbingId).collect{
-                inspectUiState(it, { handleSuccessDelete() }){ _, individual ->
+                inspectUiState(it, { handleSuccessDelete() }, individualErrorCallback = { _, individual ->
                     handleGatheringError(individual as GatheringError)
-                }
+                })
             }
         }
     }

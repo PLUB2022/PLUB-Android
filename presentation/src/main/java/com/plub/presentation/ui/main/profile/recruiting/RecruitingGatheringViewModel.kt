@@ -44,15 +44,15 @@ class RecruitingGatheringViewModel @Inject constructor(
         this.plubbingId = id
         viewModelScope.launch {
             fetchPlubingMainUseCase(plubbingId).collect {
-                inspectUiState(it, ::onSuccessPlubingMainInfo){ _, individual ->
+                inspectUiState(it, ::onSuccessPlubingMainInfo, individualErrorCallback = { _, individual ->
                     handleGatheringError(individual as GatheringError)
-                }
+                })
             }
 
             getRecruitApplicantsUseCase(plubbingId).collect {
-                inspectUiState(it, ::handleGetApplicantsSuccess){ _, individual ->
+                inspectUiState(it, ::handleGetApplicantsSuccess, individualErrorCallback = { _, individual ->
                     handleGatheringError(individual as GatheringError)
-                }
+                })
             }
         }
     }
@@ -139,9 +139,9 @@ class RecruitingGatheringViewModel @Inject constructor(
             postApprovalApplicantsRecruitUseCase(
                 ReplyApplicantsRecruitRequestVo(plubbingId, accountId)
             ).collect { state ->
-                inspectUiState(state, succeedCallback = { handleReplySuccess(accountId) }){ _, individual ->
+                inspectUiState(state, succeedCallback = { handleReplySuccess(accountId) }, individualErrorCallback = { _, individual ->
                     handleGatheringError(individual as GatheringError)
-                }
+                })
             }
         }
     }
@@ -158,9 +158,9 @@ class RecruitingGatheringViewModel @Inject constructor(
             postRefuseApplicantsRecruitUseCase(
                 ReplyApplicantsRecruitRequestVo(plubbingId, accountId)
             ).collect { state ->
-                inspectUiState(state, succeedCallback = { handleReplySuccess(accountId) }){ _, individual ->
+                inspectUiState(state, succeedCallback = { handleReplySuccess(accountId) }, individualErrorCallback = { _, individual ->
                     handleGatheringError(individual as GatheringError)
-                }
+                })
             }
         }
     }

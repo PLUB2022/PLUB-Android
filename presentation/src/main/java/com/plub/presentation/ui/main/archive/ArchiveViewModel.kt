@@ -72,7 +72,7 @@ class ArchiveViewModel @Inject constructor(
         val request = BrowseAllArchiveRequestVo(plubbingId, cursorId)
         viewModelScope.launch {
             getAllArchiveUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessFetchArchives, needShowLoading = showLoading, { _, individual ->
+                inspectUiState(state, ::handleSuccessFetchArchives, needShowLoading = showLoading, individualErrorCallback = { _, individual ->
                     handleArchiveError(individual as ArchiveError)
                     isNetworkCall = false
                 })
@@ -122,10 +122,10 @@ class ArchiveViewModel @Inject constructor(
         val request = DetailArchiveRequestVo(plubbingId, archiveId)
         viewModelScope.launch {
             getDetailArchiveUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessFetchDetailArchive){ _, individual ->
+                inspectUiState(state, ::handleSuccessFetchDetailArchive, individualErrorCallback = { _, individual ->
                     handleArchiveError(individual as ArchiveError)
                     isNetworkCall = false
-                }
+                })
             }
         }
     }
@@ -146,10 +146,10 @@ class ArchiveViewModel @Inject constructor(
         val request = file?.let { UploadFileRequestVo(UploadFileType.ARCHIVE, it) } ?: return
         viewModelScope.launch {
             postUploadFileUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessUploadImage) { _, individual ->
+                inspectUiState(state, ::handleSuccessUploadImage, individualErrorCallback = { _, individual ->
                     handleImageError(individual as ImageError)
                     isNetworkCall = false
-                }
+                })
             }
         }
     }
@@ -207,10 +207,10 @@ class ArchiveViewModel @Inject constructor(
         val request = DetailArchiveRequestVo(plubbingId, archiveId)
         viewModelScope.launch {
             deleteArchiveUseCase(request).collect { state ->
-                inspectUiState(state, { handleSuccessDelete(archiveId) }){ _, individual ->
+                inspectUiState(state, { handleSuccessDelete(archiveId) }, { _, individual ->
                     handleArchiveError(individual as ArchiveError)
                     isNetworkCall = false
-                }
+                })
             }
         }
     }

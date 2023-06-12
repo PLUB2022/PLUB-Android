@@ -34,9 +34,9 @@ class ReportViewModel @Inject constructor(
     fun getReportList(){
         viewModelScope.launch {
             getReportUseCase(Unit).collect{
-                inspectUiState(it, ::handleSuccessGetReport){_, individual ->
+                inspectUiState(it, ::handleSuccessGetReport, individualErrorCallback = {_, individual ->
                     handleReportError(individual as ReportError)
-                }
+                })
             }
         }
     }

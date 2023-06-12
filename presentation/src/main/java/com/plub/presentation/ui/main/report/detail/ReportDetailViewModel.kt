@@ -46,9 +46,9 @@ class ReportDetailViewModel @Inject constructor(
     fun getReportList(reasonType: ReportReasonType){
         viewModelScope.launch {
             getReportUseCase(Unit).collect{
-                inspectUiState(it, {state -> handleSuccessGetReportList(state, reasonType)}){_, individual ->
+                inspectUiState(it, {state -> handleSuccessGetReportList(state, reasonType)}, individualErrorCallback = {_, individual ->
                     handleReportError(individual as ReportError)
-                }
+                })
             }
         }
     }
@@ -140,9 +140,9 @@ class ReportDetailViewModel @Inject constructor(
         )
         viewModelScope.launch {
             postCreateReportUseCase(request).collect{
-                inspectUiState(it, {handleSuccessPostCreateReport()}){_, individual ->
+                inspectUiState(it, {handleSuccessPostCreateReport()}, individualErrorCallback = {_, individual ->
                     handleReportError(individual as ReportError)
-                }
+                })
             }
         }
     }

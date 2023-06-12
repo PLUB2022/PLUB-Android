@@ -144,7 +144,7 @@ class CategoryGatheringViewModel @Inject constructor(
             categoriesGatheringUseCase(
                 CategoriesGatheringRequestVo(paramsVo, bodyVo)
             ).collect { state ->
-                inspectUiState(state, ::successResult, needShowLoading = showLoading, { _, individual ->
+                inspectUiState(state, ::successResult, needShowLoading = showLoading, individualErrorCallback = { _, individual ->
                     handleGatheringError(individual as GatheringError)
                 })
             }

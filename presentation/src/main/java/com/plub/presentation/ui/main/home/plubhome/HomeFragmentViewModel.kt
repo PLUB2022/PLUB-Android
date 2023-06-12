@@ -218,7 +218,7 @@ class HomeFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             getRecommendationGatheringUsecase(cursorId)
                 .collect { state ->
-                    inspectUiState(state, ::handleGetNextRecommendGatheringSuccess, needShowLoading = false,{ _, individual ->
+                    inspectUiState(state, ::handleGetNextRecommendGatheringSuccess, needShowLoading = false, individualErrorCallback = { _, individual ->
                         handleGatheringError(individual as GatheringError)
                     })
                 }

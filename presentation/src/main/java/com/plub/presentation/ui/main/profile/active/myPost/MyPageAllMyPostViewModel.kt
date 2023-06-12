@@ -105,7 +105,7 @@ class MyPageAllMyPostViewModel @Inject constructor(
         val requestVo = MyPageActiveRequestVo(plubingId, cursorId)
         viewModelScope.launch {
             getMyPostUseCase(requestVo).collect {
-                inspectUiState(it, ::onSuccessFetchPlubingBoardList, needShowLoading = showLoading,{_, individual ->
+                inspectUiState(it, ::onSuccessFetchPlubingBoardList, needShowLoading = showLoading, individualErrorCallback = {_, individual ->
                     handleFeedError(individual as FeedError)
                 })
             }

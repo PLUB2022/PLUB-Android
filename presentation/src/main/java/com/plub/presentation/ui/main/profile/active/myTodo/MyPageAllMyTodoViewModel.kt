@@ -56,7 +56,7 @@ class MyPageAllMyTodoViewModel @Inject constructor(
         isNetworkCall = true
         viewModelScope.launch {
             getMyToDoWithTitleUseCase(MyPageActiveRequestVo(PlubingInfo.info.plubingId, cursorId)).collect{
-                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess, needShowLoading = true,{ _, individual ->
+                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess, needShowLoading = true, individualErrorCallback = { _, individual ->
                     handleTodoError(individual as TodoError)
                 })
             }
@@ -86,7 +86,7 @@ class MyPageAllMyTodoViewModel @Inject constructor(
         isNetworkCall = true
         viewModelScope.launch {
             getMyToDoWithTitleUseCase(MyPageActiveRequestVo(PlubingInfo.info.plubingId, cursorId)).collect{
-                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess, needShowLoading = false,{ _, individual ->
+                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess, needShowLoading = false, individualErrorCallback = { _, individual ->
                     handleTodoError(individual as TodoError)
                 })
             }

@@ -60,9 +60,9 @@ class GatheringFilterViewModel @Inject constructor(
         this.categoryName = categoryName
         viewModelScope.launch {
             getSubHobbiesUseCase(categoryId).collect{
-                inspectUiState(it, ::handleSuccessFetchSubHobbies) { _, individual ->
+                inspectUiState(it, ::handleSuccessFetchSubHobbies, individualErrorCallback =  { _, individual ->
                     handleCategoryError(individual as CategoryError)
-                }
+                })
             }
         }
     }

@@ -29,9 +29,9 @@ class RegisterHobbiesViewModel @Inject constructor(
     fun fetchHobbiesData() {
         viewModelScope.launch {
             getAllHobbiesUseCase(Unit).collect { state ->
-                inspectUiState(state, ::handleGetAllHobbiesSuccess){ _, individual ->
+                inspectUiState(state, ::handleGetAllHobbiesSuccess, individualErrorCallback = { _, individual ->
                     handleCategoryError(individual as CategoryError)
-                }
+                })
             }
         }
     }
@@ -59,9 +59,9 @@ class RegisterHobbiesViewModel @Inject constructor(
     private fun fetchMyHobbies(list: List<HobbyVo>){
         viewModelScope.launch {
             getMyInterestUseCase(Unit).collect{
-                inspectUiState(it, { state -> handleGetMyInterestSuccess(state, list)}){ _, individual ->
+                inspectUiState(it, { state -> handleGetMyInterestSuccess(state, list)}, individualErrorCallback = { _, individual ->
                     handleCategoryError(individual as CategoryError)
-                }
+                })
             }
         }
     }

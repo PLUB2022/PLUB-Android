@@ -66,17 +66,17 @@ class ActiveGatheringViewModel @Inject constructor(
         viewModelScope.launch {
             val jobMyTodo : Job = launch {
                 getMyToDoWithTitleUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect {
-                    inspectUiState(it, ::handleGetMyToDoWithTitleSuccess) {_,individual ->
+                    inspectUiState(it, ::handleGetMyToDoWithTitleSuccess, individualErrorCallback =  {_,individual ->
                         handleTodoError(individual as TodoError)
-                    }
+                    })
                 }
             }
 
             val jobMyPost : Job = launch {
                 getMyPostUseCase(MyPageActiveRequestVo(plubingId, cursorId)).collect {
-                    inspectUiState(it, ::handleGetMyPostSuccess) {_,individual ->
+                    inspectUiState(it, ::handleGetMyPostSuccess, individualErrorCallback =  {_,individual ->
                         handleFeedError(individual as FeedError)
-                    }
+                    })
                 }
             }
             joinAll(jobMyTodo, jobMyPost)
@@ -222,9 +222,9 @@ class ActiveGatheringViewModel @Inject constructor(
             putTodoCancelUseCase(request).collect { state ->
                 inspectUiState(state, {
                     onSuccess()
-                }) { _, individual ->
+                }, individualErrorCallback =  { _, individual ->
                     handleTodoError(individual as TodoError)
-                }
+                })
             }
         }
     }
@@ -269,9 +269,9 @@ class ActiveGatheringViewModel @Inject constructor(
             putTodoCompleteUseCase(request).collect { state ->
                 inspectUiState(state, {
                     onSuccess()
-                }){ _, individual ->
+                }, individualErrorCallback = { _, individual ->
                     handleTodoError(individual as TodoError)
-                }
+                })
             }
         }
     }
@@ -308,9 +308,9 @@ class ActiveGatheringViewModel @Inject constructor(
             postUploadFileUseCase(fileRequest).collect { state ->
                 inspectUiState(state, { vo ->
                     onSuccess(vo.fileUrl)
-                }){_,individual ->
+                }, individualErrorCallback = {_,individual ->
                     handleImageError(individual as ImageError)
-                }
+                })
             }
         }
     }
@@ -328,9 +328,9 @@ class ActiveGatheringViewModel @Inject constructor(
             postTodoProofUseCase(request).collect { state ->
                 inspectUiState(state, {
                     onSuccess()
-                }) {_,individual ->
+                }, individualErrorCallback =  {_,individual ->
                     handleTodoError(individual as TodoError)
-                }
+                })
             }
         }
     }
@@ -389,9 +389,9 @@ class ActiveGatheringViewModel @Inject constructor(
         val request = TodoRequestVo(plubingId, timelineId = timelineId)
         viewModelScope.launch {
             putTodoLikeToggleUseCase(request).collect { state ->
-                inspectUiState(state, onSuccess) {_,individual ->
+                inspectUiState(state, onSuccess, individualErrorCallback = {_,individual ->
                     handleTodoError(individual as TodoError)
-                }
+                })
             }
         }
     }

@@ -122,9 +122,9 @@ class ArchiveUploadViewModel @Inject constructor(
         val request = DetailArchiveRequestVo(plubbingId, archiveId)
         viewModelScope.launch {
             getDetailArchiveUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessGetDetailArchive){ _, individual ->
+                inspectUiState(state, ::handleSuccessGetDetailArchive, individualErrorCallback = { _, individual ->
                     handleArchiveError(individual as ArchiveError)
-                }
+                })
             }
         }
     }
@@ -163,9 +163,9 @@ class ArchiveUploadViewModel @Inject constructor(
         val request = DeleteFileRequestVo(UploadFileType.ARCHIVE, image)
         viewModelScope.launch {
             deleteFileUseCase(request).collect {
-                inspectUiState(it, { onDeleteSuccess(image) }){ _, individual ->
+                inspectUiState(it, { onDeleteSuccess(image) }, individualErrorCallback = { _, individual ->
                     handleImageError(individual as ImageError)
-                }
+                })
             }
         }
     }
@@ -184,9 +184,9 @@ class ArchiveUploadViewModel @Inject constructor(
         val request = file?.let { UploadFileRequestVo(UploadFileType.PLUBBING_MAIN, it) } ?: return
         viewModelScope.launch {
             postUploadFileUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessUploadImage){ _, individual ->
+                inspectUiState(state, ::handleSuccessUploadImage, individualErrorCallback = { _, individual ->
                     handleImageError(individual as ImageError)
-                }
+                })
             }
 
         }
@@ -240,9 +240,9 @@ class ArchiveUploadViewModel @Inject constructor(
             CreateArchiveRequestVo(plubbingId, ArchiveContentRequestVo(editText, mergeList))
         viewModelScope.launch {
             postCreateArchiveUseCase(request).collect { state ->
-                inspectUiState(state, ::handleSuccessCreateArchive){ _, individual ->
+                inspectUiState(state, ::handleSuccessCreateArchive, individualErrorCallback = { _, individual ->
                     handleArchiveError(individual as ArchiveError)
-                }
+                })
             }
         }
     }
@@ -271,9 +271,9 @@ class ArchiveUploadViewModel @Inject constructor(
         )
         viewModelScope.launch {
             putEditArchiveUseCase(request).collect { state ->
-                inspectUiState(state, { handleSuccessEditArchive() }){ _, individual ->
+                inspectUiState(state, { handleSuccessEditArchive() }, individualErrorCallback = { _, individual ->
                     handleArchiveError(individual as ArchiveError)
-                }
+                })
             }
         }
     }

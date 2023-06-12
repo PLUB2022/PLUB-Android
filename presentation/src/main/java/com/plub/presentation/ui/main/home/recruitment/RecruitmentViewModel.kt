@@ -72,9 +72,9 @@ class RecruitmentViewModel @Inject constructor(
         plubbingId = Id
         viewModelScope.launch {
             getRecruitDetailUseCase(plubbingId).collect{ state ->
-                inspectUiState(state, ::handleSuccessGetRecruitDetail){ _, individual ->
+                inspectUiState(state, ::handleSuccessGetRecruitDetail, individualErrorCallback = { _, individual ->
                     handleGatheringError(individual as GatheringError)
-                }
+                })
             }
         }
     }
@@ -128,9 +128,9 @@ class RecruitmentViewModel @Inject constructor(
     fun clickBookmark(){
         viewModelScope.launch{
             postBookmarkPlubRecruitUseCase(plubbingId).collect{
-                inspectUiState(it, ::successBookMarkChange){ _, individual ->
+                inspectUiState(it, ::successBookMarkChange, individualErrorCallback = { _, individual ->
                     handleGatheringError(individual as GatheringError)
-                }
+                })
             }
         }
     }
@@ -149,9 +149,9 @@ class RecruitmentViewModel @Inject constructor(
     private fun getPlubbingQuestion(){
         viewModelScope.launch{
             getRecruitQuestionUseCase(plubbingId).collect{
-                inspectUiState(it, ::onSuccessGetQuestions){ _, individual ->
+                inspectUiState(it, ::onSuccessGetQuestions, individualErrorCallback = { _, individual ->
                     handleGatheringError(individual as GatheringError)
-                }
+                })
             }
         }
     }
@@ -165,9 +165,9 @@ class RecruitmentViewModel @Inject constructor(
         val request = ApplicantsRecruitRequestVo(plubbingId, emptyList())
         viewModelScope.launch {
             postApplyRecruitUseCase(request).collect{
-                inspectUiState(it, { onSuccessApplyRecruit() }){ _, individual ->
+                inspectUiState(it, { onSuccessApplyRecruit() }, individualErrorCallback = { _, individual ->
                     handleGatheringError(individual as GatheringError)
-                }
+                })
             }
         }
     }
@@ -195,9 +195,9 @@ class RecruitmentViewModel @Inject constructor(
     fun cancelApply(){
         viewModelScope.launch {
             deleteMyApplicationUseCase(plubbingId).collect{
-                inspectUiState(it, { goToBack() }){ _, individual ->
+                inspectUiState(it, { goToBack() }, individualErrorCallback = { _, individual ->
                     handleGatheringError(individual as GatheringError)
-                }
+                })
             }
         }
     }
@@ -213,9 +213,9 @@ class RecruitmentViewModel @Inject constructor(
     fun endRecruit(){
         viewModelScope.launch {
             putEndRecruitUseCase(plubbingId).collect{ state ->
-                inspectUiState(state, {handleSuccessEndRecruit()}){ _, individual ->
+                inspectUiState(state, {handleSuccessEndRecruit()}, individualErrorCallback = { _, individual ->
                     handleGatheringError(individual as GatheringError)
-                }
+                })
             }
         }
     }

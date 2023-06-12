@@ -36,9 +36,9 @@ class ReportAlarmViewModel @Inject constructor(
     fun getReportDetail(reportId : Int){
         viewModelScope.launch {
             getReportDetailUseCase(reportId).collect{
-                inspectUiState(it, ::handleSuccessGetReportDetail){_, individual ->
+                inspectUiState(it, ::handleSuccessGetReportDetail, individualErrorCallback = {_, individual ->
                     handleReportError(individual as ReportError)
-                }
+                })
             }
         }
     }
