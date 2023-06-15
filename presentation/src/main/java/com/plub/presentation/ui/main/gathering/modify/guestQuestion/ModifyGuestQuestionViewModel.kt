@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.gathering.modify.guestQuestion
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.vo.modifyGathering.ModifyQuestionRequestVo
 import com.plub.domain.usecase.PutModifyQuestionsUseCase
 import com.plub.presentation.base.BaseViewModel
@@ -35,8 +36,18 @@ class ModifyGuestQuestionViewModel @Inject constructor(
             putModifyQuestionsUseCase(request).collect { state ->
                 inspectUiState(state,
                     succeedCallback = { },
-                    individualErrorCallback = null)
+                    individualErrorCallback = {_, individual ->
+                        handleGatheringError(individual as GatheringError)
+                    })
             }
+        }
+    }
+
+    private fun handleGatheringError(gatheringError: GatheringError){
+        when(gatheringError){
+            is GatheringError.NotHost -> TODO()
+            is GatheringError.NotMemberPlubbing -> TODO()
+            else -> TODO()
         }
     }
 

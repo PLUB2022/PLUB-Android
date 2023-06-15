@@ -7,6 +7,8 @@ import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
 import com.canhub.cropper.CropImageView
 import com.plub.domain.UiState
+import com.plub.domain.error.GatheringError
+import com.plub.domain.error.ImageError
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.media.ChangeFileRequestVo
@@ -183,7 +185,17 @@ class ModifyRecruitViewModel @Inject constructor(
         putModifyRecruitUseCase(request).collect { state ->
             inspectUiState(state,
             succeedCallback = { },
-            individualErrorCallback = null)
+            individualErrorCallback = {_, individual ->
+                handleGatheringError(individual as GatheringError)
+            })
+        }
+    }
+
+    private fun handleGatheringError(gatheringError: GatheringError){
+        when(gatheringError){
+            is GatheringError.NotHost -> TODO()
+            is GatheringError.NotMemberPlubbing -> TODO()
+            else -> TODO()
         }
     }
 
@@ -223,10 +235,17 @@ class ModifyRecruitViewModel @Inject constructor(
             succeedCallback = {
                 onSuccess(it.fileUrl)
             },
-            individualErrorCallback = { _, _ ->
-                //TODO ERROR 처리
+            individualErrorCallback = { _, individual->
+                handleImageError(individual as ImageError)
             }
         )
+    }
+
+    private fun handleImageError(imageError: ImageError){
+        when(imageError){
+            is ImageError.FailUpload -> TODO()
+            else -> TODO()
+        }
     }
 
 }

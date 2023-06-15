@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.gathering.modify
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailResponseVo
 import com.plub.domain.usecase.GetRecruitDetailUseCase
@@ -28,9 +29,18 @@ class ModifyGatheringViewModel @Inject constructor(
                         handleGetGatheringInfoSuccess(plubbingId, it)
                         onSuccess(plubbingId)
                     },
-                    individualErrorCallback = null
+                    individualErrorCallback = {_, individual ->
+                        handleGatheringError(individual as GatheringError)
+                    }
                 )
             }
+        }
+    }
+
+    private fun handleGatheringError(gatheringError: GatheringError){
+        when(gatheringError){
+            is GatheringError.NotFoundPlubbing -> TODO()
+            else -> TODO()
         }
     }
 
@@ -68,7 +78,9 @@ class ModifyGatheringViewModel @Inject constructor(
                 inspectUiState(
                     state,
                     succeedCallback = { handleGetQuestionSuccess(plubbingId, it) },
-                    individualErrorCallback = null
+                    individualErrorCallback = {_, individual ->
+                        handleGatheringError(individual as GatheringError)
+                    }
                 )
             }
         }

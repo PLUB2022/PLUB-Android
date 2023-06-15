@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.gathering.my
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.enums.MyGatheringsViewType
 import com.plub.domain.model.vo.myGathering.MyGatheringResponseVo
 import com.plub.domain.usecase.GetMyHostingGatheringsUseCase
@@ -37,7 +38,9 @@ class MyGatheringViewModel @Inject constructor(
     fun closeGathering(plubbingId: Int) {
         viewModelScope.launch {
             putGatheringStatusUseCase(plubbingId).collect { uiState ->
-                inspectUiState(uiState, succeedCallback = { removeMyGatherings(plubbingId) })
+                inspectUiState(uiState, succeedCallback = { removeMyGatherings(plubbingId) }, individualErrorCallback = {_, individual ->
+                    handleGatheringError(individual as GatheringError)
+                })
             }
         }
     }
@@ -45,7 +48,9 @@ class MyGatheringViewModel @Inject constructor(
     fun leaveGathering(plubbingId: Int) {
         viewModelScope.launch {
             putLeaveGatheringUseCase(plubbingId).collect { uiState ->
-                inspectUiState(uiState, succeedCallback = { removeMyGatherings(plubbingId) })
+                inspectUiState(uiState, succeedCallback = { removeMyGatherings(plubbingId) }, individualErrorCallback = {_, individual ->
+                    handleGatheringError(individual as GatheringError)
+                })
             }
         }
     }
@@ -75,7 +80,18 @@ class MyGatheringViewModel @Inject constructor(
                         MyGatheringResponseVo(viewType = MyGatheringsViewType.PARTICIPATE)
                     )
                 )
+            }, individualErrorCallback = {_, individual ->
+                handleGatheringError(individual as GatheringError)
             })
+        }
+    }
+
+    private fun handleGatheringError(gatheringError: GatheringError){
+        when(gatheringError){
+            is GatheringError.NotFoundPlubbing -> TODO()
+            is GatheringError.NotHost -> TODO()
+            is GatheringError.NotJoinedPlubbing -> TODO()
+            else -> TODO()
         }
     }
 
@@ -91,6 +107,8 @@ class MyGatheringViewModel @Inject constructor(
                         MyGatheringResponseVo(viewType = MyGatheringsViewType.CREATE)
                     )
                 )
+            }, individualErrorCallback = {_, individual ->
+                handleGatheringError(individual as GatheringError)
             })
         }
     }

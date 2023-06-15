@@ -1,6 +1,8 @@
 package com.plub.presentation.ui.main.gathering.create
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
+import com.plub.domain.error.ImageError
 import com.plub.domain.model.enums.CreateGatheringPageType
 import com.plub.domain.model.enums.CreateGatheringPageType.SELECT_PLUB_CATEGORY
 import com.plub.domain.model.enums.CreateGatheringPageType.GATHERING_TITLE_AND_NAME
@@ -81,7 +83,9 @@ class CreateGatheringViewModel @Inject constructor(
             val request = getCreateGatheringRequestVo(mainImageUrl)
 
             postCreateGatheringUseCase(request).collect { state ->
-                inspectUiState(state, { data -> onSuccess(data) })
+                inspectUiState(state, { data -> onSuccess(data) }, individualErrorCallback = { _, individual ->
+                    handleGatheringError(individual as GatheringError)
+                })
             }
         }
     }
@@ -161,14 +165,28 @@ class CreateGatheringViewModel @Inject constructor(
                         succeedCallback = {
                             onSuccess(it.fileUrl)
                         },
-                        individualErrorCallback = { _, _ ->
-                            //TODO ERROR 처리
+                        individualErrorCallback = { _, individual ->
+                            handleImageError(individual as ImageError)
                         }
                     )
                 }
             } ?: onSuccess("")
         } else {
             //TODO 알 수 없는 에러 처리
+        }
+    }
+
+    private fun handleImageError(imageError: ImageError){
+        when(imageError){
+            is ImageError.FailUpload -> TODO()
+            else -> TODO()
+        }
+    }
+
+    private fun handleGatheringError(gatheringError: GatheringError){
+        when(gatheringError){
+            is GatheringError.NotFoundSubCategory -> TODO()
+            else -> TODO()
         }
     }
 

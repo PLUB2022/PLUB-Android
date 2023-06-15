@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.gathering.my.kickOut
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.vo.account.AccountInfoVo
 import com.plub.domain.model.vo.myGathering.KickOutRequestVo
 import com.plub.domain.usecase.DeleteKickOutMemberUseCase
@@ -29,7 +30,17 @@ class KickOutViewModel @Inject constructor(
 
     fun getMembers(plubingId: Int) = viewModelScope.launch {
         getMyGatheringMembersUseCase(plubingId).collect { uiState ->
-            inspectUiState(uiState, ::handleSuccessGetMembers)
+            inspectUiState(uiState, ::handleSuccessGetMembers, {_, individual ->
+                handleGatheringError(individual as GatheringError)
+            })
+        }
+    }
+
+    private fun handleGatheringError(gatheringError: GatheringError){
+        when(gatheringError){
+            is GatheringError.NotHost -> TODO()
+            is GatheringError.NotMemberPlubbing -> TODO()
+            else -> TODO()
         }
     }
 
@@ -39,7 +50,9 @@ class KickOutViewModel @Inject constructor(
 
     fun kickOutMember(plubingId: Int, accountId: Int) = viewModelScope.launch {
         deleteKickOutMemberUseCase(KickOutRequestVo(plubingId, accountId)).collect { uiState ->
-            inspectUiState(uiState, succeedCallback = { handleSuccessKickOutMember(accountId) })
+            inspectUiState(uiState, succeedCallback = { handleSuccessKickOutMember(accountId) }, individualErrorCallback = {_, individual ->
+                handleGatheringError(individual as GatheringError)
+            })
         }
     }
 
