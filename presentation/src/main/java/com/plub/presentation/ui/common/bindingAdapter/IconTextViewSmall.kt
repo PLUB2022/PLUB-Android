@@ -26,3 +26,21 @@ fun IconTextViewSmall.bindIconTextViewSmallTextLocation(data: KakaoLocationInfoD
         icon.setImageResource(R.drawable.ic_location_active)
     }
 }
+
+@BindingAdapter("iconTextViewSmallTextAndIconAndBackgroundModifyGatheringLocation")
+fun IconTextViewSmall.bindIconTextViewSmallTextLocation(data: String?) {
+    if (data.isNullOrBlank()) {
+        textView.text =
+            context.getString(R.string.create_gathering_day_and_on_offline_and_location_gathering_location_hint)
+        textView.setTextColor(context.getColor(R.color.color_8c8c8c))
+        setBackgroundResource(R.drawable.bg_rectangle_empty_8c8c8c_radius_8)
+        icon.setImageResource(R.drawable.ic_location_inactive)
+    } else {
+        textView.text = data
+        textView.setTextColor(context.getColor(R.color.color_363636))
+        textView.setTextSize(Dimension.SP, 16f)
+        textView.typeface = Typeface.DEFAULT_BOLD
+        setBackgroundResource(R.drawable.bg_rectangle_empty_5f5ff9_radius_8)
+        icon.setImageResource(R.drawable.ic_location_active)
+    }
+}

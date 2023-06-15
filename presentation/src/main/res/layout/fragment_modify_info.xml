@@ -10,13 +10,16 @@
             type="com.plub.presentation.ui.main.gathering.modify.info.ModifyInfoViewModel" />
 
         <import type="com.plub.domain.model.enums.DaysType" />
+
+        <import type="com.plub.domain.model.enums.OnOfflineType" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_f5f3f6"
-        android:paddingHorizontal="16dp">
+        android:background="@color/color_f5f3f6">
 
         <ImageView
             android:id="@+id/image_view_back"
@@ -60,6 +63,7 @@
                     android:id="@+id/text_view_gathering_day_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_day_title"
                     android:textColor="@color/color_363636"
                     android:textSize="16sp"
@@ -72,6 +76,7 @@
                     style="@style/create_gathering_day_fixed_text_width_check_box"
                     day="@{DaysType.MON}"
                     dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="12dp"
                     app:layout_constraintEnd_toStartOf="@id/check_box_tue"
@@ -115,6 +120,7 @@
                     style="@style/create_gathering_day_fixed_text_width_check_box"
                     day="@{DaysType.THR}"
                     dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/check_box_wed"
                     app:layout_constraintTop_toTopOf="@id/check_box_wed"
@@ -128,6 +134,7 @@
                     style="@style/create_gathering_day_fixed_text_width_check_box"
                     day="@{DaysType.FRI}"
                     dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="12dp"
                     app:layout_constraintEnd_toStartOf="@id/check_box_sat"
@@ -171,6 +178,7 @@
                     style="@style/create_gathering_day_fixed_text_width_check_box"
                     day="@{DaysType.ALL}"
                     dayHashSet="@{vm.uiState.gatheringDays}"
+                    android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/check_box_sun"
                     app:layout_constraintTop_toTopOf="@id/check_box_sun"
@@ -184,6 +192,7 @@
                     android:id="@+id/text_view_time_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="40dp"
                     android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_time_title"
                     android:textColor="@color/color_363636"
@@ -196,6 +205,7 @@
                     android:id="@+id/icon_text_view_medium_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
                     app:iconTextViewMediumIcon="@drawable/ic_clock_inactive"
                     app:iconTextViewMediumTextAndIconAndBackgroundCreateGatheringTime="@{vm.uiState.gatheringFormattedTime}"
@@ -209,6 +219,7 @@
                     android:id="@+id/text_view_on_offline_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="40dp"
                     android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_on_offline_title"
                     android:textColor="@color/color_363636"
@@ -221,6 +232,7 @@
                     android:id="@+id/radio_group_on_offline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -235,6 +247,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
                         android:button="@null"
+                        android:checked="@{vm.uiState.gatheringOnOffline == OnOfflineType.ON.value}"
                         android:gravity="center"
                         android:paddingVertical="11dp"
                         android:text="@string/word_online"
@@ -251,6 +264,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
                         android:button="@null"
+                        android:checked="@{vm.uiState.gatheringOnOffline == OnOfflineType.OFF.value}"
                         android:gravity="center"
                         android:paddingVertical="11dp"
                         android:text="@string/word_offline"
@@ -275,6 +289,7 @@
                         android:id="@+id/text_view_gathering_location_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
                         android:text="@string/create_gathering_day_and_on_offline_and_location_gathering_location_title"
                         android:textColor="@color/color_8c8c8c"
                         android:textSize="14sp"
@@ -285,15 +300,16 @@
                         android:id="@+id/edit_text_gathering_location_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="5dp"
                         app:iconTextViewSmallIcon="@drawable/ic_location_inactive"
+                        app:iconTextViewSmallTextAndIconAndBackgroundModifyGatheringLocation="@{vm.uiState.placeName}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/text_view_gathering_location_title"
                         app:onThrottleClick="@{() -> vm.onClickIconEditTextLocation()}"
                         tools:background="@color/black"
                         tools:layout_height="40dp" />
-                    <!--                    app:iconTextViewSmallTextAndIconAndBackgroundCreateGatheringLocation="@{vm.uiState.gatheringLocationData}"-->
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -302,6 +318,7 @@
                     android:id="@+id/text_view_seekbar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/create_gathering_people_number_seekbar_title"
                     android:textColor="@color/color_363636"
@@ -314,6 +331,7 @@
                     android:id="@+id/seek_bar_people"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="41dp"
                     android:background="@null"
                     android:max="16"
@@ -398,6 +416,7 @@
             android:id="@+id/button_next"
             android:layout_width="0dp"
             android:layout_height="44dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="26dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
             android:enabled="@{vm.uiState.isNextButtonEnabled}"

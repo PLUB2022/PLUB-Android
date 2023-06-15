@@ -68,14 +68,14 @@ class ModifyGatheringViewModel @Inject constructor(
         return ModifyInfoPageState(
             plubbingId = plubbingId,
             gatheringDays = data.plubbingDays.map { DaysType.findByEng(it) }.toHashSet(),
-            gatheringOnOffline = if(data.plubbingDays.isEmpty()) OnOfflineType.ON.value else OnOfflineType.ON.value,
+            gatheringOnOffline = if(data.plubbingDays.isEmpty()) OnOfflineType.ON.value else OnOfflineType.OFF.value,
             address = data.address,
             roadAdress = data.roadAdress,
             placeName = data.placeName,
             gatheringHour = TimeFormatter.getIntHour(data.plubbingTime),
             gatheringMin = TimeFormatter.getIntMin(data.plubbingTime),
-            gatheringFormattedTime = data.plubbingTime,
-            seekBarProgress = data.curAccountNum,
+            gatheringFormattedTime = TimeFormatter.getAmPmHourMin(data.plubbingTime),
+            seekBarProgress = data.remainAccountNum,
             seekBarPositionX = 0.0f
         )
     }

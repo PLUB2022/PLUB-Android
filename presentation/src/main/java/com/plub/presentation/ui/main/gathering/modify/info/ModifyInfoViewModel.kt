@@ -1,71 +1,38 @@
 package com.plub.presentation.ui.main.gathering.modify.info
 
-import android.app.Activity
-import android.net.Uri
-import android.text.Editable
-import androidx.activity.result.ActivityResult
 import androidx.lifecycle.viewModelScope
-import com.canhub.cropper.CropImageView
-import com.plub.domain.UiState
 import com.plub.domain.model.enums.DaysType
-import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.OnOfflineType
-import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
-import com.plub.domain.model.vo.media.ChangeFileRequestVo
-import com.plub.domain.model.vo.media.UploadFileRequestVo
-import com.plub.domain.model.vo.media.UploadFileResponseVo
-import com.plub.domain.model.vo.modifyGathering.ModifyRecruitRequestVo
-import com.plub.domain.usecase.PostChangeFileUseCase
-import com.plub.domain.usecase.PostUploadFileUseCase
-import com.plub.domain.usecase.PutModifyRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
-import com.plub.presentation.ui.PageState
-import com.plub.presentation.ui.main.gathering.create.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationEvent
-import com.plub.presentation.ui.main.gathering.create.dayAndOnOfflineAndLocation.CreateGatheringDayAndTimeAndOnOfflineAndLocationPageState
-import com.plub.presentation.ui.main.gathering.create.peopleNumber.CreateGatheringPeopleNumberPageState
-import com.plub.presentation.ui.main.gathering.modify.guestQuestion.ModifyGuestQuestionEvent
-import com.plub.presentation.util.ImageUtil
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.TimeFormatter
 import com.plub.presentation.util.addOrRemoveElementAfterReturnNewHashSet
 import com.plub.presentation.util.removeElementAfterReturnNewHashSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class ModifyInfoViewModel @Inject constructor() : BaseViewModel<ModifyInfoPageState>(ModifyInfoPageState()) {
 
-
-
-    fun initPageState(bundlePageState: ModifyInfoPageState) {
-//        updateUiState { uiState ->
-//            uiState.copy(
-//                plubbingId = bundlePageState.plubbingId,
-//                title = bundlePageState.title,
-//                name = bundlePageState.name,
-//                goal = bundlePageState.goal,
-//                introduce = bundlePageState.introduce,
-//                plubbingMainImgUrl = bundlePageState.plubbingMainImgUrl,
-//                tempPlubbingMainBitmap = bundlePageState.tempPlubbingMainBitmap
-//            )
-//        }
+    fun initPageState(pageState: ModifyInfoPageState, seekBarPositionX: Float) {
+        updateUiState { uiState ->
+            uiState.copy(
+                plubbingId = pageState.plubbingId,
+                gatheringDays = pageState.gatheringDays,
+                gatheringOnOffline = pageState.gatheringOnOffline,
+                address = pageState.address,
+                roadAdress = pageState.roadAdress,
+                placeName = pageState.placeName,
+                gatheringHour = pageState.gatheringHour,
+                gatheringMin = pageState.gatheringMin,
+                gatheringFormattedTime = pageState.gatheringFormattedTime,
+                seekBarProgress = pageState.seekBarProgress,
+                seekBarPositionX = seekBarPositionX
+            )
+        }
     }
-
-//    fun initUiState(savedUiState: PageState) {
-//        if (uiState.value != CreateGatheringPeopleNumberPageState())
-//            return
-//
-//        if (savedUiState is CreateGatheringPeopleNumberPageState) {
-//            updateUiState { uiState ->
-//                uiState.copy(
-//                    seekBarProgress = savedUiState.seekBarProgress,
-//                    seekBarPositionX = savedUiState.seekBarPositionX
-//                )
-//            }
-//        }
-//    }
 
     val updateSeekbarProgressAndPositionX: (progress: Int, position: Float) -> Unit =
         { progress, position ->
@@ -90,7 +57,7 @@ class ModifyInfoViewModel @Inject constructor() : BaseViewModel<ModifyInfoPageSt
     }
 
     fun onClickTimeTextView() {
-        emitEventFlow(CreateGatheringDayAndTimeAndOnOfflineAndLocationEvent.ShowTimePickerDialog)
+        emitEventFlow(ModifyInfoEvent.ShowTimePickerDialog)
     }
 
     fun setGatheringHourAndMinuteAndFormattedText(hour: Int, min: Int) {
@@ -104,17 +71,20 @@ class ModifyInfoViewModel @Inject constructor() : BaseViewModel<ModifyInfoPageSt
     }
 
     fun updateGatheringLocationData(data: KakaoLocationInfoDocumentVo?) {
-//        viewModelScope.launch {
-//            updateUiState { uiState ->
-//                uiState.copy(
-//                    gatheringLocationData = data
-//                )
-//            }
-//        }
+        viewModelScope.launch {
+            updateUiState { uiState ->
+                checkNotNull(data)
+                uiState.copy(
+                    address = data.addressName,
+                    roadAdress = data.roadAddressName,
+                    placeName = data.placeName
+                )
+            }
+        }
     }
 
     fun onClickIconEditTextLocation() {
-        emitEventFlow(CreateGatheringDayAndTimeAndOnOfflineAndLocationEvent.ShowBottomSheetSearchLocation)
+        emitEventFlow(ModifyInfoEvent.ShowBottomSheetSearchLocation)
     }
 
     /**
@@ -164,5 +134,4 @@ class ModifyInfoViewModel @Inject constructor() : BaseViewModel<ModifyInfoPageSt
             )
         }
     }
-
 }
