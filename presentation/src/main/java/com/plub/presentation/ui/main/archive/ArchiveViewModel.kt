@@ -82,9 +82,9 @@ class ArchiveViewModel @Inject constructor(
 
     private fun handleArchiveError(archiveError: ArchiveError){
         when(archiveError){
-            ArchiveError.Common -> TODO()
             is ArchiveError.NotArchiveAuthor -> TODO()
             is ArchiveError.NotFoundArchive -> TODO()
+            else -> TODO()
         }
     }
 
@@ -160,8 +160,8 @@ class ArchiveViewModel @Inject constructor(
 
     private fun handleImageError(imageError: ImageError){
         when(imageError){
-            ImageError.Common -> {}
             ImageError.FailUpload -> emitEventFlow(ArchiveEvent.FailUpload)
+            else -> {}
         }
     }
 
