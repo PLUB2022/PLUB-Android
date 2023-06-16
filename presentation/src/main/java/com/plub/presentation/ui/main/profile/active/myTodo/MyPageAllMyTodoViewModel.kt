@@ -65,8 +65,9 @@ class MyPageAllMyTodoViewModel @Inject constructor(
 
     private fun handleImageError(imageError: ImageError) {
         when (imageError) {
-            ImageError.Common -> TODO()
-            ImageError.FailUpload -> TODO()
+            is ImageError.Common -> TODO()
+            is ImageError.FailDelete -> TODO()
+            is ImageError.FailUpload -> TODO()
         }
     }
 

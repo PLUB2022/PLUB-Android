@@ -215,8 +215,9 @@ class MyPageEditViewModel @Inject constructor(
 
     private fun handleImageError(imageError: ImageError){
         when(imageError){
-            ImageError.Common -> {}
-            ImageError.FailUpload -> emitEventFlow(ArchiveEvent.FailUpload)
+            is ImageError.Common -> {}
+            is ImageError.FailDelete -> TODO()
+            is ImageError.FailUpload -> emitEventFlow(ArchiveEvent.FailUpload)
         }
     }
 

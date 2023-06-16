@@ -160,7 +160,7 @@ class ArchiveViewModel @Inject constructor(
 
     private fun handleImageError(imageError: ImageError){
         when(imageError){
-            ImageError.FailUpload -> emitEventFlow(ArchiveEvent.FailUpload)
+            is ImageError.FailUpload -> emitEventFlow(ArchiveEvent.FailUpload)
             else -> {}
         }
     }

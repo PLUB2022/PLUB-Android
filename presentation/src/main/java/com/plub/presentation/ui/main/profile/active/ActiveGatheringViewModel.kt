@@ -318,8 +318,9 @@ class ActiveGatheringViewModel @Inject constructor(
 
     private fun handleImageError(imageError: ImageError){
         when(imageError){
-            ImageError.Common -> TODO()
-            ImageError.FailUpload -> TODO()
+            is ImageError.Common -> TODO()
+            is ImageError.FailUpload -> TODO()
+            is ImageError.FailDelete -> TODO()
         }
     }
 

@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.noti
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.NotificationError
 import com.plub.domain.model.vo.notification.NotificationResponseVo
 import com.plub.domain.model.vo.notification.NotificationsResponseVo
 import com.plub.domain.usecase.GetMyNotificationsUseCase
@@ -33,8 +34,17 @@ class NotiViewModel @Inject constructor(
     fun initNoti() {
         viewModelScope.launch {
             getMyNotificationsUseCase(Unit).collect { uiState ->
-                inspectUiState(uiState, ::handleInitNotiSuccess)
+                inspectUiState(uiState, ::handleInitNotiSuccess, individualErrorCallback = {_, individual ->
+                    handleNotificationError(individual as NotificationError)
+                })
             }
+        }
+    }
+
+    private fun handleNotificationError(notificationError: NotificationError){
+        when(notificationError){
+            is NotificationError.NotFoundNotification -> TODO()
+            else -> TODO()
         }
     }
 
@@ -46,7 +56,9 @@ class NotiViewModel @Inject constructor(
 
     fun readNotification(notificationId: Int) = viewModelScope.launch {
         putReadNotificationUseCase(notificationId).collect { uiState ->
-            inspectUiState(uiState, { handleReadNotificationSuccess(notificationId) })
+            inspectUiState(uiState, { handleReadNotificationSuccess(notificationId) }, individualErrorCallback = {_, individual ->
+                handleNotificationError(individual as NotificationError)
+            })
         }
     }
 
