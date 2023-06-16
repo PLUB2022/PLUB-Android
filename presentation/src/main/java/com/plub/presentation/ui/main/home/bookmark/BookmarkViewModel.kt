@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.bookmark
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.enums.PlubCardType
 import com.plub.domain.model.vo.bookmark.PlubBookmarkResponseVo
 import com.plub.domain.model.vo.plub.PlubCardListVo
@@ -76,8 +77,17 @@ class BookmarkViewModel @Inject constructor(
     private fun getPlubBookmarks(showLoading : Boolean) {
         viewModelScope.launch {
             getMyPlubBookmarksUseCase(cursorId).collect {
-                inspectUiState(it, ::fetchPlubBookmarksSuccess, needShowLoading = showLoading)
+                inspectUiState(it, ::fetchPlubBookmarksSuccess, needShowLoading = showLoading, individualErrorCallback = {_, individual ->
+                    handleGatheringError(individual as GatheringError)
+                })
             }
+        }
+    }
+
+    private fun handleGatheringError(gatheringError: GatheringError){
+        when(gatheringError){
+            is GatheringError.NotFoundPlubbing -> TODO()
+            else -> TODO()
         }
     }
 
@@ -115,7 +125,9 @@ class BookmarkViewModel @Inject constructor(
     private fun postBookmark(id: Int) {
         viewModelScope.launch {
             postBookmarkPlubRecruitUseCase(id).collect {
-                inspectUiState(it, ::postBookmarkSuccess)
+                inspectUiState(it, ::postBookmarkSuccess, individualErrorCallback = {_, individual ->
+                    handleGatheringError(individual as GatheringError)
+                })
             }
         }
     }

@@ -81,24 +81,15 @@ class RecruitmentViewModel @Inject constructor(
 
     private fun handleGatheringError(gatheringError: GatheringError) {
         when (gatheringError) {
-            is GatheringError.AlreadyAccepted -> TODO()
             is GatheringError.AlreadyApplied -> TODO()
-            is GatheringError.AlreadyFinish -> TODO()
             is GatheringError.AlreadyRecruitDone -> TODO()
-            is GatheringError.AlreadyRejected -> TODO()
-            GatheringError.Common -> TODO()
-            is GatheringError.FullMemberPlubbing -> TODO()
-            is GatheringError.HostCannotApply -> TODO()
             is GatheringError.LimitMaxPlubbing -> TODO()
-            is GatheringError.LimitPullUp -> TODO()
             is GatheringError.NotAppliedApplicant -> TODO()
             is GatheringError.NotFoundPlubbing -> TODO()
-            is GatheringError.NotFoundQuestion -> TODO()
-            is GatheringError.NotFoundRecruit -> TODO()
-            is GatheringError.NotFoundSubCategory -> TODO()
             is GatheringError.NotHost -> TODO()
-            is GatheringError.NotJoinedPlubbing -> TODO()
             is GatheringError.NotMemberPlubbing -> TODO()
+            is GatheringError.NotJoinedPlubbing -> TODO()
+            else -> TODO()
         }
     }
 

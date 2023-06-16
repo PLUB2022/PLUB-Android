@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.main.home.search
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
 import com.plub.domain.error.SearchError
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.PlubCardType
@@ -18,10 +19,8 @@ import com.plub.domain.usecase.GetSearchPlubRecruitUseCase
 import com.plub.domain.usecase.InsertRecentSearchUseCase
 import com.plub.domain.usecase.PostBookmarkPlubRecruitUseCase
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.ui.main.plubing.board.PlubingBoardViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -255,8 +254,17 @@ class SearchingViewModel @Inject constructor(
     private fun postBookmark(id: Int) {
         viewModelScope.launch {
             postBookmarkPlubRecruitUseCase(id).collect {
-                inspectUiState(it, ::postBookmarkSuccess)
+                inspectUiState(it, ::postBookmarkSuccess, individualErrorCallback = {_, individual ->
+                    handleGatheringError(individual as GatheringError)
+                })
             }
+        }
+    }
+
+    private fun handleGatheringError(gatheringError: GatheringError){
+        when(gatheringError){
+            is GatheringError.NotFoundPlubbing -> TODO()
+            else -> TODO()
         }
     }
 

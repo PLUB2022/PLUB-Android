@@ -38,8 +38,8 @@ class RegisterHobbiesViewModel @Inject constructor(
 
     private fun handleCategoryError(categoryError: CategoryError){
         when(categoryError){
-            CategoryError.Common -> TODO()
             is CategoryError.NotFoundCategory -> TODO()
+            else -> TODO()
         }
     }
 
