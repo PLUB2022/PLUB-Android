@@ -10,7 +10,7 @@ data class ModifyInfoRequestVo(
     val address: String,
     val roadAddress: String,
     val placeName: String,
-    val placePositionX: Float,
-    val placePositionY: Float,
+    val placePositionX: Float = 0f,
+    val placePositionY: Float = 0f,
     val time: String,
 ): DomainModel

@@ -69,6 +69,9 @@ class ModifyInfoFragment : BaseFragment<
                         is ModifyInfoEvent.ShowTimePickerDialog -> {
                             timePickerDialog.show()
                         }
+                        is ModifyInfoEvent.GoToBack -> {
+                            findNavController().popBackStack()
+                        }
                     }
                 }
             }

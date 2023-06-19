@@ -4,8 +4,10 @@ import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.enums.OnOfflineType
 import com.plub.domain.model.vo.kakaoLocation.KakaoLocationInfoDocumentVo
+import com.plub.domain.usecase.PutModifyInfoUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.util.PlubLogger
+import com.plub.domain.model.vo.modifyGathering.ModifyInfoRequestVo
 import com.plub.presentation.util.TimeFormatter
 import com.plub.presentation.util.addOrRemoveElementAfterReturnNewHashSet
 import com.plub.presentation.util.removeElementAfterReturnNewHashSet
@@ -14,7 +16,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ModifyInfoViewModel @Inject constructor() : BaseViewModel<ModifyInfoPageState>(ModifyInfoPageState()) {
+class ModifyInfoViewModel @Inject constructor(
+    private val putModifyInfoUseCase: PutModifyInfoUseCase
+) : BaseViewModel<ModifyInfoPageState>(ModifyInfoPageState()) {
 
     fun initPageState(pageState: ModifyInfoPageState, seekBarPositionX: Float) {
         updateUiState { uiState ->
@@ -134,4 +138,34 @@ class ModifyInfoViewModel @Inject constructor() : BaseViewModel<ModifyInfoPageSt
             )
         }
     }
+
+    fun onClickSaveButton() {
+        viewModelScope.launch {
+            putModifyInfoUseCase(getModifyInfoRequestVo()).collect { state ->
+                inspectUiState(state,
+                    succeedCallback = { goToBack() },
+                    individualErrorCallback = null)
+            }
+        }
+    }
+
+    private fun getModifyInfoRequestVo(): ModifyInfoRequestVo = with(uiState.value) {
+        return ModifyInfoRequestVo(
+            plubbingId = plubbingId,
+            days = gatheringDays.map { it.eng },
+            onOff = gatheringOnOffline,
+            maxAccountNum = peopleNumber,
+            address = address,
+            roadAddress = roadAdress,
+            placeName = placeName,
+            time = TimeFormatter.getHHmm(gatheringHour, gatheringMin)
+        )
+    }
+
+    private fun goToBack() {
+        emitEventFlow(
+            ModifyInfoEvent.GoToBack
+        )
+    }
+
 }

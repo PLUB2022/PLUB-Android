@@ -13,4 +13,6 @@ sealed class ModifyGatheringEvent : Event {
     data class GoToModifyRecruit(val data: ModifyRecruitPageState) : ModifyGatheringEvent()
 
     data class GoToModifyInfo(val data: ModifyInfoPageState) : ModifyGatheringEvent()
+
+    object ShowPullUpSuccessToastMsg : ModifyGatheringEvent()
 }

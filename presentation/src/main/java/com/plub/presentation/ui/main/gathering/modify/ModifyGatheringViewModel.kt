@@ -7,6 +7,7 @@ import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailResponseVo
 import com.plub.domain.usecase.GetRecruitDetailUseCase
 import com.plub.domain.usecase.GetRecruitQuestionUseCase
+import com.plub.domain.usecase.PutPullUpGatheringUseCase
 import com.plub.presentation.base.BaseViewModel
 import com.plub.presentation.ui.main.gathering.create.question.CreateGatheringQuestion
 import com.plub.presentation.ui.main.gathering.modify.guestQuestion.ModifyGuestQuestionPageState
@@ -20,17 +21,26 @@ import javax.inject.Inject
 @HiltViewModel
 class ModifyGatheringViewModel @Inject constructor(
     private val getRecruitDetailUseCase: GetRecruitDetailUseCase,
-    private val getRecruitQuestionUseCase: GetRecruitQuestionUseCase
+    private val getRecruitQuestionUseCase: GetRecruitQuestionUseCase,
+    private val putPullUpGatheringUseCase: PutPullUpGatheringUseCase
 ) : BaseViewModel<ModifyGatheringPageState>(ModifyGatheringPageState()) {
 
-    fun getGatheringInfoDetail(plubbingId: Int, onSuccess: (Int) -> Unit) {
+    companion object {
+        const val GATHERING_PEOPLE_MIN_VALUE = 4
+    }
+
+    private var plubbingId: Int = -1
+
+    fun getGatheringInfoDetail(plubbingId: Int, onSuccess: () -> Unit) {
+        this.plubbingId = plubbingId
+
         viewModelScope.launch {
             getRecruitDetailUseCase(plubbingId).collect { state ->
                 inspectUiState(
                     state,
                     succeedCallback = {
-                        handleGetGatheringInfoSuccess(plubbingId, it)
-                        onSuccess(plubbingId)
+                        handleGetGatheringInfoSuccess(it)
+                        onSuccess()
                     },
                     individualErrorCallback = null
                 )
@@ -38,17 +48,16 @@ class ModifyGatheringViewModel @Inject constructor(
         }
     }
 
-    private fun handleGetGatheringInfoSuccess(plubbingId: Int, data: RecruitDetailResponseVo) {
+    private fun handleGetGatheringInfoSuccess(data: RecruitDetailResponseVo) {
         updateUiState { uiState ->
             uiState.copy(
-                modifyRecruitPageState = getRecruitPageState(plubbingId, data),
-                modifyInfoPageState = getInfoPageState(plubbingId, data)
+                modifyRecruitPageState = getRecruitPageState(data),
+                modifyInfoPageState = getInfoPageState(data)
             )
         }
     }
 
     private fun getRecruitPageState(
-        plubbingId: Int,
         data: RecruitDetailResponseVo
     ): ModifyRecruitPageState {
         return ModifyRecruitPageState(
@@ -62,46 +71,44 @@ class ModifyGatheringViewModel @Inject constructor(
     }
 
     private fun getInfoPageState(
-        plubbingId: Int,
         data: RecruitDetailResponseVo
     ): ModifyInfoPageState {
         return ModifyInfoPageState(
             plubbingId = plubbingId,
-            gatheringDays = data.plubbingDays.map { DaysType.findByEng(it) }.toHashSet(),
-            gatheringOnOffline = if(data.plubbingDays.isEmpty()) OnOfflineType.ON.value else OnOfflineType.OFF.value,
+            gatheringDays = data.plubbingDays.map { DaysType.findByKor(it) }.toHashSet(),
+            gatheringOnOffline = if(data.placeName.isBlank()) OnOfflineType.ON.value else OnOfflineType.OFF.value,
             address = data.address,
             roadAdress = data.roadAdress,
             placeName = data.placeName,
             gatheringHour = TimeFormatter.getIntHour(data.plubbingTime),
             gatheringMin = TimeFormatter.getIntMin(data.plubbingTime),
             gatheringFormattedTime = TimeFormatter.getAmPmHourMin(data.plubbingTime),
-            seekBarProgress = data.remainAccountNum,
+            seekBarProgress = data.remainAccountNum + data.curAccountNum - GATHERING_PEOPLE_MIN_VALUE,
             seekBarPositionX = 0.0f
         )
     }
 
-    fun getQuestions(plubbingId: Int) {
+    fun getQuestions() {
         viewModelScope.launch {
             getRecruitQuestionUseCase(plubbingId).collect { state ->
                 inspectUiState(
                     state,
-                    succeedCallback = { handleGetQuestionSuccess(plubbingId, it) },
+                    succeedCallback = { handleGetQuestionSuccess(it) },
                     individualErrorCallback = null
                 )
             }
         }
     }
 
-    private fun handleGetQuestionSuccess(plubbingId: Int, data: QuestionsResponseVo) {
+    private fun handleGetQuestionSuccess(data: QuestionsResponseVo) {
         updateUiState { uiState ->
             uiState.copy(
-                modifyGuestQuestionPageState = getGuestQuestionPageState(plubbingId, data)
+                modifyGuestQuestionPageState = getGuestQuestionPageState(data)
             )
         }
     }
 
     private fun getGuestQuestionPageState(
-        plubbingId: Int,
         data: QuestionsResponseVo
     ): ModifyGuestQuestionPageState {
         return ModifyGuestQuestionPageState(
@@ -115,6 +122,14 @@ class ModifyGatheringViewModel @Inject constructor(
             } else listOf(CreateGatheringQuestion()),
             isNeedQuestionCheck = data.questions.isNotEmpty()
         )
+    }
+
+    fun pullUp() {
+        viewModelScope.launch {
+            putPullUpGatheringUseCase(plubbingId).collect {
+                inspectUiState(it, { emitEventFlow(ModifyGatheringEvent.ShowPullUpSuccessToastMsg) })
+            }
+        }
     }
 
     fun goToBack() {
