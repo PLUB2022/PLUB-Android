@@ -23,25 +23,25 @@ import javax.inject.Inject
 class ScheduleRepositoryImpl @Inject constructor(private val scheduleApi: ScheduleApi) : ScheduleRepository, BaseRepository() {
 
     override suspend fun getEntireSchedule(request: GetEntireScheduleRequestVo): Flow<UiState<GetEntireScheduleResponseVo>> {
-        return apiLaunch(scheduleApi.getEntireSchedule(request.plubbingId, request.cursorId), EntireScheduleResponseMapper)
+        return apiLaunch(apiCall = { scheduleApi.getEntireSchedule(request.plubbingId, request.cursorId) }, EntireScheduleResponseMapper)
     }
 
     override suspend fun putScheduleAttend(request: PutScheduleAttendRequestVo): Flow<UiState<CalendarAttendVo>> {
         val body = PutScheduleAttendRequestMapper.mapModelToDto(request)
-        return apiLaunch(scheduleApi.putScheduleAttend(request.plubbingId, request.calendarId, body), CalendarAttendResponseMapper)
+        return apiLaunch(apiCall = { scheduleApi.putScheduleAttend(request.plubbingId, request.calendarId, body) }, CalendarAttendResponseMapper)
     }
 
     override suspend fun createSchedule(request: CreateScheduleRequestVo): Flow<UiState<Unit>> {
         val body = CreateScheduleRequestMapper.mapModelToDto(request)
-        return apiLaunch(scheduleApi.createSchedule(request.plubbingId, body), UnitResponseMapper)
+        return apiLaunch(apiCall = { scheduleApi.createSchedule(request.plubbingId, body) }, UnitResponseMapper)
     }
 
     override suspend fun editSchedule(request: EditScheduleRequestVo): Flow<UiState<Unit>> {
         val body = EditScheduleRequestMapper.mapModelToDto(request)
-        return apiLaunch(scheduleApi.editSchedule(request.plubbingId, request.calendarId, body), UnitResponseMapper)
+        return apiLaunch(apiCall = { scheduleApi.editSchedule(request.plubbingId, request.calendarId, body) }, UnitResponseMapper)
     }
 
     override suspend fun deleteSchedule(request: DeleteScheduleRequestVo): Flow<UiState<Unit>> {
-        return apiLaunch(scheduleApi.deleteSchedule(request.plubbingId, request.calendarId), UnitResponseMapper)
+        return apiLaunch(apiCall = { scheduleApi.deleteSchedule(request.plubbingId, request.calendarId) }, UnitResponseMapper)
     }
 }

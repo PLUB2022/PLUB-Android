@@ -24,8 +24,8 @@ abstract class BaseTestViewModel<STATE: PageState> : ViewModel() {
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow: EventFlow<Event> = _eventFlow.asEventFlow()
 
-    private val _showProgress = MutableSharedFlow<Boolean>(0, 1, BufferOverflow.DROP_OLDEST)
-    val showProgress: SharedFlow<Boolean> = _showProgress.asSharedFlow()
+    private val _showProgress = MutableEventFlow<Boolean>()
+    val showProgress: EventFlow<Boolean> = _showProgress.asEventFlow()
 
     private val _commonError = MutableSharedFlow<CommonError>(0, 1, BufferOverflow.DROP_OLDEST)
     val commonError: SharedFlow<CommonError> = _commonError.asSharedFlow()
@@ -36,8 +36,8 @@ abstract class BaseTestViewModel<STATE: PageState> : ViewModel() {
         }
     }
 
-    protected fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: ((T) -> Unit), individualErrorCallback: ((T?, IndividualError) -> Unit)? = null) {
-        uiInspector.inspectUiState(uiState,succeedCallback, individualErrorCallback)
+    protected fun<T> inspectUiState(uiState: UiState<T>, succeedCallback: ((T) -> Unit), individualErrorCallback: ((T?, IndividualError) -> Unit)? = null, needShowLoading: Boolean = true) {
+        uiInspector.inspectUiState(uiState,succeedCallback, individualErrorCallback, needShowLoading)
     }
 
     private fun delegate(): UiInspector.Delegate {

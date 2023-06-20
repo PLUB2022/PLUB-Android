@@ -17,11 +17,14 @@
         android:layout_height="match_parent"
         android:background="@color/color_f5f3f6">
 
-        <ImageView
-            android:id="@+id/image_view_welcome"
-            android:layout_width="240dp"
-            android:layout_height="240dp"
-            app:layout_constraintBottom_toTopOf="@+id/text_view_title"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_welcome"
+            android:layout_width="328dp"
+            android:layout_height="368dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:layout_constraintBottom_toTopOf="@id/button_plub_start"
+            android:layout_marginBottom="54dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,20 +36,8 @@
             android:text="@string/sign_up_welcome_title"
             android:textColor="@color/color_363636"
             android:textSize="32sp"
-            app:layout_constraintBottom_toTopOf="@+id/text_view_description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/text_view_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="80dp"
-            android:text="@string/onboarding_content_second"
-            android:textColor="@color/color_363636"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/button_plub_start"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/lottie_welcome"
             app:layout_constraintStart_toStartOf="parent" />
 
         <View

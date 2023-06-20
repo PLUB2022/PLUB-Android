@@ -16,6 +16,9 @@
     <string name="web_google_client_id">746494448016-j25cuo21ut0ofgbba9h4n6b63502uimi.apps.googleusercontent.com</string>
     <string name="kakao_redirect_url_key">kakao5c988e60cc77ac9ad664f1f37293ee2d</string>
     <string name="plub_emil">plub2023@gmail.com</string>
+    <string name="service_policies">https://plub.notion.site/63cdf80be630466d868df43d56b69e15</string>
+    <string name="personal_policies">https://plub.notion.site/83eb3cad087647f6b58fe383d3224af7</string>
+    <string name="faq_site">https://plub.notion.site/FAQ-17ae9dfbfb6d4812ab27537c18f709fc</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fragment_text_category_name_art">예술</string>
     <string name="fragment_text_category_name_food">음식</string>
@@ -378,6 +381,7 @@
     <string name="my_page_complete_answer">%s 답변 작성완료</string>
 
     <string name="notice_list_title">공지사항</string>
+    <string name="notice_title">[%s]</string>
     <string name="notice_list_create_notice">새 글 작성</string>
     <string name="notice_write_title_text">공지 제목</string>
     <string name="notice_write_content_text">전달할 내용</string>
@@ -440,5 +444,7 @@
     <string name="report_coplete_text">신고접수가\n완료되었습니다.</string>
     <string name="report_complete_explain_text">신고해 주셔서 감사합니다. 더 나은 서비스를 만들기 위해\n 노력하는 PLUB이 되겠습니다.</string>
     <string name="report_title">신고하기</string>
+
+    <string name="loading_text">로딩중...</string>
 
 </resources>

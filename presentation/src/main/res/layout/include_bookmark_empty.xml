@@ -7,10 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie_empty"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+        <ImageView
+            android:id="@+id/image_view_bookmark_empty"
+            android:layout_width="90dp"
+            android:layout_height="100dp"
+            android:src="@drawable/img_bookmark_empty"
             app:layout_constraintBottom_toTopOf="@+id/text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +33,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lottie_empty" />
+            app:layout_constraintTop_toBottomOf="@+id/image_view_bookmark_empty" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

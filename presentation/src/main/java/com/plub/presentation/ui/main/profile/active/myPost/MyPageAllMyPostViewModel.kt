@@ -83,43 +83,43 @@ class MyPageAllMyPostViewModel @Inject constructor(
     }
 
 
-    fun onFetchBoardList() {
+    fun onFetchBoardList(showLoading : Boolean) {
         isNetworkCall = true
         cursorUpdate()
-        fetchPlubingBoardList()
+        fetchPlubingBoardList(showLoading)
     }
 
     private fun refresh() {
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR
-        fetchPlubingBoardList()
+        fetchPlubingBoardList(showLoading = true)
     }
 
     fun onScrollChanged() {
-        if (!isLastPage && !isNetworkCall) onFetchBoardList()
+        if (!isLastPage && !isNetworkCall) onFetchBoardList(showLoading = false)
     }
 
-    private fun fetchPlubingBoardList() {
+    private fun fetchPlubingBoardList(showLoading: Boolean) {
         val requestVo = MyPageActiveRequestVo(plubingId, cursorId)
         viewModelScope.launch {
             getMyPostUseCase(requestVo).collect {
-                inspectUiState(it, ::onSuccessFetchPlubingBoardList)
+                inspectUiState(it, ::onSuccessFetchPlubingBoardList, needShowLoading = showLoading)
             }
         }
     }
 
     private fun onSuccessFetchPlubingBoardList(vo: PlubingBoardListVo) {
         vo.run {
-            val mergedList = getMergeList(content)
-            updateBoardList(mergedList)
             isLastPage = last
+            val mergedList = if(isLastPage) getMergeList(content) else getMergeList(content) + listOf(PlubingBoardVo(viewType = PlubingBoardType.LOADING))
+            updateBoardList(mergedList)
             isNetworkCall = false
         }
     }
 
     private fun getMergeList(list: List<PlubingBoardVo>): List<PlubingBoardVo> {
-        val originList = uiState.boardList.value
+        val originList = uiState.boardList.value.filterNot { it.viewType == PlubingBoardType.LOADING }
         val pinList = originList.filter { it.viewType == PlubingBoardType.CLIP_BOARD }
         return if (cursorId == FIRST_CURSOR) pinList + list else originList + list
     }
@@ -166,7 +166,7 @@ class MyPageAllMyPostViewModel @Inject constructor(
 
     private fun cursorUpdate() {
         cursorId = if (uiState.boardList.value.isEmpty()) FIRST_CURSOR
-        else uiState.boardList.value.lastOrNull()?.feedId ?: FIRST_CURSOR
+        else uiState.boardList.value.filterNot { it.viewType == PlubingBoardType.LOADING }.lastOrNull()?.feedId ?: FIRST_CURSOR
     }
 
     fun onClickBack(){

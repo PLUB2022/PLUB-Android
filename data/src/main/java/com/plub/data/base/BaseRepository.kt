@@ -15,11 +15,13 @@ import java.io.Reader
 
 abstract class BaseRepository {
 
-    inline fun <reified D : DataDto, M> apiLaunch(
-        response: Response<ApiResponse<D>>,
-        responseMapper: Mapper.ResponseMapper<D, M>,
-        noinline individualError: (Int) -> IndividualError = { IndividualError.Undefined }
+     inline fun <reified D : DataDto, M> apiLaunch(
+         crossinline apiCall: suspend () -> Response<ApiResponse<D>>,
+         responseMapper: Mapper.ResponseMapper<D, M>,
+         noinline individualError: (Int) -> IndividualError = { IndividualError.Undefined }
     ): Flow<UiState<M>> = flow {
+
+        val response = apiCall()
         when (response.isSuccessful) {
             true -> {
                 val apiResponse = response.body() as ApiResponse

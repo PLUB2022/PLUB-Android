@@ -78,6 +78,7 @@ class TodoDetailFragment :
             is TodoDetailEvent.GoToPlannerTodo -> goToPlanner(event.date)
             is TodoDetailEvent.ShowMenuBottomSheetDialog -> showMenuBottomSheetDialog(event.menuType, event.todoVo)
             is TodoDetailEvent.ShowTodoProofDialog -> showTodoProofDialog(event.parseTodoItemVo)
+            is TodoDetailEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 

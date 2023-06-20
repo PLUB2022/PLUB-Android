@@ -9,5 +9,6 @@ sealed class PlubingAddOrEditScheduleEvent : Event {
     data class ShowEndTimePickerEventOrEdit(val onClickOk: (hour: Int, minute: Int) -> Unit): PlubingAddOrEditScheduleEvent()
     object ShowBottomSheetSearchLocation: PlubingAddOrEditScheduleEvent()
     object ShowBottomSheetDialogSelectAlarm: PlubingAddOrEditScheduleEvent()
+    object GoToBack : PlubingAddOrEditScheduleEvent()
     data class GoToOrEditSchedule(val plubbingId: Int): PlubingAddOrEditScheduleEvent()
 }

@@ -7,4 +7,5 @@ import com.plub.domain.model.enums.TodoItemViewType
 data class GetNoticeListRequestVo(
     val noticeType: NoticeType,
     val plubbingId: Int = -1,
+    val cursorId : Int = 0
 ) : DomainModel

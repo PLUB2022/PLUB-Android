@@ -125,4 +125,8 @@ class BoardPinViewModel @Inject constructor(
             pinListStateFlow.update { list }
         }
     }
+
+    fun goToBack(){
+        emitEventFlow(BoardPinEvent.GoToBack)
+    }
 }

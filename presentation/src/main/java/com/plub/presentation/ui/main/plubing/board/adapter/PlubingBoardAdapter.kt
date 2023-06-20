@@ -11,6 +11,8 @@ import com.plub.presentation.databinding.IncludeItemBoardClipBoardBinding
 import com.plub.presentation.databinding.IncludeItemBoardNormalBinding
 import com.plub.presentation.databinding.IncludeItemBoardPinBinding
 import com.plub.presentation.databinding.IncludeItemBoardSystemBinding
+import com.plub.presentation.databinding.IncludeItemProgressBarBinding
+import com.plub.presentation.ui.main.home.progress.LoadingViewHolder
 
 class PlubingBoardAdapter(
     private val listener: Delegate,
@@ -53,6 +55,10 @@ class PlubingBoardAdapter(
             PlubingBoardType.CLIP_BOARD -> {
                 val binding = IncludeItemBoardClipBoardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 PlubingBoardClipBoardViewHolder(binding, listener)
+            }
+            PlubingBoardType.LOADING -> {
+                val binding = IncludeItemProgressBarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                LoadingViewHolder(binding)
             }
         }
     }

@@ -13,9 +13,9 @@ import com.plub.domain.model.vo.notice.PostNoticeWriteRequestVo
 import kotlinx.coroutines.flow.Flow
 
 interface NoticeRepository {
-    suspend fun getAppNoticeList(request: Unit): Flow<UiState<NoticeListVo>>
+    suspend fun getAppNoticeList(): Flow<UiState<NoticeListVo>>
     suspend fun getAppNoticeDetail(request: NoticeRequestVo): Flow<UiState<NoticeVo>>
-    suspend fun getPlubingNoticeList(request: Int): Flow<UiState<NoticeListVo>>
+    suspend fun getPlubingNoticeList(requestPlubingId: Int, requestCursorId: Int): Flow<UiState<NoticeListVo>>
     suspend fun postNoticeCreate(request: PostNoticeWriteRequestVo): Flow<UiState<Unit>>
     suspend fun putNoticeEdit(request: PostNoticeWriteRequestVo): Flow<UiState<NoticeVo>>
     suspend fun getNoticeDetail(request: NoticeRequestVo): Flow<UiState<NoticeVo>>

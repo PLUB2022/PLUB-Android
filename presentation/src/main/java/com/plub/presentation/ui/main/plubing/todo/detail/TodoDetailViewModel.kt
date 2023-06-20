@@ -251,4 +251,8 @@ class TodoDetailViewModel @Inject constructor(
     private fun updateIsLike(isLike: Boolean) {
         isLikeStateFlow.update { isLike }
     }
+
+    fun goToBack(){
+        emitEventFlow(TodoDetailEvent.GoToBack)
+    }
 }

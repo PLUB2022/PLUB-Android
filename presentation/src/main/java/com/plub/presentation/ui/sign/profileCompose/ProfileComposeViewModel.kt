@@ -53,9 +53,9 @@ class ProfileComposeViewModel @Inject constructor(
         viewModelScope.launch {
             val request = NicknameCheckRequestVo(nickname, this)
             getNicknameCheckUseCase(request).collect { state ->
-                inspectUiState(state, ::handleNicknameCheckSuccess) { _, individual ->
+                inspectUiState(state, ::handleNicknameCheckSuccess, { _, individual ->
                     handleNicknameCheckError(individual as NicknameError)
-                }
+                })
             }
         }
     }

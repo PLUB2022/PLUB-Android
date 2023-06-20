@@ -12,8 +12,6 @@ import com.plub.domain.usecase.PutNoticeEditUseCase
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
 import com.plub.presentation.parcelableVo.ParseNoticeVo
-import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
-import com.plub.presentation.ui.main.plubing.board.write.BoardWriteEvent
 import com.plub.presentation.util.PlubingInfo
 import com.plub.presentation.util.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -155,5 +153,9 @@ class NoticeWriteViewModel @Inject constructor(
         viewModelScope.launch {
             isPostButtonEnableStateFlow.update { isEnable }
         }
+    }
+
+    fun goToBack(){
+        emitEventFlow(NoticeWriteEvent.GoToBack)
     }
 }

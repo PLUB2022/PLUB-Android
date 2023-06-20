@@ -3,6 +3,7 @@ package com.plub.presentation.ui.main.profile.active.myTodo
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.model.enums.DialogMenuItemType
 import com.plub.domain.model.enums.DialogMenuType
+import com.plub.domain.model.enums.TodoTimelineViewType
 import com.plub.domain.model.enums.UploadFileType
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.myPage.MyPageActiveRequestVo
@@ -53,7 +54,7 @@ class MyPageAllMyTodoViewModel @Inject constructor(
         isNetworkCall = true
         viewModelScope.launch {
             getMyToDoWithTitleUseCase(MyPageActiveRequestVo(PlubingInfo.info.plubingId, cursorId)).collect{
-                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess)
+                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess, needShowLoading = true)
             }
         }
     }
@@ -62,7 +63,7 @@ class MyPageAllMyTodoViewModel @Inject constructor(
         isNetworkCall = true
         viewModelScope.launch {
             getMyToDoWithTitleUseCase(MyPageActiveRequestVo(PlubingInfo.info.plubingId, cursorId)).collect{
-                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess)
+                inspectUiState(it, ::handleGetMyToDoWithTitleSuccess, needShowLoading = false)
             }
         }
     }
@@ -74,13 +75,15 @@ class MyPageAllMyTodoViewModel @Inject constructor(
 
     private fun cursorUpdate() {
         cursorId = if (uiState.todoList.value.isEmpty()) FIRST_CURSOR
-        else uiState.todoList.value.lastOrNull()?.timelineId ?: FIRST_CURSOR
+        else uiState.todoList.value.filterNot { it.viewType == TodoTimelineViewType.LOADING }.lastOrNull()?.timelineId ?: FIRST_CURSOR
     }
 
     private fun handleGetMyToDoWithTitleSuccess(vo : MyPageToDoWithTitleVo){
         isNetworkCall = false
         isLastPage = vo.todoTimelineListVo.last
-        updateTodoList(vo.todoTimelineListVo.content)
+        val originList = uiState.todoList.value.filterNot { it.viewType == TodoTimelineViewType.LOADING }
+        val mergedList = if(isLastPage) vo.todoTimelineListVo.content else vo.todoTimelineListVo.content + listOf(TodoTimelineVo(viewType = TodoTimelineViewType.LOADING))
+        if(cursorId == FIRST_CURSOR || uiState.todoList.value.isEmpty()) updateTodoList(mergedList) else updateTodoList(originList + mergedList)
     }
 
     fun goToBack(){

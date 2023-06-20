@@ -1,12 +1,12 @@
-package com.plub.presentation.ui.main.plubing.notice.detail
+package com.plub.presentation.ui.main.plubing.notice.detail.plubing
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.enums.DialogMenuType
 import com.plub.domain.model.enums.WriteType
+import com.plub.domain.model.sealed.ReportType
 import com.plub.domain.model.vo.board.BoardCommentVo
 import com.plub.domain.model.vo.board.PlubingBoardVo
 import com.plub.domain.model.vo.notice.NoticeVo
@@ -14,8 +14,6 @@ import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentNoticeDetailBinding
 import com.plub.presentation.parcelableVo.ParsePlubingBoardVo
 import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
-import com.plub.presentation.ui.main.plubing.board.detail.BoardDetailEvent
-import com.plub.presentation.ui.main.plubing.board.detail.BoardDetailFragmentArgs
 import com.plub.presentation.ui.main.plubing.board.detail.BoardDetailFragmentDirections
 import com.plub.presentation.ui.main.plubing.board.detail.adapter.BoardDetailAdapter
 import com.plub.presentation.ui.main.plubing.board.write.BoardWriteFragment
@@ -70,7 +68,7 @@ class NoticeDetailFragment :
             }
         }
 
-        viewModel.initArgs(noticeDetailArgs.noticeId, noticeDetailArgs.noticeType)
+        viewModel.initArgs(noticeDetailArgs.noticeId)
         viewModel.onGetNoticeDetail()
         viewModel.onGetNoticeComments()
     }
@@ -107,9 +105,10 @@ class NoticeDetailFragment :
             is NoticeDetailEvent.ShowKeyboard -> showKeyboard()
             is NoticeDetailEvent.ScrollToPosition -> scrollToPosition(event.position)
             is NoticeDetailEvent.GoToEditNotice -> goToEditBoard(event.noticeId)
-            is NoticeDetailEvent.GoToReportNotice -> goToReport()
-            is NoticeDetailEvent.GoToReportComment -> goToReport()
+            is NoticeDetailEvent.GoToReportNotice -> {}
+            is NoticeDetailEvent.GoToReportComment -> goToReport(event.plubingId, event.commentId)
             is NoticeDetailEvent.Finish -> finish()
+            is NoticeDetailEvent.GoToBack -> findNavController().popBackStack()
         }
     }
 
@@ -143,7 +142,10 @@ class NoticeDetailFragment :
         findNavController().navigate(action)
     }
 
-    private fun goToReport() {
-
+    private fun goToReport(plubbingId : Int, commentId : Int) {
+        val action = BoardDetailFragmentDirections.actionPlubingBoardDetailToReport(
+            type = ReportType.NoticeCommentReport(plubbingId =  plubbingId, commentId = commentId)
+        )
+        findNavController().navigate(action)
     }
 }

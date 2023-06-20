@@ -23,25 +23,25 @@ import javax.inject.Inject
 class RecruitDetailRepositoryImpl @Inject constructor(private val recruitApi: RecruitApi) : RecruitRepository, BaseRepository() {
     override suspend fun getRecruitDetail(request: Int): Flow<UiState<RecruitDetailResponseVo>> {
         return apiLaunch(
-            recruitApi.fetchRecruitDetail(request), RecruitDetailResponseMapper
+            apiCall = { recruitApi.fetchRecruitDetail(request) }, RecruitDetailResponseMapper
         )
     }
 
     override suspend fun applyRecruit(request: ApplicantsRecruitRequestVo): Flow<UiState<ApplicantsRecruitResponseVo>> {
         val requestDto = ApplicantsRecruitRequestMapper.mapModelToDto(request)
-        return apiLaunch(recruitApi.applicantsRecruit(request.plubbingId,requestDto), ApplicantsRecruitResponseMapper)
+        return apiLaunch(apiCall = { recruitApi.applicantsRecruit(request.plubbingId,requestDto) }, ApplicantsRecruitResponseMapper)
     }
 
     override suspend fun getQuestions(request: Int): Flow<UiState<QuestionsResponseVo>> {
-        return apiLaunch(recruitApi.getQustions(request), QuestionsRecruitMapper)
+        return apiLaunch(apiCall = { recruitApi.getQustions(request) }, QuestionsRecruitMapper)
     }
 
     override suspend fun endRecruit(request: Int): Flow<UiState<ApplicantsRecruitResponseVo>> {
-        return apiLaunch(recruitApi.endRecruit(request), HostRecruitEndMapper)
+        return apiLaunch(apiCall = { recruitApi.endRecruit(request) }, HostRecruitEndMapper)
     }
 
     override suspend fun modifyQuestions(request: ModifyQuestionRequestVo) : Flow<UiState<CreateGatheringResponseVo>> {
         val requestDto = ModifyQuestionRequestMapper.mapModelToDto(request)
-        return apiLaunch(recruitApi.modifyQuestions(requestDto.plubbingId, requestDto.body), CreateGatheringResponseMapper)
+        return apiLaunch(apiCall = { recruitApi.modifyQuestions(requestDto.plubbingId, requestDto.body) }, CreateGatheringResponseMapper)
     }
 }

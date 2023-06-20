@@ -117,9 +117,9 @@ class SignUpViewModel @Inject constructor(
                 postUploadFileUseCase(fileRequest).collect { state ->
                     inspectUiState(state, {
                         onSuccess(it.fileUrl)
-                    }) { _, _ ->
+                    }, { _, _ ->
                         isNetworkCall = false
-                    }
+                    })
                 }
             } ?: onSuccess("")
         }
@@ -130,10 +130,10 @@ class SignUpViewModel @Inject constructor(
             viewModelScope.launch {
                 val request = uiState.value.getSignUpRequestVo(signToken, token, profileUrl)
                 postSignUpUseCase(request).collect { state ->
-                    inspectUiState(state, ::signUpSuccess) { _, individual ->
+                    inspectUiState(state, ::signUpSuccess, { _, individual ->
                         handleSignUpError(individual as SignUpError)
                         isNetworkCall = false
-                    }
+                    })
                 }
             }
         }

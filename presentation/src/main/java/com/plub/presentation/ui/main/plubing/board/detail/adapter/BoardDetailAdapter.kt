@@ -13,6 +13,8 @@ import com.plub.domain.model.vo.notice.NoticeVo
 import com.plub.presentation.databinding.IncludeItemBoardDetailCommentNormalBinding
 import com.plub.presentation.databinding.IncludeItemBoardDetailCommentReplyBinding
 import com.plub.presentation.databinding.IncludeItemBoardDetailInfoBinding
+import com.plub.presentation.databinding.IncludeItemProgressBarBinding
+import com.plub.presentation.ui.main.home.progress.LoadingViewHolder
 
 class BoardDetailAdapter(
     val listener: Delegate,
@@ -38,6 +40,7 @@ class BoardDetailAdapter(
             is BoardDetailCommentNormalViewHolder -> holder.bind(currentList[position])
             is BoardDetailCommentReplyViewHolder -> holder.bind(currentList[position])
             is NoticeDetailInfoViewHolder -> holder.bind(listener.noticeVo)
+            is LoadingViewHolder -> holder.bind()
         }
     }
 
@@ -62,6 +65,10 @@ class BoardDetailAdapter(
                 val binding = IncludeItemBoardDetailInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 NoticeDetailInfoViewHolder(binding, listener)
             }
+            PlubingBoardDetailType.LOADING -> {
+                val binding = IncludeItemProgressBarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                LoadingViewHolder(binding)
+            }
         }
     }
 
@@ -72,6 +79,7 @@ class BoardDetailAdapter(
                 else PlubingBoardDetailType.DETAIL.idx
             }
             currentList[position].commentType == PlubingCommentType.COMMENT -> PlubingBoardDetailType.COMMENT.idx
+            currentList[position].commentType == PlubingCommentType.LOADING -> PlubingBoardDetailType.LOADING.idx
             else -> PlubingBoardDetailType.COMMENT_REPLY.idx
         }
     }
