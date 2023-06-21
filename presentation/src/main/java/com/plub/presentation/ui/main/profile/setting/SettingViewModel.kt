@@ -83,7 +83,7 @@ class SettingViewModel @Inject constructor(
 
     fun changedSwitchNotify(){
         viewModelScope.launch{
-            putChangePushNotificationUseCase(uiState.isSwitchChecked.value).collect{
+            putChangePushNotificationUseCase(!uiState.isSwitchChecked.value).collect{
                 inspectUiState(it, {handleSuccessChangeNotify()})
             }
         }
@@ -92,9 +92,9 @@ class SettingViewModel @Inject constructor(
     private fun handleSuccessChangeNotify(){
         viewModelScope.launch{
             PlubUser.updateInfo(PlubUser.info.copy(
-                isReceivedPushNotification = uiState.isSwitchChecked.value
+                isReceivedPushNotification = !uiState.isSwitchChecked.value
             ))
-            isSwitchCheckedStateFlow.update { uiState.isSwitchChecked.value }
+            isSwitchCheckedStateFlow.update { !uiState.isSwitchChecked.value }
         }
     }
 
