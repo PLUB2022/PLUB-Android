@@ -10,4 +10,6 @@ sealed class MyGatheringEvent : Event {
     object GoToPlubingHome: MyGatheringEvent()
 
     data class GoToKickOut(val plubingId: Int): MyGatheringEvent()
+
+    data class GoToModifyGathering(val plubingId: Int): MyGatheringEvent()
 }

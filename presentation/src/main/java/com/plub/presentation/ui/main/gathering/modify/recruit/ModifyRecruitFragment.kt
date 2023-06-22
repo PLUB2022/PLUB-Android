@@ -4,6 +4,8 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.plub.domain.model.enums.DialogMenuType
@@ -22,14 +24,14 @@ class ModifyRecruitFragment : BaseFragment<
     FragmentModifyRecruitBinding::inflate
 ) {
     override val viewModel: ModifyRecruitViewModel by viewModels()
+    private val navArgs: ModifyRecruitFragmentArgs by navArgs()
 
     override fun initView() {
         binding.apply {
             vm = viewModel
         }
 
-        val pageState = arguments?.parcelable(MODIFY_RECRUIT_PAGE_STATE) ?: ModifyRecruitPageState()
-        viewModel.initPageState(pageState)
+        viewModel.initPageState(navArgs.pageState)
     }
 
     override fun initStates() {
@@ -56,28 +58,14 @@ class ModifyRecruitFragment : BaseFragment<
                         is ModifyRecruitEvent.CropImageAndOptimize -> {
                             startCropImage(it.cropImageContractOptions)
                         }
+
+                        is ModifyRecruitEvent.GoToBack -> {
+                            findNavController().popBackStack()
+                        }
                     }
                 }
             }
         }
-    }
-
-    companion object {
-        private const val MODIFY_RECRUIT_PAGE_STATE = "MODIFY_RECRUIT_PAGE_STATE"
-
-        fun newInstance(
-            initPageState: ModifyRecruitPageState
-        ) = ModifyRecruitFragment().apply {
-            arguments = Bundle().apply {
-                putParcelable(MODIFY_RECRUIT_PAGE_STATE, initPageState)
-            }
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        arguments?.putParcelable(MODIFY_RECRUIT_PAGE_STATE, viewModel.uiState.value)
     }
 
     private fun getImageFromCamera(uri: Uri) {
