@@ -2,7 +2,7 @@ package com.plub.domain.error
 
 sealed class LoginError: IndividualError() {
     companion object {
-        private const val NEED_SIGN_UP = 2050
+        private const val NEED_SIGN_UP = 1050
         private const val FAIL_LOGIN = 9040
         private const val STOPPED_ACCOUNT = 2070
         private const val NOT_FOUND_REFRESH_TOKEN = 1040
