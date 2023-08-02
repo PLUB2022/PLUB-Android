@@ -448,5 +448,8 @@
     <string name="loading_text">로딩중...</string>
 
     <string name="error_image_upload">이미지 업로드 실패</string>
+    <string name="comment_authentication">본인확인을 위해 인증을 진행해 주세요.</string>
+    <string name="text_input_phone">전화번호를 입력해주세요</string>
+    <string name="text_send_authentication">인증번호 전송</string>
 
 </resources>

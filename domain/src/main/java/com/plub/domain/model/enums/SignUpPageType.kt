@@ -1,7 +1,7 @@
 package com.plub.domain.model.enums
 
 enum class SignUpPageType(val idx: Int) {
-    TERMS(0), PERSONAL_INFO(1), PROFILE(2), MORE_INFO(3), HOBBY(4);
+    TERMS(0),AUTHENTICATION(1), PERSONAL_INFO(2), PROFILE(3), MORE_INFO(4), HOBBY(5);
 
     companion object {
         fun valueOf(value: Int): SignUpPageType {
