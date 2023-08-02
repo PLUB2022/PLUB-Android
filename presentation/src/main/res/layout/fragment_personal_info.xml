@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.sign.personalInfo.PersonalInfoViewModel" />
+            type="com.plub.presentation.ui.sign.signup.personalInfo.PersonalInfoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

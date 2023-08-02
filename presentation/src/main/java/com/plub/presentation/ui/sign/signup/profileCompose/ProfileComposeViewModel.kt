@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.sign.profileCompose
+package com.plub.presentation.ui.sign.signup.profileCompose
 
 import android.net.Uri
 import androidx.lifecycle.viewModelScope

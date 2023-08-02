@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.sign.terms
+package com.plub.presentation.ui.sign.signup.terms
 
 import android.graphics.Color
 import android.webkit.WebViewClient

@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.sign.personalInfo
+package com.plub.presentation.ui.sign.signup.personalInfo
 
 import android.app.DatePickerDialog
 import androidx.fragment.app.viewModels

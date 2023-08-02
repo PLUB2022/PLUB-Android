@@ -12,7 +12,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.sign.terms.TermsViewModel" />
+            type="com.plub.presentation.ui.sign.signup.terms.TermsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

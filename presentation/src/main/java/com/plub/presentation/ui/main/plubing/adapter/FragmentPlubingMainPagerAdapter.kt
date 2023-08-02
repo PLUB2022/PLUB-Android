@@ -7,10 +7,10 @@ import com.plub.domain.model.enums.SignUpPageType
 import com.plub.presentation.ui.main.plubing.board.PlubingBoardFragment
 import com.plub.presentation.ui.main.plubing.todo.PlubingTodoFragment
 import com.plub.presentation.ui.sign.hobbies.HobbiesFragment
-import com.plub.presentation.ui.sign.moreInfo.MoreInfoFragment
-import com.plub.presentation.ui.sign.personalInfo.PersonalInfoFragment
-import com.plub.presentation.ui.sign.profileCompose.ProfileComposeFragment
-import com.plub.presentation.ui.sign.terms.TermsFragment
+import com.plub.presentation.ui.sign.signup.moreInfo.MoreInfoFragment
+import com.plub.presentation.ui.sign.signup.personalInfo.PersonalInfoFragment
+import com.plub.presentation.ui.sign.signup.profileCompose.ProfileComposeFragment
+import com.plub.presentation.ui.sign.signup.terms.TermsFragment
 
 class FragmentPlubingMainPagerAdapter(
     fragment: Fragment,

@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.sign.moreInfo
+package com.plub.presentation.ui.sign.signup.moreInfo
 
 import android.text.Spannable
 import android.text.SpannableString

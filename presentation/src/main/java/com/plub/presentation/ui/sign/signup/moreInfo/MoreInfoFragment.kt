@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.sign.moreInfo
+package com.plub.presentation.ui.sign.signup.moreInfo
 
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.enums.SignUpPageType

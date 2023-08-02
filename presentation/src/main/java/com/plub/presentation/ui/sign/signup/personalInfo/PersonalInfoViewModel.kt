@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.sign.personalInfo
+package com.plub.presentation.ui.sign.signup.personalInfo
 
 import com.plub.domain.model.enums.Gender
 import com.plub.domain.model.vo.signUp.personalInfo.PersonalInfoVo

@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.sign.terms
+package com.plub.presentation.ui.sign.signup.terms
 
 import com.plub.domain.model.enums.TermsType
 import com.plub.domain.model.vo.signUp.terms.TermsAgreementItemVo
