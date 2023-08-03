@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.StateFlow
 data class GetPhonePageState(
     val isNextButtonEnable:StateFlow<Boolean>,
     var phoneNumber : MutableStateFlow<String>,
+    val isEmpty : MutableStateFlow<Boolean>,
 ): PageState

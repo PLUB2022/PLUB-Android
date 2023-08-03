@@ -4,7 +4,6 @@ import androidx.fragment.app.viewModels
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentGetPhoneBinding
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
-import com.plub.presentation.ui.sign.signup.moreInfo.MoreInfoPageState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -19,6 +18,7 @@ class GetPhoneFragment : BaseTestFragment<FragmentGetPhoneBinding, GetPhonePageS
     override fun initView() {
         binding.apply {
             vm = viewModel
+            editTextInputPhone.setSelection(editTextInputPhone.length())
         }
     }
 
@@ -32,16 +32,24 @@ class GetPhoneFragment : BaseTestFragment<FragmentGetPhoneBinding, GetPhonePageS
             }
 
             launch {
-
+                viewModel.eventFlow.collect{
+                    inspectEventFlow(it as GetPhoneEvent)
+                }
             }
         }
     }
 
-//    private fun inspectEventFlow(event: MoreInfoEvent) {
-//        when(event) {
-//            is MoreInfoEvent.MoveToNext -> {
-//                parentViewModel.onMoveToNextPage(SignUpPageType.MORE_INFO, event.vo)
-//            }
-//        }
-//    }
+    private fun inspectEventFlow(event: GetPhoneEvent) {
+        when(event) {
+            is GetPhoneEvent.MoveToEnd -> {
+                focusToEnd()
+            }
+        }
+    }
+
+    private fun focusToEnd(){
+        binding.apply {
+            editTextInputPhone.setSelection(editTextInputPhone.length())
+        }
+    }
 }

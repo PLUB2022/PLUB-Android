@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="vm"
             type="com.plub.presentation.ui.sign.signup.authentication.GetPhoneViewModel" />
@@ -30,13 +31,14 @@
             android:id="@+id/edit_text_input_phone"
             app:layout_constraintTop_toBottomOf="@id/text_view_comment_authentication"
             android:layout_marginTop="41dp"
-            android:background="@drawable/bg_rectangle_empty_c4c4c4_radius_8"
+            android:background="@{vm.uiState.isEmpty == true ? @drawable/bg_rectangle_empty_c4c4c4_radius_8 : @drawable/bg_rectangle_empty_5f5ff9_radius_8}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="16dp"
             android:hint="@string/text_input_phone"
+            android:inputType="phone"
             android:afterTextChanged="@{() -> vm.onTextChangedAfter()}"
-            android:textColor="@color/color_c4c4c4"
+            android:textColor="@color/color_363636"
             android:textSize="18sp"
             android:text="@={vm.uiState.phoneNumber}"
             android:paddingStart="12dp"
@@ -50,7 +52,9 @@
             app:layout_constraintTop_toTopOf="@id/edit_text_input_phone"
             app:layout_constraintBottom_toBottomOf="@id/edit_text_input_phone"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_cancel_8c8c8c"
+            app:onThrottleClick="@{()->vm.onClickClearButton()}"
+            android:visibility="@{vm.uiState.isEmpty == true ? View.GONE : View.VISIBLE}"
+            android:src="@drawable/ic_cancel_circle_c4c4c4"
             android:layout_width="32dp"
             android:layout_height="32dp"/>
         
@@ -99,10 +103,11 @@
             android:id="@+id/button_send_authentication_number"
             android:layout_marginBottom="27dp"
             android:text="@string/text_send_authentication"
-            android:textColor="@color/color_8c8c8c"
+            android:textColor="@drawable/selector_color_8c8c8c_to_white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:background="@drawable/bg_rectangle_filled_f2f3f4_radius_10"
+            android:enabled="@{vm.uiState.isNextButtonEnable}"
+            android:background="@drawable/selector_bg_f2f3f4_to5f5ff9"
             android:layout_marginHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
