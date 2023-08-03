@@ -1,9 +1,9 @@
 package com.plub.presentation.ui.main.gathering.modify
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.GatheringError
 import com.plub.domain.model.enums.DaysType
 import com.plub.domain.model.enums.OnOfflineType
-import com.plub.domain.error.GatheringError
 import com.plub.domain.model.vo.home.applyVo.QuestionsResponseVo
 import com.plub.domain.model.vo.home.recruitDetailVo.RecruitDetailResponseVo
 import com.plub.domain.usecase.GetRecruitDetailUseCase
