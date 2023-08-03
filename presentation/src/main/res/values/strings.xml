@@ -451,5 +451,6 @@
     <string name="comment_authentication">본인확인을 위해 인증을 진행해 주세요.</string>
     <string name="text_input_phone">전화번호를 입력해주세요</string>
     <string name="text_send_authentication">인증번호 전송</string>
+    <string name="text_authentication_agree">본인 인증 서비스 약관 전 동의</string>
 
 </resources>
