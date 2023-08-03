@@ -290,6 +290,7 @@
     <string name="modify_gathering_tab_recruit">모집글</string>
     <string name="modify_gathering_tab_info">모임 정보</string>
     <string name="modify_gathering_tab_guest">게스트 질문</string>
+    <string name="modify_gathering_pull_up_success">재업로드 완료</string>
 
     <string name="plubing_schedule_title">모임일정</string>
     <string name="plubing_schedule_add">일정 추가하기</string>
@@ -444,8 +445,17 @@
     <string name="report_coplete_text">신고접수가\n완료되었습니다.</string>
     <string name="report_complete_explain_text">신고해 주셔서 감사합니다. 더 나은 서비스를 만들기 위해\n 노력하는 PLUB이 되겠습니다.</string>
     <string name="report_title">신고하기</string>
+    <string name="word_setting">설정</string>
+    <string name="fragment_modity_gathering_question_list">질문 리스트</string>
+    <string name="fragment_modify_gathering_modify_gathering">모집글 수정</string>
+    <string name="fragment_modify_gathering_my_gathering_setting">내 모임 설정</string>
+    <string name="fragment_modify_gathering_gathering_setting">모임 설정</string>
+    <string name="fragment_modify_gathering_re_upload">모집글 재업로드 하기</string>
 
     <string name="loading_text">로딩중...</string>
+    <string name="fragment_modify_guest_question_quesiton_list">질문 리스트</string>
+    <string name="fragment_modify_guest_quesiton_gathering_question">모집 질문</string>
+    <string name="fragment_modify_info_title">내 모임 설정</string>
 
     <string name="error_image_upload">이미지 업로드 실패</string>
     <string name="comment_authentication">본인확인을 위해 인증을 진행해 주세요.</string>

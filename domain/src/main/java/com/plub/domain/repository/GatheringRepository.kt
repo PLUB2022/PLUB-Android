@@ -4,6 +4,7 @@ import com.plub.domain.UiState
 import com.plub.domain.model.vo.account.AccountInfoVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringRequestVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
+import com.plub.domain.model.vo.modifyGathering.ModifyInfoRequestVo
 import com.plub.domain.model.vo.modifyGathering.ModifyRecruitRequestVo
 import com.plub.domain.model.vo.myGathering.KickOutRequestVo
 import com.plub.domain.model.vo.myGathering.MyGatheringListResponseVo
@@ -25,4 +26,8 @@ interface GatheringRepository {
     suspend fun getMembers(request: Int): Flow<UiState<List<AccountInfoVo>>>
 
     suspend fun kickOutMember(request: KickOutRequestVo): Flow<UiState<Unit>>
+
+    suspend fun modifyInfo(request: ModifyInfoRequestVo): Flow<UiState<CreateGatheringResponseVo>>
+
+    suspend fun pullUpGathering(request: Int): Flow<UiState<CreateGatheringResponseVo>>
 }

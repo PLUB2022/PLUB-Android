@@ -2,6 +2,8 @@ package com.plub.presentation.ui.main.gathering.modify.guestQuestion
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentModifyGuestQuestionBinding
 import com.plub.presentation.ui.main.gathering.create.question.adapter.QuestionRecyclerViewAdapter
@@ -18,6 +20,8 @@ class ModifyGuestQuestionFragment : BaseFragment<
 ) {
     override val viewModel: ModifyGuestQuestionViewModel by viewModels()
     private lateinit var questionRecyclerViewAdapter: QuestionRecyclerViewAdapter
+
+    private val navArgs: ModifyGuestQuestionFragmentArgs by navArgs()
 
     override fun initView() {
         binding.apply {
@@ -37,8 +41,7 @@ class ModifyGuestQuestionFragment : BaseFragment<
             recyclerViewQuestion.adapter = questionRecyclerViewAdapter
         }
 
-        val pageState = arguments?.parcelable(MODIFY_GUEST_QUESTION_PAGE_STATE) ?: ModifyGuestQuestionPageState()
-        viewModel.initPageState(pageState)
+        viewModel.initPageState(navArgs.pageState)
     }
 
     override fun initStates() {
@@ -63,16 +66,13 @@ class ModifyGuestQuestionFragment : BaseFragment<
                         is ModifyGuestQuestionEvent.PerformClickNoQuestionRadioButton -> {
                             binding.radioButtonNoQuestion.performClick()
                         }
+                        is ModifyGuestQuestionEvent.GoToBack -> {
+                            findNavController().popBackStack()
+                        }
                     }
                 }
             }
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        arguments?.putParcelable(MODIFY_GUEST_QUESTION_PAGE_STATE, viewModel.uiState.value)
     }
 
     private fun showBottomSheetDeleteQuestion(it: ModifyGuestQuestionEvent.ShowBottomSheetDeleteQuestion) {
@@ -87,17 +87,5 @@ class ModifyGuestQuestionFragment : BaseFragment<
             parentFragmentManager,
             bottomSheetDeleteQuestion.tag
         )
-    }
-
-    companion object {
-        private const val MODIFY_GUEST_QUESTION_PAGE_STATE = "MODIFY_GUEST_QUESTION_PAGE_STATE"
-
-        fun newInstance(
-            initPageState: ModifyGuestQuestionPageState
-        ) = ModifyGuestQuestionFragment().apply {
-            arguments = Bundle().apply {
-                putParcelable(MODIFY_GUEST_QUESTION_PAGE_STATE, initPageState)
-            }
-        }
     }
 }

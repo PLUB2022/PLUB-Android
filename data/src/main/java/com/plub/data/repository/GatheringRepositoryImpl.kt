@@ -5,6 +5,7 @@ import com.plub.data.base.BaseRepository
 import com.plub.data.mapper.AccountInfosResponseMapper
 import com.plub.data.mapper.CreateGatheringRequestMapper
 import com.plub.data.mapper.CreateGatheringResponseMapper
+import com.plub.data.mapper.ModifyInfoRequestMapper
 import com.plub.data.mapper.ModifyRecruitRequestMapper
 import com.plub.data.mapper.UnitResponseMapper
 import com.plub.data.mapper.myGathering.MyGatheringListMapper
@@ -13,6 +14,7 @@ import com.plub.domain.error.GatheringError
 import com.plub.domain.model.vo.account.AccountInfoVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringRequestVo
 import com.plub.domain.model.vo.createGathering.CreateGatheringResponseVo
+import com.plub.domain.model.vo.modifyGathering.ModifyInfoRequestVo
 import com.plub.domain.model.vo.modifyGathering.ModifyRecruitRequestVo
 import com.plub.domain.model.vo.myGathering.KickOutRequestVo
 import com.plub.domain.model.vo.myGathering.MyGatheringListResponseVo
@@ -70,5 +72,14 @@ class GatheringRepositoryImpl @Inject constructor(private val gatheringApi: Gath
         return apiLaunch(apiCall = { gatheringApi.kickOutMember(request.plubbingId, request.accountId) }, UnitResponseMapper){
             GatheringError.make(it)
         }
+    }
+
+    override suspend fun modifyInfo(request: ModifyInfoRequestVo): Flow<UiState<CreateGatheringResponseVo>> {
+        val requestDto = ModifyInfoRequestMapper.mapModelToDto(request)
+        return apiLaunch(apiCall = { gatheringApi.modifyGatheringInfo(request.plubbingId, requestDto.body) }, CreateGatheringResponseMapper)
+    }
+
+    override suspend fun pullUpGathering(request: Int): Flow<UiState<CreateGatheringResponseVo>> {
+        return apiLaunch(apiCall = { gatheringApi.gatheringPullUp(request) }, CreateGatheringResponseMapper)
     }
 }

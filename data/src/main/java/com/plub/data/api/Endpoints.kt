@@ -77,12 +77,10 @@ object Endpoints {
         const val RECRUIT_END = "$RECRUIT_URL/end"
         const val RECRUIT_QUESTIONS = "$RECRUIT_URL/questions"
         const val PLUBING_MAIN = "$PLUBBING_ID_URL/main"
-        const val MODIFY_GATHERING_RECRUIT = CANCEL_APPLICATION
+        const val MODIFY_GATHERING_RECRUIT = RECRUIT_URL
+        const val MODIFY_GATHERING_INFO = PLUBBING_ID_URL
+        const val MODIFY_GATHERING_PULL_UP = "$RECRUIT_URL/pull-up"
         const val KICK_OUT = "$PLUBBING_ID_URL/accounts/{accountId}"
-
-        object MODIFY_GATHERING {
-            const val RECRUIT = RECRUIT_URL
-        }
 
         const val MY = "$PLUBBING_URL/my"
         const val CHANGE_STATUS = "$PLUBBING_ID_URL/status"

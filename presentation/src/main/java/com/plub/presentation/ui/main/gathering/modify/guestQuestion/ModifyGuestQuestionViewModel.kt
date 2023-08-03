@@ -35,7 +35,7 @@ class ModifyGuestQuestionViewModel @Inject constructor(
             val request = ModifyQuestionRequestVo(uiState.value.plubbingId, uiState.value.questions.map { it.question })
             putModifyQuestionsUseCase(request).collect { state ->
                 inspectUiState(state,
-                    succeedCallback = { },
+                    succeedCallback = { goToBack() },
                     individualErrorCallback = {_, individual ->
                         handleGatheringError(individual as GatheringError)
                     })
@@ -49,6 +49,10 @@ class ModifyGuestQuestionViewModel @Inject constructor(
             is GatheringError.NotMemberPlubbing -> TODO()
             else -> TODO()
         }
+    }
+
+    fun goToBack() {
+        emitEventFlow(ModifyGuestQuestionEvent.GoToBack)
     }
 
     fun onClickNeedQuestionButton() {

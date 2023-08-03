@@ -34,6 +34,18 @@ object TimeFormatter {
         return listOf(hour, min)
     }
 
+    fun getIntHour(HHcolonmm: String): Int {
+        val list = HHcolonmm.split(SPLIT_OF_TIME)
+        val hour = list[INDEX_OF_HOUR].toInt()
+        return hour
+    }
+
+    fun getIntMin(HHcolonmm: String): Int {
+        val list = HHcolonmm.split(SPLIT_OF_TIME)
+        val min = list[INDEX_OF_MIN].toInt()
+        return min
+    }
+
     fun getIntYearIntMonthIntDay(yyyyDashmmDashddFormat: String): List<Int> {
         val list = yyyyDashmmDashddFormat.split(SPLIT_OF_DATE).map { it.toIntOrNull() ?: 0 }
         return list

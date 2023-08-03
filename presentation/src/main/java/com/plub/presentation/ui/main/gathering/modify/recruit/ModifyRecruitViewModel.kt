@@ -19,6 +19,7 @@ import com.plub.domain.usecase.PostChangeFileUseCase
 import com.plub.domain.usecase.PostUploadFileUseCase
 import com.plub.domain.usecase.PutModifyRecruitUseCase
 import com.plub.presentation.base.BaseViewModel
+import com.plub.presentation.ui.main.gathering.modify.guestQuestion.ModifyGuestQuestionEvent
 import com.plub.presentation.util.ImageUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -184,10 +185,10 @@ class ModifyRecruitViewModel @Inject constructor(
 
         putModifyRecruitUseCase(request).collect { state ->
             inspectUiState(state,
-            succeedCallback = { },
-            individualErrorCallback = {_, individual ->
-                handleGatheringError(individual as GatheringError)
-            })
+            succeedCallback = { goToBack() },
+                individualErrorCallback = {_, individual ->
+                    handleGatheringError(individual as GatheringError)
+                })
         }
     }
 
@@ -197,6 +198,10 @@ class ModifyRecruitViewModel @Inject constructor(
             is GatheringError.NotMemberPlubbing -> TODO()
             else -> TODO()
         }
+    }
+
+    fun goToBack() {
+        emitEventFlow(ModifyRecruitEvent.GoToBack)
     }
 
     private fun changeImageFileAndUpdateRecruit(onSuccess: (String) -> Unit) = viewModelScope.launch {

@@ -5,6 +5,7 @@ import com.plub.data.dto.createGathering.CreateGatheringResponse
 import com.plub.data.base.ApiResponse
 import com.plub.data.base.DataDto
 import com.plub.data.dto.account.AccountInfosResponse
+import com.plub.data.dto.modifyGathering.ModifyInfoRequestBody
 import com.plub.data.dto.modifyGathering.ModifyRecruitRequestBody
 import com.plub.data.dto.myGathering.MyGatheringListResponse
 import retrofit2.Response
@@ -30,6 +31,17 @@ interface GatheringApi {
     suspend fun modifyRecruit(
         @Path(PATH_PLUBING_ID) plubbingId: Int,
         @Body request: ModifyRecruitRequestBody
+    ): Response<ApiResponse<CreateGatheringResponse>>
+
+    @PUT(Endpoints.PLUBBING.MODIFY_GATHERING_INFO)
+    suspend fun modifyGatheringInfo(
+        @Path(PATH_PLUBING_ID) plubbingId: Int,
+        @Body request: ModifyInfoRequestBody
+    ): Response<ApiResponse<CreateGatheringResponse>>
+
+    @PUT(Endpoints.PLUBBING.MODIFY_GATHERING_PULL_UP)
+    suspend fun gatheringPullUp(
+        @Path(PATH_PLUBING_ID) plubbingId: Int
     ): Response<ApiResponse<CreateGatheringResponse>>
 
     @GET(Endpoints.PLUBBING.MY)

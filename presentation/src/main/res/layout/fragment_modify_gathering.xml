@@ -14,15 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_f5f3f6"
+        android:paddingHorizontal="16dp"
         tools:context=".ui.main.gathering.modify.ModifyGatheringFragment">
 
         <ImageView
             android:id="@+id/image_view_back"
+            onThrottleClick="@{() -> vm.goToBack()}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
             android:layout_marginTop="12dp"
-            android:padding="9dp"
+            android:padding="4dp"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,47 +32,135 @@
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/modify_gathering_title"
+            android:layout_marginTop="53dp"
+            android:text="@string/word_setting"
             android:textColor="@color/color_363636"
-            android:textSize="18sp"
+            android:textSize="28sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout_modify_gathering"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="16dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_title"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/color_5f5ff9"
-            app:tabIndicatorHeight="3dp"
-            app:tabMode="fixed" />
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title">
 
-        <View
-            android:id="@+id/view_line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="16dp"
-            android:background="@color/color_c4c4c4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tab_layout_modify_gathering" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="16dp"
+                android:paddingBottom="8dp">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager_modify_gathering"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+                <TextView
+                    android:id="@+id/text_view_gathering_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/fragment_modify_gathering_gathering_setting"
+                    android:textColor="@color/color_363636"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    onThrottleClick="@{() -> vm.goToModifyInfo()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="@id/text_view_my_gathering_setting"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_view_my_gathering_setting" />
+
+                <TextView
+                    android:id="@+id/text_view_my_gathering_setting"
+                    onThrottleClick="@{() -> vm.goToModifyInfo()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/fragment_modify_gathering_my_gathering_setting"
+                    android:textColor="@color/color_363636"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_gathering_setting" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/color_f2f3f4"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_my_gathering_setting"
+                    tools:layout_editor_absoluteX="16dp" />
+
+                <ImageView
+                    onThrottleClick="@{() -> vm.goToModifyRecruit()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="@id/text_view_modify_setting"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_view_modify_setting" />
+
+                <TextView
+                    android:id="@+id/text_view_modify_setting"
+                    onThrottleClick="@{() -> vm.goToModifyRecruit()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/fragment_modify_gathering_modify_gathering"
+                    android:textColor="@color/color_363636"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_my_gathering_setting" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/color_f2f3f4"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_modify_setting" />
+
+
+                <ImageView
+                    onThrottleClick="@{() -> vm.goToModifyQuestion()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="@id/text_view_question_list"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_view_question_list" />
+
+                <TextView
+                    android:id="@+id/text_view_question_list"
+                    onThrottleClick="@{() -> vm.goToModifyQuestion()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/fragment_modity_gathering_question_list"
+                    android:textColor="@color/color_363636"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_modify_setting" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/text_view_re_upload"
+            onThrottleClick="@{() -> vm.pullUp()}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/fragment_modify_gathering_re_upload"
+            android:textColor="@color/color_5f5ff9"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_line" />
+            app:layout_constraintTop_toBottomOf="@id/card_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

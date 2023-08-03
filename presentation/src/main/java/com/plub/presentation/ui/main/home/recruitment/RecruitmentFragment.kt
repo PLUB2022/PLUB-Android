@@ -187,7 +187,7 @@ class RecruitmentFragment :
     }
 
     private fun goToModifyGathering(){
-        val action = RecruitmentFragmentDirections.actionRecruitmentToModifyGathering()
+        val action = RecruitmentFragmentDirections.actionRecruitmentToModifyGathering(recruitmentFragmentArgs.plubbingId)
         findNavController().navigate(action)
     }
 }

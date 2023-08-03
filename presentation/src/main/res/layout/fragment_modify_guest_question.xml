@@ -20,9 +20,30 @@
         android:paddingTop="16dp"
         tools:context=".ui.main.gathering.modify.guestQuestion.ModifyGuestQuestionFragment">
 
+        <ImageView
+            android:id="@+id/image_view_back"
+            onThrottleClick="@{() -> vm.goToBack()}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_modify_guest_question_quesiton_list"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="64dp"
             android:scrollbars="none"
             app:layout_constraintBottom_toTopOf="@id/button_save"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,11 +55,21 @@
                 android:layout_height="match_parent"
                 android:paddingBottom="40dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_modify_guest_quesiton_gathering_question"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <RadioGroup
                     android:id="@+id/radio_group_question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="30dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -54,12 +85,12 @@
                         android:button="@null"
                         android:checked="@{vm.uiState.isNeedQuestionCheck == true}"
                         android:gravity="center"
-                        app:onThrottleClick="@{() -> vm.onClickNeedQuestionButton()}"
                         android:paddingVertical="11dp"
                         android:text="@string/create_gathering_question_need_question_radio"
                         android:textColor="@drawable/selector_check_color_8c8c8c_to_white"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:onThrottleClick="@{() -> vm.onClickNeedQuestionButton()}" />
 
                     <RadioButton
                         android:id="@+id/radio_button_no_question"
@@ -71,12 +102,12 @@
                         android:button="@null"
                         android:checked="@{vm.uiState.isNeedQuestionCheck == false}"
                         android:gravity="center"
-                        app:onThrottleClick="@{() -> vm.onClickNoQuestionButton()}"
                         android:paddingVertical="11dp"
                         android:text="@string/create_gathering_question_no_question_radio"
                         android:textColor="@drawable/selector_check_color_8c8c8c_to_white"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:onThrottleClick="@{() -> vm.onClickNoQuestionButton()}" />
 
                 </RadioGroup>
 
@@ -108,7 +139,6 @@
                         android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_40"
                         android:drawableStart="@drawable/ic_plus"
                         android:drawablePadding="6dp"
-                        app:onThrottleClick="@{() -> vm.addQuestion()}"
                         android:paddingHorizontal="18dp"
                         android:paddingVertical="9dp"
                         android:stateListAnimator="@null"
@@ -119,7 +149,8 @@
                         android:visibility="@{vm.uiState.addQuestionButtonVisible ? View.VISIBLE : View.INVISIBLE}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/recycler_view_question" />
+                        app:layout_constraintTop_toBottomOf="@id/recycler_view_question"
+                        app:onThrottleClick="@{() -> vm.addQuestion()}" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -144,7 +175,6 @@
             android:layout_marginBottom="26dp"
             android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
             android:enabled="@{vm.uiState.saveButtonEnabled}"
-            app:onThrottleClick="@{() -> vm.onClickSaveButton()}"
             android:stateListAnimator="@null"
             android:text="@string/word_save"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
@@ -152,7 +182,8 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:onThrottleClick="@{() -> vm.onClickSaveButton()}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

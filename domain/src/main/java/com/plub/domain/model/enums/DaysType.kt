@@ -16,5 +16,11 @@ enum class DaysType(val eng: String, val kor: String, val idx: Int) {
                 it.eng == eng
             } ?: MON
         }
+
+        fun findByKor(kor: String): DaysType {
+            return DaysType.values().find {
+                it.kor == kor
+            } ?: ALL
+        }
     }
 }

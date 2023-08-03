@@ -152,4 +152,10 @@ class MyGatheringViewModel @Inject constructor(
             MyGatheringEvent.GoToKickOut(plubbingId)
         )
     }
+
+    fun goToModifyGathering(plubbingId: Int) {
+        emitEventFlow(
+            MyGatheringEvent.GoToModifyGathering(plubbingId)
+        )
+    }
 }
