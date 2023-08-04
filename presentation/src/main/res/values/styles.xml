@@ -35,4 +35,112 @@
     <style name="category_text">
         <item name="android:textSize">12sp</item>
     </style>
+
+    <!--Pretendard Heading Text Style -->
+    
+    <style name="heading1">
+        <item name="android:fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+    </style>
+
+    <style name="heading2">
+        <item name="android:fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">10sp</item>
+    </style>
+
+    <style name="heading3">
+        <item name="android:fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">12sp</item>
+    </style>
+
+    <style name="heading4">
+        <item name="android:fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">12sp</item>
+    </style>
+
+    <style name="heading5">
+        <item name="android:fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">10sp</item>
+    </style>
+
+    <style name="heading6">
+        <item name="android:fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+    </style>
+
+
+    <!--Pretendard Title Text Style -->
+
+    <style name="title1">
+        <item name="android:fontFamily">@font/pretendard_semi_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">10sp</item>
+    </style>
+
+    <style name="title2">
+        <item name="android:fontFamily">@font/pretendard_semi_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+    </style>
+
+    <style name="title3">
+        <item name="android:fontFamily">@font/pretendard_semi_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+    </style>
+
+
+    <!--Pretendard Body Text Style -->
+
+    <style name="body1">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+    </style>
+
+    <style name="body2">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+    </style>
+
+    <style name="body3">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+    </style>
+
+    <style name="body4">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+    </style>
+
+    <!--Icehimchan point Text Style -->
+
+    <style name="point1">
+        <item name="android:fontFamily">@font/ice_himchan</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+
 </resources>
