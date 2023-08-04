@@ -1,9 +1,11 @@
 package com.plub.presentation.ui.sign.signup.authentication
 
+import android.telephony.PhoneNumberFormattingTextWatcher
 import androidx.fragment.app.viewModels
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentGetPhoneBinding
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -18,7 +20,7 @@ class GetPhoneFragment : BaseTestFragment<FragmentGetPhoneBinding, GetPhonePageS
     override fun initView() {
         binding.apply {
             vm = viewModel
-            editTextInputPhone.setSelection(editTextInputPhone.length())
+            editTextInputPhone.addTextChangedListener(PhoneNumberFormattingTextWatcher())
         }
     }
 

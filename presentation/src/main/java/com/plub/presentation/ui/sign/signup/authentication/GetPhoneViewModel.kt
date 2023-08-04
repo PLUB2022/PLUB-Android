@@ -2,6 +2,7 @@ package com.plub.presentation.ui.sign.signup.authentication
 
 import androidx.lifecycle.viewModelScope
 import com.plub.presentation.base.BaseTestViewModel
+import com.plub.presentation.util.PlubLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -31,21 +32,8 @@ class GetPhoneViewModel @Inject constructor(
     )
 
     fun onTextChangedAfter(){
-        when(phoneNumberStateFlow.value.length){
-            FIRST_DASH -> addDash(FIRST_DASH - 1)
-            SECOND_DASH -> addDash(SECOND_DASH - 1)
-        }
-        emitEventFlow(GetPhoneEvent.MoveToEnd)
         updateIsEmptyEditText()
         updateButtonState()
-    }
-
-    private fun addDash(replaceNum : Int){
-        var phoneNumber = ""
-        viewModelScope.launch {
-            phoneNumber = phoneNumberStateFlow.value.replaceRange(replaceNum,replaceNum,"-")
-            phoneNumberStateFlow.update { phoneNumber }
-        }
     }
 
     private fun updateIsEmptyEditText(){
