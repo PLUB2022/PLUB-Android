@@ -3,6 +3,8 @@ package com.plub.data.api
 import com.plub.data.dto.account.MyInfoResponse
 import com.plub.data.base.ApiResponse
 import com.plub.data.base.DataDto
+import com.plub.data.dto.account.SmsCertificationRequest
+import com.plub.data.dto.account.SmsRequest
 import com.plub.domain.model.vo.account.UpdateMyInfoRequestVo
 import retrofit2.Response
 import retrofit2.http.Body
@@ -48,4 +50,14 @@ interface AccountApi {
 
     @POST(Endpoints.ACCOUNT.POST_REVOKE)
     suspend fun revoke() : Response<ApiResponse<DataDto.DTO>>
+
+    @POST(Endpoints.ACCOUNT.POST_SMS)
+    suspend fun sendSms(
+        @Body request : SmsRequest
+    ) : Response<ApiResponse<DataDto.DTO>>
+
+    @POST(Endpoints.ACCOUNT.POST_SMS_CERTIFICATION)
+    suspend fun smsCertification(
+        @Body request : SmsCertificationRequest
+    ) : Response<ApiResponse<DataDto.DTO>>
 }

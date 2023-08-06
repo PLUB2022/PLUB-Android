@@ -2,11 +2,14 @@ package com.plub.data.repository
 
 import com.plub.data.api.AccountApi
 import com.plub.data.base.BaseRepository
+import com.plub.data.dto.account.SmsCertificationRequest
+import com.plub.data.dto.account.SmsRequest
 import com.plub.data.mapper.MyInfoResponseMapper
 import com.plub.data.mapper.UnitResponseMapper
 import com.plub.domain.UiState
 import com.plub.domain.error.AccountError
 import com.plub.domain.model.vo.account.MyInfoResponseVo
+import com.plub.domain.model.vo.account.SmsCertificationRequestVo
 import com.plub.domain.model.vo.account.UpdateMyInfoRequestVo
 import com.plub.domain.repository.AccountRepository
 import kotlinx.coroutines.flow.Flow
@@ -49,4 +52,20 @@ class AccountRepositoryImpl @Inject constructor(private val accountApi: AccountA
             AccountError.make(it)
         }
     }
+
+    override suspend fun sendSms(request : String): Flow<UiState<Unit>> {
+        return apiLaunch(apiCall = { accountApi.sendSms(SmsRequest(request)) }, UnitResponseMapper){
+            AccountError.make(it)
+        }
+    }
+
+    override suspend fun smsCertification(request : SmsCertificationRequestVo): Flow<UiState<Unit>> {
+        return apiLaunch(apiCall = { accountApi.smsCertification(SmsCertificationRequest(
+            phone = request.phone,
+            certificationNum = request.certificationNum
+        )) }, UnitResponseMapper){
+            AccountError.make(it)
+        }
+    }
+
 }

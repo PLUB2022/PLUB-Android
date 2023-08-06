@@ -27,6 +27,8 @@ object Endpoints {
         const val CHANGE_PUSH_NOTIFICATION = FETCH_MY_INFO
         const val PUT_INACTIVE = "$ACCOUNT_URL/inactive"
         const val POST_REVOKE = "$ACCOUNT_URL/revoke"
+        const val POST_SMS = "$ACCOUNT_URL/sms"
+        const val POST_SMS_CERTIFICATION = "$ACCOUNT_URL/sms/certification"
     }
 
     object CATEGORY {
