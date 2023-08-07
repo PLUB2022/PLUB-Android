@@ -98,6 +98,22 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <EditText
+            android:id="@+id/test"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="300dp"
+            android:text="@={vm.uiState.test}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/testButton"
+            android:text="테스트"
+            app:onThrottleClick="@{()->vm.test()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         
         <Button
             android:id="@+id/button_send_authentication_number"
@@ -106,6 +122,7 @@
             android:textColor="@drawable/selector_color_8c8c8c_to_white"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:onThrottleClick="@{()->vm.onClickSendButton()}"
             android:enabled="@{vm.uiState.isNextButtonEnable}"
             android:background="@drawable/selector_bg_f2f3f4_to5f5ff9"
             android:layout_marginHorizontal="16dp"

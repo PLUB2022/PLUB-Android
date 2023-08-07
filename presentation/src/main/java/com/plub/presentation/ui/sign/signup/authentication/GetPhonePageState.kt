@@ -8,4 +8,5 @@ data class GetPhonePageState(
     val isNextButtonEnable:StateFlow<Boolean>,
     var phoneNumber : MutableStateFlow<String>,
     val isEmpty : MutableStateFlow<Boolean>,
+    var test : MutableStateFlow<String>
 ): PageState

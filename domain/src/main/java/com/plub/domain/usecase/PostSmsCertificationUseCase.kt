@@ -7,7 +7,7 @@ import com.plub.domain.repository.AccountRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class PostSmsCertification @Inject constructor(
+class PostSmsCertificationUseCase @Inject constructor(
     private val accountRepository: AccountRepository,
 ) : UseCase<SmsCertificationRequestVo, Flow<UiState<Unit>>>() {
     override suspend operator fun invoke(request: SmsCertificationRequestVo): Flow<UiState<Unit>> {
