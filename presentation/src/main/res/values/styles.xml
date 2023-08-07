@@ -86,21 +86,21 @@
     <style name="title1">
         <item name="android:fontFamily">@font/pretendard_semi_bold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:letterSpacing">-0.015</item>
         <item name="android:lineSpacingExtra">10sp</item>
     </style>
 
     <style name="title2">
         <item name="android:fontFamily">@font/pretendard_semi_bold</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:letterSpacing">-0.015</item>
         <item name="android:lineSpacingExtra">8sp</item>
     </style>
 
     <style name="title3">
         <item name="android:fontFamily">@font/pretendard_semi_bold</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:letterSpacing">-0.015</item>
         <item name="android:lineSpacingExtra">8sp</item>
     </style>
 
@@ -110,28 +110,28 @@
     <style name="body1">
         <item name="android:fontFamily">@font/pretendard_regular</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:letterSpacing">-0.015</item>
         <item name="android:lineSpacingExtra">8sp</item>
     </style>
 
     <style name="body2">
         <item name="android:fontFamily">@font/pretendard_regular</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:letterSpacing">-0.015</item>
         <item name="android:lineSpacingExtra">8sp</item>
     </style>
 
     <style name="body3">
         <item name="android:fontFamily">@font/pretendard_regular</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:letterSpacing">-0.015</item>
         <item name="android:lineSpacingExtra">8sp</item>
     </style>
 
     <style name="body4">
         <item name="android:fontFamily">@font/pretendard_regular</item>
         <item name="android:textSize">10sp</item>
-        <item name="android:letterSpacing">-1.5</item>
+        <item name="android:letterSpacing">-0.015</item>
         <item name="android:lineSpacingExtra">8sp</item>
     </style>
 

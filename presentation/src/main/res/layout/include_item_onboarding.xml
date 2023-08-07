@@ -24,8 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
             android:gravity="center"
+            android:textAppearance="@style/point1"
             android:lines="1"
-            android:textColor="@color/black"
+            android:textColor="@color/color_5f5ff9"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,8 +40,8 @@
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textAppearance="@style/body1"
+            android:textColor="@color/color_363636"
             app:layout_constraintTop_toBottomOf="@+id/text_view_title"
             tools:text="아직 불러 부끄러운 무성할 벌레는 새워 까닭입니다. 사람들의 나는 노새, 언덕 가을 거외다. 부끄러운 하나에 어머니, 잔디가 별 책상을 이제 없이 거외다.\n\n쉬이 하늘에는 내일 묻힌 까닭입니다. 마리아 아침이 써 이국 책상을 봅니다." />
     </androidx.constraintlayout.widget.ConstraintLayout>
