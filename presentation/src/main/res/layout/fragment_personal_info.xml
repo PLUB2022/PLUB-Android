@@ -24,8 +24,7 @@
             android:layout_marginStart="16dp"
             android:text="@string/sign_up_personal_info_title"
             android:textColor="@color/color_363636"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/heading4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +36,7 @@
             android:layout_marginTop="4dp"
             android:text="@string/sign_up_personal_info_description"
             android:textColor="@color/color_363636"
-            android:textSize="14sp"
+            android:textAppearance="@style/body2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_personal_info_title" />
 
@@ -49,8 +48,7 @@
             android:layout_marginTop="48dp"
             android:text="@string/word_gender"
             android:textColor="@color/color_363636"
-            android:textSize="16dp"
-            android:textStyle="bold"
+            android:textAppearance="@style/title2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_personal_info_description" />
 
@@ -61,14 +59,14 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="12dp"
-            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+            android:background="@drawable/selector_bg_empty_c4c4c4_to_5f5ff9_radius_8"
             android:button="@null"
             android:checked="@{vm.uiState.personalInfoVo.gender == Gender.MAN}"
             android:gravity="center"
             app:onThrottleClick="@{() -> vm.onClickGender(Gender.MAN)}"
             android:text="@string/word_man"
-            android:textColor="@drawable/selector_check_color_8c8c8c_to_white"
-            android:textSize="16dp"
+            android:textColor="@drawable/selector_check_color_c4c4c4_to_white"
+            android:textAppearance="@style/heading6"
             app:layout_constraintDimensionRatio="158:46"
             app:layout_constraintEnd_toStartOf="@+id/toggle_button_woman"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -80,13 +78,14 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/selector_bg_empty_8c8c8c_to_5f5ff9_radius_8"
+            android:background="@drawable/selector_bg_empty_c4c4c4_to_5f5ff9_radius_8"
             android:button="@null"
             android:checked="@{vm.uiState.personalInfoVo.gender == Gender.WOMAN}"
             android:gravity="center"
             app:onThrottleClick="@{() -> vm.onClickGender(Gender.WOMAN)}"
             android:text="@string/word_woman"
-            android:textColor="@drawable/selector_check_color_8c8c8c_to_white"
+            android:textAppearance="@style/heading6"
+            android:textColor="@drawable/selector_check_color_c4c4c4_to_white"
             app:layout_constraintDimensionRatio="158:46"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/toggle_button_man"
@@ -100,8 +99,7 @@
             android:layout_marginTop="48dp"
             android:text="@string/word_birth"
             android:textColor="@color/color_363636"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/title2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toggle_button_man" />
 
@@ -111,7 +109,7 @@
             android:layout_height="46dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
-            android:background="@{vm.uiState.birthIsActive ? @drawable/bg_rectangle_empty_5f5ff9_radius_8 : @drawable/bg_rectangle_empty_8c8c8c_radius_8}"
+            android:background="@{vm.uiState.birthIsActive ? @drawable/bg_rectangle_empty_5f5ff9_radius_8 : @drawable/bg_rectangle_empty_c4c4c4_radius_8}"
             app:layout_constraintTop_toBottomOf="@+id/text_view_birth_title">
 
             <TextView
@@ -123,8 +121,8 @@
                 android:paddingHorizontal="8dp"
                 android:text="@{vm.uiState.birthString}"
                 android:textColor="@color/color_363636"
-                android:textColorHint="@color/color_8c8c8c"
-                android:textSize="14sp"
+                android:textColorHint="@color/color_c4c4c4"
+                android:textAppearance="@style/title2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/image_view_birth"
                 app:layout_constraintStart_toStartOf="parent"
@@ -162,8 +160,7 @@
             app:onThrottleClick="@{() -> vm.onClickNextButton()}"
             android:text="@string/word_next"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
-            android:textSize="14dp"
-            android:textStyle="bold"
+            android:textAppearance="@style/heading6"
             app:layout_constraintBottom_toBottomOf="@id/view_dim"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
