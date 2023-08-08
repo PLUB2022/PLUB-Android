@@ -3,7 +3,8 @@ package com.plub.domain.error
 sealed class LoginError: IndividualError() {
     companion object {
         private const val NEED_SIGN_UP = 1050
-        private const val FAIL_LOGIN = 9040
+        private const val FAIL_LOGIN = 9030
+        private const val STOP_ACCOUNT = 9090
         private const val STOPPED_ACCOUNT = 2070
         private const val NOT_FOUND_REFRESH_TOKEN = 1040
 
@@ -12,6 +13,7 @@ sealed class LoginError: IndividualError() {
             return when(statusCode) {
                 NEED_SIGN_UP -> NeedSignUp("회원가입 필요")
                 FAIL_LOGIN -> FailLogin("로그인 실패")
+                STOP_ACCOUNT -> StoppedAccount("정지된 유저")
                 STOPPED_ACCOUNT -> StoppedAccount("정지된 유저")
                 NOT_FOUND_REFRESH_TOKEN -> NotFoundRefreshToken("Refresh Token 값 없음")
                 else -> Common

@@ -466,4 +466,9 @@
     <string name="text_confirm_authentication">입력하신 아래의 번호로 인증번호를 보낼게요</string>
     <string name="text_wrong_number">번호가 잘못됐어요</string>
 
+
+    <!-- Error Message -->
+    <string name="error_fail_social_login">소셜 로그인에 실패했습니다. 다시 시도해주세요.</string>
+    <string name="error_stopped_account_title">영구 정지된 회원</string>
+    <string name="error_stopped_account_description">사용자 신고 누적으로 앱 이용이 영구적으로 정지되었어요. 재가입 및 앱 이용이 제한됩니다.</string>
 </resources>

@@ -9,5 +9,8 @@ sealed class LoginEvent : Event {
     object SignInKakaoEmail : LoginEvent()
     object GoToSignUp : LoginEvent()
     object GoToMain : LoginEvent()
+
+    object FailSocialLogin : LoginEvent()
+    object StoppedAccountDialog : LoginEvent()
     data class GoToTerms(val type:TermsType) : LoginEvent()
 }

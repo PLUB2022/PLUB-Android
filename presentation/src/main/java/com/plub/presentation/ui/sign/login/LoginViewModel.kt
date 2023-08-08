@@ -51,14 +51,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun onAdminLogin() {
-        viewModelScope.launch {
-            postAdminLoginUseCase(Unit).collect {
-                inspectUiState(it, ::handleLoginSuccess)
-            }
-        }
-    }
-
     fun onClickGoogleLogin() {
         emitEventFlow(LoginEvent.SignInGoogle)
     }
@@ -75,7 +67,7 @@ class LoginViewModel @Inject constructor(
                 socialLogin(request)
             }
         } catch (e: ApiException) {
-            PlubLogger.logD("구글로그인", "실패 : ${e.statusCode}")
+            emitEventFlow(LoginEvent.FailSocialLogin)
         }
     }
 
@@ -155,6 +147,12 @@ class LoginViewModel @Inject constructor(
                         goToSignUp()
                     }
                 }
+            }
+            is LoginError.StoppedAccount -> {
+                emitEventFlow(LoginEvent.StoppedAccountDialog)
+            }
+            is LoginError.FailLogin ->{
+                emitEventFlow(LoginEvent.FailSocialLogin)
             }
             else -> Unit
         }

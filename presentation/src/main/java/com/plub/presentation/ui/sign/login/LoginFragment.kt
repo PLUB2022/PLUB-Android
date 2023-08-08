@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.text.method.LinkMovementMethod
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -15,14 +16,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.kakao.sdk.user.UserApiClient
 import com.plub.domain.model.enums.TermsType
+import com.plub.domain.model.enums.ToastType
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentLoginBinding
+import com.plub.presentation.ui.common.dialog.CommonDialog
 import com.plub.presentation.util.IntentUtil
 import com.plub.presentation.ui.main.MainActivity
+import com.plub.presentation.util.PlubToast
 import com.plub.presentation.util.onThrottleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginViewModel>(
@@ -33,6 +38,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleSignInResultLauncher:ActivityResultLauncher<Intent>
+
+    @Inject
+    lateinit var commonDialog: CommonDialog
 
     override fun initView() {
         setGoogleSignInResultLauncher()
@@ -135,6 +143,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
             is LoginEvent.SignInGoogle -> signInGoogle()
             is LoginEvent.SignInKakao -> signInKakao()
             is LoginEvent.SignInKakaoEmail -> signInKakaoEmail()
+            is LoginEvent.FailSocialLogin -> failToast()
+            is LoginEvent.StoppedAccountDialog -> {
+                showStoppedDialog()
+            }
         }
     }
 
@@ -156,5 +168,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
         startActivity(
             Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.personal_policies)))
         )
+    }
+
+    private fun showStoppedDialog(){
+        commonDialog
+            .setTitle(R.string.error_stopped_account_title)
+            .setDescription(R.string.error_stopped_account_description)
+            .setPositiveButton(R.string.word_ok){
+                commonDialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun failToast(){
+        context?.let {
+            PlubToast.createToast(ToastType.ERROR,
+                it, R.string.error_fail_social_login,Toast.LENGTH_SHORT)
+        }
     }
 }
