@@ -200,7 +200,7 @@
     <string name="sign_up_more_info_introduce_hint">소개하는 내용을 입력해주세요</string>
     <string name="sign_up_more_info_introduce_count">%s/150</string>
 
-    <string name="sign_up_hobbies_title">마지막으로,\n관심 있는 분야를 모두 선택해주세요.</string>
+    <string name="sign_up_hobbies_title">관심 있는 분야를 모두 선택해주세요.</string>
     <string name="sign_up_hobbies_description">%s님이 흥미로워 할 만한 모임을 추천해 드릴게요.</string>
     <string name="sign_up_hobbies_late_pick">아직 잘 모르겠어요, 나중에 고를게요</string>
 

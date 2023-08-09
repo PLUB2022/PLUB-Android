@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_f5f3f6">
+        android:background="@color/color_faf9fe">
 
 
         <TextView
@@ -23,8 +23,7 @@
             android:layout_marginStart="16dp"
             android:text="@string/sign_up_hobbies_title"
             android:textColor="@color/color_363636"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/heading4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +35,7 @@
             android:layout_marginTop="4dp"
             android:text="@{vm.uiState.descriptionText}"
             android:textColor="@color/color_363636"
-            android:textSize="14sp"
+            android:textAppearance="@style/body2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_hobbies_title"
             tools:text="@string/sign_up_hobbies_description" />
@@ -68,13 +67,12 @@
             android:layout_width="0dp"
             android:layout_height="46dp"
             android:layout_marginHorizontal="16dp"
-            android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:background="@drawable/selector_bg_f2f3f4_to_5f5ff9_radius8"
             android:enabled="@{vm.uiState.nextButtonEnable}"
             app:onThrottleClick="@{() -> vm.onClickNextButton()}"
             android:text="@string/word_next"
             android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
-            android:textSize="14dp"
-            android:textStyle="bold"
+            android:textAppearance="@style/heading6"
             app:layout_constraintBottom_toBottomOf="@id/view_dim"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
