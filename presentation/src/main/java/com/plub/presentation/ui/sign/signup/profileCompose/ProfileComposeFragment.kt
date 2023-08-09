@@ -121,7 +121,6 @@ class ProfileComposeFragment :
                     editTextNickname.setTextColor(textColor)
                     textViewNicknameDescription.setTextColor(color)
                     imageViewNicknameDescription.setImageResource(R.drawable.ic_check_circle_5f5ff9)
-                    imageViewNicknameDelete.setImageResource(R.drawable.ic_delete_box_5f5ff9)
                 }
                 false -> {
                     val color = ContextCompat.getColor(requireContext(), R.color.color_f75b2b)
@@ -129,7 +128,6 @@ class ProfileComposeFragment :
                     editTextNickname.setTextColor(color)
                     textViewNicknameDescription.setTextColor(color)
                     imageViewNicknameDescription.setImageResource(R.drawable.ic_tooltip_f75b2b)
-                    imageViewNicknameDelete.setImageResource(R.drawable.ic_delete_box_f75b2b)
                 }
                 null -> {
                     val textColor = ContextCompat.getColor(requireContext(), R.color.color_363636)
@@ -138,7 +136,6 @@ class ProfileComposeFragment :
                     editTextNickname.setTextColor(textColor)
                     textViewNicknameDescription.setTextColor(color)
                     imageViewNicknameDescription.setImageResource(R.drawable.ic_tooltip_c4c4c4)
-                    imageViewNicknameDelete.setImageResource(R.drawable.ic_delete_box_c4c4c4)
                 }
             }
         }

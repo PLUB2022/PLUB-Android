@@ -3,7 +3,7 @@ package com.plub.domain.error
 sealed class NicknameError : IndividualError() {
 
     companion object {
-        private const val DUPLICATED_NICKNAME = 2060
+        private const val DUPLICATED_NICKNAME = 2010
         private const val LIMIT_CHANGE_NICKNAME = 2080
 
         fun make(statusCode: Int): NicknameError {

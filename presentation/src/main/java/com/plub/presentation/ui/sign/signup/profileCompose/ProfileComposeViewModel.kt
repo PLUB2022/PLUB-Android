@@ -55,6 +55,7 @@ class ProfileComposeViewModel @Inject constructor(
     fun onIntroChangedAfter() {
         val introduce: String = uiState.value.profileComposeVo.introduce
         updateIntroduceState(introduce)
+        updateNextButton()
     }
 
     private fun updateIntroduceState(introduce:String) {
@@ -166,11 +167,11 @@ class ProfileComposeViewModel @Inject constructor(
     private fun updateNicknameState(isActiveNickname: Boolean?, nicknameDescriptionRes: Int) {
         updateUiState { uiState ->
             uiState.copy(
-                isNextButtonEnable = isNextButtonEnable(isActiveNickname),
                 nicknameIsActive = isActiveNickname,
                 nicknameDescription = resourceProvider.getString(nicknameDescriptionRes)
             )
         }
+        updateNextButton()
     }
 
     private fun updateProfileFile(file: File?) {
@@ -193,7 +194,15 @@ class ProfileComposeViewModel @Inject constructor(
         }
     }
 
-    private fun isNextButtonEnable(isActiveNickname:Boolean?): Boolean {
-        return isActiveNickname == true && !isNetworkCall
+    private fun isNextButtonEnable(): Boolean {
+        return uiState.value.nicknameIsActive == true && !isNetworkCall && uiState.value.profileComposeVo.introduce.isNotEmpty()
+    }
+
+    private fun updateNextButton(){
+        updateUiState { uiState ->
+            uiState.copy(
+                isNextButtonEnable = isNextButtonEnable()
+            )
+        }
     }
 }

@@ -15,7 +15,32 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_f5f3f6">
+        android:background="@color/color_faf9fe">
+
+        <TextView
+            android:id="@+id/text_view_personal_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/sign_up_profile_compose_title"
+            android:textColor="@color/color_363636"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_personal_info_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/sign_up_profile_compose_description"
+            android:textColor="@color/color_363636"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_personal_info_title" />
+
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
@@ -24,7 +49,7 @@
             app:layout_constraintBottom_toTopOf="@+id/button_next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/text_view_personal_info_description">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:paddingBottom="30dp"
@@ -32,41 +57,17 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/text_view_personal_info_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/sign_up_profile_compose_title"
-                    android:textColor="@color/color_363636"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/text_view_personal_info_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/sign_up_profile_compose_description"
-                    android:textColor="@color/color_363636"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_view_personal_info_title" />
-
-                <TextView
                     android:id="@+id/text_view_profile_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="48dp"
                     android:text="@string/sign_up_profile_compose_profile_image"
+                    android:layout_marginTop="40dp"
                     android:textColor="@color/color_363636"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_view_personal_info_description" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.plub.presentation.ui.common.custom.CircleImageView
                     android:id="@+id/image_view_profile"
