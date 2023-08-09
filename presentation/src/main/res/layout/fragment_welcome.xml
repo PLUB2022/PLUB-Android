@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_f5f3f6">
+        android:background="@color/color_faf9fe">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_welcome"
@@ -23,8 +23,8 @@
             android:layout_height="368dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:layout_constraintBottom_toTopOf="@id/button_plub_start"
-            android:layout_marginBottom="54dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,19 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_up_welcome_title"
-            android:textColor="@color/color_363636"
-            android:textSize="32sp"
+            android:textColor="@color/color_5f5ff9"
+            android:textAppearance="@style/point1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/lottie_welcome"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <View
-            android:id="@+id/view_dim"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="360:96"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
@@ -54,16 +45,15 @@
             android:layout_width="0dp"
             android:layout_height="46dp"
             android:layout_marginHorizontal="16dp"
-            android:background="@drawable/selector_bg_e4e4e4_to_5f5ff9"
+            android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
             app:onThrottleClick="@{() -> vm.onClickPlubStartButton()}"
             android:text="@string/sign_up_welcome_start_button"
-            android:textColor="@drawable/selector_enable_color_8c8c8c_to_white"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/view_dim"
+            android:textColor="@color/white"
+            android:layout_marginTop="32dp"
+            android:textAppearance="@style/heading6"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view_dim" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

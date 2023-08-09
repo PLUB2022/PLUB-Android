@@ -18,7 +18,7 @@ class FragmentSignUpPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             SignUpPageType.TERMS.idx -> TermsFragment()
-            SignUpPageType.AUTHENTICATION.idx -> ProfileComposeFragment()
+            SignUpPageType.AUTHENTICATION.idx -> GetPhoneFragment()
             SignUpPageType.PERSONAL_INFO.idx -> PersonalInfoFragment()
             SignUpPageType.PROFILE.idx -> ProfileComposeFragment()
             SignUpPageType.HOBBY.idx -> HobbiesFragment()
