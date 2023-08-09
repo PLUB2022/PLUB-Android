@@ -31,10 +31,10 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
     val datsStoreUtil: DataStoreUtil,
-    val postSignUpUseCase: PostSignUpUseCase,
-    val postUploadFileUseCase: PostUploadFileUseCase,
+    val postSignUpUseCase: PostSignUpUseCase, //TODO 에러처리
+    val postUploadFileUseCase: PostUploadFileUseCase, //TODO 에러처리
     val savePlubAccessTokenAndRefreshTokenUseCase: SavePlubAccessTokenAndRefreshTokenUseCase,
-    val fetchMyInfoUseCase: FetchMyInfoUseCase
+    val fetchMyInfoUseCase: FetchMyInfoUseCase //TODO 에러처리
 ) : BaseViewModel<SignUpPageState>(SignUpPageState()) {
 
     private var isNetworkCall = false

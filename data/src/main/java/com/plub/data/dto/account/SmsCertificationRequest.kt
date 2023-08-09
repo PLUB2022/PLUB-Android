@@ -7,5 +7,5 @@ data class SmsCertificationRequest(
     @SerializedName("phone")
     val phone : String = "",
     @SerializedName("certificationNum")
-    val certificationNum : Int = 0
+    val certificationNum : String = ""
 ) : DataDto

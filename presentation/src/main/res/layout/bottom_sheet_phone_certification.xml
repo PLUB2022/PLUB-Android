@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.plub.presentation.ui.sign.signup.authentication.bottomSheet.AgainAskNumberBottomSheetViewModel" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,6 +36,7 @@
             app:layout_constraintStart_toStartOf="@id/text_view_confirm_title"
             android:layout_marginTop="8dp"
             android:textAppearance="@style/heading1"
+            android:text="@{vm.uiState.phoneNumber}"
             android:textColor="@color/color_5f5ff9"
             tools:text="010-9039-8927"
             android:layout_width="wrap_content"
@@ -70,6 +77,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
+                android:checked="@{vm.uiState.checked}"
+                app:onThrottleClick="@{()->vm.onClickCheckBox()}"
                 android:button="@drawable/selector_check"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -83,8 +92,9 @@
             android:text="@string/text_wrong_number"
             android:textColor="@color/color_8c8c8c"
             android:textAppearance="@style/heading6"
-            android:background="@color/color_f2f3f4"
+            android:background="@drawable/bg_rectangle_filled_f2f3f4_radius_8"
             android:layout_marginHorizontal="16dp"
+            app:onThrottleClick="@{()->vm.onClickCloseButton()}"
             app:layout_constraintTop_toBottomOf="@id/constraint_layout_agree"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,6 +109,8 @@
             android:textAppearance="@style/heading6"
             android:background="@drawable/selector_bg_f2f3f4_to5f5ff9"
             android:layout_marginHorizontal="16dp"
+            android:enabled="@{vm.uiState.checked}"
+            app:onThrottleClick="@{()->vm.onClickSendButton()}"
             app:layout_constraintTop_toBottomOf="@id/constraint_layout_agree"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toEndOf="@id/button_wrong_number"

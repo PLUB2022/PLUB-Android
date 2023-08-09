@@ -60,20 +60,13 @@ class GetPhoneViewModel @Inject constructor(
     }
 
     fun onClickSendButton(){
+        emitEventFlow(GetPhoneEvent.ShowBottomSheet)
+    }
+
+    fun onClickSendAgainButton(){
         val phoneNum = getSplitDashPhone()
         viewModelScope.launch {
             postSendSmsUseCase(phoneNum).collect()
-        }
-    }
-
-    fun test(){
-        val request = SmsCertificationRequestVo(
-            phone = getSplitDashPhone(),
-            certificationNum = testStateFlow.value.toInt()
-        )
-
-        viewModelScope.launch {
-            postSmsCertificationUseCase(request).collect()
         }
     }
 

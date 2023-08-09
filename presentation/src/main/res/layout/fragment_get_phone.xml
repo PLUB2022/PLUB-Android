@@ -57,23 +57,6 @@
             android:src="@drawable/ic_cancel_circle_c4c4c4"
             android:layout_width="32dp"
             android:layout_height="32dp"/>
-
-
-        <EditText
-            android:id="@+id/test"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="300dp"
-            android:text="@={vm.uiState.test}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <Button
-            android:id="@+id/testButton"
-            android:text="테스트"
-            app:onThrottleClick="@{()->vm.test()}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
         
         <Button
             android:id="@+id/button_send_authentication_number"
