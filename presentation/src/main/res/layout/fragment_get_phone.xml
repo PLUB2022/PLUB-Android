@@ -26,18 +26,29 @@
             android:textColor="@color/color_363636"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/text_view_phone_number"
+            app:layout_constraintTop_toBottomOf="@id/text_view_comment_authentication"
+            app:layout_constraintStart_toStartOf="@id/text_view_comment_authentication"
+            android:text="@string/text_phone_number"
+            android:textAppearance="@style/title2"
+            android:textColor="@color/color_363636"
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         
         <EditText
             android:id="@+id/edit_text_input_phone"
-            app:layout_constraintTop_toBottomOf="@id/text_view_comment_authentication"
-            android:layout_marginTop="41dp"
-            android:background="@{vm.uiState.isEmpty == true ? @drawable/bg_rectangle_empty_c4c4c4_radius_8 : @drawable/bg_rectangle_empty_5f5ff9_radius_8}"
+            app:layout_constraintTop_toBottomOf="@id/text_view_phone_number"
+            android:layout_marginTop="8dp"
+            android:background="@{vm.uiState.isPhoneNumberEmpty == true ? @drawable/bg_rectangle_empty_c4c4c4_radius_8 : @drawable/bg_rectangle_empty_5f5ff9_radius_8}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="16dp"
             android:hint="@string/text_input_phone"
             android:inputType="phone"
-            android:afterTextChanged="@{() -> vm.onTextChangedAfter()}"
+            android:afterTextChanged="@{() -> vm.onPhoneNumberTextChangedAfter()}"
             android:textColor="@color/color_363636"
             android:textSize="18sp"
             android:text="@={vm.uiState.phoneNumber}"
@@ -45,7 +56,7 @@
             android:paddingVertical="10dp"
             android:layout_width="0dp"
             android:layout_height="46dp"/>
-        
+
         <ImageView
             android:id="@+id/image_view_cancel"
             app:layout_constraintEnd_toEndOf="@id/edit_text_input_phone"
@@ -53,10 +64,55 @@
             app:layout_constraintBottom_toBottomOf="@id/edit_text_input_phone"
             android:layout_marginEnd="8dp"
             app:onThrottleClick="@{()->vm.onClickClearButton()}"
-            android:visibility="@{vm.uiState.isEmpty == true ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.uiState.isPhoneNumberEmpty == true ? View.GONE : View.VISIBLE}"
             android:src="@drawable/ic_cancel_circle_c4c4c4"
             android:layout_width="32dp"
             android:layout_height="32dp"/>
+
+        <TextView
+            android:id="@+id/text_view_certification_number"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_input_phone"
+            app:layout_constraintStart_toStartOf="@id/edit_text_input_phone"
+            android:text="@string/text_certification_number"
+            android:textAppearance="@style/title2"
+            android:textColor="@color/color_363636"
+            android:visibility="@{vm.uiState.isVisible == true ? View.VISIBLE : View.GONE}"
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/edit_text_input_certification"
+            app:layout_constraintTop_toBottomOf="@id/text_view_certification_number"
+            android:layout_marginTop="8dp"
+            android:background="@{vm.uiState.isCertificationNumberEmpty == true ? @drawable/bg_rectangle_empty_c4c4c4_radius_8 : @drawable/bg_rectangle_empty_363636_radius_8}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="16dp"
+            android:hint="@string/text_input_phone"
+            android:inputType="phone"
+            android:visibility="@{vm.uiState.isVisible == true ? View.VISIBLE : View.GONE}"
+            android:afterTextChanged="@{() -> vm.onCertificationTextChangedAfter()}"
+            android:textColor="@color/color_363636"
+            android:textSize="18sp"
+            android:text="@={vm.uiState.certificationNumber}"
+            android:paddingStart="12dp"
+            android:paddingVertical="10dp"
+            android:layout_width="0dp"
+            android:layout_height="46dp"/>
+
+        <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/button_send_authentication_number"
+            android:layout_marginBottom="30dp"
+            android:text="@string/text_didnt_get_certification"
+            android:visibility="@{vm.uiState.isVisible == true ? View.VISIBLE : View.GONE}"
+            app:onThrottleClick="@{()->vm.onClickSendAgainButton()}"
+            android:textAppearance="@style/body3"
+            android:textColor="@color/color_8c8c8c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         
         <Button
             android:id="@+id/button_send_authentication_number"
@@ -65,6 +121,25 @@
             android:textColor="@drawable/selector_color_8c8c8c_to_white"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:visibility="@{vm.uiState.isVisible == true ? View.GONE : View.VISIBLE}"
+            app:onThrottleClick="@{()->vm.onClickSendButton()}"
+            android:enabled="@{vm.uiState.isSendButtonEnable}"
+            android:background="@drawable/selector_bg_f2f3f4_to5f5ff9"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="48dp"/>
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_marginBottom="27dp"
+            android:text="@string/word_next"
+            android:textColor="@drawable/selector_color_8c8c8c_to_white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="@{vm.uiState.isVisible == true ? View.VISIBLE : View.GONE}"
             app:onThrottleClick="@{()->vm.onClickSendButton()}"
             android:enabled="@{vm.uiState.isNextButtonEnable}"
             android:background="@drawable/selector_bg_f2f3f4_to5f5ff9"

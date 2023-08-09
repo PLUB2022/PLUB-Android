@@ -22,34 +22,78 @@ class GetPhoneViewModel @Inject constructor(
     companion object{
         const val EMPTY_TEXT = ""
         const val CORRECT_NUMBER = 13
+        const val CORRECT_CERTIFICATION_COUNT = 6
     }
 
     private val isNextButtonEnableStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val isSendButtonEnableStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
     private var phoneNumberStateFlow : MutableStateFlow<String> = MutableStateFlow("")
-    private val isEmptyStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(true)
-    private var testStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private var certificationNumberStateFlow : MutableStateFlow<String> = MutableStateFlow("")
+    private val isPhoneNumberEmptyStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(true)
+    private val isCertificationNumberEmptyStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(true)
+    private var isVisibleStateFlow : MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     override val uiState: GetPhonePageState = GetPhonePageState(
         isNextButtonEnable = isNextButtonEnableStateFlow.asStateFlow(),
+        isSendButtonEnable = isSendButtonEnableStateFlow.asStateFlow(),
         phoneNumber = phoneNumberStateFlow,
-        isEmpty = isEmptyStateFlow,
-        test = testStateFlow
+        certificationNumber = certificationNumberStateFlow,
+        isCertificationNumberEmpty = isCertificationNumberEmptyStateFlow.asStateFlow(),
+        isPhoneNumberEmpty = isPhoneNumberEmptyStateFlow.asStateFlow(),
+        isVisible = isVisibleStateFlow.asStateFlow()
     )
 
-    fun onTextChangedAfter(){
+    fun onPhoneNumberTextChangedAfter(){
         updateIsEmptyEditText()
         updateButtonState()
     }
 
+    fun onCertificationTextChangedAfter(){
+        viewModelScope.launch {
+            isCertificationNumberEmptyStateFlow.update { uiState.certificationNumber.value.isEmpty() }
+        }
+        confirmCertification()
+    }
+
+    private fun confirmCertification(){
+        if(uiState.certificationNumber.value.length == CORRECT_CERTIFICATION_COUNT){
+            val request = SmsCertificationRequestVo(
+                phone = getSplitDashPhone(),
+                certificationNum = uiState.certificationNumber.value
+            )
+
+            viewModelScope.launch {
+                postSmsCertificationUseCase(request).collect{
+                    inspectUiState(it, {updateAbleNextButton()})
+                }
+            }
+        }
+        else{
+            updateEnAbleNextButton()
+        }
+    }
+
+    private fun updateAbleNextButton(){
+        viewModelScope.launch {
+            isNextButtonEnableStateFlow.update { true }
+        }
+    }
+
+    private fun updateEnAbleNextButton(){
+        viewModelScope.launch {
+            isNextButtonEnableStateFlow.update { false }
+        }
+    }
+
     private fun updateIsEmptyEditText(){
         viewModelScope.launch {
-            isEmptyStateFlow.update { uiState.phoneNumber.value.isEmpty() }
+            isPhoneNumberEmptyStateFlow.update { uiState.phoneNumber.value.isEmpty() }
         }
     }
 
     private fun updateButtonState(){
         viewModelScope.launch {
-            isNextButtonEnableStateFlow.update { uiState.phoneNumber.value.length == CORRECT_NUMBER}
+            isSendButtonEnableStateFlow.update { uiState.phoneNumber.value.length == CORRECT_NUMBER}
         }
     }
 
@@ -67,6 +111,7 @@ class GetPhoneViewModel @Inject constructor(
         val phoneNum = getSplitDashPhone()
         viewModelScope.launch {
             postSendSmsUseCase(phoneNum).collect()
+            isVisibleStateFlow.update { true }
         }
     }
 
