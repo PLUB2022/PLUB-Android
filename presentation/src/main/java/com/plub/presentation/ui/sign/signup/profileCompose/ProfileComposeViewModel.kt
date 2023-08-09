@@ -1,6 +1,9 @@
 package com.plub.presentation.ui.sign.signup.profileCompose
 
 import android.net.Uri
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import androidx.lifecycle.viewModelScope
 import com.canhub.cropper.CropImageView
 import com.plub.domain.error.NicknameError
@@ -30,6 +33,7 @@ class ProfileComposeViewModel @Inject constructor(
 
     init {
         onTextChangedAfter()
+        onIntroChangedAfter()
     }
 
     fun onInitProfileComposeVo(profileComposeVo: ProfileComposeVo) {
@@ -46,6 +50,27 @@ class ProfileComposeViewModel @Inject constructor(
     fun onTextChangedAfter() {
         val nickname: String = uiState.value.profileComposeVo.nickname
         fetchNicknameCheck(nickname)
+    }
+
+    fun onIntroChangedAfter() {
+        val introduce: String = uiState.value.profileComposeVo.introduce
+        updateIntroduceState(introduce)
+    }
+
+    private fun updateIntroduceState(introduce:String) {
+        updateUiState { uiState ->
+            uiState.copy(
+                introduceCount = getIntroduceCountSpannableString(introduce.length.toString())
+            )
+        }
+    }
+
+    private fun getIntroduceCountSpannableString(introduceLength: String): SpannableString {
+        val introduceCountString = resourceProvider.getString(R.string.sign_up_more_info_introduce_count,introduceLength)
+        val introduceCountColor = resourceProvider.getColor(R.color.color_363636)
+        return SpannableString(introduceCountString).apply {
+            setSpan(ForegroundColorSpan(introduceCountColor),0,introduceLength.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
     }
 
     fun fetchNicknameCheck(nickname: String) {

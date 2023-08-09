@@ -5,5 +5,6 @@ import java.io.File
 
 data class ProfileComposeVo(
     val profileFile: File? = null,
-    var nickname:String = ""
+    var nickname:String = "",
+    var introduce:String = ""
 ):SignUpPageVo

@@ -127,7 +127,7 @@
                         android:layout_marginEnd="5dp"
                         app:onThrottleClick="@{() -> vm.onClickNicknameDeleteButton()}"
                         android:padding="6dp"
-                        android:src="@drawable/ic_delete_box_c4c4c4"
+                        android:src="@drawable/ic_cancel_circle_c4c4c4"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -150,6 +150,52 @@
                     android:textSize="12sp"
                     app:layout_constraintStart_toEndOf="@+id/image_view_nickname_description"
                     app:layout_constraintTop_toBottomOf="@+id/constraint_layout_nickname" />
+
+                <TextView
+                    android:id="@+id/text_view_introduce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="62dp"
+                    android:text="@string/word_introduce"
+                    android:textColor="@color/color_363636"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraint_layout_nickname" />
+
+                <EditText
+                    android:id="@+id/edit_text_introduce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:afterTextChanged="@{() -> vm.onIntroChangedAfter()}"
+                    android:background="@drawable/bg_rectangle_empty_c4c4c4_radius_8"
+                    android:hint="@string/sign_up_more_info_introduce_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:maxLength="150"
+                    android:minHeight="46dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="11dp"
+                    android:text="@={vm.uiState.profileComposeVo.introduce}"
+                    android:textColor="@color/color_363636"
+                    android:textColorHint="@color/color_8c8c8c"
+                    android:textSize="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_introduce" />
+
+                <TextView
+                    android:id="@+id/text_view_introduce_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@{vm.uiState.introduceCount}"
+                    android:textColor="@color/color_8c8c8c"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_text_introduce"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_text_introduce"
+                    tools:text="0/150" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 

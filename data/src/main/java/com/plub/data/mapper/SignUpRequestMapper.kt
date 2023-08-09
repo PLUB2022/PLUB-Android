@@ -19,7 +19,7 @@ object SignUpRequestMapper: Mapper.RequestMapper<SignUpRequest, SignUpRequestVo>
                 profileImage = profileUrl,
                 birthday = DateFormatUtil.getSignUpBirthday(birthday),
                 gender = gender.value,
-                introduce = moreInfoVo.introduce,
+                introduce = profileComposeVo.introduce,
                 nickname = profileComposeVo.nickname,
                 marketPolicy = termsPageVo.marketing,
                 personalPolicy = termsPageVo.collect,

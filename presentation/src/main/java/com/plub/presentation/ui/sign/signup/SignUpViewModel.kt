@@ -73,12 +73,6 @@ class SignUpViewModel @Inject constructor(
                 }
             }
 
-            is MoreInfoVo -> {
-                updateUiState {
-                    it.copy(moreInfoVo = pageVo)
-                }
-            }
-
             is SignUpHobbiesVo -> {
                 updateUiState {
                     it.copy(hobbyInfoVo = pageVo)

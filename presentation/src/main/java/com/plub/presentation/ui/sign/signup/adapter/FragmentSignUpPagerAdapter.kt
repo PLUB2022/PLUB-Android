@@ -5,7 +5,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.plub.domain.model.enums.SignUpPageType
 import com.plub.presentation.ui.sign.hobbies.HobbiesFragment
 import com.plub.presentation.ui.sign.signup.authentication.GetPhoneFragment
-import com.plub.presentation.ui.sign.signup.moreInfo.MoreInfoFragment
 import com.plub.presentation.ui.sign.signup.personalInfo.PersonalInfoFragment
 import com.plub.presentation.ui.sign.signup.profileCompose.ProfileComposeFragment
 import com.plub.presentation.ui.sign.signup.terms.TermsFragment
@@ -19,10 +18,9 @@ class FragmentSignUpPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             SignUpPageType.TERMS.idx -> TermsFragment()
-            SignUpPageType.AUTHENTICATION.idx -> GetPhoneFragment()
+            SignUpPageType.AUTHENTICATION.idx -> ProfileComposeFragment()
             SignUpPageType.PERSONAL_INFO.idx -> PersonalInfoFragment()
             SignUpPageType.PROFILE.idx -> ProfileComposeFragment()
-            SignUpPageType.MORE_INFO.idx -> MoreInfoFragment()
             SignUpPageType.HOBBY.idx -> HobbiesFragment()
             else -> throw IllegalAccessException()
         }

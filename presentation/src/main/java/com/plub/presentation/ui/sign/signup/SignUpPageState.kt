@@ -13,7 +13,6 @@ data class SignUpPageState(
     val termsPageVo: TermsPageVo = TermsPageVo(),
     val personalInfoVo: PersonalInfoVo = PersonalInfoVo(),
     val profileComposeVo: ProfileComposeVo = ProfileComposeVo(),
-    val moreInfoVo: MoreInfoVo = MoreInfoVo(),
     val hobbyInfoVo: SignUpHobbiesVo = SignUpHobbiesVo()
 ) : PageState {
     fun getSignUpRequestVo(signToken:String, fcmToken: String, profileUrl:String):SignUpRequestVo {
@@ -24,7 +23,6 @@ data class SignUpPageState(
             termsPageVo,
             personalInfoVo,
             profileComposeVo,
-            moreInfoVo,
             hobbyInfoVo
         )
     }
