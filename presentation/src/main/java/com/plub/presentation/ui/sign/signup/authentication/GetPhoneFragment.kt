@@ -23,11 +23,13 @@ class GetPhoneFragment : BaseTestFragment<FragmentGetPhoneBinding, GetPhonePageS
 ) {
 
     companion object{
+        const val REMAINING_TIME = 300000L // 5분
         const val REDUCE_TIME = 1000L //1초
     }
+
     override val viewModel: GetPhoneViewModel by viewModels()
     private val parentViewModel: SignUpViewModel by viewModels({requireParentFragment()})
-    private var remainingTimeInMillis = 300000L
+    private var remainingTimeInMillis = REMAINING_TIME
     private var countDownTimer: CountDownTimer? = null
 
     override fun initView() {
@@ -96,6 +98,7 @@ class GetPhoneFragment : BaseTestFragment<FragmentGetPhoneBinding, GetPhonePageS
     }
 
     private fun startTimer() {
+        remainingTimeInMillis = REMAINING_TIME
         countDownTimer = object : CountDownTimer(remainingTimeInMillis, REDUCE_TIME) {
             override fun onTick(millisUntilFinished: Long) {
                 remainingTimeInMillis = millisUntilFinished

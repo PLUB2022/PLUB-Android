@@ -117,7 +117,7 @@
         <TextView
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/button_send_authentication_number"
+            app:layout_constraintBottom_toTopOf="@id/button_next"
             android:layout_marginBottom="30dp"
             android:text="@string/text_didnt_get_certification"
             android:visibility="@{vm.uiState.isVisible == true ? View.VISIBLE : View.GONE}"
