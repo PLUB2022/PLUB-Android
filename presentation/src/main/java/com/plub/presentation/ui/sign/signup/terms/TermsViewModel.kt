@@ -97,7 +97,7 @@ class TermsViewModel @Inject constructor(
         return newMap.mapValues {
             it.value.copy(
                 title = getTermsTitleString(it.key),
-                url = getTermsUrl(it.key)
+                policy = getTermsPolicy(it.key)
             )
         }
     }
@@ -114,8 +114,16 @@ class TermsViewModel @Inject constructor(
         return resourceProvider.getString(titleRes)
     }
 
-    private fun getTermsUrl(type: TermsType): String {
-        return "http://plub.co.kr/policy"
+    private fun getTermsPolicy(type: TermsType): String {
+        val policyRes = when (type) {
+            TermsType.PRIVACY -> R.string.sign_up_terms_privacy_title
+            TermsType.LOCATION -> R.string.sign_up_terms_location_title
+            TermsType.AGE -> R.string.sign_up_terms_age_title
+            TermsType.COLLECT -> R.string.sign_up_terms_collect_title
+            TermsType.MARKETING -> R.string.sign_up_terms_marketing_title
+            else -> R.string.sign_up_terms_privacy_title
+        }
+        return resourceProvider.getString(policyRes)
     }
 
     private fun isNextButtonEnable(map: Map<TermsType, TermsAgreementItemVo>):Boolean {

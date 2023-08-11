@@ -15,11 +15,6 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
     FragmentTermsBinding::inflate
 ) {
 
-    companion object {
-        private const val VALUE_WEB_VIEW_TEXT_ZOOM = 100
-        private const val VALUE_WEB_VIEW_DEFAULT_FONT_SIZE = 12
-    }
-
     override val viewModel: TermsViewModel by viewModels()
     private val parentViewModel: SignUpViewModel by viewModels({requireParentFragment()})
 
@@ -62,16 +57,9 @@ class TermsFragment : BaseFragment<FragmentTermsBinding, TermsPageState, TermsVi
 
     private fun initWebViewSetting() {
         normalTerms.forEach {
-            it.webViewTerms.apply {
+            it.textViewTerms.apply {
                 setBackgroundColor(Color.TRANSPARENT)
                 isVerticalScrollBarEnabled = true
-                webViewClient = WebViewClient()
-                settings.apply {
-                    setSupportZoom(false)
-                    textZoom = VALUE_WEB_VIEW_TEXT_ZOOM
-                    defaultFontSize = VALUE_WEB_VIEW_DEFAULT_FONT_SIZE
-                    builtInZoomControls = false
-                }
             }
         }
     }
