@@ -31,7 +31,7 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     val resourceProvider: ResourceProvider,
     val datsStoreUtil: DataStoreUtil,
-    val postSignUpUseCase: PostSignUpUseCase, //TODO 에러처리
+    val postSignUpUseCase: PostSignUpUseCase,
     val postUploadFileUseCase: PostUploadFileUseCase, //TODO 에러처리
     val savePlubAccessTokenAndRefreshTokenUseCase: SavePlubAccessTokenAndRefreshTokenUseCase,
     val fetchMyInfoUseCase: FetchMyInfoUseCase //TODO 에러처리
@@ -155,7 +155,6 @@ class SignUpViewModel @Inject constructor(
         isNetworkCall = false
         when (signUpError) {
             is SignUpError.DuplicatedEmail -> signUpErrorDialog("중복이메일")
-            is SignUpError.DuplicatedNickname -> signUpErrorDialog("중복닉네임")
             is SignUpError.NotFoundCategory -> signUpErrorDialog("카테고리 못찾음")
             else -> Unit
         }

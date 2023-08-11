@@ -133,7 +133,9 @@ class GetPhoneViewModel @Inject constructor(
         val phoneNum = getSplitDashPhone()
         viewModelScope.launch {
             postSendSmsUseCase(phoneNum).collect{
-                inspectUiState(it, { emitEventFlow(GetPhoneEvent.TimerStart)} )
+                inspectUiState(it, { emitEventFlow(GetPhoneEvent.TimerStart)}, {_, individual ->
+                    handleAccountError(individual as AccountError)
+                })
             }
             isVisibleStateFlow.update { true }
         }

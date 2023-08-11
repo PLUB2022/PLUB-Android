@@ -12,7 +12,7 @@
     <!-- DataBinding -->
     <string name="int_to_string">%d</string>
 
-    <string name="app_name">presentation</string>
+    <string name="app_name">PLUB</string>
     <string name="web_google_client_id">746494448016-j25cuo21ut0ofgbba9h4n6b63502uimi.apps.googleusercontent.com</string>
     <string name="kakao_redirect_url_key">kakao5c988e60cc77ac9ad664f1f37293ee2d</string>
     <string name="plub_emil">plub2023@gmail.com</string>
@@ -476,7 +476,7 @@
     <string name="error_fail_social_login">소셜 로그인에 실패했습니다. 다시 시도해주세요.</string>
     <string name="error_stopped_account_title">영구 정지된 회원</string>
     <string name="error_stopped_account_description">사용자 신고 누적으로 앱 이용이 영구적으로 정지되었어요. 재가입 및 앱 이용이 제한됩니다.</string>
-    
+
     <string name="error_wrong_certification_number">잘못된 인증번호 입니다.</string>
     <string name="error_time_out_certification">인증번호가 만료되었습니다.</string>
     <string name="error_duplicated_phone">이미 가입된 번호입니다.</string>
