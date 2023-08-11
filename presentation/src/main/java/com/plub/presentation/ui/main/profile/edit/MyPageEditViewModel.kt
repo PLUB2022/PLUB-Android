@@ -292,6 +292,7 @@ class MyPageEditViewModel @Inject constructor(
             is AccountError.RoleAccess -> TODO()
             is AccountError.SelfReport -> TODO()
             is AccountError.SuspendedAccount -> TODO()
+            else -> {}
         }
     }
 

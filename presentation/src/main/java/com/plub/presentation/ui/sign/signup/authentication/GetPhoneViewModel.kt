@@ -1,15 +1,15 @@
 package com.plub.presentation.ui.sign.signup.authentication
 
 import androidx.lifecycle.viewModelScope
+import com.plub.domain.error.AccountError
 import com.plub.domain.model.vo.account.SmsCertificationRequestVo
 import com.plub.domain.usecase.PostSendSmsUseCase
 import com.plub.domain.usecase.PostSmsCertificationUseCase
+import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestViewModel
-import com.plub.presentation.ui.sign.signup.personalInfo.PersonalInfoEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -65,7 +65,9 @@ class GetPhoneViewModel @Inject constructor(
 
             viewModelScope.launch {
                 postSmsCertificationUseCase(request).collect{
-                    inspectUiState(it, {handleSuccessCertification()})
+                    inspectUiState(it, {handleSuccessCertification()}, {_, individual ->
+                        handleAccountError(individual as AccountError)
+                    })
                 }
             }
         }
@@ -78,6 +80,19 @@ class GetPhoneViewModel @Inject constructor(
     private fun handleSuccessCertification(){
         updateAbleNextButton()
         emitEventFlow(GetPhoneEvent.CertificationSuccess)
+    }
+
+    private fun handleAccountError(error: AccountError){
+        when(error){
+            is AccountError.DuplicatedPhone -> emitError(R.string.error_duplicated_phone)
+            is AccountError.TimeOver -> emitError(R.string.error_time_out_certification)
+            is AccountError.WrongCertificationNumber -> emitError(R.string.error_wrong_certification_number)
+            else -> {}
+        }
+    }
+
+    private fun emitError(msg : Int){
+        emitEventFlow(GetPhoneEvent.ShowErrorToast(msg))
     }
 
     private fun updateAbleNextButton(){

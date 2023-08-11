@@ -8,4 +8,5 @@ sealed class GetPhoneEvent : Event {
     object EditTextNorMalColor : GetPhoneEvent()
     object MoveToNext : GetPhoneEvent()
     object TimerStart : GetPhoneEvent()
+    data class ShowErrorToast(val msg : Int) : GetPhoneEvent()
 }

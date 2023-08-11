@@ -12,7 +12,7 @@ import com.plub.presentation.databinding.LayoutToastBinding
 object PlubToast {
 
 
-    fun createToast(type : ToastType, context: Context, message: String, length : Int = Toast.LENGTH_LONG): Toast {
+    fun createToast(type : ToastType, context: Context, message: String, length : Int = Toast.LENGTH_SHORT): Toast {
         val inflater = LayoutInflater.from(context)
         val binding: LayoutToastBinding =
             DataBindingUtil.inflate(inflater, R.layout.layout_toast, null, false)
@@ -29,7 +29,7 @@ object PlubToast {
         }
     }
 
-    fun createToast(type : ToastType, context: Context, message: Int, length : Int = Toast.LENGTH_LONG): Toast {
+    fun createToast(type : ToastType, context: Context, message: Int, length : Int = Toast.LENGTH_SHORT): Toast {
         val inflater = LayoutInflater.from(context)
         val binding: LayoutToastBinding =
             DataBindingUtil.inflate(inflater, R.layout.layout_toast, null, false)

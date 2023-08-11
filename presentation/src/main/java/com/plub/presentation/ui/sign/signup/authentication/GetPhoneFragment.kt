@@ -5,13 +5,11 @@ import android.telephony.PhoneNumberFormattingTextWatcher
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.enums.SignUpPageType
 import com.plub.domain.model.enums.ToastType
-import com.plub.domain.model.vo.signUp.SignUpPageVo
 import com.plub.presentation.R
 import com.plub.presentation.base.BaseTestFragment
 import com.plub.presentation.databinding.FragmentGetPhoneBinding
 import com.plub.presentation.ui.sign.signup.SignUpViewModel
 import com.plub.presentation.ui.sign.signup.authentication.bottomSheet.AgainAskNumberBottomSheet
-import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.PlubToast
 import com.plub.presentation.util.TimeFormatter
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,6 +65,9 @@ class GetPhoneFragment : BaseTestFragment<FragmentGetPhoneBinding, GetPhonePageS
             is GetPhoneEvent.TimerStart -> {
                 startTimer()
             }
+            is GetPhoneEvent.ShowErrorToast -> {
+                showErrorToast(event.msg)
+            }
         }
     }
 
@@ -92,8 +93,13 @@ class GetPhoneFragment : BaseTestFragment<FragmentGetPhoneBinding, GetPhonePageS
 
     private fun showSuccessToast(){
         context?.let {
-            PlubToast.createToast(ToastType.COMPLETE,
-                it, R.string.text_success_authentication).show()
+            PlubToast.createToast(ToastType.COMPLETE, it, R.string.text_success_authentication).show()
+        }
+    }
+
+    private fun showErrorToast(msg : Int){
+        context?.let {
+            PlubToast.createToast(ToastType.ERROR, it, msg).show()
         }
     }
 

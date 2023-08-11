@@ -13,6 +13,9 @@ sealed class AccountError : IndividualError() {
         private const val SUSPENDED_ACCOUNT = 2070
         private const val NICKNAME_CHANGE_LIMIT = 2080
         private const val ALREADY_INACTIVE_ACCOUNT = 2090
+        private const val WRONG_CERTIFICATION_NUMBER = 2100
+        private const val TIME_OVER = 2110
+        private const val DUPLICATED_PHONE = 2120
 
         fun make(statusCode: Int): AccountError {
             return when (statusCode) {
@@ -26,6 +29,9 @@ sealed class AccountError : IndividualError() {
                 SUSPENDED_ACCOUNT -> SuspendedAccount("정지된 계정")
                 NICKNAME_CHANGE_LIMIT -> NicknameChangeLimit("닉네임 변경 횟수 제한")
                 ALREADY_INACTIVE_ACCOUNT -> AlreadyInactiveAccount("이미 비활성화 된 계정")
+                WRONG_CERTIFICATION_NUMBER -> WrongCertificationNumber("잘못된 인증번호")
+                TIME_OVER -> TimeOver("인증 번호 만료")
+                DUPLICATED_PHONE -> DuplicatedPhone("중복된 휴대전화 번호")
                 else -> Common
             }
         }
@@ -41,5 +47,8 @@ sealed class AccountError : IndividualError() {
     data class SuspendedAccount(val msg: String) : AccountError()
     data class NicknameChangeLimit(val msg: String) : AccountError()
     data class AlreadyInactiveAccount(val msg: String) : AccountError()
+    data class WrongCertificationNumber(val msg: String) : AccountError()
+    data class TimeOver(val msg: String) : AccountError()
+    data class DuplicatedPhone(val msg: String) : AccountError()
     object Common : AccountError()
 }
