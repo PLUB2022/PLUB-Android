@@ -4,5 +4,8 @@ import com.plub.presentation.ui.Event
 
 sealed class GetPhoneEvent : Event {
     object ShowBottomSheet : GetPhoneEvent()
-    object ShowSuccessToast : GetPhoneEvent()
+    object CertificationSuccess : GetPhoneEvent()
+    object EditTextNorMalColor : GetPhoneEvent()
+    object MoveToNext : GetPhoneEvent()
+    object TimerStart : GetPhoneEvent()
 }

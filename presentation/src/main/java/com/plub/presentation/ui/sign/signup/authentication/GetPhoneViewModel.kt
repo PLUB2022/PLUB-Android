@@ -5,6 +5,7 @@ import com.plub.domain.model.vo.account.SmsCertificationRequestVo
 import com.plub.domain.usecase.PostSendSmsUseCase
 import com.plub.domain.usecase.PostSmsCertificationUseCase
 import com.plub.presentation.base.BaseTestViewModel
+import com.plub.presentation.ui.sign.signup.personalInfo.PersonalInfoEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -64,13 +65,19 @@ class GetPhoneViewModel @Inject constructor(
 
             viewModelScope.launch {
                 postSmsCertificationUseCase(request).collect{
-                    inspectUiState(it, {updateAbleNextButton()})
+                    inspectUiState(it, {handleSuccessCertification()})
                 }
             }
         }
         else{
             updateEnAbleNextButton()
+            emitEventFlow(GetPhoneEvent.EditTextNorMalColor)
         }
+    }
+
+    private fun handleSuccessCertification(){
+        updateAbleNextButton()
+        emitEventFlow(GetPhoneEvent.CertificationSuccess)
     }
 
     private fun updateAbleNextButton(){
@@ -110,9 +117,15 @@ class GetPhoneViewModel @Inject constructor(
     fun onClickSendAgainButton(){
         val phoneNum = getSplitDashPhone()
         viewModelScope.launch {
-            postSendSmsUseCase(phoneNum).collect()
+            postSendSmsUseCase(phoneNum).collect{
+                inspectUiState(it, { emitEventFlow(GetPhoneEvent.TimerStart)} )
+            }
             isVisibleStateFlow.update { true }
         }
+    }
+
+    fun onClickNextButton() {
+        emitEventFlow(GetPhoneEvent.MoveToNext)
     }
 
     private fun getSplitDashPhone() : String {

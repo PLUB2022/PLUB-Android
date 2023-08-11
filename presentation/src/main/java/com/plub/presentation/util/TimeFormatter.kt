@@ -4,6 +4,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneOffset
+import java.util.*
 
 object TimeFormatter {
     private const val SPLIT_OF_TIME = ":"
@@ -120,5 +121,12 @@ object TimeFormatter {
 
     fun getCurrentEpochMilli(): Long {
         return LocalDate.now().atTime(LocalTime.now()).atZone(ZoneOffset.UTC).toInstant().toEpochMilli()
+    }
+
+    fun convertToMMDotSSFormat(timeMillis : Long): String {
+        val minutes = (timeMillis / 1000).toInt() / 60
+        val seconds = (timeMillis / 1000).toInt() % 60
+
+        return java.lang.String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
     }
 }

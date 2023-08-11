@@ -11,7 +11,6 @@ import com.plub.presentation.databinding.LayoutToastBinding
 
 object PlubToast {
 
-    const val MARGIN_BOTTOM = 16
 
     fun createToast(type : ToastType, context: Context, message: String, length : Int = Toast.LENGTH_LONG): Toast {
         val inflater = LayoutInflater.from(context)
@@ -25,7 +24,6 @@ object PlubToast {
         binding.textViewMessage.text = message
 
         return Toast(context).apply {
-            setGravity(Gravity.BOTTOM or Gravity.CENTER, 0, MARGIN_BOTTOM.px)
             duration = length
             view = binding.root
         }
@@ -43,7 +41,6 @@ object PlubToast {
         binding.textViewMessage.setText(message)
 
         return Toast(context).apply {
-            setGravity(Gravity.BOTTOM or Gravity.CENTER, 0, MARGIN_BOTTOM.px)
             duration = length
             view = binding.root
         }

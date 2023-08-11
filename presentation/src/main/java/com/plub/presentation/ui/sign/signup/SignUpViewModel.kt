@@ -53,6 +53,14 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
+    fun onMoveToNextPage(pageType: SignUpPageType) {
+        val currentPage = pageType.idx
+        val nextPage = currentPage + 1
+        if (isLastPage(currentPage)) signUpProcess() else {
+            moveToPage(nextPage)
+        }
+    }
+
     private fun updatePageVo(pageVo: SignUpPageVo) {
         when (pageVo) {
             is TermsPageVo -> {
