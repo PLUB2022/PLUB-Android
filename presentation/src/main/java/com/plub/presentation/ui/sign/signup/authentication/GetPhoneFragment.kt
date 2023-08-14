@@ -60,6 +60,7 @@ class GetPhoneFragment : BaseTestFragment<FragmentGetPhoneBinding, GetPhonePageS
                 updateCertificationNormalBackgroundColor()
             }
             is GetPhoneEvent.MoveToNext -> {
+                countDownTimer!!.cancel()
                 parentViewModel.onMoveToNextPage(SignUpPageType.AUTHENTICATION)
             }
             is GetPhoneEvent.TimerStart -> {
