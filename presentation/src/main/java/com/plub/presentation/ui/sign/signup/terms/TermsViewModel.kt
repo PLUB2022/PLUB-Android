@@ -116,12 +116,12 @@ class TermsViewModel @Inject constructor(
 
     private fun getTermsPolicy(type: TermsType): String {
         val policyRes = when (type) {
-            TermsType.PRIVACY -> R.string.sign_up_terms_privacy_title
-            TermsType.LOCATION -> R.string.sign_up_terms_location_title
-            TermsType.AGE -> R.string.sign_up_terms_age_title
-            TermsType.COLLECT -> R.string.sign_up_terms_collect_title
-            TermsType.MARKETING -> R.string.sign_up_terms_marketing_title
-            else -> R.string.sign_up_terms_privacy_title
+            TermsType.PRIVACY -> R.string.terms_privacy
+            TermsType.LOCATION -> R.string.terms_location
+            TermsType.AGE -> R.string.terms_age
+            TermsType.COLLECT -> R.string.terms_collect
+            TermsType.MARKETING -> R.string.terms_marketing
+            else -> R.string.terms_privacy
         }
         return resourceProvider.getString(policyRes)
     }

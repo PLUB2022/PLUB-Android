@@ -77,11 +77,22 @@
             app:layout_constraintTop_toBottomOf="@+id/constraint_layout_top"
             tools:visibility="visible">
 
-            <TextView
-                android:id="@+id/text_view_terms"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@{vo.policy}" />
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/text_view_terms"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@{vo.policy}" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
 
         </LinearLayout>
 
