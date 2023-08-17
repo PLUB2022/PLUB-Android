@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.sign.onboarding.adapter
+package com.plub.presentation.ui.onboarding.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

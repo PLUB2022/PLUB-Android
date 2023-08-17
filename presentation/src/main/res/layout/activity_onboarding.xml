@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.plub.presentation.ui.sign.onboarding.OnboardingViewModel" />
+            type="com.plub.presentation.ui.onboarding.OnboardingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.sign.onboarding
+package com.plub.presentation.ui.onboarding
 
 import com.plub.domain.model.vo.onboarding.OnboardingItemVo
 import com.plub.presentation.ui.PageState

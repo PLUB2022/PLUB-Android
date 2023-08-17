@@ -1,18 +1,18 @@
-package com.plub.presentation.ui.sign.onboarding
+package com.plub.presentation.ui.onboarding
 
+import android.content.Intent
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.plub.presentation.base.BaseFragment
-import com.plub.presentation.databinding.FragmentOnboardingBinding
-import com.plub.presentation.ui.sign.onboarding.adapter.OnboardingViewPagerAdapter
+import androidx.activity.viewModels
+import com.plub.presentation.base.BaseActivity
+import com.plub.presentation.databinding.ActivityOnboardingBinding
+import com.plub.presentation.ui.sign.SignActivity
+import com.plub.presentation.ui.onboarding.adapter.OnboardingViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPageState, OnboardingViewModel>(
-    FragmentOnboardingBinding::inflate
-) {
+class OnboardingActivity : BaseActivity<ActivityOnboardingBinding, OnboardingPageState, OnboardingViewModel>(
+    ActivityOnboardingBinding::inflate) {
 
     override val viewModel: OnboardingViewModel by viewModels()
     private val pagerAdapter = OnboardingViewPagerAdapter()
@@ -33,14 +33,14 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
             }
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(this, backPressedDispatcher)
+        onBackPressedDispatcher.addCallback(this, backPressedDispatcher)
         viewModel.fetchOnboardingData()
     }
 
-    override fun initStates() {
-        super.initStates()
+    override fun initState() {
+        super.initState()
 
-        repeatOnStarted(viewLifecycleOwner) {
+        repeatOnStarted {
             launch {
                 viewModel.uiState.collect {
                     pagerAdapter.submitList(it.onboardingDataList) {
@@ -60,13 +60,13 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding, OnboardingPag
     private fun inspectEventFlow(event: OnboardingEvent) {
         when(event) {
             is OnboardingEvent.GoToLoginFragment -> goToLogin()
-            is OnboardingEvent.NavigationPopEvent -> requireActivity().finish()
+            is OnboardingEvent.NavigationPopEvent -> finish()
         }
     }
 
     private fun goToLogin() {
-        val action = OnboardingFragmentDirections.actionOnboardingToLogin()
-        findNavController().navigate(action)
+        startActivity(Intent(this, SignActivity::class.java))
+        finish()
     }
 
     private fun movePage(page:Int) {

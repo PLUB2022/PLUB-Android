@@ -4,5 +4,6 @@ import com.plub.presentation.ui.Event
 
 sealed class SplashEvent : Event {
     object GoToMain : SplashEvent()
+    object GoToOnBoarding : SplashEvent()
     object GoToSignUp : SplashEvent()
 }

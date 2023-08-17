@@ -1,4 +1,4 @@
-package com.plub.presentation.ui.sign.onboarding.adapter
+package com.plub.presentation.ui.onboarding.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.plub.domain.model.vo.onboarding.OnboardingItemVo
