@@ -61,7 +61,7 @@ class GetPhoneFragment : BaseTestFragment<FragmentGetPhoneBinding, GetPhonePageS
             }
             is GetPhoneEvent.MoveToNext -> {
                 countDownTimer!!.cancel()
-                parentViewModel.onMoveToNextPage(SignUpPageType.AUTHENTICATION)
+                parentViewModel.onMoveToNextPage(SignUpPageType.AUTHENTICATION, event.phone)
             }
             is GetPhoneEvent.TimerStart -> {
                 startTimer()

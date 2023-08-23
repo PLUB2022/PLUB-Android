@@ -10,6 +10,7 @@ import com.plub.presentation.ui.PageState
 import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.PlubUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

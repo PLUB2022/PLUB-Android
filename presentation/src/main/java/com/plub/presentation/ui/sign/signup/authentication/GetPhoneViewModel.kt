@@ -3,6 +3,7 @@ package com.plub.presentation.ui.sign.signup.authentication
 import androidx.lifecycle.viewModelScope
 import com.plub.domain.error.AccountError
 import com.plub.domain.model.vo.account.SmsCertificationRequestVo
+import com.plub.domain.model.vo.signUp.authentication.PhoneNumberVo
 import com.plub.domain.usecase.PostSendSmsUseCase
 import com.plub.domain.usecase.PostSmsCertificationUseCase
 import com.plub.presentation.R
@@ -142,7 +143,8 @@ class GetPhoneViewModel @Inject constructor(
     }
 
     fun onClickNextButton() {
-        emitEventFlow(GetPhoneEvent.MoveToNext)
+        val phone = PhoneNumberVo(getSplitDashPhone())
+        emitEventFlow(GetPhoneEvent.MoveToNext(phone))
     }
 
     private fun getSplitDashPhone() : String {

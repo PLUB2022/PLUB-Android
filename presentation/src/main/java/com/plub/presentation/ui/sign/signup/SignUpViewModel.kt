@@ -9,6 +9,7 @@ import com.plub.domain.model.vo.jwt.PlubJwtResponseVo
 import com.plub.domain.model.vo.jwt.SavePlubJwtRequestVo
 import com.plub.domain.model.vo.media.UploadFileRequestVo
 import com.plub.domain.model.vo.signUp.SignUpPageVo
+import com.plub.domain.model.vo.signUp.authentication.PhoneNumberVo
 import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.domain.model.vo.signUp.moreInfo.MoreInfoVo
 import com.plub.domain.model.vo.signUp.personalInfo.PersonalInfoVo
@@ -53,19 +54,17 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun onMoveToNextPage(pageType: SignUpPageType) {
-        val currentPage = pageType.idx
-        val nextPage = currentPage + 1
-        if (isLastPage(currentPage)) signUpProcess() else {
-            moveToPage(nextPage)
-        }
-    }
-
     private fun updatePageVo(pageVo: SignUpPageVo) {
         when (pageVo) {
             is TermsPageVo -> {
                 updateUiState {
                     it.copy(termsPageVo = pageVo)
+                }
+            }
+
+            is PhoneNumberVo -> {
+                updateUiState {
+                    it.copy(phoneVo = pageVo)
                 }
             }
 

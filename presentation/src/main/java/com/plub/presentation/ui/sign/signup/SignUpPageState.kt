@@ -1,6 +1,7 @@
 package com.plub.presentation.ui.sign.signup
 
 import com.plub.domain.model.vo.signUp.SignUpRequestVo
+import com.plub.domain.model.vo.signUp.authentication.PhoneNumberVo
 import com.plub.domain.model.vo.signUp.hobbies.SignUpHobbiesVo
 import com.plub.domain.model.vo.signUp.moreInfo.MoreInfoVo
 import com.plub.domain.model.vo.signUp.personalInfo.PersonalInfoVo
@@ -13,7 +14,8 @@ data class SignUpPageState(
     val termsPageVo: TermsPageVo = TermsPageVo(),
     val personalInfoVo: PersonalInfoVo = PersonalInfoVo(),
     val profileComposeVo: ProfileComposeVo = ProfileComposeVo(),
-    val hobbyInfoVo: SignUpHobbiesVo = SignUpHobbiesVo()
+    val hobbyInfoVo: SignUpHobbiesVo = SignUpHobbiesVo(),
+    val phoneVo : PhoneNumberVo = PhoneNumberVo()
 ) : PageState {
     fun getSignUpRequestVo(signToken:String, fcmToken: String, profileUrl:String):SignUpRequestVo {
         return SignUpRequestVo(
@@ -23,7 +25,8 @@ data class SignUpPageState(
             termsPageVo,
             personalInfoVo,
             profileComposeVo,
-            hobbyInfoVo
+            hobbyInfoVo,
+            phoneVo
         )
     }
 }

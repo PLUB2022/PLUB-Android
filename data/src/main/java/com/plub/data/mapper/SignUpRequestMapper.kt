@@ -26,6 +26,7 @@ object SignUpRequestMapper: Mapper.RequestMapper<SignUpRequest, SignUpRequestVo>
                 placePolicy = termsPageVo.location,
                 usePolicy = termsPageVo.privacy,
                 agePolicy = termsPageVo.age,
+                phone = phoneNumberVo.phone
             )
         }
     }

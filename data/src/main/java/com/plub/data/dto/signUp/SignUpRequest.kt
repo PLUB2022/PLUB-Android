@@ -32,4 +32,6 @@ data class SignUpRequest(
     val usePolicy: Boolean,
     @SerializedName("agePolicy")
     val agePolicy: Boolean,
+    @SerializedName("phone")
+    val phone : String,
 ): DataDto
