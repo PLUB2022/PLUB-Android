@@ -21,7 +21,7 @@ class CreateGatheringPreviewFragment : BaseFragment<
             parentVm = parentViewModel
         }
 
-        viewModel.updateMyInfoUrl()
+        viewModel.updateMyInfoUrl(parentViewModel.uiState.value.selectPlubCategoryPageState.categoriesSelectedVo)
     }
 
     override fun onResume() {

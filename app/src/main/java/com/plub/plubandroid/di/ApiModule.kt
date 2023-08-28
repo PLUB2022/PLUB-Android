@@ -17,8 +17,8 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideHobbyApi(@NormalRetrofit retrofit: Retrofit): HobbyApi {
-        return retrofit.create(HobbyApi::class.java)
+    fun provideHobbyApi(@NormalRetrofit retrofit: Retrofit): CategoryApi {
+        return retrofit.create(CategoryApi::class.java)
     }
 
     @Singleton

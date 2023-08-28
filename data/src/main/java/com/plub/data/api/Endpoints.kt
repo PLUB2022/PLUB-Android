@@ -36,6 +36,7 @@ object Endpoints {
         const val GET_ALL_CATEGORIES = "$CATEGORY_URL/all"
         const val GET_PARENT_CATEGORIES = "$CATEGORY_URL"
         const val GET_SUB_CATEGORIES = "$CATEGORY_URL/{categoryId}/sub"
+        const val GET_DEFAULT_CATEGORIES_IMAGES = "$GET_SUB_CATEGORIES/{subCategoryId}/images"
     }
 
     object KAKAO_LOCATION {
