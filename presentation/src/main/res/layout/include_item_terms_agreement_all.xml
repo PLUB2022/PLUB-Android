@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginHorizontal="15dp"
+        app:onThrottleClick="@{() -> vm.onClickTermsChecked(vo.termsType, vo.checked)}"
         android:background="@drawable/bg_rectangle_filled_white_radius_8"
         android:elevation="4dp"
         android:paddingHorizontal="12dp">
@@ -41,7 +42,6 @@
             android:layout_height="32dp"
             android:button="@drawable/selector_check"
             android:checked="@{vo.checked}"
-            app:onThrottleClick="@{() -> vm.onClickTermsChecked(vo.termsType, vo.checked)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

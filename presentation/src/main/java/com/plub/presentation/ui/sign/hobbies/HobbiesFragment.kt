@@ -19,7 +19,7 @@ class HobbiesFragment : BaseFragment<FragmentHobbiesBinding, HobbiesPageState, H
 ) {
 
     companion object {
-        private const val ITEM_VERTICAL_SPACE = 16
+        private const val ITEM_VERTICAL_SPACE = 8
     }
 
     override val viewModel: HobbiesViewModel by viewModels()
@@ -50,6 +50,7 @@ class HobbiesFragment : BaseFragment<FragmentHobbiesBinding, HobbiesPageState, H
 
             recyclerViewHobbies.apply {
                 layoutManager = LinearLayoutManager(context)
+                itemAnimator = null
                 adapter = listAdapter
                 addItemDecoration(VerticalSpaceDecoration(ITEM_VERTICAL_SPACE.px))
             }

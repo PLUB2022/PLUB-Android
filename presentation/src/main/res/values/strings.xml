@@ -466,7 +466,8 @@
 
     <string name="error_image_upload">이미지 업로드 실패</string>
     <string name="comment_authentication">본인확인을 위해 인증을 진행해 주세요.</string>
-    <string name="text_input_phone">전화번호를 입력해주세요</string>화
+    <string name="text_input_phone">-없이 입력해주세요</string>
+    <string name="text_input_certification">인증번호를 입력해주세요</string>
     <string name="text_phone_number">휴대전화 번호</string>
     <string name="text_didnt_get_certification">인증번호를 못받았나요?</string>
     <string name="text_certification_number">인증번호</string>

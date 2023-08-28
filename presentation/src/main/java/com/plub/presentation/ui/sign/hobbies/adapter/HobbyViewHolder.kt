@@ -26,7 +26,7 @@ class HobbyViewHolder(
     private val listAdapter = SubHobbiesAdapter(listener)
 
     init {
-        binding.imageViewExpand.onThrottleClick {
+        binding.constraintLayoutExpand.onThrottleClick {
             vo?.let {
                 listener.onClickExpand(it.id)
             }
