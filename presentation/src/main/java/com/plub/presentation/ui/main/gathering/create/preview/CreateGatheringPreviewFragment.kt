@@ -4,8 +4,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import com.plub.presentation.base.BaseFragment
 import com.plub.presentation.databinding.FragmentCreateGatheringPreviewBinding
+import com.plub.presentation.ui.common.bindingAdapter.setImageFile
+import com.plub.presentation.ui.common.bindingAdapter.setImageUrl
+import com.plub.presentation.ui.main.gathering.create.CreateGatheringEvent
 import com.plub.presentation.ui.main.gathering.create.CreateGatheringViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CreateGatheringPreviewFragment : BaseFragment<
@@ -19,9 +23,11 @@ class CreateGatheringPreviewFragment : BaseFragment<
         binding.apply {
             vm = viewModel
             parentVm = parentViewModel
+
         }
 
-        viewModel.updateMyInfoUrl(parentViewModel.uiState.value.selectPlubCategoryPageState.categoriesSelectedVo)
+        viewModel.updateMyInfoUrl()
+        viewModel.updateDefaultImage(parentViewModel.getSelectedHobby().categoriesSelectedVo)
     }
 
     override fun onResume() {
@@ -34,15 +40,31 @@ class CreateGatheringPreviewFragment : BaseFragment<
         super.initStates()
 
         repeatOnStarted(viewLifecycleOwner) {
-            parentViewModel.eventFlow.collect {
-                if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
+            launch {
+                viewModel.uiState.collect{
+                    imageSetting(it.defaultImage)
+                }
+            }
 
-                when (it) {
-                    is com.plub.presentation.ui.main.gathering.create.CreateGatheringEvent.GoToPrevPage -> {
-                        parentViewModel.goToPrevPageAndEmitChildrenPageState()
+            launch {
+                parentViewModel.eventFlow.collect {
+                    if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@collect
+
+                    when (it) {
+                        is CreateGatheringEvent.GoToPrevPage -> {
+                            parentViewModel.goToPrevPageAndEmitChildrenPageState()
+                        }
                     }
                 }
             }
+        }
+    }
+
+    private fun imageSetting(image : String){
+        val imageFile = parentViewModel.getPlubbingImage().gatheringImage
+        binding.apply {
+            if(imageFile == null) imageViewPlubbingMain.setImageUrl(image)
+            else imageViewPlubbingMain.setImageFile(imageFile)
         }
     }
 }

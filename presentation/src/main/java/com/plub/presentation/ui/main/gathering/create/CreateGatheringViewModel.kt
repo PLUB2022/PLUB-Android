@@ -233,6 +233,16 @@ class CreateGatheringViewModel @Inject constructor(
         }
     }
 
+    fun getSelectedHobby() : CreateGatheringSelectPlubCategoryPageState{
+        return childrenPageStateMap[SELECT_PLUB_CATEGORY.idx] as? CreateGatheringSelectPlubCategoryPageState
+            ?: CreateGatheringSelectPlubCategoryPageState()
+    }
+
+    fun getPlubbingImage() : CreateGatheringGoalAndIntroduceAndPicturePageState{
+        return childrenPageStateMap[GOAL_INTRODUCE_PICTURE.idx] as? CreateGatheringGoalAndIntroduceAndPicturePageState
+            ?: CreateGatheringGoalAndIntroduceAndPicturePageState()
+    }
+
     private fun isFirstPage() = currentPage == 0
     private fun isLastPage() = currentPage == maxPage
 }

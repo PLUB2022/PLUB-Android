@@ -145,13 +145,12 @@
                 android:layout_width="0dp"
                 android:layout_height="246dp"
                 android:layout_marginTop="24dp"
-                app:defaultImage="@{@drawable/iv_default_profile}"
-                app:imageFile="@{parent_vm.uiState.goalAndIntroduceAndPicturePageState.gatheringImage}"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="centerCrop"
+                android:clipToOutline="true"
+                android:background="@drawable/bg_rectangle_filled_c4c4c4_radius_10"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_schedule"
-                app:radiusDp="@{10}"
-                tools:background="@color/black" />
+                app:layout_constraintTop_toBottomOf="@id/text_view_schedule" />
 
             <TextView
                 android:id="@+id/text_view_our_gathering_is"
