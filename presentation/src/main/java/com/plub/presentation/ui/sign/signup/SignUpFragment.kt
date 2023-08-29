@@ -38,6 +38,10 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpPageState, Sign
             imageViewBack.onThrottleClick { viewModel.onBackPressed(viewPager.currentItem) }
         }
 
+        //TODO 제거
+        val action = SignUpFragmentDirections.actionSignUpToWelcome()
+        findNavController().navigate(action)
+
         requireActivity().onBackPressedDispatcher.addCallback(this, backPressedDispatcher)
     }
 
