@@ -44,7 +44,7 @@
         <Button
             android:id="@+id/button_plub_start"
             android:layout_width="0dp"
-            android:layout_height="46dp"
+            android:layout_height="48dp"
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/bg_rectangle_filled_5f5ff9_radius_10"
             app:onThrottleClick="@{() -> vm.onClickPlubStartButton()}"
