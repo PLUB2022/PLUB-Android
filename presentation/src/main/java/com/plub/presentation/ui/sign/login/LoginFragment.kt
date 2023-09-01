@@ -54,6 +54,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginPageState, LoginVi
                 findNavController().navigate(action)
             }
 
+            //TODO 제거
             textViewTerms.apply {
                 movementMethod = LinkMovementMethod.getInstance()
                 highlightColor = Color.TRANSPARENT

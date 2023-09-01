@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.sign.signup.personalInfo
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import androidx.fragment.app.viewModels
 import com.plub.domain.model.enums.SignUpPageType
@@ -56,7 +57,7 @@ class PersonalInfoFragment : BaseFragment<FragmentPersonalInfoBinding, PersonalI
     }
 
     private fun showDialogDatePicker(calendar: Calendar) {
-        val datePickerDialog = DatePickerDialog(requireContext(),R.style.PlubDatePickerStyle,
+        val datePickerDialog = DatePickerDialog(requireContext(),AlertDialog.THEME_HOLO_LIGHT,
             { datePicker, y, m, d ->
                 viewModel.onClickOkDatePickerDialog(y,m,d)
             },
