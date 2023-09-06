@@ -62,7 +62,7 @@ class PlubingTodoViewModel @Inject constructor(
     }
 
     fun onGetTodoList() {
-        if(todoListStateFlow.value.isNotEmpty()) return
+        // if(todoListStateFlow.value.isNotEmpty()) return
         isNetworkCall = true
         isLastPage = false
         cursorId = FIRST_CURSOR

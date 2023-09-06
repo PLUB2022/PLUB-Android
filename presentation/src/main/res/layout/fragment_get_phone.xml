@@ -55,9 +55,9 @@
             android:textAppearance="@style/title2"
             android:text="@={vm.uiState.phoneNumber}"
             android:paddingStart="12dp"
-            android:paddingVertical="8dp"
+            android:paddingVertical="12dp"
             android:layout_width="0dp"
-            android:layout_height="46dp"/>
+            android:layout_height="48dp"/>
 
         <ImageView
             android:id="@+id/image_view_cancel"
@@ -100,9 +100,9 @@
             android:afterTextChanged="@{() -> vm.onCertificationTextChangedAfter()}"
             android:text="@={vm.uiState.certificationNumber}"
             android:paddingStart="12dp"
-            android:paddingVertical="8dp"
+            android:paddingVertical="12dp"
             android:layout_width="0dp"
-            android:layout_height="46dp"/>
+            android:layout_height="48dp"/>
 
         <TextView
             android:id="@+id/text_view_timer"

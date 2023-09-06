@@ -15,6 +15,7 @@ import com.plub.presentation.ui.common.dialog.SelectMenuBottomSheetDialog
 import com.plub.presentation.ui.common.dialog.todo.TodoCheckProofDialog
 import com.plub.presentation.ui.main.plubing.PlubingMainFragmentDirections
 import com.plub.presentation.ui.main.plubing.todo.adapter.PlubingTodoAdapter
+import com.plub.presentation.util.PlubLogger
 import com.plub.presentation.util.infiniteScrolls
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -72,6 +73,11 @@ class PlubingTodoFragment : BaseTestFragment<FragmentPlubingTodoBinding, Plubing
                 infiniteScrolls { viewModel.onScrollChanged() }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.onGetTodoList()
     }
 
     override fun initStates() {

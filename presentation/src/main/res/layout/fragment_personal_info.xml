@@ -106,7 +106,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout_birth"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_height="48dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
             android:background="@{vm.uiState.birthIsActive ? @drawable/bg_rectangle_empty_5f5ff9_radius_8 : @drawable/bg_rectangle_empty_c4c4c4_radius_8}"
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_personal_info_birth_hint"
                 android:lines="1"
-                android:paddingHorizontal="8dp"
+                android:paddingHorizontal="12dp"
                 android:text="@{vm.uiState.birthString}"
                 android:textColor="@color/color_363636"
                 android:textColorHint="@color/color_c4c4c4"
