@@ -1,5 +1,6 @@
 package com.plub.presentation.ui.main.gathering.create.dayAndOnOfflineAndLocation
 
+import android.app.AlertDialog
 import android.app.TimePickerDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -23,6 +24,7 @@ class CreateGatheringDayAndTimeAndOnOfflineAndLocationFragment : BaseFragment<
     private val timePickerDialog: TimePickerDialog by lazy {
         TimePickerDialog(
             requireActivity(),
+            AlertDialog.THEME_HOLO_LIGHT,
             { _, hour, min -> viewModel.setGatheringHourAndMinuteAndFormattedText(hour, min) },
             viewModel.uiState.value.gatheringHour,
             viewModel.uiState.value.gatheringMin,
