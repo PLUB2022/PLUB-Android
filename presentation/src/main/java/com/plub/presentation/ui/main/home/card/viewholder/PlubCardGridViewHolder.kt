@@ -35,7 +35,7 @@ class PlubCardGridViewHolder(
         binding.apply {
             val time = TimeFormatter.getAmPmHourMin(item.time)
             val memberCount = root.context.getString(R.string.plub_recruit_count, item.remainMemberNumber)
-            textViewLocation.text = item.place
+            textViewLocation.text = item.place.ifEmpty { root.context.getString(R.string.word_online) }
             textViewMeetingDate.text = time
             textViewRecruitMemberCount.text = memberCount
             textViewName.text = item.title

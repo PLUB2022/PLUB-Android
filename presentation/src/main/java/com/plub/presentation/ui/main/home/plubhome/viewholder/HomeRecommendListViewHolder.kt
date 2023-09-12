@@ -41,7 +41,7 @@ class HomeRecommendListViewHolder(
             val time = TimeFormatter.getAmPmHourMin(item.time)
             val date = root.context.getString(R.string.word_middle_line, days, time)
             val memberCount = root.context.getString(R.string.plub_recruit_count, item.remainMemberNumber)
-            textViewLocation.text = item.place
+            textViewLocation.text = item.place.ifEmpty { root.context.getString(R.string.word_online) }
             textViewMeetingDate.text = date
             textViewRecruitMemberCount.text = memberCount
             textViewTitle.text = item.title
