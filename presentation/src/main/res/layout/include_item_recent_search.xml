@@ -16,7 +16,7 @@
             android:ellipsize="end"
             android:lines="1"
             android:textColor="@color/color_363636"
-            android:textSize="14sp"
+            android:textAppearance="@style/body2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/image_view_delete_icon"
             app:layout_constraintStart_toStartOf="parent"

@@ -36,14 +36,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout_input"
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="36dp"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
-            android:background="@{vm.uiState.isSearchedTextEmpty() ? @drawable/bg_rectangle_filled_e4e4e4_radius_8 : @drawable/bg_rectangle_filled_white_radius_8}"
+            android:background="@drawable/bg_rectangle_filled_white_radius_8"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_back"
             app:layout_constraintStart_toEndOf="@+id/image_view_back"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@id/image_view_back">
 
             <EditText
                 android:id="@+id/edit_text_search"
@@ -62,8 +62,7 @@
                 android:text="@={vm.uiState.searchText}"
                 android:textColor="@color/color_363636"
                 android:textColorHint="@color/color_8c8c8c"
-                android:textSize="14dp"
-                android:textStyle="bold"
+                android:textAppearance="@style/body1"
                 app:hintIcon="@{R.drawable.ic_search_hint}"
                 app:layout_constraintEnd_toStartOf="@+id/image_view_delete_icon"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -73,7 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:onThrottleClick="@{() -> vm.onClickDeleteSearch()}"
-                android:src="@drawable/ic_delete_c4c4c4"
+                android:src="@drawable/ic_cancel_circle_c4c4c4"
                 android:visibility="@{vm.uiState.isSearchedTextEmpty() ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
@@ -148,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
                     android:textColor="@color/color_5f5ff9"
-                    android:textSize="12dp"
+                    android:textAppearance="@style/body1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/image_view_arrow"
                     app:layout_constraintHorizontal_chainStyle="packed"
@@ -216,8 +215,7 @@
                 android:layout_marginTop="11dp"
                 android:text="@string/search_recent_searches"
                 android:textColor="@color/color_8c8c8c"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textAppearance="@style/title2"
                 android:visibility="@{vm.uiState.recentSearchList.isEmpty ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -233,7 +231,7 @@
                 android:paddingVertical="4dp"
                 android:text="@string/search_all_delete"
                 android:textColor="@color/color_8c8c8c"
-                android:textSize="14sp"
+                android:textAppearance="@style/title3"
                 android:visibility="@{vm.uiState.recentSearchList.isEmpty ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
