@@ -26,15 +26,6 @@
     <string name="service_policies">https://plub.notion.site/63cdf80be630466d868df43d56b69e15</string>
     <string name="personal_policies">https://plub.notion.site/83eb3cad087647f6b58fe383d3224af7</string>
     <string name="faq_site">https://plub.notion.site/FAQ-17ae9dfbfb6d4812ab27537c18f709fc</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="fragment_text_category_name_art">예술</string>
-    <string name="fragment_text_category_name_food">음식</string>
-    <string name="fragment_text_category_name_investment">제테크/투자</string>
-    <string name="fragment_text_category_name_language">어학</string>
-    <string name="fragment_text_category_name_culture">문화</string>
-    <string name="fragment_text_category_name_sport">스포츠/피트니스</string>
-    <string name="fragment_text_category_name_employment">취업/창업</string>
-    <string name="fragment_text_category_name_computer">컴퓨터</string>
 
     <string name="appbar_scrolling_view_behavior" translatable="false">
         com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior
@@ -108,8 +99,6 @@
     <string name="onboarding_title_third">친구와 함께</string>
     <string name="onboarding_content_third">주변 친구들과 모임을 만들어\n편하게 관리하고 즐거운 추억을 쌓을 수 있어요</string>
 
-    <string name="login_plub_description">our play club,</string>
-    <string name="login_plub_name">PLUB!</string>
     <string name="login_plub_terms">가입을 진행할 경우, 서비스 약관 및\n개인정보 처리방침에 동의한 것으로 간주합니다.</string>
     <string name="login_kakao_text">카카오톡으로 계속하기</string>
     <string name="login_google_text">Google로 계속하기</string>
@@ -138,7 +127,6 @@
     <string name="create_gathering_goal_and_introduce_and_picture_title">우리 모임은 어떤 모임인가요?</string>
     <string name="create_gathering_goal_and_introduce_and_picture_description">모임에 대해서 자세히 설명해주세요.</string>
     <string name="create_gathering_goal_and_introduce_and_picture_gathering_goal_title">모임 목표</string>
-    <string name="create_gathering_goal_and_introduce_and_picture_gathering_goal_hint">날 좋은날 같이 사진 찍으러 갈 사람~</string>
     <string name="create_gathering_goal_and_introduce_and_picture_gathering_introduce_title">모임 소개글</string>
     <string name="create_gathering_goal_and_introduce_and_picture_gathering_introduce_hint">우리 모임은요...!!</string>
     <string name="create_gathering_goal_and_introduce_and_picture_gathering_picture_title">모임 소개 사진 (선택)</string>
@@ -175,7 +163,6 @@
     <string name="create_gathering_question_need_question_radio">질문 하고 모집하기</string>
     <string name="create_gathering_question_no_question_radio">질문 없이 모집하기</string>
     <string name="create_gathering_question_hint">우리 동네 사진 모임</string>
-    <string name="create_gathering_question_add_question">질문 추가</string>
 
     <string name="create_gathering_preview_people">모집 인원 %s명</string>
     <string name="create_gathering_preview_our_gathering_is">[ %s ] 모임은요…!</string>
@@ -202,8 +189,6 @@
     <string name="sign_up_profile_compose_nickname_duplicated_description">이미 사용중인 닉네임이에요.</string>
     <string name="sign_up_profile_compose_nickname_blank_description">띄어쓰기를 할 수 없어요.</string>
 
-    <string name="sign_up_more_info_title">%s님을 조금 더 알고싶어요!</string>
-    <string name="sign_up_more_info_description">자신을 소개하는 내용을 적어주세요. 취미, 관심사, 가치관, 종사하는 분야, 뭐든 좋아요.</string>
     <string name="sign_up_more_info_introduce_hint">소개하는 내용을 입력해주세요</string>
     <string name="sign_up_more_info_introduce_count">%s/150</string>
 
@@ -212,7 +197,6 @@
     <string name="sign_up_hobbies_late_pick">아직 잘 모르겠어요, 나중에 고를게요</string>
 
     <string name="sign_up_welcome_title">“ 환영합니다! ”</string>
-    <string name="sign_up_welcome_description">%s님이 흥미로워 할 만한 모임을 추천해 드릴게요.</string>
     <string name="sign_up_welcome_start_button">PLUB 시작!</string>
 
     <string name="dialog_menu_camera_image">카메라로 촬영</string>
@@ -252,7 +236,7 @@
     <string name="search_recent_searches">최근 검색어</string>
     <string name="search_all_delete">모두 지우기</string>
     <string name="search_empty_title">제목, 모임 이름, 키워드로 검색해보세요</string>
-    <string name="search_empty_result">에 대한 검색결과가 없어요.</string>
+    <string name="search_empty_result">입력하신 내용에 대해 찾을수 없어요.</string>
     <string name="search_hint"> 검색할 내용을 입력해주세요</string>
     <string name="search_tip">•  단어의 철자가 정확한지 확인해 보세요.\n•  검색어의 단어 수를 줄이거나, 보다 일반적인 검색어로\n    다시 검색해 보세요.</string>
 
@@ -296,9 +280,6 @@
     <string name="profile_todo_title">%s님의 플러빙을 구경해요</string>
 
     <string name="modify_gathering_title">모임 정보 수정</string>
-    <string name="modify_gathering_tab_recruit">모집글</string>
-    <string name="modify_gathering_tab_info">모임 정보</string>
-    <string name="modify_gathering_tab_guest">게스트 질문</string>
     <string name="modify_gathering_pull_up_success">재업로드 완료</string>
 
     <string name="plubing_schedule_title">모임일정</string>
@@ -307,7 +288,6 @@
     <string name="plubing_add_schedule_date_time">날짜/시간</string>
     <string name="plubing_add_schedule_all_day">하루 종일</string>
     <string name="plubing_add_schedule_location">장소를 입력해주세요</string>
-    <string name="plubing_add_schedule_alarm">알림 없음</string>
     <string name="plubing_add_schedule_memo_hint">메모 내용을 입력해주세요</string>
     <string name="plubing_add_schedule_add_schedule">일정 등록</string>
     <string name="plubing_add_schedule_edit_schedule">일정 수정</string>
@@ -327,11 +307,9 @@
     <string name="detail_recruitment_with_us">With_Us!</string>
 
     <string name="main_title">좋아하는 분야에서\n모임을 시작하세요!</string>
-    <string name="main_recommend_gathering">추천 모임</string>
     <string name="main_recommend_no_interests_title">플럽이 추천하는 모임!</string>
     <string name="main_recommend_descrip_no_interests">관심사 등록한 내용을 기반으로 모임을 추천해드려요!</string>
     <string name="main_add_interests">관심사 등록 하기</string>
-    <string name="home_empty_recommend_gathering">아직 같은 관심사의 모집글이 없어요\n직접 모집글을 올려 볼까요?</string>
 
     <string name="interests_register_title">취미모임 관심사 등록</string>
     <string name="interests_register_descrip">PLUB에게 당신의 관심사를 알려주세요. 선택하신 관심사를 기반으로 좋아하실만한 모임을 추천해 드려요!</string>
@@ -345,7 +323,6 @@
     <string name="include_item_question_max_text">/300</string>
     <string name="include_item_question_now_text">0</string>
 
-    <string name="category_choice_popular">인기순</string>
     <string name="category_choice_empty_string">아직 등록된 모집글이 없어요\n 직접 모집글을 올려 볼까요?</string>
     <string name="category_choice_empty_button">모임 만들러 가기</string>
     <string name="category_gathering_filter_sub_category">세부 카테고리</string>
@@ -477,7 +454,6 @@
     <string name="text_send_again_authentication">인증번호 보내기</string>
     <string name="text_authentication_agree">본인 인증 서비스 약관 전 동의</string>
     <string name="text_success_authentication">인증에 성공했어요!</string>
-    <string name="text_error_authentication">인증번호를 확인해주세요</string>
     <string name="text_confirm_authentication">입력하신 아래의 번호로 인증번호를 보낼게요</string>
     <string name="text_wrong_number">번호가 잘못됐어요</string>
 
