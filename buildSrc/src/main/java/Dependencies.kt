@@ -79,6 +79,19 @@ object Libraries {
     const val POWER_MENU = "com.github.skydoves:powermenu:${Versions.POWER_MENU}"
 }
 
+object Compose {
+    const val COMPOSE_UI = "androidx.compose.ui:ui:${Versions.COMPOSE}"
+    const val COMPOSE_MATERIAL = "androidx.compose.material:material:${Versions.COMPOSE}"
+    const val COMPOSE_PREVIEW = "androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE}"
+    const val COMPOSE_ACTIVITY = "androidx.activity:activity-compose:${Versions.ACTIVITY_COMPOSE}"
+    const val COMPOSE_TEST = "androidx.compose.ui:ui-test-junit4:${Versions.COMPOSE}"
+    const val COMPOSE_UI_TOOL = "androidx.compose.ui:ui-tooling:${Versions.COMPOSE}"
+    const val COMPOSE_NAV = "androidx.navigation:navigation-compose:${Versions.NAV}"
+    const val COMPOSE_ANI_NAV = "com.google.accompanist:accompanist-navigation-animation:${Versions.ANI_NAV}"
+    const val COMPOSE_HILT_NAV = "androidx.hilt:hilt-navigation-compose:${Versions.HILT_NAV}"
+    const val COMPOSE_WEBVOEW = "com.google.accompanist:accompanist-webview:0.24.13-rc"
+}
+
 object AndroidTest {
     const val ANDROID_JUNIT = "junit:junit:${Versions.ANDROID_JUNIT}"
     const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:${Versions.ESPRESSO_CORE}"

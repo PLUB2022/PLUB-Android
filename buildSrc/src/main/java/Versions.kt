@@ -53,6 +53,14 @@ object Versions {
 
     const val POWER_MENU = "2.2.2"
 
+    const val COMPOSE_COMPLIER = "1.5.3"
+    const val COMPOSE = "1.2.0-alpha07"
+    const val ACTIVITY_COMPOSE = "1.7.2"
+    const val COMPOSE_WEBVIEW = "0.24.13-rc"
+    const val ANI_NAV = "0.24.5-alpha"
+    const val HILT_NAV = "1.0.0"
+    const val NAV = "2.4.1"
+
     /* [ AndroidTest ] */
     const val ANDROID_JUNIT = "4.13.2"
     const val ANDROID_JUNIT_EXT = "1.1.5"
