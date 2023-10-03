@@ -35,7 +35,13 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.COMPOSE_COMPLIER
+    }
+
     buildFeatures {
+        compose = true
         dataBinding = true
     }
 }
@@ -52,6 +58,13 @@ dependencies {
     implementation(AndroidX.ROOM)
     implementation(AndroidX.ROOM_KTX)
     kapt(AndroidX.ROOM_COMPILER)
+
+    implementation(Compose.COMPOSE_ACTIVITY)
+    implementation(Compose.COMPOSE_MATERIAL)
+    implementation(Compose.COMPOSE_PREVIEW)
+    implementation(Compose.COMPOSE_UI)
+    implementation(Compose.COMPOSE_NAV)
+    implementation(Compose.COMPOSE_ANI_NAV)
 
     implementation(Google.MATERIAL)
     implementation(Google.TINK)
