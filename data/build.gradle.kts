@@ -4,13 +4,15 @@ plugins {
     id("com.android.library")
     id("dagger.hilt.android.plugin")
     id("org.jetbrains.kotlin.plugin.serialization")
-    id("com.google.protobuf") version "0.8.19"
+    id("com.google.protobuf") version "0.9.1"
     kotlin("android")
     kotlin("kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
     compileSdk = Configs.COMPILE_SDK
+    namespace = "com.plub.data"
 
     defaultConfig {
         minSdk = Configs.MIN_SDK
@@ -19,11 +21,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 }
 
@@ -41,7 +43,7 @@ dependencies {
     implementation(AndroidX.PAGING3_COMMON_KTX)
     implementation(AndroidX.ROOM)
     implementation(AndroidX.ROOM_KTX)
-    kapt(AndroidX.ROOM_COMPILER)
+    ksp(AndroidX.ROOM_COMPILER)
 
     implementation(Libraries.RETROFIT)
     implementation(Libraries.RETROFIT_CONVERTER_GSON)
@@ -63,12 +65,11 @@ protobuf {
     }
     generateProtoTasks {
         all().forEach { task ->
-            task.plugins {
+            task.builtins {
                 create("java") {
                     option("lite")
                 }
             }
-
         }
     }
 }
