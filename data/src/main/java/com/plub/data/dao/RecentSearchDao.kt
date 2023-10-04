@@ -10,21 +10,21 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RecentSearchDao {
-    @Query("SELECT * FROM ${EntityTable.RECENT_SEARCH} ORDER BY saveTime DESC LIMIT :count")
+    @Query("SELECT * FROM ${EntityTable.RECENT_SEARCH} ORDER BY saveTime DESC LIMIT :arg0")
     fun getSearches(count: Int): Flow<List<RecentSearchEntity>>
 
     @Query("SELECT COUNT(*) FROM ${EntityTable.RECENT_SEARCH}")
-    suspend fun getSearchesCount(): Int
+    fun getSearchesCount(): Int
 
-    @Query("DELETE FROM ${EntityTable.RECENT_SEARCH} WHERE search = :search")
-    suspend fun deleteBySearch(search: String)
+    @Query("DELETE FROM ${EntityTable.RECENT_SEARCH} WHERE search = :arg0")
+    fun deleteBySearch(search: String): Int
 
     @Insert(onConflict = REPLACE)
-    suspend fun insert(recentSearchEntity: RecentSearchEntity)
+    fun insert(recentSearchEntity: RecentSearchEntity)
 
-    @Query("DELETE FROM ${EntityTable.RECENT_SEARCH} WHERE saveTime IN (SELECT saveTime FROM ${EntityTable.RECENT_SEARCH} ORDER BY saveTime ASC LIMIT :count )")
-    suspend fun deleteOldestSearch(count: Int)
+    @Query("DELETE FROM ${EntityTable.RECENT_SEARCH} WHERE saveTime IN (SELECT saveTime FROM ${EntityTable.RECENT_SEARCH} ORDER BY saveTime ASC LIMIT :arg0 )")
+    fun deleteOldestSearch(count: Int): Int
 
     @Query("DELETE FROM ${EntityTable.RECENT_SEARCH}")
-    suspend fun deleteAll()
+    fun deleteAll()
 }

@@ -1,8 +1,8 @@
 object Versions {
-    const val GRADLE = "7.3.1"
+    const val GRADLE = "8.1.1"
 
     /* [ Kotlin ] */
-    const val KOTLIN_VERSION = "1.7.10"
+    const val KOTLIN_VERSION = "1.9.10"
     const val KOTLIN_COROUTINE = "1.6.4"
     const val KOTLIN_SERIALIZATION = "1.7.0"
     const val KOTLIN_SERIALIZATION_JSON = "1.3.2"
@@ -25,7 +25,7 @@ object Versions {
 
     /* [ Google ] */
     const val GOOGLE_PLAY_SERVICE = "20.3.0"
-    const val HILT = "2.42"
+    const val HILT = "2.48"
     const val MATERIAL = "1.6.1"
     const val TINK = "1.7.0"
     const val PROTOBUF = "3.21.7"

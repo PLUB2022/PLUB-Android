@@ -1,4 +1,3 @@
-
 plugins {
     id("com.android.library")
     id("dagger.hilt.android.plugin")
@@ -10,30 +9,56 @@ plugins {
 }
 
 android {
-    compileSdk = Configs.COMPILE_SDK
+    namespace = "com.plub.presentation_compose"
+    compileSdk = 33
 
     defaultConfig {
-        minSdk = Configs.MIN_SDK
-        targetSdk = Configs.TARGET_SDK
-
-        vectorDrawables.useSupportLibrary = true
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.COMPOSE_COMPLIER
+    }
+
+
     buildFeatures {
-        dataBinding = true
+        viewBinding = true
+        compose = true
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
 }
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":design-system"))
 
     implementation(Kotlin.KOTLIN_STDLIB)
     implementation(Kotlin.COROUTINES_ANDROID)
@@ -73,7 +98,31 @@ dependencies {
     implementation(Google.FCM_KTX)
 
     implementation(Glide.GLIDE)
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material3:material3")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     annotationProcessor(Glide.GLIDE_COMPILER)
+
+    implementation(Compose.COMPOSE_ACTIVITY)
+    implementation(Compose.COMPOSE_MATERIAL)
+    implementation(Compose.COMPOSE_PREVIEW)
+    implementation(Compose.COMPOSE_UI)
+    implementation(Compose.COMPOSE_NAV)
+    implementation(Compose.COMPOSE_ANI_NAV)
+    implementation(Compose.COMPOSE_UI_TOOL)
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     kapt(Google.HILT_ANDROID_COMPILER)
 }

@@ -14,6 +14,14 @@ data class KakaoLocationInfoResponse(
 data class KakaoLocationInfoDocument(
     @SerialName("place_name")
     val placeName: String = "",
+    @SerialName("x")
+    val placePositionX: String = "",
+    @SerialName("y")
+    val placePositionY: String = "",
+    @SerialName("address_name")
+    val addressName: String = "",
+    @SerialName("road_address_name")
+    val roadAddressName: String = ""
 )
 
 data class Meta(

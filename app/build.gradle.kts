@@ -8,6 +8,7 @@ plugins {
 
 android {
     compileSdk = Configs.COMPILE_SDK
+    namespace = "com.plub.plubandroid"
 
     defaultConfig {
         applicationId = "com.plub.plubandroid"
@@ -29,11 +30,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     composeOptions {
@@ -49,6 +50,8 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":design-system"))
+    implementation(project(":presentation-compose"))
 
     implementation(AndroidX.CORE_KTX)
     implementation(AndroidX.APP_COMPAT)
